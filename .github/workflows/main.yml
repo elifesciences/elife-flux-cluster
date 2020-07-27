@@ -1,0 +1,19 @@
+name: CI
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - master
+jobs:
+  lint_and_validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          submodules: "true"
+
+      - name: Validate Helm Releases -- adm
+        uses: stefanprodan/hrval-action@master
+        with:
+          helmRelease: releases/adm/

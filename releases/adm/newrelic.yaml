@@ -1,0 +1,47 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: newrelic
+  namespace: adm
+  annotations:
+    fluxcd.io/automated: "true"
+
+spec:
+  chart:
+    repository: https://helm-charts.newrelic.com
+    name: nri-bundle
+    version: 0.4.0
+  values:
+    global:
+      cluster: kubernetes-aws--flux-test
+      namespace: adm
+      customSecretName: newrelic-license
+      customSecretLicenseKey: prod
+
+    infrastructure:
+      enabled: true
+
+    prometheus:
+      enabled: false
+
+    webhook:
+      enabled: true
+
+    ksm:
+      enabled: true
+
+    kubeEvents:
+      enabled: true
+
+    logging:
+      enabled: false
+
+    newrelic-infrastructure:
+      privileged: false
+      resources:
+        limits:
+          memory: 300M
+        requests:
+          cpu: 20m
+          memory: 150M

@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: flux.rules
+  namespace: adm
+  labels:
+    app: flux
+spec:
+  groups:
+  - name: ./flux.rules
+    rules:
+    - alert: HelmOperatorLowThroughput
+      expr: flux_helm_operator_release_queue_length_count > 0
+      for: 30m
+    - alert: HelmReleaseRolledBack
+      expr: flux_helm_operator_release_condition_info{condition="RolledBack"} == 1
+    - alert: HelmReleaseError
+      expr: flux_helm_operator_release_phase_info{condition="Released"} == -1
+    - alert: FluxSyncIssue
+      expr: delta(flux_daemon_sync_duration_seconds_count{success='true'}[6m]) < 1
+    - alert: FluxGitIssue
+      expr: flux_daemon_sync_manifests{success='false'} > 0

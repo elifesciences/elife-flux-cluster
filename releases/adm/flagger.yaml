@@ -1,0 +1,90 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: flagger
+  namespace: adm
+
+spec:
+  chart:
+    repository: https://flagger.app
+    name: flagger
+    version: 1.0.0
+
+  values:
+    metricsServer: http://adm-prometheus-operator-prometheus:9090
+    meshProvider: nginx
+
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: flagger-loadtester
+  namespace: adm
+
+spec:
+  chart:
+    repository: https://flagger.app
+    name: loadtester
+    version: 0.17.0
+
+  values:
+    rbac:
+      create: true
+      scope: cluster
+      rules:
+        - apiGroups: [""]
+          resources: ["secrets"]
+          verbs: ["get", "watch", "list", "update"]
+        # choose the permission based on helm test type (Pod or Job)
+        - apiGroups: [""]
+          resources: ["pods", "pods/log"]
+          verbs: ["create", "list", "delete", "watch"]
+        - apiGroups: ["batch"]
+          resources: ["jobs", "jobs/log"]
+          verbs: ["create", "list", "delete", "watch"]
+
+---
+apiVersion: flagger.app/v1beta1
+kind: MetricTemplate
+metadata:
+  name: request-success-rate--central-ing-controller
+  namespace: adm
+  description: "Needed if ingress controller resides different namespace"
+spec:
+  provider:
+    type: prometheus
+    address: http://adm-prometheus-operator-prometheus:9090
+  query: >
+    sum(
+        rate(
+          nginx_ingress_controller_requests{
+            namespace="adm",
+            ingress="{{ ingress }}",
+            status!~"5.*"
+          }[{{ interval }}]
+        )
+      )
+      /
+      sum(
+        rate(
+          nginx_ingress_controller_requests{
+            namespace="adm",
+            ingress="{{ ingress }}"
+          }[{{ interval }}]
+        )
+      )
+      * 100
+
+---
+apiVersion: flagger.app/v1beta1
+kind: AlertProvider
+metadata:
+  name: reviewer-slack
+  namespace: adm
+spec:
+  type: slack
+  channel: libero-reviewer-tech
+  username: flagger
+  secretRef:
+    name: slack-reviewer-url

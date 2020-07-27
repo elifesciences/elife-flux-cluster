@@ -1,0 +1,30 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: external-dns
+  namespace: adm
+
+spec:
+  chart:
+    git: https://github.com/bitnami/charts
+    path: bitnami/external-dns
+    ref: master
+
+  values:
+    replicas: 1
+    image:
+      repository: bitnami/external-dns
+      tag: 0.7.2-debian-10-r6
+    metrics:
+      enabled: "true"
+      serviceMonitor:
+        enabled: "true"
+
+  resources:
+    limits:
+      cpu: 50m
+      memory: 50Mi
+    requests:
+      memory: 50Mi
+      cpu: 10m

@@ -1,0 +1,25 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: oauth2-proxy
+  namespace: adm
+
+spec:
+  chart:
+    git: https://github.com/helm/charts
+    path: stable/oauth2-proxy
+    ref: master
+  values:
+    config:
+      existingSecret: oauth2-github
+    extraArgs:
+      provider: github
+      github-org: elifesciences
+      whitelist-domain: .elifesciences.org
+      cookie-domain: .elifesciences.org
+    ingress:
+      enabled: "true"
+      hosts:
+        - oauth-proxy.elifesciences.org
+    replicaCount: 2
