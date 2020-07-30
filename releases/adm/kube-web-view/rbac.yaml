@@ -1,51 +1,40 @@
 ---
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
+apiVersion: v1
+kind: ServiceAccount
 metadata:
-  name: dashboard-viewonly
+  name: kube-web-view
+  namespace: adm
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: kube-web-view
+  namespace: adm
 rules:
 - apiGroups:
   - ""
   resources:
+  - bindings
   - configmaps
   - endpoints
-  - persistentvolumeclaims
+  - events
+  - limitranges
+  - namespaces
+  - namespaces/status
+  - nodes
   - pods
+  - pods/log
+  - pods/status
+  - persistentvolumeclaims
+  - persistentvolumes
+  - resourcequotas
+  - resourcequotas/status
   - replicationcontrollers
+  - replicationcontrollers/status
   - replicationcontrollers/scale
   - serviceaccounts
   - services
-  - nodes
-  - persistentvolumeclaims
-  - persistentvolumes
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - bindings
-  - events
-  - limitranges
-  - namespaces/status
-  - pods/log
-  - pods/status
-  - replicationcontrollers/status
-  - resourcequotas
-  - resourcequotas/status
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - namespaces
-  verbs:
-  - get
-  - list
-  - watch
+  verbs: [list, get]
 - apiGroups:
   - apps
   resources:
@@ -55,27 +44,18 @@ rules:
   - replicasets
   - replicasets/scale
   - statefulsets
-  verbs:
-  - get
-  - list
-  - watch
+  verbs: [list, get]
 - apiGroups:
   - autoscaling
   resources:
   - horizontalpodautoscalers
-  verbs:
-  - get
-  - list
-  - watch
+  verbs: [list, get]
 - apiGroups:
   - batch
   resources:
   - cronjobs
   - jobs
-  verbs:
-  - get
-  - list
-  - watch
+  verbs: [list, get]
 - apiGroups:
   - extensions
   resources:
@@ -87,35 +67,23 @@ rules:
   - replicasets
   - replicasets/scale
   - replicationcontrollers/scale
-  verbs:
-  - get
-  - list
-  - watch
+  verbs: [list, get]
 - apiGroups:
   - policy
   resources:
   - poddisruptionbudgets
-  verbs:
-  - get
-  - list
-  - watch
+  verbs: [list, get]
 - apiGroups:
   - networking.k8s.io
   resources:
   - networkpolicies
-  verbs:
-  - get
-  - list
-  - watch
+  verbs: [list, get]
 - apiGroups:
   - storage.k8s.io
   resources:
   - storageclasses
   - volumeattachments
-  verbs:
-  - get
-  - list
-  - watch
+  verbs: [list, get]
 - apiGroups:
   - rbac.authorization.k8s.io
   resources:
@@ -123,23 +91,26 @@ rules:
   - clusterroles
   - roles
   - rolebindings
-  verbs:
-  - get
-  - list
-  - watch
-
+  verbs: [list, get]
+- apiGroups:
+  - flagger.app
+  resources:
+  - canaries
+  verbs: [list, get]
+- nonResourceURLs:
+  - '*'
+  verbs: [list, get]
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
-  name: kubernetes-dashboard
-  labels:
-    k8s-app: kubernetes-dashboard
+  name: kube-web-view
+  namespace: adm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: dashboard-viewonly
+  name: kube-web-view
 subjects:
 - kind: ServiceAccount
-  name: kubernetes-dashboard
-  namespace: kube-system
+  name: kube-web-view
+  namespace: adm
