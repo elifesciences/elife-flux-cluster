@@ -16,4 +16,9 @@ jobs:
       - name: Validate Helm Releases -- adm
         uses: stefanprodan/hrval-action@master
         with:
-          helmRelease: releases/adm/
+          helmRelease: releases/infra/
+
+      - name: Validate Helm Releases -- adm
+        uses: stefanprodan/hrval-action@master
+        with:
+          helmRelease: releases/monitoring/
