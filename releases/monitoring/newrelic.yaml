@@ -3,7 +3,7 @@ apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: newrelic
-  namespace: adm
+  namespace: monitoring
   annotations:
     fluxcd.io/automated: "true"
 
@@ -15,7 +15,7 @@ spec:
   values:
     global:
       cluster: kubernetes-aws--flux-test
-      namespace: adm
+      namespace: monitoring
       customSecretName: newrelic-license
       customSecretLicenseKey: prod
 

@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: adm
+  name: monitoring
 
 ---
 apiVersion: v1
 kind: LimitRange
 metadata:
   name: default-limit
-  namespace: adm
+  namespace: monitoring
 spec:
   limits:
   - defaultRequest:

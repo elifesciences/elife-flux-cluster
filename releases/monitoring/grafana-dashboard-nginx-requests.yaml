@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ingress-requests-performance
-  namespace: adm
+  name: grafana-dashboard-nginx-requests
+  namespace: monitoring
   labels:
      grafana_dashboard: "1"
 data:

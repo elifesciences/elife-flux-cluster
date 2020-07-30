@@ -3,7 +3,7 @@ apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: flagger
-  namespace: adm
+  namespace: infra
 
 spec:
   chart:
@@ -20,7 +20,7 @@ apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: flagger-loadtester
-  namespace: adm
+  namespace: infra
 
 spec:
   chart:
@@ -49,7 +49,7 @@ apiVersion: flagger.app/v1beta1
 kind: MetricTemplate
 metadata:
   name: request-success-rate--central-ing-controller
-  namespace: adm
+  namespace: infra
   description: "Needed if ingress controller resides different namespace"
 spec:
   provider:
@@ -81,7 +81,7 @@ apiVersion: flagger.app/v1beta1
 kind: AlertProvider
 metadata:
   name: reviewer-slack
-  namespace: adm
+  namespace: infra
 spec:
   type: slack
   channel: libero-reviewer-tech

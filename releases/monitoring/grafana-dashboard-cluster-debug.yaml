@@ -3,8 +3,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: cluster-dashboard
-  namespace: adm
+  name: grafana-dashboard-cluster-debug
+  namespace: monitoring
   labels:
      grafana_dashboard: "1"
 data:

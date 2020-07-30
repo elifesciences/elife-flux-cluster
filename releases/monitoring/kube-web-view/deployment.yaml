@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kube-web-view
-  namespace: adm
+  namespace: monitoring
   labels:
     application: kube-web-view
 spec:
