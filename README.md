@@ -96,9 +96,17 @@ Infrastructure (all behind oauth2\_proxy)
 
     -   insert webhook urls before applying
 
+            cd namespaces/monitoring/secrets
+            cp alertmanager-secret.template /tmp/alertmanager.yaml
             kubectl -n monitoring create secret generic alertmanager-prometheus-operator \
-                --from-file=alertmanager-secret.template \
-                --dry-run=client -o yaml > alertmanager.temp
+                --from-file=/tmp/alertmanager.yaml \
+                --dry-run=client \
+                -o yaml > /tmp/alertmanager-secret.yaml
+            kubeseal \
+                --controller-namespace infra --controller-name sealed-secrets \
+                --format=yaml < /tmp/alertmanager-secret.yaml > alertmanager.yaml \
+                && rm /tmp/alertmanager*
+
 
 Adding/Editing Deployments
 ==========================
