@@ -1,0 +1,203 @@
+# adapted from https://github.com/hjacobs/kube-web-view/tree/master/deploy
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-web-view
+  namespace: monitoring
+  labels:
+    application: kube-web-view
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      application: kube-web-view
+  template:
+    metadata:
+      labels:
+        application: kube-web-view
+    spec:
+      serviceAccountName: kube-web-view
+      containers:
+      - name: kube-web-view
+        # see https://codeberg.org/hjacobs/kube-web-view/releases
+        image: hjacobs/kube-web-view:20.6.0
+        args:
+        - --port=8080
+        - --show-container-logs
+        # uncomment the following line to unhide secret data
+        # see also https://kube-web-view.readthedocs.io/en/latest/security.html
+        # - "--show-secrets"
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+        resources:
+          limits:
+            memory: 100Mi
+          requests:
+            cpu: 5m
+            memory: 100Mi
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: kube-web-view
+  namespace: monitoring
+  labels:
+    application: kube-web-view
+  annotations:
+    nginx.ingress.kubernetes.io/auth-url: "https://auth--test-cluster.elifesciences.org/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://auth--test-cluster.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+spec:
+  rules:
+    - host: dashboard--test-cluster.elifesciences.org
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: kube-web-view
+              servicePort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-web-view
+  namespace: monitoring
+  labels:
+    application: kube-web-view
+spec:
+  selector:
+    application: kube-web-view
+  type: ClusterIP
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kube-web-view
+  namespace: monitoring
+
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: kube-web-view
+  namespace: monitoring
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - bindings
+  - configmaps
+  - endpoints
+  - events
+  - limitranges
+  - namespaces
+  - namespaces/status
+  - nodes
+  - pods
+  - pods/log
+  - pods/status
+  - persistentvolumeclaims
+  - persistentvolumes
+  - resourcequotas
+  - resourcequotas/status
+  - replicationcontrollers
+  - replicationcontrollers/status
+  - replicationcontrollers/scale
+  - serviceaccounts
+  - services
+  verbs: [list, get]
+- apiGroups:
+  - apps
+  resources:
+  - daemonsets
+  - deployments
+  - deployments/scale
+  - replicasets
+  - replicasets/scale
+  - statefulsets
+  verbs: [list, get]
+- apiGroups:
+  - autoscaling
+  resources:
+  - horizontalpodautoscalers
+  verbs: [list, get]
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs
+  - jobs
+  verbs: [list, get]
+- apiGroups:
+  - extensions
+  resources:
+  - daemonsets
+  - deployments
+  - deployments/scale
+  - ingresses
+  - networkpolicies
+  - replicasets
+  - replicasets/scale
+  - replicationcontrollers/scale
+  verbs: [list, get]
+- apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs: [list, get]
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - networkpolicies
+  verbs: [list, get]
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  - volumeattachments
+  verbs: [list, get]
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - clusterrolebindings
+  - clusterroles
+  - roles
+  - rolebindings
+  verbs: [list, get]
+- apiGroups:
+  - flagger.app
+  resources:
+  - canaries
+  verbs: [list, get]
+- nonResourceURLs:
+  - '*'
+  verbs: [list, get]
+
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: kube-web-view
+  namespace: monitoring
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kube-web-view
+subjects:
+- kind: ServiceAccount
+  name: kube-web-view
+  namespace: monitoring
