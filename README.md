@@ -238,11 +238,12 @@ get-started-helm](https://docs.fluxcd.io/en/stable/tutorials/get-started-helm/).
 1.  Configure your `kubectl` using your aws credentials.
 
         aws eks update-kubeconfig \
-           --name kubernetes-aws--flux-test \
-           --role arn:aws:iam::512686554592:role/kubernetes-aws--flux-test--AmazonEKSUserRole
+           --name kubernetes-aws--flux-prod \
+           --role arn:aws:iam::512686554592:role/kubernetes-aws--flux-prod--AmazonEKSUserRole
 
 2.  Install flux and helm-operator on the cluster, link to this repo
-    NOTE: make sure to use `helm3`
+    NOTE: make sure to use `helm3`  
+    NOTE: run without `prometheus` lines first, run with them after PrometheusOperator is installed
 
         kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/master/deploy/crds.yaml
 
@@ -254,7 +255,7 @@ get-started-helm](https://docs.fluxcd.io/en/stable/tutorials/get-started-helm/).
           --set git.url=git@github.com:elifesciences/elife-flux-cluster \
           --set syncGarbageCollection.enabled=true \
          --set prometheus.serviceMonitor.create=true \
-         --set prometheus.serviceMonitor.namespace=adm \
+         --set prometheus.serviceMonitor.namespace=monitoring \
           --namespace flux
 
         helm upgrade -i helm-operator fluxcd/helm-operator \
@@ -265,7 +266,7 @@ get-started-helm](https://docs.fluxcd.io/en/stable/tutorials/get-started-helm/).
          --set resources.requests.memory=500Mi \
          --set resources.requests.cpu=400m \
          --set prometheus.serviceMonitor.create=true \
-         --set prometheus.serviceMonitor.namespace=adm \
+         --set prometheus.serviceMonitor.namespace=monitoring \
          --namespace flux
 
 3.  Add flux to repo’s deploy keys
