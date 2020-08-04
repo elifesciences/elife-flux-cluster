@@ -92,15 +92,13 @@ Infrastructure (all behind oauth2\_proxy)
 
 -   Alertmanager is configured with a secret
 
-    -   see `alertmanager-secret.yaml-template`
+    -   see `namespaces/monitoring/secrets/alertmanager-secret.template`
 
-    -   too apply:
+    -   insert webhook urls before applying
 
-            # Make sure to insert the webhook urls before applying
-            kubectl -n adm delete secret alertmanager-prometheus-operator
-            cp alertmanager-secret.yaml-template alertmanager.yaml
-            kubectl -n adm create secret generic alertmanager-prometheus-operator --from-file=alertmanager.yaml
-            rm alertmanager.yaml
+            kubectl -n monitoring create secret generic alertmanager-prometheus-operator \
+                --from-file=alertmanager-secret.template \
+                --dry-run=client -o yaml > alertmanager.temp
 
 Adding/Editing Deployments
 ==========================
