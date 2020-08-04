@@ -138,6 +138,15 @@ Adding Helm Charts
     if the chart source is a git repo (see
     [docs](https://docs.fluxcd.io/projects/helm-operator/en/stable/helmrelease-guide/chart-sources/))
 
+Adding Secrets
+--------------
+
+Cluster has a [sealed-secrets] controller.
+
+- use `kubeseal` got generate `SealedSecret` yaml files
+- `SealedSecrets` are encrypted, safe to store in git
+- controller decrypts them and creates `Secret` objects
+
 Progressive Delivery
 ====================
 
@@ -316,3 +325,5 @@ get-started-helm](https://docs.fluxcd.io/en/stable/tutorials/get-started-helm/).
             kubectl set image daemonset.apps/kube-proxy \
               -n kube-system \
               kube-proxy=602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/kube-proxy:v1.14.9
+
+6. Restore sealed-secret master key from backup
