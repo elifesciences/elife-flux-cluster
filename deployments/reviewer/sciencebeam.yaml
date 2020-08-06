@@ -3,7 +3,7 @@ apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: sciencebeam
-  namespace: stg
+  namespace: reviewer
   annotations:
     fluxcd.io/automated: "true"
     filter.fluxcd.io/sciencebeam: semver:*

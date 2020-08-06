@@ -74,7 +74,7 @@ apiVersion: flagger.app/v1beta1
 kind: Canary
 metadata:
   name: reviewer-client
-  namespace: prod
+  namespace: reviewer
 spec:
   targetRef:
     apiVersion: apps/v1
