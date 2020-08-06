@@ -13,12 +13,7 @@ jobs:
         with:
           submodules: "true"
 
-      - name: Validate Helm Releases -- adm
+      - name: Validate Helm Releases -- System
         uses: stefanprodan/hrval-action@master
         with:
-          helmRelease: namespaces/infra/
-
-      - name: Validate Helm Releases -- adm
-        uses: stefanprodan/hrval-action@master
-        with:
-          helmRelease: namespaces/monitoring/
+          helmRelease: namespaces-system
