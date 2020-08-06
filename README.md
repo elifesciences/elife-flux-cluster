@@ -1,9 +1,5 @@
 # eLife k8s/Flux Production Cluster
 
-
-Overview of the Cluster
-==========================
-
 EKS cluster name: __kubernetes-aws--flux-prod__
 
 Use this git repo to control the cluster state (no `kubectl` or `helm`
