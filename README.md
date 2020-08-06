@@ -28,6 +28,7 @@ Dashboards
 - [Grafana Dashboards](https://grafana.elifesciences.org/dashboards)
 - [Prometheus (Metrics)](https://prometheus.elifesciences.org)
 - [Alertmanager](https://alertmanager.elifesciences.org)
+- [NewRelic](https://one.newrelic.com/launcher/nr1-core.explorer?pane=eyJuZXJkbGV0SWQiOiJlbnRpdHktb3ZlcnZpZXctbmVyZGxldHMuazhzLWNsdXN0ZXItb3ZlcnZpZXctZGFzaGJvYXJkIiwiZW50aXR5SWQiOiJNVFExTVRRMU1YeEpUa1pTUVh4T1FYdzBOREE1TURnd09ESXlOVGMyT0RjeE5UUTUifQ==&sidebars[0]=eyJuZXJkbGV0SWQiOiJucjEtY29yZS5hY3Rpb25zIiwiZW50aXR5SWQiOiJNVFExTVRRMU1YeEpUa1pTUVh4T1FYdzBOREE1TURnd09ESXlOVGMyT0RjeE5UUTUiLCJzZWxlY3RlZE5lcmRsZXQiOnsibmVyZGxldElkIjoiZW50aXR5LW92ZXJ2aWV3LW5lcmRsZXRzLms4cy1jbHVzdGVyLW92ZXJ2aWV3LWRhc2hib2FyZCJ9fQ==&platform[timeRange][duration]=1800000&platform[$isFallbackTimeRange]=true)
 
 
 Authentication
