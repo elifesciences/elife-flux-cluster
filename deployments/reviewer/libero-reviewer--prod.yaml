@@ -1,0 +1,152 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: libero-reviewer
+  namespace: reviewer
+  annotations:
+    fluxcd.io/automated: "true"
+    filter.fluxcd.io/submission: glob:master-*-*
+    filter.fluxcd.io/client: glob:master-*-*
+    filter.fluxcd.io/continuumAdaptor: glob:master-*-*
+
+spec:
+  releaseName: libero-reviewer--prod
+  chart:
+    git: https://github.com/libero/reviewer
+    path: charts/libero-reviewer
+    ref: master
+
+  values:
+    replicaCount: 1
+    ingress:
+      enabled: "true"
+      host: reviewer--prod-rc.elifesciences.org
+      annotations:
+        kubernetes.io/ingress.class: nginx
+
+    postgresql:
+      existingSecret: libero-reviewer--prod-postgresql
+
+    authenticationJwtSecret: libero-reviewer--prod-auth-jwt
+
+    submission:
+      image:
+        repository: liberoadmin/reviewer-submission
+        tag: master-c53ff219-20200730.1520
+      sciencebeam:
+        convertUrl: "http://sciencebeam--reviewer:8075/api/convert"
+      s3:
+        secret: libero-reviewer--prod-s3
+        bucket: "staging-libero-reviewer"
+      meca:
+        sftpSecret: libero-reviewer--prod-ejp-sftp
+        sftpPath: "/"
+        emailPrefix: "[reviewer-production-rc] "
+        emailRecipient: "xpub-tech-alerts@elifesciences.org"
+        apiSecret: "libero-reviewer--prod-meca-api"
+      mail:
+        sesSecret: "libero-reviewer--prod-ses"
+        sesRegion: "us-east-1"
+        sendMail: true
+        sender: "prod-rc-noreply@elifesciences.org"
+
+    client:
+      image:
+        repository: liberoadmin/reviewer-client
+        tag: master-340b0083-20200805.1503
+
+    continuumAdaptor:
+      image:
+        repository: liberoadmin/continuum-adaptor
+        tag: master-ab04d32e-20200804.0951
+      continuumApiUrl: "http://continuumtest--gateway.elife.internal"
+      continuumLoginUrl: "https://continuumtest--cdn-journal.elifesciences.org/submit"
+      elifeApiSecret: "libero-reviewer--prod-elife-api"
+      continuumJwtSecret: "libero-reviewer--prod-continuum-journal-jwt"
+
+    browsertests:
+      runPostRelease: false
+      testFixture: Minimal
+      baseurl: libero-reviewer--prod-client-canary.prod
+---
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: reviewer-client
+  namespace: prod
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: libero-reviewer--prod-client
+  ingressRef:
+    apiVersion: networking.k8s.io/v1beta1
+    kind: Ingress
+    name: libero-reviewer--prod
+  progressDeadlineSeconds: 900
+  service:
+    port: 80
+    targetPort: 80
+  analysis:
+    interval: 60s
+    threshold: 2
+    maxWeight: 75
+    stepWeight: 25
+
+    alerts:
+    - name: "libero-reviewer-tech Slack"
+      severity: info
+      providerRef:
+        name: reviewer-slack
+        namespace: adm
+
+    metrics:
+    - name: request-success-rate--central-ing-controller
+      templateRef:
+        name: request-success-rate--central-ing-controller
+        namespace: adm
+      thresholdRange:
+        min: 99
+      interval: 1m
+
+    webhooks:
+    - name: stg-equals-prod-images
+      type: pre-rollout
+      url: http://adm-flagger-loadtester/
+      timeout: 30s
+      metadata:
+        type: bash
+        cmd: >
+          diff
+          <(helmv3 -n stg  get values libero-reviewer--stg  | grep 'tag: ' | sort)
+          <(helmv3 -n prod get values libero-reviewer--prod | grep 'tag: ' | sort)
+    - name: stg-equals-prod-chart
+      type: pre-rollout
+      url: http://adm-flagger-loadtester/
+      timeout: 30s
+      metadata:
+        type: bash
+        cmd: >
+          diff
+          <(helmv3 -n stg  list | grep reviewer | cut -f 6 | tr -cd '[:alnum:]._-')
+          <(helmv3 -n prod list | grep reviewer | cut -f 6 | tr -cd '[:alnum:]._-')
+    - name: acceptance-test-of-stg
+      type: pre-rollout
+      url: http://adm-flagger-loadtester/
+      timeout: 600s
+      metadata:
+        type: helmv3
+        cmd: "test -n stg libero-reviewer--stg"
+
+    - name: load-test-landingpage
+      url: http://adm-flagger-loadtester/
+      metadata:
+        type: cmd
+        cmd: "hey -z 10s -q 10 -c 2 http://reviewer--test-cluster.elifesciences.org"
+    - name: smoke-test-canary
+      url: http://adm-flagger-loadtester/
+      timeout: 300s
+      metadata:
+        type: helmv3
+        cmd: "test -n prod libero-reviewer--prod"

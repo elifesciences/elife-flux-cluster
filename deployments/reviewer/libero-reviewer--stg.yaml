@@ -1,0 +1,69 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: libero-reviewer
+  namespace: reviewer
+  annotations:
+    fluxcd.io/automated: "true"
+    filter.fluxcd.io/submission: glob:master-*-*
+    filter.fluxcd.io/client: glob:master-*-*
+    filter.fluxcd.io/continuumAdaptor: glob:master-*-*
+
+spec:
+  releaseName: libero-reviewer--stg
+  chart:
+    git: https://github.com/libero/reviewer
+    path: charts/libero-reviewer
+    ref: master
+
+  values:
+    replicaCount: 1
+    ingress:
+      enabled: "true"
+      host: libero-reviewer--staging.elifesciences.org
+      annotations:
+        kubernetes.io/ingress.class: nginx
+
+    postgresql:
+      existingSecret: libero-reviewer--stg-postgresql
+
+    authenticationJwtSecret: libero-reviewer--stg-auth-jwt
+
+    submission:
+      image:
+        repository: liberoadmin/reviewer-submission
+        tag: master-c53ff219-20200730.1520
+      sciencebeam:
+        convertUrl: "http://sciencebeam--reviewer:8075/api/convert"
+      s3:
+        secret: libero-reviewer--stg-s3
+        bucket: "staging-libero-reviewer"
+      meca:
+        sftpSecret: libero-reviewer--stg-ejp-sftp
+        sftpPath: "/"
+        emailPrefix: "[reviewer-staging] "
+        emailRecipient: "xpub-tech-alerts@elifesciences.org"
+        apiSecret: "libero-reviewer--stg-meca-api"
+      mail:
+        sesSecret: "libero-reviewer--stg-ses"
+        sesRegion: "us-east-1"
+        sendMail: true
+        sender: "staging-noreply@elifesciences.org"
+
+    client:
+      image:
+        repository: liberoadmin/reviewer-client
+        tag: master-340b0083-20200805.1503
+
+    continuumAdaptor:
+      image:
+        repository: liberoadmin/continuum-adaptor
+        tag: master-ab04d32e-20200804.0951
+      continuumApiUrl: "http://continuumtest--gateway.elife.internal"
+      continuumLoginUrl: "https://continuumtest--cdn-journal.elifesciences.org/submit"
+      elifeApiSecret: "libero-reviewer--stg-elife-api"
+      continuumJwtSecret: "libero-reviewer--stg-continuum-journal-jwt"
+
+    browsertests:
+      testFixture: Minimal

@@ -1,0 +1,21 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: sciencebeam
+  namespace: stg
+  annotations:
+    fluxcd.io/automated: "true"
+    filter.fluxcd.io/sciencebeam: semver:*
+
+spec:
+  releaseName: sciencebeam--reviewer
+  chart:
+    git: https://github.com/elifesciences/sciencebeam-charts
+    path: sciencebeam
+    ref: develop
+
+  values:
+    image:
+      repository: elifesciences/sciencebeam
+      tag: 0.0.7
