@@ -59,7 +59,7 @@ spec:
     sum(
         rate(
           nginx_ingress_controller_requests{
-            namespace="adm",
+            namespace="infra",
             ingress="{{ ingress }}",
             status!~"5.*"
           }[{{ interval }}]
@@ -69,7 +69,7 @@ spec:
       sum(
         rate(
           nginx_ingress_controller_requests{
-            namespace="adm",
+            namespace="infra",
             ingress="{{ ingress }}"
           }[{{ interval }}]
         )
