@@ -34,16 +34,12 @@ Copied from [builder docs](https://github.com/elifesciences/builder/blob/master/
 1. upgrade `kube-proxy` (see [aws docs](https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html))
 1. drain and terminate node by node as described above to upgrade the workers
 
+Changing api versions in the chart can lead to helm complaining about `existing resource conflict`.  
+  This appears to be an issue with helm3 that helm-operator [is aware of](https://github.com/fluxcd/helm-operator/issues/249) but can't fix until helm3 fixes it upstream.  
+  To fix: delete the resource e.g. Deployment, DaemonSet, StatefulSet with `kubectl`. They should automatically be replaced by the new version. This will cause brief downtime.
+
+
 ## Resources
 
 https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html
 https://github.com/elifesciences/builder/blob/master/docs/eks.md#ami-update
-
-## Notes
-
-- Changing api versions in the chart can lead to helm complaining about `existing resource conflict`. This appears to be an issue with helm3 that helm-operator [is aware of](https://github.com/fluxcd/helm-operator/issues/249) but can't fix until helm3 fixes it upstream.
-- Cluster is set up via builder so you need to bump version in the [elife.yaml](https://github.com/elifesciences/builder/blob/master/projects/elife.yaml)
-- Rolling out an updated AMI (e.g. security fix):
-  - builder can't do this
-  - need to manually cordon, drain and kill nodes (see [builder docs](https://github.com/elifesciences/builder/blob/master/docs/eks.md#ami-update))
-  - if we use managed nodes we can update via `eksctl` or the aws console (see [docs](https://docs.aws.amazon.com/eks/latest/userguide/update-managed-node-group.html))
