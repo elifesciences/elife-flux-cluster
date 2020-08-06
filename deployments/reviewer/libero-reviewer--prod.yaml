@@ -2,7 +2,7 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: libero-reviewer
+  name: libero-reviewer--prod
   namespace: reviewer
   annotations:
     fluxcd.io/automated: "true"
