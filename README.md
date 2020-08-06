@@ -25,7 +25,7 @@ Dashboards
 ----------
 
 - [Kubernetes Dashboard](https://k8s-dashboard.elifesciences.org)
-- [Grafana Dashboards](https://grafana.elifesciences.org)
+- [Grafana Dashboards](https://grafana.elifesciences.org/dashboards)
 - [Prometheus (Metrics)](https://prometheus.elifesciences.org)
 - [Alertmanager](https://alertmanager.elifesciences.org)
 
