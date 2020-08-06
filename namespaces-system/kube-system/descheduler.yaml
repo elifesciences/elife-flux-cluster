@@ -1,0 +1,12 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: descheduler
+  namespace: kube-system
+
+spec:
+  chart:
+    repository: https://kubernetes-sigs.github.io/descheduler
+    name: descheduler-helm-chart
+    version: 0.18.1
