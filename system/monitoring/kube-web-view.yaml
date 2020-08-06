@@ -179,9 +179,10 @@ rules:
   - rolebindings
   verbs: [list, get]
 - apiGroups:
-  - flagger.app
+  - ""
   resources:
   - canaries
+  - sealedsecrets
   verbs: [list, get]
 - nonResourceURLs:
   - '*'
