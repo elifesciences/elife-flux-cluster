@@ -4,9 +4,7 @@ AWS EKS doesn't update the cluster automatically.
 
 __Subscribe to the Amazon Linux AMI [Security Bulletin](https://alas.aws.amazon.com/alas2.html)__
 
-## Playbook
-
-### Security Patch for Worker AMI
+## Security Patch for Worker AMI
 
 1. Check if new [EKS AMI available](https://docs.aws.amazon.com/eks/latest/userguide/eks-linux-ami-versions.html) after ALAS2 alert
 1. if needed increase worker count via builder (unless we have autoscaling)
@@ -21,10 +19,10 @@ kubectl drain my-node   # existing Pods will be evicted and sent to another node
 aws ec2 terminate-instances --instance-ids=...  # terminate a node, a new one will be created
 ```
 
-Copied from [builder docs](https://github.com/elifesciences/builder/blob/master/docs/eks.md#ami-update)
+Copied from [builder docs](https://github.com/elifesciences/builder/blob/master/docs/eks.md#ami-update).
 
 
-### k8s version upgrade
+## k8s version upgrade
 
 1. check [aws docs]( https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html ) for availability and notes
 1. use [pluto](https://github.com/FairwindsOps/pluto) to check for api deprecations
@@ -39,7 +37,7 @@ Changing api versions in the chart can lead to helm complaining about `existing 
   To fix: delete the resource e.g. Deployment, DaemonSet, StatefulSet with `kubectl`. They should automatically be replaced by the new version. This will cause brief downtime.
 
 
-## Resources
+## Further documentation
 
 https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html
 https://github.com/elifesciences/builder/blob/master/docs/eks.md#ami-update
