@@ -22,3 +22,4 @@ jobs:
         uses: stefanprodan/hrval-action@master
         with:
           helmRelease: deployments
+          helmVersion: v3
