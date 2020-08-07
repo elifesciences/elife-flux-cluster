@@ -12,7 +12,7 @@ spec:
     version: 1.0.0
 
   values:
-    metricsServer: http://monitoring-prometheus-oper-prometheus:9090
+    metricsServer: http://monitoring-prometheus-oper-prometheus.monitoring:9090
     meshProvider: nginx
 
 ---
@@ -54,7 +54,7 @@ metadata:
 spec:
   provider:
     type: prometheus
-    address: http://monitoring-prometheus-oper-prometheus:9090
+    address: http://monitoring-prometheus-oper-prometheus.monitoring:9090
   query: >
     sum(
         rate(
