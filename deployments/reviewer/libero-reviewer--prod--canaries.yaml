@@ -41,7 +41,7 @@ spec:
     webhooks:
     - name: stg-equals-prod-images
       type: pre-rollout
-      url: http://adm-flagger-loadtester/
+      url: http://infra-flagger-loadtester/
       timeout: 30s
       metadata:
         type: bash
@@ -51,7 +51,7 @@ spec:
           <(helmv3 -n reviewer get values libero-reviewer--prod | grep 'tag: ' | sort)
     - name: stg-equals-prod-chart
       type: pre-rollout
-      url: http://adm-flagger-loadtester/
+      url: http://infra-flagger-loadtester/
       timeout: 30s
       metadata:
         type: bash
@@ -61,19 +61,19 @@ spec:
           <(helmv3 -n reviewer list | grep reviewer | cut -f 6 | tr -cd '[:alnum:]._-')
     - name: acceptance-test-of-stg
       type: pre-rollout
-      url: http://adm-flagger-loadtester/
+      url: http://infra-flagger-loadtester/
       timeout: 600s
       metadata:
         type: helmv3
         cmd: "test -n reviewer libero-reviewer--stg"
 
     - name: load-test-landingpage
-      url: http://adm-flagger-loadtester/
+      url: http://infra-flagger-loadtester/
       metadata:
         type: cmd
         cmd: "hey -z 10s -q 10 -c 2 https://reviewer--prod-rc.elifesciences.org/"
     - name: smoke-test-canary
-      url: http://adm-flagger-loadtester/
+      url: http://infra-flagger-loadtester/
       timeout: 300s
       metadata:
         type: helmv3
@@ -123,7 +123,7 @@ spec:
     webhooks:
     - name: stg-equals-prod-images
       type: pre-rollout
-      url: http://adm-flagger-loadtester/
+      url: http://infra-flagger-loadtester/
       timeout: 30s
       metadata:
         type: bash
@@ -133,7 +133,7 @@ spec:
           <(helmv3 -n reviewer get values libero-reviewer--prod | grep 'tag: ' | sort)
     - name: stg-equals-prod-chart
       type: pre-rollout
-      url: http://adm-flagger-loadtester/
+      url: http://infra-flagger-loadtester/
       timeout: 30s
       metadata:
         type: bash
@@ -143,14 +143,14 @@ spec:
           <(helmv3 -n reviewer list | grep reviewer | cut -f 6 | tr -cd '[:alnum:]._-')
     - name: acceptance-test-of-stg
       type: pre-rollout
-      url: http://adm-flagger-loadtester/
+      url: http://infra-flagger-loadtester/
       timeout: 600s
       metadata:
         type: helmv3
         cmd: "test -n reviewer libero-reviewer--stg"
 
     - name: load-test-graphql-endpoint
-      url: http://adm-flagger-loadtester/
+      url: http://infra-flagger-loadtester/
       metadata:
         type: cmd
         cmd: "hey -z 10s -q 10 -c 2 https://reviewer--prod-rc.elifesciences.org/graphql"
@@ -199,7 +199,7 @@ spec:
     webhooks:
     - name: stg-equals-prod-images
       type: pre-rollout
-      url: http://adm-flagger-loadtester/
+      url: http://infra-flagger-loadtester/
       timeout: 30s
       metadata:
         type: bash
@@ -209,7 +209,7 @@ spec:
           <(helmv3 -n reviewer get values libero-reviewer--prod | grep 'tag: ' | sort)
     - name: stg-equals-prod-chart
       type: pre-rollout
-      url: http://adm-flagger-loadtester/
+      url: http://infra-flagger-loadtester/
       timeout: 30s
       metadata:
         type: bash
@@ -219,14 +219,14 @@ spec:
           <(helmv3 -n reviewer list | grep reviewer | cut -f 6 | tr -cd '[:alnum:]._-')
     - name: acceptance-test-of-stg
       type: pre-rollout
-      url: http://adm-flagger-loadtester/
+      url: http://infra-flagger-loadtester/
       timeout: 600s
       metadata:
         type: helmv3
         cmd: "test -n reviewer libero-reviewer--stg"
 
     - name: load-test-auth-login-endpoint
-      url: http://adm-flagger-loadtester/
+      url: http://infra-flagger-loadtester/
       metadata:
         type: cmd
         cmd: "hey -z 10s -q 10 -c 2 https://reviewer--prod-rc.elifesciences.org/auth-login"
