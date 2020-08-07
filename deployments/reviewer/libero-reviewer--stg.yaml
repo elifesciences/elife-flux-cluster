@@ -15,7 +15,7 @@ spec:
   chart:
     git: https://github.com/libero/reviewer
     path: charts/libero-reviewer
-    ref: 1190_separate_canaries
+    ref: master
 
   values:
     replicaCount: 1
