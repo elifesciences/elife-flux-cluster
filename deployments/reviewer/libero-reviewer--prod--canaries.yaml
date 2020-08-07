@@ -90,8 +90,8 @@ spec:
     name: libero-reviewer--prod-submission
   progressDeadlineSeconds: 900
   service:
-    port: 80
-    targetPort: 80
+    port: 3000
+    targetPort: http
   analysis:
     interval: 60s
     threshold: 2
@@ -166,8 +166,8 @@ spec:
     name: libero-reviewer--prod-continuum-adaptor
   progressDeadlineSeconds: 900
   service:
-    port: 80
-    targetPort: 80
+    port: 3001
+    targetPort: http
   analysis:
     interval: 60s
     threshold: 2
