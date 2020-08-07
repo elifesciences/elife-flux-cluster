@@ -72,12 +72,6 @@ spec:
       metadata:
         type: cmd
         cmd: "hey -z 10s -q 10 -c 2 https://reviewer--prod-rc.elifesciences.org/"
-    - name: smoke-test-canary
-      url: http://infra-flagger-loadtester/
-      timeout: 300s
-      metadata:
-        type: helmv3
-        cmd: "test -n reviewer libero-reviewer--prod"
 
 ---
 apiVersion: flagger.app/v1beta1
