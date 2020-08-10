@@ -17,16 +17,15 @@ spec:
         repository: eu.gcr.io/k8s-artifacts-prod/ingress-nginx/controller
         tag: 0.34.0
       config:
-        real-ip-header: "proxy_protocol"
         use-forwarded-headers: "true"
+        use-http2: "true"
+      extraArgs:
+        default-ssl-certificate: infra/tls-elife-wildcard
       service:
-        targetPorts:
-          http: http
-          https: http
         annotations:
-          service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:iam::512686554592:server-certificate/cloudfront/wildcard.elifesciences.org/2019.wildcard.elifesciences.org"
           service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
-          service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+          service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: 'true'
+          service.beta.kubernetes.io/aws-load-balancer-type: nlb
           service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "3600"
           service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "creator=ingress,cluster=elife-flux-cluster"
       metrics:
