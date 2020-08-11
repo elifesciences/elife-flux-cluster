@@ -29,7 +29,7 @@ spec:
       enabled: false
     database:
       dbUser: root
-      dbName: elife-libero-reviewer-staging
+      dbName: elifeliberoreviewerstaging
       dbHost: elife-libero-reviewer-staging.cxyopn44uqbl.us-east-1.rds.amazonaws.com
       dbPasswordSecret: libero-reviewer--stg-rds
       dbPasswordKey: password
