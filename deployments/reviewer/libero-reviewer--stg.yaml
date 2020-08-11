@@ -26,7 +26,13 @@ spec:
         kubernetes.io/ingress.class: nginx
 
     postgresql:
-      existingSecret: libero-reviewer--stg-postgresql
+      enabled: false
+    database:
+      dbUser: root
+      dbName: reviewer
+      dbHost: elife-libero-reviewer-staging.cxyopn44uqbl.us-east-1.rds.amazonaws.com
+      dbPasswordSecret: libero-reviewer--stg-rds
+      dbPasswordKey: password
 
     authenticationJwtSecret: libero-reviewer--stg-auth-jwt
 
