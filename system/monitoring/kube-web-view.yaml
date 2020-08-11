@@ -188,6 +188,11 @@ rules:
   resources:
   - sealedsecrets
   verbs: [list, get]
+- apiGroups:
+  - helm.fluxcd.io
+  resources:
+  - helmreleases
+  verbs: [list, get]
 - nonResourceURLs:
   - '*'
   verbs: [list, get]
