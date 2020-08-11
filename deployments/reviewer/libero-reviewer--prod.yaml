@@ -13,9 +13,9 @@ metadata:
 spec:
   releaseName: libero-reviewer--prod
   chart:
-    git: https://github.com/libero/reviewer
-    path: charts/libero-reviewer
-    ref: master
+    repository: https://libero.github.io/reviewer
+    name: libero-reviewer
+    version: 0.22.0
 
   values:
     replicaCount: 1
