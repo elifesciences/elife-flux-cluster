@@ -15,9 +15,13 @@ To manually drain and kill the nodes:
 ```
 kubectl get nodes       #
 kubectl cordon my-node  # no new Pods will be scheduled here
-kubectl drain my-node   # existing Pods will be evicted and sent to another node
+kubectl drain --ignore-daemonsets my-node   # existing Pods will be evicted and sent to another node
 aws ec2 terminate-instances --instance-ids=...  # terminate a node, a new one will be created
 ```
+
+`kubectl drain` will complain if pods are using local data storage or if evicting a pod would violate a `PodDisruptionBudget`.
+You can force the eviction using `--delete-local-data` and `--disable-eviction` respectively.
+Check which pods are complaining before doing this and make sure that this wouldn't break production services.
 
 Copied from [builder docs](https://github.com/elifesciences/builder/blob/master/docs/eks.md#ami-update).
 
@@ -25,10 +29,13 @@ Copied from [builder docs](https://github.com/elifesciences/builder/blob/master/
 ## k8s version upgrade
 
 1. check [aws docs]( https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html ) for availability and notes
-1. use [pluto](https://github.com/FairwindsOps/pluto) to check for api deprecations
+1. use [pluto](https://github.com/FairwindsOps/pluto) to check for api deprecations  
+   `pluto detect-helm --helm-version 3 -owide`  
+   `DEPRECATED` is okay, but if an api is `DELETED` in the new k8s version you will have to fix the affected charts.
 1. bump k8s version (one minor at a time) in [elife.yaml](https://github.com/elifesciences/builder/blob/master/projects/elife.yaml)
-1. apply using `builder/bldr`
-1. If `flux` fails to access the api, try restarting it with `kubectl -n flux rollout restart deployment flux`
+1. apply using `builder/bldr update_infrastructure:kubernetes-aws--flux-prod`  
+   This should change the EKS (i.e k8s control plane) and AutoscalingGroup AMI image.
+1. If `flux` fails to access the api after the EKS upgrade, try restarting it with `kubectl -n flux rollout restart deployment flux`
 1. upgrade `kube-proxy` (see [aws docs](https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html))
 1. drain and terminate node by node as described above to upgrade the workers
 
