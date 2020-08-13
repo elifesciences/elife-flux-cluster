@@ -55,17 +55,11 @@ spec:
         sesRegion: "us-east-1"
         sendMail: true
         sender: "staging-noreply@elifesciences.org"
-      replicaCount: 2
-      podDisruptionBudget:
-        minAvailable: 1
 
     client:
       image:
         repository: liberoadmin/reviewer-client
         tag: master-e3b0df8d-20200811.1241
-      replicaCount: 2
-      podDisruptionBudget:
-        minAvailable: 1
 
     continuumAdaptor:
       image:
@@ -75,9 +69,6 @@ spec:
       continuumLoginUrl: "https://continuumtest--cdn-journal.elifesciences.org/submit"
       elifeApiSecret: "libero-reviewer--stg-elife-api"
       continuumJwtSecret: "libero-reviewer--stg-continuum-journal-jwt"
-      replicaCount: 2
-      podDisruptionBudget:
-        minAvailable: 1
 
     browsertests:
       testFixture: Minimal
