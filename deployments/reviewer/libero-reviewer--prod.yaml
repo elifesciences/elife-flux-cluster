@@ -34,6 +34,10 @@ spec:
       image:
         repository: liberoadmin/reviewer-submission
         tag: master-2f4636d5-20200811.1107
+      resources:
+        requests:
+          memory: 300Mi
+          cpu: 200m
       sciencebeam:
         convertUrl: "http://sciencebeam--reviewer:8075/api/convert"
       s3:
@@ -59,6 +63,10 @@ spec:
       image:
         repository: liberoadmin/reviewer-client
         tag: master-e3b0df8d-20200811.1241
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 200m
       replicaCount: 2
       podDisruptionBudget:
         enabled: true
@@ -68,6 +76,10 @@ spec:
       image:
         repository: liberoadmin/continuum-adaptor
         tag: master-ab04d32e-20200804.0951
+      resources:
+        requests:
+          memory: 150Mi
+          cpu: 200m
       continuumApiUrl: "http://continuumtest--gateway.elife.internal"
       continuumLoginUrl: "https://continuumtest--cdn-journal.elifesciences.org/submit"
       elifeApiSecret: "libero-reviewer--prod-elife-api"
