@@ -15,7 +15,7 @@ spec:
   chart:
     repository: https://libero.github.io/reviewer
     name: libero-reviewer
-    version: 0.26.7
+    version: 0.27.0
 
   values:
     replicaCount: 1
