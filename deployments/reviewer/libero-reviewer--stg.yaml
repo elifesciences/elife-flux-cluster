@@ -37,6 +37,8 @@ spec:
 
     submission:
       replicaCount: 2
+      terminationGracePeriodSeconds: 600
+      nginxWorkerTimeoutSeconds: 600
       image:
         repository: liberoadmin/reviewer-submission
         tag: master-2f4636d5-20200811.1107
