@@ -78,7 +78,7 @@ spec:
       enabled: true
       image:
         repository: liberoadmin/reviewer-reporter
-        tag: chart-integration-129b2a09
+        tag: chart-integration-4e30f375
       fromAddress: no-reply@elifesciences.org
       subjectline: Reviewer Staging Status Report
       recipient: "d.haarhoff@elifesciences.org"
