@@ -78,15 +78,15 @@ spec:
       enabled: true
       image:
         repository: liberoadmin/reviewer-reporter
-        tag: chart-integration-129b2a09-20200817.0819
+        tag: chart-integration-129b2a09
       fromAddress: no-reply@elifesciences.org
       subjectline: Reviewer Staging Status Report
       recipient: "d.haarhoff@elifesciences.org"
       ssmtpConfSecret: "libero-reviewer--prod-reporter-ssmtp"
       schedules:
-        - name: 8am
-          schedule: "0  8 * * *"
-        - name: 1pm
-          schedule: "0 13 * * *"
-        - name: frequent
-          schedule: "*/5 * * * *"
+      - name: 8am
+        schedule: "0  8 * * *"
+      - name: 1pm
+        schedule: "0 13 * * *"
+      - name: frequent
+        schedule: "*/5 * * * *"
