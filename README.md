@@ -12,7 +12,13 @@ cli action needed/wanted).
 -   folders have no meaning to cluster, are used to keep things tidy for
     us humans
 
-Cluster infrastruce is defined in [builder](https://github.com/elifesciences/builder) in the [kubernetes-aws section](https://github.com/elifesciences/builder/blob/52d3c002d1246910243a44e88c7d94d26052e104/projects/elife.yaml#L1999).
+Cluster infrastructure is defined in [builder](https://github.com/elifesciences/builder) in the [kubernetes-aws section](https://github.com/elifesciences/builder/blob/52d3c002d1246910243a44e88c7d94d26052e104/projects/elife.yaml#L1999).
+
+Admins can configure `kubectl` for this cluster with:
+
+        aws eks update-kubeconfig \
+           --name kubernetes-aws--flux-prod \
+           --role arn:aws:iam::512686554592:role/kubernetes-aws--flux-prod--AmazonEKSUserRole
 
 
 Dashboards
@@ -24,6 +30,10 @@ Dashboards
 - [Alertmanager](https://alertmanager.elifesciences.org)
 - [NewRelic](https://one.newrelic.com/launcher/nr1-core.explorer?pane=eyJuZXJkbGV0SWQiOiJlbnRpdHktb3ZlcnZpZXctbmVyZGxldHMuazhzLWNsdXN0ZXItb3ZlcnZpZXctZGFzaGJvYXJkIiwiZW50aXR5SWQiOiJNVFExTVRRMU1YeEpUa1pTUVh4T1FYdzBOREE1TURnd09ESXlOVGMyT0RjeE5UUTUifQ==&sidebars[0]=eyJuZXJkbGV0SWQiOiJucjEtY29yZS5hY3Rpb25zIiwiZW50aXR5SWQiOiJNVFExTVRRMU1YeEpUa1pTUVh4T1FYdzBOREE1TURnd09ESXlOVGMyT0RjeE5UUTUiLCJzZWxlY3RlZE5lcmRsZXQiOnsibmVyZGxldElkIjoiZW50aXR5LW92ZXJ2aWV3LW5lcmRsZXRzLms4cy1jbHVzdGVyLW92ZXJ2aWV3LWRhc2hib2FyZCJ9fQ==&platform[timeRange][duration]=1800000&platform[$isFallbackTimeRange]=true)
 
+The __#cluster-alerts__ slack channel receives alerts from:
+
+- Alertmanager
+- Healthchecks.io (monitors Alertmanager heartbeat)
 
 Adding/Editing Deployments
 ==========================
