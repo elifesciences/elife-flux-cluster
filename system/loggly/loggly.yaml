@@ -94,6 +94,24 @@ data:
           stream_name ${tag_parts[3]}
         </record>
       </filter>
+
+      <match kubernetes.var.log.containers.**loggly**>
+        @type null
+      </match>
+      <match kubernetes.var.log.containers.**flux**>
+        @type null
+      </match>
+      <match kubernetes.var.log.containers.**monitoring**>
+        @type null
+      </match>
+      <match kubernetes.var.log.containers.**descheduler**>
+        @type null
+      </match>
+
+      <match **>
+        @type loggly
+        loggly_url "https://logs-01.loggly.com/inputs/#{ENV['TOKEN']}/"
+      </match>
     </label>
   systemd.conf: |
     <source>
@@ -166,6 +184,24 @@ data:
           stream_name ${tag}-${record["hostname"]}
         </record>
       </filter>
+
+      <match kubernetes.var.log.containers.**loggly**>
+        @type null
+      </match>
+      <match kubernetes.var.log.containers.**flux**>
+        @type null
+      </match>
+      <match kubernetes.var.log.containers.**monitoring**>
+        @type null
+      </match>
+      <match kubernetes.var.log.containers.**descheduler**>
+        @type null
+      </match>
+
+      <match **>
+        @type loggly
+        loggly_url "https://logs-01.loggly.com/inputs/#{ENV['TOKEN']}/"
+      </match>
     </label>
   host.conf: |
     <source>
@@ -220,6 +256,24 @@ data:
           stream_name ${tag}-${record["host"]}
         </record>
       </filter>
+
+      <match kubernetes.var.log.containers.**loggly**>
+        @type null
+      </match>
+      <match kubernetes.var.log.containers.**flux**>
+        @type null
+      </match>
+      <match kubernetes.var.log.containers.**monitoring**>
+        @type null
+      </match>
+      <match kubernetes.var.log.containers.**descheduler**>
+        @type null
+      </match>
+
+      <match **>
+        @type loggly
+        loggly_url "https://logs-01.loggly.com/inputs/#{ENV['TOKEN']}/"
+      </match>
     </label>
 ---
 apiVersion: apps/v1
