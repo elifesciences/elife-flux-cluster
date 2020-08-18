@@ -69,11 +69,18 @@ data:
     </filter>
 
     # exclude healthchecks
-    <filter foo.bar>
+    <filter kubernetes.**>
       @type grep
       <exclude>
         key log
         pattern /health/
+      </exclude>
+    </filter>
+    <filter kubernetes.**>
+      @type grep
+      <exclude>
+        key log
+        pattern /ping/
       </exclude>
     </filter>
 
