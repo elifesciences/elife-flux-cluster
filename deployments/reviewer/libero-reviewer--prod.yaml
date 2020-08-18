@@ -93,3 +93,21 @@ spec:
       runPostRelease: false
       testFixture: Minimal
       baseurl: libero-reviewer--prod-client-canary.prod
+
+    newRelic:
+      enabled: true
+      appName: elife-reviewer--prod
+      licenseKeySecret: "libero-reviewer--newrelic-license"
+      additionalEnvironmentVariables:
+        NEW_RELIC_DISTRIBUTED_TRACING_ENABLED: "true"
+        NEW_RELIC_ATTRIBUTES_EXCLUDE: >
+          'request.headers.cookie',
+          'request.headers.authorization',
+          'request.headers.proxyAuthorization',
+          'request.headers.setCookie*',
+          'request.headers.x*',
+          'response.headers.cookie',
+          'response.headers.authorization',
+          'response.headers.proxyAuthorization',
+          'response.headers.setCookie*',
+          'response.headers.x*'
