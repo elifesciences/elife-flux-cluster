@@ -49,16 +49,16 @@ data:
     @include systemd.conf
     @include host.conf
 
-    <match kubernetes.var.log.containers.**loggly**.log>
+    <match kubernetes.var.log.containers.**loggly**>
       @type null
     </match>
-    <match kubernetes.var.log.containers.**flux**.log>
+    <match kubernetes.var.log.containers.**flux**>
       @type null
     </match>
-    <match kubernetes.var.log.containers.**monitoring**.log>
+    <match kubernetes.var.log.containers.**monitoring**>
       @type null
     </match>
-    <match kubernetes.var.log.containers.**descheduler**.log>
+    <match kubernetes.var.log.containers.**descheduler**>
       @type null
     </match>
 
