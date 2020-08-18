@@ -81,6 +81,9 @@ data:
     <match kubernetes.var.log.containers.**descheduler**.log>
     @type null
     </match>
+    <match kubernetes.var.log.containers.**kube-system**.log>
+    @type null
+    </match>
 
     <match **>
       @type loggly
