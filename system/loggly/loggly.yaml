@@ -49,6 +49,19 @@ data:
     @include systemd.conf
     @include host.conf
 
+    <match kubernetes.var.log.containers.**loggly**.log>
+      @type null
+    </match>
+    <match kubernetes.var.log.containers.**flux**.log>
+      @type null
+    </match>
+    <match kubernetes.var.log.containers.**monitoring**.log>
+      @type null
+    </match>
+    <match kubernetes.var.log.containers.**descheduler**.log>
+      @type null
+    </match>
+
     <match **>
       @type loggly
       loggly_url "https://logs-01.loggly.com/inputs/#{ENV['TOKEN']}/"
@@ -81,24 +94,6 @@ data:
           stream_name ${tag_parts[3]}
         </record>
       </filter>
-
-      <match kubernetes.var.log.containers.**loggly**.log>
-      @type null
-      </match>
-      <match kubernetes.var.log.containers.**flux**.log>
-      @type null
-      </match>
-      <match kubernetes.var.log.containers.**monitoring**.log>
-      @type null
-      </match>
-      <match kubernetes.var.log.containers.**descheduler**.log>
-      @type null
-      </match>
-
-      <match **>
-        @type loggly
-        loggly_url "https://logs-01.loggly.com/inputs/#{ENV['TOKEN']}/tag/application"
-      </match>
     </label>
   systemd.conf: |
     <source>
@@ -171,24 +166,6 @@ data:
           stream_name ${tag}-${record["hostname"]}
         </record>
       </filter>
-
-      <match kubernetes.var.log.containers.**loggly**.log>
-      @type null
-      </match>
-      <match kubernetes.var.log.containers.**flux**.log>
-      @type null
-      </match>
-      <match kubernetes.var.log.containers.**monitoring**.log>
-      @type null
-      </match>
-      <match kubernetes.var.log.containers.**descheduler**.log>
-      @type null
-      </match>
-
-      <match **>
-        @type loggly
-        loggly_url "https://logs-01.loggly.com/inputs/#{ENV['TOKEN']}/tag/dataplane"
-      </match>
     </label>
   host.conf: |
     <source>
@@ -243,24 +220,6 @@ data:
           stream_name ${tag}-${record["host"]}
         </record>
       </filter>
-
-      <match kubernetes.var.log.containers.**loggly**.log>
-      @type null
-      </match>
-      <match kubernetes.var.log.containers.**flux**.log>
-      @type null
-      </match>
-      <match kubernetes.var.log.containers.**monitoring**.log>
-      @type null
-      </match>
-      <match kubernetes.var.log.containers.**descheduler**.log>
-      @type null
-      </match>
-
-      <match **>
-        @type loggly
-        loggly_url "https://logs-01.loggly.com/inputs/#{ENV['TOKEN']}/tag/host"
-      </match>
     </label>
 ---
 apiVersion: apps/v1
