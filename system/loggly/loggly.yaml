@@ -90,6 +90,13 @@ data:
         pattern /convert/
       </exclude>
     </filter>
+    <filter kubernetes.**>
+      @type grep
+      <exclude>
+        key log
+        pattern /kube-probe/
+      </exclude>
+    </filter>
 
     # exclude namespaces/containers
     <match kubernetes.var.log.containers.**monitoring**.log>
