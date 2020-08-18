@@ -46,8 +46,6 @@ metadata:
 data:
   fluent.conf: |
     @include containers.conf
-    @include systemd.conf
-    @include host.conf
   containers.conf: |
     <source>
       @type tail
