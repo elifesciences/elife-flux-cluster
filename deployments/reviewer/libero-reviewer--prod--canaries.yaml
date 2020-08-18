@@ -59,13 +59,13 @@ spec:
           diff
           <(helmv3 -n reviewer list | grep reviewer | cut -f 6 | tr -cd '[:alnum:]._-')
           <(helmv3 -n reviewer list | grep reviewer | cut -f 6 | tr -cd '[:alnum:]._-')
-    - name: acceptance-test-of-stg
-      type: pre-rollout
-      url: http://infra-flagger-loadtester/
-      timeout: 600s
-      metadata:
-        type: helmv3
-        cmd: "test -n reviewer libero-reviewer--stg"
+    #- name: acceptance-test-of-stg
+    #  type: pre-rollout
+    #  url: http://infra-flagger-loadtester/
+    #  timeout: 600s
+    #  metadata:
+    #    type: helmv3
+    #    cmd: "test -n reviewer libero-reviewer--stg"
 
     - name: load-test-landingpage
       url: http://infra-flagger-loadtester/
@@ -135,13 +135,13 @@ spec:
           diff
           <(helmv3 -n reviewer list | grep reviewer | cut -f 6 | tr -cd '[:alnum:]._-')
           <(helmv3 -n reviewer list | grep reviewer | cut -f 6 | tr -cd '[:alnum:]._-')
-    - name: acceptance-test-of-stg
-      type: pre-rollout
-      url: http://infra-flagger-loadtester/
-      timeout: 600s
-      metadata:
-        type: helmv3
-        cmd: "test -n reviewer libero-reviewer--stg"
+    #- name: acceptance-test-of-stg
+    #  type: pre-rollout
+    #  url: http://infra-flagger-loadtester/
+    #  timeout: 600s
+    #  metadata:
+    #    type: helmv3
+    #    cmd: "test -n reviewer libero-reviewer--stg"
 
     - name: load-test-graphql-endpoint
       url: http://infra-flagger-loadtester/
@@ -211,13 +211,13 @@ spec:
           diff
           <(helmv3 -n reviewer list | grep reviewer | cut -f 6 | tr -cd '[:alnum:]._-')
           <(helmv3 -n reviewer list | grep reviewer | cut -f 6 | tr -cd '[:alnum:]._-')
-    - name: acceptance-test-of-stg
-      type: pre-rollout
-      url: http://infra-flagger-loadtester/
-      timeout: 600s
-      metadata:
-        type: helmv3
-        cmd: "test -n reviewer libero-reviewer--stg"
+    #- name: acceptance-test-of-stg
+    #  type: pre-rollout
+    #  url: http://infra-flagger-loadtester/
+    #  timeout: 600s
+    #  metadata:
+    #    type: helmv3
+    #    cmd: "test -n reviewer libero-reviewer--stg"
 
     - name: load-test-auth-login-endpoint
       url: http://infra-flagger-loadtester/
