@@ -48,24 +48,6 @@ data:
     @include containers.conf
     @include systemd.conf
     @include host.conf
-
-    <match kubernetes.var.log.containers.**loggly**>
-      @type null
-    </match>
-    <match kubernetes.var.log.containers.**flux**>
-      @type null
-    </match>
-    <match kubernetes.var.log.containers.**monitoring**>
-      @type null
-    </match>
-    <match kubernetes.var.log.containers.**descheduler**>
-      @type null
-    </match>
-
-    <match **>
-      @type loggly
-      loggly_url "https://logs-01.loggly.com/inputs/#{ENV['TOKEN']}/"
-    </match>
   containers.conf: |
     <source>
       @type tail
