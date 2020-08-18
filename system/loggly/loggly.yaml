@@ -92,6 +92,10 @@ data:
       @type null
       </match>
 
+      <match kubernetes.var.log.containers.**descheduler**.log>
+      @type null
+      </match>
+
       <match **>
         @type loggly
         loggly_url "https://logs-01.loggly.com/inputs/#{ENV['TOKEN']}/tag/application"
