@@ -75,16 +75,16 @@ data:
         </record>
       </filter>
 
-      <match kubernetes.var.log.containers.**loggly**>
+      <match var.log.containers.**loggly**>
         @type null
       </match>
-      <match kubernetes.var.log.containers.**flux**>
+      <match var.log.containers.**flux**>
         @type null
       </match>
-      <match kubernetes.var.log.containers.**monitoring**>
+      <match var.log.containers.**monitoring**>
         @type null
       </match>
-      <match kubernetes.var.log.containers.**descheduler**>
+      <match var.log.containers.**descheduler**>
         @type null
       </match>
 
