@@ -15,10 +15,9 @@ spec:
   chart:
     repository: https://libero.github.io/reviewer
     name: libero-reviewer
-    version: 0.27.0
+    version: 0.28.1
 
   values:
-    replicaCount: 1
     ingress:
       enabled: "true"
       host: reviewer--prod-rc.elifesciences.org
