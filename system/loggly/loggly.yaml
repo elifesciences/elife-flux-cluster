@@ -91,7 +91,6 @@ data:
       <match kubernetes.var.log.containers.**monitoring**.log>
       @type null
       </match>
-
       <match kubernetes.var.log.containers.**descheduler**.log>
       @type null
       </match>
@@ -173,6 +172,19 @@ data:
         </record>
       </filter>
 
+      <match kubernetes.var.log.containers.**loggly**.log>
+      @type null
+      </match>
+      <match kubernetes.var.log.containers.**flux**.log>
+      @type null
+      </match>
+      <match kubernetes.var.log.containers.**monitoring**.log>
+      @type null
+      </match>
+      <match kubernetes.var.log.containers.**descheduler**.log>
+      @type null
+      </match>
+
       <match **>
         @type loggly
         loggly_url "https://logs-01.loggly.com/inputs/#{ENV['TOKEN']}/tag/dataplane"
@@ -231,6 +243,19 @@ data:
           stream_name ${tag}-${record["host"]}
         </record>
       </filter>
+
+      <match kubernetes.var.log.containers.**loggly**.log>
+      @type null
+      </match>
+      <match kubernetes.var.log.containers.**flux**.log>
+      @type null
+      </match>
+      <match kubernetes.var.log.containers.**monitoring**.log>
+      @type null
+      </match>
+      <match kubernetes.var.log.containers.**descheduler**.log>
+      @type null
+      </match>
 
       <match **>
         @type loggly
