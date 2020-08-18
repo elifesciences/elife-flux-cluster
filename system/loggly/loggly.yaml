@@ -75,15 +75,6 @@ data:
         key log
         pattern /health/
       </exclude>
-      <exclude>
-        key log
-        pattern /ping/
-      </exclude>
-      # temporary exclude for sciencebeam
-      <exclude>
-        key log
-        pattern /convert/
-      </exclude>
     </filter>
 
     # exclude namespaces/containers
