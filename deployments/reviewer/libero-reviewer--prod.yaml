@@ -122,11 +122,11 @@ data:
   postStart.sh: |
     #!/bin/sh
     # insert 'newrelic.script' just before </head>
-    sed 's/<\\/head>/\\n<\\/head>/' /dist/index.html \
-      | sed '/>$/ r /tmp/newrelic.script' \
-      | tr -d '\n' \
-      > /dist/index.html.new \
-      && cp /dist/index.html.new /dist/index.html
+    sed 's/<\/head>/\nINSERTION-POINT\n<\/head>/' /dist/index.html \
+    | sed '/INSERTION-POINT/ r /tmp/newrelic.script' \
+    | sed 's/INSERTION-POINT//' \
+    | tr -d '\n' > /dist/index.html.new
+    mv /dist/index.html.new /dist/index.html
   newrelic.script: |
     <script type="text/javascript">
     ;window.NREUM||(NREUM={});NREUM.init={distributed_tracing:{enabled:true},privacy:{cookies_enabled:true}};
