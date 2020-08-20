@@ -15,7 +15,7 @@ spec:
   chart:
     repository: https://libero.github.io/reviewer
     name: libero-reviewer
-    version: 0.28.10
+    version: 0.28.11
 
   values:
     ingress:
