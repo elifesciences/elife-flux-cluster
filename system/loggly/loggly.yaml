@@ -116,6 +116,15 @@ data:
       </exclude>
     </filter>
 
+    # exclude http messages
+    <filter kubernetes.**>
+      @type grep
+      <exclude>
+        key log
+        pattern /(GET|POST|PUT|PATCH|DELETE)/
+      </exclude>
+    </filter>
+
     # exclude namespaces/containers
     <match kubernetes.var.log.containers.**monitoring**.log>
     @type null
