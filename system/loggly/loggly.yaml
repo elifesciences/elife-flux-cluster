@@ -107,6 +107,14 @@ data:
         pattern /All records are already up to date/
       </exclude>
     </filter>
+    # sealed-secrets
+    <filter kubernetes.**>
+      @type grep
+      <exclude>
+        key log
+        pattern /SealedSecret unsealed successfully/
+      </exclude>
+    </filter>
 
     # exclude namespaces/containers
     <match kubernetes.var.log.containers.**monitoring**.log>
