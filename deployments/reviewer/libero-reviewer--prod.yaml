@@ -125,8 +125,8 @@ data:
     sed 's/<\\/head>/\\n<\\/head>/' /dist/index.html \
       | sed '/>$/ r /tmp/newrelic.script' \
       | tr -d '\n' \
-      > /dist/index.html.new
-    mv /dist/index.html.new /dist/index.html
+      > /dist/index.html.new \
+      && cp /dist/index.html.new /dist/index.html
   newrelic.script: |
     <script type="text/javascript">
     ;window.NREUM||(NREUM={});NREUM.init={distributed_tracing:{enabled:true},privacy:{cookies_enabled:true}};
