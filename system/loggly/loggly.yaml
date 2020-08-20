@@ -98,6 +98,16 @@ data:
       </exclude>
     </filter>
 
+    # exclude 'all good' messages
+    # external-dns
+    <filter kubernetes.**>
+      @type grep
+      <exclude>
+        key log
+        pattern /All records are already up to date/
+      </exclude>
+    </filter>
+
     # exclude namespaces/containers
     <match kubernetes.var.log.containers.**monitoring**.log>
     @type null
