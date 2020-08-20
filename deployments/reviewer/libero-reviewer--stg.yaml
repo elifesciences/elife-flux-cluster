@@ -36,7 +36,7 @@ spec:
     authenticationJwtSecret: libero-reviewer--stg-auth-jwt
 
     submission:
-      replicaCount: 2
+      replicaCount: 1
       terminationGracePeriodSeconds: 600
       nginxWorkerTimeoutSeconds: 600
       image:
@@ -60,7 +60,7 @@ spec:
         sender: "staging-noreply@elifesciences.org"
 
     client:
-      replicaCount: 2
+      replicaCount: 1
       image:
         repository: liberoadmin/reviewer-client
         tag: master-e3b0df8d-20200811.1241
