@@ -15,7 +15,7 @@ spec:
   chart:
     repository: https://libero.github.io/reviewer
     name: libero-reviewer
-    version: 0.28.9
+    version: 0.28.10
 
   values:
     ingress:
@@ -119,6 +119,14 @@ metadata:
   name: libero-reviewer--newrelic-script
   namespace: reviewer
 data:
+  postStart.sh: |
+    #!/bin/sh
+    # insert 'newrelic.script' just before </head>
+    sed 's/<\\/head>/\\n<\\/head>/' /dist/index.html \
+      | sed '/>$/ r /tmp/newrelic.script' \
+      | tr -d '\n' \
+      > /dist/index.html.new
+    mv /dist/index.html.new /dist/index.html
   newrelic.script: |
     <script type="text/javascript">
     ;window.NREUM||(NREUM={});NREUM.init={distributed_tracing:{enabled:true},privacy:{cookies_enabled:true}};
