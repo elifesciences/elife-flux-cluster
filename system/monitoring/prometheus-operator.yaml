@@ -62,6 +62,8 @@ spec:
             memory: 1300Mi
         serviceMonitorSelectorNilUsesHelmValues: false
         ruleSelector: {} # use all PrometheusRules
+        ruleNamespaceSelector:
+          any: true
 
     alertmanager:
       podDisruptionBudget:
