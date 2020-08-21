@@ -63,7 +63,7 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         ruleSelector:
           matchExpressions:
-            - {key: app, operator: In, values: [prometheus-operator, flux]}
+            - {key: app, operator: In, values: [prometheus-operator, flux, kubediff]}
 
     alertmanager:
       podDisruptionBudget:
