@@ -72,7 +72,7 @@ spec:
     - port: 80
       name: http
   selector:
-    name: kubediff-system
+    app.kubernetes.io/name: kubediff-system
 
 ---
 apiVersion: v1
@@ -87,7 +87,7 @@ spec:
     - port: 80
       name: http
   selector:
-    name: kubediff-deployments
+    app.kubernetes.io/name: kubediff-deployment
 
 ---
 apiVersion: monitoring.coreos.com/v1
