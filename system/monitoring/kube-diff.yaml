@@ -1,0 +1,132 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: kubediff
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: kubediff
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        app.kubernetes.io/name: kubediff
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kubediff
+    spec:
+      volumes:
+      - name: repo
+        emptyDir: {}
+      containers:
+      - name: git-sync
+        # These is an official google build of git-sync, but its out of date
+        # wrt private repos.  Also git-sync is a pain to integrate with our
+        # build (uses godeps etc).  So for not, use a pinned custom built
+        # version.
+        image: tomwilkie/git-sync:f6165715ce9d
+        args:
+          - -repo=https://github.com/elifesciences/elife-flux-cluster
+          - -wait=60
+          - -dest=/data/repo
+        volumeMounts:
+        - name: repo
+          mountPath: /data
+      - name: kubediff-system
+        image: weaveworks/kubediff
+        imagePullPolicy: IfNotPresent
+        args:
+        - -period=60s
+        - -listen-addr=:80
+        - /kubediff
+        - /data/repo/system
+        volumeMounts:
+        - name: repo
+          mountPath: /data
+        ports:
+        - containerPort: 80
+      - name: kubediff-deployments
+        image: weaveworks/kubediff
+        imagePullPolicy: IfNotPresent
+        args:
+        - -period=60s
+        - -listen-addr=:80
+        - /kubediff
+        - /data/repo/deployments
+        volumeMounts:
+        - name: repo
+          mountPath: /data
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubediff-system
+  labels:
+    app.kubernetes.io/name: kubediff
+spec:
+  ports:
+    - port: 80
+      name: http
+  selector:
+    name: kubediff-system
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubediff-deployments
+  labels:
+    app.kubernetes.io/name: kubediff
+spec:
+  ports:
+    - port: 80
+      name: http
+  selector:
+    name: kubediff-deployments
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: kubediff.rules
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: kubediff
+spec:
+  groups:
+  - name: ./kubediff.rules
+    rules:
+    - alert: KubediffSystem
+      expr: max(command_exit_code{job="kubediff-system"}) != 0
+      for: 30m
+      annotations:
+        summary: Kubediff has detected drift between git-repo and cluster
+        description: Run `kubediff ./system` in `elife-flux-cluster` locally to investigate.
+    - alert: KubediffDeployments
+      expr: max(command_exit_code{job="kubediff-deployments"}) != 0
+      for: 30m
+      annotations:
+        summary: Kubediff has detected drift between git-repo and cluster
+        description: Run `kubediff ./deployments` in `elife-flux-cluster` locally to investigate.
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/name: kubediff
+  name: kubediff
+  namespace: monitoring
+spec:
+  endpoints:
+  - path: /metrics
+    port: http
+  namespaceSelector:
+    matchNames:
+    - monitoring
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kubediff
