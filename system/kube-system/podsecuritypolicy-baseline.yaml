@@ -40,7 +40,7 @@ spec:
   #hostNetwork: false
   #hostIPC: false
   #hostPID: false
-  readOnlyRootFilesystem: false
+  #readOnlyRootFilesystem: false
   runAsUser:
     rule: 'RunAsAny'
   seLinux:
