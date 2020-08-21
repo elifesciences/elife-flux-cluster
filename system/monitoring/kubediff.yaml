@@ -32,7 +32,7 @@ spec:
         volumeMounts:
         - name: repo
           mountPath: /data
-      - name: kubediff-system
+      - name: kubediff
         image: weaveworks/kubediff
         imagePullPolicy: IfNotPresent
         args:
@@ -40,18 +40,6 @@ spec:
         - -listen-addr=:80
         - /kubediff
         - /data/repo/system
-        volumeMounts:
-        - name: repo
-          mountPath: /data
-        ports:
-        - containerPort: 80
-      - name: kubediff-deployments
-        image: weaveworks/kubediff
-        imagePullPolicy: IfNotPresent
-        args:
-        - -period=60s
-        - -listen-addr=:80
-        - /kubediff
         - /data/repo/deployments
         volumeMounts:
         - name: repo
@@ -63,7 +51,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kubediff-system
+  name: kubediff
   namespace: monitoring
   labels:
     app.kubernetes.io/name: kubediff
@@ -72,22 +60,7 @@ spec:
     - port: 80
       name: http
   selector:
-    app.kubernetes.io/name: kubediff-system
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: kubediff-deployments
-  namespace: monitoring
-  labels:
     app.kubernetes.io/name: kubediff
-spec:
-  ports:
-    - port: 80
-      name: http
-  selector:
-    app.kubernetes.io/name: kubediff-deployment
 
 ---
 apiVersion: monitoring.coreos.com/v1
@@ -101,18 +74,12 @@ spec:
   groups:
   - name: ./kubediff.rules
     rules:
-    - alert: KubediffSystem
-      expr: max(command_exit_code{job="kubediff-system"}) != 0
-      for: 30m
+    - alert: Kubediff
+      expr: max(command_exit_code{job="kubediff"}) != 0
+      for: 30
       annotations:
         summary: Kubediff has detected drift between git-repo and cluster
-        description: Run `kubediff ./system` in `elife-flux-cluster` locally to investigate.
-    - alert: KubediffDeployments
-      expr: max(command_exit_code{job="kubediff-deployments"}) != 0
-      for: 30m
-      annotations:
-        summary: Kubediff has detected drift between git-repo and cluster
-        description: Run `kubediff ./deployments` in `elife-flux-cluster` locally to investigate.
+        description: Run `kubediff system deployments` in `elife-flux-cluster` locally to investigate.
 
 ---
 apiVersion: monitoring.coreos.com/v1
