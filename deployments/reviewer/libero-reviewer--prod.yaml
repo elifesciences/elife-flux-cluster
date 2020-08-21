@@ -15,7 +15,7 @@ spec:
   chart:
     repository: https://libero.github.io/reviewer
     name: libero-reviewer
-    version: 0.28.13
+    version: 0.29.0
 
   values:
     ingress:
@@ -53,7 +53,7 @@ spec:
         sesRegion: "us-east-1"
         sendMail: true
         sender: "prod-rc-noreply@elifesciences.org"
-      replicaCount: 3
+      replicaCount: 2
       podDisruptionBudget:
         enabled: true
         minAvailable: 1
@@ -66,7 +66,7 @@ spec:
         requests:
           memory: 50Mi
           cpu: 200m
-      replicaCount: 3
+      replicaCount: 2
       podDisruptionBudget:
         enabled: true
         minAvailable: 1
@@ -83,7 +83,7 @@ spec:
       continuumLoginUrl: "https://continuumtest--cdn-journal.elifesciences.org/submit"
       elifeApiSecret: "libero-reviewer--prod-elife-api"
       continuumJwtSecret: "libero-reviewer--prod-continuum-journal-jwt"
-      replicaCount: 3
+      replicaCount: 2
       podDisruptionBudget:
         enabled: true
         minAvailable: 1
@@ -99,7 +99,6 @@ spec:
       licenseKeySecret: "libero-reviewer--newrelic-license"
       browserScriptConfigmap: libero-reviewer--newrelic-script
       additionalEnvironmentVariables:
-        NEW_RELIC_NO_CONFIG_FILE: "true"
         NEW_RELIC_DISTRIBUTED_TRACING_ENABLED: "true"
         NEW_RELIC_ATTRIBUTES_EXCLUDE: >
           'request.headers.cookie',
