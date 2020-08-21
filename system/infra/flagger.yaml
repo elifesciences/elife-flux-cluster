@@ -45,12 +45,12 @@ spec:
           verbs: ["create", "list", "delete", "watch"]
 
 ---
+# Needed due to ingress controller residing in different namespace than canaries
 apiVersion: flagger.app/v1beta1
 kind: MetricTemplate
 metadata:
   name: request-success-rate--central-ing-controller
   namespace: infra
-  description: "Needed if ingress controller resides different namespace"
 spec:
   provider:
     type: prometheus

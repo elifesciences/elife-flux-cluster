@@ -8,7 +8,6 @@ metadata:
     seccomp.security.alpha.kubernetes.io/defaultProfileName:  'unconfined'
 spec:
   # Taken from https://kubernetes.io/docs/concepts/security/pod-security-standards/
-  privileged: false
   # The moby default capability set, defined here:
   # https://github.com/moby/moby/blob/0a5cec2833f82a6ad797d70acbf9cbbaf8956017/oci/caps/defaults.go#L6-L19
   allowedCapabilities:
@@ -36,9 +35,11 @@ spec:
     - 'downwardAPI'
     # Assume that persistentVolumes set up by the cluster admin are safe to use.
     - 'persistentVolumeClaim'
-  hostNetwork: false
-  hostIPC: false
-  hostPID: false
+  # By not setting these they are set to false but don't create false-positive in kubediff
+  #privileged: false
+  #hostNetwork: false
+  #hostIPC: false
+  #hostPID: false
   readOnlyRootFilesystem: false
   runAsUser:
     rule: 'RunAsAny'
