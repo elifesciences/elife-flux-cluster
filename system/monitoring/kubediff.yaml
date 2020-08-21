@@ -36,7 +36,7 @@ spec:
         image: weaveworks/kubediff
         imagePullPolicy: IfNotPresent
         args:
-        - -period=60s
+        - -period=300s
         - -listen-addr=:80
         - /kubediff
         - /data/repo/system
