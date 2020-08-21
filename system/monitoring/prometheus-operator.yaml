@@ -61,9 +61,7 @@ spec:
           requests:
             memory: 1300Mi
         serviceMonitorSelectorNilUsesHelmValues: false
-        ruleSelector:
-          matchExpressions:
-            - {key: app, operator: In, values: [prometheus-operator, flux]}
+        ruleSelector: {} # use all PrometheusRules
 
     alertmanager:
       podDisruptionBudget:
