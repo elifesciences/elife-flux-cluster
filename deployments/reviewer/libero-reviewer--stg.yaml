@@ -46,7 +46,7 @@ spec:
         convertUrl: "http://sciencebeam--reviewer:8075/api/convert"
       s3:
         secret: libero-reviewer--stg-s3
-        bucket: "staging-libero-reviewer"
+        bucket: "staging-elife-libero-reviewer"
       meca:
         sftpSecret: libero-reviewer--stg-ejp-sftp
         sftpPath: "/"
