@@ -100,3 +100,139 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: kubediff
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kubediff
+  namespace: monitoring
+
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: kubediff
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - bindings
+  - configmaps
+  - endpoints
+  - events
+  - limitranges
+  - namespaces
+  - namespaces/status
+  - nodes
+  - pods
+  - pods/log
+  - pods/status
+  - persistentvolumeclaims
+  - persistentvolumes
+  - resourcequotas
+  - resourcequotas/status
+  - replicationcontrollers
+  - replicationcontrollers/status
+  - replicationcontrollers/scale
+  - serviceaccounts
+  - services
+  verbs: [list, get]
+- apiGroups:
+  - apps
+  resources:
+  - daemonsets
+  - deployments
+  - deployments/scale
+  - replicasets
+  - replicasets/scale
+  - statefulsets
+  verbs: [list, get]
+- apiGroups:
+  - autoscaling
+  resources:
+  - horizontalpodautoscalers
+  verbs: [list, get]
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs
+  - jobs
+  verbs: [list, get]
+- apiGroups:
+  - extensions
+  resources:
+  - daemonsets
+  - deployments
+  - deployments/scale
+  - ingresses
+  - networkpolicies
+  - replicasets
+  - replicasets/scale
+  - replicationcontrollers/scale
+  verbs: [list, get]
+- apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  - podsecuritypolicies
+  verbs: [list, get]
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - networkpolicies
+  verbs: [list, get]
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  - volumeattachments
+  verbs: [list, get]
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - clusterrolebindings
+  - clusterroles
+  - roles
+  - rolebindings
+  verbs: [list, get]
+- apiGroups:
+  - flagger.app
+  resources:
+  - canaries
+  - metrictemplates
+  - alertproviders
+  verbs: [list, get]
+- apiGroups:
+  - bitnami.com
+  resources:
+  - sealedsecrets
+  verbs: [list, get]
+- apiGroups:
+  - helm.fluxcd.io
+  resources:
+  - helmreleases
+  verbs: [list, get]
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - prometheusrules
+  - servicemonitors
+  verbs: [list, get]
+- nonResourceURLs:
+  - '*'
+  verbs: [list, get]
+
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: kubediff
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubediff
+subjects:
+- kind: ServiceAccount
+  name: kubediff
+  namespace: monitoring
