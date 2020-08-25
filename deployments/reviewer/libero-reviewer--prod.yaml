@@ -32,7 +32,7 @@ spec:
     submission:
       image:
         repository: liberoadmin/reviewer-submission
-        tag: master-8181ba81-20200818.1239
+        tag: master-d64d39f8-20200825.0935
       resources:
         requests:
           memory: 300Mi
