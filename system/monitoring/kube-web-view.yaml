@@ -201,6 +201,7 @@ rules:
   resources:
   - prometheusrules
   - servicemonitors
+  verbs: [list, get]
 - nonResourceURLs:
   - '*'
   verbs: [list, get]
