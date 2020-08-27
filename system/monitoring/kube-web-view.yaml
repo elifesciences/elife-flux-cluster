@@ -157,11 +157,13 @@ rules:
   - policy
   resources:
   - poddisruptionbudgets
+  - podsecuritypolicies
   verbs: [list, get]
 - apiGroups:
   - networking.k8s.io
   resources:
   - networkpolicies
+  - ingresses
   verbs: [list, get]
 - apiGroups:
   - storage.k8s.io
@@ -181,6 +183,8 @@ rules:
   - flagger.app
   resources:
   - canaries
+  - metrictemplates
+  - alertproviders
   verbs: [list, get]
 - apiGroups:
   - bitnami.com
@@ -192,6 +196,11 @@ rules:
   resources:
   - helmreleases
   verbs: [list, get]
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - prometheusrules
+  - servicemonitors
 - nonResourceURLs:
   - '*'
   verbs: [list, get]
