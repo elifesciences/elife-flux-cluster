@@ -15,5 +15,6 @@ spec:
         != kube_replicaset_status_ready_replicas{job="kube-state-metrics",namespace=~".*"})
         and (changes(kube_deployment_status_replicas_updated{job="kube-state-metrics",namespace=~".*"}[5m]) == 0)
       annotations:
-        summary: Ready replicas doesn't match replica spec
-        description: ReplicaSet probably failed to create Deployments.
+        message: |
+          Ready replicas doesn't match replica spec
+          ReplicaSet probably failed to create Deployments.

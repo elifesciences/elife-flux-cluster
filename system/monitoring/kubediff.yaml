@@ -80,8 +80,9 @@ spec:
       expr: max(command_exit_code{job="kubediff"}) != 0
       for: 30m
       annotations:
-        summary: Kubediff has detected drift between git-repo and cluster
-        description: Run `kubediff system deployments` in `elife-flux-cluster` locally to investigate.
+        message: |
+          Kubediff has detected drift between git-repo and cluster
+          Run `kubediff system deployments` in `elife-flux-cluster` locally to investigate.
 
 ---
 apiVersion: monitoring.coreos.com/v1
