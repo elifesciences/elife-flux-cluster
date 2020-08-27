@@ -89,6 +89,7 @@ Services available on the Cluster
 Administration
 ==============
 
+- [Upgrading infrastructure services](docs/infra-updates.md)
 - [Bootstrapping the cluster](docs/bootstrapping.md)
 - [Upgrading EKS/Worker Nodesl](docs/upgrading-eks.md)
 - [Debugging/Common Fixes](docs/admin-notes.md)
