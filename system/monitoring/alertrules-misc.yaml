@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: misc.rules
+  namespace: monitoring
+  labels:
+    app: prometheus-operator
+spec:
+  groups:
+  - name: ./misc.rules
+    rules:
+    - alert: KubeDeploymentReplicasNotReachingReady
+      expr: > 
+        (kube_replicaset_spec_replicas{job="kube-state-metrics",namespace=~".*"}
+        != kube_replicaset_status_ready_replicas{job="kube-state-metrics",namespace=~".*"})
+        and (changes(kube_deployment_status_replicas_updated{job="kube-state-metrics",namespace=~".*"}[5m]) == 0)
+      annotations:
+        summary: Ready replicas doesn't match replica spec
+        description: ReplicaSet probably failed to create Deployments.
