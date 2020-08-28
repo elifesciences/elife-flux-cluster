@@ -39,6 +39,8 @@ How to Pin
 
 - ideally use Helm repos as chart source
 - if not possible, use git as chart source but pin to specific ref
+- check if chart default values point to specific image tag  
+  if not: investigate other way to pin and autodetect upgrades
 
 ```
 apiVersion: helm.fluxcd.io/v1
@@ -73,3 +75,16 @@ spec:
         image: hjacobs/kube-web-view:20.6.0
   ...
 ```
+
+### Renovatebot settings
+
+- renovatebot is configured via `renovate.json`
+- `HelmRelease` files aren't [yet](https://github.com/renovatebot/renovate/issues/5984) supported 'natively'
+- [current solution](https://kubernetes-charts.storage.googleapis.com/) is to use the regex functionality
+- all github usernames in `assignees` will be assigned failed and non-automerged PRs
+
+When adding services to `system`:
+
+- add chart name to `packageNames`
+- add new `PackageRules` section if needed `registryUrls` entry not present
+- set `automerge` flag depending on type of service
