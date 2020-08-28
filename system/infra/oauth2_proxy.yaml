@@ -7,9 +7,10 @@ metadata:
 
 spec:
   chart:
-    git: https://github.com/helm/charts
-    path: stable/oauth2-proxy
-    ref: master
+    repository: https://kubernetes-charts.storage.googleapis.com
+    name: oauth2-proxy
+    version: 3.2.1
+
   values:
     config:
       existingSecret: oauth2-github

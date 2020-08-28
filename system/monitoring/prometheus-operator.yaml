@@ -4,14 +4,13 @@ kind: HelmRelease
 metadata:
   name: prometheus-operator
   namespace: monitoring
-  annotations:
-    fluxcd.io/automated: "true"
 
 spec:
   chart:
-    git: https://github.com/helm/charts
-    path: stable/prometheus-operator
-    ref: master
+    repository: https://kubernetes-charts.storage.googleapis.com
+    name: prometheus-operator
+    version: 9.3.0 
+
   values:
     defaultRules:
       rules:

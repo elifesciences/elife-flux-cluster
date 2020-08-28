@@ -7,9 +7,9 @@ metadata:
 
 spec:
   chart:
-    git: https://github.com/bitnami/charts
-    path: bitnami/external-dns
-    ref: master
+    repository: https://charts.bitnami.com/bitnami
+    name: external-dns
+    version: 3.3.0
 
   values:
     replicas: 1
