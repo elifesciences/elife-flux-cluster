@@ -5,6 +5,9 @@ metadata:
   namespace: monitoring
   labels:
     app.kubernetes.io/name: kubediff
+  annotations:
+    fluxcd.io/automated: "true"
+    filter.fluxcd.io/kubediff: "glob:master-*"
 spec:
   replicas: 1
   selector:
@@ -34,7 +37,7 @@ spec:
         - name: repo
           mountPath: /data
       - name: kubediff
-        image: weaveworks/kubediff
+        image: weaveworks/kubediff:master-385f72f
         imagePullPolicy: IfNotPresent
         args:
         - -period=300s

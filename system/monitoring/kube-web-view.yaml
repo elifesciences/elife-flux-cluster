@@ -7,6 +7,9 @@ metadata:
   namespace: monitoring
   labels:
     application: kube-web-view
+  annotations:
+    fluxcd.io/automated: "true"
+    filter.fluxcd.io/kube-web-view: "semver:*"
 spec:
   replicas: 1
   selector:
