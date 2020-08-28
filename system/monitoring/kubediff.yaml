@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -12,7 +13,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-        app.kubernetes.io/name: kubediff
+      app.kubernetes.io/name: kubediff
   template:
     metadata:
       labels:
@@ -30,14 +31,14 @@ spec:
         # version.
         image: tomwilkie/git-sync:f6165715ce9d
         args:
-          - -repo=https://github.com/elifesciences/elife-flux-cluster
-          - -wait=60
-          - -dest=/data/repo
+        - -repo=https://github.com/elifesciences/elife-flux-cluster
+        - -wait=60
+        - -dest=/data/repo
         volumeMounts:
         - name: repo
           mountPath: /data
       - name: kubediff
-        image: weaveworks/kubediff:master-385f72f
+        image: weaveworks/kubediff:master-078209e
         imagePullPolicy: IfNotPresent
         args:
         - -period=300s
@@ -50,7 +51,6 @@ spec:
           mountPath: /data
         ports:
         - containerPort: 80
-
 ---
 apiVersion: v1
 kind: Service
@@ -61,11 +61,10 @@ metadata:
     app.kubernetes.io/name: kubediff
 spec:
   ports:
-    - port: 80
-      name: http
+  - port: 80
+    name: http
   selector:
     app.kubernetes.io/name: kubediff
-
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
@@ -105,14 +104,12 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: kubediff
-
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: kubediff
   namespace: monitoring
-
 ---
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1beta1
