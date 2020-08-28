@@ -26,7 +26,7 @@ spec:
   chart:
     repository: https://flagger.app
     name: loadtester
-    version: 0.17.0
+    version: 0.18.0
 
   values:
     rbac:
