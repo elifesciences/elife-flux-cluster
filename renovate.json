@@ -3,9 +3,6 @@
         "config:base",
         ":prHourlyLimitNone"
     ],
-    "kubernetes": {
-      "fileMatch": ["\\.yaml$"]
-    },
     "regexManagers": [
       {
         "fileMatch": ["\\.yaml$"],
