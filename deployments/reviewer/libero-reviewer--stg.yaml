@@ -41,7 +41,7 @@ spec:
       nginxWorkerTimeoutSeconds: 600
       image:
         repository: liberoadmin/reviewer-submission
-        tag: master-ffaeca1e-20200827.0849
+        tag: master-1a910356-20200903.0947
       sciencebeam:
         convertUrl: "http://sciencebeam--reviewer:8075/api/convert"
       s3:
@@ -63,7 +63,7 @@ spec:
       replicaCount: 1
       image:
         repository: liberoadmin/reviewer-client
-        tag: master-23aa60ca-20200902.1452
+        tag: master-bcde2bfc-20200903.1043
 
     continuumAdaptor:
       image:
