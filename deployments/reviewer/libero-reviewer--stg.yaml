@@ -71,6 +71,7 @@ spec:
         tag: master-cb1f7dbf-20200908.1052
       continuumApiUrl: "http://continuumtest--gateway.elife.internal"
       continuumLoginUrl: "https://continuumtest--cdn-journal.elifesciences.org/submit"
+      continuumLogoutUrl: "https://continuumtest--cdn-journal.elifesciences.org/log-out"
       elifeApiSecret: "libero-reviewer--stg-elife-api"
       continuumJwtSecret: "libero-reviewer--stg-continuum-journal-jwt"
 
