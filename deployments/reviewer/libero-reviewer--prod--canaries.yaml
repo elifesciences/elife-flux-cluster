@@ -209,8 +209,8 @@ spec:
         type: bash
         cmd: >
           diff
-          <(helmv3 -n reviewer list | grep reviewer | cut -f 6 | tr -cd '[:alnum:]._-')
-          <(helmv3 -n reviewer list | grep reviewer | cut -f 6 | tr -cd '[:alnum:]._-')
+          <(helmv3 -n reviewer list | grep reviewer--stg  | cut -f 6 | tr -cd '[:alnum:]._-')
+          <(helmv3 -n reviewer list | grep reviewer--prod | cut -f 6 | tr -cd '[:alnum:]._-')
     #- name: acceptance-test-of-stg
     #  type: pre-rollout
     #  url: http://infra-flagger-loadtester/
