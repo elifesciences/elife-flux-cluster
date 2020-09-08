@@ -15,7 +15,7 @@ spec:
   chart:
     repository: https://libero.github.io/reviewer
     name: libero-reviewer
-    version: 0.29.0
+    version: 0.29.2
 
   values:
     ingress:
@@ -32,7 +32,7 @@ spec:
     submission:
       image:
         repository: liberoadmin/reviewer-submission
-        tag: master-ffaeca1e-20200827.0849
+        tag: master-a56aac81-20200907.1147
       resources:
         requests:
           memory: 300Mi
@@ -61,7 +61,7 @@ spec:
     client:
       image:
         repository: liberoadmin/reviewer-client
-        tag: master-83442ab0-20200827.0931
+        tag: master-d02a5328-20200907.1641
       resources:
         requests:
           memory: 50Mi
@@ -74,7 +74,7 @@ spec:
     continuumAdaptor:
       image:
         repository: liberoadmin/continuum-adaptor
-        tag: master-4cc44cb4-20200818.1249
+        tag: master-cb1f7dbf-20200908.1052
       resources:
         requests:
           memory: 150Mi
