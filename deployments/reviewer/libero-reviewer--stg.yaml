@@ -76,6 +76,6 @@ spec:
       continuumJwtSecret: "libero-reviewer--stg-continuum-journal-jwt"
 
     browsertests:
-      testArgs: "--fixture-meta fixtureId=staging"
+      testArgs: "--fixture-meta fixtureID=staging"
       orcidLoginRequired: true
       orcidSecret: "libero-reviewer--stg-orcid"
