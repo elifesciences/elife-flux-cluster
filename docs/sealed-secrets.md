@@ -8,27 +8,27 @@ The cluster has a [sealed-secrets](https://github.com/bitnami-labs/sealed-secret
 - use `kubeseal` to generate `SealedSecret` yaml files
 - controller decrypts them and creates `Secret` objects
 
-These operations require `kubectl` with certain RBAC rights.
-So currently this is an admin only operation.
+Benefits of this approach are:
 
-If needed we can provide devs with the public key. This way they don't need kubectl access to create SealedSecrets.
+- improved disaster recovery as secrets are recovered from git repo
+- devs can update and add secrets without needing access to the cluster
 
-The reason for using SealedSecrets is to make disaster recovery easier.
+This approach doesn't let us share secrets with devs.
+Such a scenario is probably better served with Vault.
 
 ## Creating/Updating SealedSecrets
 
-Example of creating a `SealedSecret` from an existing `Secret`:
+- install `kubeseal` client from [Github Releases Page](https://github.com/bitnami-labs/sealed-secrets/releases)
+- use `kubeseal-public.pem` to encrypt a secret (see [docs](https://github.com/bitnami-labs/sealed-secrets#usage))
+- see [k8s docs](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl/#create-a-secret) for ways to create a `Secret`
 
 ```
-kubectl -n stg get secret your-secret -o yaml > your-secret.yaml 
-# Edit your-secret.yaml to your hearts content
 kubeseal \
-    --controller-namespace infra \
-    --controller-name sealed-secrets \
+    --cert ./kubeseal-public.pem \
     --format=yaml <your-secret.yaml > your-secret-as-a-sealedsecret.yaml
 ```
 
-NOTE: You can't change the `name` or `namespace` field of a `SealedSecret` yaml file as these values are used to to encrypt the content. If you change these decryption will fail.
+NOTE: You can't change the `name` or `namespace` field of a `SealedSecret` yaml file after it has been created as these values are used to to encrypt the content. If you change these decryption will fail.
 
 ## Backup and Recovery
 
