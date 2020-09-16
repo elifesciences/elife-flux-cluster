@@ -92,7 +92,7 @@ spec:
     browsertests:
       runPostRelease: false
       testFixture: Minimal
-      baseurl: libero-reviewer--prod-client-canary.prod
+      baseurl: "https://libero-reviewer--staging.elifesciences.org"
 
     newRelic:
       enabled: true
