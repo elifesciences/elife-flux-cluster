@@ -79,3 +79,5 @@ spec:
       testArgs: "--fixture-meta fixtureID=staging"
       orcidLoginRequired: true
       orcidSecret: "libero-reviewer--stg-orcid"
+      baseurl: "https://libero-reviewer--staging.elifesciences.org"
+
