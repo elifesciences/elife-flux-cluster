@@ -75,6 +75,8 @@ Services available on the Cluster
 - __nginx-ingress__ ([docs](https://kubernetes.github.io/ingress-nginx/))
   - provides SSL termination
   - `host` entries ending in `.elifesciences.org` will be added to our zone by ExternalDNS
+- __cert-manager with letsencrypt__ ([docs/letsencrypt](docs/letsencrypt.md))
+  - obtain letsencrypt SSL certs via ingress definitions
 - __PrometheusOperator__ ([docs/monitoring-alerting](docs/monitoring-alerting.md))
   - cluster also instrumented for NewRelic
   - Logs get dumped to Loggly
