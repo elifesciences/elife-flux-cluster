@@ -1,0 +1,72 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: cert-manager
+  namespace: infra
+
+spec:
+  chart:
+    repository: https://charts.jetstack.io
+    name: cert-manager
+    version: 1.0.0
+
+  values:
+    installCRDs: true
+    prometheus:
+      servicemonitor:
+        enabled: true
+
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+  namespace: infra
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: it-admin@elifesciences.org
+    privateKeySecretRef:
+      name: letsencrypt-staging
+    solvers:
+    - http01:
+        ingress:
+          class:  nginx
+
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+  namespace: infra
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: it-admin@elifesciences.org
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: cert-manager.rules
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: cert-manager
+    app: cert-manager
+spec:
+  groups:
+  - name: ./cert-manager.rules
+    rules:
+    - alert: cert-manager
+      expr: sum (certmanager_certificate_ready_status) != count (count by (name) (certmanager_certificate_ready_status))
+      for: 5m
+      annotations:
+        message: |
+          At least one SSL cert manageged by cert-manage is not in a ready state.
