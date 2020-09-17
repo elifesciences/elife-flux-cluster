@@ -210,7 +210,7 @@ rules:
   resources:
   - issuers
   - clusterissuers
-  - certificate
+  - certificates
   verbs: [list, get]
 - nonResourceURLs:
   - '*'
