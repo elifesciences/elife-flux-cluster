@@ -222,6 +222,12 @@ rules:
   - prometheusrules
   - servicemonitors
   verbs: [list, get]
+- apiGroups:
+  - cert-manager.io
+  resources:
+  - issuers
+  - clusterissuers
+  verbs: [list, get]
 - nonResourceURLs:
   - '*'
   verbs: [list, get]
