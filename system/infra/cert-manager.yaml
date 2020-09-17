@@ -22,7 +22,6 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-staging
-  namespace: infra
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
@@ -39,7 +38,6 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-prod
-  namespace: infra
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
