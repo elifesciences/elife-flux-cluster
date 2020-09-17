@@ -69,6 +69,15 @@
         "datasources": ["helm"],
         "managers": ["regex"],
         "packageNames": [
+          "cert-manager"
+        ],
+        "automerge": false,
+        "registryUrls": ["https://charts.jetstack.io"]
+      },
+      {
+        "datasources": ["helm"],
+        "managers": ["regex"],
+        "packageNames": [
           "external-dns"
         ],
         "automerge": false,
