@@ -25,7 +25,14 @@ spec:
         kubernetes.io/ingress.class: nginx
 
     postgresql:
-      existingSecret: libero-reviewer--prod-postgresql
+      enabled: false
+
+    database:
+      dbUser: root
+      dbName: elifeliberoreviewerprod
+      dbHost: elife-libero-reviewer-prod.cxyopn44uqbl.us-east-1.rds.amazonaws.com
+      dbPasswordSecret: libero-reviewer--prod-rds
+      dbPasswordKey: password
 
     authenticationJwtSecret: libero-reviewer--prod-auth-jwt
 
@@ -41,7 +48,7 @@ spec:
         convertUrl: "http://sciencebeam--reviewer:8075/api/convert"
       s3:
         secret: libero-reviewer--prod-s3
-        bucket: "staging-libero-reviewer"
+        bucket: "prod-elife-libero-reviewer"
       meca:
         sftpSecret: libero-reviewer--prod-ejp-sftp
         sftpPath: "/"
