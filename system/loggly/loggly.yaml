@@ -116,6 +116,22 @@ data:
          pattern /SealedSecret unsealed successfully/
        </exclude>
      </filter>
+     # cert-manager cainjector
+     <filter kubernetes.**>
+       @type grep
+       <exclude>
+         key log
+         pattern /Successfully reconciled/
+       </exclude>
+     </filter>
+     # ingress-nginx
+     <filter kubernetes.**>
+       @type grep
+       <exclude>
+         key log
+         pattern /successfully validated configuration/
+       </exclude>
+     </filter>
 
      # exclude http messages
      <filter kubernetes.**>

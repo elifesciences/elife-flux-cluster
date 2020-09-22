@@ -17,7 +17,7 @@ spec:
     port: 80
     targetPort: 80
   analysis:
-    interval: 60s
+    interval: 120s
     threshold: 2
     maxWeight: 75
     stepWeight: 25
@@ -36,7 +36,7 @@ spec:
         namespace: infra
       thresholdRange:
         min: 99
-      interval: 1m
+      interval: 90s
 
     webhooks:
     - name: stg-equals-prod-images
@@ -93,7 +93,7 @@ spec:
     port: 3000
     targetPort: http
   analysis:
-    interval: 60s
+    interval: 120s
     threshold: 2
     maxWeight: 75
     stepWeight: 25
@@ -112,7 +112,7 @@ spec:
         namespace: infra
       thresholdRange:
         min: 99
-      interval: 1m
+      interval: 90s
 
     webhooks:
     - name: stg-equals-prod-images
@@ -169,7 +169,7 @@ spec:
     port: 3001
     targetPort: http
   analysis:
-    interval: 60s
+    interval: 120s
     threshold: 2
     maxWeight: 75
     stepWeight: 25
@@ -188,7 +188,7 @@ spec:
         namespace: infra
       thresholdRange:
         min: 99
-      interval: 1m
+      interval: 90s
 
     webhooks:
     - name: stg-equals-prod-images
