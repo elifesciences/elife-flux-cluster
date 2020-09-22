@@ -21,7 +21,7 @@ spec:
     prometheusOperator:
       resources:
         limits:
-          memory: 150Mi
+          memory: 300Mi
         requests:
           memory: 150Mi
 
