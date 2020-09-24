@@ -86,9 +86,9 @@ spec:
         requests:
           memory: 150Mi
           cpu: 200m
-      continuumApiUrl: "http://continuumtest--gateway.elife.internal"
-      continuumLoginUrl: "https://continuumtest--cdn-journal.elifesciences.org/submit"
-      continuumLogoutUrl: "https://continuumtest--cdn-journal.elifesciences.org/log-out"
+      continuumApiUrl: "http://prod--gateway.elife.internal"
+      continuumLoginUrl: "https://api.elifesciences.org/submit"
+      continuumLogoutUrl: "https://api.elifesciences.org/log-out"
       elifeApiSecret: "libero-reviewer--prod-elife-api"
       continuumJwtSecret: "libero-reviewer--prod-continuum-journal-jwt"
       replicaCount: 2
