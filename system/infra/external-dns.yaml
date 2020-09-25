@@ -9,7 +9,7 @@ spec:
   chart:
     repository: https://charts.bitnami.com/bitnami
     name: external-dns
-    version: 3.4.1
+    version: 3.4.2
 
   values:
     replicas: 1
