@@ -39,7 +39,7 @@ spec:
     submission:
       image:
         repository: liberoadmin/reviewer-submission
-        tag: master-9fc92c18-20201001.1240
+        tag: master-f6745805-20201001.1328
       resources:
         requests:
           memory: 300Mi
