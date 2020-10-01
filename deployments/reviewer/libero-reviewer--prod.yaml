@@ -127,7 +127,7 @@ spec:
         tag: chart-integration-1948928d
       fromAddress: no-reply@elifesciences.org
       subjectline: Reviewer Status Report
-      recipient: "xpub-alerts@elifesciences.org"
+      recipient: "xpub-tech-alerts@elifesciences.org"
       ssmtpConfSecret: "libero-reviewer--prod-reporter-ssmtp"
       schedules:
       - name: 8am
