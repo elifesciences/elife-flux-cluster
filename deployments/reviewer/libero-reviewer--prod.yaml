@@ -59,7 +59,7 @@ spec:
         sesSecret: "libero-reviewer--prod-ses"
         sesRegion: "us-east-1"
         sendMail: true
-        sender: "prod-rc-noreply@elifesciences.org"
+        sender: "noreply@elifesciences.org"
       replicaCount: 2
       podDisruptionBudget:
         enabled: true
