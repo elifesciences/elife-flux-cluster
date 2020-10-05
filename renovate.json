@@ -78,6 +78,15 @@
         "datasources": ["helm"],
         "managers": ["regex"],
         "packageNames": [
+          "flux"
+        ],
+        "automerge": true,
+        "registryUrls": ["https://charts.fluxcd.io"]
+      },
+      {
+        "datasources": ["helm"],
+        "managers": ["regex"],
+        "packageNames": [
           "external-dns"
         ],
         "automerge": false,
