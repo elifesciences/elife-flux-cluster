@@ -1,0 +1,22 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: flux
+  namespace: flux
+
+spec:
+  releaseName: flux
+  chart:
+    repository: https://charts.fluxcd.io
+    name: flux
+    version: 1.4.0
+
+  values:
+    git:
+      url: git@github.com:elifesciences/elife-flux-test
+    syncGarbageCollection:
+      enabled: true
+    prometheus:
+      serviceMonitor:
+        create: true
+        namespace: monitoring
