@@ -13,7 +13,7 @@ spec:
 
   values:
     git:
-      url: git@github.com:elifesciences/elife-flux-test
+      url: git@github.com:elifesciences/elife-flux-cluster
     syncGarbageCollection:
       enabled: true
     prometheus:
