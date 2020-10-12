@@ -19,9 +19,9 @@ spec:
           Ready replicas doesn't match replica spec
           ReplicaSet probably failed to create Deployments.
     - alert: NodeCPULoadHigh
-      expr: avg_over_time(instance:node_load1_per_cpu:ratio[5m]) > 1.5
+      expr: avg_over_time(instance:node_load1_per_cpu:ratio[5m]) > 2
       labels:
         severity: warning
       annotations:
         message: |
-          Load1 / CPU > 1.5 for over five minutes on {{ $labels.instance }}
+          Load1 / CPU > 2 for over ten minutes on {{ $labels.instance }}
