@@ -34,7 +34,7 @@ get-started-helm](https://docs.fluxcd.io/en/stable/tutorials/get-started-helm/).
          --set git.ssh.secretName=flux-git-deploy \
          --set helm.versions=v3 \
          --set statusUpdateInterval="90s" \
-         --set resources.limits.memory=1Gi \
+         --set resources.limits.memory=2Gi \
          --set resources.requests.memory=500Mi \
          --set resources.requests.cpu=400m \
          --set prometheus.serviceMonitor.create=true \
