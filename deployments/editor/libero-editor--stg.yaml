@@ -20,14 +20,22 @@ spec:
     replicaCount: 1
     ingress:
       host: libero-editor--test-cluster.elifesciences.org
-
     client:
       image:
         repository: liberoadmin/editor-client
         tag: 0.0.2
-
     articleStore:
       image:
         repository: liberoadmin/editor-article-store
         tag: 0.0.2
+
+    database:
+      secret: libero-editor--stg-database-secret
+      name: 'editor'
+    
+    aws:
+      region: 'us-east-1'
+      secret: libero-editor--stg-aws-secret
+      sqsUrl: ''
+      bucket: 'prod-elife-editor'
       
