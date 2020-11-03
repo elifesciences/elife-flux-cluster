@@ -2,7 +2,7 @@
   apiVersion: helm.fluxcd.io/v1
   kind: HelmRelease
   metadata:
-    name: libero-editor--stg
+    name: libero-editor--prod
     namespace: editor
     annotations:
       fluxcd.io/automated: "true"
@@ -10,7 +10,7 @@
       filter.fluxcd.io/articleStore: semver:*
   
 spec:
-  releaseName: libero-editor--stg
+  releaseName: libero-editor--prod
   chart:
     git: https://github.com/elifesciences/libero-editor-formula
     path: helm/libero-editor
@@ -19,7 +19,7 @@ spec:
   values:
     replicaCount: 1
     ingress:
-      host: libero-editor--test-cluster.elifesciences.org
+      host: editor.elifesciences.org
     client:
       image:
         repository: liberoadmin/editor-client
@@ -30,12 +30,12 @@ spec:
         tag: 0.0.2
 
     database:
-      secret: libero-editor--stg-database-secret
+      secret: libero-editor--prod-database-secret
       name: 'editor'
     
     aws:
       region: 'us-east-1'
-      secret: libero-editor--stg-aws-secret
+      secret: libero-editor--prod-aws-secret
       sqsUrl: ''
-      bucket: 'stg-elife-editor'
+      bucket: 'prod-elife-editor'
       
