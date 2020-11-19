@@ -19,6 +19,12 @@ spec:
     image:
       repository: elifesciences/sciencebeam
       tag: 0.0.8
+  resources:
+    limits:
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 1Gi
 
     grobid:
       resources:
