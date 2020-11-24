@@ -81,7 +81,7 @@ spec:
     continuumAdaptor:
       image:
         repository: liberoadmin/continuum-adaptor
-        tag: master-c398a21d-20200914.0759
+        tag: master-55b3b4e7-20201124.1541
       resources:
         requests:
           memory: 150Mi
