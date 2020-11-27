@@ -20,11 +20,10 @@
         "datasources": ["helm"],
         "managers": ["regex"],
         "packageNames": [
-          "prometheus-operator",
-          "oauth2-proxy"
+          "kube-prometheus-stack"
         ],
         "automerge": true,
-        "registryUrls": ["https://kubernetes-charts.storage.googleapis.com/"]
+        "registryUrls": ["https://prometheus-community.github.io/helm-charts"]
       },
       {
         "datasources": ["helm"],
