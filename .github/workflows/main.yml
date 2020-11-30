@@ -17,6 +17,7 @@ jobs:
         uses: stefanprodan/hrval-action@master
         with:
           helmRelease: system
+          helmVersion: v3
 
       - name: Validate Helm Releases -- Deployments
         uses: stefanprodan/hrval-action@master
