@@ -9,7 +9,7 @@ spec:
   chart:
     repository: https://prometheus-community.github.io/helm-charts
     name: kube-prometheus-stack
-    version: 9.3.4
+    version: 12.2.4
 
   values:
     defaultRules:
