@@ -9,7 +9,7 @@ spec:
   chart:
     repository: https://flagger.app
     name: flagger
-    version: 1.4.1
+    version: 1.4.2
 
   values:
     metricsServer: http://monitoring-prometheus-stac-prometheus.monitoring:9090
