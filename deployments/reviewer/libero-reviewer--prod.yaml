@@ -5,7 +5,7 @@ metadata:
   name: libero-reviewer--prod
   namespace: reviewer
   annotations:
-    fluxcd.io/automated: "true"
+    fluxcd.io/automated: "false"
     filter.fluxcd.io/submission: glob:master-*-*
     filter.fluxcd.io/client: glob:master-*-*
     filter.fluxcd.io/continuumAdaptor: glob:master-*-*
