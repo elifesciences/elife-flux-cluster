@@ -68,7 +68,7 @@ spec:
     client:
       image:
         repository: liberoadmin/reviewer-client
-        tag: master-371016e5-20210105.1053
+        tag: master-aa03656f-20210106.1248
       resources:
         requests:
           memory: 50Mi
