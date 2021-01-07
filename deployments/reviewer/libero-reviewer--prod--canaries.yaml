@@ -47,8 +47,8 @@ spec:
         type: bash
         cmd: >
           diff
-          <(helmv3 -n reviewer get values libero-reviewer--stg  | grep 'tag: master' | sort)
-          <(helmv3 -n reviewer get values libero-reviewer--prod | grep 'tag: master' | sort)
+          <(helmv3 -n reviewer get values libero-reviewer--stg -o json | jq -r '.client.image.tag')
+          <(helmv3 -n reviewer get values libero-reviewer--prod -o json | jq -r '.client.image.tag')
     - name: stg-equals-prod-chart
       type: pre-rollout
       url: http://infra-flagger-loadtester/
@@ -123,8 +123,8 @@ spec:
         type: bash
         cmd: >
           diff
-          <(helmv3 -n reviewer get values libero-reviewer--stg  | grep 'tag: master' | sort)
-          <(helmv3 -n reviewer get values libero-reviewer--prod | grep 'tag: master' | sort)
+          <(helmv3 -n reviewer get values libero-reviewer--stg -o json | jq -r '.submission.image.tag')
+          <(helmv3 -n reviewer get values libero-reviewer--prod -o json | jq -r '.submission.image.tag')
     - name: stg-equals-prod-chart
       type: pre-rollout
       url: http://infra-flagger-loadtester/
@@ -199,8 +199,8 @@ spec:
         type: bash
         cmd: >
           diff
-          <(helmv3 -n reviewer get values libero-reviewer--stg  | grep 'tag: master' | sort)
-          <(helmv3 -n reviewer get values libero-reviewer--prod | grep 'tag: master' | sort)
+          <(helmv3 -n reviewer get values libero-reviewer--stg -o json | jq -r '.continuumAdaptor.image.tag')
+          <(helmv3 -n reviewer get values libero-reviewer--prod -o json | jq -r '.continuumAdaptor.image.tag')
     - name: stg-equals-prod-chart
       type: pre-rollout
       url: http://infra-flagger-loadtester/
