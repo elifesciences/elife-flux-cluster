@@ -20,7 +20,8 @@ Such a scenario is probably better served with Vault.
 
 - install `kubeseal` client from [Github Releases Page](https://github.com/bitnami-labs/sealed-secrets/releases)
 - use `kubeseal-public.pem` to encrypt a secret (see [docs](https://github.com/bitnami-labs/sealed-secrets#usage))
-- see [k8s docs](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl/#create-a-secret) for ways to create a `Secret`
+- see [k8s docs](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl/#create-a-secret) for ways to create a `Secret` through cli
+- see [k8 docs](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-config-file/) for ways to create a `Secret` through config `yaml` files
 
 ```
 kubeseal \
