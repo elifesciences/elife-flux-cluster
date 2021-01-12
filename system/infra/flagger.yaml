@@ -9,10 +9,10 @@ spec:
   chart:
     repository: https://flagger.app
     name: flagger
-    version: 1.2.0
+    version: 1.6.0
 
   values:
-    metricsServer: http://monitoring-prometheus-oper-prometheus.monitoring:9090
+    metricsServer: http://monitoring-prometheus-stac-prometheus.monitoring:9090
     meshProvider: nginx
 
 ---
@@ -54,7 +54,7 @@ metadata:
 spec:
   provider:
     type: prometheus
-    address: http://monitoring-prometheus-oper-prometheus.monitoring:9090
+    address: http://monitoring-prometheus-stac-prometheus.monitoring:9090
   query: >
     sum(
         rate(

@@ -64,8 +64,8 @@ spec:
       url: http://infra-flagger-loadtester/
       timeout: 600s
       metadata:
-        type: helmv3
-        cmd: "test -n reviewer libero-reviewer--stg"
+        type: cmd
+        cmd: "helmv3 test -n reviewer libero-reviewer--stg || true"
 
     - name: load-test-landingpage
       url: http://infra-flagger-loadtester/
@@ -140,8 +140,8 @@ spec:
       url: http://infra-flagger-loadtester/
       timeout: 600s
       metadata:
-        type: helmv3
-        cmd: "test -n reviewer libero-reviewer--stg"
+        type: cmd
+        cmd: "helmv3 test -n reviewer libero-reviewer--stg || true"
 
     - name: load-test-graphql-endpoint
       url: http://infra-flagger-loadtester/
@@ -216,8 +216,8 @@ spec:
       url: http://infra-flagger-loadtester/
       timeout: 600s
       metadata:
-        type: helmv3
-        cmd: "test -n reviewer libero-reviewer--stg"
+        type: cmd
+        cmd: "helmv3 test -n reviewer libero-reviewer--stg || true"
 
     - name: load-test-auth-login-endpoint
       url: http://infra-flagger-loadtester/
