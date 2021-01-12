@@ -19,7 +19,7 @@ spec:
   values:
     replicaCount: 1
     ingress:
-      host: libero-editor--test-cluster.elifesciences.org
+      host: libero-editor--staging.elifesciences.org
     client:
       image:
         repository: liberoadmin/editor-client
