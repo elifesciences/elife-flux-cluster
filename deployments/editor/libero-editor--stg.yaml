@@ -1,40 +1,40 @@
 ---
-  apiVersion: helm.fluxcd.io/v1
-  kind: HelmRelease
-  metadata:
-    name: libero-editor--stg
-    namespace: editor
-    annotations:
-      fluxcd.io/automated: "true"
-      filter.fluxcd.io/client: semver:*
-      filter.fluxcd.io/articleStore: semver:*
-  
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: libero-editor--stg
+  namespace: editor
+  annotations:
+    fluxcd.io/automated: "true"
+    filter.fluxcd.io/client: semver:*
+    filter.fluxcd.io/articleStore: semver:*
+
 spec:
-  releaseName: libero-editor--stg
-  chart:
-    git: https://github.com/elifesciences/libero-editor-formula
-    path: helm/libero-editor
-    ref: master
+releaseName: libero-editor--stg
+chart:
+  git: https://github.com/elifesciences/libero-editor-formula
+  path: helm/libero-editor
+  ref: master
 
-  values:
-    replicaCount: 1
-    ingress:
-      host: libero-editor--staging.elifesciences.org
-    client:
-      image:
-        repository: liberoadmin/editor-client
-        tag: 0.0.2
-    articleStore:
-      image:
-        repository: liberoadmin/editor-article-store
-        tag: 0.0.2
+values:
+  replicaCount: 1
+  ingress:
+    host: libero-editor--staging.elifesciences.org
+  client:
+    image:
+      repository: liberoadmin/editor-client
+      tag: 0.0.2
+  articleStore:
+    image:
+      repository: liberoadmin/editor-article-store
+      tag: 0.0.2
 
-    database:
-      secret: libero-editor--stg-database-secret
-      name: 'editor'
-    
-    aws:
-      region: 'us-east-1'
-      secret: libero-editor--stg-aws-secret
-      sqsUrl: 'https://sqs.us-east-1.amazonaws.com/512686554592/elife-libero-editor-import--staging'
-      bucket: 'stg-elife-editor'
+  database:
+    secret: libero-editor--stg-database-secret
+    name: 'editor'
+  
+  aws:
+    region: 'us-east-1'
+    secret: libero-editor--stg-aws-secret
+    sqsUrl: 'https://sqs.us-east-1.amazonaws.com/512686554592/elife-libero-editor-import--staging'
+    bucket: 'stg-elife-editor'
