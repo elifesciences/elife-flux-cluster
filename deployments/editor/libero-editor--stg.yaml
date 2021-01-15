@@ -6,8 +6,8 @@ metadata:
   namespace: editor
   annotations:
     fluxcd.io/automated: "true"
-    filter.fluxcd.io/client: semver:*
-    filter.fluxcd.io/articleStore: semver:*
+    filter.fluxcd.io/client: glob:master-*-*
+    filter.fluxcd.io/articleStore: glob:master-*-*
 
 spec:
   releaseName: libero-editor--stg
@@ -23,11 +23,11 @@ spec:
     client:
       image:
         repository: liberoadmin/editor-client
-        tag: 0.0.2
+        tag: master-249f488e-20210114.1654
     articleStore:
       image:
         repository: liberoadmin/editor-article-store
-        tag: 0.0.2
+        tag: master-de03b556-20210115.0831
 
     database:
       secret: libero-editor--stg-database-secret
