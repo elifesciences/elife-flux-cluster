@@ -23,7 +23,7 @@ spec:
     client:
       image:
         repository: liberoadmin/editor-client
-        tag: master-249f488e-20210114.1654
+        tag: master-3d78fd57-20210115.1545
     articleStore:
       image:
         repository: liberoadmin/editor-article-store
@@ -32,7 +32,6 @@ spec:
     database:
       secret: libero-editor--stg-database-secret
       name: 'editor'
-    
     aws:
       region: 'us-east-1'
       secret: libero-editor--stg-aws-secret
