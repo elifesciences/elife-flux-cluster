@@ -27,7 +27,7 @@ spec:
     articleStore:
       image:
         repository: liberoadmin/editor-article-store
-        tag: master-cc426c3c-20210119.1454
+        tag: master-f0316623-20210119.1526
 
     database:
       secret: libero-editor--stg-database-secret
