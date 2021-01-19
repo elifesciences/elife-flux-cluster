@@ -41,7 +41,7 @@ spec:
       nginxWorkerTimeoutSeconds: 600
       image:
         repository: liberoadmin/reviewer-submission
-        tag: master-477ed98c-20210111.1034
+        tag: master-4960d173-20210119.1137
       sciencebeam:
         convertUrl: "http://sciencebeam--reviewer:8075/api/convert"
       s3:
@@ -63,12 +63,12 @@ spec:
       replicaCount: 1
       image:
         repository: liberoadmin/reviewer-client
-        tag: master-f3a6a7fa-20210114.1505
+        tag: master-79def9fb-20210115.1520
 
     continuumAdaptor:
       image:
         repository: liberoadmin/continuum-adaptor
-        tag: master-03471d01-20210108.1252
+        tag: master-73b9f4bb-20210115.1716
       continuumApiUrl: "http://continuumtest--gateway.elife.internal"
       continuumLoginUrl: "https://continuumtest--cdn-journal.elifesciences.org/submit"
       continuumLogoutUrl: "https://continuumtest--cdn-journal.elifesciences.org/log-out"
