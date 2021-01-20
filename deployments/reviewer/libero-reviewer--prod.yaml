@@ -124,7 +124,7 @@ spec:
       enabled: true
       image:
         repository: liberoadmin/reviewer-reporter
-        tag: chart-integration-1948928d
+        tag: chart-integration-2b04fa16-20210120.0909
       fromAddress: no-reply@elifesciences.org
       subjectline: Reviewer Status Report
       recipient: "xpub-tech-alerts@elifesciences.org"
