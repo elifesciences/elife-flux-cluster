@@ -30,6 +30,8 @@ spec:
         tag: 0.0.3
 
     database:
+      endpoint: 'documentdbcluster-2287lljntodp.cluster-cxyopn44uqbl.us-east-1.docdb.amazonaws.com:27017'
+      query: 'ssl=true&replicaSet=rs0&readPreference=secondaryPreferred'
       secret: libero-editor--prod-database-secret
       name: 'editor'
     aws:

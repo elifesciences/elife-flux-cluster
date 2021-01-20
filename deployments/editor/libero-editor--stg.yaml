@@ -30,6 +30,8 @@ spec:
         tag: master-7a03fbb1-20210120.1554
 
     database:
+      endpoint: 'documentdbcluster-yvl13z5rkw22.cluster-cxyopn44uqbl.us-east-1.docdb.amazonaws.com:27017'
+      query: 'ssl=true&replicaSet=rs0&readPreference=secondaryPreferred'
       secret: libero-editor--stg-database-secret
       name: 'editor'
     aws:
