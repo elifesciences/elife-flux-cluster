@@ -38,4 +38,4 @@ spec:
       region: 'us-east-1'
       secret: libero-editor--prod-aws-secret
       sqsUrl: 'https://sqs.us-east-1.amazonaws.com/512686554592/elife-libero-editor-import--prod'
-      bucket: 'prod-elife-editor'
+      bucket: 'prod-elife-libero-editor'
