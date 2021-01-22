@@ -38,4 +38,4 @@ spec:
       region: 'us-east-1'
       secret: libero-editor--stg-aws-secret
       sqsUrl: 'https://sqs.us-east-1.amazonaws.com/512686554592/elife-libero-editor-import--staging'
-      bucket: 'stg-elife-editor'
+      bucket: 'staging-elife-libero-editor'
