@@ -14,13 +14,13 @@ jobs:
           submodules: "true"
 
       - name: Validate Helm Releases -- System
-        uses: erkannt/hrval-action@master
+        uses: stefanprodan/hrval-action@master
         with:
           helmRelease: system
           helmVersion: v3
 
       - name: Validate Helm Releases -- Deployments
-        uses: erkannt/hrval-action@master
+        uses: stefanprodan/hrval-action@master
         with:
           helmRelease: deployments
           helmVersion: v3
