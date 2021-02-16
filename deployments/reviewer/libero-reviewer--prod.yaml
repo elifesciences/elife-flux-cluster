@@ -15,7 +15,7 @@ spec:
   chart:
     repository: https://libero.github.io/reviewer
     name: libero-reviewer
-    version: 0.32.0
+    version: 0.33.0
 
   values:
     ingress:
@@ -128,7 +128,7 @@ spec:
       fromAddress: no-reply@elifesciences.org
       subjectline: Reviewer Status Report
       recipient: "xpub-tech-alerts@elifesciences.org"
-      ssmtpConfSecret: "libero-reviewer--prod-reporter-ssmtp"
+      ssmtpSecret: "libero-reviewer--prod-reporter-ssmtp"
       schedules:
       - name: 8am
         schedule: "0  8 * * *"
