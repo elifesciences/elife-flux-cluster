@@ -23,11 +23,11 @@ spec:
     client:
       image:
         repository: liberoadmin/editor-client
-        tag: master-45b23aca-20210204.1527
+        tag: master-b72bf087-20210210.0922
     articleStore:
       image:
         repository: liberoadmin/editor-article-store
-        tag: master-79f6abd9-20210204.1523
+        tag: master-1160fe6d-20210212.1208
 
     database:
       endpoint: 'documentdbcluster-yvl13z5rkw22.cluster-cxyopn44uqbl.us-east-1.docdb.amazonaws.com:27017'
