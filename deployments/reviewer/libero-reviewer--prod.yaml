@@ -128,7 +128,7 @@ spec:
       fromAddress: no-reply@elifesciences.org
       subjectline: Reviewer Status Report
       recipient: "xpub-tech-alerts@elifesciences.org"
-      ssmtpSecret: "libero-reviewer--prod-reporter-ssmtp"
+      ssmtpConfSecret: "libero-reviewer--prod-reporter-ssmtp"
       schedules:
       - name: 8am
         schedule: "0  8 * * *"
