@@ -15,7 +15,7 @@ spec:
   chart:
     repository: https://libero.github.io/reviewer
     name: libero-reviewer
-    version: 0.34.0
+    version: 0.35.0
 
   values:
     ingress:
@@ -124,11 +124,11 @@ spec:
       enabled: true
       image:
         repository: liberoadmin/reviewer-reporter
-        tag: chart-integration-2b04fa16-20210120.0909
+        tag: master-32175e71-20210219.1626
       fromAddress: no-reply@elifesciences.org
       subjectline: Reviewer Status Report
       recipient: "xpub-tech-alerts@elifesciences.org"
-      ssmtpConfSecret: "libero-reviewer--prod-reporter-ssmtp"
+      msmtprcConfSecret: "libero-reviewer--prod-reporter-msmtprc"
       schedules:
       - name: 8am
         schedule: "0  8 * * *"
