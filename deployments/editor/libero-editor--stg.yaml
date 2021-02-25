@@ -27,7 +27,7 @@ spec:
     articleStore:
       image:
         repository: liberoadmin/editor-article-store
-        tag: master-8358ba13-20210225.1013
+        tag: master-f1ef8e58-20210225.1328
 
     database:
       endpoint: 'documentdbcluster-yvl13z5rkw22.cluster-cxyopn44uqbl.us-east-1.docdb.amazonaws.com:27017'
