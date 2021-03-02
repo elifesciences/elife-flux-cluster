@@ -75,6 +75,15 @@
         "datasources": ["helm"],
         "managers": ["regex"],
         "packageNames": [
+          "sealed-secrets"
+        ],
+        "automerge": false,
+        "registryUrls": ["https://bitnami-labs.github.io/sealed-secrets"]
+      },
+      {
+        "datasources": ["helm"],
+        "managers": ["regex"],
+        "packageNames": [
           "flux"
         ],
         "automerge": true,

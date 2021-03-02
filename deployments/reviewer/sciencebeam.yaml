@@ -18,7 +18,7 @@ spec:
   values:
     image:
       repository: elifesciences/sciencebeam
-      tag: 0.0.8
+      tag: 0.0.10
 
     grobid:
       resources:

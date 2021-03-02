@@ -15,7 +15,7 @@ spec:
   chart:
     repository: https://libero.github.io/reviewer
     name: libero-reviewer
-    version: 0.31.1
+    version: 0.37.0
 
   values:
     ingress:
@@ -39,7 +39,7 @@ spec:
     submission:
       image:
         repository: liberoadmin/reviewer-submission
-        tag: master-f26c406d-20201214.1330
+        tag: master-4960d173-20210119.1137
       resources:
         requests:
           memory: 300Mi
@@ -68,7 +68,7 @@ spec:
     client:
       image:
         repository: liberoadmin/reviewer-client
-        tag: master-aa03656f-20210106.1248
+        tag: master-08c7d355-20210224.1550
       resources:
         requests:
           memory: 50Mi
@@ -81,7 +81,7 @@ spec:
     continuumAdaptor:
       image:
         repository: liberoadmin/continuum-adaptor
-        tag: master-9b060f43-20210105.1404
+        tag: master-73b9f4bb-20210115.1716
       resources:
         requests:
           memory: 150Mi
@@ -124,11 +124,11 @@ spec:
       enabled: true
       image:
         repository: liberoadmin/reviewer-reporter
-        tag: chart-integration-1948928d
+        tag: master-32175e71-20210219.1626
       fromAddress: no-reply@elifesciences.org
       subjectline: Reviewer Status Report
       recipient: "xpub-tech-alerts@elifesciences.org"
-      ssmtpConfSecret: "libero-reviewer--prod-reporter-ssmtp"
+      msmtprcConfSecret: "libero-reviewer--prod-reporter-msmtprc"
       schedules:
       - name: 8am
         schedule: "0  8 * * *"

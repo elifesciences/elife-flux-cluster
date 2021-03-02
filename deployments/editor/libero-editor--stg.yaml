@@ -1,0 +1,41 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: libero-editor--stg
+  namespace: editor
+  annotations:
+    fluxcd.io/automated: "true"
+    filter.fluxcd.io/client: glob:master-*-*
+    filter.fluxcd.io/articleStore: glob:master-*-*
+
+spec:
+  releaseName: libero-editor--stg
+  chart:
+    git: https://github.com/elifesciences/libero-editor-formula
+    path: helm/libero-editor
+    ref: master
+
+  values:
+    replicaCount: 1
+    ingress:
+      host: libero-editor--staging.elifesciences.org
+    client:
+      image:
+        repository: liberoadmin/editor-client
+        tag: master-cb3ea208-20210301.1522
+    articleStore:
+      image:
+        repository: liberoadmin/editor-article-store
+        tag: master-8ef9c3f7-20210302.1139
+
+    database:
+      endpoint: 'documentdbcluster-yvl13z5rkw22.cluster-cxyopn44uqbl.us-east-1.docdb.amazonaws.com:27017'
+      query: 'ssl=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false'
+      secret: libero-editor--stg-database-secret
+      name: 'editor'
+    aws:
+      region: 'us-east-1'
+      secret: libero-editor--stg-aws-secret
+      sqsUrl: 'https://sqs.us-east-1.amazonaws.com/512686554592/elife-libero-editor-import--staging'
+      bucket: 'staging-elife-libero-editor'
