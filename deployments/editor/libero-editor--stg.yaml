@@ -28,6 +28,10 @@ spec:
       image:
         repository: liberoadmin/editor-article-store
         tag: master-ab277dce-20210331.1554
+      resources:
+          request:
+            memory: 500Mi
+            cpu: 200m
 
     database:
       endpoint: 'documentdbcluster-yvl13z5rkw22.cluster-cxyopn44uqbl.us-east-1.docdb.amazonaws.com:27017'
