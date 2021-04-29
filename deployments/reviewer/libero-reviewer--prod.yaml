@@ -127,7 +127,7 @@ spec:
         tag: master-32175e71-20210219.1626
       fromAddress: no-reply@elifesciences.org
       subjectline: Reviewer Status Report
-      recipient: "xpub-tech-alerts@elifesciences.org"
+      recipient: "reviewer-tech-alerts@elifesciences.org"
       msmtprcConfSecret: "libero-reviewer--prod-reporter-msmtprc"
       schedules:
       - name: 8am
