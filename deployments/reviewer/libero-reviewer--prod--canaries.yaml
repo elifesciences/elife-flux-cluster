@@ -65,7 +65,8 @@ spec:
       timeout: 600s
       metadata:
         type: cmd
-        cmd: "helmv3 test -n reviewer libero-reviewer--stg || true"
+        cmd: "echo FIXME: Skipping running browser tests..."
+#        cmd: "helmv3 test -n reviewer libero-reviewer--stg || true"
 
     - name: load-test-landingpage
       url: http://infra-flagger-loadtester/
@@ -141,7 +142,8 @@ spec:
       timeout: 600s
       metadata:
         type: cmd
-        cmd: "helmv3 test -n reviewer libero-reviewer--stg || true"
+        cmd: "echo FIXME: Skipping running browser tests..."
+#        cmd: "helmv3 test -n reviewer libero-reviewer--stg || true"
 
     - name: load-test-graphql-endpoint
       url: http://infra-flagger-loadtester/
@@ -217,7 +219,8 @@ spec:
       timeout: 600s
       metadata:
         type: cmd
-        cmd: "helmv3 test -n reviewer libero-reviewer--stg || true"
+        cmd: "echo FIXME: Skipping running browser tests..."
+#        cmd: "helmv3 test -n reviewer libero-reviewer--stg || true"
 
     - name: load-test-auth-login-endpoint
       url: http://infra-flagger-loadtester/
