@@ -9,7 +9,7 @@ spec:
   chart:
     repository: https://helm-charts.newrelic.com
     name: nri-bundle
-    version: 2.10.2
+    version: 2.10.3
 
   values:
     global:
