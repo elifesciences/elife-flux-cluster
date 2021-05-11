@@ -28,13 +28,12 @@ spec:
     articleStore:
       image:
         repository: liberoadmin/editor-article-store
-        tag: master-ea5d9744-20210507.1529
+        tag: master-e396c2fa-20210511.1300
       resources:
         request:
           memory: 500Mi
           cpu: 200m
       importTransformEnabled: 'true'
-      
     transformer:
       image:
         repository: elifesciences/basex-transformer
