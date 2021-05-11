@@ -33,6 +33,8 @@ spec:
         request:
           memory: 500Mi
           cpu: 200m
+      importTransformEnabled: 'true'
+      
     transformer:
       image:
         repository: elifesciences/basex-transformer
