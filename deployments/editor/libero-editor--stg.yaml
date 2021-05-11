@@ -8,6 +8,7 @@ metadata:
     fluxcd.io/automated: "true"
     filter.fluxcd.io/client: glob:master-*-*
     filter.fluxcd.io/articleStore: glob:master-*-*
+    filter.fluxcd.io/transformer: glob:master-*-*
 
 spec:
   releaseName: libero-editor--stg
@@ -28,6 +29,14 @@ spec:
       image:
         repository: liberoadmin/editor-article-store
         tag: master-ea5d9744-20210507.1529
+      resources:
+        request:
+          memory: 500Mi
+          cpu: 200m
+    transformer:
+      image:
+        repository: elifesciences/basex-transformer
+        tag: master-511598d8-20210428.0822
       resources:
         request:
           memory: 500Mi

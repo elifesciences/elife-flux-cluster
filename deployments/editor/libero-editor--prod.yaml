@@ -8,6 +8,7 @@ metadata:
     fluxcd.io/automated: "true"
     filter.fluxcd.io/client: semver:*
     filter.fluxcd.io/articleStore: semver:*
+    filter.fluxcd.io/transformer: glob:master-*-*
 
 spec:
   releaseName: libero-editor--prod
@@ -32,6 +33,14 @@ spec:
           request:
             memory: 500Mi
             cpu: 200m
+    transformer:
+      image:
+        repository: elifesciences/basex-transformer
+        tag: master-511598d8-20210428.0822
+      resources:
+        request:
+          memory: 500Mi
+          cpu: 200m
 
     database:
       endpoint: 'documentdbcluster-2287lljntodp.cluster-cxyopn44uqbl.us-east-1.docdb.amazonaws.com:27017'
