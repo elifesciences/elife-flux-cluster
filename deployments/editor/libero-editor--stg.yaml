@@ -24,7 +24,7 @@ spec:
     client:
       image:
         repository: liberoadmin/editor-client
-        tag: master-4a61e544-20210507.1431
+        tag: master-dcac3606-20210521.1510
     articleStore:
       image:
         repository: liberoadmin/editor-article-store
