@@ -9,7 +9,7 @@ spec:
   chart:
     repository: https://charts.jetstack.io
     name: cert-manager
-    version: v1.2.0
+    version: v1.3.1
 
   values:
     installCRDs: true
