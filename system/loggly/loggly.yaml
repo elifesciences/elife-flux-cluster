@@ -200,7 +200,7 @@ spec:
         command: ['sh', '-c', '']
       containers:
       - name: fluentd-loggly
-        image: fluent/fluentd-kubernetes-daemonset:v1.12-debian-loggly-1
+        image: fluent/fluentd-kubernetes-daemonset:v1.12.4-debian-loggly-1.0
         env:
         - name: TOKEN
           valueFrom:
