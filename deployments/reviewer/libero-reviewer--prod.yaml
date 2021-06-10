@@ -39,7 +39,7 @@ spec:
     submission:
       image:
         repository: liberoadmin/reviewer-submission
-        tag: master-4960d173-20210119.1137
+        tag: master-69788091-20210511.1029
       resources:
         requests:
           memory: 300Mi
@@ -81,7 +81,7 @@ spec:
     continuumAdaptor:
       image:
         repository: liberoadmin/continuum-adaptor
-        tag: master-73b9f4bb-20210115.1716
+        tag: master-45b91fca-20210309.1019
       resources:
         requests:
           memory: 150Mi
