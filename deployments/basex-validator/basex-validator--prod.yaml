@@ -27,4 +27,4 @@ spec:
       replicaCount: 2
       image:
         repository: elifesciences/basex-validator
-        tag: master-f45b21f5-20210629.1354
+        tag: master-ff623d2d-20210630.1054
