@@ -63,7 +63,7 @@ spec:
       replicaCount: 1
       image:
         repository: liberoadmin/reviewer-client
-        tag: master-7224a777-20210629.1259
+        tag: master-71d9c716-20210630.1307
 
     continuumAdaptor:
       image:
