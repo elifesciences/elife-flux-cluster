@@ -36,7 +36,7 @@ spec:
     pdfService:
       image:
         repository: liberoadmin/editor-pdf-service
-        tag: master-ba9fbeff
+        tag: master-0db3c2a3
     transformer:
       image:
         repository: elifesciences/basex-transformer
