@@ -30,13 +30,13 @@ spec:
         repository: liberoadmin/editor-article-store
         tag: 0.0.4
       resources:
-          request:
-            memory: 500Mi
-            cpu: 200m
+        request:
+          memory: 500Mi
+          cpu: 200m
     pdfService:
       image:
         repository: liberoadmin/editor-pdf-service
-        tag: master-e840b2d1-20210706.1528
+        tag: master-ba9fbeff
     transformer:
       image:
         repository: elifesciences/basex-transformer
