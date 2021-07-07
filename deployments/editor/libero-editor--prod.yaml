@@ -9,6 +9,7 @@ metadata:
     filter.fluxcd.io/client: semver:*
     filter.fluxcd.io/articleStore: semver:*
     filter.fluxcd.io/transformer: glob:master-*-*
+    filter.fluxcd.io/pdfService: glob:master-*-*
 
 spec:
   releaseName: libero-editor--prod
