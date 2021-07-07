@@ -37,6 +37,8 @@ spec:
       image:
         repository: liberoadmin/editor-pdf-service
         tag: master-e840b2d1-20210706.1528
+      secret: libero-editor--prod-pdf-secret
+
     transformer:
       image:
         repository: elifesciences/basex-transformer
