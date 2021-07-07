@@ -39,7 +39,7 @@ spec:
     submission:
       image:
         repository: liberoadmin/reviewer-submission
-        tag: master-4960d173-20210119.1137
+        tag: master-2f945b7b-20210616.1223
       resources:
         requests:
           memory: 300Mi
@@ -68,7 +68,7 @@ spec:
     client:
       image:
         repository: liberoadmin/reviewer-client
-        tag: master-f4db96b6-20210510.0943
+        tag: master-71d9c716-20210630.1307
       resources:
         requests:
           memory: 50Mi
@@ -81,7 +81,7 @@ spec:
     continuumAdaptor:
       image:
         repository: liberoadmin/continuum-adaptor
-        tag: master-73b9f4bb-20210115.1716
+        tag: master-2952a7c5-20210615.1224
       resources:
         requests:
           memory: 150Mi
@@ -124,7 +124,7 @@ spec:
       enabled: true
       image:
         repository: liberoadmin/reviewer-reporter
-        tag: master-32175e71-20210219.1626
+        tag: master-30f8962d-20210528.1257
       fromAddress: no-reply@elifesciences.org
       subjectline: Reviewer Status Report
       recipient: "reviewer-tech-alerts@elifesciences.org"

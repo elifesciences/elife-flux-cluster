@@ -24,19 +24,20 @@ spec:
     client:
       image:
         repository: liberoadmin/editor-client
-        tag: master-4a61e544-20210507.1431
+        tag: master-d53fee26-20210705.1423
     articleStore:
       image:
         repository: liberoadmin/editor-article-store
-        tag: master-ea5d9744-20210507.1529
+        tag: master-22dd1ed1-20210705.1428
       resources:
         request:
           memory: 500Mi
           cpu: 200m
+      importTransformEnabled: 'true'
     pdfService:
       image:
         repository: liberoadmin/editor-pdf-service
-        tag: master-e840b2d1-20210706.1528
+        tag: master-ba9fbeff
     transformer:
       image:
         repository: elifesciences/basex-transformer

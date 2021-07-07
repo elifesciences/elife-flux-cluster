@@ -13,7 +13,8 @@
       }
     ],
     "assignees": [
-        "erkannt"
+        "erkannt",
+        "NuclearRedeye"
     ],
     "packageRules": [
       {
@@ -41,7 +42,7 @@
           "flagger",
           "loadtester"
         ],
-        "automerge": true,
+        "automerge": false,
         "registryUrls": ["https://flagger.app"]
       },
       {

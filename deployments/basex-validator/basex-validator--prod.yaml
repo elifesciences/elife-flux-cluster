@@ -1,0 +1,30 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: basex-validator
+  namespace: basex-validator
+  annotations:
+    fluxcd.io/automated: 'true'
+    filter.fluxcd.io/basexValidator: glob:master-*-*
+
+spec:
+  releaseName: basex-validator--prod
+  chart:
+    git: https://github.com/elifesciences/basex-validator-formula
+    path: helm/basex-validator
+    ref: master
+
+  values:
+    ingress:
+      host: basex-validator.elifesciences.org
+      basexValidator:
+        annotations:
+          nginx.ingress.kubernetes.io/proxy-read-timeout: "180"
+          nginx.ingress.kubernetes.io/proxy-send-timeout: "180"
+
+    basexValidator:
+      replicaCount: 2
+      image:
+        repository: elifesciences/basex-validator
+        tag: master-5ed2663e-20210706.1557
