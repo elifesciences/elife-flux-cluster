@@ -8,6 +8,7 @@ metadata:
     fluxcd.io/automated: "true"
     filter.fluxcd.io/client: glob:master-*-*
     filter.fluxcd.io/articleStore: glob:master-*-*
+    filter.fluxcd.io/pdfService: glob:master-*-*
     filter.fluxcd.io/transformer: glob:master-*-*
 
 spec:
@@ -37,7 +38,8 @@ spec:
     pdfService:
       image:
         repository: liberoadmin/editor-pdf-service
-        tag: master-0db3c2a3
+        tag: master-0db3c2a3-20210707.0951
+      secret: libero-editor--stg-pdf-secret
     transformer:
       image:
         repository: elifesciences/basex-transformer

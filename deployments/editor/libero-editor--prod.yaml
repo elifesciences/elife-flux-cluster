@@ -9,6 +9,7 @@ metadata:
     filter.fluxcd.io/client: semver:*
     filter.fluxcd.io/articleStore: semver:*
     filter.fluxcd.io/transformer: glob:master-*-*
+    filter.fluxcd.io/pdfService: glob:master-*-*
 
 spec:
   releaseName: libero-editor--prod
@@ -36,7 +37,8 @@ spec:
     pdfService:
       image:
         repository: liberoadmin/editor-pdf-service
-        tag: master-0db3c2a3
+        tag: master-0db3c2a3-20210707.0951
+      secret: libero-editor--prod-pdf-secret
     transformer:
       image:
         repository: elifesciences/basex-transformer
