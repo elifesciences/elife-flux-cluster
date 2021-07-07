@@ -33,6 +33,10 @@ spec:
         request:
           memory: 500Mi
           cpu: 200m
+    pdfService:
+      image:
+        repository: liberoadmin/editor-pdf-service
+        tag: master-e840b2d1-20210706.1528
     transformer:
       image:
         repository: elifesciences/basex-transformer
