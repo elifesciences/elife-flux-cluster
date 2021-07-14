@@ -22,6 +22,7 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/proxy-read-timeout: "180"
           nginx.ingress.kubernetes.io/proxy-send-timeout: "180"
+          nginx.ingress.kubernetes.io/proxy-body-size: 3m
 
     basexValidator:
       replicaCount: 2
