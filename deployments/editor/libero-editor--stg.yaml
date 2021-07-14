@@ -35,6 +35,7 @@ spec:
           memory: 500Mi
           cpu: 200m
       importTransformEnabled: 'true'
+      exportTransformEnabled: 'true'
     pdfService:
       image:
         repository: liberoadmin/editor-pdf-service
