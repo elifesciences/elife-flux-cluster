@@ -29,7 +29,7 @@ spec:
     articleStore:
       image:
         repository: liberoadmin/editor-article-store
-        tag: master-22dd1ed1-20210705.1428
+        tag: master-bb2b39bb-20210714.1233
       resources:
         request:
           memory: 500Mi
