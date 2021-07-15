@@ -37,7 +37,7 @@ spec:
     pdfService:
       image:
         repository: liberoadmin/editor-pdf-service
-        tag: master-0db3c2a3-20210707.0951
+        tag: master-5e95c919-20210715.1437
       secret: libero-editor--prod-pdf-secret
     transformer:
       image:
