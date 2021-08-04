@@ -25,11 +25,11 @@ spec:
     client:
       image:
         repository: liberoadmin/editor-client
-        tag: master-34cab74f-20210722.1420
+        tag: master-c1003624-20210803.1445
     articleStore:
       image:
         repository: liberoadmin/editor-article-store
-        tag: master-bb2b39bb-20210714.1233
+        tag: master-59565e6d-20210728.0904
       resources:
         request:
           memory: 500Mi
