@@ -39,7 +39,7 @@ spec:
     submission:
       image:
         repository: liberoadmin/reviewer-submission
-        tag: master-2f945b7b-20210616.1223
+        tag: master-92e81f8f-20210806.0954
       resources:
         requests:
           memory: 300Mi
@@ -68,7 +68,7 @@ spec:
     client:
       image:
         repository: liberoadmin/reviewer-client
-        tag: master-0e742137-20210805.1827
+        tag: master-55d5cc9d-20210809.1802
       resources:
         requests:
           memory: 50Mi
