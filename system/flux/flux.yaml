@@ -15,7 +15,7 @@ spec:
     git:
       url: git@github.com:elifesciences/elife-flux-cluster
     registry:
-      automationInterval: "60m"
+      automationInterval: "6h"
     syncGarbageCollection:
       enabled: true
     prometheus:
