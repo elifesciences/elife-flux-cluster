@@ -30,7 +30,7 @@ Copied from [builder docs](https://github.com/elifesciences/builder/blob/master/
 
 1. check [aws docs]( https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html ) for availability and notes
 1. use [pluto](https://github.com/FairwindsOps/pluto) to check for api deprecations  
-   `pluto detect-helm --helm-version 3 -owide`  
+   `pluto detect-helm -owide`
    `DEPRECATED` is okay, but if an api is `DELETED` in the new k8s version you will have to fix the affected charts.
 1. bump k8s version (one minor at a time) in [elife.yaml](https://github.com/elifesciences/builder/blob/master/projects/elife.yaml)
 1. apply using `builder/bldr update_infrastructure:kubernetes-aws--flux-prod`  
