@@ -124,7 +124,7 @@ spec:
       enabled: true
       image:
         repository: liberoadmin/reviewer-reporter
-        tag: master-30f8962d-20210528.1257
+        tag: master-d592a2b8-20211020.0824
       fromAddress: no-reply@elifesciences.org
       subjectline: Reviewer Status Report
       recipient: "reviewer-tech-alerts@elifesciences.org"
