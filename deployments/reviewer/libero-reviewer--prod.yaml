@@ -68,7 +68,7 @@ spec:
     client:
       image:
         repository: liberoadmin/reviewer-client
-        tag: master-05bb1099-20210909.0939
+        tag: master-beebbb82-20211018.1623
       resources:
         requests:
           memory: 50Mi
@@ -124,7 +124,7 @@ spec:
       enabled: true
       image:
         repository: liberoadmin/reviewer-reporter
-        tag: master-30f8962d-20210528.1257
+        tag: master-d592a2b8-20211020.0824
       fromAddress: no-reply@elifesciences.org
       subjectline: Reviewer Status Report
       recipient: "reviewer-tech-alerts@elifesciences.org"
