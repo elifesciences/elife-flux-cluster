@@ -9,7 +9,7 @@ spec:
   chart:
     repository: https://charts.fluxcd.io
     name: flux
-    version: 1.11.3
+    version: 1.11.4
 
   values:
     git:
