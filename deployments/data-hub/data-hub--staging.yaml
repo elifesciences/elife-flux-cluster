@@ -142,11 +142,16 @@ spec:
             secretKeyRef:
               name: monitoring-urls
               key: slack_webhhok_url
+      sync:
+        resources:
+          requests:
+            memory: 400Mi
+            cpu: 800m
 
     workers:
       resources:
         requests:
-          memory: "6Gi"
+          memory: "8Gi"
           cpu: "800m"
           ephemeral-storage: "10Gi"
       extraVolumeMounts:
@@ -203,3 +208,23 @@ spec:
       - name: surveymonkey-secret-volume
         secret:
           secretName: surveymonkey-credentials
+    postgresql:
+      resources:
+        requests:
+          memory: 1Gi
+          cpu: 250m
+    flower:
+      resources:
+        requests:
+          memory: 150Mi
+          cpu: 50m
+    scheduler:
+      resources:
+        requests:
+          memory: 1500Mi
+          cpu: 800m
+    web:
+      resources:
+        requests:
+          memory: 1Gi
+          cpu: 800m
