@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: data-hub-configs--staging
+  name: data-hub-configs
   namespace: data-hub
 data:
   crossref-event-data-pipeline.config.yaml: |-
