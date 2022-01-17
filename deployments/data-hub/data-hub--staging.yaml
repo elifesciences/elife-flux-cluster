@@ -151,7 +151,7 @@ spec:
     workers:
       resources:
         requests:
-          memory: "8Gi"
+          memory: "11Gi"
           cpu: "800m"
           ephemeral-storage: "10Gi"
       extraVolumeMounts:
