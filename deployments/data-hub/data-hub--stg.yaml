@@ -129,7 +129,7 @@ spec:
         - name: MATERIALIZE_BIGQUERY_VIEWS_GCP_PROJECT
           value: "elife-data-pipeline"
         - name: MATERIALIZE_BIGQUERY_VIEWS_DATASET
-          value: "staging"
+          value: staging
         - name: INITIAL_S3_XML_FILE_LAST_MODIFIED_DATE
           value: "2012-01-01 00:00:00"
         - name: HEALTH_CHECK_URL
