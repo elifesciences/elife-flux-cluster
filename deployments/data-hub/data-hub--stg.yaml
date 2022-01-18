@@ -2,7 +2,7 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: data-hub--staging
+  name: data-hub--stg
   namespace: data-hub
   annotations:
     fluxcd.io/automated: 'true'
