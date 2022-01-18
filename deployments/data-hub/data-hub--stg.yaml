@@ -135,12 +135,12 @@ spec:
         - name: HEALTH_CHECK_URL
           valueFrom:
             secretKeyRef:
-              name: monitoring-urls
+              name: monitoring-urls--stg
               key: health_check_url
         - name: DATA_HUB_MONITORING_SLACK_WEBHOOK_URL
           valueFrom:
             secretKeyRef:
-              name: monitoring-urls
+              name: monitoring-urls--stg
               key: slack_webhhok_url
       sync:
         resources:
@@ -204,7 +204,7 @@ spec:
           secretName: civi-key
       - name: monitoring-urls-volume
         secret:
-          secretName: monitoring-urls
+          secretName: monitoring-urls--stg
       - name: surveymonkey-secret-volume
         secret:
           secretName: surveymonkey-credentials
