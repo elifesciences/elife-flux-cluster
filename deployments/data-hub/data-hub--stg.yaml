@@ -141,7 +141,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: monitoring-urls--stg
-              key: slack_webhhok_url
+              key: slack_webhook_url
       sync:
         resources:
           requests:
