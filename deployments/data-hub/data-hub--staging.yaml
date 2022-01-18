@@ -8,7 +8,7 @@ metadata:
     fluxcd.io/automated: 'true'
 
 spec:
-  releaseName: data-hub--staging
+  releaseName: data-hub--stg
   chart:
     repository: https://airflow-helm.github.io/charts
     name: airflow
