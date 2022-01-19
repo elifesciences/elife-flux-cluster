@@ -150,7 +150,7 @@ spec:
         resources:
           requests:
             memory: 400Mi
-            cpu: 800m
+            cpu: 100m
 
     workers:
       resources:
