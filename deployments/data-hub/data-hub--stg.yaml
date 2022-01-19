@@ -216,7 +216,7 @@ spec:
       resources:
         requests:
           memory: 1Gi
-          cpu: 250m
+          cpu: 100m
     flower:
       resources:
         requests:
@@ -231,4 +231,4 @@ spec:
       resources:
         requests:
           memory: 1Gi
-          cpu: 800m
+          cpu: 150m
