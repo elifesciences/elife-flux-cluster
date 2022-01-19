@@ -142,6 +142,10 @@ spec:
             secretKeyRef:
               name: monitoring-urls--stg
               key: slack_webhook_url
+
+        # @TODO: legacy env var to be removed in the future - see Hazal or Daniel
+        - name: AIRFLOW_NOTIFICATION_EMAIL_CSV_LIST
+          value: ""
       sync:
         resources:
           requests:
