@@ -155,8 +155,8 @@ spec:
     workers:
       resources:
         requests:
-          memory: 5Gi
-          cpu: 600m
+          memory: 4.9Gi
+          cpu: 800m
           ephemeral-storage: 10Gi
       extraVolumeMounts:
       - name: data-hub-config-volume
