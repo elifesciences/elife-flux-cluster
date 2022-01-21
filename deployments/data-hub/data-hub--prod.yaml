@@ -136,12 +136,12 @@ spec:
         - name: HEALTH_CHECK_URL
           valueFrom:
             secretKeyRef:
-              name: monitoring-urls
+              name: monitoring-urls--prod
               key: health_check_url
         - name: DATA_HUB_MONITORING_SLACK_WEBHOOK_URL
           valueFrom:
             secretKeyRef:
-              name: monitoring-urls
+              name: monitoring-urls--prod
               key: slack_webhook_url
 
         # @TODO: legacy env var to be removed in the future - see Hazal or Daniel
