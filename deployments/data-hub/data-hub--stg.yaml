@@ -228,6 +228,8 @@ spec:
         requests:
           memory: 1500Mi
           cpu: 800m
+        limits:
+          cpu: 1000m
     web:
       resources:
         requests:
