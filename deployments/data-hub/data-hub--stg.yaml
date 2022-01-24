@@ -47,6 +47,18 @@ spec:
         repository: elifesciences/data-hub-with-dags_unstable
         tag: f1d91c7b417ca7c338a1ef4463035d49e99b52f9
       extraEnv:
+        # security settings
+        - name: AIRFLOW__WEBSERVER__SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secret-key--stg
+              key: webserver-secret-key
+        - name: AIRFLOW__CORE__FERNET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: fernet-key--stg
+              key: fernet-key
+
         # config file paths:
         - name: GMAIL_DATA_CONFIG_FILE_PATH
           value: /dag_config_files/gmail-data-pipeline.config.yaml
