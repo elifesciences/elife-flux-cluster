@@ -22,10 +22,10 @@ spec:
       serviceMonitor:
         enabled: "true"
 
-  resources:
-    limits:
-      cpu: 50m
-      memory: 50Mi
-    requests:
-      memory: 50Mi
-      cpu: 10m
+    resources:
+      limits:
+        cpu: 50m
+        memory: 50Mi
+      requests:
+        memory: 50Mi
+        cpu: 10m
