@@ -42,11 +42,23 @@ spec:
         AIRFLOW__KUBERNETES_ENVIRONMENT_VARIABLES__AIRFLOW__CORE__REMOTE_LOGGING: "True"
         AIRFLOW__KUBERNETES_ENVIRONMENT_VARIABLES__AIRFLOW__CORE__REMOTE_BASE_LOG_FOLDER: "s3://staging-elife-data-pipeline/airflow-logs"
         AIRFLOW__CELERY__FLOWER_URL_PREFIX: "/flower"
-        AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "30"
+        AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "60"
       image:
         repository: elifesciences/data-hub-with-dags_unstable
         tag: f1d91c7b417ca7c338a1ef4463035d49e99b52f9
       extraEnv:
+        # security settings
+        - name: AIRFLOW__WEBSERVER__SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secret-key--stg
+              key: webserver-secret-key
+        - name: AIRFLOW__CORE__FERNET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: fernet-key--stg
+              key: fernet-key
+
         # config file paths:
         - name: GMAIL_DATA_CONFIG_FILE_PATH
           value: /dag_config_files/gmail-data-pipeline.config.yaml
