@@ -101,7 +101,7 @@ spec:
           # At 02:25 :
         - name: WEB_API_SCHEDULE_INTERVAL
           value: "25 2 * * *"
-          # At minute 10 past every 2nd hour :
+          # At minute 25 past every hour :
         - name: S3_CSV_SCHEDULE_INTERVAL
           value: "25 * * * *"
           # At minute 50 past every 3rd hour from 8 through 18 :
