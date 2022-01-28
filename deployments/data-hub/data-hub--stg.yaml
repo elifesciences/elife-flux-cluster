@@ -103,7 +103,7 @@ spec:
           value: "25 2 * * *"
           # At minute 10 past every 2nd hour :
         - name: S3_CSV_SCHEDULE_INTERVAL
-          value: "10 */2 * * *"
+          value: "25 * * * *"
           # At minute 50 past every 3rd hour from 8 through 18 :
         - name: MONITOR_DATA_HUB_PIPELINE_HEALTH_SCHEDULE_INTERVAL
           value: "50 8-18/3 * * *"
