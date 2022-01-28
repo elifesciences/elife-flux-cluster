@@ -14,7 +14,8 @@
     ],
     "assignees": [
         "erkannt",
-        "NuclearRedeye"
+        "NuclearRedeye",
+        "scottaubrey"
     ],
     "packageRules": [
       {
