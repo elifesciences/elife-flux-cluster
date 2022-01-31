@@ -173,7 +173,6 @@ spec:
           ephemeral-storage: 10Gi
         limits:
           memory: 5.5Gi
-          cpu: 1800m
       extraVolumeMounts:
       - name: data-hub-config-volume
         mountPath: /dag_config_files/
