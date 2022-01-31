@@ -164,11 +164,6 @@ spec:
         # @TODO: legacy env var to be removed in the future - see Hazal or Daniel
         - name: AIRFLOW_NOTIFICATION_EMAIL_CSV_LIST
           value: ""
-      sync:
-        resources:
-          requests:
-            memory: 400Mi
-            cpu: 50m
 
     workers:
       resources:
@@ -178,6 +173,7 @@ spec:
           ephemeral-storage: 10Gi
         limits:
           memory: 5.5Gi
+          cpu: 1800m
       extraVolumeMounts:
       - name: data-hub-config-volume
         mountPath: /dag_config_files/
@@ -235,20 +231,20 @@ spec:
     postgresql:
       resources:
         requests:
-          memory: 1Gi
+          memory: 200Mi
           cpu: 100m
     flower:
       resources:
         requests:
-          memory: 150Mi
+          memory: 100Mi
           cpu: 50m
     scheduler:
       resources:
         requests:
-          memory: 1500Mi
-          cpu: 800m
+          memory: 500Mi
+          cpu: 500m
     web:
       resources:
         requests:
-          memory: 1Gi
+          memory: 900Mi
           cpu: 150m
