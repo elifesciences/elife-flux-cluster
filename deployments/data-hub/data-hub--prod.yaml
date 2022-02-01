@@ -30,6 +30,8 @@ spec:
           nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
           nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
     airflow:
+      # remove multi-user settings
+      usersUpdate: false
       legacyCommands:
         enabled: true
       config:
@@ -100,9 +102,9 @@ spec:
           # At 02:25 :
         - name: WEB_API_SCHEDULE_INTERVAL
           value: "25 2 * * *"
-          # At minute 10 past every 2nd hour :
+          # At minute 25 past every hour :
         - name: S3_CSV_SCHEDULE_INTERVAL
-          value: "10 */2 * * *"
+          value: "25 * * * *"
           # At minute 50 past every 3rd hour from 8 through 18 :
         - name: MONITOR_DATA_HUB_PIPELINE_HEALTH_SCHEDULE_INTERVAL
           value: "50 8-18/3 * * *"
@@ -161,11 +163,6 @@ spec:
         # @TODO: legacy env var to be removed in the future - see Hazal or Daniel
         - name: AIRFLOW_NOTIFICATION_EMAIL_CSV_LIST
           value: ""
-      sync:
-        resources:
-          requests:
-            memory: 400Mi
-            cpu: 50m
 
     workers:
       resources:
@@ -232,20 +229,20 @@ spec:
     postgresql:
       resources:
         requests:
-          memory: 1Gi
+          memory: 200Mi
           cpu: 100m
     flower:
       resources:
         requests:
-          memory: 150Mi
+          memory: 100Mi
           cpu: 50m
     scheduler:
       resources:
         requests:
-          memory: 1500Mi
-          cpu: 800m
+          memory: 500Mi
+          cpu: 500m
     web:
       resources:
         requests:
-          memory: 1Gi
+          memory: 900Mi
           cpu: 150m
