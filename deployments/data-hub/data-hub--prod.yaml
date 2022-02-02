@@ -1,0 +1,263 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: data-hub--prod
+  namespace: data-hub
+  annotations:
+    fluxcd.io/automated: 'true'
+    filter.fluxcd.io/chart-image: semver:*
+
+spec:
+  releaseName: data-hub--prod
+  chart:
+    repository: https://airflow-helm.github.io/charts
+    name: airflow
+    version: 8.4.1
+
+  values:
+    ingress:
+      enabled: true
+      web:
+        host: data-hub--flux--prod.elifesciences.org
+        annotations:
+          nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+      flower:
+        host: data-hub--flux--prod.elifesciences.org
+        path: "/flower"
+        annotations:
+          nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+    airflow:
+      # remove multi-user settings
+      usersUpdate: false
+      legacyCommands:
+        enabled: true
+      config:
+        AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "True"
+        AIRFLOW__CORE__DAG_CONCURRENCY: "100"
+        AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG: "25"
+        AIRFLOW__CELERY__WORKER_CONCURRENCY: "21"
+        AIRFLOW__CELERY__WORKER_AUTOSCALE: "21,1"
+        AIRFLOW__CORE__REMOTE_LOGGING: "True"
+        AIRFLOW__CORE__REMOTE_BASE_LOG_FOLDER: "s3://prod-elife-data-pipeline/airflow-logs"
+        AIRFLOW__CORE__REMOTE_LOG_CONN_ID: "aws_default"
+        AIRFLOW__KUBERNETES_ENVIRONMENT_VARIABLES__AIRFLOW__CORE__REMOTE_LOGGING: "True"
+        AIRFLOW__KUBERNETES_ENVIRONMENT_VARIABLES__AIRFLOW__CORE__REMOTE_BASE_LOG_FOLDER: "s3://prod-elife-data-pipeline/airflow-logs"
+        AIRFLOW__CELERY__FLOWER_URL_PREFIX: "/flower"
+        AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "30"
+      image:
+        repository: elifesciences/data-hub-with-dags
+        tag: 0.0.86
+      extraEnv:
+        # security settings
+        - name: AIRFLOW__WEBSERVER__SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: webserver-secret-key--prod
+              key: webserver-secret-key
+        - name: AIRFLOW__CORE__FERNET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: fernet-key--prod
+              key: fernet-key
+
+        # config file paths:
+        - name: GMAIL_DATA_CONFIG_FILE_PATH
+          value: /dag_config_files/gmail-data-pipeline.config.yaml
+        - name: CROSSREF_CONFIG_FILE_PATH
+          value: /dag_config_files/crossref-event-data-pipeline.config.yaml
+        - name: SPREADSHEET_CONFIG_FILE_PATH
+          value: /dag_config_files/spreadsheet-data-pipeline.config.yaml
+        - name: WEB_API_CONFIG_FILE_PATH
+          value: /dag_config_files/web-api-data-pipeline.config.yaml
+        - name: S3_CSV_CONFIG_FILE_PATH
+          value: /dag_config_files/s3-csv-data-pipeline.config.yaml
+        - name: MONITORING_CONFIG_FILE_PATH
+          value: /dag_config_files/monitoring.config.yaml
+        - name: MATERIALIZE_BIGQUERY_VIEWS_CONFIG_PATH
+          value: "s3://prod-elife-data-pipeline/airflow-config/bigquery-views"
+        - name: TOGGL_API_TOKEN_FILE_PATH
+          value: /home/airflow/toggl/toggl_api_token.txt
+        - name: CIVICRM_API_KEY_FILE_PATH
+          value: /home/airflow/civi_key/civi_api_key.txt
+        - name: CIVICRM_SITE_KEY_FILE_PATH
+          value: /home/airflow/civi_key/civi_site_key.txt
+        - name:  EJP_XML_CONFIG_FILE_PATH
+          value: /dag_config_files/ejp-xml-data-pipeline.config.yaml
+        - name: EXTRACT_KEYWORDS_FILE_PATH
+          value: /dag_config_files/keyword-extraction-data-pipeline.config.yaml
+        - name: SURVEYMONKEY_DATA_CONFIG_FILE_PATH
+          value: /dag_config_files/surveymonkey-data-pipeline.config.yaml
+
+        # scheduler interval
+          # At 07:00 on every day-of-week from Monday through Friday :
+        - name: GMAIL_DATA_PIPELINE_SCHEDULE_INTERVAL
+          value: "0 7 * * 1-5"
+        - name: CROSS_REF_IMPORT_SCHEDULE_INTERVAL
+          value: "@daily"
+        - name: GOOGLE_SPREADSHEET_SCHEDULE_INTERVAL
+          value: "@daily"
+          # At 02:25 :
+        - name: WEB_API_SCHEDULE_INTERVAL
+          value: "25 2 * * *"
+          # At minute 25 past every hour :
+        - name: S3_CSV_SCHEDULE_INTERVAL
+          value: "25 * * * *"
+          # At minute 50 past every 3rd hour from 8 through 18 :
+        - name: MONITOR_DATA_HUB_PIPELINE_HEALTH_SCHEDULE_INTERVAL
+          value: "50 8-18/3 * * *"
+        - name: MATERIALIZE_BIGQUERY_VIEWS_SCHEDULE_INTERVAL
+          value: "@hourly"
+        - name: SCHEDULE_INTERVAL
+          value: "@weekly"
+        - name: DATA_SCIENCE_FORECAST_SCHEDULE_INTERVAL
+          value: "@hourly"
+          # At minute 40 past every 3rd hour :
+        - name: DATA_SCIENCE_PEERSCOUT_RECOMMEND_SCHEDULE_INTERVAL
+          value: "40 */3 * * *"
+        - name: DATA_SCIENCE_PEERSCOUT_EDITOR_PUBMED_SCHEDULE_INTERVAL
+          value: "@hourly"
+          # At every 20th minute :
+        - name: EJP_XML_SCHEDULE_INTERVAL
+          value: "*/20 * * * *"
+          # At minute 10 past every 2nd hour :
+        - name: EXTRACT_KEYWORDS_SCHEDULE_INTERVAL
+          value: "10 */2 * * *"
+        - name: SURVEYMONKEY_DATA_PIPELINE_SCHEDULE_INTERVAL
+          value: "@monthly"
+
+        # general:
+        - name: DEPLOYMENT_ENV
+          value: prod
+        - name: AIRFLOW_APPLICATIONS_DIRECTORY_PATH
+          value: /opt/airflow/auxiliary_data_pipeline_files
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /dag_secret_files/gcloud/credentials.json
+        - name: GMAIL_ACCOUNT_SECRET_FILE
+          value: /dag_secret_files/gmail/gmail_credentials.json
+        - name: SURVEYMONKEY_SECRET_FILE
+          value: /dag_secret_files/surveymonkey/surveymonkey_credentials.json
+        - name: IS_GMAIL_END2END_TEST
+          value: "False"
+        - name: INITIAL_S3_FILE_LAST_MODIFIED_DATE
+          value: "2020-02-14 13:00:00"
+        - name: MATERIALIZE_BIGQUERY_VIEWS_GCP_PROJECT
+          value: "elife-data-pipeline"
+        - name: MATERIALIZE_BIGQUERY_VIEWS_DATASET
+          value: prod
+        - name: INITIAL_S3_XML_FILE_LAST_MODIFIED_DATE
+          value: "2012-01-01 00:00:00"
+        - name: HEALTH_CHECK_URL
+          valueFrom:
+            secretKeyRef:
+              name: monitoring-urls--prod
+              key: health_check_url
+        - name: DATA_HUB_MONITORING_SLACK_WEBHOOK_URL
+          valueFrom:
+            secretKeyRef:
+              name: monitoring-urls--prod
+              key: slack_webhook_url
+
+        # @TODO: legacy env var to be removed in the future - see Hazal or Daniel
+        - name: AIRFLOW_NOTIFICATION_EMAIL_CSV_LIST
+          value: ""
+
+    workers:
+      resources:
+        requests:
+          memory: 5Gi
+          cpu: 800m
+          ephemeral-storage: 10Gi
+        limits:
+          memory: 5.5Gi
+      extraVolumeMounts:
+      - name: data-hub-config-volume
+        mountPath: /dag_config_files/
+        readOnly: true
+      - name: gcloud-secret-volume
+        mountPath: /dag_secret_files/gcloud/
+        readOnly: true
+      - name: aws-secret-volume
+        mountPath: /home/airflow/.aws
+        readOnly: true
+      - name: gmail-secret-volume
+        mountPath: /dag_secret_files/gmail/
+        readOnly: true
+      - name: toggl-secret-volume
+        mountPath: /home/airflow/toggl
+        readOnly: true
+      - name: civi-secret-volume
+        mountPath: /home/airflow/civi_key
+        readOnly: true
+      - name: monitoring-urls-volume
+        mountPath: /dag_secret_files/monitoring_urls/
+        readOnly: true
+      - name: surveymonkey-secret-volume
+        mountPath: /dag_secret_files/surveymonkey/
+        readOnly: true
+
+      extraVolumes:
+      - name: data-hub-config-volume
+        configMap:
+          name: data-hub-configs
+      - name: gcloud-secret-volume
+        secret:
+          secretName: gcloud
+      - name: aws-secret-volume
+        secret:
+          secretName: credentials
+      - name: gmail-secret-volume
+        secret:
+          secretName: gmail-credentials
+      - name: toggl-secret-volume
+        secret:
+          secretName: toggl
+      - name: twitter-secret-volume
+        secret:
+          secretName: twitter
+      - name: civi-secret-volume
+        secret:
+          secretName: civi-key
+      - name: monitoring-urls-volume
+        secret:
+          secretName: monitoring-urls--prod
+      - name: surveymonkey-secret-volume
+        secret:
+          secretName: surveymonkey-credentials
+    postgresql:
+      resources:
+        requests:
+          memory: 200Mi
+          cpu: 100m
+    flower:
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 50m
+    scheduler:
+      resources:
+        requests:
+          memory: 500Mi
+          cpu: 500m
+    web:
+      webserverConfig:
+        stringOverride: |-
+          from airflow import configuration as conf
+          from flask_appbuilder.security.manager import AUTH_DB
+
+          # the SQLAlchemy connection string
+          SQLALCHEMY_DATABASE_URI = conf.get('core', 'SQL_ALCHEMY_CONN')
+
+          # use embedded DB for auth
+          AUTH_TYPE = AUTH_DB
+
+          # disable authentication on web frontend
+          # this should be handled by oauth proxy instead
+          AUTH_ROLE_PUBLIC = 'Admin'
+
+      resources:
+        requests:
+          memory: 900Mi
+          cpu: 150m
