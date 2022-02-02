@@ -6,8 +6,9 @@ metadata:
   namespace: data-hub
   annotations:
     fluxcd.io/automated: 'true'
-    repository.fluxcd.io/airflow: airflow.image.repository
-    tag.fluxcd.io/airflow: airflow.image.tag
+    repository.fluxcd.io/data-hub: airflow.image.repository
+    tag.fluxcd.io/data-hub: airflow.image.tag
+    filter.fluxcd.io/data-hub: glob:*
 
 spec:
   releaseName: data-hub--stg
