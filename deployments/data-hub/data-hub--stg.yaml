@@ -92,6 +92,8 @@ spec:
           value: /dag_config_files/keyword-extraction-data-pipeline.config.yaml
         - name: SURVEYMONKEY_DATA_CONFIG_FILE_PATH
           value: /dag_config_files/surveymonkey-data-pipeline.config.yaml
+        - name: CIVICRM_EMAIL_DATA_CONFIG_FILE_PATH
+          value: /dag_config_files/civicrm-email-report-data-pipeline.config.yaml
 
         # scheduler interval
           # At 07:00 on every day-of-week from Monday through Friday :
@@ -129,6 +131,8 @@ spec:
           value: "10 */2 * * *"
         - name: SURVEYMONKEY_DATA_PIPELINE_SCHEDULE_INTERVAL
           value: "@monthly"
+        - name: CIVICRM_EMAIL_REPORT_DATA_PIPELINE_SCHEDULE_INTERVAL
+          value: "@daily"
 
         # general:
         - name: DEPLOYMENT_ENV
