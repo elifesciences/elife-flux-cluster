@@ -26,6 +26,7 @@ spec:
 
     basexValidator:
       replicaCount: 2
+      maxUnavailable: 1
       image:
         repository: elifesciences/basex-validator
         tag: master-af5034b2-20220209.1525
