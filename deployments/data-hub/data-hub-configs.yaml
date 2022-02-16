@@ -59,6 +59,8 @@ data:
       table: 'gmail_thread_details'
       inputColumn: 'threadId'
       historyCheckColumn: 'historyId'
+      array_name_in_table: 'messages'
+      array_column_name: 'id'
     gmailHistoryData:
       tempTable: 'temp_gmail_history_details'
   keyword-extraction-data-pipeline.config.yaml: |-
