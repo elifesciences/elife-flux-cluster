@@ -49,7 +49,7 @@ spec:
         AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "60"
       image:
         repository: elifesciences/data-hub-with-dags
-        tag: 0.0.86
+        tag: 0.0.87
       extraEnv:
         # security settings
         - name: AIRFLOW__WEBSERVER__SECRET_KEY
@@ -90,6 +90,8 @@ spec:
           value: /dag_config_files/keyword-extraction-data-pipeline.config.yaml
         - name: SURVEYMONKEY_DATA_CONFIG_FILE_PATH
           value: /dag_config_files/surveymonkey-data-pipeline.config.yaml
+        - name: CIVICRM_EMAIL_DATA_CONFIG_FILE_PATH
+          value: /dag_config_files/civicrm-email-report-data-pipeline.config.yaml
 
         # scheduler interval
           # At 07:00 on every day-of-week from Monday through Friday :
@@ -127,12 +129,16 @@ spec:
           value: "10 */2 * * *"
         - name: SURVEYMONKEY_DATA_PIPELINE_SCHEDULE_INTERVAL
           value: "@monthly"
+        - name: CIVICRM_EMAIL_REPORT_DATA_PIPELINE_SCHEDULE_INTERVAL
+          value: "@daily"
 
         # general:
         - name: DEPLOYMENT_ENV
           value: prod
         - name: AIRFLOW_APPLICATIONS_DIRECTORY_PATH
           value: /opt/airflow/auxiliary_data_pipeline_files
+        - name: GMAIL_THREAD_DETAILS_CHUNK_SIZE
+          value: "100"
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /dag_secret_files/gcloud/credentials.json
         - name: GMAIL_ACCOUNT_SECRET_FILE
