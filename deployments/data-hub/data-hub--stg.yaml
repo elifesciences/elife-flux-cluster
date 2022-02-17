@@ -51,7 +51,7 @@ spec:
         AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "90"
       image:
         repository: elifesciences/data-hub-with-dags_unstable
-        tag: 550c0ecc6d746d3fe34b1d1b8437a6bf4a19a9ec
+        tag: 6ca0bbaf409aaa8575ffd6f07c78621ce76104e1
       extraEnv:
         # security settings
         - name: AIRFLOW__WEBSERVER__SECRET_KEY
@@ -139,6 +139,8 @@ spec:
           value: staging
         - name: AIRFLOW_APPLICATIONS_DIRECTORY_PATH
           value: /opt/airflow/auxiliary_data_pipeline_files
+        - name: GMAIL_THREAD_DETAILS_CHUNK_SIZE
+          value: "100"
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /dag_secret_files/gcloud/credentials.json
         - name: GMAIL_ACCOUNT_SECRET_FILE
