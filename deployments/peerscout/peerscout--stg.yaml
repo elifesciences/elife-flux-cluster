@@ -40,7 +40,7 @@ spec:
     ingress:
       enabled: "true"
       hosts:
-      - host: peerscout--stg.elifesciences.org
+      - host: peerscout--test.elifesciences.org # this is `--test`, not `--stg` because it was setup this way on the old cluster, and is an external service.
         paths:
         - "/"
       annotations:
