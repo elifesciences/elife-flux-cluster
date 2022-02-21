@@ -46,7 +46,7 @@ spec:
         - "/"
       annotations:
         nginx.ingress.kubernetes.io/auth-type: basic
-        nginx.ingress.kubernetes.io/auth-secret: peerscout--test-basic-auth
+        nginx.ingress.kubernetes.io/auth-secret: peerscout-http-basic-auth--stg
         nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - peerscout'
 
     resources:
