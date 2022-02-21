@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epp-node
+  namespace: epp
+  labels:
+    app: epp-node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: epp-node
+  template:
+    metadata:
+      namespace: epp
+      labels:
+        app: epp-node
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      containers:
+      - name: epp-node
+        image: scottaubrey/epp-node:latest@sha256:20e22ba50698e1a47b0744ffa2045e16f06eb2351ed740032c9a2a6afb44b0b6
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        ports:
+          - containerPort: 3000

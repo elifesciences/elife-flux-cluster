@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: epp-node
+  namespace: epp
+spec:
+  rules:
+  - host: epp-node-prototype.elifesciences.org
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: epp-node-http
+            port:
+              number: 3000
