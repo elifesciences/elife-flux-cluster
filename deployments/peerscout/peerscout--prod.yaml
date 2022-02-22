@@ -50,7 +50,8 @@ spec:
 
     resources:
       requests:
-        memory: 2Gi
+        cpu: "20m"
+        memory: 2.5Gi
 
     livenessProbe:
       httpGet:
