@@ -50,7 +50,10 @@ spec:
 
     resources:
       requests:
+        cpu: "20m"
+      limits:
         memory: 1.8Gi
+        cpu: "100m"
 
     livenessProbe:
       httpGet:
