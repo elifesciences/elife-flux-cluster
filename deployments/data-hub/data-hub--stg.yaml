@@ -190,7 +190,7 @@ spec:
       - name: aws-secret-volume
         mountPath: /home/airflow/.aws
         readOnly: true
-      - name: gmail-secret-volume
+      - name: gmail-production-secret-volume
         mountPath: /dag_secret_files/gmail/
         readOnly: true
       - name: gmail-open-research-secret-volume
@@ -219,7 +219,7 @@ spec:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gmail-secret-volume
+      - name: gmail-production-secret-volume
         secret:
           secretName: gmail-credentials
       - name: gmail-open-research-secret-volume
