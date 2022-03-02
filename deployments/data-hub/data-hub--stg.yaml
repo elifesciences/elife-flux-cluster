@@ -67,7 +67,7 @@ spec:
 
         # config file paths:
         - name: GMAIL_DATA_CONFIG_FILE_PATH
-          value: /dag_config_files/gmail-data-pipeline.config.yaml
+          value: /dag_config_files/gmail-data-pipeline_version_2.config.yaml
         - name: CROSSREF_CONFIG_FILE_PATH
           value: /dag_config_files/crossref-event-data-pipeline.config.yaml
         - name: SPREADSHEET_CONFIG_FILE_PATH
