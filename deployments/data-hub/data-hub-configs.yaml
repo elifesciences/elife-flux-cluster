@@ -63,6 +63,46 @@ data:
       array_column_name: 'id'
     gmailHistoryData:
       tempTable: 'temp_gmail_history_details'
+  gmail-data-pipeline_version_2.config.yaml: |-
+    projectName: 'elife-data-pipeline'
+    datasetName: '{ENV}'
+    gmailData:
+      - dataPipelineId: gmail_production_data_pipeline
+        gmailLabelData:
+          table: 'gmail_label_list'
+          tempTable: 'temp_gmail_label_list'
+          uniqueIdColumn: 'labelId'
+        gmailLinkIdsData:
+          table: 'gmail_thread_ids_list'
+          tempTable: 'temp_gmail_thread_ids_list'
+          uniqueIdColumn: 'id'
+        gmailThreadData:
+          table: 'gmail_thread_details'
+          inputColumn: 'threadId'
+          historyCheckColumn: 'historyId'
+          array_name_in_table: 'messages'
+          array_column_name: 'id'
+        gmailHistoryData:
+          tempTable: 'temp_gmail_history_details'
+        gmailAccountSecretFile: GMAIL_PRODUCTION_ACCOUNT_SECRET_FILE
+      - dataPipelineId: gmail_open_research_data_pipeline
+        gmailLabelData:
+          table: 'gmail_open_research_label_list'
+          tempTable: 'temp_gmail_open_research_label_list'
+          uniqueIdColumn: 'labelId'
+        gmailLinkIdsData:
+          table: 'gmail_open_research_thread_ids_list'
+          tempTable: 'temp_gmail_open_research_thread_ids_list'
+          uniqueIdColumn: 'id'
+        gmailThreadData:
+          table: 'gmail_open_research_thread_details'
+          inputColumn: 'threadId'
+          historyCheckColumn: 'historyId'
+          array_name_in_table: 'messages'
+          array_column_name: 'id'
+        gmailHistoryData:
+          tempTable: 'temp_gmail_open_research_history_details'
+        gmailSecretFileEnvName: GMAIL_OPEN_RESEARCH_ACCOUNT_SECRET_FILE
   keyword-extraction-data-pipeline.config.yaml: |-
     gcpProjectName: 'elife-data-pipeline' #mandatory
     importedTimestampFieldName: 'data_hub_imported_timestamp' #mandatory
