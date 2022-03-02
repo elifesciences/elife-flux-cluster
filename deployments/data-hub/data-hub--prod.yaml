@@ -49,7 +49,7 @@ spec:
         AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "60"
       image:
         repository: elifesciences/data-hub-with-dags
-        tag: 0.0.88
+        tag: 0.0.89
       extraEnv:
         # security settings
         - name: AIRFLOW__WEBSERVER__SECRET_KEY
@@ -141,12 +141,12 @@ spec:
           value: "100"
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /dag_secret_files/gcloud/credentials.json
-        - name: GMAIL_ACCOUNT_SECRET_FILE
-          value: /dag_secret_files/gmail/gmail_credentials.json
+        - name: GMAIL_PRODUCTION_ACCOUNT_SECRET_FILE
+          value: /dag_secret_files/gmail_production/gmail_credentials.json
+        - name: GMAIL_OPEN_RESEARCH_ACCOUNT_SECRET_FILE
+          value: /dag_secret_files/gmail_open_research/gmail_open_research_credentials.json
         - name: SURVEYMONKEY_SECRET_FILE
           value: /dag_secret_files/surveymonkey/surveymonkey_credentials.json
-        - name: IS_GMAIL_END2END_TEST
-          value: "False"
         - name: INITIAL_S3_FILE_LAST_MODIFIED_DATE
           value: "2020-02-14 13:00:00"
         - name: MATERIALIZE_BIGQUERY_VIEWS_GCP_PROJECT
@@ -188,8 +188,11 @@ spec:
       - name: aws-secret-volume
         mountPath: /home/airflow/.aws
         readOnly: true
-      - name: gmail-secret-volume
-        mountPath: /dag_secret_files/gmail/
+      - name: gmail-production-secret-volume
+        mountPath: /dag_secret_files/gmail_production/
+        readOnly: true
+      - name: gmail-open-research-secret-volume
+        mountPath: /dag_secret_files/gmail_open_research/
         readOnly: true
       - name: toggl-secret-volume
         mountPath: /home/airflow/toggl
@@ -214,9 +217,12 @@ spec:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gmail-secret-volume
+      - name: gmail-production-secret-volume
         secret:
           secretName: gmail-credentials
+      - name: gmail-open-research-secret-volume
+        secret:
+          secretName: gmail-open-research-credentials
       - name: toggl-secret-volume
         secret:
           secretName: toggl
