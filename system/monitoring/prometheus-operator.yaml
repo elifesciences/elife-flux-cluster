@@ -12,6 +12,10 @@ spec:
     version: 31.0.2
 
   values:
+    global:
+      rbac:
+        create: true
+        pspEnabled: true
     defaultRules:
       rules:
         kubeScheduler: false  # lives on EKS
@@ -41,7 +45,10 @@ spec:
         GF_AUTH_ANONYMOUS_ORG_ROLE: "Viewer"
       rbac:
         pspUseAppArmor: false
-
+        pspEnabled: true
+    prometheus-node-exporter:
+      rbac:
+        pspEnabled: true
     prometheus:
       ingress:
         enabled: "true"
