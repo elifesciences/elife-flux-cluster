@@ -18,9 +18,11 @@ jobs:
         with:
           helmRelease: system
           helmVersion: v3
+          kubernetesVersion: 1.19.0
 
       - name: Validate Helm Releases -- Deployments
         uses: scottaubrey/hrval-action@master
         with:
           helmRelease: deployments
           helmVersion: v3
+          kubernetesVersion: 1.19.0
