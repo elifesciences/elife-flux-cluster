@@ -9,15 +9,15 @@ spec:
   chart:
     repository: https://charts.bitnami.com/bitnami
     name: external-dns
-    version: 3.7.0
+    version: 6.1.7
 
   values:
-    replicas: 1
+    replicaCount: 1
     txtOwnerId: flux-cluster
     metrics:
-      enabled: "true"
+      enabled: true
       serviceMonitor:
-        enabled: "true"
+        enabled: true
 
     resources:
       limits:
