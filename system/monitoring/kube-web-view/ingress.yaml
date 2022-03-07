@@ -1,0 +1,20 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: kube-web-view
+  namespace: monitoring
+  labels:
+    application: kube-web-view
+  annotations:
+    nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+spec:
+  rules:
+  - host: k8s-dashboard.elifesciences.org
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: kube-web-view
+          servicePort: 80
