@@ -13,9 +13,6 @@ spec:
 
   values:
     replicas: 1
-    image:
-      repository: bitnami/external-dns
-      tag: 0.7.2-debian-10-r6
     txtOwnerId: flux-cluster
     metrics:
       enabled: "true"
