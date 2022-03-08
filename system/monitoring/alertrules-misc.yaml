@@ -10,7 +10,7 @@ spec:
   - name: ./misc.rules
     rules:
     - alert: KubeDeploymentReplicasNotReachingReady
-      expr: > 
+      expr: >
         (kube_replicaset_spec_replicas{job="kube-state-metrics",namespace=~".*"}
         != kube_replicaset_status_ready_replicas{job="kube-state-metrics",namespace=~".*"})
         and (changes(kube_deployment_status_replicas_updated{job="kube-state-metrics",namespace=~".*"}[5m]) == 0)
@@ -19,12 +19,12 @@ spec:
           Ready replicas doesn't match replica spec
           ReplicaSet probably failed to create Deployments.
     - alert: NodeCPULoadElevated
-      expr: avg_over_time(instance:node_load1_per_cpu:ratio[60m]) > 1.5
+      expr: avg_over_time(instance:node_load1_per_cpu:ratio[60m]) > 1.8
       labels:
         severity: warning
       annotations:
         message: |
-          Load1 / CPU > 1.5 for over an hour {{ $labels.instance }}
+          Load1 / CPU > 1.8 for over an hour {{ $labels.instance }}
     - alert: NodeCPULoadHigh
       expr: avg_over_time(instance:node_load1_per_cpu:ratio[60m]) > 4
       labels:
