@@ -99,6 +99,13 @@
         ],
         "automerge": false,
         "registryUrls": ["https://charts.bitnami.com/bitnami"]
+      },
+      {
+        "datasources": ["helm"],
+        "managers": ["regex"],
+        "packageNames": ["oauth2-proxy"],
+        "automerge": false,
+        "registryUrls": ["https://oauth2-proxy.github.io/manifests"]
       }
     ]
   }
