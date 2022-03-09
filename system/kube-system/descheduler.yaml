@@ -8,5 +8,5 @@ metadata:
 spec:
   chart:
     repository: https://kubernetes-sigs.github.io/descheduler
-    name: descheduler-helm-chart
-    version: 0.19.1
+    name: descheduler
+    version: 0.19.2
