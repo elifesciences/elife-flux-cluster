@@ -9,7 +9,7 @@ spec:
   chart:
     repository:  https://oauth2-proxy.github.io/manifests
     name: oauth2-proxy
-    version: 3.2.6
+    version: 3.3.2
 
   values:
     config:
