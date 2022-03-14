@@ -1,111 +1,99 @@
 {
-    "extends": [
-        "config:base",
-        ":prHourlyLimitNone"
-    ],
-    "regexManagers": [
-      {
-        "fileMatch": ["\\.yaml$"],
-        "matchStrings": [
-          "chart:\n *repository: .*?\n *name: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
-        ],
-        "datasourceTemplate": "helm"
-      }
-    ],
-    "assignees": [
-        "erkannt",
-        "NuclearRedeye",
-        "scottaubrey"
-    ],
-    "packageRules": [
-      {
-        "datasources": ["helm"],
-        "managers": ["regex"],
-        "packageNames": [
-          "kube-prometheus-stack"
-        ],
-        "automerge": true,
-        "registryUrls": ["https://prometheus-community.github.io/helm-charts"]
-      },
-      {
-        "datasources": ["helm"],
-        "managers": ["regex"],
-        "packageNames": [
-          "ingress-nginx"
-        ],
-        "automerge": false,
-        "registryUrls": ["https://kubernetes.github.io/ingress-nginx"]
-      },
-      {
-        "datasources": ["helm"],
-        "managers": ["regex"],
-        "packageNames": [
-          "flagger",
-          "loadtester"
-        ],
-        "automerge": false,
-        "registryUrls": ["https://flagger.app"]
-      },
-      {
-        "datasources": ["helm"],
-        "managers": ["regex"],
-        "packageNames": [
-          "descheduler"
-        ],
-        "automerge": false,
-        "registryUrls": ["https://kubernetes-sigs.github.io/descheduler"]
-      },
-      {
-        "datasources": ["helm"],
-        "managers": ["regex"],
-        "packageNames": [
-          "nri-bundle"
-        ],
-        "automerge": true,
-        "registryUrls": ["https://helm-charts.newrelic.com"]
-      },
-      {
-        "datasources": ["helm"],
-        "managers": ["regex"],
-        "packageNames": [
-          "cert-manager"
-        ],
-        "automerge": false,
-        "registryUrls": ["https://charts.jetstack.io"]
-      },
-      {
-        "datasources": ["helm"],
-        "managers": ["regex"],
-        "packageNames": [
-          "sealed-secrets"
-        ],
-        "automerge": false,
-        "registryUrls": ["https://bitnami-labs.github.io/sealed-secrets"]
-      },
-      {
-        "datasources": ["helm"],
-        "managers": ["regex"],
-        "packageNames": [
-          "flux"
-        ],
-        "automerge": true,
-        "registryUrls": ["https://charts.fluxcd.io"]
-      },
-      {
-        "datasources": ["helm"],
-        "managers": ["regex"],
-        "packageNames": [
-          "external-dns"
-        ],
-        "automerge": false,
-        "registryUrls": ["https://charts.bitnami.com/bitnami"]
-      },
-      {
-        "datasources": ["helm"],
-        "managers": ["regex"],
-        "packageNames": ["oauth2-proxy"],
-        "automerge": false,
-        "registryUrls": ["https://oauth2-proxy.github.io/manifests"]
-      }
+  "extends": ["config:base", ":prHourlyLimitNone"],
+  "regexManagers": [
+    {
+      "fileMatch": ["\\.yaml$"],
+      "matchStrings": [
+        "chart:\n *repository: .*?\n *name: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
+      ],
+      "datasourceTemplate": "helm"
+    }
+  ],
+  "kubernetes": {
+    "fileMatch": [
+      "^system/monitoring/kube-web-view/deployment\\.yaml$"
     ]
-  }
+  },
+  "assignees": [
+    "erkannt",
+    "NuclearRedeye",
+    "scottaubrey"
+  ],
+  "packageRules": [
+    {
+      "datasources": ["helm"],
+      "managers": ["regex"],
+      "packageNames": ["kube-prometheus-stack"],
+      "automerge": true,
+      "registryUrls": ["https://prometheus-community.github.io/helm-charts"]
+    },
+    {
+      "datasources": ["helm"],
+      "managers": ["regex"],
+      "packageNames": ["ingress-nginx"],
+      "automerge": false,
+      "registryUrls": ["https://kubernetes.github.io/ingress-nginx"]
+    },
+    {
+      "datasources": ["helm"],
+      "managers": ["regex"],
+      "packageNames": ["flagger", "loadtester"],
+      "automerge": false,
+      "registryUrls": ["https://flagger.app"]
+    },
+    {
+      "datasources": ["helm"],
+      "managers": ["regex"],
+      "packageNames": ["descheduler"],
+      "automerge": false,
+      "registryUrls": ["https://kubernetes-sigs.github.io/descheduler"]
+    },
+    {
+      "automerge": true,
+      "datasources": ["helm"],
+      "managers": ["regex"],
+      "packageNames": ["nri-bundle"],
+      "registryUrls": ["https://helm-charts.newrelic.com"]
+    },
+    {
+      "datasources": ["helm"],
+      "managers": ["regex"],
+      "packageNames": ["cert-manager"],
+      "automerge": false,
+      "registryUrls": ["https://charts.jetstack.io"]
+    },
+    {
+      "datasources": ["helm"],
+      "managers": ["regex"],
+      "packageNames": ["sealed-secrets"],
+      "automerge": false,
+      "registryUrls": ["https://bitnami-labs.github.io/sealed-secrets"]
+    },
+    {
+      "datasources": ["helm"],
+      "managers": ["regex"],
+      "packageNames": ["flux"],
+      "automerge": true,
+      "registryUrls": ["https://charts.fluxcd.io"]
+    },
+    {
+      "datasources": ["helm"],
+      "managers": ["regex"],
+      "packageNames": ["external-dns"],
+      "automerge": false,
+      "registryUrls": ["https://charts.bitnami.com/bitnami"]
+    },
+    {
+      "datasources": ["helm"],
+      "managers": ["regex"],
+      "packageNames": ["oauth2-proxy"],
+      "automerge": false,
+      "registryUrls": ["https://oauth2-proxy.github.io/manifests"]
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["hjacobs/kube-web-view"],
+      "automerge": false
+    }
+  ]
+}
