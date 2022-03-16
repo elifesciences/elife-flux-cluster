@@ -51,7 +51,7 @@ spec:
         AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "90"
       image:
         repository: elifesciences/data-hub-with-dags_unstable
-        tag: 2502606123ccc4b240e5270d094c345951ba342f
+        tag: 6e6a5b5f884388b4a52a85a2de6c9082ed374be5
       extraEnv:
         # security settings
         - name: AIRFLOW__WEBSERVER__SECRET_KEY
@@ -66,6 +66,8 @@ spec:
               key: fernet-key
 
         # config file paths:
+        - name: EUROPEPMC_CONFIG_FILE_PATH
+          value: /dag_config_files/europepmc.config.yaml
         - name: GMAIL_DATA_CONFIG_FILE_PATH
           value: /dag_config_files/gmail-data-pipeline.config.yaml
         - name: CROSSREF_CONFIG_FILE_PATH
@@ -96,6 +98,9 @@ spec:
           value: /dag_config_files/civicrm-email-report-data-pipeline.config.yaml
 
         # scheduler interval
+          # At 06:00 on every day
+        - name: EUROPEPMC_PIPELINE_SCHEDULE_INTERVAL
+          value: "0 6 * * *"
           # At 07:00 on every day-of-week from Monday through Friday :
         - name: GMAIL_DATA_PIPELINE_SCHEDULE_INTERVAL
           value: "0 7 * * 1-5"

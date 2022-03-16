@@ -36,6 +36,25 @@ data:
     tempS3FileStorage:
       bucket: '{ENV}-elife-data-pipeline'
       objectPrefix: 'airflow-config/ejp-xml/temp-ejp-xml_files'
+  europepmc.config.yaml: |-
+    europePmc:
+      - dataPipelineId: europepmc_data_pipeline_biorxiv_medrxiv
+        source:
+          apiUrl: 'https://www.ebi.ac.uk/europepmc/webservices/rest/search'
+          search:
+            query: '(PUBLISHER:"bioRxiv" OR PUBLISHER:"medRxiv")'
+          maxDays: 1000  # limit the number of days to process from start date
+        target:
+          projectName: 'elife-data-pipeline'
+          datasetName: '{ENV}'
+          tableName: europepmc_biorxiv_medrxiv_responses
+        state:
+          initialState:
+            startDate: '2016-01-01'
+          stateFile:
+            bucketName: '{ENV}-elife-data-pipeline'
+            objectName: 'airflow-config/europepmc/biorxiv-medrxiv/{ENV}-state.json'
+        batchSize: 1000
   civicrm-email-report-data-pipeline.config.yaml: |-
     projectName: 'elife-data-pipeline'
     datasetName: '{ENV}'
