@@ -20,12 +20,12 @@ spec:
           ReplicaSet probably failed to create Deployments.
     - alert: NodeCPULoadElevated
       expr: avg_over_time(instance:node_load1_per_cpu:ratio[5m]) > 2
-      for: 15m
+      for: 20m
       labels:
         severity: warning
       annotations:
         message: |
-          5m Load1 average / CPU > 2 for over 10m {{ $labels.instance }}
+          5m Load1 average / CPU > 2 for over 20m {{ $labels.instance }}
     - alert: NodeCPULoadHigh
       expr: avg_over_time(instance:node_load1_per_cpu:ratio[60m]) > 4
       labels:
