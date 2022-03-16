@@ -94,6 +94,12 @@
       "matchDatasources": ["docker"],
       "matchPackageNames": ["hjacobs/kube-web-view"],
       "automerge": false
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["fluent/fluentd-kubernetes-daemonset"],
+      "automerge": false,
+      "versioning": "regex:^v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)?-(?<compatibility>.*)-1.*$"
     }
   ]
 }
