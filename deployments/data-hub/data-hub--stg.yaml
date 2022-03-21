@@ -191,7 +191,7 @@ spec:
           cpu: 800m
           ephemeral-storage: 10Gi
         limits:
-          memory: 5.5Gi
+          memory: 6Gi
           cpu: 1700m
       extraVolumeMounts:
       - name: data-hub-config-volume
