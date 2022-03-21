@@ -68,6 +68,8 @@ spec:
         # config file paths:
         - name: EUROPEPMC_CONFIG_FILE_PATH
           value: /dag_config_files/europepmc.config.yaml
+        - name: EUROPEPMC_LABSLINK_CONFIG_FILE_PATH
+          value: /dag_config_files/europepmc-labslink.config.yaml
         - name: GMAIL_DATA_CONFIG_FILE_PATH
           value: /dag_config_files/gmail-data-pipeline.config.yaml
         - name: CROSSREF_CONFIG_FILE_PATH
