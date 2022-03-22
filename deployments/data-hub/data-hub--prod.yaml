@@ -96,6 +96,8 @@ spec:
           value: /dag_config_files/civicrm-email-report-data-pipeline.config.yaml
 
         # scheduler interval
+        - name: EUROPEPMC_LABSLNK_PIPELINE_SCHEDULE_INTERVAL
+          value: "0 10 * * *"  # At 10:00, every day
           # At 07:00 on every day-of-week from Monday through Friday :
         - name: GMAIL_DATA_PIPELINE_SCHEDULE_INTERVAL
           value: "0 7 * * 1-5"
