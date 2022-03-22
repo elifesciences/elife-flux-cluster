@@ -55,7 +55,7 @@ data:
             bucketName: '{ENV}-elife-data-pipeline'
             objectName: 'airflow-config/europepmc/biorxiv-medrxiv/{ENV}-state.json'
         batchSize: 1000
-  europepmc-labslink.config.yaml: |-
+  europepmc-labslink--stg.config.yaml: |-
     europePmcLabsLink:
     - dataPipelineId: europepmc_labslink_data_pipeline_1
       source:
@@ -72,7 +72,7 @@ data:
         linkPrefix: 'https://sciety.org/articles/activity/'
       target:
         ftp:
-          hostname: 'labslink.ebi.ac.uk'
+          hostname: 'test-ftpserver'
           port: 21
           username: 'elinks'
           createDirectory: false
