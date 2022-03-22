@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-ftpserver
+  namespace: data-hub
+  labels:
+    application: test-ftpserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      application: test-ftpserver
+  template:
+    metadata:
+      labels:
+        application: test-ftpserver
+    spec:
+      containers:
+      - name: test-ftpserver
+        image: delfer/alpine-ftp-server
+        ports:
+        - containerPort: 21
+        env:
+          - name: USERS
+            valueFrom:
+              secretKeyRef:
+                key: username_password
+                name: europepmc-labslink-ftp-credentials--stg
+          - name: ADDRESS
+            value: test-ftpserver
