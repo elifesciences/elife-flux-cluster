@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-ftpserver
+  namespace: data-hub
+  labels:
+    application: test-ftpserver
+spec:
+  selector:
+    application: test-ftpserver
+  type: ClusterIP
+  ports:
+  - port: 21
+    protocol: TCP
+    targetPort: 21
