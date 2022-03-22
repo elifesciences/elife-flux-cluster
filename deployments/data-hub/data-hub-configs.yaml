@@ -75,7 +75,7 @@ data:
           hostname: 'test-ftpserver'
           port: 21
           username: 'elinks'
-          createDirectory: false
+          createDirectory: true
           parametersFromFile:
             - parameterName: password
               filePathEnvName: EUROPEPMC_LABSLINK_FTP_PASSWORD_FILE_PATH
