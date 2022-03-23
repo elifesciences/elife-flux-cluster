@@ -16,46 +16,42 @@ spec:
     protocol: TCP
     targetPort: 21
   - name: ftp-passive-port0
-    port: 21000
+    port: 40000
     protocol: TCP
-    targetPort: 21000
+    targetPort: 40000
   - name: ftp-passive-port1
-    port: 21001
+    port: 40001
     protocol: TCP
-    targetPort: 21001
+    targetPort: 40001
   - name: ftp-passive-port2
-    port: 21002
+    port: 40002
     protocol: TCP
-    targetPort: 21002
+    targetPort: 40002
   - name: ftp-passive-port3
-    port: 21003
+    port: 40003
     protocol: TCP
-    targetPort: 21003
+    targetPort: 40003
   - name: ftp-passive-port4
-    port: 21004
+    port: 40004
     protocol: TCP
-    targetPort: 21004
+    targetPort: 40004
   - name: ftp-passive-port5
-    port: 21005
+    port: 40005
     protocol: TCP
-    targetPort: 21005
+    targetPort: 40005
   - name: ftp-passive-port6
-    port: 21006
+    port: 40006
     protocol: TCP
-    targetPort: 21006
+    targetPort: 40006
   - name: ftp-passive-port7
-    port: 21007
+    port: 40007
     protocol: TCP
-    targetPort: 21007
+    targetPort: 40007
   - name: ftp-passive-port8
-    port: 21008
+    port: 40008
     protocol: TCP
-    targetPort: 21008
+    targetPort: 40008
   - name: ftp-passive-port9
-    port: 21009
+    port: 40009
     protocol: TCP
-    targetPort: 21009
-  - name: ftp-passive-port10
-    port: 21010
-    protocol: TCP
-    targetPort: 21010
+    targetPort: 40009
