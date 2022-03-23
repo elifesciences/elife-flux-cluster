@@ -14,3 +14,36 @@ spec:
   - port: 21
     protocol: TCP
     targetPort: 21
+  - port: 21000
+    protocol: TCP
+    targetPort: 21000
+  - port: 21001
+    protocol: TCP
+    targetPort: 21001
+  - port: 21002
+    protocol: TCP
+    targetPort: 21002
+  - port: 21003
+    protocol: TCP
+    targetPort: 21003
+  - port: 21004
+    protocol: TCP
+    targetPort: 21004
+  - port: 21005
+    protocol: TCP
+    targetPort: 21005
+  - port: 21006
+    protocol: TCP
+    targetPort: 21006
+  - port: 21007
+    protocol: TCP
+    targetPort: 21007
+  - port: 21008
+    protocol: TCP
+    targetPort: 21008
+  - port: 21009
+    protocol: TCP
+    targetPort: 21009
+  - port: 21010
+    protocol: TCP
+    targetPort: 21010
