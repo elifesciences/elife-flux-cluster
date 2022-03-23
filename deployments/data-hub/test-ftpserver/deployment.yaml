@@ -17,25 +17,26 @@ spec:
     spec:
       containers:
       - name: test-ftpserver
-        image: delfer/alpine-ftp-server
+        image: garethflowers/ftp-server
         ports:
         - containerPort: 21
-        - containerPort: 21000
-        - containerPort: 21001
-        - containerPort: 21002
-        - containerPort: 21003
-        - containerPort: 21004
-        - containerPort: 21005
-        - containerPort: 21006
-        - containerPort: 21007
-        - containerPort: 21008
-        - containerPort: 21009
-        - containerPort: 21010
+        - containerPort: 40000
+        - containerPort: 40001
+        - containerPort: 40002
+        - containerPort: 40003
+        - containerPort: 40004
+        - containerPort: 40005
+        - containerPort: 40006
+        - containerPort: 40007
+        - containerPort: 40008
+        - containerPort: 40009
         env:
-          - name: USERS
+          - name: FTP_USER
+            value: elinks
+          - name: FTP_PASS
             valueFrom:
               secretKeyRef:
-                key: username_password
+                key: password
                 name: europepmc-labslink-ftp-credentials--stg
           - name: ADDRESS
             value: test-ftpserver
