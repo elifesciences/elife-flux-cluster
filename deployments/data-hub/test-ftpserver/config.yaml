@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-ftpserver
+  namespace: data-hub
+data:
+  vsftpd.conf: |-
+    # daemon
+    background=NO
+    listen_ipv6=NO
+    listen=YES
+    session_support=NO
+
+    # access
+    anonymous_enable=NO
+    local_enable=YES
+    ftpd_banner=Docker FTP Server
+
+    # local user
+    allow_writeable_chroot=YES
+    chroot_local_user=YES
+    guest_enable=NO
+    local_umask=022
+    passwd_chroot_enable=YES
+
+    # directory
+    dirmessage_enable=NO
+    hide_ids=YES
+
+    # file transfer
+    write_enable=YES
+
+    # network
+    max_clients=0
+    max_per_ip=0
+    pasv_enable=YES
+    pasv_address=test-ftpserver
+    pasv_max_port=40009
+    pasv_min_port=40000
+    port_enable=YES
+    ftp_data_port=20
+    connect_from_port_20=YES
+    pasv_addr_resolve=YES
+
+    # tweaks
+    seccomp_sandbox=NO
+
+    # logging
+    xferlog_enable=YES
+    vsftpd_log_file=/proc/1/fd/1
