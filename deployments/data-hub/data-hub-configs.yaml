@@ -43,7 +43,7 @@ data:
           apiUrl: 'https://www.ebi.ac.uk/europepmc/webservices/rest/search'
           search:
             query: '(PUBLISHER:"bioRxiv" OR PUBLISHER:"medRxiv")'
-          maxDays: 1000  # limit the number of days to process from start date
+          maxDays: 10  # limit the number of days to process from start date
         target:
           projectName: 'elife-data-pipeline'
           datasetName: '{ENV}'
