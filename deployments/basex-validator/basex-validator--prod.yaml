@@ -29,4 +29,4 @@ spec:
       maxUnavailable: 1
       image:
         repository: elifesciences/basex-validator
-        tag: master-f3feddc3-20220317.0927
+        tag: master-1c5c0a8e-20220324.0853
