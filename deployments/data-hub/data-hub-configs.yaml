@@ -55,7 +55,7 @@ data:
           stateFile:
             bucketName: '{ENV}-elife-data-pipeline'
             objectName: 'airflow-config/europepmc/biorxiv-medrxiv/{ENV}-state.json'
-        batchSize: 1000
+        batchSize: 10000
   europepmc-labslink--stg.config.yaml: |-
     europePmcLabsLink:
     - dataPipelineId: europepmc_labslink_data_pipeline_1
