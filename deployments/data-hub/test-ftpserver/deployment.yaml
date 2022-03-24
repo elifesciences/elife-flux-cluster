@@ -40,3 +40,11 @@ spec:
                 name: europepmc-labslink-ftp-credentials--stg
           - name: ADDRESS
             value: test-ftpserver
+        volumeMounts:
+        - name: vsftpd-config
+          mountPath: "/etc/vsftpd.conf"
+          subPath: "vsftpd.conf"
+      volumes:
+      - name: vsftpd-config
+        configMap:
+          name: test-ftpserver
