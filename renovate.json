@@ -24,7 +24,7 @@
       "datasources": ["helm"],
       "managers": ["regex"],
       "packageNames": ["kube-prometheus-stack"],
-      "automerge": true,
+      "automerge": false,
       "registryUrls": ["https://prometheus-community.github.io/helm-charts"]
     },
     {
