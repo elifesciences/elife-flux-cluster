@@ -111,9 +111,8 @@ spec:
           value: "@daily"
         - name: GOOGLE_SPREADSHEET_SCHEDULE_INTERVAL
           value: "@daily"
-          # At 02:25
         - name: WEB_API_SCHEDULE_INTERVAL
-          value: "25 2 * * *"
+          value: "25 2 * * *" # At 02:25
           # At minute 25 past every hour :
         - name: S3_CSV_SCHEDULE_INTERVAL
           value: "25 * * * *"
