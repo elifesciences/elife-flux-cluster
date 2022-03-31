@@ -49,7 +49,7 @@ spec:
         AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "60"
       image:
         repository: elifesciences/data-hub-with-dags
-        tag: 0.0.92
+        tag: 0.0.93
       extraEnv:
         # security settings
         - name: AIRFLOW__WEBSERVER__SECRET_KEY
