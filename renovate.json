@@ -4,7 +4,8 @@
     {
       "fileMatch": ["\\.yaml$"],
       "matchStrings": [
-        "chart:\n *repository: .*?\n *name: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
+        "chart:\n *repository: .*?\n *name: (?<depName>.*?)\n *version: (?<currentValue>.*)\n",
+        "spec:\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
       ],
       "datasourceTemplate": "helm"
     }
@@ -24,7 +25,7 @@
       "datasources": ["helm"],
       "managers": ["regex"],
       "packageNames": ["kube-prometheus-stack"],
-      "automerge": true,
+      "automerge": false,
       "registryUrls": ["https://prometheus-community.github.io/helm-charts"]
     },
     {

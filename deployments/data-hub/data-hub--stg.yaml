@@ -51,7 +51,7 @@ spec:
         AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "90"
       image:
         repository: elifesciences/data-hub-with-dags_unstable
-        tag: 89b9fe9790c374dbba8084384f2434ad6d99ca27
+        tag: c56316734a5d8ba126473d5e99ce8db2f3f1a6b8
       extraEnv:
         # security settings
         - name: AIRFLOW__WEBSERVER__SECRET_KEY
@@ -111,9 +111,8 @@ spec:
           value: "@daily"
         - name: GOOGLE_SPREADSHEET_SCHEDULE_INTERVAL
           value: "@daily"
-          # At 02:25 :
         - name: WEB_API_SCHEDULE_INTERVAL
-          value: "25 2 * * *"
+          value: "25 2 * * *" # At 02:25
           # At minute 25 past every hour :
         - name: S3_CSV_SCHEDULE_INTERVAL
           value: "25 * * * *"
@@ -188,7 +187,7 @@ spec:
       resources:
         requests:
           memory: 4.9Gi
-          cpu: 800m
+          cpu: 1600m
           ephemeral-storage: 10Gi
         limits:
           memory: 6Gi

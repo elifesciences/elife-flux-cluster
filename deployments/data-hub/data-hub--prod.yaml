@@ -49,7 +49,7 @@ spec:
         AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "60"
       image:
         repository: elifesciences/data-hub-with-dags
-        tag: 0.0.90
+        tag: 0.0.93
       extraEnv:
         # security settings
         - name: AIRFLOW__WEBSERVER__SECRET_KEY
@@ -64,6 +64,8 @@ spec:
               key: fernet-key
 
         # config file paths:
+        - name: EUROPEPMC_CONFIG_FILE_PATH
+          value: /dag_config_files/europepmc.config.yaml
         - name: EUROPEPMC_LABSLINK_CONFIG_FILE_PATH
           value: /dag_config_files/europepmc-labslink--prod.config.yaml
         - name: GMAIL_DATA_CONFIG_FILE_PATH
@@ -96,6 +98,8 @@ spec:
           value: /dag_config_files/civicrm-email-report-data-pipeline.config.yaml
 
         # scheduler interval
+        - name: EUROPEPMC_PIPELINE_SCHEDULE_INTERVAL
+          value: "0 6 * * *"  # At 06:00, every day
         - name: EUROPEPMC_LABSLNK_PIPELINE_SCHEDULE_INTERVAL
           value: "0 10 * * *"  # At 10:00, every day
           # At 07:00 on every day-of-week from Monday through Friday :
@@ -182,7 +186,7 @@ spec:
       resources:
         requests:
           memory: 5Gi
-          cpu: 800m
+          cpu: 1600m
           ephemeral-storage: 10Gi
         limits:
           memory: 6Gi
