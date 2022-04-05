@@ -13,4 +13,3 @@ spec:
   prune: true
   dependsOn:
     - name: crds
-  patches:
