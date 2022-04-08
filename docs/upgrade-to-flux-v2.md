@@ -18,7 +18,7 @@ kubectl -n flux scale deployment helm-operator --replicas=0 # stop helm-operator
 helm uninstall -n flux flux
 kubectl delete helmreleases.helm.fluxcd.io -n flux flux # delete flux helmrelease
 # merge in the change in the repo that removes flux `helmrelease`, sets up the new kustomization obejects
-flux bootstrap github --owner=elifesciences --personal --repository=elife-flux-test --path=clusters/flux-test --components-extra=image-reflector-controller,image-automation-controller --read-write-key --branch master
+flux bootstrap github --owner=elifesciences --personal --repository=elife-flux-cluster --path=clusters/flux-prod --components-extra=image-reflector-controller,image-automation-controller --read-write-key --branch master
 kubectl -n flux scale deployment helm-operator --replicas=1 # start helm-operator again
 ```
 
