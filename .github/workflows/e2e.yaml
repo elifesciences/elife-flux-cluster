@@ -51,7 +51,7 @@ jobs:
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         flagger-loadtester
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         ingress-nginx
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         oauth2-proxy
-          # kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         sealed-secrets
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         sealed-secrets
           # kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n kube-system   descheduler
           # kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n monitoring    prometheus-stack
       - name: Verify other resources
