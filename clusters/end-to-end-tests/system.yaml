@@ -15,6 +15,34 @@ spec:
     - name: crds
 
   patches:
+  # These patches are to cover the install process from scratch, as it seems to try to create an ingress too quickly
+  # when the nginx-admission webhook isn't ready
+  - patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
+        name: oauth2-proxy
+        namespace: infra
+      spec:
+        install:
+          remediation:
+            retries: 5
+    target:
+      kind: HelmRelease
+      name: oauth2-proxy
+  - patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
+        name: external-dns
+        namespace: infra
+      spec:
+        install:
+          remediation:
+            retries: 5
+    target:
+      kind: HelmRelease
+      name: external-dns
   # in a small cluster like kind or minikube the load balancer won't get an external IP.
   # Therefore, we need to disable waiting
   - patch: |-
