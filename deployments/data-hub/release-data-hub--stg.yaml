@@ -5,10 +5,6 @@ metadata:
   name: data-hub--stg
   namespace: data-hub
   annotations:
-    fluxcd.io/automated: 'true' # TO BE REPLACED
-    repository.fluxcd.io/data-hub: airflow.image.repository # TO BE REPLACED
-    tag.fluxcd.io/data-hub: airflow.image.tag # TO BE REPLACED
-    filter.fluxcd.io/data-hub: glob:* # TO BE REPLACED
 
 spec:
   interval: 5m

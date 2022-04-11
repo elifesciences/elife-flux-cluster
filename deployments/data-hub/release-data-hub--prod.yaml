@@ -4,9 +4,6 @@ kind: HelmRelease
 metadata:
   name: data-hub--prod
   namespace: data-hub
-  annotations:
-    fluxcd.io/automated: 'true' # TO BE REPLACED
-    filter.fluxcd.io/chart-image: semver:* # TO BE REPLACED
 
 spec:
   interval: 5m
