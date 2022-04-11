@@ -19,7 +19,7 @@ spec:
 
   values:
     replicaCount: 1
-    txtOwnerId: flux-test-cluster
+    txtOwnerId: flux-cluster
     metrics:
       enabled: true
       serviceMonitor:
