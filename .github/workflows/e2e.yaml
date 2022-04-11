@@ -37,6 +37,10 @@ jobs:
           flux create kustomization flux-system \
           --source=flux-system \
           --path=./clusters/end-to-end-tests
+      # Deployments require too mch resource for GHA
+      - name: Suspend deployments
+        run: |
+          flux suspend kustomization deployments
       - name: Verify cluster reconciliation
         run: |
           kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n flux-system crds
