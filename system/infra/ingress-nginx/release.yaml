@@ -29,7 +29,7 @@ spec:
           service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: 'true'
           service.beta.kubernetes.io/aws-load-balancer-type: nlb
           service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "3600"
-          service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "creator=ingress,cluster=elife-flux-test"
+          service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "creator=ingress,cluster=elife-flux-cluster"
       metrics:
         enabled: "true"
         serviceMonitor:
@@ -39,9 +39,9 @@ spec:
         prometheus.io/port: "10254"
       resources:
         limits:
-          memory: 250Mi
+          memory: 300Mi
         requests:
           cpu: 100m
-          memory: 100Mi
+          memory: 150Mi
       replicaCount: 2
       watchIngressWithoutClass: true
