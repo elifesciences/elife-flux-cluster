@@ -21,6 +21,19 @@ spec:
       apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
       metadata:
+        name: prometheus-stack
+        namespace: monitoring
+      spec:
+        install:
+          remediation:
+            retries: 5
+    target:
+      kind: HelmRelease
+      name: prometheus-stack
+  - patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
         name: oauth2-proxy
         namespace: infra
       spec:
