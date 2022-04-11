@@ -57,8 +57,8 @@ jobs:
       - name: Verify other resources
         run: |
           # kubectl wait deployment --for=condition=Available --timeout=5m -n basex-validator  basex-validator
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n data-hub  data-hub--stg
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n data-hub  data-hub--prod
+          kubectl wait deployment --for=condition=Available --timeout=5m -n data-hub  data-hub--stg
+          kubectl wait deployment --for=condition=Available --timeout=5m -n data-hub  data-hub--prod
           # kubectl wait deployment --for=condition=Available --timeout=5m -n peerscout  peerscout--stg
           # kubectl wait deployment --for=condition=Available --timeout=5m -n peerscout  peerscout--prod
           # kubectl wait deployment --for=condition=Available --timeout=5m -n reviewer  libero-reviewer--stg
