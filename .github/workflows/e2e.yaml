@@ -46,7 +46,7 @@ jobs:
         run: |
           # kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n autoscaler    cluster-autoscaler
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         cert-manager
-          # kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         external-dns
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         external-dns
           # kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         flagger
           # kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         flagger-loadtester
           # kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         ingress-nginx
