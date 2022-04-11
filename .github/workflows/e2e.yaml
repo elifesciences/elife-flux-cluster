@@ -37,15 +37,11 @@ jobs:
           flux create kustomization flux-system \
           --source=flux-system \
           --path=./clusters/end-to-end-tests
-      # Deployments require too mch resource for GHA
-      - name: Suspend deployments
-        run: |
-          flux suspend kustomization deployments
       - name: Verify cluster reconciliation
         run: |
           kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n flux-system crds
           kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n flux-system system
-          # kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n flux-system deployments
+          kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n flux-system deployments
       - name: Verify helm reconciliation
         run: |
           # kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n autoscaler    cluster-autoscaler
@@ -60,13 +56,7 @@ jobs:
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n monitoring    prometheus-stack
       - name: Verify other resources
         run: |
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n basex-validator  basex-validator
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n data-hub  data-hub--stg
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n data-hub  data-hub--prod
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n peerscout  peerscout--stg
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n peerscout  peerscout--prod
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n reviewer  libero-reviewer--stg
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n reviewer  libero-reviewer--prod
+          kubectl wait deployment --for=condition=Available --timeout=5m -n podinfo    podinfo--stg
       - name: Debug failure
         if: failure()
         run: |
