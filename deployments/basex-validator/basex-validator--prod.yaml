@@ -1,19 +1,19 @@
 ---
-apiVersion: helm.fluxcd.io/v1
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: basex-validator
   namespace: basex-validator
-  annotations:
-    fluxcd.io/automated: 'true'
-    filter.fluxcd.io/basexValidator: glob:master-*-*
-
 spec:
   releaseName: basex-validator--prod
+  interval: 5m
   chart:
-    git: https://github.com/elifesciences/basex-validator-formula
-    path: helm/basex-validator
-    ref: master
+    spec:
+      chart: helm/basex-validator
+      sourceRef:
+        kind: GitRepository
+        name: basex-validator-formula
+      interval: 1m
 
   values:
     ingress:
