@@ -54,9 +54,6 @@ jobs:
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         sealed-secrets
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n kube-system   descheduler
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n monitoring    prometheus-stack
-      - name: Verify other resources
-        run: |
-          kubectl wait deployment --for=condition=Available --timeout=5m -n podinfo    podinfo--stg
       - name: Debug failure
         if: failure()
         run: |
