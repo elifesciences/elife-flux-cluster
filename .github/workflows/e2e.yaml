@@ -44,25 +44,19 @@ jobs:
           kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n flux-system deployments
       - name: Verify helm reconciliation
         run: |
-          # kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n autoscaler    cluster-autoscaler
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         cert-manager
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         external-dns
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         flagger
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         flagger-loadtester
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         ingress-nginx
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         oauth2-proxy
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         sealed-secrets
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n kube-system   descheduler
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n monitoring    prometheus-stack
+          # kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n autoscaler    cluster-autoscaler
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         cert-manager
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         external-dns
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         flagger
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         flagger-loadtester
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         ingress-nginx
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         oauth2-proxy
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         sealed-secrets
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n kube-system   descheduler
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n monitoring    prometheus-stack
       - name: Verify other resources
         run: |
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n basex-validator  basex-validator
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n data-hub  data-hub--stg
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n data-hub  data-hub--prod
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n peerscout  peerscout--stg
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n peerscout  peerscout--prod
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n reviewer  libero-reviewer--stg
-          # kubectl wait deployment --for=condition=Available --timeout=5m -n reviewer  libero-reviewer--prod
+          kubectl wait deployment --for=condition=Available --timeout=5m -n podinfo  podinfo--prod
       - name: Debug failure
         if: failure()
         run: |
