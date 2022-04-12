@@ -9,3 +9,4 @@ spec:
     namespace: data-hub
   policy:
     semver:
+      range: '*'
