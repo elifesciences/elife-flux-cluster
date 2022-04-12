@@ -4,7 +4,6 @@ kind: HelmRelease
 metadata:
   name: data-hub--stg
   namespace: data-hub
-  annotations:
 
 spec:
   interval: 5m
