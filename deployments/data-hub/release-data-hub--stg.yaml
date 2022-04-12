@@ -1,21 +1,21 @@
 ---
-apiVersion: helm.fluxcd.io/v1
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: data-hub--stg
   namespace: data-hub
-  annotations:
-    fluxcd.io/automated: 'true'
-    repository.fluxcd.io/data-hub: airflow.image.repository
-    tag.fluxcd.io/data-hub: airflow.image.tag
-    filter.fluxcd.io/data-hub: glob:*
 
 spec:
+  interval: 5m
   releaseName: data-hub--stg
   chart:
-    repository: https://airflow-helm.github.io/charts
-    name: airflow
-    version: 8.4.1
+    spec:
+      chart: airflow
+      version: 8.4.1
+      sourceRef:
+        kind: HelmRepository
+        name: airflow
+      interval: 1m
 
   values:
     ingress:
