@@ -27,6 +27,8 @@ jobs:
         run: |
           kubectl create ns infra
           kubectl create secret -n infra  generic oauth2-github --from-literal=client-id=client-id --from-literal=client-secret=client-secret --from-literal=cookie-secret=cookie-secret-16
+          kubectl create ns monitoring
+          kubectl create secret -n monitoring generic newrelic-license --from-literal=prod=prod
       - name: Install Flux v2
         run: flux install --components-extra=image-reflector-controller,image-automation-controller
       - name: Setup flux reconciliation
@@ -53,6 +55,7 @@ jobs:
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n infra         oauth2-proxy
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n infra         sealed-secrets
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n kube-system   descheduler
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n monitoring    newrelic
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n monitoring    prometheus-stack
       - name: Verify other resources
         run: |
