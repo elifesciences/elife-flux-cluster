@@ -27,6 +27,8 @@ jobs:
         run: |
           kubectl create ns infra
           kubectl create secret -n infra  generic oauth2-github --from-literal=client-id=client-id --from-literal=client-secret=client-secret --from-literal=cookie-secret=cookie-secret-16
+          kubectl create ns monitoring
+          kubectl create secret -n monitoring generic newrelic-license --from-literal=prod=prod
       - name: Install Flux v2
         run: flux install --components-extra=image-reflector-controller,image-automation-controller
       - name: Setup flux reconciliation
