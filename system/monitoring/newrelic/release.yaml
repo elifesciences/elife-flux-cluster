@@ -16,6 +16,9 @@ spec:
         kind: HelmRepository
         name: newrelic
       interval: 1m
+  install:
+    remediation:
+      retries: 5
 
   values:
     global:

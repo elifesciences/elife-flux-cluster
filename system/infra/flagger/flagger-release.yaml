@@ -16,6 +16,9 @@ spec:
         kind: HelmRepository
         name: flagger
       interval: 1m
+  install:
+    remediation:
+      retries: 5
 
   values:
     metricsServer: http://monitoring-prometheus-stac-prometheus.monitoring:9090

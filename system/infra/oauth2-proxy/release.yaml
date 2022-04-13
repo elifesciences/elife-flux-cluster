@@ -16,6 +16,9 @@ spec:
         kind: HelmRepository
         name: oauth2-proxy
       interval: 1m
+  install:
+    remediation:
+      retries: 5
 
   values:
     config:
