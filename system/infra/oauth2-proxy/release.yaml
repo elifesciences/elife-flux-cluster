@@ -6,7 +6,7 @@ metadata:
   namespace: infra
 
 spec:
-  interval: 5m
+  interval: 1m
   releaseName: infra-oauth2-proxy
   chart:
     spec:
