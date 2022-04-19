@@ -28,5 +28,5 @@ spec:
       replicaCount: 2
       maxUnavailable: 1
       image:
-        repository: elifesciences/basex-validator
-        tag: master-1c5c0a8e-20220324.0853
+        repository: elifesciences/basex-validator  # {"$imagepolicy": "basex-validator:basex-validator-stable:name"}
+        tag: master-1c5c0a8e-20220324.0853 # {"$imagepolicy": "basex-validator:basex-validator-stable:tag"}
