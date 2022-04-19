@@ -1,21 +1,20 @@
 ---
-apiVersion: helm.fluxcd.io/v1
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: libero-reviewer--stg
   namespace: reviewer
-  annotations:
-    fluxcd.io/automated: "true"
-    filter.fluxcd.io/submission: glob:master-*-*
-    filter.fluxcd.io/client: glob:master-*-*
-    filter.fluxcd.io/continuumAdaptor: glob:master-*-*
 
 spec:
   releaseName: libero-reviewer--stg
+  interval: 5m
   chart:
-    git: https://github.com/libero/reviewer
-    path: charts/libero-reviewer
-    ref: master
+    spec:
+      chart: charts/libero-reviewer
+      sourceRef:
+        kind: GitRepository
+        name: libero-reviewer
+      interval: 1m
 
   values:
     ingress:
@@ -80,4 +79,3 @@ spec:
       orcidLoginRequired: true
       orcidSecret: "libero-reviewer--stg-orcid"
       baseurl: "https://libero-reviewer--staging.elifesciences.org"
-
