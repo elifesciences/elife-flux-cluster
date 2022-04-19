@@ -5,7 +5,7 @@ metadata:
   name: sciencebeam
   namespace: reviewer
 spec:
-  releaseName: sciencebeam
+  releaseName: sciencebeam--reviewer
   interval: 5m
   chart:
     spec:
