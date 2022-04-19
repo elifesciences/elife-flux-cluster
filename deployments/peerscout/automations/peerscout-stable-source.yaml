@@ -1,0 +1,8 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: peerscout-stable
+  namespace: peerscout
+spec:
+  interval: 5m
+  image: docker.io/elifesciences/data-science-dags_peerscout-api

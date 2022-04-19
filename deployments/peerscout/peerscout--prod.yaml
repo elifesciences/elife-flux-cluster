@@ -1,18 +1,19 @@
 ---
-apiVersion: helm.fluxcd.io/v1
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: peerscout--prod
   namespace: peerscout
-  annotations:
-    fluxcd.io/automated: 'true'
-    filter.fluxcd.io/chart-image: semver:*
 spec:
   releaseName: peerscout--prod
+  interval: 5m
   chart:
-    git: https://github.com/elifesciences/data-science-dags
-    path: charts/peerscout
-    ref: v0.0.8
+    spec:
+      chart: charts/peerscout
+      sourceRef:
+        kind: GitRepository
+        name: peerscout--prod
+      interval: 1m
 
   values:
     image:
