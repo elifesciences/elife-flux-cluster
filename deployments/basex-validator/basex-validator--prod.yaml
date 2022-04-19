@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -14,7 +13,6 @@ spec:
         kind: GitRepository
         name: basex-validator-formula
       interval: 1m
-
   values:
     ingress:
       host: basex-validator.elifesciences.org
@@ -23,10 +21,9 @@ spec:
           nginx.ingress.kubernetes.io/proxy-read-timeout: "180"
           nginx.ingress.kubernetes.io/proxy-send-timeout: "180"
           nginx.ingress.kubernetes.io/proxy-body-size: 3m
-
     basexValidator:
       replicaCount: 2
       maxUnavailable: 1
       image:
-        repository: elifesciences/basex-validator  # {"$imagepolicy": "basex-validator:basex-validator-stable:name"}
-        tag: master-1c5c0a8e-20220324.0853 # {"$imagepolicy": "basex-validator:basex-validator-stable:tag"}
+        repository: docker.io/elifesciences/basex-validator # {"$imagepolicy": "basex-validator:basex-validator-stable:name"}
+        tag: master-3c7459e9-20220419.1259 # {"$imagepolicy": "basex-validator:basex-validator-stable:tag"}
