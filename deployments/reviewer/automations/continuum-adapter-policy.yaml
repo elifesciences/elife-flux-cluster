@@ -5,7 +5,7 @@ metadata:
   namespace: reviewer
 spec:
   imageRepositoryRef:
-    name: libero-reviewer-continuum-adapter
+    name: libero-reviewer-continuum-adaptor
     namespace: reviewer
   filterTags:
     pattern: '^master-[a-fA-F0-9]+-(?P<ts>.*)'
