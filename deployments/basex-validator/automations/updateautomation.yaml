@@ -9,6 +9,9 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  update:
+    strategy: Setters
+    path: ./deployments/basex-validator
   git:
     commit:
       author:
@@ -31,6 +34,3 @@ spec:
         {{ range .Updated.Images -}}
         - {{.}}
         {{ end -}}
-  update:
-    strategy: Setters
-    path: ./deployments/basex-validator
