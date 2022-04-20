@@ -50,7 +50,7 @@
       "registryUrls": ["https://kubernetes-sigs.github.io/descheduler"]
     },
     {
-      "automerge": true,
+      "automerge": false,
       "datasources": ["helm"],
       "managers": ["regex"],
       "packageNames": ["nri-bundle"],
@@ -69,13 +69,6 @@
       "packageNames": ["sealed-secrets"],
       "automerge": false,
       "registryUrls": ["https://bitnami-labs.github.io/sealed-secrets"]
-    },
-    {
-      "datasources": ["helm"],
-      "managers": ["regex"],
-      "packageNames": ["flux"],
-      "automerge": true,
-      "registryUrls": ["https://charts.fluxcd.io"]
     },
     {
       "datasources": ["helm"],
