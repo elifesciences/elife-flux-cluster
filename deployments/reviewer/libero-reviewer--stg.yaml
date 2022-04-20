@@ -39,8 +39,8 @@ spec:
       terminationGracePeriodSeconds: 600
       nginxWorkerTimeoutSeconds: 600
       image:
-        repository: liberoadmin/reviewer-submission
-        tag: master-2814581a-20210901.1521
+        repository: liberoadmin/reviewer-submission # {"$imagepolicy": "reviewer:libero-reviewer-submission:name"}
+        tag: master-2814581a-20210901.1521 # {"$imagepolicy": "reviewer:libero-reviewer-submission:tag"}
       sciencebeam:
         convertUrl: "http://sciencebeam--reviewer:8075/api/convert"
       s3:
@@ -61,13 +61,13 @@ spec:
     client:
       replicaCount: 1
       image:
-        repository: liberoadmin/reviewer-client
-        tag: master-fdb1d398-20220323.1553
+        repository: liberoadmin/reviewer-client # {"$imagepolicy": "reviewer:libero-reviewer-client:name"}
+        tag: master-fdb1d398-20220323.1553 # {"$imagepolicy": "reviewer:libero-reviewer-client:tag"}
 
     continuumAdaptor:
       image:
-        repository: liberoadmin/continuum-adaptor
-        tag: master-2952a7c5-20210615.1224
+        repository: liberoadmin/continuum-adaptor # {"$imagepolicy": "reviewer:libero-reviewer-adapter:name"}
+        tag: master-2952a7c5-20210615.1224 # {"$imagepolicy": "reviewer:libero-reviewer-adapter:tag"}
       continuumApiUrl: "http://continuumtest--gateway.elife.internal"
       continuumLoginUrl: "https://continuumtest--cdn-journal.elifesciences.org/submit"
       continuumLogoutUrl: "https://continuumtest--cdn-journal.elifesciences.org/log-out"

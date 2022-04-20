@@ -17,8 +17,8 @@ spec:
 
   values:
     image:
-      repository: elifesciences/sciencebeam
-      tag: 0.0.13
+      repository: elifesciences/sciencebeam # {"$imagepolicy": "reviewer:sciencebeam:name"}
+      tag: 0.0.13 # {"$imagepolicy": "reviewer:sciencebeam:tag"}
 
     grobid:
       resources:
