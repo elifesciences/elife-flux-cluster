@@ -20,6 +20,12 @@ spec:
     remediation:
       retries: 5
 
+  dependsOn:
+  - name: nginx-ingress
+    namespace: infra
+  - name: sealed-secrets
+    namespace: infra
+
   values:
     global:
       rbac:

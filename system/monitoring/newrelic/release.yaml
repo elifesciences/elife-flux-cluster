@@ -20,6 +20,10 @@ spec:
     remediation:
       retries: 5
 
+  dependsOn:
+  - name: sealed-secrets
+    namespace: infra
+
   values:
     global:
       cluster: kubernetes-aws--flux-prod

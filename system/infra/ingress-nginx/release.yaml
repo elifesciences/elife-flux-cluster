@@ -16,6 +16,12 @@ spec:
         kind: HelmRepository
         name: ingress-nginx
       interval: 1m
+
+  dependsOn:
+  - name: sealed-secrets
+    namespace: infra
+
+
   values:
     controller:
       config:
