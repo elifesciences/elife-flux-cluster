@@ -50,8 +50,8 @@ spec:
         AIRFLOW__CELERY__FLOWER_URL_PREFIX: "/flower"
         AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "90"
       image:
-        repository: elifesciences/data-hub-with-dags_unstable
-        tag: 61482260e409b68ab6310819f950b25ff04dd09f
+        repository: elifesciences/data-hub-with-dags_unstable # {"$imagepolicy": "data-hub:data-hub-unstable:name"}
+        tag: 61482260e409b68ab6310819f950b25ff04dd09f # {"$imagepolicy": "data-hub:data-hub-unstable:tag"}
       extraEnv:
         # security settings
         - name: AIRFLOW__WEBSERVER__SECRET_KEY
