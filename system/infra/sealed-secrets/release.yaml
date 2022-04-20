@@ -16,6 +16,7 @@ spec:
         kind: HelmRepository
         name: sealed-secrets
       interval: 1m
+  timeout: 2m
   install:
     remediation:
       retries: 5

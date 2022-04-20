@@ -47,7 +47,7 @@ jobs:
       - name: Verify helm reconciliation
         run: |
           # kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n autoscaler    cluster-autoscaler
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         sealed-secrets
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n infra         sealed-secrets
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         ingress-nginx
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         cert-manager
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         external-dns
