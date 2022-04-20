@@ -67,6 +67,7 @@ jobs:
           kubectl get helmreleases.helm.toolkit.fluxcd.io --all-namespaces
           helm list -A
           kubectl -n flux-system get all
+          kubectl describe pods --all-namespaces
           kubectl -n flux-system logs deploy/source-controller
           kubectl -n flux-system logs deploy/kustomize-controller
           kubectl -n flux-system logs deploy/helm-controller
