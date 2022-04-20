@@ -17,8 +17,8 @@ spec:
 
   values:
     image:
-      repository: elifesciences/data-science-dags_peerscout-api_unstable
-      tag: 1c090edc9364610363b9886fc52d890f193312cf
+      repository: elifesciences/data-science-dags_peerscout-api_unstable # {"$imagepolicy": "peerscout:peerscout-unstable:name"}
+      tag: 1c090edc9364610363b9886fc52d890f193312cf # {"$imagepolicy": "peerscout:peerscout-unstable:tag"}
     env:
       DATA_SCIENCE_STATE_PATH: s3://staging-elife-data-pipeline/airflow-config/data-science/state
       GOOGLE_APPLICATION_CREDENTIALS: /root/.gcp/credentials.json
