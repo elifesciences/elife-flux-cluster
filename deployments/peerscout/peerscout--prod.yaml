@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -14,10 +13,9 @@ spec:
         kind: GitRepository
         name: peerscout--prod
       interval: 1m
-
   values:
     image:
-      repository: elifesciences/data-science-dags_peerscout-api # {"$imagepolicy": "peerscout:peerscout-stable:name"}
+      repository: docker.io/elifesciences/data-science-dags_peerscout-api # {"$imagepolicy": "peerscout:peerscout-stable:name"}
       tag: "0.0.8" # {"$imagepolicy": "peerscout:peerscout-stable:tag"}
     env:
       DATA_SCIENCE_STATE_PATH: s3://prod-elife-data-pipeline/airflow-config/data-science/state
@@ -48,12 +46,10 @@ spec:
         nginx.ingress.kubernetes.io/auth-type: basic
         nginx.ingress.kubernetes.io/auth-secret: peerscout-http-basic-auth--prod
         nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - peerscout'
-
     resources:
       requests:
         cpu: "20m"
         memory: 2.5Gi
-
     livenessProbe:
       httpGet:
         path: /api/status
@@ -61,7 +57,6 @@ spec:
       initialDelaySeconds: 5
       timeoutSeconds: 30
       periodSeconds: 30
-
     readinessProbe:
       httpGet:
         path: /api/status
