@@ -1,29 +1,24 @@
----
-apiVersion: helm.fluxcd.io/v1
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: libero-reviewer--stg
   namespace: reviewer
-  annotations:
-    fluxcd.io/automated: "true"
-    filter.fluxcd.io/submission: glob:master-*-*
-    filter.fluxcd.io/client: glob:master-*-*
-    filter.fluxcd.io/continuumAdaptor: glob:master-*-*
-
 spec:
   releaseName: libero-reviewer--stg
+  interval: 5m
   chart:
-    git: https://github.com/libero/reviewer
-    path: charts/libero-reviewer
-    ref: master
-
+    spec:
+      chart: charts/libero-reviewer
+      sourceRef:
+        kind: GitRepository
+        name: libero-reviewer
+      interval: 1m
   values:
     ingress:
       enabled: "true"
       host: libero-reviewer--staging.elifesciences.org
       annotations:
         kubernetes.io/ingress.class: nginx
-
     postgresql:
       enabled: false
     database:
@@ -32,16 +27,14 @@ spec:
       dbHost: elife-libero-reviewer-staging.cxyopn44uqbl.us-east-1.rds.amazonaws.com
       dbPasswordSecret: libero-reviewer--stg-rds
       dbPasswordKey: password
-
     authenticationJwtSecret: libero-reviewer--stg-auth-jwt
-
     submission:
       replicaCount: 1
       terminationGracePeriodSeconds: 600
       nginxWorkerTimeoutSeconds: 600
       image:
-        repository: liberoadmin/reviewer-submission
-        tag: master-2814581a-20210901.1521
+        repository: docker.io/liberoadmin/reviewer-submission # {"$imagepolicy": "reviewer:libero-reviewer-submission:name"}
+        tag: master-f51d281f-20220318.0855 # {"$imagepolicy": "reviewer:libero-reviewer-submission:tag"}
       sciencebeam:
         convertUrl: "http://sciencebeam--reviewer:8075/api/convert"
       s3:
@@ -58,26 +51,22 @@ spec:
         sesRegion: "us-east-1"
         sendMail: true
         sender: "staging-noreply@elifesciences.org"
-
     client:
       replicaCount: 1
       image:
-        repository: liberoadmin/reviewer-client
-        tag: master-fdb1d398-20220323.1553
-
+        repository: docker.io/liberoadmin/reviewer-client # {"$imagepolicy": "reviewer:libero-reviewer-client:name"}
+        tag: master-fdb1d398-20220323.1553 # {"$imagepolicy": "reviewer:libero-reviewer-client:tag"}
     continuumAdaptor:
       image:
-        repository: liberoadmin/continuum-adaptor
-        tag: master-2952a7c5-20210615.1224
+        repository: liberoadmin/continuum-adaptor # {"$imagepolicy": "reviewer:libero-reviewer-adapter:name"}
+        tag: master-2952a7c5-20210615.1224 # {"$imagepolicy": "reviewer:libero-reviewer-adapter:tag"}
       continuumApiUrl: "http://continuumtest--gateway.elife.internal"
       continuumLoginUrl: "https://continuumtest--cdn-journal.elifesciences.org/submit"
       continuumLogoutUrl: "https://continuumtest--cdn-journal.elifesciences.org/log-out"
       elifeApiSecret: "libero-reviewer--stg-elife-api"
       continuumJwtSecret: "libero-reviewer--stg-continuum-journal-jwt"
-
     browsertests:
       testArgs: "--fixture-meta fixtureID=staging"
       orcidLoginRequired: true
       orcidSecret: "libero-reviewer--stg-orcid"
       baseurl: "https://libero-reviewer--staging.elifesciences.org"
-

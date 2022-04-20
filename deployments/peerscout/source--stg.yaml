@@ -1,0 +1,11 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: peerscout--stg
+  namespace: peerscout
+spec:
+  interval: 10m0s
+  ref:
+    branch: develop
+  url: https://github.com/elifesciences/data-science-dags

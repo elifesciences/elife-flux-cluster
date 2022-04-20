@@ -1,12 +1,12 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
-  name: data-hub-unstable
-  namespace: data-hub
+  name: peerscout-unstable
+  namespace: peerscout
 spec:
   imageRepositoryRef:
-    name: data-hub-unstable
-    namespace: data-hub
+    name: peerscout-unstable
+    namespace: peerscout
   filterTags:
     pattern: '^develop-[a-fA-F0-9]+-(?P<ts>.*)'
     extract: '$ts'

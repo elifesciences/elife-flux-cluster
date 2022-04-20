@@ -29,18 +29,18 @@ Copied from [builder docs](https://github.com/elifesciences/builder/blob/master/
 ## k8s version upgrade
 
 1. check [aws docs]( https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html ) for availability and notes
-1. use [pluto](https://github.com/FairwindsOps/pluto) to check for api deprecations  
-   `pluto detect-helm -owide`
+1. use [silver-surfer/kubedd](https://github.com/devtron-labs/silver-surfer) to check for api deprecations
+   `kubedd --target-kubernetes-version=1.22` (example for 1.22 upgrade)
    `DEPRECATED` is okay, but if an api is `DELETED` in the new k8s version you will have to fix the affected charts.
 1. bump k8s version (one minor at a time) in [elife.yaml](https://github.com/elifesciences/builder/blob/master/projects/elife.yaml)
-1. apply using `builder/bldr update_infrastructure:kubernetes-aws--flux-prod`  
+1. apply using `builder/bldr update_infrastructure:kubernetes-aws--flux-prod`
    This should change the EKS (i.e k8s control plane) and AutoscalingGroup AMI image.
 1. If `flux` fails to access the api after the EKS upgrade, try restarting it with `kubectl -n flux rollout restart deployment flux`
 1. upgrade `kube-proxy` (see [aws docs](https://docs.aws.amazon.com/eks/latest/userguide/update-cluster.html))
 1. drain and terminate node by node as described above to upgrade the workers
 
-Changing api versions in the chart can lead to helm complaining about `existing resource conflict`.  
-  This appears to be an issue with helm3 that helm-operator [is aware of](https://github.com/fluxcd/helm-operator/issues/249) but can't fix until helm3 fixes it upstream.  
+Changing api versions in the chart can lead to helm complaining about `existing resource conflict`.
+  This appears to be an issue with helm3 that helm-operator [is aware of](https://github.com/fluxcd/helm-operator/issues/249) but can't fix until helm3 fixes it upstream.
   To fix: delete the resource e.g. Deployment, DaemonSet, StatefulSet with `kubectl`. They should automatically be replaced by the new version. This will cause brief downtime.
 
 

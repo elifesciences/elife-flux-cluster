@@ -1,21 +1,21 @@
 ---
-apiVersion: helm.fluxcd.io/v1
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: libero-reviewer--prod
   namespace: reviewer
-  annotations:
-    fluxcd.io/automated: "false"
-    filter.fluxcd.io/submission: glob:master-*-*
-    filter.fluxcd.io/client: glob:master-*-*
-    filter.fluxcd.io/continuumAdaptor: glob:master-*-*
 
 spec:
   releaseName: libero-reviewer--prod
+  interval: 5m
   chart:
-    repository: https://libero.github.io/reviewer
-    name: libero-reviewer
-    version: 0.37.0
+    spec:
+      chart: libero-reviewer
+      version: 0.37.0
+      sourceRef:
+        kind: HelmRepository
+        name: libero-reviewer
+      interval: 1m
 
   values:
     ingress:

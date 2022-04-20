@@ -5,12 +5,12 @@ EKS cluster name: __kubernetes-aws--flux-prod__
 Use this git repo to control the cluster state (no `kubectl` or `helm`
 cli action needed/wanted).
 
--   [Flux](https://docs.fluxcd.io) will try to apply any `yaml` file in
+-   [Flux](https://fluxcd.io/docs/) will try to apply any `yaml` file in
     this repo to the cluster
--   [HelmOperator](https://docs.fluxcd.io/projects/helm-operator) allows
+-   [HelmController](https://fluxcd.io/docs/components/helm/) allows
     use of helm charts
--   folders have no meaning to cluster, are used to keep things tidy for
-    us humans
+-   We currently have three [Kustomizations](https://fluxcd.io/docs/components/kustomize/) defined: `crds`, `system` and `deployments` (each pointed at the root directory named the same). Only Yaml files found in these folders are loaded, in a dependency order (see "Kustomizations" below)
+
 
 Cluster infrastructure is defined in [builder](https://github.com/elifesciences/builder) in the [kubernetes-aws section](https://github.com/elifesciences/builder/blob/52d3c002d1246910243a44e88c7d94d26052e104/projects/elife.yaml#L1999).
 
@@ -19,7 +19,6 @@ Admins can configure `kubectl` for this cluster with:
         aws eks update-kubeconfig \
            --name kubernetes-aws--flux-prod \
            --role arn:aws:iam::512686554592:role/kubernetes-aws--flux-prod--AmazonEKSUserRole
-
 
 Dashboards
 ==========
@@ -38,29 +37,34 @@ The __#cluster-alerts__ slack channel receives alerts from:
 Adding/Editing Deployments
 ==========================
 
-- flux tries to apply any .yaml file as a k8s resource
-- folder structure is only used for humans
+Kustomizations
+--------------
+
+
+
+- `crds`: Cluster managed CustomResourceDefinitions.
+- `system`: Cluster services that are not directly serving production usecases. Some infrastructure components needs CRDs to exist before upgrading, so `infrastructure` kustomization depends on `crds` kustomization
+- `deployments`: These are the production services. As these all depend on infrastructure to serve traffic correctly, `system` kustomization is a dependency of this kustomization
+
+
+- flux tries to apply any .yaml file in the kustomization directories above
+- within that root folder, the structure is only used for humans
 - namespaces are managed using .yaml files
 - flux will always apply the HEAD of master
 
 Adding Helm Charts
 ------------------
 
+-   add a "source" object for the HelmChart (either `HelmRepository`, `GitRepository` or `Bucket` [source type](https://fluxcd.io/docs/components/source/))
 -   add a `HelmRelease` object, see
-    [docs](https://docs.fluxcd.io/projects/helm-operator/en/stable/references/helmrelease-custom-resource/)
--   chart needs to live in public git or helm repo
-    -   Flux can update chart version automatically (see [docs](https://docs.fluxcd.io/projects/helm-operator/en/stable/helmrelease-guide/chart-sources/))
-    -   see
-        [this](https://github.com/marketplace/actions/helm-publisher)
-        github action if you need to publish your chart
+    [docs](https://fluxcd.io/docs/components/helm/helmreleases/)
 -   Flux can [automatically update
     images](https://docs.fluxcd.io/en/1.19.0/references/helm-operator-integration/)
     in your chart
-    -   checks image registry every 5 minutes
-    -   `HelmRelease` needs to include `repository` and `tag` info
-    -   Flux is
-        [opinionated](https://docs.fluxcd.io/en/1.19.0/references/helm-operator-integration/#automated-image-detection)
-        about `image` location in chart
+    -   Setup an [`ImageRepository`](https://fluxcd.io/docs/components/image/imagerepositories/) to query container registry for tags
+    -   Setup an [`ImagePolicy`](https://fluxcd.io/docs/components/image/imagepolicies/) to choose what the latest tag is
+    -   Setup an [`ImageUpdateAutomation`](https://fluxcd.io/docs/components/image/imageupdateautomations/) to describe which `GitRepository` object you want flux to update, and which directory
+    -   Add a [policy marker](https://fluxcd.io/docs/guides/image-update/#configure-image-update-for-custom-resources) to tell Flux how to update te yaml files
 
 Debugging
 --------
