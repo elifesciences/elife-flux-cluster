@@ -1,10 +1,8 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: data-hub--stg
   namespace: data-hub
-
 spec:
   interval: 5m
   releaseName: data-hub--stg
@@ -16,7 +14,6 @@ spec:
         kind: HelmRepository
         name: airflow
       interval: 1m
-
   values:
     ingress:
       enabled: true
@@ -50,139 +47,134 @@ spec:
         AIRFLOW__CELERY__FLOWER_URL_PREFIX: "/flower"
         AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "90"
       image:
-        repository: elifesciences/data-hub-with-dags_unstable # {"$imagepolicy": "data-hub:data-hub-unstable:name"}
-        tag: 61482260e409b68ab6310819f950b25ff04dd09f # {"$imagepolicy": "data-hub:data-hub-unstable:tag"}
+        repository: docker.io/elifesciences/data-hub-with-dags_unstable # {"$imagepolicy": "data-hub:data-hub-unstable:name"}
+        tag: develop-a85d06a9-20220420.0955 # {"$imagepolicy": "data-hub:data-hub-unstable:tag"}
       extraEnv:
-        # security settings
-        - name: AIRFLOW__WEBSERVER__SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: webserver-secret-key--stg
-              key: webserver-secret-key
-        - name: AIRFLOW__CORE__FERNET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: fernet-key--stg
-              key: fernet-key
-
-        # config file paths:
-        - name: EUROPEPMC_CONFIG_FILE_PATH
-          value: /dag_config_files/europepmc.config.yaml
-        - name: EUROPEPMC_LABSLINK_CONFIG_FILE_PATH
-          value: /dag_config_files/europepmc-labslink--stg.config.yaml
-        - name: GMAIL_DATA_CONFIG_FILE_PATH
-          value: /dag_config_files/gmail-data-pipeline.config.yaml
-        - name: CROSSREF_CONFIG_FILE_PATH
-          value: /dag_config_files/crossref-event-data-pipeline.config.yaml
-        - name: SPREADSHEET_CONFIG_FILE_PATH
-          value: /dag_config_files/spreadsheet-data-pipeline.config.yaml
-        - name: WEB_API_CONFIG_FILE_PATH
-          value: /dag_config_files/web-api-data-pipeline.config.yaml
-        - name: S3_CSV_CONFIG_FILE_PATH
-          value: /dag_config_files/s3-csv-data-pipeline.config.yaml
-        - name: MONITORING_CONFIG_FILE_PATH
-          value: /dag_config_files/monitoring.config.yaml
-        - name: MATERIALIZE_BIGQUERY_VIEWS_CONFIG_PATH
-          value: "s3://staging-elife-data-pipeline/airflow-config/bigquery-views"
-        - name: TOGGL_API_TOKEN_FILE_PATH
-          value: /home/airflow/toggl/toggl_api_token.txt
-        - name: CIVICRM_API_KEY_FILE_PATH
-          value: /home/airflow/civi_key/civi_api_key.txt
-        - name: CIVICRM_SITE_KEY_FILE_PATH
-          value: /home/airflow/civi_key/civi_site_key.txt
-        - name:  EJP_XML_CONFIG_FILE_PATH
-          value: /dag_config_files/ejp-xml-data-pipeline.config.yaml
-        - name: EXTRACT_KEYWORDS_FILE_PATH
-          value: /dag_config_files/keyword-extraction-data-pipeline.config.yaml
-        - name: SURVEYMONKEY_DATA_CONFIG_FILE_PATH
-          value: /dag_config_files/surveymonkey-data-pipeline.config.yaml
-        - name: CIVICRM_EMAIL_DATA_CONFIG_FILE_PATH
-          value: /dag_config_files/civicrm-email-report-data-pipeline.config.yaml
-
-        # scheduler interval
-        - name: EUROPEPMC_PIPELINE_SCHEDULE_INTERVAL
-          value: "0 6 * * *"  # At 06:00, every day
-        - name: EUROPEPMC_LABSLNK_PIPELINE_SCHEDULE_INTERVAL
-          value: "0 10 * * *"  # At 10:00, every day
-          # At 07:00 on every day-of-week from Monday through Friday :
-        - name: GMAIL_DATA_PIPELINE_SCHEDULE_INTERVAL
-          value: "0 7 * * 1-5"
-        - name: CROSS_REF_IMPORT_SCHEDULE_INTERVAL
-          value: "@daily"
-        - name: GOOGLE_SPREADSHEET_SCHEDULE_INTERVAL
-          value: "@daily"
-        - name: WEB_API_SCHEDULE_INTERVAL
-          value: "25 2 * * *" # At 02:25
-          # At minute 25 past every hour :
-        - name: S3_CSV_SCHEDULE_INTERVAL
-          value: "25 * * * *"
-          # At minute 50 past every 3rd hour from 8 through 18 :
-        - name: MONITOR_DATA_HUB_PIPELINE_HEALTH_SCHEDULE_INTERVAL
-          value: "50 8-18/3 * * *"
-        - name: MATERIALIZE_BIGQUERY_VIEWS_SCHEDULE_INTERVAL
-          value: "@hourly"
-        - name: SCHEDULE_INTERVAL
-          value: "@weekly"
-        - name: DATA_SCIENCE_FORECAST_SCHEDULE_INTERVAL
-          value: "@hourly"
-          # At minute 40 past every 3rd hour :
-        - name: DATA_SCIENCE_PEERSCOUT_RECOMMEND_SCHEDULE_INTERVAL
-          value: "40 */3 * * *"
-        - name: DATA_SCIENCE_PEERSCOUT_EDITOR_PUBMED_SCHEDULE_INTERVAL
-          value: "@hourly"
-          # At every 20th minute :
-        - name: EJP_XML_SCHEDULE_INTERVAL
-          value: "*/20 * * * *"
-          # At minute 10 past every 2nd hour :
-        - name: EXTRACT_KEYWORDS_SCHEDULE_INTERVAL
-          value: "10 */2 * * *"
-        - name: SURVEYMONKEY_DATA_PIPELINE_SCHEDULE_INTERVAL
-          value: "@monthly"
-        - name: CIVICRM_EMAIL_REPORT_DATA_PIPELINE_SCHEDULE_INTERVAL
-          value: "@daily"
-
-        # general:
-        - name: DEPLOYMENT_ENV
-          value: staging
-        - name: AIRFLOW_APPLICATIONS_DIRECTORY_PATH
-          value: /opt/airflow/auxiliary_data_pipeline_files
-        - name: GMAIL_THREAD_DETAILS_CHUNK_SIZE
-          value: "100"
-        - name: EUROPEPMC_LABSLINK_FTP_PASSWORD_FILE_PATH
-          value: /dag_secret_files/europepmc_labslink_ftp_credentials/password
-        - name: EUROPEPMC_LABSLINK_FTP_DIRECTORY_NAME_FILE_PATH
-          value: /dag_secret_files/europepmc_labslink_ftp_credentials/directory_name
-        - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: /dag_secret_files/gcloud/credentials.json
-        - name: GMAIL_PRODUCTION_ACCOUNT_SECRET_FILE
-          value: /dag_secret_files/gmail_production/gmail_credentials.json
-        - name: GMAIL_OPEN_RESEARCH_ACCOUNT_SECRET_FILE
-          value: /dag_secret_files/gmail_open_research/gmail_open_research_credentials.json
-        - name: SURVEYMONKEY_SECRET_FILE
-          value: /dag_secret_files/surveymonkey/surveymonkey_credentials.json
-        - name: INITIAL_S3_FILE_LAST_MODIFIED_DATE
-          value: "2020-02-14 13:00:00"
-        - name: MATERIALIZE_BIGQUERY_VIEWS_GCP_PROJECT
-          value: "elife-data-pipeline"
-        - name: MATERIALIZE_BIGQUERY_VIEWS_DATASET
-          value: staging
-        - name: INITIAL_S3_XML_FILE_LAST_MODIFIED_DATE
-          value: "2012-01-01 00:00:00"
-        - name: HEALTH_CHECK_URL
-          valueFrom:
-            secretKeyRef:
-              name: monitoring-urls--stg
-              key: health_check_url
-        - name: DATA_HUB_MONITORING_SLACK_WEBHOOK_URL
-          valueFrom:
-            secretKeyRef:
-              name: monitoring-urls--stg
-              key: slack_webhook_url
-
-        # @TODO: legacy env var to be removed in the future - see Hazal or Daniel
-        - name: AIRFLOW_NOTIFICATION_EMAIL_CSV_LIST
-          value: ""
-
+      # security settings
+      - name: AIRFLOW__WEBSERVER__SECRET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: webserver-secret-key--stg
+            key: webserver-secret-key
+      - name: AIRFLOW__CORE__FERNET_KEY
+        valueFrom:
+          secretKeyRef:
+            name: fernet-key--stg
+            key: fernet-key
+      # config file paths:
+      - name: EUROPEPMC_CONFIG_FILE_PATH
+        value: /dag_config_files/europepmc.config.yaml
+      - name: EUROPEPMC_LABSLINK_CONFIG_FILE_PATH
+        value: /dag_config_files/europepmc-labslink--stg.config.yaml
+      - name: GMAIL_DATA_CONFIG_FILE_PATH
+        value: /dag_config_files/gmail-data-pipeline.config.yaml
+      - name: CROSSREF_CONFIG_FILE_PATH
+        value: /dag_config_files/crossref-event-data-pipeline.config.yaml
+      - name: SPREADSHEET_CONFIG_FILE_PATH
+        value: /dag_config_files/spreadsheet-data-pipeline.config.yaml
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+      - name: S3_CSV_CONFIG_FILE_PATH
+        value: /dag_config_files/s3-csv-data-pipeline.config.yaml
+      - name: MONITORING_CONFIG_FILE_PATH
+        value: /dag_config_files/monitoring.config.yaml
+      - name: MATERIALIZE_BIGQUERY_VIEWS_CONFIG_PATH
+        value: "s3://staging-elife-data-pipeline/airflow-config/bigquery-views"
+      - name: TOGGL_API_TOKEN_FILE_PATH
+        value: /home/airflow/toggl/toggl_api_token.txt
+      - name: CIVICRM_API_KEY_FILE_PATH
+        value: /home/airflow/civi_key/civi_api_key.txt
+      - name: CIVICRM_SITE_KEY_FILE_PATH
+        value: /home/airflow/civi_key/civi_site_key.txt
+      - name: EJP_XML_CONFIG_FILE_PATH
+        value: /dag_config_files/ejp-xml-data-pipeline.config.yaml
+      - name: EXTRACT_KEYWORDS_FILE_PATH
+        value: /dag_config_files/keyword-extraction-data-pipeline.config.yaml
+      - name: SURVEYMONKEY_DATA_CONFIG_FILE_PATH
+        value: /dag_config_files/surveymonkey-data-pipeline.config.yaml
+      - name: CIVICRM_EMAIL_DATA_CONFIG_FILE_PATH
+        value: /dag_config_files/civicrm-email-report-data-pipeline.config.yaml
+      # scheduler interval
+      - name: EUROPEPMC_PIPELINE_SCHEDULE_INTERVAL
+        value: "0 6 * * *" # At 06:00, every day
+      - name: EUROPEPMC_LABSLNK_PIPELINE_SCHEDULE_INTERVAL
+        value: "0 10 * * *" # At 10:00, every day
+        # At 07:00 on every day-of-week from Monday through Friday :
+      - name: GMAIL_DATA_PIPELINE_SCHEDULE_INTERVAL
+        value: "0 7 * * 1-5"
+      - name: CROSS_REF_IMPORT_SCHEDULE_INTERVAL
+        value: "@daily"
+      - name: GOOGLE_SPREADSHEET_SCHEDULE_INTERVAL
+        value: "@daily"
+      - name: WEB_API_SCHEDULE_INTERVAL
+        value: "25 2 * * *" # At 02:25
+        # At minute 25 past every hour :
+      - name: S3_CSV_SCHEDULE_INTERVAL
+        value: "25 * * * *"
+        # At minute 50 past every 3rd hour from 8 through 18 :
+      - name: MONITOR_DATA_HUB_PIPELINE_HEALTH_SCHEDULE_INTERVAL
+        value: "50 8-18/3 * * *"
+      - name: MATERIALIZE_BIGQUERY_VIEWS_SCHEDULE_INTERVAL
+        value: "@hourly"
+      - name: SCHEDULE_INTERVAL
+        value: "@weekly"
+      - name: DATA_SCIENCE_FORECAST_SCHEDULE_INTERVAL
+        value: "@hourly"
+        # At minute 40 past every 3rd hour :
+      - name: DATA_SCIENCE_PEERSCOUT_RECOMMEND_SCHEDULE_INTERVAL
+        value: "40 */3 * * *"
+      - name: DATA_SCIENCE_PEERSCOUT_EDITOR_PUBMED_SCHEDULE_INTERVAL
+        value: "@hourly"
+        # At every 20th minute :
+      - name: EJP_XML_SCHEDULE_INTERVAL
+        value: "*/20 * * * *"
+        # At minute 10 past every 2nd hour :
+      - name: EXTRACT_KEYWORDS_SCHEDULE_INTERVAL
+        value: "10 */2 * * *"
+      - name: SURVEYMONKEY_DATA_PIPELINE_SCHEDULE_INTERVAL
+        value: "@monthly"
+      - name: CIVICRM_EMAIL_REPORT_DATA_PIPELINE_SCHEDULE_INTERVAL
+        value: "@daily"
+      # general:
+      - name: DEPLOYMENT_ENV
+        value: staging
+      - name: AIRFLOW_APPLICATIONS_DIRECTORY_PATH
+        value: /opt/airflow/auxiliary_data_pipeline_files
+      - name: GMAIL_THREAD_DETAILS_CHUNK_SIZE
+        value: "100"
+      - name: EUROPEPMC_LABSLINK_FTP_PASSWORD_FILE_PATH
+        value: /dag_secret_files/europepmc_labslink_ftp_credentials/password
+      - name: EUROPEPMC_LABSLINK_FTP_DIRECTORY_NAME_FILE_PATH
+        value: /dag_secret_files/europepmc_labslink_ftp_credentials/directory_name
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /dag_secret_files/gcloud/credentials.json
+      - name: GMAIL_PRODUCTION_ACCOUNT_SECRET_FILE
+        value: /dag_secret_files/gmail_production/gmail_credentials.json
+      - name: GMAIL_OPEN_RESEARCH_ACCOUNT_SECRET_FILE
+        value: /dag_secret_files/gmail_open_research/gmail_open_research_credentials.json
+      - name: SURVEYMONKEY_SECRET_FILE
+        value: /dag_secret_files/surveymonkey/surveymonkey_credentials.json
+      - name: INITIAL_S3_FILE_LAST_MODIFIED_DATE
+        value: "2020-02-14 13:00:00"
+      - name: MATERIALIZE_BIGQUERY_VIEWS_GCP_PROJECT
+        value: "elife-data-pipeline"
+      - name: MATERIALIZE_BIGQUERY_VIEWS_DATASET
+        value: staging
+      - name: INITIAL_S3_XML_FILE_LAST_MODIFIED_DATE
+        value: "2012-01-01 00:00:00"
+      - name: HEALTH_CHECK_URL
+        valueFrom:
+          secretKeyRef:
+            name: monitoring-urls--stg
+            key: health_check_url
+      - name: DATA_HUB_MONITORING_SLACK_WEBHOOK_URL
+        valueFrom:
+          secretKeyRef:
+            name: monitoring-urls--stg
+            key: slack_webhook_url
+      # @TODO: legacy env var to be removed in the future - see Hazal or Daniel
+      - name: AIRFLOW_NOTIFICATION_EMAIL_CSV_LIST
+        value: ""
     workers:
       resources:
         requests:
@@ -223,7 +215,6 @@ spec:
       - name: surveymonkey-secret-volume
         mountPath: /dag_secret_files/surveymonkey/
         readOnly: true
-
       extraVolumes:
       - name: data-hub-config-volume
         configMap:
