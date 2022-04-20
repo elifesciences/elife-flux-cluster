@@ -1,10 +1,8 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: libero-reviewer--stg
   namespace: reviewer
-
 spec:
   releaseName: libero-reviewer--stg
   interval: 5m
@@ -15,14 +13,12 @@ spec:
         kind: GitRepository
         name: libero-reviewer
       interval: 1m
-
   values:
     ingress:
       enabled: "true"
       host: libero-reviewer--staging.elifesciences.org
       annotations:
         kubernetes.io/ingress.class: nginx
-
     postgresql:
       enabled: false
     database:
@@ -31,16 +27,14 @@ spec:
       dbHost: elife-libero-reviewer-staging.cxyopn44uqbl.us-east-1.rds.amazonaws.com
       dbPasswordSecret: libero-reviewer--stg-rds
       dbPasswordKey: password
-
     authenticationJwtSecret: libero-reviewer--stg-auth-jwt
-
     submission:
       replicaCount: 1
       terminationGracePeriodSeconds: 600
       nginxWorkerTimeoutSeconds: 600
       image:
-        repository: liberoadmin/reviewer-submission # {"$imagepolicy": "reviewer:libero-reviewer-submission:name"}
-        tag: master-2814581a-20210901.1521 # {"$imagepolicy": "reviewer:libero-reviewer-submission:tag"}
+        repository: docker.io/liberoadmin/reviewer-submission # {"$imagepolicy": "reviewer:libero-reviewer-submission:name"}
+        tag: master-f51d281f-20220318.0855 # {"$imagepolicy": "reviewer:libero-reviewer-submission:tag"}
       sciencebeam:
         convertUrl: "http://sciencebeam--reviewer:8075/api/convert"
       s3:
@@ -57,13 +51,11 @@ spec:
         sesRegion: "us-east-1"
         sendMail: true
         sender: "staging-noreply@elifesciences.org"
-
     client:
       replicaCount: 1
       image:
-        repository: liberoadmin/reviewer-client # {"$imagepolicy": "reviewer:libero-reviewer-client:name"}
+        repository: docker.io/liberoadmin/reviewer-client # {"$imagepolicy": "reviewer:libero-reviewer-client:name"}
         tag: master-fdb1d398-20220323.1553 # {"$imagepolicy": "reviewer:libero-reviewer-client:tag"}
-
     continuumAdaptor:
       image:
         repository: liberoadmin/continuum-adaptor # {"$imagepolicy": "reviewer:libero-reviewer-adapter:name"}
@@ -73,7 +65,6 @@ spec:
       continuumLogoutUrl: "https://continuumtest--cdn-journal.elifesciences.org/log-out"
       elifeApiSecret: "libero-reviewer--stg-elife-api"
       continuumJwtSecret: "libero-reviewer--stg-continuum-journal-jwt"
-
     browsertests:
       testArgs: "--fixture-meta fixtureID=staging"
       orcidLoginRequired: true

@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -14,12 +13,10 @@ spec:
         kind: GitRepository
         name: sciencebeam
       interval: 1m
-
   values:
     image:
-      repository: elifesciences/sciencebeam # {"$imagepolicy": "reviewer:sciencebeam:name"}
+      repository: docker.io/elifesciences/sciencebeam # {"$imagepolicy": "reviewer:sciencebeam:name"}
       tag: 0.0.13 # {"$imagepolicy": "reviewer:sciencebeam:tag"}
-
     grobid:
       resources:
         requests:
