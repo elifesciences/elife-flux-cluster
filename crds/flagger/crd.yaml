@@ -1050,6 +1050,9 @@ spec:
                 lastAppliedSpec:
                   description: LastAppliedSpec of this canary
                   type: string
+                lastPromotedSpec:
+                  description: LastPromotedSpec of this canary
+                  type: string
                 lastTransitionTime:
                   description: LastTransitionTime of this canary
                   format: date-time
