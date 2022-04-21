@@ -6,7 +6,7 @@ metadata:
   namespace: infra
 
 spec:
-  interval: 5m
+  interval: 1m
   releaseName: infra-flagger
   chart:
     spec:
@@ -16,6 +16,13 @@ spec:
         kind: HelmRepository
         name: flagger
       interval: 1m
+  install:
+    remediation:
+      retries: 5
+
+  dependsOn:
+  - name: ingress-nginx
+    namespace: infra
 
   values:
     metricsServer: http://monitoring-prometheus-stac-prometheus.monitoring:9090
