@@ -55,8 +55,8 @@ jobs:
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         flagger-loadtester
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n infra         oauth2-proxy
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n kube-system   descheduler
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n monitoring    newrelic
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n monitoring    prometheus-stack
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n monitoring    newrelic
       - name: Verify deployment manifests
         run: |
           kubectl wait deployment --for=condition=Available --timeout=5m -n podinfo  podinfo--prod
