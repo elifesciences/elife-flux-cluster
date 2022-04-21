@@ -39,12 +39,12 @@ jobs:
           flux create kustomization flux-system \
           --source=flux-system \
           --path=./clusters/end-to-end-tests
-      - name: Verify cluster reconciliation
+      - name: Verify cluster kustomization reconciliation
         run: |
           kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n flux-system crds
           kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n flux-system system
           kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n flux-system deployments
-      - name: Verify helm reconciliation
+      - name: Verify system helm reconciliations
         run: |
           # kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n autoscaler    cluster-autoscaler
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n infra         sealed-secrets
@@ -57,17 +57,33 @@ jobs:
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n kube-system   descheduler
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n monitoring    newrelic
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n monitoring    prometheus-stack
-      - name: Verify other resources
+      - name: Verify deployment manifests
         run: |
           kubectl wait deployment --for=condition=Available --timeout=5m -n podinfo  podinfo--prod
-      - name: Debug failure
+      - name: Debug failure summaries
         if: failure()
         run: |
           flux get all --all-namespaces
-          kubectl get helmreleases.helm.toolkit.fluxcd.io --all-namespaces
           helm list -A
           kubectl -n flux-system get all
+          kubectl get helmreleases.helm.toolkit.fluxcd.io --all-namespaces
+      - name: Debug describe pods
+        if: failure()
+        run: |
           kubectl describe pods --all-namespaces
+      - name: Debug describe helm releases
+        if: failure()
+        run: |
+          kubectl describe helmreleases.helm.toolkit.fluxcd.io --all-namespaces
+      - name: Debug source-controller logs
+        if: failure()
+        run: |
           kubectl -n flux-system logs deploy/source-controller
+      - name: Debug kustomize-controller logs
+        if: failure()
+        run: |
           kubectl -n flux-system logs deploy/kustomize-controller
+      - name: Debug helm-controller logs
+        if: failure()
+        run: |
           kubectl -n flux-system logs deploy/helm-controller
