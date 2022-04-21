@@ -6,7 +6,7 @@ metadata:
   namespace: monitoring
 
 spec:
-  interval: 5m
+  interval: 1m
   releaseName: monitoring-prometheus-stack
   chart:
     spec:
@@ -16,6 +16,15 @@ spec:
         kind: HelmRepository
         name: prometheus-stack
       interval: 1m
+  install:
+    remediation:
+      retries: 5
+
+  dependsOn:
+  - name: ingress-nginx
+    namespace: infra
+  - name: sealed-secrets
+    namespace: infra
 
   values:
     global:

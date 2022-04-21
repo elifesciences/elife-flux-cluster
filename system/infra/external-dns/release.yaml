@@ -6,7 +6,7 @@ metadata:
   namespace: infra
 
 spec:
-  interval: 5m
+  interval: 1m
   releaseName: infra-external-dns
   chart:
     spec:
@@ -16,6 +16,9 @@ spec:
         kind: HelmRepository
         name: external-dns
       interval: 1m
+  install:
+    remediation:
+      retries: 5
 
   values:
     replicaCount: 1
