@@ -6,7 +6,7 @@ metadata:
   namespace: monitoring
 
 spec:
-  interval: 5m
+  interval: 1m
   releaseName: monitoring-newrelic
   chart:
     spec:
@@ -16,6 +16,13 @@ spec:
         kind: HelmRepository
         name: newrelic
       interval: 1m
+  install:
+    remediation:
+      retries: 5
+
+  dependsOn:
+  - name: sealed-secrets
+    namespace: infra
 
   values:
     global:
