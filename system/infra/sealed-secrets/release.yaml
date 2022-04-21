@@ -6,7 +6,7 @@ metadata:
   namespace: infra
 
 spec:
-  interval: 5m
+  interval: 1m
   releaseName: infra-sealed-secrets
   chart:
     spec:
@@ -16,6 +16,10 @@ spec:
         kind: HelmRepository
         name: sealed-secrets
       interval: 1m
+  timeout: 2m
+  install:
+    remediation:
+      retries: 5
 
   values:
     namespace: infra
