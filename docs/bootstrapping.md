@@ -17,7 +17,7 @@ get-started for github](https://fluxcd.io/docs/installation/#github-and-github-e
 
         export GITHUB_TOKEN=<your-token>
 
-        flux bootstrap github --owner=elifesciences --personal --repository=elife-flux-cluster --path=clusters/flux-prod --components-extra=image-reflector-controller,image-automation-controller --read-write-key --branch master
+        flux bootstrap github --owner=elifesciences --repository=elife-flux-cluster --path=clusters/flux-prod --components-extra=image-reflector-controller,image-automation-controller --read-write-key --branch master
 
 3. Restore sealed-secret master key from backup
 
