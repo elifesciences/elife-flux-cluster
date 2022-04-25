@@ -94,6 +94,13 @@
       "matchPackageNames": ["fluent/fluentd-kubernetes-daemonset"],
       "automerge": false,
       "versioning": "regex:^v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)?-(?<compatibility>.*)-1.*$"
+    },
+    {
+      "datasources": ["helm"],
+      "managers": ["regex"],
+      "packageNames": ["airflow"],
+      "automerge": false,
+      "registryUrls": ["https://airflow-helm.github.io/charts"]
     }
   ]
 }
