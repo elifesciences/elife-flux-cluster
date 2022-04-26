@@ -629,6 +629,38 @@ data:
         stateFile:
           bucketName: "{ENV}-elife-data-pipeline"
           objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_wip_stage_history_001.json"
+  semantic-scholar.config.yaml: |-
+    semanticScholar:
+      - dataPipelineId: semantic_scholar_data_pipeline_1
+        matrix:  # similar to ci matrix, currently supporting a single variable only
+          doi:
+            include:
+              bigQuery:
+                projectName: 'elife-data-pipeline'
+                sqlQuery: |-
+                  SELECT DISTINCT doi
+                  FROM `elife-data-pipeline.{ENV}.europepmc_biorxiv_medrxiv_responses` AS response
+                  WHERE doi IS NOT NULL
+            exclude:
+              bigQuery:
+                ignoreNotFound: true
+                projectName: 'elife-data-pipeline'
+                sqlQuery: |-
+                  SELECT externalIds.DOI
+                  FROM `elife-data-pipeline.{ENV}.semantic_scholar_responses_v1` AS response
+                  WHERE externalIds.DOI IS NOT NULL
+                      AND provenance.http_status = 200
+        source:
+          apiUrl: 'https://api.semanticscholar.org/graph/v1/paper/{doi}'
+          params:
+            # See https://api.semanticscholar.org/api-docs/graph#operation/get_graph_get_paper
+            # omitted "citations" and "references"
+            fields: 'externalIds,url,title,abstract,venue,year,referenceCount,citationCount,influentialCitationCount,isOpenAccess,fieldsOfStudy,s2FieldsOfStudy,authors,embedding,tldr'
+        target:
+          projectName: 'elife-data-pipeline'
+          datasetName: '{ENV}'
+          tableName: semantic_scholar_responses_v1
+        batchSize: 1000
   spreadsheet-data-pipeline.config.yaml: |-
     gcpProjectName: 'elife-data-pipeline'
     importedTimestampFieldName: "imported_timestamp"
