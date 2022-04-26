@@ -19,7 +19,7 @@ spec:
   install:
     remediation:
       retries: 5
-
+  timeout: 2m
   dependsOn:
   - name: sealed-secrets
     namespace: infra
