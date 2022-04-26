@@ -3,11 +3,12 @@ name: e2e
 on:
   workflow_dispatch:
   push:
-    branches: [ '*' ]
+    branches-ignore:
+    - master
     tags-ignore: [ '*' ]
 
 jobs:
-  kubernetes:
+  run-on-kubernetes:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
