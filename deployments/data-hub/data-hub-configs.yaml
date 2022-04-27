@@ -318,6 +318,23 @@ data:
     s3Csv:
       - bucketName: elife-ejp-ftp
         objectKeyPattern:
+          - ejp_query_tool_query_id_DataHub:_Preprint_Server_DOIs_*_eLife.csv
+        dataPipelineId: preprint_server_dois
+        headerLineIndex: 3
+        dataValuesStartLineIndex: 4
+        datasetName: "{ENV}"
+        tableName: preprint_server_dois
+        tableWriteAppend: True
+        stateFile:
+          bucketName: "{ENV}-elife-data-pipeline"
+          objectName: "airflow-config/s3-csv/{ENV}-state/preprint_server_dois_001.json"
+        inSheetRecordMetadata:
+          - metadataSchemaFieldName: date_generated_info
+            metadataLineIndex: 1
+        recordProcessingSteps:
+          - html_unescape
+      - bucketName: elife-ejp-ftp
+        objectKeyPattern:
           - ejp_query_tool_query_id_DataScience:_Reviewer_identity_revealed_-_all_*_eLife.csv
           - ejp_query_tool_query_id_DataScience:_Reviewer_identity_revealed_-_last_week_*_eLife.csv
         dataPipelineId: 705_datascience_reviewer_identity_revealed_last_week_001
