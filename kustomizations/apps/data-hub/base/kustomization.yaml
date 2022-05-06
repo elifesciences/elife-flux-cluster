@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: data-hub
+resources:
+- namespace.yaml
+- helm-source.yaml
+- helm-release.yaml
+
+- image-source.yaml
+- image-policy-stable.yaml
+- image-policy-unstable.yaml
+
+configMapGenerator:
+- name: data-hub-configs
+  files:
+  - configs/civicrm-email-report-data-pipeline.config.yaml
+  - configs/crossref-event-data-pipeline.config.yaml
+  - configs/ejp-xml-data-pipeline.config.yaml
+  - configs/europepmc.config.yaml
+  - configs/europepmc-labslink.config.yaml
+  - configs/gmail-data-pipeline.config.yaml
+  - configs/keyword-extraction-data-pipeline.config.yaml
+  - configs/monitoring.config.yaml
+  - configs/s3-csv-data-pipeline.config.yaml
+  - configs/semantic-scholar.config.yaml
+  - configs/spreadsheet-data-pipeline.config.yaml
+  - configs/surveymonkey-data-pipeline.config.yaml
+  - configs/web-api-data-pipeline.config.yaml

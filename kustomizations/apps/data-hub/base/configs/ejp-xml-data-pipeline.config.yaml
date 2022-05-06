@@ -1,0 +1,16 @@
+gcpProjectName: 'elife-data-pipeline'
+dataPipelineId: s3_ejp_xml_pipeline_id
+dataset: '{ENV}'
+manuscriptTable: 'manuscript_all' #having multiple identical manuscript
+manuscriptVersionTable: 'manuscript_version_all'   #having multiple identical manuscript version
+personTable: 'person_all'  #having multiple identical person
+personVersion2Table: 'person_v2_all'  #having multiple identical person v2
+eJPXmlBucket: 'elife-ejp-ftp-db-xml-dump'
+eJPXmlObjectKeyPattern: 'ejp_eLife_*'
+eJPXmlFileNameExclusionRegexPattern: '415-0\.' #Exclude unexpeted XML filenames within the zip file
+stateFile:
+  bucket: '{ENV}-elife-data-pipeline'
+  object: 'airflow-config/ejp-xml/ejp-xml-processing-state.json'
+tempS3FileStorage:
+  bucket: '{ENV}-elife-data-pipeline'
+  objectPrefix: 'airflow-config/ejp-xml/temp-ejp-xml_files'

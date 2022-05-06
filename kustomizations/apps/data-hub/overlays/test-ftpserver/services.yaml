@@ -1,0 +1,57 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-ftpserver
+  namespace: data-hub
+  labels:
+    application: test-ftpserver
+spec:
+  selector:
+    application: test-ftpserver
+  type: ClusterIP
+  ports:
+  - name: ftp
+    port: 21
+    protocol: TCP
+    targetPort: 21
+  - name: ftp-passive-port0
+    port: 40000
+    protocol: TCP
+    targetPort: 40000
+  - name: ftp-passive-port1
+    port: 40001
+    protocol: TCP
+    targetPort: 40001
+  - name: ftp-passive-port2
+    port: 40002
+    protocol: TCP
+    targetPort: 40002
+  - name: ftp-passive-port3
+    port: 40003
+    protocol: TCP
+    targetPort: 40003
+  - name: ftp-passive-port4
+    port: 40004
+    protocol: TCP
+    targetPort: 40004
+  - name: ftp-passive-port5
+    port: 40005
+    protocol: TCP
+    targetPort: 40005
+  - name: ftp-passive-port6
+    port: 40006
+    protocol: TCP
+    targetPort: 40006
+  - name: ftp-passive-port7
+    port: 40007
+    protocol: TCP
+    targetPort: 40007
+  - name: ftp-passive-port8
+    port: 40008
+    protocol: TCP
+    targetPort: 40008
+  - name: ftp-passive-port9
+    port: 40009
+    protocol: TCP
+    targetPort: 40009

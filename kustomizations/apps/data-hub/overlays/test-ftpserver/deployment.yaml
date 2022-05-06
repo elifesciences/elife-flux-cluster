@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-ftpserver
+  namespace: data-hub
+  labels:
+    application: test-ftpserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      application: test-ftpserver
+  template:
+    metadata:
+      labels:
+        application: test-ftpserver
+    spec:
+      containers:
+      - name: test-ftpserver
+        image: garethflowers/ftp-server
+        ports:
+        - containerPort: 21
+        - containerPort: 40000
+        - containerPort: 40001
+        - containerPort: 40002
+        - containerPort: 40003
+        - containerPort: 40004
+        - containerPort: 40005
+        - containerPort: 40006
+        - containerPort: 40007
+        - containerPort: 40008
+        - containerPort: 40009
+        env:
+          - name: FTP_USER
+            value: elinks
+          - name: FTP_PASS
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: europepmc-labslink-ftp-credentials--stg
+          - name: ADDRESS
+            value: test-ftpserver
+        volumeMounts:
+        - name: vsftpd-config
+          mountPath: "/etc/vsftpd.conf"
+          subPath: "vsftpd.conf"
+      volumes:
+      - name: vsftpd-config
+        configMap:
+          name: test-ftpserver

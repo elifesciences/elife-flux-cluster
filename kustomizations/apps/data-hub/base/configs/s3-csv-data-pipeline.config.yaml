@@ -1,0 +1,336 @@
+gcpProjectName: "elife-data-pipeline"
+importedTimestampFieldName: "imported_timestamp"
+stateFile:
+  defaultBucketName: "{ENV}-elife-data-pipeline"
+  defaultSystemGeneratedObjectPrefix: "airflow-config/{ENV}-s3-csv/state/s3-csv"
+s3Csv:
+  - bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_DataHub:_Preprint_Server_DOIs_*_eLife.csv
+    dataPipelineId: preprint_server_dois
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: preprint_server_dois
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/preprint_server_dois_001.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+    recordProcessingSteps:
+      - html_unescape
+  - bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_DataScience:_Reviewer_identity_revealed_-_all_*_eLife.csv
+      - ejp_query_tool_query_id_DataScience:_Reviewer_identity_revealed_-_last_week_*_eLife.csv
+    dataPipelineId: 705_datascience_reviewer_identity_revealed_last_week_001
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: 705_datascience_reviewer_identity_revealed_last_week
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/705_datascience_reviewer_identity_revealed_last_week_001.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+    recordProcessingSteps:
+      - html_unescape
+  - bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_DataScience:_Person_Roles_*_eLife.csv
+    dataPipelineId: 767_datascience_person_roles_001
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: 767_datascience_person_roles
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/767_datascience_person_roles_001.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+    recordProcessingSteps:
+      - html_unescape
+  - bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_DataScience:_Reviewer_info_-_all_*_eLife.csv
+      - ejp_query_tool_query_id_DataScience:_Reviewer_info_-_last_week_*_eLife.csv
+    dataPipelineId: 779_datascience_reviewer_info_all_001
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: 779_datascience_reviewer_info_all
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/779_datascience_reviewer_info_all_001.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+    recordProcessingSteps:
+      - html_unescape
+  - bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_DataScience:_Consultation_Sessions_-_all_*_eLife.csv
+      - ejp_query_tool_query_id_DataScience:_Consultation_Sessions_-_last_week_*_eLife.csv
+    dataPipelineId: editorial_manuscript_consultation_session_001
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: editorial_manuscript_consultation_session
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/editorial_manuscript_consultation_session_001.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+    recordProcessingSteps:
+      - html_unescape
+  - bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_DataScience:_Person_merge_info_-_all_*_eLife.csv
+      - ejp_query_tool_query_id_DataScience:_Person_merge_info_-_last_week_*_eLife.csv
+    dataPipelineId: 795_datascience_person_merge_info_all_001
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: 795_datascience_person_merge_info_all
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/795_datascience_person_merge_info_all_001.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+    recordProcessingSteps:
+      - html_unescape
+  - bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_DataScience:_Early_Career_Researchers_*_eLife.csv
+    dataPipelineId: 380_datascience_early_career_researchers_001
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: 380_datascience_early_career_researchers
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/380_datascience_early_career_researchers_001.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+    recordProcessingSteps:
+      - html_unescape
+  - bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_DataScience:_Editor_Keywords_*_eLife.csv
+    dataPipelineId: 489_datascience_editor_keywords_001
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: 489_datascience_editor_keywords
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/489_datascience_editor_keywords_001.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+    recordProcessingSteps:
+      - html_unescape
+  - bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_DataScience:_manuscript_reviews_*_eLife.csv
+    dataPipelineId: 1157_datascience_manuscript_reviews_all_001
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: 1157_datascience_manuscript_reviews_all
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/1157_datascience_manuscript_reviews_all_001.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+    recordProcessingSteps:
+      - html_unescape
+  - bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_DataScience:_Editors_*_eLife.csv
+    dataPipelineId: 455_datascience_editors_001
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: 455_datascience_editors
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/455_datascience_editors_001.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+    recordProcessingSteps:
+      - html_unescape
+  - bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_DataScience:_eToc_Content_Subscribers_-_all_*_eLife.csv
+      - ejp_query_tool_query_id_DataScience:_eToc_Content_Subscribers_-_last_week_*_eLife.csv
+    dataPipelineId: datascience_etoc_content_subscribers_last_week_001
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: datascience_etoc_content_subscribers_last_week
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/datascience_etoc_content_subscribers_last_week_001.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+    recordProcessingSteps:
+      - html_unescape
+  - bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_Production_Data:_Export_dates_*_eLife.csv
+    dataPipelineId: prod_ejp_data_export_date_001
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: prod_ejp_data_export_date
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/prod_ejp_data_export_date_001.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+  - bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_Production_Data:_Feature_templates_*_eLife.csv
+    dataPipelineId: prod_ejp_feature_templates_001
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: prod_ejp_feature_templates
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/prod_ejp_feature_templates_001.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+  - bucketName: prod-elife-task-adept
+    objectKeyPattern:
+      - Timer_Report_Range_for_*
+    dataPipelineId: prod_task_adept_timer_report_range_001
+    headerLineIndex: 0
+    dataValuesStartLineIndex: 1
+    datasetName: "{ENV}"
+    tableName: prod_task_adept_timer_report_range
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/prod_task_adept_timer_report_range_001.json"
+  - bucketName: prod-elife-task-adept
+    objectKeyPattern:
+      - Carina_EOL_Kriya_*
+    dataPipelineId: prod_task_adept_carina_eol_kriya_001
+    headerLineIndex: 0
+    dataValuesStartLineIndex: 1
+    datasetName: "{ENV}"
+    tableName: prod_task_adept_carina_eol_kriya
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/prod_task_adept_carina_eol_kriya_001.json"
+  - bucketName: prod-elife-task-adept
+    objectKeyPattern:
+      - Carina_EOL_eLife_*
+    dataPipelineId: prod_task_adept_carina_eol_elife_001
+    headerLineIndex: 0
+    dataValuesStartLineIndex: 1
+    datasetName: "{ENV}"
+    tableName: prod_task_adept_carina_eol_elife
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/prod_task_adept_carina_eol_elife_001.json"
+  - bucketName: prod-elife-kriya
+    objectKeyPattern:
+      - Digest_Sub-article_Info_*
+    dataPipelineId: prod_kriya_digest_sub_article_info_001
+    headerLineIndex: 0
+    dataValuesStartLineIndex: 1
+    datasetName: "{ENV}"
+    tableName: prod_kriya_digest_sub_article_info
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_digest_sub_article_info_001.json"
+  - bucketName: prod-elife-kriya
+    objectKeyPattern:
+      - Press_Info_*
+    dataPipelineId: prod_kriya_press_info_001
+    headerLineIndex: 0
+    dataValuesStartLineIndex: 1
+    datasetName: "{ENV}"
+    tableName: prod_kriya_press_info
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_press_info_001.json"
+  - bucketName: prod-elife-kriya
+    objectKeyPattern:
+      - Published_Stage_History_*
+    dataPipelineId: prod_kriya_published_stage_history_001
+    headerLineIndex: 0
+    dataValuesStartLineIndex: 1
+    datasetName: "{ENV}"
+    tableName: prod_kriya_published_stage_history
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_published_stage_history_001.json"
+  - bucketName: prod-elife-kriya
+    objectKeyPattern:
+      - Published_Stage_Summary_*
+    dataPipelineId: prod_kriya_published_stage_summary_001
+    headerLineIndex: 0
+    dataValuesStartLineIndex: 1
+    datasetName: "{ENV}"
+    tableName: prod_kriya_published_stage_summary
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_published_stage_summary_001.json"
+  - bucketName: prod-elife-kriya
+    objectKeyPattern:
+      - WIP_Stage_Summary_*
+    dataPipelineId: prod_kriya_wip_stage_summary_001
+    headerLineIndex: 0
+    dataValuesStartLineIndex: 1
+    datasetName: "{ENV}"
+    tableName: prod_kriya_wip_stage_summary
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_wip_stage_summary_001.json"
+  - bucketName: prod-elife-kriya
+    objectKeyPattern:
+      - WIP_Stage_History_*
+    dataPipelineId: prod_kriya_wip_stage_history_001
+    headerLineIndex: 0
+    dataValuesStartLineIndex: 1
+    datasetName: "{ENV}"
+    tableName: prod_kriya_wip_stage_history
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_wip_stage_history_001.json"
