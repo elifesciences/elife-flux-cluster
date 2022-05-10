@@ -49,3 +49,8 @@ patches:
     kind: HelmRelease
     name: data-hub
     namespace: data-hub
+configMapGenerator:
+- name: data-hub-configs
+  behavior: merge
+  files:
+  - configs/europepmc-labslink.config.yaml
