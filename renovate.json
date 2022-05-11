@@ -50,13 +50,6 @@
       "registryUrls": ["https://kubernetes-sigs.github.io/descheduler"]
     },
     {
-      "automerge": false,
-      "matchDatasources": ["helm"],
-      "matchManagers": ["regex"],
-      "matchPackageNames": ["nri-bundle"],
-      "registryUrls": ["https://helm-charts.newrelic.com"]
-    },
-    {
       "matchDatasources": ["helm"],
       "matchManagers": ["regex"],
       "matchPackageNames": ["cert-manager"],
@@ -88,6 +81,13 @@
       "matchDatasources": ["docker"],
       "matchPackageNames": ["hjacobs/kube-web-view"],
       "automerge": false
+    },
+    {
+      "automerge": false,
+      "matchDatasources": ["helm"],
+      "matchManagers": ["regex"],
+      "matchPackageNames": ["nri-bundle"],
+      "registryUrls": ["https://helm-charts.newrelic.com"]
     },
     {
       "matchDatasources": ["docker"],
