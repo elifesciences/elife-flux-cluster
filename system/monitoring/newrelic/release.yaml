@@ -15,11 +15,11 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: newrelic
-      interval: 1m
+      interval: 2m
   install:
     remediation:
       retries: 5
-  timeout: 2m
+  timeout: 3m
   dependsOn:
   - name: sealed-secrets
     namespace: infra
