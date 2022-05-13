@@ -53,24 +53,24 @@ spec:
       privileged: false
       # New default resources 12/05/2022
       # Feel free to remove this comment if it's still commented out significantly later
-      # controlPlane:
-      #   resources:
-      #     limits:
-      #       memory: 300M
-      #     requests:
-      #       cpu: 100m
+      controlPlane:
+        resources:
+          # limits:
+            # memory: 300M
+          requests:
+            cpu: 20m
       #       memory: 150M
-      # ksm:
-      #   resources:
+      ksm:
+        resources:
       #     limits:
       #       memory: 850M  # Bump me up if KSM pod shows restarts.
-      #     requests:
-      #       cpu: 100m
+          requests:
+            cpu: 20m
       #       memory: 150M
-      # kubelet:
-      #   resources:
+      kubelet:
+        resources:
       #     limits:
       #       memory: 300M
-      #     requests:
-      #       cpu: 100m
+          requests:
+            cpu: 20m
       #       memory: 150M
