@@ -68,6 +68,10 @@ jobs:
           helm list -A
           kubectl -n flux-system get all
           kubectl get helmreleases.helm.toolkit.fluxcd.io --all-namespaces
+      - name: Debug describe nodes
+        if: failure()
+        run: |
+          kubectl describe nodes
       - name: Debug describe pods
         if: failure()
         run: |
