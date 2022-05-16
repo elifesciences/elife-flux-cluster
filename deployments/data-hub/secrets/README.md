@@ -11,7 +11,8 @@ The example commands will be run from the root of a checkout of this repository.
 2. create a sealed secret
 3. remove the secret file
 
-You will need to commit and create a PR to submit these new credentials.
+You will need to commit the sealed secret file, and create a PR and merge to the repo to update the credentials in the cluster.
+Data-hub will need restarting to start using the new credentials.
 
 # `credentials.yaml`
 
