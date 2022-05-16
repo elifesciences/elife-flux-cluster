@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: nri-bundle
-      version: 3.6.1
+      version: 4.4.5
       sourceRef:
         kind: HelmRepository
         name: newrelic
@@ -51,9 +51,26 @@ spec:
 
     newrelic-infrastructure:
       privileged: false
-      resources:
-        limits:
-          memory: 300M
-        requests:
-          cpu: 20m
-          memory: 150M
+      # New default resources 12/05/2022
+      # Feel free to remove this comment if it's still commented out significantly later
+      # controlPlane:
+      #   resources:
+      #     limits:
+      #       memory: 300M
+      #     requests:
+      #       cpu: 20m
+      #       memory: 150M
+      # ksm:
+      #   resources:
+      #     limits:
+      #       memory: 850M  # Bump me up if KSM pod shows restarts.
+      #     requests:
+      #       cpu: 20m
+      #       memory: 150M
+      # kubelet:
+      #   resources:
+      #     limits:
+      #       memory: 300M
+      #     requests:
+      #       cpu: 20m
+      #       memory: 150M
