@@ -51,26 +51,15 @@ spec:
 
     newrelic-infrastructure:
       privileged: false
-      # New default resources 12/05/2022
-      # Feel free to remove this comment if it's still commented out significantly later
-      # controlPlane:
-      #   resources:
-      #     limits:
-      #       memory: 300M
-      #     requests:
-      #       cpu: 20m
-      #       memory: 150M
-      # ksm:
-      #   resources:
-      #     limits:
-      #       memory: 850M  # Bump me up if KSM pod shows restarts.
-      #     requests:
-      #       cpu: 20m
-      #       memory: 150M
-      # kubelet:
-      #   resources:
-      #     limits:
-      #       memory: 300M
-      #     requests:
-      #       cpu: 20m
-      #       memory: 150M
+      controlPlane:
+        resources:
+          requests:
+            cpu: 50m
+      ksm:
+        resources:
+          requests:
+            cpu: 50m
+      kubelet:
+        resources:
+          requests:
+            cpu: 50m
