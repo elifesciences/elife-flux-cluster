@@ -17,7 +17,14 @@ Data-hub will need restarting to start using the new credentials.
 # `credentials.yaml`
 
 ## Description
-This secret contains the AWS credentials file used by data-hub.
+This secret contains the AWS credentials file used by data-hub. This is a format used by AWS cli and SDK tools, in ini format like the example below:
+
+```
+[default]
+aws_access_key_id = AKIAxxxxxxxxxxx
+aws_secret_access_key = xxxxxxxxxxx
+region = us-east-1
+```
 
 ## Regenerate
 ```
