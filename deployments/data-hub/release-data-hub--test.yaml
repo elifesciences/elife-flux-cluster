@@ -253,7 +253,7 @@ spec:
       - name: surveymonkey-secret-volume
         secret:
           secretName: surveymonkey-credentials
-    potestresql:
+    postgresql:
       resources:
         requests:
           memory: 200Mi
