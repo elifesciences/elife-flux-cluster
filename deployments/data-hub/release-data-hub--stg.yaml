@@ -48,7 +48,7 @@ spec:
         AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "90"
       image:
         repository: docker.io/elifesciences/data-hub-with-dags_unstable # {"$imagepolicy": "data-hub:data-hub-unstable:name"}
-        tag: develop-bd515dd7-20220504.0912 # {"$imagepolicy": "data-hub:data-hub-unstable:tag"}
+        tag: develop-88713290-20220516.1652 # {"$imagepolicy": "data-hub:data-hub-unstable:tag"}
       extraEnv:
       # security settings
       - name: AIRFLOW__WEBSERVER__SECRET_KEY
@@ -108,6 +108,8 @@ spec:
         value: "@daily"
       - name: GOOGLE_SPREADSHEET_SCHEDULE_INTERVAL
         value: "@daily"
+      - name: SEMANTIC_SCHOLAR_PIPELINE_SCHEDULE_INTERVAL
+        value: "0 10 * * *" # At 10:00, every day
       - name: WEB_API_SCHEDULE_INTERVAL
         value: "25 2 * * *" # At 02:25
         # At minute 25 past every hour :

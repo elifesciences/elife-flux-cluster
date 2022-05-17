@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: nri-bundle
-      version: 3.6.1
+      version: 4.4.5
       sourceRef:
         kind: HelmRepository
         name: newrelic
@@ -19,7 +19,7 @@ spec:
   install:
     remediation:
       retries: 5
-  timeout: 3m
+  timeout: 5m
   dependsOn:
   - name: sealed-secrets
     namespace: infra
@@ -51,9 +51,15 @@ spec:
 
     newrelic-infrastructure:
       privileged: false
-      resources:
-        limits:
-          memory: 300M
-        requests:
-          cpu: 20m
-          memory: 150M
+      controlPlane:
+        resources:
+          requests:
+            cpu: 50m
+      ksm:
+        resources:
+          requests:
+            cpu: 50m
+      kubelet:
+        resources:
+          requests:
+            cpu: 50m
