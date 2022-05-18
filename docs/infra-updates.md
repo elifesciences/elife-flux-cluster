@@ -15,7 +15,7 @@ Update Process
   - pipeline checks get executed
     and `assignees` get assigned to PR
 
-Upgrades to critical services should be tested on [prod-cluster](https://github.com/elifesciences/elife-flux-cluster).
+Upgrades to critical services should be tested on [elife-flux-test](https://github.com/elifesciences/elife-flux-test).
 The services here also have renovatebot configured.
 
 
