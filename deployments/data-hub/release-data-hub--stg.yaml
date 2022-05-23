@@ -121,7 +121,7 @@ spec:
       - name: MATERIALIZE_BIGQUERY_VIEWS_SCHEDULE_INTERVAL
         value: "@hourly"
       - name: SCHEDULE_INTERVAL
-        value: "@weekly"
+        value: "30 0 * * SUN" # At 00:30 on sundays
       - name: DATA_SCIENCE_FORECAST_SCHEDULE_INTERVAL
         value: "@hourly"
         # At minute 40 past every 3rd hour :
@@ -136,7 +136,7 @@ spec:
       - name: EXTRACT_KEYWORDS_SCHEDULE_INTERVAL
         value: "10 */2 * * *"
       - name: SURVEYMONKEY_DATA_PIPELINE_SCHEDULE_INTERVAL
-        value: "@monthly"
+        value: "0 0 1 * *" # first day of every month
       - name: CIVICRM_EMAIL_REPORT_DATA_PIPELINE_SCHEDULE_INTERVAL
         value: "@daily"
       # general:
