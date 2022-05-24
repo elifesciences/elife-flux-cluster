@@ -10,7 +10,7 @@ configMapGenerator:
   - ejp-xml-data-pipeline--prod.config.yaml
   - ejp-xml-data-pipeline--test.config.yaml
   - europepmc.config.yaml
-  - europepmc-labslink--prod.config.yaml
+  - europepmc-labslink.config.yaml
   - europepmc-labslink--test.config.yaml
   - gmail-data-pipeline.config.yaml
   - keyword-extraction-data-pipeline.config.yaml
