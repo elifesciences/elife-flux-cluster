@@ -64,6 +64,7 @@ spec:
       # config file paths:
       - name: EUROPEPMC_CONFIG_FILE_PATH
         value: /dag_config_files/europepmc.config.yaml
+        # Staging should not use the production labslink config, so we use their test environment (it's not related to our `--test` env)
       - name: EUROPEPMC_LABSLINK_CONFIG_FILE_PATH
         value: /dag_config_files/europepmc-labslink--test.config.yaml
       - name: GMAIL_DATA_CONFIG_FILE_PATH
