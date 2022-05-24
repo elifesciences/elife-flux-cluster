@@ -75,7 +75,7 @@ spec:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
       - name: S3_CSV_CONFIG_FILE_PATH
-        value: /dag_config_files/s3-csv-data-pipeline--prod.config.yaml
+        value: /dag_config_files/s3-csv-data-pipeline.config.yaml
       - name: MONITORING_CONFIG_FILE_PATH
         value: /dag_config_files/monitoring.config.yaml
       - name: MATERIALIZE_BIGQUERY_VIEWS_CONFIG_PATH

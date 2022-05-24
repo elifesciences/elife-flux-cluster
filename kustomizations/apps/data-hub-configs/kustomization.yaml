@@ -15,7 +15,7 @@ configMapGenerator:
   - gmail-data-pipeline.config.yaml
   - keyword-extraction-data-pipeline.config.yaml
   - monitoring.config.yaml
-  - s3-csv-data-pipeline--prod.config.yaml
+  - s3-csv-data-pipeline.config.yaml
   - s3-csv-data-pipeline--test.config.yaml
   - semantic-scholar.config.yaml
   - spreadsheet-data-pipeline.config.yaml
