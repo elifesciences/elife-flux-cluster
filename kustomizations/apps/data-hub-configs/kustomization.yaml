@@ -7,7 +7,7 @@ configMapGenerator:
   files:
   - civicrm-email-report-data-pipeline.config.yaml
   - crossref-event-data-pipeline.config.yaml
-  - ejp-xml-data-pipeline--prod.config.yaml
+  - ejp-xml-data-pipeline.config.yaml
   - ejp-xml-data-pipeline--test.config.yaml
   - europepmc.config.yaml
   - europepmc-labslink.config.yaml
