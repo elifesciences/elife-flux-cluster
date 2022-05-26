@@ -67,7 +67,7 @@ semanticScholarRecommendation:
             projectName: 'elife-data-pipeline'
             sqlQuery: |-
               SELECT response.provenance.list_key
-              FROM `elife-data-pipeline.{ENV}.test_semantic_scholar_recommendation_response_v1` AS response
+              FROM `elife-data-pipeline.{ENV}.semantic_scholar_recommendation_response_v1` AS response
               WHERE response.provenance.http_status = 200
     source:
       apiUrl: 'https://api.semanticscholar.org/recommendations/v1/papers'
