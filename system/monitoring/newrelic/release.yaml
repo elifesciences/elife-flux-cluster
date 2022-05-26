@@ -31,25 +31,23 @@ spec:
       customSecretName: newrelic-license
       customSecretLicenseKey: prod
 
-    infrastructure:
-      enabled: true
-
-    prometheus:
+    nri-prometheus:
       enabled: false
 
-    webhook:
+    nri-metadata-injection:
       enabled: true
 
-    ksm:
+    kube-state-metrics:
       enabled: true
 
-    kubeEvents:
+    nri-kube-events:
       enabled: true
 
-    logging:
+    newrelic-logging:
       enabled: false
 
     newrelic-infrastructure:
+      enabled: true
       privileged: false
       controlPlane:
         resources:
