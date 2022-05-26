@@ -1,11 +1,11 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: data-hub--prod
+  name: data-hub--test
   namespace: data-hub
 spec:
   interval: 5m
-  releaseName: data-hub--prod
+  releaseName: data-hub--test
   chart:
     spec:
       chart: airflow
@@ -18,12 +18,12 @@ spec:
     ingress:
       enabled: true
       web:
-        host: data-hub--flux--prod.elifesciences.org
+        host: data-hub--test.elifesciences.org
         annotations:
           nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
           nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
       flower:
-        host: data-hub--flux--prod.elifesciences.org
+        host: data-hub--test.elifesciences.org
         path: "/flower"
         annotations:
           nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
@@ -40,32 +40,33 @@ spec:
         AIRFLOW__CELERY__WORKER_CONCURRENCY: "21"
         AIRFLOW__CELERY__WORKER_AUTOSCALE: "21,1"
         AIRFLOW__CORE__REMOTE_LOGGING: "True"
-        AIRFLOW__CORE__REMOTE_BASE_LOG_FOLDER: "s3://prod-elife-data-pipeline/airflow-logs"
+        AIRFLOW__CORE__REMOTE_BASE_LOG_FOLDER: "s3://test-elife-data-pipeline/airflow-logs"
         AIRFLOW__CORE__REMOTE_LOG_CONN_ID: "aws_default"
         AIRFLOW__KUBERNETES_ENVIRONMENT_VARIABLES__AIRFLOW__CORE__REMOTE_LOGGING: "True"
-        AIRFLOW__KUBERNETES_ENVIRONMENT_VARIABLES__AIRFLOW__CORE__REMOTE_BASE_LOG_FOLDER: "s3://prod-elife-data-pipeline/airflow-logs"
+        AIRFLOW__KUBERNETES_ENVIRONMENT_VARIABLES__AIRFLOW__CORE__REMOTE_BASE_LOG_FOLDER: "s3://test-elife-data-pipeline/airflow-logs"
         AIRFLOW__CELERY__FLOWER_URL_PREFIX: "/flower"
-        AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "60"
+        AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "90"
       image:
-        repository: docker.io/elifesciences/data-hub-with-dags # {"$imagepolicy": "data-hub:data-hub-stable:name"}
-        tag: 0.0.96 # {"$imagepolicy": "data-hub:data-hub-stable:tag"}
+        repository: docker.io/elifesciences/data-hub-with-dags_unstable # {"$imagepolicy": "data-hub:data-hub-unstable:name"}
+        tag: develop-844bdbcb-20220525.2104 # {"$imagepolicy": "data-hub:data-hub-unstable:tag"}
       extraEnv:
       # security settings
       - name: AIRFLOW__WEBSERVER__SECRET_KEY
         valueFrom:
           secretKeyRef:
-            name: webserver-secret-key--prod
+            name: webserver-secret-key--test
             key: webserver-secret-key
       - name: AIRFLOW__CORE__FERNET_KEY
         valueFrom:
           secretKeyRef:
-            name: fernet-key--prod
+            name: fernet-key--test
             key: fernet-key
       # config file paths:
       - name: EUROPEPMC_CONFIG_FILE_PATH
         value: /dag_config_files/europepmc.config.yaml
+        # Note: labslink test service is also used in staging
       - name: EUROPEPMC_LABSLINK_CONFIG_FILE_PATH
-        value: /dag_config_files/europepmc-labslink.config.yaml
+        value: /dag_config_files/europepmc-labslink--test.config.yaml
       - name: GMAIL_DATA_CONFIG_FILE_PATH
         value: /dag_config_files/gmail-data-pipeline.config.yaml
       - name: CROSSREF_CONFIG_FILE_PATH
@@ -75,11 +76,11 @@ spec:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
       - name: S3_CSV_CONFIG_FILE_PATH
-        value: /dag_config_files/s3-csv-data-pipeline.config.yaml
+        value: /dag_config_files/s3-csv-data-pipeline--test.config.yaml
       - name: MONITORING_CONFIG_FILE_PATH
         value: /dag_config_files/monitoring.config.yaml
       - name: MATERIALIZE_BIGQUERY_VIEWS_CONFIG_PATH
-        value: "s3://prod-elife-data-pipeline/airflow-config/bigquery-views"
+        value: "s3://test-elife-data-pipeline/airflow-config/bigquery-views"
       - name: TOGGL_API_TOKEN_FILE_PATH
         value: /home/airflow/toggl/toggl_api_token.txt
       - name: CIVICRM_API_KEY_FILE_PATH
@@ -87,7 +88,7 @@ spec:
       - name: CIVICRM_SITE_KEY_FILE_PATH
         value: /home/airflow/civi_key/civi_site_key.txt
       - name: EJP_XML_CONFIG_FILE_PATH
-        value: /dag_config_files/ejp-xml-data-pipeline.config.yaml
+        value: /dag_config_files/ejp-xml-data-pipeline--test.config.yaml
       - name: EXTRACT_KEYWORDS_FILE_PATH
         value: /dag_config_files/keyword-extraction-data-pipeline.config.yaml
       - name: SEMANTIC_SCHOLAR_CONFIG_FILE_PATH
@@ -111,7 +112,7 @@ spec:
       - name: SEMANTIC_SCHOLAR_PIPELINE_SCHEDULE_INTERVAL
         value: "0 10 * * *" # At 10:00, every day
       - name: WEB_API_SCHEDULE_INTERVAL
-        value: "25 2 * * *"  # At 02:25
+        value: "25 2 * * *" # At 02:25
         # At minute 25 past every hour :
       - name: S3_CSV_SCHEDULE_INTERVAL
         value: "25 * * * *"
@@ -141,7 +142,7 @@ spec:
         value: "@daily"
       # general:
       - name: DEPLOYMENT_ENV
-        value: prod
+        value: test
       - name: AIRFLOW_APPLICATIONS_DIRECTORY_PATH
         value: /opt/airflow/auxiliary_data_pipeline_files
       - name: GMAIL_THREAD_DETAILS_CHUNK_SIZE
@@ -163,18 +164,18 @@ spec:
       - name: MATERIALIZE_BIGQUERY_VIEWS_GCP_PROJECT
         value: "elife-data-pipeline"
       - name: MATERIALIZE_BIGQUERY_VIEWS_DATASET
-        value: prod
+        value: test
       - name: INITIAL_S3_XML_FILE_LAST_MODIFIED_DATE
         value: "2012-01-01 00:00:00"
       - name: HEALTH_CHECK_URL
         valueFrom:
           secretKeyRef:
-            name: monitoring-urls--prod
+            name: monitoring-urls--test
             key: health_check_url
       - name: DATA_HUB_MONITORING_SLACK_WEBHOOK_URL
         valueFrom:
           secretKeyRef:
-            name: monitoring-urls--prod
+            name: monitoring-urls--test
             key: slack_webhook_url
       # @TODO: legacy env var to be removed in the future - see Hazal or Daniel
       - name: AIRFLOW_NOTIFICATION_EMAIL_CSV_LIST
@@ -182,7 +183,7 @@ spec:
     workers:
       resources:
         requests:
-          memory: 5Gi
+          memory: 4.9Gi
           cpu: 1600m
           ephemeral-storage: 10Gi
         limits:
@@ -225,7 +226,7 @@ spec:
           name: data-hub-configs
       - name: europepmc-labslink-ftp-credentials-volume
         secret:
-          secretName: europepmc-labslink-ftp-credentials--prod
+          secretName: europepmc-labslink-ftp-credentials--test
       - name: gcloud-secret-volume
         secret:
           secretName: gcloud
@@ -249,7 +250,7 @@ spec:
           secretName: civi-key
       - name: monitoring-urls-volume
         secret:
-          secretName: monitoring-urls--prod
+          secretName: monitoring-urls--test
       - name: surveymonkey-secret-volume
         secret:
           secretName: surveymonkey-credentials
