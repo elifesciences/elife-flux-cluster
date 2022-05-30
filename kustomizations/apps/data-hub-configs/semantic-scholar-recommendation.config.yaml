@@ -1,0 +1,82 @@
+semanticScholarRecommendation:
+  - dataPipelineId: sciety_semantic_scholar_recommendation_data_pipeline
+    matrix:  # similar to ci matrix, currently supporting a single variable only
+      list:
+        include:
+          bigQuery:
+            projectName: 'elife-data-pipeline'
+            # the SQL should provide:
+            # - list_key (any identifier)
+            # - list_meta (any metadata, will get saved with the response)
+            # - list, array with the following fields:
+            #   - doi
+            #   - is_excluded
+            # using "staging" dataset for end-to-end test as it will contain some data 
+            sqlQuery: |-
+              WITH t_list AS (
+                  SELECT
+                      list_key,
+                      user_id,
+                      TO_HEX(MD5(ARRAY_TO_STRING(ARRAY_AGG(doi ORDER BY item_timestamp), '|'))) AS list_hash,
+                      ARRAY_AGG(STRUCT(item_timestamp, doi, is_excluded) ORDER BY item_timestamp) AS list
+                  FROM (
+                      SELECT
+                          CONCAT('user:', event.user_id) AS list_key,
+                          event.user_id,
+                          event.event_timestamp AS item_timestamp,
+                          event.article_doi AS doi,
+                          (event.event_name = 'UserUnsavedArticle') AS is_excluded,
+                      FROM `elife-data-pipeline.de_proto.v_sciety_event` AS event
+                      WHERE event.article_doi IS NOT NULL
+                          AND event.event_name IN ('UserSavedArticle', 'UserUnsavedArticle')
+                          -- ensure present in semantic scholar
+                          AND event.article_doi IN (
+                              SELECT response.externalIds.DOI
+                              FROM `elife-data-pipeline.staging.semantic_scholar_responses_v1` AS response
+                              WHERE response.provenance.http_status = 200
+                          )
+                      ORDER BY event.event_timestamp
+                  )
+                  GROUP BY list_key, user_id
+              )
+
+              -- list with the latest saved article
+              SELECT
+                  CONCAT(list_key, '|list_hash:', list_hash, '|request_type:current_events') AS list_key,
+                  STRUCT(user_id, list_hash, 'current_events' AS request_type) AS list_meta,
+                  list
+              FROM t_list
+
+              UNION ALL
+
+              -- list before the latest saved article, for evaluation purpose
+              SELECT
+                  CONCAT(list_key, '|list_hash:', list_hash, '|request_type:prev_events') AS list_key,
+                  STRUCT(user_id, list_hash, 'prev_events' AS request_type) AS list_meta,
+                  -- remove last item
+                  ARRAY(
+                      SELECT AS STRUCT * EXCEPT(OFFSET)
+                      FROM t_list.list WITH OFFSET
+                      WHERE OFFSET < ARRAY_LENGTH(t_list.list) - 1
+                  ) AS list
+              FROM t_list
+              WHERE ARRAY_LENGTH(t_list.list) >= 2
+        exclude:
+          bigQuery:
+            ignoreNotFound: true
+            projectName: 'elife-data-pipeline'
+            sqlQuery: |-
+              SELECT response.provenance.list_key
+              FROM `elife-data-pipeline.{ENV}.semantic_scholar_recommendation_response_v1` AS response
+              WHERE response.provenance.http_status = 200
+    source:
+      apiUrl: 'https://api.semanticscholar.org/recommendations/v1/papers'
+      params:
+        # See https://api.semanticscholar.org/api-docs/recommendations#operation/post_papers
+        limit: '500'
+        fields: 'paperId,externalIds,title,venue'
+    target:
+      projectName: 'elife-data-pipeline'
+      datasetName: '{ENV}'
+      tableName: semantic_scholar_recommendation_response_v1
+    batchSize: 1000

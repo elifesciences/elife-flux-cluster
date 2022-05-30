@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: nri-bundle
-      version: 4.4.6
+      version: 4.5.1
       sourceRef:
         kind: HelmRepository
         name: newrelic
@@ -31,25 +31,23 @@ spec:
       customSecretName: newrelic-license
       customSecretLicenseKey: prod
 
-    infrastructure:
-      enabled: true
-
-    prometheus:
+    nri-prometheus:
       enabled: false
 
-    webhook:
+    nri-metadata-injection:
       enabled: true
 
-    ksm:
+    kube-state-metrics:
       enabled: true
 
-    kubeEvents:
+    nri-kube-events:
       enabled: true
 
-    logging:
+    newrelic-logging:
       enabled: false
 
     newrelic-infrastructure:
+      enabled: true
       privileged: false
       controlPlane:
         resources:
