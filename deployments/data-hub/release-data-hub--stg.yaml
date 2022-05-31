@@ -31,8 +31,6 @@ spec:
     airflow:
       # remove multi-user settings
       usersUpdate: false
-      legacyCommands:
-        enabled: false
       config:
         AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "True"
         AIRFLOW__CORE__DAG_CONCURRENCY: "100"
