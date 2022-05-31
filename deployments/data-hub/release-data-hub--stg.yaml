@@ -273,6 +273,17 @@ spec:
           memory: 500Mi
           cpu: 500m
     web:
+      # fix for airflow 2.3
+      webserverConfig:
+        stringOverride: |
+          from airflow import configuration as conf
+          from flask_appbuilder.security.manager import AUTH_DB
+
+          # the SQLAlchemy connection string
+          SQLALCHEMY_DATABASE_URI = conf.get('database', 'SQL_ALCHEMY_CONN')
+
+          # use embedded DB for auth
+          AUTH_TYPE = AUTH_DB
       resources:
         requests:
           memory: 900Mi
