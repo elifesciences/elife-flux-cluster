@@ -31,8 +31,8 @@ spec:
     airflow:
       # remove multi-user settings
       usersUpdate: false
-      legacyCommands:
-        enabled: false
+      # airflow < 2.0 should be true
+      legacyCommands: false
       config:
         AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "True"
         AIRFLOW__CORE__DAG_CONCURRENCY: "100"
@@ -42,6 +42,8 @@ spec:
         AIRFLOW__CORE__REMOTE_LOGGING: "True"
         AIRFLOW__CORE__REMOTE_BASE_LOG_FOLDER: "s3://test-elife-data-pipeline/airflow-logs"
         AIRFLOW__CORE__REMOTE_LOG_CONN_ID: "aws_default"
+        # Fix for helm chart 8.6.0 not supporting airflow 2.3
+        AIRFLOW__DATABASE__SQL_ALCHEMY_CONN_CMD: "bash -c 'eval \"$DATABASE_SQLALCHEMY_CMD\"'"
         AIRFLOW__KUBERNETES_ENVIRONMENT_VARIABLES__AIRFLOW__CORE__REMOTE_LOGGING: "True"
         AIRFLOW__KUBERNETES_ENVIRONMENT_VARIABLES__AIRFLOW__CORE__REMOTE_BASE_LOG_FOLDER: "s3://test-elife-data-pipeline/airflow-logs"
         AIRFLOW__CELERY__FLOWER_URL_PREFIX: "/flower"
@@ -270,6 +272,17 @@ spec:
           memory: 500Mi
           cpu: 500m
     web:
+      # Fix for helm chart 8.6.0 not supporting airflow 2.3
+      webserverConfig:
+        stringOverride: |
+          from airflow import configuration as conf
+          from flask_appbuilder.security.manager import AUTH_DB
+
+          # the SQLAlchemy connection string
+          SQLALCHEMY_DATABASE_URI = conf.get('database', 'SQL_ALCHEMY_CONN')
+
+          # use embedded DB for auth
+          AUTH_TYPE = AUTH_DB
       resources:
         requests:
           memory: 900Mi
