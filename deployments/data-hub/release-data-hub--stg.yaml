@@ -276,7 +276,6 @@ spec:
           memory: 500Mi
           cpu: 500m
     web:
-      # Fix for helm chart 8.6.0 not supporting airflow 2.3
       webserverConfig:
         stringOverride: |
           from airflow import configuration as conf
@@ -287,6 +286,10 @@ spec:
 
           # use embedded DB for auth
           AUTH_TYPE = AUTH_DB
+
+          # disable authentication on web frontend
+          # this should be handled by oauth proxy instead
+          AUTH_ROLE_PUBLIC = 'Admin'
       resources:
         requests:
           memory: 900Mi
