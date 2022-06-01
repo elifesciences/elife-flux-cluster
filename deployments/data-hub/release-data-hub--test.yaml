@@ -283,6 +283,10 @@ spec:
 
           # use embedded DB for auth
           AUTH_TYPE = AUTH_DB
+
+          # disable authentication on web frontend
+          # this should be handled by oauth proxy instead
+          AUTH_ROLE_PUBLIC = 'Admin'
       resources:
         requests:
           memory: 900Mi
