@@ -34,4 +34,4 @@ semanticScholar:
       projectName: 'elife-data-pipeline'
       datasetName: '{ENV}'
       tableName: semantic_scholar_responses_v1
-    batchSize: 1000
+    batchSize: 250
