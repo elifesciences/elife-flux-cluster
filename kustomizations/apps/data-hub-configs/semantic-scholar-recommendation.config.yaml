@@ -11,7 +11,6 @@ semanticScholarRecommendation:
             # - list, array with the following fields:
             #   - doi
             #   - is_excluded
-            # using "staging" dataset for end-to-end test as it will contain some data 
             sqlQuery: |-
               WITH t_list AS (
                   SELECT
@@ -32,7 +31,7 @@ semanticScholarRecommendation:
                           -- ensure present in semantic scholar
                           AND event.article_doi IN (
                               SELECT response.externalIds.DOI
-                              FROM `elife-data-pipeline.staging.semantic_scholar_responses_v1` AS response
+                              FROM `elife-data-pipeline.{ENV}.semantic_scholar_responses_v1` AS response
                               WHERE response.provenance.http_status = 200
                           )
                       ORDER BY event.event_timestamp
