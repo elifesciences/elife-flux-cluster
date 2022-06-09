@@ -7,7 +7,7 @@ semanticScholar:
             projectName: 'elife-data-pipeline'
             sqlQuery: |-
               SELECT DISTINCT doi
-              FROM `elife-data-pipeline.{ENV}.europepmc_biorxiv_medrxiv_responses` AS response
+              FROM `elife-data-pipeline.{ENV}.europepmc_preprint_servers_responses` AS response
               WHERE doi IS NOT NULL
         exclude:
           bigQuery:
