@@ -20,10 +20,17 @@ semanticScholar:
             ignoreNotFound: true
             projectName: 'elife-data-pipeline'
             sqlQuery: |-
-              SELECT externalIds.DOI
-              FROM `elife-data-pipeline.{ENV}.semantic_scholar_responses_v1` AS response
-              WHERE externalIds.DOI IS NOT NULL
-                  AND provenance.http_status = 200
+              SELECT provenance.doi
+              FROM `elife-data-pipeline.{ENV}.semantic_scholar_responses_v1`
+              WHERE provenance.doi IS NOT NULL
+                  AND (
+                      provenance.http_status = 200
+                      OR (
+                          -- exclude recent 404s
+                          provenance.http_status = 404
+                          AND TIMESTAMP_DIFF(CURRENT_TIMESTAMP(), provenance.request_timestamp, HOUR) < 23
+                      )
+                  )
     source:
       apiUrl: 'https://api.semanticscholar.org/graph/v1/paper/{doi}'
       params:
