@@ -253,9 +253,9 @@ spec:
       - name: monitoring-urls-volume
         secret:
           secretName: monitoring-urls--test
-      - name: semantic-scholar-api-key-volume
+      - name: semantic-scholar-secret-volume
         secret:
-          secretName: semantic-scholar-api-key-volume
+          secretName: semantic-scholar
       - name: surveymonkey-secret-volume
         secret:
           secretName: surveymonkey-credentials
