@@ -9,7 +9,6 @@ semanticScholar:
               SELECT DISTINCT doi
               FROM `elife-data-pipeline.{ENV}.europepmc_preprint_servers_responses` AS response
               WHERE doi IS NOT NULL
-                  AND LOWER(bookOrReportDetails.publisher) IN ('biorxiv', 'medrxiv')
 
               UNION DISTINCT
 
