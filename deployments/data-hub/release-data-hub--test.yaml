@@ -219,6 +219,9 @@ spec:
       - name: monitoring-urls-volume
         mountPath: /dag_secret_files/monitoring_urls/
         readOnly: true
+      - name: semantic-scholar-secret-volume
+        mountPath: /dag_secret_files/semantic_scholar/
+        readOnly: true
       - name: surveymonkey-secret-volume
         mountPath: /dag_secret_files/surveymonkey/
         readOnly: true
