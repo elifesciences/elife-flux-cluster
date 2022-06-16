@@ -162,6 +162,8 @@ spec:
         value: /dag_secret_files/gmail_production/gmail_credentials.json
       - name: GMAIL_OPEN_RESEARCH_ACCOUNT_SECRET_FILE
         value: /dag_secret_files/gmail_open_research/gmail_open_research_credentials.json
+      - name: SEMANTIC_SCHOLAR_API_KEY_FILE_PATH
+        value: /dag_secret_files/semantic_scholar/semantic_scholar_api_key.txt
       - name: SURVEYMONKEY_SECRET_FILE
         value: /dag_secret_files/surveymonkey/surveymonkey_credentials.json
       - name: INITIAL_S3_FILE_LAST_MODIFIED_DATE
