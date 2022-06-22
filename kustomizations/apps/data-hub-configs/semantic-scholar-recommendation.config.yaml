@@ -16,18 +16,23 @@ semanticScholarRecommendation:
                   SELECT
                       list_key,
                       user_id,
+                      list_id,
                       TO_HEX(MD5(ARRAY_TO_STRING(ARRAY_AGG(doi ORDER BY item_timestamp), '|'))) AS list_hash,
                       ARRAY_AGG(STRUCT(item_timestamp, doi, is_excluded) ORDER BY item_timestamp) AS list
                   FROM (
                       SELECT
-                          CONCAT('user:', event.user_id) AS list_key,
+                          COALESCE(
+                              CONCAT('user:', event.user_id),
+                              CONCAT('list:', event.list_id)
+                          ) AS list_key,
                           event.user_id,
+                          event.list_id,
                           event.event_timestamp AS item_timestamp,
                           event.article_doi AS doi,
-                          (event.event_name = 'UserUnsavedArticle') AS is_excluded,
+                          (event.event_name IN ('UserUnsavedArticle', 'ArticleRemovedFromList')) AS is_excluded,
                       FROM `elife-data-pipeline.de_proto.v_sciety_event` AS event
                       WHERE event.article_doi IS NOT NULL
-                          AND event.event_name IN ('UserSavedArticle', 'UserUnsavedArticle')
+                          AND event.event_name IN ('UserSavedArticle', 'UserUnsavedArticle', 'ArticleAddedToList', 'ArticleRemovedFromList')
                           -- ensure present in semantic scholar
                           AND event.article_doi IN (
                               SELECT response.externalIds.DOI
@@ -36,13 +41,13 @@ semanticScholarRecommendation:
                           )
                       ORDER BY event.event_timestamp
                   )
-                  GROUP BY list_key, user_id
+                  GROUP BY list_key, user_id, list_id
               )
 
               -- list with the latest saved article
               SELECT
                   CONCAT(list_key, '|list_hash:', list_hash, '|request_type:current_events') AS list_key,
-                  STRUCT(user_id, list_hash, 'current_events' AS request_type) AS list_meta,
+                  STRUCT(user_id, list_id, list_hash, 'current_events' AS request_type) AS list_meta,
                   list
               FROM t_list
 
@@ -51,7 +56,7 @@ semanticScholarRecommendation:
               -- list before the latest saved article, for evaluation purpose
               SELECT
                   CONCAT(list_key, '|list_hash:', list_hash, '|request_type:prev_events') AS list_key,
-                  STRUCT(user_id, list_hash, 'prev_events' AS request_type) AS list_meta,
+                  STRUCT(user_id, list_id, list_hash, 'prev_events' AS request_type) AS list_meta,
                   -- remove last item
                   ARRAY(
                       SELECT AS STRUCT * EXCEPT(OFFSET)
