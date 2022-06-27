@@ -62,6 +62,8 @@ spec:
             name: fernet-key--stg
             key: fernet-key
       # config file paths:
+      - name: ELIFE_ARTICLE_XML_CONFIG_FILE_PATH
+        value: /dag_config_files/elife-article-xml.config.yaml
       - name: EUROPEPMC_CONFIG_FILE_PATH
         value: /dag_config_files/europepmc.config.yaml
         # Staging should not use the production labslink config, so we use their test environment (it's not related to our `--test` env)

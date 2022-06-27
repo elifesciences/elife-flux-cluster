@@ -1,0 +1,9 @@
+elifeArticleXml:
+  - dataPipelineId: elife-article-xml
+    source:
+      gitRepoUrl: 'https://api.github.com/repos/elifesciences/elife-article-xml/git/trees/master'
+      directoryName: 'articles'
+    target:
+      projectName: 'elife-data-pipeline'
+      datasetName: '{ENV}'
+      tableName: elife_article_xml_related_articles
