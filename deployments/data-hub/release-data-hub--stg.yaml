@@ -102,6 +102,8 @@ spec:
       - name: CIVICRM_EMAIL_DATA_CONFIG_FILE_PATH
         value: /dag_config_files/civicrm-email-report-data-pipeline.config.yaml
       # scheduler interval
+      - name: ELIFE_ARTICLE_XML_PIPELINE_SCHEDULE_INTERVAL
+        value: "*/75 * * * *" # At every 75th minute. It will be changed after initial load.
       - name: EUROPEPMC_PIPELINE_SCHEDULE_INTERVAL
         value: "0 6 * * *" # At 06:00, every day
       - name: EUROPEPMC_LABSLNK_PIPELINE_SCHEDULE_INTERVAL
