@@ -153,6 +153,8 @@ spec:
         value: staging
       - name: AIRFLOW_APPLICATIONS_DIRECTORY_PATH
         value: /opt/airflow/auxiliary_data_pipeline_files
+      - name: GITHUB_API_AUTHORIZATION_FILE_PATH
+        value: /dag_secret_files/github_api/github_api_authorization.txt
       - name: GMAIL_THREAD_DETAILS_CHUNK_SIZE
         value: "100"
       - name: EUROPEPMC_LABSLINK_FTP_PASSWORD_FILE_PATH
