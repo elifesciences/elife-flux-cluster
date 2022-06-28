@@ -9,6 +9,7 @@ configMapGenerator:
   - crossref-event-data-pipeline.config.yaml
   - ejp-xml-data-pipeline.config.yaml
   - ejp-xml-data-pipeline--test.config.yaml
+  - elife-article-xml.config.yaml
   - europepmc.config.yaml
   - europepmc-labslink.config.yaml
   - europepmc-labslink--test.config.yaml
