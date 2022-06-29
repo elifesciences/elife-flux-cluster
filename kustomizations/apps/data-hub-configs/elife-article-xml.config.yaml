@@ -3,6 +3,11 @@ elifeArticleXml:
     source:
       gitRepoUrl: 'https://api.github.com/repos/elifesciences/elife-article-xml/git/trees/master'
       directoryName: 'articles'
+      headers:
+        parametersFromFile:
+          # parameters will be skipped if referenced file does not exist
+          - parameterName: Authorization
+            filePathEnvName: GITHUB_API_AUTHORIZATION_FILE_PATH
     target:
       projectName: 'elife-data-pipeline'
       datasetName: '{ENV}'
