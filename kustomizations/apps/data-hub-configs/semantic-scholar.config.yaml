@@ -26,9 +26,16 @@ semanticScholar:
                   AND (
                       provenance.http_status = 200
                       OR (
-                          -- exclude recent 404s
+                          -- exclude recent 404s for bioRxiv, medRxiv
                           provenance.http_status = 404
+                          AND STARTS_WITH(provenance.doi, '10.1101/')  -- Cold Spring Harbor Labs, including bioRxiv and medRxiv
                           AND TIMESTAMP_DIFF(CURRENT_TIMESTAMP(), provenance.request_timestamp, HOUR) < 23
+                      )
+                      OR (
+                          -- exclude not so recent 404s other preprint servers (in particular Research Square, with larger number of missing articles)
+                          provenance.http_status = 404
+                          AND NOT STARTS_WITH(provenance.doi, '10.1101/')  -- not Cold Spring Harbor Labs
+                          AND TIMESTAMP_DIFF(CURRENT_TIMESTAMP(), provenance.request_timestamp, DAY) < 30
                       )
                   )
     source:
