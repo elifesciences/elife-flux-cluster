@@ -34,7 +34,7 @@ spec:
       nginxWorkerTimeoutSeconds: 600
       image:
         repository: docker.io/liberoadmin/reviewer-submission # {"$imagepolicy": "reviewer:libero-reviewer-submission:name"}
-        tag: master-f51d281f-20220318.0855 # {"$imagepolicy": "reviewer:libero-reviewer-submission:tag"}
+        tag: master-487cab4e-20220707.1541 # {"$imagepolicy": "reviewer:libero-reviewer-submission:tag"}
       sciencebeam:
         convertUrl: "http://sciencebeam--reviewer:8075/api/convert"
       s3:
