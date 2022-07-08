@@ -21,6 +21,7 @@ spec:
       DATA_SCIENCE_STATE_PATH: s3://prod-elife-data-pipeline/airflow-config/data-science/state
       GOOGLE_APPLICATION_CREDENTIALS: /root/.gcp/credentials.json
       DEPLOYMENT_ENV: prod
+      PEERSCOUT_API_TARGET_DATASET: prod
       SPACY_LANGUAGE_MODEL_NAME: "en_core_web_lg"
     volumeMounts:
     - name: aws-credentials-sealed-secret-volume
