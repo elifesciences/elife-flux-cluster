@@ -5,6 +5,7 @@ metadata:
   namespace: data-hub
 spec:
   interval: 5m
+  timeout: 10m
   releaseName: data-hub--prod
   chart:
     spec:
