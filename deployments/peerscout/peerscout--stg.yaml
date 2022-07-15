@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: docker.io/elifesciences/data-science-dags_peerscout-api_unstable # {"$imagepolicy": "peerscout:peerscout-unstable:name"}
-      tag: develop-c93acc11-20220713.0737 # {"$imagepolicy": "peerscout:peerscout-unstable:tag"}
+      tag: develop-323410da-20220715.0643 # {"$imagepolicy": "peerscout:peerscout-unstable:tag"}
     env:
       DATA_SCIENCE_STATE_PATH: s3://staging-elife-data-pipeline/airflow-config/data-science/state
       GOOGLE_APPLICATION_CREDENTIALS: /root/.gcp/credentials.json
