@@ -28,6 +28,7 @@ jobs:
         run: |
           kubectl create ns infra
           kubectl create secret -n infra  generic oauth2-github --from-literal=client-id=client-id --from-literal=client-secret=client-secret --from-literal=cookie-secret=cookie-secret-16
+          kubectl create secret -n infra  generic oauth2-proxy--flux-prod-github --from-literal=client-id=client-id --from-literal=client-secret=client-secret --from-literal=cookie-secret=cookie-secret-16
           kubectl create ns monitoring
           kubectl create secret -n monitoring generic newrelic-license --from-literal=prod=prod
       - name: Reduce resources requests from kind cluster components
