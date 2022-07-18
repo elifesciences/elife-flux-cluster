@@ -4,7 +4,7 @@ metadata:
   name: data-hub--stg
   namespace: data-hub
 spec:
-  interval: 5m
+  interval: 11m
   timeout: 10m
   releaseName: data-hub--stg
   chart:
