@@ -4,7 +4,7 @@ metadata:
   name: data-hub--test
   namespace: data-hub
 spec:
-  interval: 5m
+  interval: 16m
   timeout: 10m
   releaseName: data-hub--test
   chart:
