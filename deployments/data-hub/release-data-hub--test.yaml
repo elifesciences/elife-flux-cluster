@@ -5,7 +5,7 @@ metadata:
   namespace: data-hub
 spec:
   interval: 16m
-  timeout: 10m
+  timeout: 15m
   releaseName: data-hub--test
   chart:
     spec:
