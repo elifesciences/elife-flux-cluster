@@ -156,6 +156,8 @@ spec:
         value: /opt/airflow/auxiliary_data_pipeline_files
       - name: GITHUB_API_AUTHORIZATION_FILE_PATH
         value: /dag_secret_files/github_api/github_api_authorization.txt
+      - name: TWITTER_API_AUTHORIZATION_FILE_PATH
+        value: /dag_secret_files/twitter_api/twitter_api_authorization.txt
       - name: GMAIL_THREAD_DETAILS_CHUNK_SIZE
         value: "100"
       - name: EUROPEPMC_LABSLINK_FTP_PASSWORD_FILE_PATH
@@ -209,6 +211,9 @@ spec:
       - name: github-api-secret-volume
         mountPath: /dag_secret_files/github_api/
         readOnly: true
+      - name: twitter-api-secret-volume
+        mountPath: /dag_secret_files/twitter_api/
+        readOnly: true
       - name: europepmc-labslink-ftp-credentials-volume
         mountPath: /dag_secret_files/europepmc_labslink_ftp_credentials/
         readOnly: true
@@ -246,6 +251,9 @@ spec:
       - name: github-api-secret-volume
         secret:
           secretName: github-api
+      - name: twitter-api-secret-volume
+        secret:
+          secretName: twitter-api
       - name: europepmc-labslink-ftp-credentials-volume
         secret:
           secretName: europepmc-labslink-ftp-credentials--stg
