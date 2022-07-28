@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: podinfod
-        image: docker.io/stefanprodan/podinfo:6.1.7 # {"$imagepolicy": "podinfo:podinfo-stable"}
+        image: docker.io/stefanprodan/podinfo:6.1.8 # {"$imagepolicy": "podinfo:podinfo-stable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
