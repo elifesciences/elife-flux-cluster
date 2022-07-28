@@ -1,11 +1,13 @@
 gcpProjectName: 'elife-data-pipeline'
 importedTimestampFieldName: 'imported_timestamp'
 webApi:
+
   #observer api
   - dataset: '{ENV}'
     table: published_dates
     dataUrl:
       urlExcludingConfigurableParameters: https://observer.elifesciences.org/report/published-article-index?format=json
+
   #elifescience people api
   - dataset: '{ENV}'
     table: people_staff_profile
@@ -18,6 +20,7 @@ webApi:
     response:
       itemsKeyFromResponseRoot:
         - items
+
   #elifescience profile api
   - dataset: '{ENV}'
     table: people_orcid_profile
@@ -30,6 +33,7 @@ webApi:
     response:
       itemsKeyFromResponseRoot:
         - items
+
   #hypoothesis api
   - dataset: '{ENV}'
     table: hypothesis_annotations
@@ -50,6 +54,7 @@ webApi:
           - updated
       itemsKeyFromResponseRoot:
         - rows
+
   #toggle api
   - dataset: '{ENV}'
     table: prod_raw_toggl
@@ -131,7 +136,6 @@ webApi:
         itemTimestampKeyFromItemRoot:
           - modified_date
 
-
   # civi export
   - dataset: '{ENV}'
     table: civi_contact_raw
@@ -178,6 +182,7 @@ webApi:
       recordTimestamp:
         itemTimestampKeyFromItemRoot:
           - modified_date
+
   # civi mailing recipients
   # note that the civi api does not have field modified_date for this entity
   # so the whole data  (> 17 million records) has to be downloaded at each run
@@ -205,3 +210,13 @@ webApi:
     response:
       itemsKeyFromResponseRoot:
         - values
+
+  # twitter user details
+  - dataset: '{ENV}'
+    table: twitter_user_details_of_sciety
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.twitter.com/1.1/users/show.json?include_entities=False&user_id=1295307136415735808
+    headers:
+      parametersFromFile:
+        - parameterName: Authorization
+          filePathEnvName: TWITTER_API_AUTHORIZATION_FILE_PATH
