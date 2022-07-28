@@ -248,9 +248,6 @@ spec:
       - name: toggl-secret-volume
         secret:
           secretName: toggl
-      - name: twitter-secret-volume
-        secret:
-          secretName: twitter
       - name: civi-secret-volume
         secret:
           secretName: civi-key
