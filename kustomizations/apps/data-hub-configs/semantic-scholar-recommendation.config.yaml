@@ -46,8 +46,13 @@ semanticScholarRecommendation:
 
               -- list with the latest saved article
               SELECT
-                  CONCAT(list_key, '|list_hash:', list_hash, '|request_type:current_events') AS list_key,
-                  STRUCT(user_id, list_id, list_hash, 'current_events' AS request_type) AS list_meta,
+                  CONCAT(
+                      list_key,
+                      '|list_hash:', list_hash,
+                      '|request_type:current_events',
+                      '|request_date=', FORMAT_DATE('%Y-%m-%d', CURRENT_DATE())  -- include request_date to update current recommendations daily
+                  ) AS list_key,
+                  STRUCT(user_id, list_id, list_hash, 'current_events' AS request_type, CURRENT_DATE() AS request_date) AS list_meta,
                   list
               FROM t_list
 
@@ -56,7 +61,7 @@ semanticScholarRecommendation:
               -- list before the latest saved article, for evaluation purpose
               SELECT
                   CONCAT(list_key, '|list_hash:', list_hash, '|request_type:prev_events') AS list_key,
-                  STRUCT(user_id, list_id, list_hash, 'prev_events' AS request_type) AS list_meta,
+                  STRUCT(user_id, list_id, list_hash, 'prev_events' AS request_type, CURRENT_DATE() AS request_date) AS list_meta,
                   -- remove last item
                   ARRAY(
                       SELECT AS STRUCT * EXCEPT(OFFSET)
