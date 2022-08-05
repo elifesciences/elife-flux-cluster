@@ -1,0 +1,18 @@
+twitterAdsApi:
+  - dataPipelineId: twitter_ads_api_campaign_details_elife_journal
+    source:
+      resource: '/11/accounts/18ce53up4ko/campaigns'
+      secrets:
+        parametersFromFile:
+          - parameterName: api_key
+            filePathEnvName: TWITTER_API_KEY_FILE_PATH
+          - parameterName: api_secret
+            filePathEnvName: TWITTER_API_SECRET_FILE_PATH
+          - parameterName: access_token
+            filePathEnvName: TWITTER_ACCESS_TOKEN_FILE_PATH
+          - parameterName: access_token_secret
+            filePathEnvName: TWITTER_ACCESS_TOKEN_SECRET_FILE_PATH
+    target:
+      projectName: 'elife-data-pipeline'
+      datasetName: '{ENV}'
+      tableName: twitter_campaign_details_elife_journal
