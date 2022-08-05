@@ -22,6 +22,7 @@ configMapGenerator:
   - semantic-scholar.config.yaml
   - spreadsheet-data-pipeline.config.yaml
   - surveymonkey-data-pipeline.config.yaml
+  - twitter-ads-api.config.yaml
   - web-api-data-pipeline.config.yaml
 generatorOptions:
   disableNameSuffixHash: true
