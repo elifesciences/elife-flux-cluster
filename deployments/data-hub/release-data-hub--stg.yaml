@@ -102,6 +102,8 @@ spec:
         value: /dag_config_files/surveymonkey-data-pipeline.config.yaml
       - name: CIVICRM_EMAIL_DATA_CONFIG_FILE_PATH
         value: /dag_config_files/civicrm-email-report-data-pipeline.config.yaml
+      - name: TWITTER_ADS_API_CONFIG_FILE_PATH
+        value: /dag_config_files/twitter-ads-api.config.yaml
       # scheduler interval
       - name: ELIFE_ARTICLE_XML_PIPELINE_SCHEDULE_INTERVAL
         value: "0 5 * * *" # At 05:00, every day
@@ -149,6 +151,8 @@ spec:
         value: "0 0 1 * *" # first day of every month
       - name: CIVICRM_EMAIL_REPORT_DATA_PIPELINE_SCHEDULE_INTERVAL
         value: "@daily"
+      - name: TWITTER_ADS_API_PIPELINE_SCHEDULE_INTERVAL
+        value: "0 3 * * *" # At 03:00, every day
       # general:
       - name: DEPLOYMENT_ENV
         value: staging
@@ -158,6 +162,14 @@ spec:
         value: /dag_secret_files/github_api/github_api_authorization.txt
       - name: TWITTER_API_AUTHORIZATION_FILE_PATH
         value: /dag_secret_files/twitter_api/twitter_api_authorization.txt
+      - name: TWITTER_API_KEY_FILE_PATH
+        value: /dag_secret_files/twitter_api_key/twitter_api_key.txt
+      - name: TWITTER_API_SECRET_FILE_PATH
+        value: /dag_secret_files/twitter_api_secret/twitter_api_secret.txt
+      - name: TWITTER_ACCESS_TOKEN_FILE_PATH
+        value: /dag_secret_files/twitter_api_access_token/twitter_api_access_token.txt
+      - name: TWITTER_ACCESS_TOKEN_SECRET_FILE_PATH
+        value: /dag_secret_files/twitter_api_access_token_secret/twitter_api_access_token_secret.txt
       - name: GMAIL_THREAD_DETAILS_CHUNK_SIZE
         value: "100"
       - name: EUROPEPMC_LABSLINK_FTP_PASSWORD_FILE_PATH
@@ -214,6 +226,18 @@ spec:
       - name: twitter-api-secret-volume
         mountPath: /dag_secret_files/twitter_api/
         readOnly: true
+      - name: twitter-api-key-secret-volume
+        mountPath: /dag_secret_files/twitter_api_key/
+        readOnly: true
+      - name: twitter-api-secret-secret-volume
+        mountPath: /dag_secret_files/twitter_api_secret/
+        readOnly: true
+      - name: twitter-api-access-token-secret-volume
+        mountPath: /dag_secret_files/twitter_api_access_token/
+        readOnly: true
+      - name: twitter-api-access-token-secret-secret-volume
+        mountPath: /dag_secret_files/twitter_api_access_token_secret/
+        readOnly: true
       - name: europepmc-labslink-ftp-credentials-volume
         mountPath: /dag_secret_files/europepmc_labslink_ftp_credentials/
         readOnly: true
@@ -254,6 +278,18 @@ spec:
       - name: twitter-api-secret-volume
         secret:
           secretName: twitter-api
+      - name: twitter-api-key-secret-volume
+        secret:
+          secretName: twitter-api-key
+      - name: twitter-api-secret-secret-volume
+        secret:
+          secretName: twitter-api-secret
+      - name: twitter-api-access-token-secret-volume
+        secret:
+          secretName: twitter-api-access-token
+      - name: twitter-api-access-token-secret-secret-volume
+        secret:
+          secretName: twitter-api-access-token-secret
       - name: europepmc-labslink-ftp-credentials-volume
         secret:
           secretName: europepmc-labslink-ftp-credentials--stg
