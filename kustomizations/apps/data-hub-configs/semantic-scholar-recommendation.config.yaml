@@ -84,6 +84,11 @@ semanticScholarRecommendation:
         # See https://api.semanticscholar.org/api-docs/recommendations#operation/post_papers
         limit: '500'
         fields: 'paperId,externalIds,title,venue'
+      headers:
+        parametersFromFile:
+          # parameters will be skipped if referenced file does not exist
+          - parameterName: x-api-key
+            filePathEnvName: SEMANTIC_SCHOLAR_API_KEY_FILE_PATH
     target:
       projectName: 'elife-data-pipeline'
       datasetName: '{ENV}'
