@@ -16,3 +16,34 @@ twitterAdsApi:
       projectName: 'elife-data-pipeline'
       datasetName: '{ENV}'
       tableName: twitter_campaign_details_elife_journal
+  - dataPipelineId: twitter_ads_api_campaign_reach_elife_journal
+    source:
+      resource: '/11/stats/accounts/18ce53up4ko/reach/campaigns'
+      secrets:
+        parametersFromFile:
+          - parameterName: api_key
+            filePathEnvName: TWITTER_API_KEY_FILE_PATH
+          - parameterName: api_secret
+            filePathEnvName: TWITTER_API_SECRET_FILE_PATH
+          - parameterName: access_token
+            filePathEnvName: TWITTER_ACCESS_TOKEN_FILE_PATH
+          - parameterName: access_token_secret
+            filePathEnvName: TWITTER_ACCESS_TOKEN_SECRET_FILE_PATH
+      apiQueryParameters:
+        parameterValues:
+          fromBigQuery:
+            projectName: 'elife-data-pipeline'
+            sqlQuery: |-
+              SELECT DISTINCT t_data.id
+              FROM `elife-data-pipeline.{ENV}.v_latest_twitter_campaign_details_elife_journal`
+              JOIN UNNEST(data) AS t_data
+          # earliest campaign creation date for initial load:
+          startTimeValue: '2018-05-01'
+        parameterNamesFor:
+          bigqueryValue: campaign_ids
+          startTime: start_time
+          endTime: end_time
+    target:
+      projectName: 'elife-data-pipeline'
+      datasetName: '{ENV}'
+      tableName: twitter_campaign_reach_elife_journal
