@@ -38,7 +38,7 @@ twitterAdsApi:
               FROM `elife-data-pipeline.{ENV}.v_latest_twitter_campaign_details_elife_journal`
               JOIN UNNEST(data) AS t_data
           # earliest campaign creation date for initial load:
-          startTimeValue: '2018-05-01'
+          startTimeValue: '2013-12-01'
         parameterNamesFor:
           bigqueryValue: campaign_ids
           startTime: start_time
