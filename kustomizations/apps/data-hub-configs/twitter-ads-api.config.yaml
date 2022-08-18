@@ -16,6 +16,7 @@ twitterAdsApi:
       projectName: 'elife-data-pipeline'
       datasetName: '{ENV}'
       tableName: twitter_campaign_details_elife_journal
+
   - dataPipelineId: twitter_ads_api_campaign_reach_elife_journal
     source:
       resource: '/11/stats/accounts/18ce53up4ko/reach/campaigns'
@@ -37,12 +38,13 @@ twitterAdsApi:
               SELECT DISTINCT t_data.id
               FROM `elife-data-pipeline.{ENV}.v_latest_twitter_campaign_details_elife_journal`
               JOIN UNNEST(data) AS t_data
+              WHERE t_data.effective_status = 'ACTIVE'
           # earliest campaign creation date for initial load:
-          startTimeValue: '2013-12-01'
+          startDateValue: '2018-05-01'
         parameterNamesFor:
-          bigqueryValue: campaign_ids
-          startTime: start_time
-          endTime: end_time
+          entityId: campaign_ids
+          startDate: start_time
+          endDate: end_time
     target:
       projectName: 'elife-data-pipeline'
       datasetName: '{ENV}'
