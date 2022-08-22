@@ -19,21 +19,3 @@ gmailData:
     gmailHistoryData:
       tempTable: 'temp_gmail_history_details'
     gmailSecretFileEnvName: GMAIL_PRODUCTION_ACCOUNT_SECRET_FILE
-  - dataPipelineId: gmail_open_research_data_pipeline
-    gmailLabelData:
-      table: 'gmail_open_research_label_list'
-      tempTable: 'temp_gmail_open_research_label_list'
-      uniqueIdColumn: 'labelId'
-    gmailLinkIdsData:
-      table: 'gmail_open_research_thread_ids_list'
-      tempTable: 'temp_gmail_open_research_thread_ids_list'
-      uniqueIdColumn: 'id'
-    gmailThreadData:
-      table: 'gmail_open_research_thread_details'
-      inputColumn: 'threadId'
-      historyCheckColumn: 'historyId'
-      array_name_in_table: 'messages'
-      array_column_name: 'id'
-    gmailHistoryData:
-      tempTable: 'temp_gmail_open_research_history_details'
-    gmailSecretFileEnvName: GMAIL_OPEN_RESEARCH_ACCOUNT_SECRET_FILE
