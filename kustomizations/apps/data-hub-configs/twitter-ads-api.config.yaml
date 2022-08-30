@@ -40,7 +40,6 @@ twitterAdsApi:
               JOIN UNNEST(data) AS t_data
               WHERE  -- the campaigns before '2015-01-02' has to be filtered because of api limits
               CAST(t_data.created_at AS DATE) > CAST('2015-01-02' AS DATE)
-              AND t_data.id IN ('git3k', 'gwdrg', '14g1y', '8bsof')
               -- AND t_data.effective_status = 'ACTIVE'
           maxPeriodInDays: 600
         parameterNamesFor:
