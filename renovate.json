@@ -100,6 +100,13 @@
       "matchPackageNames": ["airflow"],
       "automerge": false,
       "registryUrls": ["https://airflow-helm.github.io/charts"]
+    },
+    {
+      "matchDatasources": ["helm"],
+      "matchManagers": ["regex"],
+      "matchPackageNames": ["cluster-autoscaler"],
+      "automerge": false,
+      "registryUrls": ["https://kubernetes.github.io/autoscaler"]
     }
   ]
 }
