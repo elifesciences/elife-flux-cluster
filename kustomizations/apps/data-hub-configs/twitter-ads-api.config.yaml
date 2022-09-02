@@ -99,7 +99,7 @@ twitterAdsApi:
                 SELECT 
                   t_campaign.entity_id,
                   t_campaign.entity_creation_date,
-                  IFNULL(t_calculated_date.end_date, t_campaign.campaign_creation_date) AS start_date
+                  IFNULL(t_calculated_date.end_date, t_campaign.entity_creation_date) AS start_date
                 FROM t_all_campaigns AS t_campaign
                 LEFT JOIN t_min_end_time_per_campaign AS t_calculated_date
                 ON t_campaign.entity_id = t_calculated_date.entity_id
