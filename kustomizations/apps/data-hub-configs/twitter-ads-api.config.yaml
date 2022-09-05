@@ -76,14 +76,14 @@ twitterAdsApi:
                   CAST(t_data.created_at AS DATE) AS entity_creation_date
                 FROM `elife-data-pipeline.{ENV}.v_latest_twitter_campaign_details_elife_journal`
                 JOIN UNNEST(data) AS t_data
-                WHERE -- the campaigns before '2015-01-02' has to be filtered because of api limits
+                WHERE  -- the campaigns before '2015-01-02' has to be filtered because of api limits
                 CAST(t_data.created_at AS DATE) > CAST('2015-01-02' AS DATE)
               ),
-              t_max_end_time_by_campaign_and_placement AS (
+              t_max_start_time_by_campaign_and_placement AS (
                 SELECT 
                   t_data.id AS entity_id,
                   request.params.placement,
-                  MAX(request.params.end_time) OVER (PARTITION BY t_data.id, request.params.placement) AS max_end_time
+                  MAX(request.params.start_time) OVER (PARTITION BY t_data.id, request.params.placement) AS max_start_time
                 FROM
                 `elife-data-pipeline.{ENV}.v_latest_twitter_campaign_clicks_and_impressions_elife_journal`
                 JOIN UNNEST(data) AS t_data
@@ -91,15 +91,15 @@ twitterAdsApi:
               t_min_end_time_per_campaign AS (
                 SELECT 
                   entity_id,
-                  CAST(MIN(max_end_time) AS DATE) AS end_date,
-                FROM t_max_end_time_by_campaign_and_placement 
+                  CAST(MIN(max_start_time) AS DATE) AS start_date,
+                FROM t_max_start_time_by_campaign_and_placement 
                 GROUP BY entity_id
               ),
               t_campaign_and_dates AS (
                 SELECT 
                   t_campaign.entity_id,
                   t_campaign.entity_creation_date,
-                  IFNULL(t_calculated_date.end_date, t_campaign.entity_creation_date) AS start_date
+                  IFNULL(t_calculated_date.start_date, t_campaign.entity_creation_date) AS start_date
                 FROM t_all_campaigns AS t_campaign
                 LEFT JOIN t_min_end_time_per_campaign AS t_calculated_date
                 ON t_campaign.entity_id = t_calculated_date.entity_id
@@ -109,8 +109,8 @@ twitterAdsApi:
                 CAST(entity_creation_date AS STRING) AS entity_creation_date,
                 CAST(start_date AS STRING) AS start_date
               FROM t_campaign_and_dates
-              WHERE ABS(DATE_DIFF(entity_creation_date, start_date, DAY)) < 91  --(maxPeriodInDays)
-          maxPeriodInDays: 91 # 7*13
+              WHERE ABS(DATE_DIFF(entity_creation_date, start_date, DAY)) < 91 --(maxPeriodInDays-1)
+          maxPeriodInDays: 92 # 7*13+1 (+1 is for getting out from periodBatchSizeInDays for final end_date because of usin start_time )
           periodBatchSizeInDays: 7  # 7 days is the max batch size for this api endpoint
           placementValue: ['PUBLISHER_NETWORK','ALL_ON_TWITTER']
         parameterNamesFor:
