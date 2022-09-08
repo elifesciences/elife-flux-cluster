@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: nri-bundle
-      version: 4.8.6
+      version: 4.8.7
       sourceRef:
         kind: HelmRepository
         name: newrelic
