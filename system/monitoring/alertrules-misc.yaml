@@ -26,10 +26,10 @@ spec:
       annotations:
         message: |
           5m Load1 average / CPU > 2 for over 20m {{ $labels.instance }}
-    - alert: NodeCPULoadHigh
-      expr: avg_over_time(instance:node_load1_per_cpu:ratio[60m]) > 4
-      labels:
-        severity: critical
-      annotations:
-        message: |
-          Load1 / CPU > 4 for over an hour {{ $labels.instance }}
+    # - alert: NodeCPULoadHigh
+    #   expr: avg_over_time(instance:node_load1_per_cpu:ratio[60m]) > 4
+    #   labels:
+    #     severity: critical
+    #   annotations:
+    #     message: |
+    #       Load1 / CPU > 4 for over an hour {{ $labels.instance }}
