@@ -82,7 +82,7 @@ twitterAdsApi:
                 CAST(t_data.created_at AS DATE) > CAST('2015-01-02' AS DATE)
               ),
               t_max_start_and_end_time_by_campaign_and_placement AS (
-                  SELECT 
+                SELECT 
                   id AS entity_id,
                   request.params.placement,
                   MAX(request.params.start_time) OVER (PARTITION BY id, request.params.placement) AS max_start_time,
@@ -91,7 +91,7 @@ twitterAdsApi:
                 `elife-data-pipeline.{ENV}.v_latest_twitter_campaign_clicks_and_impressions_elife_journal`
               ),
               t_min_start_and_end_time_per_campaign AS (
-                  SELECT 
+                SELECT 
                   entity_id,
                   CAST(MIN(max_start_time) AS DATE) AS start_date,
                   CAST(MIN(max_end_time) AS DATE) AS end_date,
@@ -99,7 +99,7 @@ twitterAdsApi:
                 GROUP BY entity_id
               ),
               t_campaign_and_dates AS (
-                  SELECT 
+                SELECT 
                   t_campaign.entity_id,
                   t_campaign.entity_creation_date,
                   COALESCE(
@@ -160,7 +160,7 @@ twitterAdsApi:
                 CAST(t_data.created_at AS DATE) > CAST('2015-01-02' AS DATE)
               ),
               t_max_start_and_end_time_by_campaign_and_placement AS (
-                  SELECT 
+                SELECT 
                   id AS entity_id,
                   request.params.placement,
                   MAX(request.params.start_time) OVER (PARTITION BY id, request.params.placement) AS max_start_time,
@@ -169,7 +169,7 @@ twitterAdsApi:
                 `elife-data-pipeline.{ENV}.v_latest_twitter_campaign_costs_elife_journal`
               ),
               t_min_start_and_end_time_per_campaign AS (
-                  SELECT 
+                SELECT 
                   entity_id,
                   CAST(MIN(max_start_time) AS DATE) AS start_date,
                   CAST(MIN(max_end_time) AS DATE) AS end_date,
@@ -177,7 +177,7 @@ twitterAdsApi:
                 GROUP BY entity_id
               ),
               t_campaign_and_dates AS (
-                  SELECT 
+                SELECT 
                   t_campaign.entity_id,
                   t_campaign.entity_creation_date,
                   COALESCE(
