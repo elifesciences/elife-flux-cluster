@@ -55,7 +55,7 @@ spec:
       replicaCount: 1
       image:
         repository: docker.io/liberoadmin/reviewer-client # {"$imagepolicy": "reviewer:libero-reviewer-client:name"}
-        tag: master-e7fd15e0-20220817.1437 # {"$imagepolicy": "reviewer:libero-reviewer-client:tag"}
+        tag: master-ed98e213-20220927.0908 # {"$imagepolicy": "reviewer:libero-reviewer-client:tag"}
     continuumAdaptor:
       image:
         repository: liberoadmin/continuum-adaptor # {"$imagepolicy": "reviewer:libero-reviewer-adapter:name"}
