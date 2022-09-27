@@ -46,6 +46,9 @@ spec:
     newrelic-logging:
       enabled: false
 
+    controlPlane:
+      enabled: false
+
     newrelic-infrastructure:
       enabled: true
       privileged: false
