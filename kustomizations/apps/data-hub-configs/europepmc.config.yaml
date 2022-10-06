@@ -36,3 +36,22 @@ europePmc:
         bucketName: '{ENV}-elife-data-pipeline'
         objectName: 'airflow-config/europepmc/preprint_servers/{ENV}-state-v2.json'
     batchSize: 10
+  - dataPipelineId: europepmc_data_pipeline_preprint_servers_scielo_preprints
+    source:
+      apiUrl: 'https://www.ebi.ac.uk/europepmc/webservices/rest/search'
+      search:
+        query: '(PUBLISHER:"SciELO Preprints")'
+        pageSize: '1000'
+      extractIndividualResultsFromResponse: True
+      maxDays: 1000  # limit the number of days to process from start date
+    target:
+      projectName: 'elife-data-pipeline'
+      datasetName: '{ENV}'
+      tableName: europepmc_preprint_servers_responses
+    state:
+      initialState:
+        startDate: '2011-01-01'
+      stateFile:
+        bucketName: '{ENV}-elife-data-pipeline'
+        objectName: 'airflow-config/europepmc/preprint_servers/{ENV}-state-scielo-preprints.json'
+    batchSize: 10000
