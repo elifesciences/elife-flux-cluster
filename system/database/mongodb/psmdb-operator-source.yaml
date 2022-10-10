@@ -1,0 +1,10 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: percona
+  namespace: db-operator-system
+
+spec:
+  interval: 5m
+  url: https://percona.github.io/percona-helm-charts/
