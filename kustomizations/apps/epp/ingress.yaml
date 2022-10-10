@@ -3,9 +3,12 @@ kind: Ingress
 metadata:
   name: epp
   namespace: epp
+  labels:
+    app_name: epp
+    app_env: ${app_env}
 spec:
   rules:
-  - host: staging--epp.elifesciences.org
+  - host: ${app_hostname}
     http:
       paths:
       - pathType: Prefix

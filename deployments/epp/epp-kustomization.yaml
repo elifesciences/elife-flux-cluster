@@ -2,8 +2,8 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: epp--staging
-  namespace: epp--staging
+  name: epp--prod
+  namespace: epp--prod
 spec:
   interval: 1m0s
   sourceRef:
@@ -12,3 +12,15 @@ spec:
     namespace: flux-system
   path: ./kustomizations/apps/epp
   prune: true
+  targetNamespace: epp--staging
+  images:
+  - name: ghcr.io/elifesciences/enhanced-preprints
+    newTag: master-05a4bb01-20220929.2124
+  - name: ghcr.io/elifesciences/epp-image-server
+    newTag: master-05a4bb01-20220929.2121
+  - name: ghcr.io/elifesciences/enhanced-preprints-client
+    newTag: master-7607b5cc-20220930.1031
+  postBuild:
+    substitute:
+      app_env: prod
+      app_hostname: prod--epp.elifesciences.org
