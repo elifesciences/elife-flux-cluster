@@ -24,6 +24,7 @@ spec:
     substitute:
       app_env: prod
       app_hostname: prod--epp.elifesciences.org
+      mongodb_hostname: mongodb-psmdb-db-rs0
       mongodb_secret_name: mongodb-psmdb-db-secrets
       mongodb_secret_user_key: MONGODB_DATABASE_ADMIN_USER
       mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD

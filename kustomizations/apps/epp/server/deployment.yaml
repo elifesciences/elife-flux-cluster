@@ -36,7 +36,7 @@ spec:
         - name: REPO_TYPE
           value: MongoDB
         - name: REPO_CONNECTION
-          value: "mongodb-rs0:27017/admin"
+          value: "${mongodb_hostname}"
         - name: REPO_USERNAME
           valueFrom:
             secretKeyRef:
