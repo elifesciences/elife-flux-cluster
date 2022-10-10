@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: epp-image-server
+  namespace: epp
+spec:
+  selector:
+    app: epp-image-server
+  ports:
+  - port: 8182

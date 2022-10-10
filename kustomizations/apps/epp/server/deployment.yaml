@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epp-node
+  namespace: epp
+  labels:
+    app: epp-node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: epp-node
+  template:
+    metadata:
+      namespace: epp
+      labels:
+        app: epp-node
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      initContainers:
+      - name: create-user
+        image: percona/percona-server-mongodb:5.0.7-6
+        envFrom:
+        - secretRef:
+            name: mongodb-user-passwords
+        - secretRef:
+            name: mongodb-passwords
+        command: ["bash"]
+        args:
+        - -c
+        - |
+          mongo "mongodb://$MONGODB_EPP_USER:$MONGODB_EPP_PASSWORD@mongodb-rs0/epp?replicaSet=rs0&ssl=false" --authenticationDatabase admin --eval "db.getCollectionNames();" || mongo "mongodb://$MONGODB_USER_ADMIN_USER:$MONGODB_USER_ADMIN_PASSWORD@mongodb-rs0/admin?replicaSet=rs0&ssl=false" --eval "db.createUser({user: '$MONGODB_EPP_USER', pwd: '$MONGODB_EPP_PASSWORD', roles: [{ db: 'epp', role: 'readWrite' }], mechanisms: ['SCRAM-SHA-1']})"
+      containers:
+      - name: epp-node
+        image: ghcr.io/elifesciences/enhanced-preprints:master-05a4bb01-20220929.2124 # {"$imagepolicy": "epp:epp-node-prototype"}
+        resources:
+          requests:
+            cpu: "200m"
+          limits:
+            memory: "2Gi"
+        env:
+        - name: IMPORT_DIR_PATH
+          value: /opt/articles-data/enhanced-preprints-data/data/10.1101/
+        - name: IIIF_SERVER
+          value: https://epp-node-prototype.elifesciences.org
+        - name: REPO_TYPE
+          value: MongoDB
+        - name: REPO_CONNECTION
+          value: "mongodb-rs0:27017/admin"
+        - name: REPO_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-user-passwords
+              key: MONGODB_EPP_USER
+        - name: REPO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-user-passwords
+              key: MONGODB_EPP_PASSWORD
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: articles-data
+          mountPath: /opt/articles-data
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 3
+      - name: git-sync
+        image: k8s.gcr.io/git-sync/git-sync:v3.5.0
+        resources:
+          requests:
+            cpu: "20m"
+          limits:
+            memory: "500Mi"
+        env:
+        - name: GIT_SYNC_ROOT
+          value: "/articles"
+        - name: GIT_SYNC_REPO
+          value: https://github.com/elifesciences/enhanced-preprints-data
+        - name: GIT_SYNC_BRANCH
+          value: master
+        - name: GIT_SYNC_DEPTH
+          value: "0"
+        - name: GIT_SYNC_WEBHOOK_URL
+          value: http://localhost:3000/import
+        - name: GIT_SYNC_WEBHOOK_TIMEOUT
+          value: "10s"
+        - name: GIT_SYNC_WEBHOOK_BACKOFF
+          value: "10s"
+        volumeMounts:
+        - name: articles-data
+          mountPath: /articles
+      volumes:
+      - name: articles-data
+        emptyDir: {}

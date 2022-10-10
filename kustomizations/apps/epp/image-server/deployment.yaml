@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epp-image-server
+  namespace: epp
+  labels:
+    app: epp-image-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: epp-image-server
+  template:
+    metadata:
+      namespace: epp
+      labels:
+        app: epp-image-server
+    spec:
+      containers:
+      - name: epp-image-server
+        image: ghcr.io/elifesciences/epp-image-server:master-05a4bb01-20220929.2121 # {"$imagepolicy": "epp:epp-image-server"}
+        ports:
+        - containerPort: 8182
