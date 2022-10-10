@@ -41,12 +41,12 @@ spec:
           valueFrom:
             secretKeyRef:
               name: ${mongodb_secret_name:=mongodb-psmdb-db-secrets}
-              key: ${mongodb_secret_user_key}:=MONGODB_DATABASE_ADMIN_USER}
+              key: ${mongodb_secret_user_key:=MONGODB_DATABASE_ADMIN_USER}
         - name: REPO_PASSWORD
           valueFrom:
             secretKeyRef:
               name: ${mongodb_secret_name:=mongodb-psmdb-db-secrets}
-              key: ${mongodb_secret_pass_key}:=MONGODB_DATABASE_ADMIN_PASSWORD}
+              key: ${mongodb_secret_pass_key:=MONGODB_DATABASE_ADMIN_PASSWORD}
         ports:
         - containerPort: 3000
         volumeMounts:
