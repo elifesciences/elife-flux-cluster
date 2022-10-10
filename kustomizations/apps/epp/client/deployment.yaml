@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epp-client
+  namespace: epp
+  labels:
+    app_name: epp
+    app_env: ${app_env}
+    app_tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: epp-client
+  template:
+    metadata:
+      namespace: epp
+      labels:
+        app: epp-client
+    spec:
+      containers:
+      - name: epp-client
+        image: ghcr.io/elifesciences/enhanced-preprints-client:latest
+        command:
+          - "sh"
+          - "-c"
+          - "yarn build && yarn start"
+        ports:
+        - containerPort: 3000
+        env:
+        - name: API_SERVER
+          value: http://epp-server:3000
+        - name: NEXT_PUBLIC_IMAGE_SERVER
+          value: /iiif
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          failureThreshold: 10
