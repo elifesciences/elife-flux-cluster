@@ -40,13 +40,13 @@ spec:
         - name: REPO_USERNAME
           valueFrom:
             secretKeyRef:
-              name: mongodb-passwords
-              key: MONGODB_EPP_USER
+              name: ${mongodb_secret_name:=mongodb-psmdb-db-secrets}
+              key: ${mongodb_secret_user_key}:=MONGODB_DATABASE_ADMIN_USER}
         - name: REPO_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mongodb-passwords
-              key: MONGODB_EPP_PASSWORD
+              name: ${mongodb_secret_name:=mongodb-psmdb-db-secrets}
+              key: ${mongodb_secret_pass_key}:=MONGODB_DATABASE_ADMIN_PASSWORD}
         ports:
         - containerPort: 3000
         volumeMounts:
