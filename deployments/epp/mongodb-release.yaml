@@ -21,8 +21,6 @@ spec:
   values:
     secrets:
       users: mongodb-passwords
-    upgradeOptions:
-      apply: 5.0-recommended
     sharding:
       enabled: false
     backup:
