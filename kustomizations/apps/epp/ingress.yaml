@@ -22,7 +22,7 @@ spec:
         path: "/api"
         backend:
           service:
-            name: epp-node-http
+            name: epp-server
             port:
               number: 3000
       - pathType: Prefix
