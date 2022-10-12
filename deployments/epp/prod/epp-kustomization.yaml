@@ -15,11 +15,11 @@ spec:
   targetNamespace: epp--prod
   images:
   - name: ghcr.io/elifesciences/enhanced-preprints
-    newTag: master-05a4bb01-20220929.2124
+    newTag: master-fd2fabdd-20221011.0209
   - name: ghcr.io/elifesciences/epp-image-server
-    newTag: master-05a4bb01-20220929.2121
+    newTag: master-fd2fabdd-20221011.0205
   - name: ghcr.io/elifesciences/enhanced-preprints-client
-    newTag: master-7607b5cc-20220930.1031
+    newTag: master-016e047d-20221011.1439
   postBuild:
     substitute:
       app_env: prod
