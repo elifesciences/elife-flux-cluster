@@ -31,7 +31,9 @@ spec:
         - name: API_SERVER
           value: http://epp-server:3000
         - name: NEXT_PUBLIC_IMAGE_SERVER
-          value: /iiif
+          value: ${iiif_server}
+        - name: ASSET_PREFIX
+          value: ${asset_prefix}
         readinessProbe:
           httpGet:
             path: /
