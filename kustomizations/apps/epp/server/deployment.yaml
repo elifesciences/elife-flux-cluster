@@ -8,7 +8,7 @@ metadata:
     app_env: ${app_env}
     app_tier: backend
 spec:
-  replicas: 3
+  replicas: ${server_replicas:=1}
   selector:
     matchLabels:
       app: epp-server

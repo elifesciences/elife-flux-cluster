@@ -8,7 +8,7 @@ metadata:
     app_env: ${app_env}
     app_tier: frontend
 spec:
-  replicas: 3
+  replicas: ${client_replicas:=1}
   selector:
     matchLabels:
       app: epp-client
