@@ -38,5 +38,3 @@ cp /envsubst $GITHUB_WORKSPACE/bin
 
 echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
 echo "$RUNNER_WORKSPACE/$(basename $GITHUB_REPOSITORY)/bin" >> $GITHUB_PATH
-
-type envsubst
