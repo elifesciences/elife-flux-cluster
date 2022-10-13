@@ -18,7 +18,7 @@ spec:
   - name: ghcr.io/elifesciences/epp-image-server
     newTag: master-8240a5a8-20221012.0915 # {"$imagepolicy": "epp--staging:epp-image-server:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-client
-    newTag: master-2172d8ed-20221013.0754 # {"$imagepolicy": "epp--staging:epp-client:tag"}
+    newTag: master-2b859bc9-20221013.0803 # {"$imagepolicy": "epp--staging:epp-client:tag"}
   postBuild:
     substitute:
       app_env: staging
