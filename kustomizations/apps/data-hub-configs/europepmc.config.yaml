@@ -31,7 +31,7 @@ europePmc:
       tableName: europepmc_preprint_servers_responses_v2
     state:
       initialState:
-        startDate: '2022-10-01'
+        startDate: '2011-01-01'
       stateFile:
         bucketName: '{ENV}-elife-data-pipeline'
         objectName: 'airflow-config/europepmc/preprint_servers/{ENV}-state-v2.json'
