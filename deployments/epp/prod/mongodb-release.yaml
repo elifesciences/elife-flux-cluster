@@ -32,6 +32,7 @@ spec:
       configuration: |
         systemLog:
           verbosity: 0
+          quiet: true
       antiAffinityTopologyKey: "kubernetes.io/hostname"
       podDisruptionBudget:
         maxUnavailable: 1
