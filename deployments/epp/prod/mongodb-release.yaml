@@ -29,6 +29,9 @@ spec:
     replsets:
     - name: rs0
       size: 3
+      configuration: |
+        systemLog:
+          verbosity: 0
       antiAffinityTopologyKey: "kubernetes.io/hostname"
       podDisruptionBudget:
         maxUnavailable: 1
