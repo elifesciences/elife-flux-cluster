@@ -24,7 +24,7 @@ europePmc:
         query: '(PUBLISHER:"bioRxiv" OR PUBLISHER:"medRxiv" OR PUBLISHER:"Research Square" OR PUBLISHER:"arXiv" OR PUBLISHER:"SSRN" OR PUBLISHER:"PsyArXiv" OR PUBLISHER:"OSF Preprints" OR PUBLISHER:"Lancet Preprints" OR PUBLISHER:"Authorea Preprints" OR PUBLISHER:"ChemRxiv")'
         pageSize: '1000'
       extractIndividualResultsFromResponse: False
-      maxDays: 1  # limit the number of days to process from start date
+      maxDays: 100  # limit the number of days to process from start date
     target:
       projectName: 'elife-data-pipeline'
       datasetName: '{ENV}'
@@ -35,7 +35,7 @@ europePmc:
       stateFile:
         bucketName: '{ENV}-elife-data-pipeline'
         objectName: 'airflow-config/europepmc/preprint_servers/{ENV}-state-v2.json'
-    batchSize: 10
+    batchSize: 100
   - dataPipelineId: europepmc_data_pipeline_preprint_servers_scielo_preprints
     source:
       apiUrl: 'https://www.ebi.ac.uk/europepmc/webservices/rest/search'
