@@ -30,3 +30,4 @@ spec:
       mongodb_secret_name: mongodb-psmdb-db-secrets
       mongodb_secret_user_key: MONGODB_DATABASE_ADMIN_USER
       mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD
+      client_replicas: "3"
