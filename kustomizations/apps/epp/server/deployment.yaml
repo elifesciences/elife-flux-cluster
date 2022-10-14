@@ -58,6 +58,7 @@ spec:
             port: 3000
           initialDelaySeconds: 5
           periodSeconds: 3
+          timeoutSeconds: 5
       - name: git-sync
         image: k8s.gcr.io/git-sync/git-sync:v3.5.0
         resources:
