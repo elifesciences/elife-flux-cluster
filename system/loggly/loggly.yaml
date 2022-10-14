@@ -159,6 +159,11 @@ data:
      @type null
      </match>
 
+     # Exclude MongoDB logging
+     <match kubernetes.var.log.containers.**mongod**.log>
+     @type null
+     </match>
+
      <match **>
        @type loggly
        loggly_url "https://logs-01.loggly.com/inputs/#{ENV['TOKEN']}/"
