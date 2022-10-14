@@ -33,3 +33,4 @@ spec:
       mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD
       client_replicas: "3"
       server_replicas: "1"
+      google_tag_manager_id: "GTM-WVM8KG"

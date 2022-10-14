@@ -34,6 +34,8 @@ spec:
           value: ${iiif_server}
         - name: ASSET_PREFIX
           value: ${asset_prefix}
+        - name: NEXT_PUBLIC_GTM_ID
+          value: ${google_tag_manager_id:=""}
         readinessProbe:
           httpGet:
             path: /
