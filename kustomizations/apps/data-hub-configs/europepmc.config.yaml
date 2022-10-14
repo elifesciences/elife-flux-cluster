@@ -21,7 +21,7 @@ europePmc:
     source:
       apiUrl: 'https://www.ebi.ac.uk/europepmc/webservices/rest/search'
       search:
-        query: '(PUBLISHER:"bioRxiv" OR PUBLISHER:"medRxiv" OR PUBLISHER:"Research Square" OR PUBLISHER:"arXiv" OR PUBLISHER:"SSRN" OR PUBLISHER:"PsyArXiv" OR PUBLISHER:"OSF Preprints" OR PUBLISHER:"Lancet Preprints" OR PUBLISHER:"Authorea Preprints" OR PUBLISHER:"ChemRxiv")'
+        query: '(SRC:PPR)'
         pageSize: '1000'
       extractIndividualResultsFromResponse: False
       maxDays: 100  # limit the number of days to process from start date
