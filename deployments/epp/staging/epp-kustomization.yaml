@@ -32,3 +32,4 @@ spec:
       mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD
       client_replicas: "5"
       server_replicas: "5"
+      google_tag_manager_id: "GTM-NJBS9X"
