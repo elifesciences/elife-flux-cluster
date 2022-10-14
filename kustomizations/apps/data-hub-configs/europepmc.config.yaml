@@ -28,7 +28,7 @@ europePmc:
     target:
       projectName: 'elife-data-pipeline'
       datasetName: '{ENV}'
-      tableName: europepmc_preprint_servers_responses_v2
+      tableName: europepmc_preprint_servers_response_v2
     state:
       initialState:
         startDate: '2011-01-01'
