@@ -16,9 +16,9 @@ spec:
   - name: ghcr.io/elifesciences/enhanced-preprints
     newTag: master-fc60ea13-20221014.1110 # {"$imagepolicy": "epp--staging:epp-server:tag"}
   - name: ghcr.io/elifesciences/epp-image-server
-    newTag: master-fc60ea13-20221014.1108 # {"$imagepolicy": "epp--staging:epp-image-server:tag"}
+    newTag: master-0321338f-20221014.1542 # {"$imagepolicy": "epp--staging:epp-image-server:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-client
-    newTag: master-eeffb3fa-20221014.1115 # {"$imagepolicy": "epp--staging:epp-client:tag"}
+    newTag: master-0d94de43-20221014.1501 # {"$imagepolicy": "epp--staging:epp-client:tag"}
   postBuild:
     substitute:
       app_env: staging
@@ -30,4 +30,5 @@ spec:
       mongodb_secret_name: mongodb-psmdb-db-secrets
       mongodb_secret_user_key: MONGODB_DATABASE_ADMIN_USER
       mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD
-      client_replicas: "3"
+      client_replicas: "5"
+      server_replicas: "5"
