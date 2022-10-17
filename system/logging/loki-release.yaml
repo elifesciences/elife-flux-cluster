@@ -22,6 +22,7 @@ spec:
 
   values:
     loki:
+      isDefault: false
       config:
         compactor:
           retention_enabled: true
