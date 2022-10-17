@@ -158,6 +158,9 @@ data:
      <match kubernetes.var.log.containers.**kube-system**.log>
      @type null
      </match>
+     <match kubernetes.var.log.containers.**autoscaler**.log>
+     @type null
+     </match>
 
      # Exclude MongoDB logging
      <match kubernetes.var.log.containers.**mongod**.log>
