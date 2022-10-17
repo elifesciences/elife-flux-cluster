@@ -4,9 +4,6 @@ kind: DaemonSet
 metadata:
   name: fluentd-loggly
   namespace: loggly
-  annotations:
-    fluxcd.io/automated: "true"
-    filter.fluxcd.io/fluentd-loggly: glob:v1*-debian-loggly-1*
 spec:
   selector:
     matchLabels:
