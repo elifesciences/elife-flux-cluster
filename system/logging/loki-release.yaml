@@ -22,6 +22,7 @@ spec:
 
   values:
     loki:
+      url: http://loki-stack.logging:3100
       isDefault: false
       config:
         compactor:
