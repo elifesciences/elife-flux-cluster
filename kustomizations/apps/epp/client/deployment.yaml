@@ -9,6 +9,10 @@ metadata:
     app_tier: frontend
 spec:
   replicas: ${client_replicas:=1}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: epp-client
