@@ -23,3 +23,7 @@ spec:
         image: ghcr.io/elifesciences/epp-image-server:latest
         ports:
         - containerPort: 8182
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "2Gi"
