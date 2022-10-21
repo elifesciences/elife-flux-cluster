@@ -42,6 +42,8 @@ spec:
           value: ${google_tag_manager_id:=""}
         - name: NEXT_PUBLIC_COOKIEBOT_ID
           value: ${cookie_bot_id:=""}
+        - name: ARTICLE_CACHE_AGE
+          value: ${article_cache_age:=""}
         readinessProbe:
           httpGet:
             path: /
