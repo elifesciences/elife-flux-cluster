@@ -192,7 +192,9 @@ twitterAdsApi:
               SELECT 
                 entity_id, 
                 CAST(entity_creation_date AS STRING) AS entity_creation_date,
-                CAST(calculated_date AS STRING) AS start_date,
+                -- We fetch previous 7 days even we already have the data, because Twitter might adjust cost retrospectively
+                -- 8=7+1 (for yesterday)
+                CAST(LEAST(calculated_date, DATE_SUB(CURRENT_DATE(), INTERVAL 8 DAY)) AS STRING) AS start_date,
               FROM t_campaign_and_dates
               WHERE ABS(DATE_DIFF(entity_creation_date, calculated_date, DAY)) < 91 --(maxPeriodInDays-1)
           maxPeriodInDays: 92 # 7*13+1 (+1 is for getting out from periodBatchSizeInDays for final end_date because of using start_time )
