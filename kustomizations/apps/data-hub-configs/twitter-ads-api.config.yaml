@@ -1,7 +1,12 @@
 twitterAdsApi:
+  # 18ce53up4ko - eLife Journal
+  # 18ce543rvpg - eLife Community
+  # 18ce555euao - Preprint Review
+  # 18ce55b1rc9 - Sciety
   - dataPipelineId: twitter_ads_api_campaign_details
     source:
-      resource: '/11/accounts/18ce53up4ko/campaigns'
+      accountIds: ['18ce53up4ko', '18ce543rvpg', '18ce555euao', '18ce55b1rc9']
+      resource: '/11/accounts/{account_id}/campaigns'
       secrets:
         parametersFromFile:
           - parameterName: api_key
@@ -19,7 +24,7 @@ twitterAdsApi:
 
   - dataPipelineId: twitter_ads_api_campaign_audience_reach
     source:
-      resource: '/11/stats/accounts/18ce53up4ko/reach/campaigns'
+      resource: '/11/stats/accounts/{account_id}/reach/campaigns'
       secrets:
         parametersFromFile:
           - parameterName: api_key
@@ -43,6 +48,7 @@ twitterAdsApi:
               WHERE  -- the campaigns before '2015-01-02' has to be filtered because of api limits
               CAST(t_data.created_at AS DATE) > CAST('2015-01-02' AS DATE)
               AND DATE_ADD(CAST(t_data.created_at AS DATE), INTERVAL 600 DAY) > CURRENT_DATE()  --(maxPeriodInDays)
+              AND request.params.account_id = '{account_id}'
           maxPeriodInDays: 600
         parameterNamesFor:
           entityId: campaign_ids
@@ -55,7 +61,7 @@ twitterAdsApi:
 
   - dataPipelineId: twitter_ads_api_campaign_clicks_and_impressions
     source:
-      resource: '/11/stats/accounts/18ce53up4ko?entity=CAMPAIGN&granularity=DAY&metric_groups=ENGAGEMENT'
+      resource: '/11/stats/accounts/{account_id}?entity=CAMPAIGN&granularity=DAY&metric_groups=ENGAGEMENT'
       secrets:
         parametersFromFile:
           - parameterName: api_key
@@ -80,6 +86,7 @@ twitterAdsApi:
                 JOIN UNNEST(data) AS t_data
                 WHERE  -- the campaigns before '2015-01-02' has to be filtered because of api limits
                 CAST(t_data.created_at AS DATE) > CAST('2015-01-02' AS DATE)
+                AND request.params.account_id = '{account_id}'
               ),
               t_max_start_and_end_time_by_campaign_and_placement AS (
                 SELECT 
@@ -133,7 +140,7 @@ twitterAdsApi:
 
   - dataPipelineId: twitter_ads_api_campaign_costs
     source:
-      resource: '/11/stats/accounts/18ce53up4ko?entity=CAMPAIGN&granularity=DAY&metric_groups=BILLING'
+      resource: '/11/stats/accounts/{account_id}?entity=CAMPAIGN&granularity=DAY&metric_groups=BILLING'
       secrets:
         parametersFromFile:
           - parameterName: api_key
@@ -158,6 +165,7 @@ twitterAdsApi:
                 JOIN UNNEST(data) AS t_data
                 WHERE  -- the campaigns before '2015-01-02' has to be filtered because of api limits
                 CAST(t_data.created_at AS DATE) > CAST('2015-01-02' AS DATE)
+                AND request.params.account_id = '{account_id}'
               ),
               t_max_start_and_end_time_by_campaign_and_placement AS (
                 SELECT 
