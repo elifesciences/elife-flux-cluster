@@ -1,22 +1,4 @@
 europePmc:
-  - dataPipelineId: europepmc_data_pipeline_preprint_servers
-    source:
-      apiUrl: 'https://www.ebi.ac.uk/europepmc/webservices/rest/search'
-      search:
-        query: '(PUBLISHER:"bioRxiv" OR PUBLISHER:"medRxiv" OR PUBLISHER:"Research Square" OR PUBLISHER:"arXiv" OR PUBLISHER:"SSRN" OR PUBLISHER:"PsyArXiv" OR PUBLISHER:"OSF Preprints" OR PUBLISHER:"Lancet Preprints" OR PUBLISHER:"Authorea Preprints" OR PUBLISHER:"ChemRxiv")'
-        pageSize: '1000'
-      maxDays: 1  # limit the number of days to process from start date
-    target:
-      projectName: 'elife-data-pipeline'
-      datasetName: '{ENV}'
-      tableName: europepmc_preprint_servers_responses
-    state:
-      initialState:
-        startDate: '2011-01-01'
-      stateFile:
-        bucketName: '{ENV}-elife-data-pipeline'
-        objectName: 'airflow-config/europepmc/preprint_servers/{ENV}-state.json'
-    batchSize: 10000
   - dataPipelineId: europepmc_data_pipeline_preprint_servers_v2
     source:
       apiUrl: 'https://www.ebi.ac.uk/europepmc/webservices/rest/search'
@@ -36,22 +18,3 @@ europePmc:
         bucketName: '{ENV}-elife-data-pipeline'
         objectName: 'airflow-config/europepmc/preprint_servers/{ENV}-state-v2.json'
     batchSize: 100
-  - dataPipelineId: europepmc_data_pipeline_preprint_servers_scielo_preprints
-    source:
-      apiUrl: 'https://www.ebi.ac.uk/europepmc/webservices/rest/search'
-      search:
-        query: '(PUBLISHER:"SciELO Preprints")'
-        pageSize: '1000'
-      extractIndividualResultsFromResponse: True
-      maxDays: 1000  # limit the number of days to process from start date
-    target:
-      projectName: 'elife-data-pipeline'
-      datasetName: '{ENV}'
-      tableName: europepmc_preprint_servers_responses
-    state:
-      initialState:
-        startDate: '2011-01-01'
-      stateFile:
-        bucketName: '{ENV}-elife-data-pipeline'
-        objectName: 'airflow-config/europepmc/preprint_servers/{ENV}-state-scielo-preprints.json'
-    batchSize: 10000
