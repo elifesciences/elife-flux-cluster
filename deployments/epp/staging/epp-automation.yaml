@@ -1,7 +1,7 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation
 metadata:
-  name: epp-server
+  name: epp-automation
   namespace: epp--staging
 spec:
   interval: 5m

@@ -14,6 +14,7 @@ Troubleshooting
 - `helm list`
 - `helm history`
 - `flux get all -A`
+- `flux get images policy` - can help to understand the latest docker tag selected for image automation.
 
 Frequently Used Fixes
 ---------------------

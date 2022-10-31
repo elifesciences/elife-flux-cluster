@@ -40,7 +40,7 @@ Adding/Editing Deployments
 Kustomizations
 --------------
 
-
+### Cluster level Kustomizations
 
 - `crds`: Cluster managed CustomResourceDefinitions.
 - `system`: Cluster services that are not directly serving production usecases. Some infrastructure components needs CRDs to exist before upgrading, so `infrastructure` kustomization depends on `crds` kustomization
@@ -51,6 +51,12 @@ Kustomizations
 - within that root folder, the structure is only used for humans
 - namespaces are managed using .yaml files
 - flux will always apply the HEAD of master
+
+Each namespace is organised around an application, or an environment for an application, favouring the latter.
+
+### Individual Kustomizations
+
+There are a growing number of kustomizations for apps or system that abstract complexity. We can then deploy them with a [flux Kustomization object](https://fluxcd.io/flux/components/kustomize/kustomization/) from one of the cluster kustomizations above. These kustomizations are stored in `kustomzations/`.
 
 Adding Helm Charts
 ------------------
@@ -91,6 +97,11 @@ Services available on the Cluster
 - __Flagger__ ([docs/flagger](docs/flagger.md))
   - progressive deployments (Canary/Blue-Green)
   - gating deployments with acceptance and loadtests
+- __Loki__
+  - Stores logs for services in cluster, is queriable from Grafana as a data source.
+- __Percona Server for MongoDB operator__
+  - Used to run a MongoDB cluster, with support for automated backup, reconvery and upgrades.
+  - Deployed in "cluster-wide" mode. Each namespace can deploy it's own cluster of pods from the central operator.
 
 Administration
 ==============

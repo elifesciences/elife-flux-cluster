@@ -9,6 +9,10 @@ metadata:
     app_tier: backend
 spec:
   replicas: ${server_replicas:=1}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: epp-server
@@ -56,7 +60,7 @@ spec:
           httpGet:
             path: /
             port: 3000
-          initialDelaySeconds: 5
+          initialDelaySeconds: 30
           periodSeconds: 3
           timeoutSeconds: 5
       - name: git-sync

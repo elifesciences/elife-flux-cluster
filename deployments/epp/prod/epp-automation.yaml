@@ -1,8 +1,8 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImageUpdateAutomation
 metadata:
-  name: epp-image-server
-  namespace: epp--staging
+  name: epp-automation
+  namespace: epp--prod
 spec:
   interval: 5m
   sourceRef:
@@ -33,4 +33,4 @@ spec:
         {{ end -}}
   update:
     strategy: Setters
-    path: ./deployments/epp/staging
+    path: ./deployments/epp/prod

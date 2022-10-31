@@ -9,6 +9,10 @@ metadata:
     app_tier: frontend
 spec:
   replicas: ${client_replicas:=1}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: epp-client
@@ -35,7 +39,11 @@ spec:
         - name: ASSET_PREFIX
           value: ${asset_prefix}
         - name: NEXT_PUBLIC_GTM_ID
-          value: ${google_tag_manager_id:=""}
+          value: ${google_tag_manager_id:=''}
+        - name: NEXT_PUBLIC_COOKIEBOT_ID
+          value: ${cookie_bot_id:=''}
+        - name: ARTICLE_CACHE_AGE
+          value: '1800'
         readinessProbe:
           httpGet:
             path: /
@@ -43,3 +51,7 @@ spec:
           initialDelaySeconds: 30
           periodSeconds: 5
           failureThreshold: 10
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "500Mi"

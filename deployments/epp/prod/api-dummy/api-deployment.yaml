@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-dummy
+  namespace: epp--prod
+  labels:
+    app: api-dummy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-dummy
+  template:
+    metadata:
+      namespace: journal
+      labels:
+        app: api-dummy
+    spec:
+      containers:
+      - name: api-dummy
+        image: elifesciences/api-dummy:7868d8d567f2b67c7ae09c956759955375504db5@sha256:75b2a26a23b5b41c5e03e4096b509466f1f548341ed5eb415f2a1d1fd98c6b6e
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATA_FOLDER
+          value: rp

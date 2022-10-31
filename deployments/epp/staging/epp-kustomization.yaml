@@ -14,11 +14,11 @@ spec:
   targetNamespace: epp--staging
   images:
   - name: ghcr.io/elifesciences/enhanced-preprints
-    newTag: master-94abe924-20221016.0157 # {"$imagepolicy": "epp--staging:epp-server:tag"}
+    newTag: master-de2c6486-20221031.0025 # {"$imagepolicy": "epp--staging:epp-server:tag"}
   - name: ghcr.io/elifesciences/epp-image-server
-    newTag: master-94abe924-20221016.0154 # {"$imagepolicy": "epp--staging:epp-image-server:tag"}
+    newTag: master-de2c6486-20221031.0022 # {"$imagepolicy": "epp--staging:epp-image-server:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-client
-    newTag: master-36fcdc25-20221017.1021 # {"$imagepolicy": "epp--staging:epp-client:tag"}
+    newTag: master-bb1e5730-20221026.1051 # {"$imagepolicy": "epp--staging:epp-client:tag"}
   postBuild:
     substitute:
       app_env: staging
@@ -30,6 +30,7 @@ spec:
       mongodb_secret_name: mongodb-psmdb-db-secrets
       mongodb_secret_user_key: MONGODB_DATABASE_ADMIN_USER
       mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD
-      client_replicas: "5"
-      server_replicas: "5"
       google_tag_manager_id: "GTM-NJBS9X"
+      client_replicas: "2"
+      server_replicas: "1"
+      cookie_bot_id: 0a5c50d8-fcf9-47b1-8f4f-1eaadb13941b
