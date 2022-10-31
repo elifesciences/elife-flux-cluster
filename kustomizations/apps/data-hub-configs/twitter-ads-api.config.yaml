@@ -24,6 +24,7 @@ twitterAdsApi:
 
   - dataPipelineId: twitter_ads_api_campaign_audience_reach
     source:
+      accountIds: ['18ce53up4ko', '18ce543rvpg', '18ce555euao', '18ce55b1rc9']
       resource: '/11/stats/accounts/{account_id}/reach/campaigns'
       secrets:
         parametersFromFile:
@@ -61,6 +62,7 @@ twitterAdsApi:
 
   - dataPipelineId: twitter_ads_api_campaign_clicks_and_impressions
     source:
+      accountIds: ['18ce53up4ko', '18ce543rvpg', '18ce555euao', '18ce55b1rc9']
       resource: '/11/stats/accounts/{account_id}?entity=CAMPAIGN&granularity=DAY&metric_groups=ENGAGEMENT'
       secrets:
         parametersFromFile:
@@ -140,6 +142,7 @@ twitterAdsApi:
 
   - dataPipelineId: twitter_ads_api_campaign_costs
     source:
+      accountIds: ['18ce53up4ko', '18ce543rvpg', '18ce555euao', '18ce55b1rc9']
       resource: '/11/stats/accounts/{account_id}?entity=CAMPAIGN&granularity=DAY&metric_groups=BILLING'
       secrets:
         parametersFromFile:
