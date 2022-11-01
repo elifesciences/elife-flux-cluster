@@ -7,6 +7,7 @@ metadata:
 
 spec:
   interval: 1m
+  timeout: 10m
   releaseName: loki-stack
   chart:
     spec:
