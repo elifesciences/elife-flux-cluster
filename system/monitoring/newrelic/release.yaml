@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: nri-bundle
-      version: 4.8.11
+      version: 4.9.3
       sourceRef:
         kind: HelmRepository
         name: newrelic
@@ -19,7 +19,7 @@ spec:
   install:
     remediation:
       retries: 5
-  timeout: 5m
+  timeout: 10m
   dependsOn:
   - name: sealed-secrets
     namespace: infra
