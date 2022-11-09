@@ -76,7 +76,7 @@ spec:
         - name: GIT_SYNC_REPO
           value: https://github.com/elifesciences/enhanced-preprints-data
         - name: GIT_SYNC_BRANCH
-          value: master
+          value: "${git_data_branch:=master}"
         - name: GIT_SYNC_DEPTH
           value: "0"
         - name: GIT_SYNC_WEBHOOK_URL

@@ -23,6 +23,7 @@ spec:
     substitute:
       app_env: prod
       app_hostname: prod--epp.elifesciences.org
+      git_data_branch: master
       server_log_level: error
       asset_prefix: https://elifesciences.org/reviewed-preprints
       iiif_server: https://prod--epp.elifesciences.org/iiif
