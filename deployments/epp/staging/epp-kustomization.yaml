@@ -23,6 +23,7 @@ spec:
     substitute:
       app_env: staging
       app_hostname: staging--epp.elifesciences.org
+      git_data_branch: staging
       server_log_level: error
       asset_prefix: https://continuumtest--journal.elifesciences.org/reviewed-preprints
       iiif_server: https://staging--epp.elifesciences.org/iiif
