@@ -3,7 +3,7 @@
   "kubernetes": {
     "fileMatch": [
       "^system/monitoring/kube-web-view/deployment\\.yaml$",
-      "^system/loggly/loggly\\.yaml$"
+      "kustomizations/.+\\.yaml$"
     ]
   },
   "assignees": [
