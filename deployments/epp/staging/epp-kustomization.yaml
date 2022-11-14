@@ -14,15 +14,16 @@ spec:
   targetNamespace: epp--staging
   images:
   - name: ghcr.io/elifesciences/enhanced-preprints
-    newTag: master-4e23a054-20221108.0339 # {"$imagepolicy": "epp--staging:epp-server:tag"}
+    newTag: master-8ee58050-20221111.1554 # {"$imagepolicy": "epp--staging:epp-server:tag"}
   - name: ghcr.io/elifesciences/epp-image-server
     newTag: master-ee08dc56-20221107.1457 # {"$imagepolicy": "epp--staging:epp-image-server:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-client
-    newTag: master-ac458d1d-20221108.0123 # {"$imagepolicy": "epp--staging:epp-client:tag"}
+    newTag: master-f9a0ddb4-20221114.0910 # {"$imagepolicy": "epp--staging:epp-client:tag"}
   postBuild:
     substitute:
       app_env: staging
       app_hostname: staging--epp.elifesciences.org
+      git_data_branch: staging
       server_log_level: error
       asset_prefix: https://continuumtest--journal.elifesciences.org/reviewed-preprints
       iiif_server: https://staging--epp.elifesciences.org/iiif

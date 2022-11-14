@@ -323,6 +323,8 @@ spec:
         requests:
           memory: 200Mi
           cpu: 100m
+      persistence:
+        size: 10Gi
     flower:
       resources:
         requests:
