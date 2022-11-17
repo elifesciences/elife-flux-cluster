@@ -1,0 +1,49 @@
+name: epp-prod-promotion
+on:
+  repository_dispatch:
+    types:
+      - image-update-automation
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout main branch.
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+      # Parse the event metadata to determine the chart version deployed on staging.
+      - name: Get image versions from staging
+        id: staging
+        run: |
+          echo ::set-output enhanced-preprints-server=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints") | .newTag' -r deployments/epp/staging/epp-kustomization.yaml)
+          echo ::set-output enhanced-preprints-client=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints-client") | .newTag' -r deployments/epp/staging/epp-kustomization.yaml)
+          echo ::set-output enhanced-preprints-image-server=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/epp-image-server") | .newTag' -r deployments/epp/staging/epp-kustomization.yaml)
+      # Patch the chart version in the production Helm release manifest.
+      - name: Set chart version in production
+        id: production
+        env:
+          SERVER_VERSION: ${{ steps.staging.outputs.enhanced-preprints-server }}
+          CLIENT_VERSION: ${{ steps.staging.outputs.enhanced-preprints-client }}
+          IMAGE_SERVER_VERSION: ${{ steps.staging.outputs.enhanced-preprints-image-server }}
+        run: |
+          yq '(.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints")).newTag=env(SERVER_VERSION)' -i deployments/epp/prod/epp-kustomization.yaml
+          yq '(.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints-client")).newTag=env(CLIENT_VERSION)' -i deployments/epp/prod/epp-kustomization.yaml
+          yq '(.spec.images[] | select(.name=="ghcr.io/elifesciences/epp-image-server")).newTag=env(IMAGE_SERVER_VERSION)' -i deployments/epp/prod/epp-kustomization.yaml
+      # Open a Pull Request if an upgraded is needed in production.
+      - name: Open promotion PR
+        uses: peter-evans/create-pull-request@v4
+        with:
+          branch: epp-prod-promotion
+          delete-branch: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            Update EPP prod images:
+            - ghcr.io/elifesciences/enhanced-preprints: ${{ steps.staging.outputs.enhanced-preprints-server }}
+            - ghcr.io/elifesciences/enhanced-preprints-client: ${{ steps.staging.outputs.enhanced-preprints-client }}
+            - ghcr.io/elifesciences/epp-image-server: ${{ steps.staging.outputs.enhanced-preprints-image-server }}
+          title: Promote EPP prod images
+          body: |
+            Promote EPP release on production to:
+            - ghcr.io/elifesciences/enhanced-preprints: ${{ steps.staging.outputs.enhanced-preprints-server }}
+            - ghcr.io/elifesciences/enhanced-preprints-client: ${{ steps.staging.outputs.enhanced-preprints-client }}
+            - ghcr.io/elifesciences/epp-image-server: ${{ steps.staging.outputs.enhanced-preprints-image-server }}
