@@ -20,9 +20,9 @@ jobs:
       - name: Set chart version in production
         id: production
         run: |
-          echo "OLD_SERVER_VERSION=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints") | .newTag' -r deployments/epp/staging/epp-kustomization.yaml)" >> $GITHUB_OUTPUT
-          echo "OLD_CLIENT_VERSION=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints-client") | .newTag' -r deployments/epp/staging/epp-kustomization.yaml)" >> $GITHUB_OUTPUT
-          echo "OLD_IMAGE_SERVER_VERSION=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/epp-image-server") | .newTag' -r deployments/epp/staging/epp-kustomization.yaml)" >> $GITHUB_OUTPUT
+          echo "OLD_SERVER_VERSION=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints") | .newTag' -r deployments/epp/prod/epp-kustomization.yaml)" >> $GITHUB_OUTPUT
+          echo "OLD_CLIENT_VERSION=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints-client") | .newTag' -r deployments/epp/prod/epp-kustomization.yaml)" >> $GITHUB_OUTPUT
+          echo "OLD_IMAGE_SERVER_VERSION=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/epp-image-server") | .newTag' -r deployments/epp/prod/epp-kustomization.yaml)" >> $GITHUB_OUTPUT
 
           yq '(.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints")).newTag=env(SERVER_VERSION)' -i deployments/epp/prod/epp-kustomization.yaml
           yq '(.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints-client")).newTag=env(CLIENT_VERSION)' -i deployments/epp/prod/epp-kustomization.yaml
