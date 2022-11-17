@@ -18,7 +18,12 @@ jobs:
           echo "IMAGE_SERVER_VERSION=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/epp-image-server") | .newTag' -r deployments/epp/staging/epp-kustomization.yaml)" >> $GITHUB_ENV
       # Patch the chart version in the production kustomization
       - name: Set chart version in production
+        id: production
         run: |
+          echo "OLD_SERVER_VERSION=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints") | .newTag' -r deployments/epp/staging/epp-kustomization.yaml)" >> $GITHUB_OUTPUT
+          echo "OLD_CLIENT_VERSION=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints-client") | .newTag' -r deployments/epp/staging/epp-kustomization.yaml)" >> $GITHUB_OUTPUT
+          echo "OLD_IMAGE_SERVER_VERSION=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/epp-image-server") | .newTag' -r deployments/epp/staging/epp-kustomization.yaml)" >> $GITHUB_OUTPUT
+
           yq '(.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints")).newTag=env(SERVER_VERSION)' -i deployments/epp/prod/epp-kustomization.yaml
           yq '(.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints-client")).newTag=env(CLIENT_VERSION)' -i deployments/epp/prod/epp-kustomization.yaml
           yq '(.spec.images[] | select(.name=="ghcr.io/elifesciences/epp-image-server")).newTag=env(IMAGE_SERVER_VERSION)' -i deployments/epp/prod/epp-kustomization.yaml
@@ -30,13 +35,13 @@ jobs:
           delete-branch: true
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: |
-            Update EPP prod images:
-            - ghcr.io/elifesciences/enhanced-preprints: ${{ env.SERVER_VERSION }}
-            - ghcr.io/elifesciences/enhanced-preprints-client: ${{ env.CLIENT_VERSION }}
-            - ghcr.io/elifesciences/epp-image-server: ${{ env.IMAGE_SERVER_VERSION }}
+            Update EPP production images:
+            - ghcr.io/elifesciences/enhanced-preprints: ${{ steps.production.outputs.OLD_SERVER_VERSION }} -> ${{ env.SERVER_VERSION }}
+            - ghcr.io/elifesciences/enhanced-preprints-client: ${{ steps.production.outputs.OLD_CLIENT_VERSION }} -> ${{ env.CLIENT_VERSION }}
+            - ghcr.io/elifesciences/epp-image-server: ${{ steps.production.outputs.OLD_IMAGE_SERVER_VERSION }} -> ${{ env.IMAGE_SERVER_VERSION }}
           title: Promote EPP prod images
           body: |
             Promote EPP release on production to:
-            - ghcr.io/elifesciences/enhanced-preprints: ${{ env.SERVER_VERSION }}
-            - ghcr.io/elifesciences/enhanced-preprints-client: ${{ env.CLIENT_VERSION }}
-            - ghcr.io/elifesciences/epp-image-server: ${{ env.IMAGE_SERVER_VERSION }}
+            - ghcr.io/elifesciences/enhanced-preprints: ${{ steps.production.outputs.OLD_SERVER_VERSION }} -> ${{ env.SERVER_VERSION }}
+            - ghcr.io/elifesciences/enhanced-preprints-client: ${{ steps.production.outputs.OLD_CLIENT_VERSION }} -> ${{ env.CLIENT_VERSION }}
+            - ghcr.io/elifesciences/epp-image-server: ${{ steps.production.outputs.OLD_IMAGE_SERVER_VERSION }} -> ${{ env.IMAGE_SERVER_VERSION }}
