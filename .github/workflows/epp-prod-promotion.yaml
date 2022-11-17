@@ -3,6 +3,7 @@ on:
   repository_dispatch:
     types:
       - image-update-automation
+  workflow_dispatch:
 jobs:
   promote:
     runs-on: ubuntu-latest
