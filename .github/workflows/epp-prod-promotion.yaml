@@ -11,7 +11,7 @@ jobs:
       # Checkout main branch.
       - uses: actions/checkout@v3
         with:
-          ref: main
+          ref: master
       # Parse the event metadata to determine the chart version deployed on staging.
       - name: Get image versions from staging
         id: staging
