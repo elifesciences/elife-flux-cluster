@@ -36,12 +36,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: |
             Update EPP production images:
-            - ghcr.io/elifesciences/enhanced-preprints: ${{ steps.production.outputs.OLD_SERVER_VERSION }} -> ${{ env.SERVER_VERSION }}
-            - ghcr.io/elifesciences/enhanced-preprints-client: ${{ steps.production.outputs.OLD_CLIENT_VERSION }} -> ${{ env.CLIENT_VERSION }}
-            - ghcr.io/elifesciences/epp-image-server: ${{ steps.production.outputs.OLD_IMAGE_SERVER_VERSION }} -> ${{ env.IMAGE_SERVER_VERSION }}
+            - enhanced-preprints: ${{ steps.production.outputs.OLD_SERVER_VERSION }} -> ${{ env.SERVER_VERSION }}
+            - enhanced-preprints-client: ${{ steps.production.outputs.OLD_CLIENT_VERSION }} -> ${{ env.CLIENT_VERSION }}
+            - epp-image-server: ${{ steps.production.outputs.OLD_IMAGE_SERVER_VERSION }} -> ${{ env.IMAGE_SERVER_VERSION }}
           title: Promote EPP prod images
           body: |
             Promote EPP release on production to:
-            - ghcr.io/elifesciences/enhanced-preprints: ${{ steps.production.outputs.OLD_SERVER_VERSION }} -> ${{ env.SERVER_VERSION }}
-            - ghcr.io/elifesciences/enhanced-preprints-client: ${{ steps.production.outputs.OLD_CLIENT_VERSION }} -> ${{ env.CLIENT_VERSION }}
-            - ghcr.io/elifesciences/epp-image-server: ${{ steps.production.outputs.OLD_IMAGE_SERVER_VERSION }} -> ${{ env.IMAGE_SERVER_VERSION }}
+            - enhanced-preprints: ${{ steps.production.outputs.OLD_SERVER_VERSION }} -> ${{ env.SERVER_VERSION }}
+            - enhanced-preprints-client: ${{ steps.production.outputs.OLD_CLIENT_VERSION }} -> ${{ env.CLIENT_VERSION }}
+            - epp-image-server: ${{ steps.production.outputs.OLD_IMAGE_SERVER_VERSION }} -> ${{ env.IMAGE_SERVER_VERSION }}
