@@ -27,6 +27,7 @@ spec:
       server_log_level: error
       asset_prefix: https://elifesciences.org/reviewed-preprints
       iiif_server: https://prod--epp.elifesciences.org/iiif
+      image_server_source_base_url: https://github.com/elifesciences/enhanced-preprints-data/raw/master/data/
       mongodb_hostname: mongodb-psmdb-db-rs0
       mongodb_secret_name: mongodb-psmdb-db-secrets
       mongodb_secret_user_key: MONGODB_DATABASE_ADMIN_USER

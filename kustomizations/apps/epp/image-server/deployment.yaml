@@ -31,3 +31,6 @@ spec:
           requests:
             cpu: "200m"
             memory: "2Gi"
+        env:
+          - name: HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX
+            value: ${image_server_source_base_url:=https://github.com/elifesciences/enhanced-preprints-data/raw/master/data/}
