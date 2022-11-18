@@ -32,6 +32,6 @@ spec:
       mongodb_secret_user_key: MONGODB_DATABASE_ADMIN_USER
       mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD
       google_tag_manager_id: "GTM-NJBS9X"
-      client_replicas: "2"
+      client_replicas: "1"
       server_replicas: "1"
       cookie_bot_id: 0a5c50d8-fcf9-47b1-8f4f-1eaadb13941b
