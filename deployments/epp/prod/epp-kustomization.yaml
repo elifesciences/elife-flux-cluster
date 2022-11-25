@@ -14,11 +14,11 @@ spec:
   targetNamespace: epp--prod
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints
-      newTag: master-a0a1cc19-20221123.2327 # {"$imagepolicy": "epp--prod:epp-server:tag"}
+      newTag: master-dc1daf56-20221125.0743 # {"$imagepolicy": "epp--prod:epp-server:tag"}
     - name: ghcr.io/elifesciences/epp-image-server
       newTag: master-ee08dc56-20221107.1457 # {"$imagepolicy": "epp--prod:epp-image-server:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-client
-      newTag: master-915b8eaf-20221124.2216 # {"$imagepolicy": "epp--prod:epp-client:tag"}
+      newTag: master-66f336cd-20221125.1124 # {"$imagepolicy": "epp--prod:epp-client:tag"}
   postBuild:
     substitute:
       app_env: prod
