@@ -35,3 +35,6 @@ spec:
       requests:
         memory: 50Mi
         cpu: 10m
+    serviceAccount:
+      annotations:
+        eks.amazonaws.com/role-arn: arn:aws:iam::512686554592:role/kubernetes-aws--flux-prod--external-dns
