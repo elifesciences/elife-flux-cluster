@@ -22,3 +22,7 @@ spec:
       tags:
       - kubernetes.io/cluster/kubernetes-aws--flux-prod
     awsRegion: us-east-1
+    rbac:
+      serviceAccount:
+        annotations:
+          eks.amazonaws.com/role-arn: arn:aws:iam::512686554592:role/kubernetes-aws--flux-prod--kubernetes-autoscaler
