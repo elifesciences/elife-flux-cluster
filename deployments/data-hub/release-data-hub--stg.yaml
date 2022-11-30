@@ -133,8 +133,6 @@ spec:
         value: "50 8-18/3 * * *"
       - name: MATERIALIZE_BIGQUERY_VIEWS_SCHEDULE_INTERVAL
         value: "@hourly"
-      - name: SCHEDULE_INTERVAL
-        value: "0 11 * * 3" # At 11:00 on Wednesday for testing purpose
       - name: DATA_SCIENCE_FORECAST_SCHEDULE_INTERVAL
         value: "@hourly"
         # At minute 40 past every 3rd hour :
@@ -154,6 +152,10 @@ spec:
         value: "@daily"
       - name: TWITTER_ADS_API_PIPELINE_SCHEDULE_INTERVAL
         value: "0 4 * * *" # At 04:00, every day
+      - name: DB_MAINTENANCE_SCHEDULE_INTERVAL
+        value: "30 17 * * 3" # At 17:30 on Wednesday for testing purpose
+      - name: AIRFLOW_DB_MAINTENANCE_MAX_CLEANUP_DATA_AGE_IN_DAYS
+        value: 30 # same as the default value atm
       # general:
       - name: DEPLOYMENT_ENV
         value: staging
