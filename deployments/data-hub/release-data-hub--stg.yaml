@@ -152,6 +152,8 @@ spec:
         value: "@daily"
       - name: TWITTER_ADS_API_PIPELINE_SCHEDULE_INTERVAL
         value: "0 4 * * *" # At 04:00, every day
+      - name: DB_MAINTENANCE_SCHEDULE_INTERVAL
+        value: "30 17 * * 3" # At 17:30 on Wednesday for testing purpose
       # general:
       - name: DEPLOYMENT_ENV
         value: staging
