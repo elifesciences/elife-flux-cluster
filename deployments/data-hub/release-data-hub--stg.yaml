@@ -133,8 +133,6 @@ spec:
         value: "50 8-18/3 * * *"
       - name: MATERIALIZE_BIGQUERY_VIEWS_SCHEDULE_INTERVAL
         value: "@hourly"
-      - name: SCHEDULE_INTERVAL
-        value: "0 11 * * 3" # At 11:00 on Wednesday for testing purpose
       - name: DATA_SCIENCE_FORECAST_SCHEDULE_INTERVAL
         value: "@hourly"
         # At minute 40 past every 3rd hour :
