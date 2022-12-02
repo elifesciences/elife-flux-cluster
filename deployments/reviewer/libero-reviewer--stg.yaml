@@ -87,6 +87,15 @@ spec:
             - op: replace
               path: /spec/template/spec/containers/0/livenessProbe/failureThreshold
               value: 5
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/timeoutSeconds
+              value: 5
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/periodSeconds
+              value: 20
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/failureThreshold
+              value: 5
         - target:
             version: v1
             kind: Deployment
@@ -101,6 +110,15 @@ spec:
             - op: replace
               path: /spec/template/spec/containers/0/livenessProbe/failureThreshold
               value: 5
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/timeoutSeconds
+              value: 5
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/periodSeconds
+              value: 20
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/failureThreshold
+              value: 5
         - target:
             version: v1
             kind: Deployment
@@ -114,4 +132,13 @@ spec:
               value: 20
             - op: replace
               path: /spec/template/spec/containers/0/livenessProbe/failureThreshold
+              value: 5
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/timeoutSeconds
+              value: 5
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/periodSeconds
+              value: 20
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/failureThreshold
               value: 5
