@@ -134,6 +134,78 @@ spec:
         schedule: "0  8 * * *"
       - name: 1pm
         schedule: "0 13 * * *"
+  postRenderers:
+    - kustomize:
+        patchesJson6902:
+        - target:
+            version: v1
+            kind: Deployment
+            name: libero-reviewer--prod-submission
+          patch:
+            - op: replace
+              path: /spec/template/spec/containers/0/livenessProbe/timeoutSeconds
+              value: 5
+            - op: replace
+              path: /spec/template/spec/containers/0/livenessProbe/periodSeconds
+              value: 20
+            - op: replace
+              path: /spec/template/spec/containers/0/livenessProbe/failureThreshold
+              value: 5
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/timeoutSeconds
+              value: 5
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/periodSeconds
+              value: 20
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/failureThreshold
+              value: 5
+        - target:
+            version: v1
+            kind: Deployment
+            name: libero-reviewer--prod-client
+          patch:
+            - op: replace
+              path: /spec/template/spec/containers/0/livenessProbe/timeoutSeconds
+              value: 5
+            - op: replace
+              path: /spec/template/spec/containers/0/livenessProbe/periodSeconds
+              value: 20
+            - op: replace
+              path: /spec/template/spec/containers/0/livenessProbe/failureThreshold
+              value: 5
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/timeoutSeconds
+              value: 5
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/periodSeconds
+              value: 20
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/failureThreshold
+              value: 5
+        - target:
+            version: v1
+            kind: Deployment
+            name: libero-reviewer--prod-continuum-adaptor
+          patch:
+            - op: replace
+              path: /spec/template/spec/containers/0/livenessProbe/timeoutSeconds
+              value: 5
+            - op: replace
+              path: /spec/template/spec/containers/0/livenessProbe/periodSeconds
+              value: 20
+            - op: replace
+              path: /spec/template/spec/containers/0/livenessProbe/failureThreshold
+              value: 5
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/timeoutSeconds
+              value: 5
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/periodSeconds
+              value: 20
+            - op: replace
+              path: /spec/template/spec/containers/0/readinessProbe/failureThreshold
+              value: 5
 
 ---
 apiVersion: v1
