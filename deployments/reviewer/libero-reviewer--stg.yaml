@@ -76,7 +76,7 @@ spec:
         - target:
             version: v1
             kind: Deployment
-            name: libero-reviewer--prod-submission
+            name: libero-reviewer--stg-submission
           patch:
             - op: replace
               path: /spec/template/spec/containers/0/livenessProbe/timeoutSeconds
@@ -90,7 +90,7 @@ spec:
         - target:
             version: v1
             kind: Deployment
-            name: libero-reviewer--prod-client
+            name: libero-reviewer--stg-client
           patch:
             - op: replace
               path: /spec/template/spec/containers/0/livenessProbe/timeoutSeconds
@@ -104,7 +104,7 @@ spec:
         - target:
             version: v1
             kind: Deployment
-            name: libero-reviewer--prod-continuum-adaptor
+            name: libero-reviewer--stg-continuum-adaptor
           patch:
             - op: replace
               path: /spec/template/spec/containers/0/livenessProbe/timeoutSeconds
