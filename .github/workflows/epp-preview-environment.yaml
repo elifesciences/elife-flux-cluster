@@ -37,11 +37,11 @@ jobs:
           delete-branch: true
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: |
-            Create/update EPP preview environment for PR ${{ inputs.pr_id }}:
+            Create/update EPP preview environment for PR https://github.com/elifesciences/enhanced-preprints-client/pull/${{ inputs.pr_id }}:
             - enhanced-preprints: ${{ env.SERVER_VERSION }}
             - enhanced-preprints-client: ${{ env.CLIENT_VERSION }}
           title: Create/update EPP preview environment for PR ${{ inputs.pr_id }}
           body: |
-            Create/update EPP preview environment for ${{ inputs.pr_id }}:
+            Create/update EPP preview environment for https://github.com/elifesciences/enhanced-preprints-client/pull/${{ inputs.pr_id }}:
             - enhanced-preprints: ${{ env.SERVER_VERSION }}
             - enhanced-preprints-client: ${{ env.CLIENT_VERSION }}
