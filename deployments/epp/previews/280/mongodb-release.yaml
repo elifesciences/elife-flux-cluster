@@ -20,6 +20,7 @@ spec:
         namespace: db-operator-system
       interval: 1m
   values:
+    allowUnsafeConfigurations: true
     sharding:
       enabled: false
       configsvrReplSet:
