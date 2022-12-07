@@ -22,8 +22,11 @@ spec:
       interval: 1m
 
   values:
+    allowUnsafeConfigurations: true
     sharding:
       enabled: false
+      configsvrReplSet:
+        size: 1
     backup:
       enabled: false
     replsets:
@@ -41,7 +44,7 @@ spec:
         exposeType: ClusterIP
       nonvoting:
         enabled: false
-        size: 3
+        size: 1
         antiAffinityTopologyKey: "kubernetes.io/hostname"
         podDisruptionBudget:
           maxUnavailable: 1
