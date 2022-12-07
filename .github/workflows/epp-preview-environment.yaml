@@ -24,7 +24,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          docker pull ghcr.io/elifesciences/enhanced-preprints-client:${{ env.CLIENT_VERSION }}
+          docker manifest inspect ghcr.io/elifesciences/enhanced-preprints-client:${{ env.CLIENT_VERSION }}
       # Run the script to generate a new environment
       - name: Create a preview environment for
         id: production
