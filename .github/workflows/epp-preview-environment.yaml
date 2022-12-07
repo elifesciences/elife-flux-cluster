@@ -15,6 +15,8 @@ jobs:
         run: |
           echo "SERVER_VERSION=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints") | .newTag' -r deployments/epp/staging/epp-kustomization.yaml)" >> $GITHUB_ENV
       - name: Get client Image from PR
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           echo "CLIENT_VERSION=$(gh pr view --repo elifesciences/enhanced-preprints-client 280 --json potentialMergeCommit | jq -r .potentialMergeCommit.oid)" >> $GITHUB_ENV
       # Run the script to generate a new environment
