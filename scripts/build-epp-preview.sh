@@ -7,6 +7,20 @@ if ! [[ $1  =~ $re ]]; then
 fi
 pr_id=$1
 
+if [[ -z $2 ]]; then
+    echo "second param must be the server image tag"
+    exit 1
+fi
+servertag=$2
+
+if [[ -z $3 ]]; then
+    echo "second param must be the server image tag"
+    exit 1
+fi
+clienttag=$3
+
+echo "pr_id: $pr_id, server: $servertag, client: $clienttag, image: $imagesev"
+
 PREVIEWS_DIR='deployments/epp/previews'
 ENV_NAME_PREFIX='epp-preview'
 HOSTNAME_SUFFIX='epp'
@@ -35,3 +49,7 @@ yq -i ".spec.postBuild.substitute.app_env = \"${deployment_name}\"" ${ENV_DEST_D
 yq -i ".spec.postBuild.substitute.app_hostname = \"${deployment_hostname}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 yq -i ".spec.postBuild.substitute.asset_prefix = \"https://${deployment_hostname}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 yq -i ".spec.postBuild.substitute.iiif_server = \"https://${deployment_hostname}/iiif\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
+
+# replace image tags
+yq -i "(.spec.images[] | select(.name == \"ghcr.io/elifesciences/enhanced-preprints\") | .value) = \"${servertag}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
+yq -i "(.spec.images[] | select(.name == \"ghcr.io/elifesciences/enhanced-preprints-client\") | .value) = \"${clienttag}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
