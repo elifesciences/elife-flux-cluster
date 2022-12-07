@@ -18,7 +18,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          echo "CLIENT_VERSION=$(gh pr view --repo elifesciences/enhanced-preprints-client 280 --json potentialMergeCommit | jq -r .potentialMergeCommit.oid)" >> $GITHUB_ENV
+          echo "CLIENT_VERSION=preview-$(gh pr view --repo elifesciences/enhanced-preprints-client 280 --json potentialMergeCommit | jq -r .potentialMergeCommit.oid)" >> $GITHUB_ENV
       # Run the script to generate a new environment
       - name: Create a preview environment for
         id: production
