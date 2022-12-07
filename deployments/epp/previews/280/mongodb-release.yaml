@@ -22,6 +22,8 @@ spec:
   values:
     sharding:
       enabled: false
+      configsvrReplSet:
+        size: 1
     backup:
       enabled: false
     replsets:
