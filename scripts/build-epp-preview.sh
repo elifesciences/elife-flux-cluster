@@ -22,7 +22,7 @@ clienttag=$3
 echo "pr_id: $pr_id, server: $servertag, client: $clienttag, image: $imagesev"
 
 PREVIEWS_DIR='deployments/epp/previews'
-ENV_NAME_PREFIX='epp-preview'
+ENV_NAME_PREFIX='epp--preview'
 HOSTNAME_SUFFIX='epp'
 ORG='elifesciences'
 KUSTOMIZATION_TEMPLATE='kustomizations/apps/epp/preview_template.yaml'
