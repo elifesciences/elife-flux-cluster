@@ -2,7 +2,10 @@ projectName: 'elife-data-pipeline'
 datasetName: '{ENV}'
 surveyMonkeySurveyList:
   table: 'surveymonkey_survey_list'
-  survey_id_column_name: 'id'
+surveyIdListToRequest:
+  - '120828849'  # Reviewer Feedback Opportunity
+  - '86202851'  # eLife Accepted Author Survey
+  - '86726288'  # eLife Rejected Author Survey
 surveyMonkeySurveyQuestions:
   table: 'surveymonkey_survey_questions'
 surveyMonkeySurveyAnswers:
