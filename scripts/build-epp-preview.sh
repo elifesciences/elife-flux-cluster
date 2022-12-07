@@ -51,5 +51,5 @@ yq -i ".spec.postBuild.substitute.asset_prefix = \"https://${deployment_hostname
 yq -i ".spec.postBuild.substitute.iiif_server = \"https://${deployment_hostname}/iiif\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 
 # replace image tags
-yq -i "(.spec.images[] | select(.name == \"ghcr.io/elifesciences/enhanced-preprints\") | .value) = \"${servertag}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
-yq -i "(.spec.images[] | select(.name == \"ghcr.io/elifesciences/enhanced-preprints-client\") | .value) = \"${clienttag}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
+yq -i "(.spec.images[] | select(.name == \"ghcr.io/elifesciences/enhanced-preprints\") | .newTag) = \"${servertag}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
+yq -i "(.spec.images[] | select(.name == \"ghcr.io/elifesciences/enhanced-preprints-client\") | .newTag) = \"${clienttag}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
