@@ -19,6 +19,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           echo "CLIENT_VERSION=preview-$(gh pr view --repo elifesciences/enhanced-preprints-client 280 --json potentialMergeCommit | jq -r .potentialMergeCommit.oid)" >> $GITHUB_ENV
+      - name: Test the client image is available
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          docker pull ghcr.io/elifesciences/enhanced-preprints-client:${{ env.CLIENT_VERSION }}
       # Run the script to generate a new environment
       - name: Create a preview environment for
         id: production
