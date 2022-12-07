@@ -41,7 +41,7 @@ spec:
         exposeType: ClusterIP
       nonvoting:
         enabled: false
-        size: 3
+        size: 1
         antiAffinityTopologyKey: "kubernetes.io/hostname"
         podDisruptionBudget:
           maxUnavailable: 1
