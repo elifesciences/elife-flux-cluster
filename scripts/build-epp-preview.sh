@@ -1,5 +1,11 @@
 #!/bin/bash
 set -e
+re='^[0-9]+$'
+if ! [[ $1  =~ $re ]]; then
+    echo "first param must be a PR number"
+    exit 1
+fi
+pr_id=$1
 
 PREVIEWS_DIR='deployments/epp/previews'
 ENV_NAME_PREFIX='epp-preview'
