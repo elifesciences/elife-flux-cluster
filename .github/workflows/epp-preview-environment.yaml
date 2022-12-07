@@ -1,0 +1,47 @@
+name: epp-preview-environment
+on:
+  workflow_dispatch:
+    inputs:
+      pr_id:
+        required: true
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: master
+      - name: Get server image versions from staging and save to env vars
+        run: |
+          echo "SERVER_VERSION=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints") | .newTag' -r deployments/epp/staging/epp-kustomization.yaml)" >> $GITHUB_ENV
+      - name: Get client Image from PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "CLIENT_VERSION=preview-$(gh pr view --repo elifesciences/enhanced-preprints-client 280 --json potentialMergeCommit | jq -r .potentialMergeCommit.oid)" >> $GITHUB_ENV
+      - name: Test the client image is available
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          docker pull ghcr.io/elifesciences/enhanced-preprints-client:${{ env.CLIENT_VERSION }}
+      # Run the script to generate a new environment
+      - name: Create a preview environment for
+        id: production
+        run: |
+          ./scripts/build-epp-preview.sh ${{ inputs.pr_id }} ${{ env.SERVER_VERSION }} ${{ env.CLIENT_VERSION }}
+      # Open a Pull Request if an upgraded is needed in production.
+      - name: Open preview env PR
+        uses: peter-evans/create-pull-request@v4
+        with:
+          branch: epp-preview-${{ inputs.pr_id }}
+          delete-branch: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: |
+            Create/update EPP preview environment for PR ${{ inputs.pr_id }}:
+            - enhanced-preprints: ${{ env.SERVER_VERSION }}
+            - enhanced-preprints-client: ${{ env.CLIENT_VERSION }}
+          title: Create/update EPP preview environment for PR ${{ inputs.pr_id }}
+          body: |
+            Create/update EPP preview environment for ${{ inputs.pr_id }}:
+            - enhanced-preprints: ${{ env.SERVER_VERSION }}
+            - enhanced-preprints-client: ${{ env.CLIENT_VERSION }}
