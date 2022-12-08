@@ -10,5 +10,6 @@ schemaFile:
   objectName: 'airflow-config/crossref-event/data-schema/crossref-event-schema.json'
 publisherIdPrefixes:
   - '10.7554'
+  - '10.1101'
 CrossrefEventBaseUrl: 'https://api.eventdata.crossref.org/v1/events?rows=100&mailto=h.ciplak@elifesciences.org'
 importedTimestampField: 'data_hub_imported_timestamp'
