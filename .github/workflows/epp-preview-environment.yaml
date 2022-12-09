@@ -46,3 +46,5 @@ jobs:
             Create/update EPP preview environment for https://github.com/elifesciences/enhanced-preprints-client/pull/${{ inputs.pr_id }}:
             - enhanced-preprints: ${{ env.SERVER_VERSION }}
             - enhanced-preprints-client: ${{ env.CLIENT_VERSION }}
+
+            Preview will be available here: https://pr-${{ inputs.pr_id }}--epp.elifesciences.org/
