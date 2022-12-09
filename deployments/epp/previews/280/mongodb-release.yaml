@@ -3,10 +3,10 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: mongodb
-  namespace: epp-preview-280
+  namespace: epp--preview-280
   labels:
     app_name: epp
-    app_env: epp-preview-280
+    app_env: epp--preview-280
 spec:
   interval: 1m
   releaseName: mongodb

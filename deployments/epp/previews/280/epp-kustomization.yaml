@@ -2,7 +2,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
   name: epp--preview
-  namespace: epp-preview-280
+  namespace: epp--preview-280
 spec:
   interval: 1m0s
   sourceRef:
@@ -11,17 +11,17 @@ spec:
     namespace: flux-system
   path: ./kustomizations/apps/epp
   prune: true
-  targetNamespace: epp-preview-280
+  targetNamespace: epp--preview-280
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints
-      newTag: master-d002ae86-20221206.0411
+      newTag: master-b57431a8-20221208.2309
     - name: ghcr.io/elifesciences/epp-image-server
       newTag: master-ee08dc56-20221107.1457
     - name: ghcr.io/elifesciences/enhanced-preprints-client
-      newTag: preview-4ce7fd204490c465426b249e86c9f6500ff2c3ac
+      newTag: preview-ca45d5383fa9e7e033e0b63506e5698c2e9231c1
   postBuild:
     substitute:
-      app_env: epp-preview-280
+      app_env: epp--preview-280
       app_hostname: pr-280--epp.elifesciences.org
       git_data_branch: staging
       server_log_level: error
