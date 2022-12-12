@@ -241,3 +241,29 @@ webApi:
       parametersFromFile:
         - parameterName: Authorization
           filePathEnvName: TWITTER_API_AUTHORIZATION_FILE_PATH
+
+  # CrossRef Event Data (Cold Spring Harbor Laboratory: mainly bioRxiv, medRxiv)
+  - dataset: '{ENV}'
+    table: crossref_event_data_web_api
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/generic-web-api/{ENV}-crossref-event-data-state-10.1101.json'
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.eventdata.crossref.org/v1/events?rows=100&mailto=h.ciplak@elifesciences.org&obj-id.prefix=10.1101&until-collected-date=2018-01-01
+      configurableParameters:
+        nextPageCursorParameterName: 'cursor'
+        defaultStartDate: '2017-01-01'
+        dateFormat: '%Y-%m-%d'
+    response:
+      nextPageCursorKeyFromResponseRoot:
+        - message
+        - next-cursor
+      itemsKeyFromResponseRoot:
+        - message
+        - events
+      totalItemsCountKeyFromResponseRoot:
+        - message
+        - total-results
+      recordTimestamp:
+        itemTimestampKeyFromItemRoot:
+          - timestamp
