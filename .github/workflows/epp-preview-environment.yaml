@@ -49,9 +49,13 @@ jobs:
 
             Preview will be available here: https://pr-${{ inputs.pr_id }}--epp.elifesciences.org/
       - name: start linting and testing
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh workflow run lint --ref epp-preview-${{ inputs.pr_id }}
           gh workflow run e2e --ref epp-preview-${{ inputs.pr_id }}
       - name: Auto-approve PR
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh pr review 280 -a -c "Auto Approved"
