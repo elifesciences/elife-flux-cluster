@@ -6,7 +6,7 @@ on:
         description: The EPP client repo PR id/number
         required: true
 jobs:
-  promote:
+  create-epp-preview-env:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -25,29 +25,15 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           docker manifest inspect ghcr.io/elifesciences/enhanced-preprints-client:${{ env.CLIENT_VERSION }}
-      # Run the script to generate a new environment
-      - name: Create a preview environment for
+      - name: Create a preview environment for PR ${{ inputs.pr_id }}
         id: production
         run: |
           ./scripts/build-epp-preview.sh ${{ inputs.pr_id }} ${{ env.SERVER_VERSION }} ${{ env.CLIENT_VERSION }}
-      # Open a Pull Request if an upgraded is needed in production.
-      - name: Open preview env PR
-        uses: peter-evans/create-pull-request@v4
+      - name: Commit & Push new environment
+        uses: actions-js/push@master
         with:
-          branch: epp-preview-${{ inputs.pr_id }}
-          delete-branch: true
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: |
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          message: |
             Create/update EPP preview environment for PR https://github.com/elifesciences/enhanced-preprints-client/pull/${{ inputs.pr_id }}:
             - enhanced-preprints: ${{ env.SERVER_VERSION }}
             - enhanced-preprints-client: ${{ env.CLIENT_VERSION }}
-          title: Create/update EPP preview environment for PR ${{ inputs.pr_id }}
-          body: |
-            Create/update EPP preview environment for https://github.com/elifesciences/enhanced-preprints-client/pull/${{ inputs.pr_id }}:
-            - enhanced-preprints: ${{ env.SERVER_VERSION }}
-            - enhanced-preprints-client: ${{ env.CLIENT_VERSION }}
-
-            Preview will be available here: https://pr-${{ inputs.pr_id }}--epp.elifesciences.org/
-      - name: Auto-approve PR
-        run: |
-          gh pr review 280 -a -c "Auto Approved"
