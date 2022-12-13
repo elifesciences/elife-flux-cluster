@@ -48,3 +48,6 @@ jobs:
             - enhanced-preprints-client: ${{ env.CLIENT_VERSION }}
 
             Preview will be available here: https://pr-${{ inputs.pr_id }}--epp.elifesciences.org/
+      - name: Auto-approve PR
+        run: |
+          gh pr review 280 -a -c "Auto Approved"
