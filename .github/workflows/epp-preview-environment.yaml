@@ -6,7 +6,7 @@ on:
         description: The EPP client repo PR id/number
         required: true
 jobs:
-  promote:
+  create-epp-preview-env:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
