@@ -73,4 +73,4 @@ spec:
               service:
                 name: data-hub-api--stg
                 port:
-                  number: 80
+                  number: 8000
