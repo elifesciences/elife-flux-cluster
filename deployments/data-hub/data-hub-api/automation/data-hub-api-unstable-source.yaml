@@ -5,4 +5,4 @@ metadata:
   namespace: data-hub
 spec:
   interval: 5m
-  image: docker.io/elifesciences/data-hub-with-dags_unstable
+  image: ghcr.io/elifesciences/data-hub-api_unstable
