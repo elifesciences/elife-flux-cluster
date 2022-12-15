@@ -1,0 +1,15 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: data-hub-api-unstable
+  namespace: data-hub
+spec:
+  imageRepositoryRef:
+    name: data-hub-api-unstable
+    namespace: data-hub
+  filterTags:
+    pattern: '^develop-[a-fA-F0-9]+-(?P<ts>.*)'
+    extract: '$ts'
+  policy:
+    numerical:
+      order: asc

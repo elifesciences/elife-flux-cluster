@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-hub-api--stg
+  labels:
+    app: data-hub-api--stg
+  namespace: data-hub
+spec:
+  selector:
+    matchLabels:
+      app: data-hub-api--stg
+  template:
+    metadata:
+      labels:
+        app: data-hub-api--stg
+    spec:
+      containers:
+      - name: data-hub-api
+        image: ghcr.io/elifesciences/data-hub-api_unstable:latest  # {"$imagepolicy": "data-hub:data-hub-api-unstable"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8000
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 5
+          timeoutSeconds: 30
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 5
+          timeoutSeconds: 30
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: 2000m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-hub-api--stg
+  namespace: data-hub
+spec:
+  selector:
+    app: data-hub-api--stg
+  ports:
+  - port: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: data-hub-api--stg
+  namespace: data-hub
+  labels:
+    app: data-hub-api--stg
+spec:
+  rules:
+    - host: data-hub-api--stg.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: data-hub-api--stg
+                port:
+                  number: 8000
