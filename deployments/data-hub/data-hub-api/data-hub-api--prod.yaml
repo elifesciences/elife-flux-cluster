@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-hub-api--prod
+  labels:
+    app: data-hub-api--prod
+  namespace: data-hub
+spec:
+  selector:
+    matchLabels:
+      app: data-hub-api--prod
+  template:
+    metadata:
+      labels:
+        app: data-hub-api--prod
+    spec:
+      containers:
+      - name: data-hub-api
+        image: ghcr.io/elifesciences/data-hub-api:0.0.1  # {"$imagepolicy": "data-hub:data-hub-api-stable"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8000
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 5
+          timeoutSeconds: 30
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 5
+          timeoutSeconds: 30
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: 2000m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-hub-api--prod
+  namespace: data-hub
+spec:
+  selector:
+    app: data-hub-api--prod
+  ports:
+  - port: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: data-hub-api--prod
+  namespace: data-hub
+  labels:
+    app: data-hub-api--prod
+spec:
+  rules:
+    - host: data-hub-api.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: data-hub-api--prod
+                port:
+                  number: 8000
