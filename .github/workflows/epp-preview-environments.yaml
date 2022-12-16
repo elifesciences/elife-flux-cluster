@@ -27,7 +27,4 @@ jobs:
           exit 1
       - name: debug
         if: failure()
-        run: ls -l deployments/epp/previews
-      - name: debug2
-        if: failure()
-        run: cat deployments/epp/previews/*.yaml
+        run: ls -lR deployments/epp/previews
