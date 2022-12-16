@@ -11,11 +11,12 @@ jobs:
           ref: master
           token: ${{ secrets.GH_BOT_TOKEN }}
       - name: Run the script to create valid preview environments
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: ./scripts/merge-epp-client-preview-prs.sh
       - name: Commit Environments
         run: |
           if [ $(git diff --staged --name-only | wc -l) -gt 0 ]; then
-            git checkout -b test-previews
             git config --global user.name 'Github Action: epp-previews'
             git config --global user.email 'scottaubrey@users.noreply.github.com'
             # git commit -m "Update EPP preview environments"
@@ -23,6 +24,7 @@ jobs:
           else
             echo "Nothing has changed."
           fi
+          exit 1
       - name: debug
         if: failure()
         run: ls -l deployments/epp/previews
