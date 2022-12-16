@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: master
-          token: ${{ secrets.GH_BOT_TOKEN }}
+          token: ${{ github.token }}
       - name: Run the script to create valid preview environments
         env:
           GH_TOKEN: ${{ github.token }}
@@ -22,7 +22,7 @@ jobs:
           add-paths: deployments/epp/previews
           branch: epp-previews
           delete-branch: true
-          token: ${{ secrets.GH_BOT_TOKEN }}
+          token: ${{ github.token }}
           commit-message: Create/update EPP preview environment
           title: Create/update EPP preview environment
           body: Create/update EPP preview environment
