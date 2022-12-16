@@ -44,7 +44,8 @@ spec:
             cpu: 100m
             memory: 64Mi
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: /root/.gcp/credentials.json
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /root/.gcp/credentials.json
         volumeMounts:
         - name: gcp-credentials-sealed-secret-volume
           mountPath: /root/.gcp
