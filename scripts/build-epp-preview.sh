@@ -19,7 +19,7 @@ if [[ -z $3 ]]; then
 fi
 clienttag=$3
 
-echo "pr_id: $pr_id, server: $servertag, client: $clienttag, image: $imagesev"
+echo "pr_id: $pr_id, server: $servertag, client: $clienttag"
 
 PREVIEWS_DIR='deployments/epp/previews'
 ENV_NAME_PREFIX='epp--preview'
