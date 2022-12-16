@@ -43,6 +43,16 @@ spec:
           requests:
             cpu: 100m
             memory: 64Mi
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: /root/.gcp/credentials.json
+        volumeMounts:
+        - name: gcp-credentials-sealed-secret-volume
+          mountPath: /root/.gcp
+          readOnly: true
+      volumes:
+      - name: gcp-credentials-sealed-secret-volume
+        secret:
+          secretName: gcp-credentials
 ---
 apiVersion: v1
 kind: Service
