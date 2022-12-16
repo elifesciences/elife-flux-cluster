@@ -24,6 +24,7 @@ jobs:
           else
             echo "Nothing has changed."
           fi
+          git status
           exit 1
       - name: debug
         if: failure()
