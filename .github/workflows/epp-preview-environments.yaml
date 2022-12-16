@@ -1,6 +1,8 @@
 name: epp-preview-environments
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
 
 jobs:
   create-epp-preview-envs:
