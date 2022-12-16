@@ -14,13 +14,25 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: ./scripts/merge-epp-client-preview-prs.sh
-      - name: Commit Environments
-        uses: actions-js/push@master
+        # Open a Pull Request if an upgraded is needed in production.
+      - name: Open preview env PR
+        id: create-pull-request
+        uses: peter-evans/create-pull-request@v4
         with:
-          github_token: ${{ secrets.GH_BOT_TOKEN }}
-          branch: master
-          directory: deployments/epp/previews
-          message: Update EPP preview environments
+          add-paths: deployments/epp/previews
+          branch: epp-previews
+          delete-branch: true
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          commit-message: Create/update EPP preview environment
+          title: Create/update EPP preview environment
+          body: Create/update EPP preview environment
+      - name: Enable Pull Request Automerge
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
+        uses: peter-evans/enable-pull-request-automerge@v2
+        with:
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash
       - name: debug
         if: failure()
         run: ls -lR deployments/epp/previews
