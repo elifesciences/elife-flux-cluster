@@ -6,7 +6,11 @@ REPO='elifesciences/enhanced-preprints-client'
 ORG='elifesciences'
 
 # First, remove all envs. They will be recreated, and there's no race issues because they will be in a single commit, which is atomic
-rm -r $ENV_DEST_DIR/* || true
+if [ -d $ENV_DEST_DIR ]; then
+    rm -r $ENV_DEST_DIR/* || true
+else
+    mkdir -p $ENV_DEST_DIR
+fi
 
 server_image=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints") | .newTag' deployments/epp/staging/epp-kustomization.yaml)
 
