@@ -1,0 +1,31 @@
+name: epp-preview-environment
+on:
+  workflow_dispatch:
+
+jobs:
+  create-epp-preview-env:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: master
+          token: ${{ secrets.GH_BOT_TOKEN }}
+      - name: Run the script to create valid preview environments
+        run: ./scripts/merge-epp-client-preview-prs.sh
+      - name: Commit Environments
+        run: |
+          if [ $(git diff --staged --name-only | wc -l) -gt 0 ]; then
+            git checkout -b test-previews
+            git config --global user.name 'Github Action: epp-previews'
+            git config --global user.email 'scottaubrey@users.noreply.github.com'
+            git commit -m "Update EPP preview environments"
+            git push
+          else
+            echo "Nothing has changed."
+          fi
+      - name: debug
+        if: failure()
+        run: ls -l deployments/epp/previews
+      - name: debug2
+        if: failure()
+        run: cat deployments/epp/previews/*.yaml
