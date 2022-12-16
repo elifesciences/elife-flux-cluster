@@ -30,13 +30,11 @@ jobs:
         run: |
           ./scripts/build-epp-preview.sh ${{ inputs.pr_id }} ${{ env.SERVER_VERSION }} ${{ env.CLIENT_VERSION }}
       - name: Commit & Push new environment
-        run: |
-          git add deployments/epp/previews
-          if [ $(git diff --staged --name-only | wc -l) -gt 0 ]; then
-            git config --global user.name 'Github Action: epp-previews'
-            git config --global user.email 'scottaubrey@users.noreply.github.com'
-            git commit -m "Update EPP preview environments"
-            git push
-          else
-            echo "Nothing has changed."
-          fi
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master
+          message: |
+            Create/update EPP preview environment for PR https://github.com/elifesciences/enhanced-preprints-client/pull/${{ inputs.pr_id }}:
+            - enhanced-preprints: ${{ env.SERVER_VERSION }}
+            - enhanced-preprints-client: ${{ env.CLIENT_VERSION }}
