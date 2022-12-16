@@ -47,8 +47,9 @@ jobs:
             - enhanced-preprints-client: ${{ env.CLIENT_VERSION }}
 
             Preview will be available here: https://pr-${{ inputs.pr_id }}--epp.elifesciences.org/
-      - name: Auto-approve PR
+      - name: Auto-approve and auto-merge PR
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh pr review 280 -a -b "Auto Approved"
+          gh pr merge --auto -b "Auto merge when passing checks"
