@@ -33,6 +33,7 @@ jobs:
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: master
           message: |
             Create/update EPP preview environment for PR https://github.com/elifesciences/enhanced-preprints-client/pull/${{ inputs.pr_id }}:
             - enhanced-preprints: ${{ env.SERVER_VERSION }}
