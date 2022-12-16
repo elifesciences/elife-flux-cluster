@@ -25,6 +25,8 @@ jobs:
             echo "Nothing has changed."
           fi
           git status
+          git diff
+          git diff --staged
           exit 1
       - name: debug
         if: failure()
