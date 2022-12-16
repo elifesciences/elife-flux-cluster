@@ -53,7 +53,7 @@ spec:
       volumes:
       - name: gcp-credentials-sealed-secret-volume
         secret:
-          secretName: gcp-credentials
+          secretName: gcloud
 ---
 apiVersion: v1
 kind: Service
