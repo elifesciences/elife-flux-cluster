@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: master
-          token: ${{ secrets.GH_BOT_TOKEN }}
+          token: ${{ github.token }}
       - name: Run the script to create valid preview environments
         env:
           GH_TOKEN: ${{ github.token }}
@@ -22,23 +22,16 @@ jobs:
           add-paths: deployments/epp/previews
           branch: epp-previews
           delete-branch: true
-          token: ${{ secrets.GH_BOT_TOKEN }}
+          token: ${{ github.token }}
           commit-message: Create/update EPP preview environment
           title: Create/update EPP preview environment
           body: Create/update EPP preview environment
-      # - name: Auto-approve
-      #   if: steps.create-pull-request.outputs.pull-request-operation != 'closed'
-      #   env:
-      #     GH_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
-      #   run: |
-      #     gh pr review ${{ steps.cpr.outputs.pull-request-number }} -a -b "Auto Approved"
       - name: Enable Pull Request Automerge
         if: steps.create-pull-request.outputs.pull-request-operation != 'closed'
-        uses: peter-evans/enable-pull-request-automerge@v2
-        with:
-          token: ${{ secrets.GH_BOT_TOKEN }}
-          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
-          merge-method: squash
+        env:
+          GH_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+        run:
+          gh pr merge --admin  ${{ steps.cpr.outputs.pull-request-number }}
       - name: debug
         if: failure()
         run: ls -lR deployments/epp/previews
