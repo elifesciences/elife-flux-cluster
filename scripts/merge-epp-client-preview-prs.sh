@@ -20,7 +20,7 @@ for pr in $(gh pr list --repo $REPO --label preview --json number,potentialMerge
 
     image_tag="preview-${pr_commit}"
 
-    if curl -qfL "https://api.github.com/orgs/${ORG}/members/${author}"; then
+    if curl -sqfL "https://api.github.com/orgs/${ORG}/members/${author}"; then
         echo "Creating env for PR $pr_id"
 
         ./scripts/build-epp-preview.sh "$pr_id" "$server_image" "$image_tag"
