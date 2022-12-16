@@ -26,6 +26,12 @@ jobs:
           commit-message: Create/update EPP preview environment
           title: Create/update EPP preview environment
           body: Create/update EPP preview environment
+      - name: Auto-approve
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
+        env:
+          GH_TOKEN: ${{ github.GH_BOT_TOKEN }}
+        run: |
+          gh pr review ${{ steps.cpr.outputs.pull-request-number }} -a -b "Auto Approved"
       - name: Enable Pull Request Automerge
         if: steps.create-pull-request.outputs.pull-request-operation == 'created'
         uses: peter-evans/enable-pull-request-automerge@v2
