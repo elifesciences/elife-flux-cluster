@@ -41,7 +41,7 @@ spec:
           service:
             name: epp-client
             port:
-              number: 8080
+              number: 3000
   - host: ${storybook_hostname}
     http:
       paths:
