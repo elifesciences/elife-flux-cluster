@@ -32,3 +32,13 @@ spec:
             name: epp-image-server
             port:
               number: 8182
+  - host: ${storybook_hostname}
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: epp-storybook
+            port:
+              number: 6006

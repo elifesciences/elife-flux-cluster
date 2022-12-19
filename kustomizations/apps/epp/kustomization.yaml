@@ -14,4 +14,8 @@ resources:
 - client/service.yaml
 - client/automations/repository.yaml
 - client/automations/policy.yaml
+- storybook/deployment.yaml
+- storybook/service.yaml
+- storybook/automations/repository.yaml
+- storybook/automations/policy.yaml
 - ingress.yaml
