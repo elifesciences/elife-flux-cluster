@@ -25,6 +25,7 @@ PREVIEWS_DIR='deployments/epp/previews'
 ENV_NAME_PREFIX='epp--preview'
 HOSTNAME_SUFFIX='epp'
 STORYBOOK_HOSTNAME_SUFFIX='epp-storybook'
+JOURNAL_API_HOSTNAME_SUFFIX='epp-api'
 ORG='elifesciences'
 KUSTOMIZATION_TEMPLATE='kustomizations/apps/epp/preview_template.yaml'
 
@@ -32,6 +33,7 @@ KUSTOMIZATION_TEMPLATE='kustomizations/apps/epp/preview_template.yaml'
 export deployment_name="$ENV_NAME_PREFIX-${pr_id}"
 export deployment_hostname="pr-${pr_id}--${HOSTNAME_SUFFIX}.elifesciences.org"
 export deployment_storybook_hostname="pr-${pr_id}--${STORYBOOK_HOSTNAME_SUFFIX}.elifesciences.org"
+export deployment_journal_api_hostname="pr-${pr_id}--${JOURNAL_API_HOSTNAME_SUFFIX}.elifesciences.org"
 
 ENV_DEST_DIR="${PREVIEWS_DIR}/$pr_id"
 echo "Creating env for PR $pr_id at ${ENV_DEST_DIR}"
@@ -50,6 +52,7 @@ yq -i ".spec.targetNamespace = \"${deployment_name}\"" ${ENV_DEST_DIR}/epp-kusto
 yq -i ".spec.postBuild.substitute.app_env = \"${deployment_name}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 yq -i ".spec.postBuild.substitute.app_hostname = \"${deployment_hostname}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 yq -i ".spec.postBuild.substitute.storybook_hostname = \"${deployment_storybook_hostname}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
+yq -i ".spec.postBuild.substitute.journal_api_hostname = \"${deployment_journal_api_hostname}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 yq -i ".spec.postBuild.substitute.asset_prefix = \"https://${deployment_hostname}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 yq -i ".spec.postBuild.substitute.iiif_server = \"https://${deployment_hostname}/iiif\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 

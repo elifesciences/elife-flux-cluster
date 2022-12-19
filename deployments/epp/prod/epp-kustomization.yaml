@@ -26,6 +26,7 @@ spec:
       app_env: prod
       app_hostname: prod--epp.elifesciences.org
       storybook_hostname: prod--epp-storybook.elifesciences.org
+      journal_api_hostname: prod--epp-api.elifesciences.org
       git_data_branch: master
       server_log_level: error
       asset_prefix: https://elifesciences.org/reviewed-preprints

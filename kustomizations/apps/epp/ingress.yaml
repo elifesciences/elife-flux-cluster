@@ -32,6 +32,16 @@ spec:
             name: epp-image-server
             port:
               number: 8182
+  - host: ${journal_api_hostname}
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          service:
+            name: epp-client
+            port:
+              number: 8080
   - host: ${storybook_hostname}
     http:
       paths:
