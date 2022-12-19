@@ -24,12 +24,14 @@ echo "pr_id: $pr_id, server: $servertag, client: $clienttag"
 PREVIEWS_DIR='deployments/epp/previews'
 ENV_NAME_PREFIX='epp--preview'
 HOSTNAME_SUFFIX='epp'
+STORYBOOK_HOSTNAME_SUFFIX='epp-storybook'
 ORG='elifesciences'
 KUSTOMIZATION_TEMPLATE='kustomizations/apps/epp/preview_template.yaml'
 
 # export image_tag="preview-${pr_commit:0:8}"
 export deployment_name="$ENV_NAME_PREFIX-${pr_id}"
 export deployment_hostname="pr-${pr_id}--${HOSTNAME_SUFFIX}.elifesciences.org"
+export deployment_storybook_hostname="pr-${pr_id}--${STORYBOOK_HOSTNAME_SUFFIX}.elifesciences.org"
 
 ENV_DEST_DIR="${PREVIEWS_DIR}/$pr_id"
 echo "Creating env for PR $pr_id at ${ENV_DEST_DIR}"
@@ -47,9 +49,11 @@ yq -i ".metadata.namespace = \"${deployment_name}\"" ${ENV_DEST_DIR}/epp-kustomi
 yq -i ".spec.targetNamespace = \"${deployment_name}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 yq -i ".spec.postBuild.substitute.app_env = \"${deployment_name}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 yq -i ".spec.postBuild.substitute.app_hostname = \"${deployment_hostname}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
+yq -i ".spec.postBuild.substitute.storybook_hostname = \"${deployment_storybook_hostname}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 yq -i ".spec.postBuild.substitute.asset_prefix = \"https://${deployment_hostname}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 yq -i ".spec.postBuild.substitute.iiif_server = \"https://${deployment_hostname}/iiif\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 
 # replace image tags
 yq -i "(.spec.images[] | select(.name == \"ghcr.io/elifesciences/enhanced-preprints\") | .newTag) = \"${servertag}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 yq -i "(.spec.images[] | select(.name == \"ghcr.io/elifesciences/enhanced-preprints-client\") | .newTag) = \"${clienttag}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
+yq -i "(.spec.images[] | select(.name == \"ghcr.io/elifesciences/enhanced-preprints-storybook\") | .newTag) = \"${clienttag}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml

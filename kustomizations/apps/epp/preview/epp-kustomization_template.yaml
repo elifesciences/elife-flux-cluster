@@ -14,15 +14,18 @@ spec:
   targetNamespace: epp--preview
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints
-      newTag: master-a0a1cc19-20221123.2327
+      newTag: latest
     - name: ghcr.io/elifesciences/epp-image-server
-      newTag: master-ee08dc56-20221107.1457
+      newTag: latest
     - name: ghcr.io/elifesciences/enhanced-preprints-client
-      newTag: master-66f336cd-20221125.1124
+      newTag: latest
+    - name: ghcr.io/elifesciences/enhanced-preprints-storybook
+      newTag: latest
   postBuild:
     substitute:
       app_env: preview
-      app_hostname: epp--preview.elifesciences.org
+      app_hostname: preview--epp.elifesciences.org
+      storybook_hostname: preview--epp-storybook.elifesciences.org
       git_data_branch: staging
       server_log_level: error
       asset_prefix: https://epp--preview--epp.elifesciences.org
