@@ -6,7 +6,6 @@ metadata:
 spec:
   imageRepositoryRef:
     name: epp-storybook
-    namespace: epp
   filterTags:
     pattern: '^master-[a-fA-F0-9]+-(?P<ts>.*)'
     extract: '$ts'
