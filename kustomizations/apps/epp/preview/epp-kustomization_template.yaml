@@ -26,7 +26,7 @@ spec:
       app_env: preview
       app_hostname: preview--epp.elifesciences.org
       storybook_hostname: preview--epp-storybook.elifesciences.org
-      git_data_branch: staging
+      git_data_branch: master
       server_log_level: error
       asset_prefix: https://epp--preview--epp.elifesciences.org
       iiif_server: https://epp--preview--epp.elifesciences.org/iiif
