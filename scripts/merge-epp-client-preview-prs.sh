@@ -3,6 +3,7 @@ set -e
 
 ENV_DEST_DIR='deployments/epp/previews'
 REPO='elifesciences/enhanced-preprints-client'
+DOCKER_REPO="ghcr.io/elifesciences/enhanced-preprints-client"
 ORG='elifesciences'
 
 # First, remove all envs. They will be recreated, and there's no race issues because they will be in a single commit, which is atomic
@@ -23,6 +24,11 @@ for pr in $(gh pr list --repo $REPO --label preview --json number,potentialMerge
     pr_commit="$(echo $pr | jq -r .potentialMergeCommit.oid)"
 
     image_tag="preview-${pr_commit}"
+
+    if ! docker manifest inspect $DOCKER_REPO:$image_tag > /dev/null; then
+        echo "skipping PR $pr_id, image doesn't exist yet"
+        continue;
+    fi
 
     if curl -sqfL "https://api.github.com/orgs/${ORG}/members/${author}"; then
         echo "Creating env for PR $pr_id"
