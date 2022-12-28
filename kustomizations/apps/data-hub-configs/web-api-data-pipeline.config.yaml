@@ -255,7 +255,7 @@ webApi:
         fromDateParameterName: 'from-collected-date'
         toDateParameterName: 'until-collected-date'
         daysDiffFromStartTillEnd: 1  # load data one day at a time
-        defaultStartDate: '2017-01-01'
+        defaultStartDate: '2017-01-01+00:00'
         dateFormat: '%Y-%m-%d'
     response:
       nextPageCursorKeyFromResponseRoot:
