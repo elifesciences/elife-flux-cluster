@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sciety-discovery--stg
+  labels:
+    app: sciety-discovery--stg
+  namespace: data-hub
+spec:
+  selector:
+    matchLabels:
+      app: sciety-discovery--stg
+  template:
+    metadata:
+      labels:
+        app: sciety-discovery--stg
+    spec:
+      containers:
+      - name: sciety-discovery
+        image: ghcr.io/sciety/sciety-discovery_unstable:latest # {"$imagepolicy": "data-hub:sciety-discovery-unstable"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8000
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 5
+          timeoutSeconds: 30
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 5
+          timeoutSeconds: 30
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: 2000m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+        env:
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /root/.gcp/credentials.json
+        volumeMounts:
+        - name: gcp-credentials-sealed-secret-volume
+          mountPath: /root/.gcp
+          readOnly: true
+      volumes:
+      - name: gcp-credentials-sealed-secret-volume
+        secret:
+          secretName: gcloud
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sciety-discovery--stg
+  namespace: data-hub
+spec:
+  selector:
+    app: sciety-discovery--stg
+  ports:
+  - port: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sciety-discovery--stg
+  namespace: data-hub
+  labels:
+    app: sciety-discovery--stg
+spec:
+  rules:
+    - host: sciety-discovery--stg.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: sciety-discovery--stg
+                port:
+                  number: 8000
