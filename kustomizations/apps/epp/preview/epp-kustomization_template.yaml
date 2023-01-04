@@ -26,6 +26,7 @@ spec:
       app_env: preview
       app_hostname: preview--epp.elifesciences.org
       storybook_hostname: preview--epp-storybook.elifesciences.org
+      journal_api_hostname: preview--epp-api.elifesciences.org
       git_data_branch: master
       server_log_level: error
       asset_prefix: https://epp--preview--epp.elifesciences.org
