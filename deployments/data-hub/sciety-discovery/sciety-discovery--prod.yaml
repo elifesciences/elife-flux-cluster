@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: data-hub-api--stg
+  name: sciety-discovery--prod
   labels:
-    app: data-hub-api--stg
+    app: sciety-discovery--prod
   namespace: data-hub
 spec:
   selector:
     matchLabels:
-      app: data-hub-api--stg
+      app: sciety-discovery--prod
   template:
     metadata:
       labels:
-        app: data-hub-api--stg
+        app: sciety-discovery--prod
     spec:
       containers:
-      - name: data-hub-api
-        image: ghcr.io/elifesciences/data-hub-api_unstable:develop-30353101-20230103.1703 # {"$imagepolicy": "data-hub:data-hub-api-unstable"}
+      - name: sciety-discovery
+        image: ghcr.io/sciety/sciety-discovery:0.0.1 # {"$imagepolicy": "data-hub:sciety-discovery-stable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
@@ -58,30 +58,30 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: data-hub-api--stg
+  name: sciety-discovery--prod
   namespace: data-hub
 spec:
   selector:
-    app: data-hub-api--stg
+    app: sciety-discovery--prod
   ports:
   - port: 8000
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: data-hub-api--stg
+  name: sciety-discovery--prod
   namespace: data-hub
   labels:
-    app: data-hub-api--stg
+    app: sciety-discovery--prod
 spec:
   rules:
-    - host: data-hub-api--stg.elifesciences.org
+    - host: sciety-discovery.elifesciences.org
       http:
         paths:
           - pathType: Prefix
             path: "/"
             backend:
               service:
-                name: data-hub-api--stg
+                name: sciety-discovery--prod
                 port:
                   number: 8000
