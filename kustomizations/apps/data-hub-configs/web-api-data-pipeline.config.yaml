@@ -280,6 +280,30 @@ webApi:
     table: biorxiv_medrxiv_meca_path_metadata
     dataUrl:
       urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all
+  - dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-04
+  - dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-05
+  - dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-06
+  - dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-07
+  - dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-08
+  - dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-09
 
   # bioRxiv/medRxiv apis
   # bioRxiv api
