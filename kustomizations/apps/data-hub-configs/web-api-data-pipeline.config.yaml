@@ -280,32 +280,53 @@ webApi:
     table: biorxiv_medrxiv_meca_path_metadata
     dataUrl:
       urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all
-  - dataset: '{ENV}'
-    table: biorxiv_medrxiv_meca_path_metadata
-    dataUrl:
-      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-04
-  - dataset: '{ENV}'
-    table: biorxiv_medrxiv_meca_path_metadata
-    dataUrl:
-      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-05
-  - dataset: '{ENV}'
-    table: biorxiv_medrxiv_meca_path_metadata
-    dataUrl:
-      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-06
-  - dataset: '{ENV}'
-    table: biorxiv_medrxiv_meca_path_metadata
-    dataUrl:
-      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-07
-  - dataset: '{ENV}'
-    table: biorxiv_medrxiv_meca_path_metadata
-    dataUrl:
-      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-08
-  - dataset: '{ENV}'
-    table: biorxiv_medrxiv_meca_path_metadata
-    dataUrl:
-      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-09
-  - dataset: '{ENV}'
-    table: biorxiv_medrxiv_meca_path_metadata
-    dataUrl:
-      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-10
 
+  # bioRxiv/medRxiv apis
+  # bioRxiv api
+  - dataset: '{ENV}'
+    table: 'biorxiv_medrxiv_api_response'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/generic-web-api/{ENV}-biorxiv-api-state.json'
+    urlSourceType:
+      name: 'biorxiv_medrxiv_api'
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/details/biorxiv
+      configurableParameters:
+        defaultPageSize: 100
+        dateFormat: '%Y-%m-%d'
+        defaultStartDate: '2013-11-06+00:00'
+        daysDiffFromStartTillEnd: 1
+    response:
+      itemsKeyFromResponseRoot:
+        - collection
+      totalItemsCountKeyFromResponseRoot:
+        - message
+        - total
+      recordTimestamp:
+        itemTimestampKeyFromItemRoot:
+          - date
+  # medRxiv api
+  - dataset: '{ENV}'
+    table: 'biorxiv_medrxiv_api_response'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/generic-web-api/{ENV}-medrxiv-api-state.json'
+    urlSourceType:
+      name: 'biorxiv_medrxiv_api'
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.medrxiv.org/details/medrxiv
+      configurableParameters:
+        defaultPageSize: 100
+        dateFormat: '%Y-%m-%d'
+        defaultStartDate: '2019-06-25+00:00'
+        daysDiffFromStartTillEnd: 1
+    response:
+      itemsKeyFromResponseRoot:
+        - collection
+      totalItemsCountKeyFromResponseRoot:
+        - message
+        - total
+      recordTimestamp:
+        itemTimestampKeyFromItemRoot:
+          - date
