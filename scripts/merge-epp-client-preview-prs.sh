@@ -16,7 +16,7 @@ fi
 server_image=$(yq '.spec.images[] | select(.name=="ghcr.io/elifesciences/enhanced-preprints") | .newTag' deployments/epp/staging/epp-kustomization.yaml)
 
 # now create all envs related to current open and labelled PRs
-for pr in $(gh pr list --repo $REPO --label preview --json number,potentialMergeCommit,mergeable,author | jq -c '.[]'); do
+for pr in "$(gh pr list --repo $REPO --label preview --json number,potentialMergeCommit,mergeable,author | jq -c '.[]')"; do
     pr_mergable="$(echo $pr | jq .mergeable)"
 
     author="$(echo $pr | jq -r .author.login)"
