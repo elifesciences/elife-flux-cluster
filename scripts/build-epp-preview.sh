@@ -14,12 +14,18 @@ fi
 servertag=$2
 
 if [[ -z $3 ]]; then
-    echo "second param must be the server image tag"
+    echo "third param must be the client image tag"
     exit 1
 fi
 clienttag=$3
 
-echo "pr_id: $pr_id, server: $servertag, client: $clienttag"
+if [[ -z $4 ]]; then
+    echo "fourth param must be the storybook image tag"
+    exit 1
+fi
+storybooktag=$4
+
+echo "pr_id: $pr_id, server: $servertag, client: $clienttag, storybook: $storybooktag"
 
 PREVIEWS_DIR='deployments/epp/previews'
 ENV_NAME_PREFIX='epp--preview'
@@ -59,4 +65,4 @@ yq -i ".spec.postBuild.substitute.iiif_server = \"https://${deployment_hostname}
 # replace image tags
 yq -i "(.spec.images[] | select(.name == \"ghcr.io/elifesciences/enhanced-preprints\") | .newTag) = \"${servertag}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 yq -i "(.spec.images[] | select(.name == \"ghcr.io/elifesciences/enhanced-preprints-client\") | .newTag) = \"${clienttag}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
-yq -i "(.spec.images[] | select(.name == \"ghcr.io/elifesciences/enhanced-preprints-storybook\") | .newTag) = \"${clienttag}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
+yq -i "(.spec.images[] | select(.name == \"ghcr.io/elifesciences/enhanced-preprints-storybook\") | .newTag) = \"${storybooktag}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
