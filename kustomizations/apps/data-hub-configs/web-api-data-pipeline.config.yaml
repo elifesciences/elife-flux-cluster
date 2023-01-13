@@ -282,28 +282,6 @@ webApi:
       urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all
   - dataset: '{ENV}'
     table: biorxiv_medrxiv_meca_path_metadata
-    dataUrl:
-      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-04
-  - dataset: '{ENV}'
-    table: biorxiv_medrxiv_meca_path_metadata
-    dataUrl:
-      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-05
-  - dataset: '{ENV}'
-    table: biorxiv_medrxiv_meca_path_metadata
-    dataUrl:
-      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-06
-  - dataset: '{ENV}'
-    table: biorxiv_medrxiv_meca_path_metadata
-    dataUrl:
-      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-07
-  - dataset: '{ENV}'
-    table: biorxiv_medrxiv_meca_path_metadata
-    dataUrl:
-      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-08
-  - dataset: '{ENV}'
-    table: biorxiv_medrxiv_meca_path_metadata
-    dataUrl:
-      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2021-09
 
   # bioRxiv/medRxiv apis
   # bioRxiv api
@@ -320,7 +298,7 @@ webApi:
         defaultPageSize: 100
         dateFormat: '%Y-%m-%d'
         defaultStartDate: '2013-11-06+00:00'
-        daysDiffFromStartTillEnd: 1
+        daysDiffFromStartTillEnd: 15
     response:
       itemsKeyFromResponseRoot:
         - collection
@@ -344,7 +322,7 @@ webApi:
         defaultPageSize: 100
         dateFormat: '%Y-%m-%d'
         defaultStartDate: '2019-06-25+00:00'
-        daysDiffFromStartTillEnd: 1
+        daysDiffFromStartTillEnd: 15
     response:
       itemsKeyFromResponseRoot:
         - collection
