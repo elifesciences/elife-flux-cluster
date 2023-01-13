@@ -24,10 +24,14 @@ for pr in "$(gh pr list --repo $REPO --label preview --json number,potentialMerg
     pr_id="$(echo $pr | jq .number)"
     pr_commit="$(echo $pr | jq -r .potentialMergeCommit.oid)"
 
-    client_image_tag="preview-${pr_commit}"
+    client_image_tag="preview-${pr_id}"
     if ! docker manifest inspect $CLIENT_DOCKER_REPO:$client_image_tag > /dev/null; then
-        echo "skipping PR $pr_id, client image doesn't exist yet"
-        continue;
+        echo "looking for a client image labelled by commit hash"
+        client_image_tag="preview-${pr_commit}"
+        if ! docker manifest inspect $CLIENT_DOCKER_REPO:$client_image_tag > /dev/null; then
+            echo "skipping PR $pr_id, client image doesn't exist yet"
+            continue;
+        fi
     fi
 
     # Get the latest sha for branch name
