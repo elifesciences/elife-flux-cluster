@@ -55,7 +55,7 @@ spec:
       replicaCount: 1
       image:
         repository: docker.io/liberoadmin/reviewer-client # {"$imagepolicy": "reviewer:libero-reviewer-client:name"}
-        tag: master-c33eab8d-20221114.1824 # {"$imagepolicy": "reviewer:libero-reviewer-client:tag"}
+        tag: master-f4220f79-20230116.1143 # {"$imagepolicy": "reviewer:libero-reviewer-client:tag"}
     continuumAdaptor:
       image:
         repository: liberoadmin/continuum-adaptor # {"$imagepolicy": "reviewer:libero-reviewer-adapter:name"}
@@ -73,72 +73,72 @@ spec:
   postRenderers:
     - kustomize:
         patchesJson6902:
-        - target:
-            version: v1
-            kind: Deployment
-            name: libero-reviewer--stg-submission
-          patch:
-            - op: replace
-              path: /spec/template/spec/containers/0/livenessProbe/timeoutSeconds
-              value: 5
-            - op: replace
-              path: /spec/template/spec/containers/0/livenessProbe/periodSeconds
-              value: 20
-            - op: replace
-              path: /spec/template/spec/containers/0/livenessProbe/failureThreshold
-              value: 5
-            - op: replace
-              path: /spec/template/spec/containers/0/readinessProbe/timeoutSeconds
-              value: 5
-            - op: replace
-              path: /spec/template/spec/containers/0/readinessProbe/periodSeconds
-              value: 20
-            - op: replace
-              path: /spec/template/spec/containers/0/readinessProbe/failureThreshold
-              value: 5
-        - target:
-            version: v1
-            kind: Deployment
-            name: libero-reviewer--stg-client
-          patch:
-            - op: replace
-              path: /spec/template/spec/containers/0/livenessProbe/timeoutSeconds
-              value: 5
-            - op: replace
-              path: /spec/template/spec/containers/0/livenessProbe/periodSeconds
-              value: 20
-            - op: replace
-              path: /spec/template/spec/containers/0/livenessProbe/failureThreshold
-              value: 5
-            - op: replace
-              path: /spec/template/spec/containers/0/readinessProbe/timeoutSeconds
-              value: 5
-            - op: replace
-              path: /spec/template/spec/containers/0/readinessProbe/periodSeconds
-              value: 20
-            - op: replace
-              path: /spec/template/spec/containers/0/readinessProbe/failureThreshold
-              value: 5
-        - target:
-            version: v1
-            kind: Deployment
-            name: libero-reviewer--stg-continuum-adaptor
-          patch:
-            - op: replace
-              path: /spec/template/spec/containers/0/livenessProbe/timeoutSeconds
-              value: 5
-            - op: replace
-              path: /spec/template/spec/containers/0/livenessProbe/periodSeconds
-              value: 20
-            - op: replace
-              path: /spec/template/spec/containers/0/livenessProbe/failureThreshold
-              value: 5
-            - op: replace
-              path: /spec/template/spec/containers/0/readinessProbe/timeoutSeconds
-              value: 5
-            - op: replace
-              path: /spec/template/spec/containers/0/readinessProbe/periodSeconds
-              value: 20
-            - op: replace
-              path: /spec/template/spec/containers/0/readinessProbe/failureThreshold
-              value: 5
+          - target:
+              version: v1
+              kind: Deployment
+              name: libero-reviewer--stg-submission
+            patch:
+              - op: replace
+                path: /spec/template/spec/containers/0/livenessProbe/timeoutSeconds
+                value: 5
+              - op: replace
+                path: /spec/template/spec/containers/0/livenessProbe/periodSeconds
+                value: 20
+              - op: replace
+                path: /spec/template/spec/containers/0/livenessProbe/failureThreshold
+                value: 5
+              - op: replace
+                path: /spec/template/spec/containers/0/readinessProbe/timeoutSeconds
+                value: 5
+              - op: replace
+                path: /spec/template/spec/containers/0/readinessProbe/periodSeconds
+                value: 20
+              - op: replace
+                path: /spec/template/spec/containers/0/readinessProbe/failureThreshold
+                value: 5
+          - target:
+              version: v1
+              kind: Deployment
+              name: libero-reviewer--stg-client
+            patch:
+              - op: replace
+                path: /spec/template/spec/containers/0/livenessProbe/timeoutSeconds
+                value: 5
+              - op: replace
+                path: /spec/template/spec/containers/0/livenessProbe/periodSeconds
+                value: 20
+              - op: replace
+                path: /spec/template/spec/containers/0/livenessProbe/failureThreshold
+                value: 5
+              - op: replace
+                path: /spec/template/spec/containers/0/readinessProbe/timeoutSeconds
+                value: 5
+              - op: replace
+                path: /spec/template/spec/containers/0/readinessProbe/periodSeconds
+                value: 20
+              - op: replace
+                path: /spec/template/spec/containers/0/readinessProbe/failureThreshold
+                value: 5
+          - target:
+              version: v1
+              kind: Deployment
+              name: libero-reviewer--stg-continuum-adaptor
+            patch:
+              - op: replace
+                path: /spec/template/spec/containers/0/livenessProbe/timeoutSeconds
+                value: 5
+              - op: replace
+                path: /spec/template/spec/containers/0/livenessProbe/periodSeconds
+                value: 20
+              - op: replace
+                path: /spec/template/spec/containers/0/livenessProbe/failureThreshold
+                value: 5
+              - op: replace
+                path: /spec/template/spec/containers/0/readinessProbe/timeoutSeconds
+                value: 5
+              - op: replace
+                path: /spec/template/spec/containers/0/readinessProbe/periodSeconds
+                value: 20
+              - op: replace
+                path: /spec/template/spec/containers/0/readinessProbe/failureThreshold
+                value: 5
