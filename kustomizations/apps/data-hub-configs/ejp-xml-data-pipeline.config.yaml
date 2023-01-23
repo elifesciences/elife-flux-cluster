@@ -6,7 +6,7 @@ manuscriptVersionTable: 'manuscript_version_all'   #having multiple identical ma
 personTable: 'person_all'  #having multiple identical person
 personVersion2Table: 'person_v2_all'  #having multiple identical person v2
 eJPXmlBucket: 'elife-ejp-ftp-db-xml-dump'
-eJPXmlObjectKeyPattern: 'ejp_eLife_*'
+eJPXmlObjectKeyPattern: 'ejp_eLife*'
 eJPXmlFileNameExclusionRegexPattern: '415-0\.' #Exclude unexpeted XML filenames within the zip file
 stateFile:
   bucket: '{ENV}-elife-data-pipeline'
