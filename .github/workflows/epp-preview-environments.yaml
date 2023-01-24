@@ -12,8 +12,6 @@ jobs:
         with:
           ref: master
           token: ${{ github.token }}
-      - name: install skopeo
-        run: sudo apt-get update && sudo apt-get -y install skopeo
       - name: Run the script to create valid preview environments
         env:
           GH_TOKEN: ${{ github.token }}
