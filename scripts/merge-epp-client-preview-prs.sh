@@ -26,10 +26,10 @@ do
     pr_commit="$(echo $pr | jq -r .potentialMergeCommit.oid)"
 
     client_image_tag="preview-${pr_id}"
-    if ! skopeo inspect --no-tags --raw docker://$CLIENT_DOCKER_REPO:$client_image_tag > /dev/null; then
+    if ! skopeo inspect --raw docker://$CLIENT_DOCKER_REPO:$client_image_tag > /dev/null; then
         echo "looking for a client image labelled by commit hash"
         client_image_tag="preview-${pr_commit}"
-        if ! skopeo inspect --no-tags --raw docker://$CLIENT_DOCKER_REPO:$client_image_tag > /dev/null; then
+        if ! skopeo inspect --raw docker://$CLIENT_DOCKER_REPO:$client_image_tag > /dev/null; then
             echo "skipping PR $pr_id, client image doesn't exist yet"
             continue;
         fi
@@ -41,7 +41,7 @@ do
         continue;
     fi
     storybook_image_tag="$client_image_tag"
-    if ! skopeo inspect --no-tags --raw docker://$STORYBOOK_DOCKER_REPO:$storybook_image_tag > /dev/null; then
+    if ! skopeo inspect --raw docker://$STORYBOOK_DOCKER_REPO:$storybook_image_tag > /dev/null; then
         echo "skipping PR $pr_id, storybook image doesn't exist yet"
         continue;
     fi
