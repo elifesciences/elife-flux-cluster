@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: api-dummy
-        image: elifesciences/api-dummy:7868d8d567f2b67c7ae09c956759955375504db5@sha256:75b2a26a23b5b41c5e03e4096b509466f1f548341ed5eb415f2a1d1fd98c6b6e
+        image: elifesciences/api-dummy:e88e31335b32a9b279f59cf2fb4cb38fa1342429@sha256:6b6a36a5242c1264100cdb6c47605a241fc35fdad7442e4ca6bfc027de86238b
         ports:
         - containerPort: 8080
         env:
