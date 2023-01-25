@@ -19,6 +19,7 @@ jobs:
         uses: fluxcd/flux2/action@main
         with:
           version: 0.30.2
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Kubernetes (Kind)
         uses: engineerd/setup-kind@v0.5.0
         with:
