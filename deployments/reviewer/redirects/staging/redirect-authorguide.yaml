@@ -1,0 +1,111 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: 'return 302 https://elife-rp.msubmit.net/html/elife-rp_author_instructions.html#process;'
+  name: reviewer--stg-authorguide-redirect
+  namespace: reviewer
+spec:
+  rules:
+  - host: libero-reviewer--staging.elifesciences.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
+
+      - path: /author-guide
+        pathType: Exact
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
+      - path: /author-guide/%E2%80%A6
+        pathType: Exact
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
+      - path: /author-guide/editorial-process
+        pathType: Exact
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
+      - path: /author-guide/types
+        pathType: Exact
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
+      - path: /author-guide/initial
+        pathType: Exact
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
+      - path: /author-guide/full
+        pathType: Exact
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
+      - path: /author-guide/revised
+        pathType: Exact
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
+      - path: /author-guide/post
+        pathType: Exact
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
+      - path: /author-guide/journal-policies
+        pathType: Exact
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
+      - path: /author-guide/data-availability
+        pathType: Exact
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
+      - path: /author-guide/journal-faqs
+        pathType: Exact
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
+      - path: /author-guide/fees
+        pathType: Exact
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
+      - path: /author-guide/journal-metrics
+        pathType: Exact
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
