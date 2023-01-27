@@ -10,14 +10,6 @@ spec:
   - host: libero-reviewer--staging.elifesciences.org
     http:
       paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: http-svc
-            port:
-              number: 80
-
       - path: /author-guide
         pathType: Exact
         backend:
