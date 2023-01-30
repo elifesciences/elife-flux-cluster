@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: 'return 302 https://elife-rp.msubmit.net/html/elife-rp_author_instructions.html#process;'
+  name: reviewer--stg-authorguide-redirect
+  namespace: reviewer
+spec:
+  rules:
+  - host: reviewer.elifesciences.org
+    http:
+      paths:
+      - path: /author-guide
+        pathType: Prefix
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
