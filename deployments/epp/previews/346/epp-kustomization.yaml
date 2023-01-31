@@ -14,7 +14,7 @@ spec:
   targetNamespace: epp--preview-346
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints
-      newTag: master-49756e63-20230126.1942
+      newTag: master-b5707c8c-20230131.0414
     - name: ghcr.io/elifesciences/epp-image-server
       newTag: latest
     - name: ghcr.io/elifesciences/enhanced-preprints-client
