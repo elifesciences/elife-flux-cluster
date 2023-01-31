@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/configuration-snippet: 'return 302 https://elife-rp.msubmit.net/html/elife-rp_author_instructions.html#process;'
-  name: reviewer--stg-authorguide-redirect
+  name: reviewer--prod-authorguide-redirect
   namespace: reviewer
 spec:
   rules:

@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/configuration-snippet: 'return 302 https://elife-rp.msubmit.net/cgi-bin/main.plex?form_type=display_rev_instructions#process;'
-  name: reviewer--stg-reviewprocess-redirect
+  name: reviewer--prod-reviewprocess-redirect
   namespace: reviewer
 spec:
   rules:
