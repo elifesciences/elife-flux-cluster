@@ -20,7 +20,7 @@ spec:
     - name: ghcr.io/elifesciences/enhanced-preprints-client
       newTag: preview-357@sha256:cac0cdb4ebc2b1ccc89daa53ff5d6f234a7a28355052d2d035c67092810cbadc
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-      newTag: preview-357@sha256:fa784f4e08eaf82bfbc66c043e2daf336228b8d831a8ff83b489d5daa3af87a9
+      newTag: preview-357@sha256:c9bf39e7ff28f3e4cd216252226adf53df397ca5054b963dc14eff613b3a77df
   postBuild:
     substitute:
       app_env: epp--preview-357
