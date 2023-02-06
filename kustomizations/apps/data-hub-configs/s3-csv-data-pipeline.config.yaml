@@ -76,24 +76,6 @@ s3Csv:
       - html_unescape
   - bucketName: elife-ejp-ftp
     objectKeyPattern:
-      - ejp_query_tool_query_id_DataScience:_Person_merge_info_-_all_*_eLife.csv
-      - ejp_query_tool_query_id_DataScience:_Person_merge_info_-_last_week_*_eLife.csv
-    dataPipelineId: 795_datascience_person_merge_info_all_001
-    headerLineIndex: 3
-    dataValuesStartLineIndex: 4
-    datasetName: "{ENV}"
-    tableName: 795_datascience_person_merge_info_all
-    tableWriteAppend: True
-    stateFile:
-      bucketName: "{ENV}-elife-data-pipeline"
-      objectName: "airflow-config/s3-csv/{ENV}-state/795_datascience_person_merge_info_all_001.json"
-    inSheetRecordMetadata:
-      - metadataSchemaFieldName: date_generated_info
-        metadataLineIndex: 1
-    recordProcessingSteps:
-      - html_unescape
-  - bucketName: elife-ejp-ftp
-    objectKeyPattern:
       - ejp_query_tool_query_id_DataScience:_Early_Career_Researchers_*_eLife.csv
     dataPipelineId: 380_datascience_early_career_researchers_001
     headerLineIndex: 3
