@@ -23,24 +23,6 @@ s3Csv:
       - html_unescape
   - bucketName: elife-ejp-ftp-test
     objectKeyPattern:
-      - ejp_query_tool_query_id_DataScience:_Reviewer_identity_revealed_-_all_*_eLife.csv
-      - ejp_query_tool_query_id_DataScience:_Reviewer_identity_revealed_-_last_week_*_eLife.csv
-    dataPipelineId: 705_datascience_reviewer_identity_revealed_last_week_001
-    headerLineIndex: 3
-    dataValuesStartLineIndex: 4
-    datasetName: "{ENV}"
-    tableName: 705_datascience_reviewer_identity_revealed_last_week
-    tableWriteAppend: True
-    stateFile:
-      bucketName: "{ENV}-elife-data-pipeline"
-      objectName: "airflow-config/s3-csv/{ENV}-state/705_datascience_reviewer_identity_revealed_last_week_001.json"
-    inSheetRecordMetadata:
-      - metadataSchemaFieldName: date_generated_info
-        metadataLineIndex: 1
-    recordProcessingSteps:
-      - html_unescape
-  - bucketName: elife-ejp-ftp-test
-    objectKeyPattern:
       - ejp_query_tool_query_id_DataScience:_Person_Roles_*_eLife.csv
     dataPipelineId: 767_datascience_person_roles_001
     headerLineIndex: 3
