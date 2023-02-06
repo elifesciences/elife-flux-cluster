@@ -110,23 +110,6 @@ s3Csv:
       - html_unescape
   - bucketName: elife-ejp-ftp
     objectKeyPattern:
-      - ejp_query_tool_query_id_DataScience:_manuscript_reviews_*_eLife.csv
-    dataPipelineId: 1157_datascience_manuscript_reviews_all_001
-    headerLineIndex: 3
-    dataValuesStartLineIndex: 4
-    datasetName: "{ENV}"
-    tableName: 1157_datascience_manuscript_reviews_all
-    tableWriteAppend: True
-    stateFile:
-      bucketName: "{ENV}-elife-data-pipeline"
-      objectName: "airflow-config/s3-csv/{ENV}-state/1157_datascience_manuscript_reviews_all_001.json"
-    inSheetRecordMetadata:
-      - metadataSchemaFieldName: date_generated_info
-        metadataLineIndex: 1
-    recordProcessingSteps:
-      - html_unescape
-  - bucketName: elife-ejp-ftp
-    objectKeyPattern:
       - ejp_query_tool_query_id_DataScience:_eToc_Content_Subscribers_-_all_*_eLife.csv
       - ejp_query_tool_query_id_DataScience:_eToc_Content_Subscribers_-_last_week_*_eLife.csv
     dataPipelineId: datascience_etoc_content_subscribers_last_week_001
