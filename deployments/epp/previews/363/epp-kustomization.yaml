@@ -18,9 +18,9 @@ spec:
     - name: ghcr.io/elifesciences/epp-image-server
       newTag: latest
     - name: ghcr.io/elifesciences/enhanced-preprints-client
-      newTag: preview-363@sha256:b6430c41ffe79e57d2923dc5da3ffd31a33c12bce021e04ce4f9c3d035026c16
+      newTag: preview-363@sha256:902b530fb9dd0131dcfee419ed51ec130e3ce4a9659d663646afeb44c2e4c6b9
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-      newTag: preview-363@sha256:11cacfe4e5c0bfc432b09005af862408829787fb2e35eb85da801b5dbc112b3e
+      newTag: preview-363@sha256:424905ed7b518c1248ee43dd561eda7ba0f560592c8d8bf0569613239bb252fd
   postBuild:
     substitute:
       app_env: epp--preview-363
