@@ -28,7 +28,7 @@ spec:
         use-forwarded-headers: "true"
         use-http2: "true"
       extraArgs:
-        default-ssl-certificate: infra/tls-elife-wildcard-2023
+        default-ssl-certificate: infra/tls-elife-wildcard-2022
       service:
         annotations:
           service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
