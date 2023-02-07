@@ -68,6 +68,7 @@ spec:
         resources:
           requests:
             cpu: "20m"
+            ephemeral-storage: "5Gi"
           limits:
             memory: "500Mi"
         env:
