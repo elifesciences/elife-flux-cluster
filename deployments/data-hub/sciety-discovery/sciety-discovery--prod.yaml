@@ -46,9 +46,14 @@ spec:
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /root/.gcp/credentials.json
+        - name: TWITTER_API_AUTHORIZATION_FILE_PATH
+          value: /root/.secrets/twitter_api/twitter_api_authorization.txt
         volumeMounts:
         - name: gcp-credentials-sealed-secret-volume
           mountPath: /root/.gcp
+          readOnly: true
+        - name: twitter-api-secret-volume
+          mountPath: /root/.secrets/twitter_api/
           readOnly: true
       volumes:
       - name: gcp-credentials-sealed-secret-volume
