@@ -14,13 +14,13 @@ spec:
   targetNamespace: epp--preview-363
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints
-      newTag: master-b274a8f8-20230204.0435
+      newTag: master-16ba8682-20230206.2030
     - name: ghcr.io/elifesciences/epp-image-server
       newTag: latest
     - name: ghcr.io/elifesciences/enhanced-preprints-client
-      newTag: preview-363@sha256:b66dd2398a831bacd9c85c63d3fd8f4db8538cea5949bb3ed9248f02fd7382af
+      newTag: preview-363@sha256:87c0518b97c5de87d316acd55e63bc4e1de1d028bf8d4ac4c11d218d38d2962b
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-      newTag: preview-363@sha256:d9e6fcc5ada529d97d38e1a4c2a5308f8e2369ac898106c6eaefa27eee75106a
+      newTag: preview-363@sha256:4eabf5046374dec80490a3434bb82f9b011a096ecc2794db8fdedb34cdd66ca8
   postBuild:
     substitute:
       app_env: epp--preview-363

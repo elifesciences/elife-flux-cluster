@@ -23,24 +23,6 @@ s3Csv:
       - html_unescape
   - bucketName: elife-ejp-ftp-test
     objectKeyPattern:
-      - ejp_query_tool_query_id_DataScience:_Reviewer_identity_revealed_-_all_*_eLife.csv
-      - ejp_query_tool_query_id_DataScience:_Reviewer_identity_revealed_-_last_week_*_eLife.csv
-    dataPipelineId: 705_datascience_reviewer_identity_revealed_last_week_001
-    headerLineIndex: 3
-    dataValuesStartLineIndex: 4
-    datasetName: "{ENV}"
-    tableName: 705_datascience_reviewer_identity_revealed_last_week
-    tableWriteAppend: True
-    stateFile:
-      bucketName: "{ENV}-elife-data-pipeline"
-      objectName: "airflow-config/s3-csv/{ENV}-state/705_datascience_reviewer_identity_revealed_last_week_001.json"
-    inSheetRecordMetadata:
-      - metadataSchemaFieldName: date_generated_info
-        metadataLineIndex: 1
-    recordProcessingSteps:
-      - html_unescape
-  - bucketName: elife-ejp-ftp-test
-    objectKeyPattern:
       - ejp_query_tool_query_id_DataScience:_Person_Roles_*_eLife.csv
     dataPipelineId: 767_datascience_person_roles_001
     headerLineIndex: 3
@@ -94,24 +76,6 @@ s3Csv:
       - html_unescape
   - bucketName: elife-ejp-ftp-test
     objectKeyPattern:
-      - ejp_query_tool_query_id_DataScience:_Person_merge_info_-_all_*_eLife.csv
-      - ejp_query_tool_query_id_DataScience:_Person_merge_info_-_last_week_*_eLife.csv
-    dataPipelineId: 795_datascience_person_merge_info_all_001
-    headerLineIndex: 3
-    dataValuesStartLineIndex: 4
-    datasetName: "{ENV}"
-    tableName: 795_datascience_person_merge_info_all
-    tableWriteAppend: True
-    stateFile:
-      bucketName: "{ENV}-elife-data-pipeline"
-      objectName: "airflow-config/s3-csv/{ENV}-state/795_datascience_person_merge_info_all_001.json"
-    inSheetRecordMetadata:
-      - metadataSchemaFieldName: date_generated_info
-        metadataLineIndex: 1
-    recordProcessingSteps:
-      - html_unescape
-  - bucketName: elife-ejp-ftp-test
-    objectKeyPattern:
       - ejp_query_tool_query_id_DataScience:_Early_Career_Researchers_*_eLife.csv
     dataPipelineId: 380_datascience_early_career_researchers_001
     headerLineIndex: 3
@@ -139,40 +103,6 @@ s3Csv:
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/489_datascience_editor_keywords_001.json"
-    inSheetRecordMetadata:
-      - metadataSchemaFieldName: date_generated_info
-        metadataLineIndex: 1
-    recordProcessingSteps:
-      - html_unescape
-  - bucketName: elife-ejp-ftp-test
-    objectKeyPattern:
-      - ejp_query_tool_query_id_DataScience:_manuscript_reviews_*_eLife.csv
-    dataPipelineId: 1157_datascience_manuscript_reviews_all_001
-    headerLineIndex: 3
-    dataValuesStartLineIndex: 4
-    datasetName: "{ENV}"
-    tableName: 1157_datascience_manuscript_reviews_all
-    tableWriteAppend: True
-    stateFile:
-      bucketName: "{ENV}-elife-data-pipeline"
-      objectName: "airflow-config/s3-csv/{ENV}-state/1157_datascience_manuscript_reviews_all_001.json"
-    inSheetRecordMetadata:
-      - metadataSchemaFieldName: date_generated_info
-        metadataLineIndex: 1
-    recordProcessingSteps:
-      - html_unescape
-  - bucketName: elife-ejp-ftp-test
-    objectKeyPattern:
-      - ejp_query_tool_query_id_DataScience:_Editors_*_eLife.csv
-    dataPipelineId: 455_datascience_editors_001
-    headerLineIndex: 3
-    dataValuesStartLineIndex: 4
-    datasetName: "{ENV}"
-    tableName: 455_datascience_editors
-    tableWriteAppend: True
-    stateFile:
-      bucketName: "{ENV}-elife-data-pipeline"
-      objectName: "airflow-config/s3-csv/{ENV}-state/455_datascience_editors_001.json"
     inSheetRecordMetadata:
       - metadataSchemaFieldName: date_generated_info
         metadataLineIndex: 1
