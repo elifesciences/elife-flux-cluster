@@ -55,3 +55,4 @@ spec:
           requests:
             cpu: "200m"
             memory: "500Mi"
+            ephemeral-storage: "100Mi"

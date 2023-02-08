@@ -6,6 +6,9 @@ on:
     branches-ignore:
     - master
     tags-ignore: [ '*' ]
+    paths-ignore:
+      - 'kustomizations/apps/*'
+      - 'kustomizations/deployments/*'
 
 jobs:
   run-on-kubernetes:
