@@ -59,6 +59,9 @@ spec:
       - name: gcp-credentials-sealed-secret-volume
         secret:
           secretName: gcloud
+      - name: twitter-api-secret-volume
+        secret:
+          secretName: twitter-api
 ---
 apiVersion: v1
 kind: Service
