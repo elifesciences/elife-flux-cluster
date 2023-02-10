@@ -242,6 +242,34 @@ webApi:
         - parameterName: Authorization
           filePathEnvName: TWITTER_API_AUTHORIZATION_FILE_PATH
 
+  # Twitter v2 API Search: bioRxiv/medRxiv + Sciety
+  - dataset: '{ENV}'
+    table: twitter_api_v2_search_response
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: airflow-config/generic-web-api/state/twitter_api_v2_search/biorxiv-medrxiv-sciety.json
+    dataUrl:
+      urlExcludingConfigurableParameters: 'https://api.twitter.com/2/tweets/search/recent?query=("10.1101/" OR "biorxiv" OR "medrxiv" OR "sciety.org" OR @ScietyHQ)&tweet.fields=attachments,author_id,context_annotations,conversation_id,created_at,edit_controls,entities,geo,id,in_reply_to_user_id,lang,public_metrics,possibly_sensitive,referenced_tweets,reply_settings,source,text,withheld&place.fields=contained_within,country,country_code,full_name,geo,id,name,place_type&expansions=author_id,geo.place_id&max_results=100'
+    configurableParameters:
+      nextPageCursorParameterName: next_token
+      fromDateParameterName: start_time
+      toDateParameterName: end_time
+      daysDiffFromStartTillEnd: 1
+      defaultStartDate: 2023-02-04+00:00  # This can only be around 7 days in the past, otherwise it will fail
+      dateFormat: "%Y-%m-%dT%H:%M:%SZ"
+    headers:
+      parametersFromFile:
+        - parameterName: Authorization
+          filePathEnvName: TWITTER_API_AUTHORIZATION_FILE_PATH
+    response:
+      nextPageCursorKeyFromResponseRoot:
+      - meta
+      - next_token
+      recordTimestamp:
+        itemTimestampKeyFromItemRoot:
+        - data
+        - created_at
+
   # CrossRef Event Data (Cold Spring Harbor Laboratory: mainly bioRxiv, medRxiv)
   - dataset: '{ENV}'
     table: crossref_event_data_web_api
