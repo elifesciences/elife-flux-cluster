@@ -242,7 +242,7 @@ webApi:
         - parameterName: Authorization
           filePathEnvName: TWITTER_API_AUTHORIZATION_FILE_PATH
 
-  # Twitter v2 API Search: bioRxiv/medRxiv + Sciety
+  # Twitter API v2 Search: bioRxiv/medRxiv + Sciety
   - dataset: '{ENV}'
     table: twitter_api_v2_search_response
     stateFile:
