@@ -254,7 +254,8 @@ webApi:
       # - 10.1101: bioRxiv, medRxiv (Cold Spring Harbor Laboratory in general)
       # - 10.21203: Research Square
       # - 10.20944: Preprints.org
-      urlExcludingConfigurableParameters: 'https://api.twitter.com/2/tweets/search/recent?query=("10.1101/" OR "biorxiv" OR "medrxiv" OR "10.21203/" OR "researchsquare.com" OR "10.20944/" OR "preprints.org" OR "sciety.org" OR @ScietyHQ)&tweet.fields=attachments,author_id,context_annotations,conversation_id,created_at,edit_controls,entities,geo,id,in_reply_to_user_id,lang,public_metrics,possibly_sensitive,referenced_tweets,reply_settings,source,text,withheld&place.fields=contained_within,country,country_code,full_name,geo,id,name,place_type&expansions=author_id,geo.place_id&max_results=100'
+      # - 10.31234: PsyArXiv
+      urlExcludingConfigurableParameters: 'https://api.twitter.com/2/tweets/search/recent?query=("10.1101/" OR "biorxiv" OR "medrxiv" OR "10.21203/" OR "researchsquare.com" OR "10.20944/" OR "preprints.org" OR "10.31234/" OR "psyarxiv" OR "sciety.org" OR @ScietyHQ)&tweet.fields=attachments,author_id,context_annotations,conversation_id,created_at,edit_controls,entities,geo,id,in_reply_to_user_id,lang,public_metrics,possibly_sensitive,referenced_tweets,reply_settings,source,text,withheld&place.fields=contained_within,country,country_code,full_name,geo,id,name,place_type&expansions=author_id,geo.place_id&max_results=100'
     configurableParameters:
       nextPageCursorParameterName: next_token
       fromDateParameterName: start_time
