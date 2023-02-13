@@ -332,7 +332,7 @@ spec:
       resources:
         requests:
           memory: 500Mi
-          cpu: 500m
+          cpu: 1000m
     web:
       webserverConfig:
         stringOverride: |
