@@ -1,0 +1,40 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: epp--preview
+  namespace: epp--preview-357
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kustomizations/apps/epp
+  prune: true
+  targetNamespace: epp--preview-357
+  images:
+    - name: ghcr.io/elifesciences/enhanced-preprints
+      newTag: master-4d0affe5-20230214.0601
+    - name: ghcr.io/elifesciences/epp-image-server
+      newTag: latest
+    - name: ghcr.io/elifesciences/enhanced-preprints-client
+      newTag: preview-357@sha256:4f0672ad1a4ac395fa881e36e58a05b59b5e03e759aeb0c8b2a61024d583f172
+    - name: ghcr.io/elifesciences/enhanced-preprints-storybook
+      newTag: preview-357@sha256:c55b3d8a370c03848ae88993fa46a4139b77ebe19c49000c484dce124502d0da
+  postBuild:
+    substitute:
+      app_env: epp--preview-357
+      app_hostname: pr-357--epp.elifesciences.org
+      storybook_hostname: pr-357--epp-storybook.elifesciences.org
+      journal_api_hostname: pr-357--epp-api.elifesciences.org
+      git_data_branch: staging
+      server_log_level: error
+      asset_prefix: https://pr-357--epp.elifesciences.org
+      iiif_server: https://pr-357--epp.elifesciences.org/iiif
+      image_server_source_base_url: https://github.com/elifesciences/enhanced-preprints-data/raw/staging/data/
+      mongodb_hostname: mongodb-psmdb-db-rs0
+      mongodb_secret_name: mongodb-psmdb-db-secrets
+      mongodb_secret_user_key: MONGODB_DATABASE_ADMIN_USER
+      mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD
+      client_replicas: "1"
+      server_replicas: "1"
