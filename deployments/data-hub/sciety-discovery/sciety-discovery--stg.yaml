@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: sciety-discovery
-        image: ghcr.io/sciety/sciety-discovery_unstable:main-be22ea94-20230221.1646 # {"$imagepolicy": "data-hub:sciety-discovery-unstable"}
+        image: ghcr.io/sciety/sciety-discovery_unstable:main-1ac78cc4-20230221.1720 # {"$imagepolicy": "data-hub:sciety-discovery-unstable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
