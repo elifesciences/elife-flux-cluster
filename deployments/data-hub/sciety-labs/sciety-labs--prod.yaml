@@ -93,3 +93,14 @@ spec:
                 name: sciety-labs--prod
                 port:
                   number: 8000
+    # Temporarily also include previously used sciety-discovery host
+    - host: sciety-discovery.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: sciety-labs--prod
+                port:
+                  number: 8000
