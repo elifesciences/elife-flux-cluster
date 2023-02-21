@@ -1,11 +1,11 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
-  name: sciety-discovery-unstable
+  name: sciety-labs-unstable
   namespace: data-hub
 spec:
   imageRepositoryRef:
-    name: sciety-discovery-unstable
+    name: sciety-labs-unstable
     namespace: data-hub
   filterTags:
     pattern: '^main-[a-fA-F0-9]+-(?P<ts>.*)'
