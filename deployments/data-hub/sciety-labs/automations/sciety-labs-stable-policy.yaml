@@ -1,11 +1,11 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
-  name: sciety-discovery-stable
+  name: sciety-labs-stable
   namespace: data-hub
 spec:
   imageRepositoryRef:
-    name: sciety-discovery-stable
+    name: sciety-labs-stable
     namespace: data-hub
   policy:
     semver:
