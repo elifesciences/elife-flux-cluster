@@ -40,3 +40,5 @@ spec:
       client_replicas: "1"
       server_replicas: "1"
       cookie_bot_id: 0a5c50d8-fcf9-47b1-8f4f-1eaadb13941b
+      s3_bucket: staging-elife-epp-data
+      s3_session_token: /var/run/secrets/eks.amazonaws.com/serviceaccount/token
