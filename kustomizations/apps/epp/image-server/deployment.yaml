@@ -32,5 +32,9 @@ spec:
             cpu: "200m"
             memory: "2Gi"
         env:
+          - name: SOURCE_STATIC
+            value: ${image_server_source_static:=HttpSource}
           - name: HTTPSOURCE_BASICLOOKUPSTRATEGY_URL_PREFIX
             value: ${image_server_source_base_url:=https://github.com/elifesciences/enhanced-preprints-data/raw/master/data/}
+          - name: S3SOURCE_BASICLOOKUPSTRATEGY_PATH_PREFIX
+            value: ${image_server_prefix:=data/}
