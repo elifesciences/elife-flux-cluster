@@ -38,3 +38,5 @@ spec:
             value: ${image_server_source_base_url:=https://github.com/elifesciences/enhanced-preprints-data/raw/master/data/}
           - name: S3SOURCE_BASICLOOKUPSTRATEGY_PATH_PREFIX
             value: ${image_server_prefix:=data/}
+          - name: S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME
+            value: ${image_server_s3_bucket}
