@@ -14,7 +14,7 @@ spec:
   targetNamespace: epp--staging
   images:
   - name: ghcr.io/elifesciences/enhanced-preprints
-    newTag: master-783b72d5-20230227.2239 # {"$imagepolicy": "epp--staging:epp-server:tag"}
+    newTag: preview-2505603c # {"$imagepolicy": "epp--staging:epp-server:tag"}
   - name: ghcr.io/elifesciences/epp-image-server
     newTag: master-7af46551-20230201.2248 # {"$imagepolicy": "epp--staging:epp-image-server:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-client
@@ -40,5 +40,3 @@ spec:
       client_replicas: "1"
       server_replicas: "1"
       cookie_bot_id: 0a5c50d8-fcf9-47b1-8f4f-1eaadb13941b
-      s3_bucket: staging-elife-epp-data
-      s3_session_token: /var/run/secrets/eks.amazonaws.com/serviceaccount/token
