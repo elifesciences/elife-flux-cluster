@@ -19,3 +19,4 @@ resources:
 - storybook/automations/repository.yaml
 - storybook/automations/policy.yaml
 - ingress.yaml
+- ingress-admin.yaml
