@@ -40,3 +40,5 @@ spec:
             value: ${image_server_prefix:=data/}
           - name: S3SOURCE_BASICLOOKUPSTRATEGY_BUCKET_NAME
             value: ${image_server_s3_bucket}
+          - name: JAVA_OPTS
+            value: "-Dsoftware.amazon.awssdk.http.service.impl=software.amazon.awssdk.http.urlconnection.UrlConnectionSdkHttpService"
