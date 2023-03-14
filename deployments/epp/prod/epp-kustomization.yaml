@@ -27,8 +27,6 @@ spec:
       app_hostname: prod--epp.elifesciences.org
       storybook_hostname: prod--epp-storybook.elifesciences.org
       journal_api_hostname: prod--epp-api.elifesciences.org
-      git_data_branch: master
-      server_log_level: error
       asset_prefix: https://elifesciences.org/reviewed-preprints
       iiif_server: https://prod--epp.elifesciences.org/iiif
       image_server_source_base_url: https://github.com/elifesciences/enhanced-preprints-data/raw/master/data/
@@ -40,3 +38,6 @@ spec:
       server_replicas: "1"
       google_tag_manager_id: "GTM-WVM8KG"
       cookie_bot_id: 0a5c50d8-fcf9-47b1-8f4f-1eaadb13941b
+      s3_bucket: staging-elife-epp-data
+      image_server_source_static: S3Source
+      image_server_s3_bucket: staging-elife-epp-data

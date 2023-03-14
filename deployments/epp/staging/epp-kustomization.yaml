@@ -27,8 +27,6 @@ spec:
       app_hostname: staging--epp.elifesciences.org
       storybook_hostname: staging--epp-storybook.elifesciences.org
       journal_api_hostname: staging--epp-api.elifesciences.org
-      git_data_branch: staging
-      server_log_level: error
       asset_prefix: https://continuumtest--journal.elifesciences.org/reviewed-preprints
       iiif_server: https://staging--epp.elifesciences.org/iiif
       image_server_source_base_url: https://github.com/elifesciences/enhanced-preprints-data/raw/staging/data/
