@@ -266,19 +266,19 @@ spec:
         requests:
           memory: 200Mi
           cpu: 100m
-          emphemeral-storage: "10Mi"
+          ephemeral-storage: "10Mi"
     flower:
       resources:
         requests:
           memory: 100Mi
           cpu: 50m
-          emphemeral-storage: "50Mi"
+          ephemeral-storage: "50Mi"
     scheduler:
       resources:
         requests:
           memory: 500Mi
           cpu: 500m
-          emphemeral-storage: "50Mi"
+          ephemeral-storage: "50Mi"
     web:
       # Fix for helm chart 8.6.0 not supporting airflow 2.3
       webserverConfig:
@@ -299,16 +299,16 @@ spec:
         requests:
           memory: 900Mi
           cpu: 150m
-          emphemeral-storage: "100Mi"
+          ephemeral-storage: "100Mi"
     triggerer:
       resources:
         requests:
-          emphemeral-storage: "50Mi"
+          ephemeral-storage: "50Mi"
     dbMigrations:
       resources:
         requests:
-          emphemeral-storage: "50Mi"
+          ephemeral-storage: "50Mi"
     pgbouncer:
       resources:
         requests:
-          emphemeral-storage: "10Mi"
+          ephemeral-storage: "10Mi"
