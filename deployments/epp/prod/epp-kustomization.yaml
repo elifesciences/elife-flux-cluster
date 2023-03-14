@@ -14,11 +14,11 @@ spec:
   targetNamespace: epp--prod
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints
-      newTag: master-055bf51f-20230307.1540 # {"$imagepolicy": "epp--prod:epp-server:tag"}
+      newTag: master-8222efbd-20230314.1046 # {"$imagepolicy": "epp--prod:epp-server:tag"}
     - name: ghcr.io/elifesciences/epp-image-server
       newTag: master-e53d15f3-20230307.0757 # {"$imagepolicy": "epp--prod:epp-image-server:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-client
-      newTag: master-9b458cd6-20230308.0709 # {"$imagepolicy": "epp--prod:epp-client:tag"}
+      newTag: master-6269982a-20230314.1154 # {"$imagepolicy": "epp--prod:epp-client:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
       newTag: master-9d1f3030-20221213.0927 # {"$imagepolicy": "epp--staging:epp-storybook:tag"}
   postBuild:
@@ -38,6 +38,6 @@ spec:
       server_replicas: "1"
       google_tag_manager_id: "GTM-WVM8KG"
       cookie_bot_id: 0a5c50d8-fcf9-47b1-8f4f-1eaadb13941b
-      s3_bucket: staging-elife-epp-data
+      s3_bucket: prod-elife-epp-data
       image_server_source_static: S3Source
-      image_server_s3_bucket: staging-elife-epp-data
+      image_server_s3_bucket: prod-elife-epp-data

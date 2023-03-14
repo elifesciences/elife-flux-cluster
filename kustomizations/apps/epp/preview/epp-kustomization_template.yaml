@@ -36,3 +36,6 @@ spec:
       mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD
       client_replicas: "1"
       server_replicas: "1"
+      s3_bucket: staging-elife-epp-data
+      image_server_source_static: S3Source
+      image_server_s3_bucket: staging-elife-epp-data
