@@ -33,10 +33,6 @@ spec:
           limits:
             memory: "2Gi"
         env:
-        - name: IMPORT_DIR_PATH
-          value: /opt/articles-data/enhanced-preprints-data/data/10.1101/
-        - name: IIIF_SERVER
-          value: ${iiif_server}
         - name: REPO_TYPE
           value: MongoDB
         - name: REPO_CONNECTION
@@ -57,9 +53,6 @@ spec:
           value: "${s3_bucket}"
         ports:
         - containerPort: 3000
-        volumeMounts:
-        - name: articles-data
-          mountPath: /opt/articles-data
         readinessProbe:
           httpGet:
             path: /
@@ -67,6 +60,3 @@ spec:
           initialDelaySeconds: 30
           periodSeconds: 3
           timeoutSeconds: 5
-      volumes:
-      - name: articles-data
-        emptyDir: {}
