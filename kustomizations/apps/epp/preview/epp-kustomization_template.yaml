@@ -27,8 +27,6 @@ spec:
       app_hostname: preview--epp.elifesciences.org
       storybook_hostname: preview--epp-storybook.elifesciences.org
       journal_api_hostname: preview--epp-api.elifesciences.org
-      git_data_branch: staging
-      server_log_level: error
       asset_prefix: https://epp--preview--epp.elifesciences.org
       iiif_server: https://epp--preview--epp.elifesciences.org/iiif
       image_server_source_base_url: https://github.com/elifesciences/enhanced-preprints-data/raw/staging/data/
@@ -38,3 +36,6 @@ spec:
       mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD
       client_replicas: "1"
       server_replicas: "1"
+      s3_bucket: staging-elife-epp-data
+      image_server_source_static: S3Source
+      image_server_s3_bucket: staging-elife-epp-data

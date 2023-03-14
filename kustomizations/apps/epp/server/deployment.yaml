@@ -33,10 +33,6 @@ spec:
           limits:
             memory: "2Gi"
         env:
-        - name: IMPORT_DIR_PATH
-          value: /opt/articles-data/enhanced-preprints-data/data/10.1101/
-        - name: IIIF_SERVER
-          value: ${iiif_server}
         - name: REPO_TYPE
           value: MongoDB
         - name: REPO_CONNECTION
@@ -57,9 +53,6 @@ spec:
           value: "${s3_bucket}"
         ports:
         - containerPort: 3000
-        volumeMounts:
-        - name: articles-data
-          mountPath: /opt/articles-data
         readinessProbe:
           httpGet:
             path: /
@@ -67,34 +60,3 @@ spec:
           initialDelaySeconds: 30
           periodSeconds: 3
           timeoutSeconds: 5
-      - name: git-sync
-        image: k8s.gcr.io/git-sync/git-sync:v3.6.3
-        resources:
-          requests:
-            cpu: "20m"
-            ephemeral-storage: "5Gi"
-          limits:
-            memory: "500Mi"
-        env:
-        - name: GIT_SYNC_ROOT
-          value: "/articles"
-        - name: GIT_SYNC_REPO
-          value: https://github.com/elifesciences/enhanced-preprints-data
-        - name: GIT_SYNC_BRANCH
-          value: "${git_data_branch:=master}"
-        - name: GIT_SYNC_DEPTH
-          value: "0"
-        - name: GIT_SYNC_WEBHOOK_URL
-          value: http://localhost:3000/import
-        - name: GIT_SYNC_WEBHOOK_TIMEOUT
-          value: "10s"
-        - name: GIT_SYNC_WEBHOOK_BACKOFF
-          value: "10s"
-        - name: LOG_LEVEL
-          value: ${server_log_level:=error}
-        volumeMounts:
-        - name: articles-data
-          mountPath: /articles
-      volumes:
-      - name: articles-data
-        emptyDir: {}
