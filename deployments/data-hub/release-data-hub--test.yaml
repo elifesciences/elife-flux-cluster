@@ -277,7 +277,7 @@ spec:
       resources:
         requests:
           memory: 500Mi
-          cpu: 500m
+          cpu: 1000m
           ephemeral-storage: "50Mi"
     web:
       # Fix for helm chart 8.6.0 not supporting airflow 2.3
