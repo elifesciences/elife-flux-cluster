@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sciety-discovery--stg
+  name: sciety-labs--stg
   labels:
-    app: sciety-discovery--stg
+    app: sciety-labs--stg
   namespace: data-hub
 spec:
   selector:
     matchLabels:
-      app: sciety-discovery--stg
+      app: sciety-labs--stg
   template:
     metadata:
       labels:
-        app: sciety-discovery--stg
+        app: sciety-labs--stg
     spec:
       containers:
-      - name: sciety-discovery
-        image: ghcr.io/sciety/sciety-discovery_unstable:main-fec009b4-20230209.1121 # {"$imagepolicy": "data-hub:sciety-discovery-unstable"}
+      - name: sciety-labs
+        image: ghcr.io/sciety/sciety-labs_unstable:main-bb51f57e-20230313.1150 # {"$imagepolicy": "data-hub:sciety-labs-unstable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
@@ -39,21 +39,26 @@ spec:
         resources:
           limits:
             cpu: 2000m
-            memory: 512Mi
+            memory: 2048Mi
           requests:
             cpu: 100m
-            memory: 64Mi
+            memory: 1024Mi
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /root/.gcp/credentials.json
         - name: TWITTER_API_AUTHORIZATION_FILE_PATH
           value: /root/.secrets/twitter_api/twitter_api_authorization.txt
+        - name: SEMANTIC_SCHOLAR_API_KEY_FILE_PATH
+          value: /root/.secrets/semantic_scholar/semantic_scholar_api_key.txt
         volumeMounts:
         - name: gcp-credentials-sealed-secret-volume
           mountPath: /root/.gcp
           readOnly: true
         - name: twitter-api-secret-volume
           mountPath: /root/.secrets/twitter_api/
+          readOnly: true
+        - name: semantic-scholar-secret-volume
+          mountPath: /root/.secrets/semantic_scholar/
           readOnly: true
       volumes:
       - name: gcp-credentials-sealed-secret-volume
@@ -62,34 +67,37 @@ spec:
       - name: twitter-api-secret-volume
         secret:
           secretName: twitter-api
+      - name: semantic-scholar-secret-volume
+        secret:
+          secretName: semantic-scholar
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: sciety-discovery--stg
+  name: sciety-labs--stg
   namespace: data-hub
 spec:
   selector:
-    app: sciety-discovery--stg
+    app: sciety-labs--stg
   ports:
   - port: 8000
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: sciety-discovery--stg
+  name: sciety-labs--stg
   namespace: data-hub
   labels:
-    app: sciety-discovery--stg
+    app: sciety-labs--stg
 spec:
   rules:
-    - host: sciety-discovery--stg.elifesciences.org
+    - host: sciety-labs--stg.elifesciences.org
       http:
         paths:
           - pathType: Prefix
             path: "/"
             backend:
               service:
-                name: sciety-discovery--stg
+                name: sciety-labs--stg
                 port:
                   number: 8000
