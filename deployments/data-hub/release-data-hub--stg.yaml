@@ -377,6 +377,7 @@ spec:
   - kustomize:
       patchesJson6902:
       - target:
+          group: app
           version: v1
           kind: StatefulSet
           name: data-hub--stg-worker
