@@ -330,7 +330,7 @@ spec:
                   failureThreshold: 5
                   periodSeconds: 60
                   exec:
-                    command: |
+                    command:
                       - sh
                       - -c
                       - CONNECTION_CHECK_MAX_COUNT=0 exec /entrypoint python -m celery --app airflow.executors.celery_executor.app inspect ping -d celery@$(hostname)
