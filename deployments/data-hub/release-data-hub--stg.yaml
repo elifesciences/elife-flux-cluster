@@ -373,3 +373,23 @@ spec:
       resources:
         requests:
           ephemeral-storage: "10Mi"
+  postRenderers:
+  - kustomize:
+      patchesJson6902:
+      - target:
+          apiVersion: apps/v1
+          kind: StatefulSet
+          name: data-hub--stg-worker
+        patch:
+        - op: add
+          path: /spec/template/spec/containers/0/livenessProbe
+          value:
+            initialDelaySeconds: 10
+            timeoutSeconds: 20
+            failureThreshold: 5
+            periodSeconds: 60
+            exec:
+              command: |
+                - sh
+                - -c
+                - CONNECTION_CHECK_MAX_COUNT=0 exec /entrypoint python -m celery --app airflow.executors.celery_executor.app inspect ping -d celery@$(hostname)
