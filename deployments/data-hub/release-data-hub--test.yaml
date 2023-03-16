@@ -318,7 +318,7 @@ spec:
       - apiVersion: apps/v1
         kind: StatefulSet
         metadata:
-          name: data-hub--stg-worker
+          name: data-hub--test-worker
         spec:
           template:
             spec:
