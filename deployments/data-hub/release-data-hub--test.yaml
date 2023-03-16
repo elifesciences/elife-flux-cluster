@@ -314,22 +314,22 @@ spec:
           ephemeral-storage: "10Mi"
   postRenderers:
   - kustomize:
-      patchesJson6902:
+      patches:
       - target:
           group: app
           version: v1
           kind: StatefulSet
           name: data-hub--test-worker
-        patch:
-        - op: add
-          path: /spec/template/spec/containers/0/livenessProbe
-          value:
-            initialDelaySeconds: 10
-            timeoutSeconds: 20
-            failureThreshold: 5
-            periodSeconds: 60
-            exec:
-              command: |
-                - sh
-                - -c
-                - CONNECTION_CHECK_MAX_COUNT=0 exec /entrypoint python -m celery --app airflow.executors.celery_executor.app inspect ping -d celery@$(hostname)
+        patch: |
+          - op: add
+            path: /spec/template/spec/containers/0/livenessProbe
+            value:
+              initialDelaySeconds: 10
+              timeoutSeconds: 20
+              failureThreshold: 5
+              periodSeconds: 60
+              exec:
+                command: |
+                  - sh
+                  - -c
+                  - CONNECTION_CHECK_MAX_COUNT=0 exec /entrypoint python -m celery --app airflow.executors.celery_executor.app inspect ping -d celery@$(hostname)
