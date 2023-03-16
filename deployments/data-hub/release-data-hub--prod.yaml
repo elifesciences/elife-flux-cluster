@@ -328,11 +328,13 @@ spec:
         requests:
           memory: 100Mi
           cpu: 50m
+          ephemeral-storage: "50Mi"
     scheduler:
       resources:
         requests:
           memory: 500Mi
           cpu: 1000m
+          ephemeral-storage: "50Mi"
     web:
       webserverConfig:
         stringOverride: |
@@ -352,3 +354,16 @@ spec:
         requests:
           memory: 900Mi
           cpu: 150m
+          ephemeral-storage: "100Mi"
+    triggerer:
+      resources:
+        requests:
+          ephemeral-storage: "50Mi"
+    dbMigrations:
+      resources:
+        requests:
+          ephemeral-storage: "50Mi"
+    pgbouncer:
+      resources:
+        requests:
+          ephemeral-storage: "10Mi"
