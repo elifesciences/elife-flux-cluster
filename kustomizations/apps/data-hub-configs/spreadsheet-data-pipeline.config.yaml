@@ -38,3 +38,14 @@ spreadsheets:
         #inSheetRecordMetadata:
         #  - metadataSchemaFieldName: 'metadata_example'
         #    metadataLineIndex: 1
+
+  # unmatched manuscripts
+  - spreadsheetId: '15QcK8w-ssB7109RQEDtFpJPZ0J5HTGxoHa_2TtpMBbg'
+    sheets:
+      - sheetName: 'Sheet1'
+        sheetRange: ''
+        headerLineIndex: 0
+        dataValuesStartLineIndex: 1
+        datasetName: "{ENV}"
+        tableName: 'unmatched_manuscripts'
+        tableWriteAppend: true
