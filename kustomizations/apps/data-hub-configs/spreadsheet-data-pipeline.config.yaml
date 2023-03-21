@@ -42,7 +42,7 @@ spreadsheets:
   # unmatched manuscripts
   - spreadsheetId: '15QcK8w-ssB7109RQEDtFpJPZ0J5HTGxoHa_2TtpMBbg'
     sheets:
-      - sheetName: 'Sheet1'
+      - sheetName: 'unmatched_list'
         sheetRange: ''
         headerLineIndex: 0
         dataValuesStartLineIndex: 1
