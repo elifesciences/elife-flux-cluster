@@ -27,16 +27,12 @@ do
 
     client_image_tag="preview-${pr_id}"
     if ! skopeo inspect --raw docker://$CLIENT_DOCKER_REPO:$client_image_tag > /dev/null; then
-        echo "looking for a client image labelled by commit hash"
-        client_image_tag="preview-${pr_commit}"
-        if ! skopeo inspect --raw docker://$CLIENT_DOCKER_REPO:$client_image_tag > /dev/null; then
-            echo "skipping PR $pr_id, client image doesn't exist yet"
-            continue;
-        fi
+        echo "skipping PR $pr_id, client image doesn't exist yet"
+        continue;
     fi
 
     # Get the latest sha for branch name
-    if ! client_image_digest=$(docker run mplatform/manifest-tool inspect $CLIENT_DOCKER_REPO:$client_image_tag --raw | jq -r .digest) > /dev/null; then
+    if ! client_image_digest=$(docker run mplatform/manifest-tool inspect --raw $CLIENT_DOCKER_REPO:$client_image_tag | jq -r .digest) > /dev/null; then
         echo "skipping PR $pr_id, Error retreiving client image sha"
         continue;
     fi
@@ -47,7 +43,7 @@ do
     fi
 
     # Get the latest sha for branch name
-    if ! storybook_image_digest=$(docker run mplatform/manifest-tool inspect $STORYBOOK_DOCKER_REPO:$storybook_image_tag --raw | jq -r .digest) > /dev/null; then
+    if ! storybook_image_digest=$(docker run mplatform/manifest-tool inspect --raw $STORYBOOK_DOCKER_REPO:$storybook_image_tag | jq -r .digest) > /dev/null; then
         echo "skipping PR $pr_id, Error retreiving storybook image sha"
         continue;
     fi
