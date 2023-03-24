@@ -22,6 +22,7 @@ spec:
       app_env: preview
       app_hostname: preview--epp.elifesciences.org
       storybook_hostname: preview--epp-storybook.elifesciences.org
+      epp_server: http://epp-server.epp--staging:3000
       asset_prefix: https://staging--epp.elifesciences.org
       iiif_server: https://staging--epp.elifesciences.org/iiif
       client_replicas: "1"

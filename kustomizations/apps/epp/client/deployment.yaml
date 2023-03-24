@@ -33,7 +33,7 @@ spec:
         - containerPort: 3000
         env:
         - name: API_SERVER
-          value: http://epp-server:3000
+          value: ${epp_server:='http://epp-server:3000'}
         - name: NEXT_PUBLIC_IMAGE_SERVER
           value: ${iiif_server}
         - name: ASSET_PREFIX
