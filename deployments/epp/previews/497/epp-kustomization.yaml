@@ -22,6 +22,7 @@ spec:
       app_env: epp--preview-497
       app_hostname: pr-497--epp.elifesciences.org
       storybook_hostname: pr-497--epp-storybook.elifesciences.org
+      epp_server: http://epp-server.epp--staging:3000
       asset_prefix: https://pr-497--epp.elifesciences.org
       iiif_server: https://staging--epp.elifesciences.org/iiif
       client_replicas: "1"
