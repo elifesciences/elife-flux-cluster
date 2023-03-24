@@ -18,22 +18,6 @@ spec:
             name: epp-client
             port:
               number: 3000
-      - pathType: Prefix
-        path: "/api"
-        backend:
-          service:
-            namespace: epp--staging
-            name: epp-server
-            port:
-              number: 3000
-      - pathType: Prefix
-        path: "/iiif"
-        backend:
-          service:
-            namespace: epp--staging
-            name: epp-image-server
-            port:
-              number: 8182
   - host: ${storybook_hostname}
     http:
       paths:
