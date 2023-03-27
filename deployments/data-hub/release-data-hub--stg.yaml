@@ -50,7 +50,7 @@ spec:
         AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "90"
       image:
         repository: docker.io/elifesciences/data-hub-with-dags_unstable # {"$imagepolicy": "data-hub:data-hub-unstable:name"}
-        tag: develop-94d1f5f1-20230313.1021 # {"$imagepolicy": "data-hub:data-hub-unstable:tag"}
+        tag: develop-e5296d0f-20230327.1700 # {"$imagepolicy": "data-hub:data-hub-unstable:tag"}
       extraEnv:
       # security settings
       - name: AIRFLOW__WEBSERVER__SECRET_KEY
@@ -392,6 +392,6 @@ spec:
                   periodSeconds: 60
                   exec:
                     command:
-                      - sh
-                      - -c
-                      - CONNECTION_CHECK_MAX_COUNT=0 exec /entrypoint python -m celery --app airflow.executors.celery_executor.app inspect ping -d celery@$(hostname)
+                    - sh
+                    - -c
+                    - CONNECTION_CHECK_MAX_COUNT=0 exec /entrypoint python -m celery --app airflow.executors.celery_executor.app inspect ping -d celery@$(hostname)
