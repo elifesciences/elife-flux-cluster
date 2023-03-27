@@ -6,12 +6,12 @@ metadata:
   namespace: kube-system
 
 spec:
-  interval: 1m
+  interval: 5m
   releaseName: kube-system-descheduler
   chart:
     spec:
       chart:  descheduler
-      version: 0.21.0
+      version: 0.22.1
       sourceRef:
         kind: HelmRepository
         name: descheduler
