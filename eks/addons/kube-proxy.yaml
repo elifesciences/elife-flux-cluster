@@ -40,7 +40,7 @@ spec:
         - kube-proxy
         - --v=2
         - --config=/var/lib/kube-proxy-config/config
-        image: 602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/kube-proxy:v1.22.17-minimal-eksbuild.2
+        image: 602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/kube-proxy:v1.23.16-minimal-eksbuild.2
         imagePullPolicy: IfNotPresent
         name: kube-proxy
         resources:
