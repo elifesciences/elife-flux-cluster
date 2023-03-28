@@ -4,3 +4,5 @@ resources:
 - addons/coredns.yaml
 - addons/kube-proxy.yaml
 - addons/vpc-cni.yaml
+- aws-ebs-csi-driver/source.yaml
+- aws-ebs-csi-driver/release.yaml
