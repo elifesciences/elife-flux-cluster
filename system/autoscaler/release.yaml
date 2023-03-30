@@ -16,7 +16,7 @@ spec:
       interval: 1m
   values:
     image:
-      tag: v1.23.0
+      tag: v1.24.0
     autoDiscovery:
       clusterName: kubernetes-aws--flux-prod
       tags:
