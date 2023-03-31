@@ -30,7 +30,6 @@ spec:
     global:
       rbac:
         create: true
-        pspEnabled: true
     defaultRules:
       rules:
         kubeSchedulerAlerting: false    # lives on EKS
