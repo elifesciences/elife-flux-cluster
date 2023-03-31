@@ -57,7 +57,7 @@ spec:
       - args:
         - -conf
         - /etc/coredns/Corefile
-        image: 602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/coredns:v1.8.7-eksbuild.4
+        image: 602401143452.dkr.ecr.us-east-1.amazonaws.com/eks/coredns:v1.9.3-eksbuild.2
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 5
