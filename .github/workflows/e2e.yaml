@@ -80,6 +80,8 @@ jobs:
           helm list -A
           kubectl -n flux-system get all
           kubectl get helmreleases.helm.toolkit.fluxcd.io --all-namespaces
+          kubectl get crds
+          kubectl describe crd alerts.notification.toolkit.fluxcd.io
       - name: Debug describe nodes
         if: failure()
         run: |
