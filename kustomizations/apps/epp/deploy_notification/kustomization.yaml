@@ -3,4 +3,3 @@ kind: Kustomization
 namespace: epp
 resources:
 - github-dispatch-alert.yaml
-- github-provider.yaml
