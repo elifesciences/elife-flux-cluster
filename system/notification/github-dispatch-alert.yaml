@@ -2,7 +2,7 @@ apiVersion: notification.toolkit.fluxcd.io/v1beta2
 kind: Alert
 metadata:
   name: epp-deploy
-  namespace: epp
+  namespace: flux-system
 spec:
   summary: "EPP deploy ${app_env}"
   providerRef:
@@ -11,3 +11,4 @@ spec:
   eventSources:
     - kind: Kustomization
       name: 'epp--preview'
+      namespace: '*'
