@@ -53,7 +53,7 @@ yq ".metadata.name = \"${deployment_name}\"" kustomizations/apps/epp/preview/nam
 
 echo "create kustomization at ${ENV_DEST_DIR}/epp-kustomization.yaml "
 cp kustomizations/apps/epp/preview/epp-kustomization_template.yaml ${ENV_DEST_DIR}/epp-kustomization.yaml
-yq -i ".metadata.namespace = \"${deployment_name}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
+yq -i ".metadata.name = \"${deployment_name}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 yq -i ".spec.targetNamespace = \"${deployment_name}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 yq -i ".spec.postBuild.substitute.app_env = \"${deployment_name}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
 yq -i ".spec.postBuild.substitute.app_hostname = \"${deployment_hostname}\"" ${ENV_DEST_DIR}/epp-kustomization.yaml
