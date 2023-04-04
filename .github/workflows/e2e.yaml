@@ -52,9 +52,9 @@ jobs:
           --path=./clusters/end-to-end-tests
       - name: Verify cluster kustomization reconciliation
         run: |
-          kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n flux-system crds
-          kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n flux-system system
-          kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n flux-system deployments
+          kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=2m -n flux-system crds
+          kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=2m -n flux-system system
+          kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=2m -n flux-system deployments
       - name: Verify system helm reconciliations
         run: |
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n autoscaler    cluster-autoscaler
