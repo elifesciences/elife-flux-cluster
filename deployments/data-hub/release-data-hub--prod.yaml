@@ -129,7 +129,7 @@ spec:
       - name: MATERIALIZE_BIGQUERY_VIEWS_SCHEDULE_INTERVAL
         value: "@hourly"
       - name: SCHEDULE_INTERVAL
-        value: "@daily"
+        value: "@weekly"
       - name: DATA_SCIENCE_FORECAST_SCHEDULE_INTERVAL
         value: "@hourly"
         # At minute 40 past every 3rd hour :
