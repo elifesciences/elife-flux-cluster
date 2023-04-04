@@ -4,4 +4,5 @@ namespace: epp
 resources:
 - ../client
 - ../storybook
+- ../deploy_notification
 - ingress.yaml
