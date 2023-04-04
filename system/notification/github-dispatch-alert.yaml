@@ -7,7 +7,7 @@ spec:
   summary: "EPP deploy ${app_env}"
   providerRef:
     name: epp-github-dispatch
-  eventSeverity: info
+  eventSeverity: trace
   eventSources:
     - kind: Kustomization
       name: '*'
