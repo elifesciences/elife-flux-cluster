@@ -10,5 +10,5 @@ spec:
   eventSeverity: info
   eventSources:
     - kind: Kustomization
-      name: 'epp--preview'
-      namespace: '*'
+      name: '*'
+      namespace: 'epp--previews'
