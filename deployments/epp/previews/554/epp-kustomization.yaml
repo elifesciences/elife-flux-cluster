@@ -14,9 +14,9 @@ spec:
   targetNamespace: epp--preview-554
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints-client
-      newTag: preview-554@sha256:05398ca139b6b1c4d70e3f4d6309ff30ea11c0a7fa7a4e5603cedef33e5cd6b3
+      newTag: preview-554@sha256:763a886fea2d62d5ddca3a6fd6336835e418d0f4b24b600ba26ea623a61a2334
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-      newTag: preview-554@sha256:96f0f45a5d94ad9d15c41c976648c0fab76876254bc0ebb7cc8a03cb93b226b1
+      newTag: preview-554@sha256:dc527a77e171c3642c5640ddec401bc959b48198c49253638071ec5309f9e6f1
   postBuild:
     substitute:
       app_env: epp--preview-554
