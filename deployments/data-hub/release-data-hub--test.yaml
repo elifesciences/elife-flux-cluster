@@ -123,7 +123,7 @@ spec:
         value: "50 8-18/3 * * *"
       - name: MATERIALIZE_BIGQUERY_VIEWS_SCHEDULE_INTERVAL
         value: "@hourly"
-      - name: SCHEDULE_INTERVAL
+      - name: DB_MAINTENANCE_SCHEDULE_INTERVAL
         value: "@daily"
       - name: DATA_SCIENCE_FORECAST_SCHEDULE_INTERVAL
         value: "@hourly"

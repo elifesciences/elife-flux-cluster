@@ -153,7 +153,7 @@ spec:
       - name: TWITTER_ADS_API_PIPELINE_SCHEDULE_INTERVAL
         value: "0 4 * * *" # At 04:00, every day
       - name: DB_MAINTENANCE_SCHEDULE_INTERVAL
-        value: "30 10 * * 1" # At 10:30 on Monday for testing purpose
+        value: "@daily"
       - name: AIRFLOW_DB_MAINTENANCE_MAX_CLEANUP_DATA_AGE_IN_DAYS
         value: "30" # same as the default value atm
       # general:
