@@ -31,7 +31,7 @@ jobs:
           ./scripts/build-epp-preview.sh ${{ inputs.pr_id }} ${{ env.SERVER_VERSION }} ${{ env.CLIENT_VERSION }}
       # Open a Pull Request if an upgraded is needed in production.
       - name: Open preview env PR
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           branch: epp-preview-${{ inputs.pr_id }}
           delete-branch: true

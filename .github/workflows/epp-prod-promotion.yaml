@@ -29,7 +29,7 @@ jobs:
           yq '(.spec.images[] | select(.name=="ghcr.io/elifesciences/epp-image-server")).newTag=env(IMAGE_SERVER_VERSION)' -i deployments/epp/prod/epp-kustomization.yaml
       # Open a Pull Request if an upgraded is needed in production.
       - name: Open promotion PR
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           branch: epp-prod-promotion
           delete-branch: true
