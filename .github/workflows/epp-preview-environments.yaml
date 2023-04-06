@@ -35,7 +35,7 @@ jobs:
           echo "Pull Request Operation - ${{ steps.create-pull-request.outputs.pull-request-operation }}"
           echo "Pull Request Head SHA - ${{ steps.create-pull-request.outputs.pull-request-head-sha }}"
       - name: Enable Pull Request Automerge
-        if: steps.create-pull-request.outputs.pull-request-operation != 'closed'
+        if: steps.create-pull-request.outputs.pull-request-operation != 'closed' && steps.create-pull-request.outputs.pull-request-number != ''
         env:
           GH_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
         run:
