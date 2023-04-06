@@ -11,5 +11,11 @@
   ],
   "flux": {
     "fileMatch": ["deployments/.+\\.yaml$", "system/.+\\.yaml$", "clusters/.+\\.yaml$", "kustomizations/.+\\.yaml$"]
-  }
+  },
+  "packageRules": [
+    {
+      "matchPackageNames": ["descheduler"],
+      "enabled": false
+    }
+  ]
 }
