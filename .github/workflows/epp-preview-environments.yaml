@@ -28,6 +28,12 @@ jobs:
           commit-message: Create/update EPP preview environment
           title: Create/update EPP preview environment
           body: Create/update EPP preview environment
+      - name: debug
+        run: |
+          echo "Pull Request Number - ${{ steps.create-pull-request.outputs.pull-request-number }}"
+          echo "Pull Request URL - ${{ steps.create-pull-request.outputs.pull-request-url }}"
+          echo "Pull Request Operation - ${{ steps.create-pull-request.outputs.pull-request-operation }}"
+          echo "Pull Request Head SHA - ${{ steps.create-pull-request.outputs.pull-request-head-sha }}"
       - name: Enable Pull Request Automerge
         if: steps.create-pull-request.outputs.pull-request-operation != 'closed'
         env:
