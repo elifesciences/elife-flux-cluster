@@ -33,7 +33,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
         run:
-          gh pr merge --admin --squash ${{ env.PULL_REQUEST_NUMBER }}
+          gh pr merge --admin --squash ${{ steps.create-pull-request.outputs.pull-request-number }}
       - name: debug
         if: failure()
         run: ls -lR deployments/epp/previews
