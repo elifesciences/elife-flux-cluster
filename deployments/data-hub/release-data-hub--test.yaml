@@ -302,7 +302,7 @@ spec:
           ephemeral-storage: "100Mi"
 
       readinessProbe:
-        initialDelaySeconds: 30
+        initialDelaySeconds: 60
     triggerer:
       resources:
         requests:
