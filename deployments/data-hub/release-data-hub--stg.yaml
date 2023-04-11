@@ -361,6 +361,9 @@ spec:
           memory: 900Mi
           cpu: 150m
           ephemeral-storage: "100Mi"
+
+      readinessProbe:
+        initialDelaySeconds: 30
     triggerer:
       resources:
         requests:
