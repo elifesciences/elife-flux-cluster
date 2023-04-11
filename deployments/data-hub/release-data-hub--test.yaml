@@ -301,6 +301,8 @@ spec:
           cpu: 150m
           ephemeral-storage: "100Mi"
 
+      livenessProbe:
+        initialDelaySeconds: 60
       readinessProbe:
         initialDelaySeconds: 60
     triggerer:
