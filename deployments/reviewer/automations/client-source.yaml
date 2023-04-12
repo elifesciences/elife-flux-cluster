@@ -1,8 +1,0 @@
-apiVersion: image.toolkit.fluxcd.io/v1beta1
-kind: ImageRepository
-metadata:
-  name: libero-reviewer-client
-  namespace: reviewer
-spec:
-  interval: 5m
-  image: docker.io/liberoadmin/reviewer-client
