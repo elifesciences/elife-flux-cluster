@@ -206,7 +206,20 @@ spec:
             - op: replace
               path: /spec/template/spec/containers/0/readinessProbe/failureThreshold
               value: 5
-
+        # Delete PodDisruptionBudget
+        patchesStrategicMerge:
+        - apiVersion: policy/v1beta1
+          kind: PodDisruptionBudget
+          metadata:
+            name: libero-reviewer--prod-client
+        - apiVersion: policy/v1beta1
+          kind: PodDisruptionBudget
+          metadata:
+            name:
+        - apiVersion: policy/v1beta1
+          kind: PodDisruptionBudget
+          metadata:
+            name: libero-reviewer--prod-submission
 ---
 apiVersion: v1
 kind: ConfigMap
