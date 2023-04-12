@@ -10,7 +10,7 @@ spec:
   - host: reviewer.elifesciences.org
     http:
       paths:
-      - path: /contact-us/contact-elife
+      - path: /
         pathType: Prefix
         backend:
           service:
