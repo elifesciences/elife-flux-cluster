@@ -1,19 +1,19 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    nginx.ingress.kubernetes.io/configuration-snippet: 'return 302 https://elife-rp.msubmit.net/;'
-  name: reviewer--prod-contact-redirect
-  namespace: reviewer
-spec:
-  rules:
-  - host: reviewer.elifesciences.org
-    http:
-      paths:
-      - path: /contact-us/contact-elife
-        pathType: Prefix
-        backend:
-          service:
-            name: http-svc
-            port:
-              number: 80
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   annotations:
+#     nginx.ingress.kubernetes.io/configuration-snippet: 'return 302 https://elife-rp.msubmit.net/;'
+#   name: reviewer--prod-contact-redirect
+#   namespace: reviewer
+# spec:
+#   rules:
+#   - host: reviewer.elifesciences.org
+#     http:
+#       paths:
+#       - path: /contact-us/contact-elife
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: http-svc
+#             port:
+#               number: 80
