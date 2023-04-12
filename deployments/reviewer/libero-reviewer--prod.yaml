@@ -19,7 +19,7 @@ spec:
 
   values:
     ingress:
-      enabled: "false"
+      enabled: false
       host: reviewer.elifesciences.org
       annotations:
         kubernetes.io/ingress.class: nginx
@@ -208,15 +208,18 @@ spec:
               value: 5
         # Delete PodDisruptionBudget
         patchesStrategicMerge:
-        - apiVersion: policy/v1beta1
+        - $patch: delete
+          apiVersion: policy/v1beta1
           kind: PodDisruptionBudget
           metadata:
             name: libero-reviewer--prod-client
-        - apiVersion: policy/v1beta1
+        - $patch: delete
+          apiVersion: policy/v1beta1
           kind: PodDisruptionBudget
           metadata:
             name: libero-reviewer--prod-continuum-adaptor
-        - apiVersion: policy/v1beta1
+        - $patch: delete
+          apiVersion: policy/v1beta1
           kind: PodDisruptionBudget
           metadata:
             name: libero-reviewer--prod-submission

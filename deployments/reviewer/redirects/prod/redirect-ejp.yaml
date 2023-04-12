@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/configuration-snippet: 'return 302 https://elife-rp.msubmit.net/;'
-  name: reviewer--prod-contact-redirect
+  name: reviewer--prod-ejp-redirect
   namespace: reviewer
 spec:
   rules:
