@@ -7,7 +7,7 @@ metadata:
   namespace: reviewer
 spec:
   rules:
-  - host: reviewer.elifesciences.org
+  - host: libero-reviewer--staging.elifesciences.org
     http:
       paths:
       - path: /
