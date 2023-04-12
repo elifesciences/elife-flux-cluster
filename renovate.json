@@ -19,7 +19,8 @@
     },
     {
       "matchPackageNames": ["airflow"],
-      "additionalBranchPrefix": "{{packageFile}}-"
+      "additionalBranchPrefix": "{{packageFile}}-",
+      "commitMessage": "{{{commitMessagePrefix}}} {{{commitMessageAction}}} {{{commitMessageTopic}}} {{{packageFile}}} {{{commitMessageExtra}}} {{{commitMessageSuffix}}}"
     }
   ]
 }
