@@ -215,7 +215,7 @@ spec:
         - apiVersion: policy/v1beta1
           kind: PodDisruptionBudget
           metadata:
-            name:
+            name: libero-reviewer--prod-continuum-adaptor
         - apiVersion: policy/v1beta1
           kind: PodDisruptionBudget
           metadata:
