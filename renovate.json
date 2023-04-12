@@ -16,6 +16,10 @@
     {
       "matchPackageNames": ["descheduler"],
       "enabled": false
+    },
+    {
+      "matchPackageNames": ["airflow"],
+      "additionalBranchPrefix": "{{packageFile}}-"
     }
   ]
 }
