@@ -41,3 +41,16 @@ spec:
     target:
       kind: HelmRelease
       name: sealed-secrets
+  - patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
+        name: metrics-server
+        namespace: monitoring
+      spec:
+        values:
+          args:
+            - --kubelet-insecure-tls
+    target:
+      kind: HelmRelease
+      name: metrics-server
