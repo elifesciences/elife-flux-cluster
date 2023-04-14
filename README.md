@@ -94,9 +94,6 @@ Services available on the Cluster
   - limit access to elifesciences github org
 - __SealedSecrets__ ([docs/sealed-secrets.md](docs/sealed-secrets.md))
   - encrypt secrets for safe storage in this repo
-- __Flagger__ ([docs/flagger](docs/flagger.md))
-  - progressive deployments (Canary/Blue-Green)
-  - gating deployments with acceptance and loadtests
 - __Loki__
   - Stores logs for services in cluster, is queriable from Grafana as a data source.
 - __Percona Server for MongoDB operator__

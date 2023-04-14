@@ -94,13 +94,6 @@ rules:
   - rolebindings
   verbs: [list, get]
 - apiGroups:
-  - flagger.app
-  resources:
-  - canaries
-  - metrictemplates
-  - alertproviders
-  verbs: [list, get]
-- apiGroups:
   - bitnami.com
   resources:
   - sealedsecrets
