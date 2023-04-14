@@ -19,4 +19,4 @@ spec:
               service:
                 name: podinfo--prod
                 port:
-                  number: 80
+                  number: 9898

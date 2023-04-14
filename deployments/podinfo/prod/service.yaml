@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: podinfo--prod
+  namespace: podinfo
+spec:
+  selector:
+    app: podinfo--prod
+  type: ClusterIP
+  ports:
+  - port: 9898
