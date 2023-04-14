@@ -62,8 +62,6 @@ jobs:
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         ingress-nginx
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         cert-manager
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         external-dns
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         flagger
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         flagger-loadtester
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         oauth2-proxy
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n kube-system   descheduler
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n monitoring    prometheus-stack
