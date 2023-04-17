@@ -20,7 +20,8 @@ jobs:
         uses: ./.github/actions/tools
       - name: Setup newer YQ
         uses: chrisdickinson/setup-yq@latest
-      - run: yq --help
+      - name: debugging
+        run: yq --help
       - name: Find Flux version
         id: flux-version
         run: echo FLUX_VERSION=$(yq 'select(document_index == 0) | .metadata.labels["app.kubernetes.io/version"]' clusters/flux-prod/flux-system/gotk-components.yaml ) >> $GITHUB_OUTPUT
