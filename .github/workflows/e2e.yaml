@@ -22,9 +22,7 @@ jobs:
         id: flux-version
         uses: mikefarah/yq@master
         with:
-          cmd: |
-            yq 'select(document_index == 0) | .metadata.labels["app.kubernetes.io/version"]' clusters/flux-prod/flux-system/gotk-components.yaml
-            echo FLUX_VERSION=$(yq 'select(document_index == 0) | .metadata.labels["app.kubernetes.io/version"]' clusters/flux-prod/flux-system/gotk-components.yaml ) >> $GITHUB_OUTPUT
+          cmd: echo FLUX_VERSION=$(yq 'select(document_index == 0) | .metadata.labels["app.kubernetes.io/version"] | sub("v(.*)", "${1}")' clusters/flux-prod/flux-system/gotk-components.yaml) >> $GITHUB_OUTPUT
       - name: Setup Flux
         uses: fluxcd/flux2/action@main
         with:
