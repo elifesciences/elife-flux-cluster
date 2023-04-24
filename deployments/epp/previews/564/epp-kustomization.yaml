@@ -3,8 +3,6 @@ kind: Kustomization
 metadata:
   name: epp--preview-564
   namespace: epp--previews
-  labels:
-    test: test
 spec:
   interval: 1m0s
   sourceRef:
