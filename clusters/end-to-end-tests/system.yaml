@@ -80,6 +80,11 @@ spec:
       kind: HelmRelease
       name: metrics-server
   - patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
+        name: cert-manager
+        namespace: infra
       spec:
         values:
           tolerations:
