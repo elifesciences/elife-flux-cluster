@@ -34,7 +34,7 @@ flux create source git flux-system --url="$repo" --branch="$branch"
 flux create kustomization flux-system --source=flux-system --path="$test_kustomization_path"
 kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=1m -n flux-system flux-system
 
-while IFS=$'\t' read -r resource state namespace name ; do
+while IFS=$' ' read -r resource state namespace name ; do
     if [[ "${resource:0:1}" == "#" ]]; then
         continue;
     fi
