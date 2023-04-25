@@ -1,14 +1,17 @@
 #!/bin/bash
 set -e
 
+name="elife-flux-cluster"
+repo=""$repo""
+test_kustomization_path="./clusters/end-to-end-tests"
 
 # if a param is specified, update the flux-system source branch to that
 branch=${1:-master}
 
 echo "Building KinD cluster using '$branch' branch"
 
-kind delete cluster --name "elife-flux-test"
-kind create cluster --name "elife-flux-test" --image=kindest/node:v1.25.8
+kind delete cluster --name "$name"
+kind create cluster --name "$name" --image=kindest/node:v1.25.8
 
 # install kwok into cluster
 kubectl kustomize scripts/kwok/deploy_config | kubectl apply -f -
@@ -20,15 +23,15 @@ kubectl create ns flux
 flux install --components-extra="image-reflector-controller,image-automation-controller" --toleration-keys=realnode
 
 # taint the current node to not schedule workloads by default
-kubectl taint node elife-flux-test-control-plane realnode=true:NoSchedule
+kubectl taint node "$name-control-plane" realnode=true:NoSchedule
 # Install kwok nodes to run "workloads" on
 kubectl apply -f scripts/kwok/1_large_simulated_node.yaml
 
 
 
 # Install cluster stuff and wait
-flux create source git flux-system --url=https://github.com/elifesciences/elife-flux-test --branch="$branch"
-flux create kustomization flux-system --source=flux-system --path=./clusters/end-to-end-tests
+flux create source git flux-system --url="$repo" --branch="$branch"
+flux create kustomization flux-system --source=flux-system --path="$test_kustomization_path"
 kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=1m -n flux-system flux-system
 
 # Test all kustomizations have reconciled
