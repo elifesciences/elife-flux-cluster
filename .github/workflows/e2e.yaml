@@ -16,8 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup additional tools
-        uses: ./.github/actions/tools
       - name: Find Flux version
         id: flux-version
         uses: mikefarah/yq@master
@@ -38,6 +36,7 @@ jobs:
       - name: Debug failure summaries
         if: failure()
         run: |
+          kubectl get pods -A -o wide
           flux get all --all-namespaces
           helm list -A
           kubectl -n flux-system get all
