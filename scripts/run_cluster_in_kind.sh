@@ -2,7 +2,7 @@
 set -e
 
 name="elife-flux-cluster"
-repo=""$repo""
+repo="https://github.com/elifesciences/elife-flux-test"
 test_kustomization_path="./clusters/end-to-end-tests"
 
 # if a param is specified, update the flux-system source branch to that
