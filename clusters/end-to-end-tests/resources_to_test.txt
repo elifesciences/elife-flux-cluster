@@ -20,9 +20,6 @@ helmreleases.helm.toolkit.fluxcd.io ready monitoring prometheus-stack
 kustomizations.kustomize.toolkit.fluxcd.io ready monitoring monitoring-flux
 
 # Test all deployments
-helmreleases.helm.toolkit.fluxcd.io ready data-hub data-hub--prod
-helmreleases.helm.toolkit.fluxcd.io ready data-hub data-hub--stg
-helmreleases.helm.toolkit.fluxcd.io ready data-hub data-hub--test
 deployment Available basex-validator basex-validator--prod
 deployment Available data-hub data-hub-api--prod
 deployment Available data-hub data-hub-api--stg
@@ -40,3 +37,6 @@ deployment Available epp--staging epp-storybook
 deployment Available peerscout peerscout--prod
 deployment Available peerscout peerscout--stg
 deployment Available podinfo podinfo--prod
+helmreleases.helm.toolkit.fluxcd.io ready data-hub data-hub--prod
+helmreleases.helm.toolkit.fluxcd.io ready data-hub data-hub--stg
+helmreleases.helm.toolkit.fluxcd.io ready data-hub data-hub--test
