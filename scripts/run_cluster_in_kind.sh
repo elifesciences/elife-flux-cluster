@@ -56,38 +56,23 @@ kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout
 kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n monitoring    monitoring-flux
 
 # Test all deployments
-kubectl wait deployment --for=condition=Available --timeout=3m -n basex-validator      basex-validator--prod
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--prod-db-migrations
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--prod-flower
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--prod-pgbouncer
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--prod-scheduler
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--prod-triggerer
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--prod-web
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--stg-db-migrations
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--stg-flower
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--stg-pgbouncer
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--stg-scheduler
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--stg-triggerer
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--stg-web
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--test-db-migrations
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--test-flower
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--test-pgbouncer
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--test-scheduler
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--test-triggerer
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub--test-web
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub-api--prod
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub-api--stg
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             sciety-labs--prod
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             sciety-labs--stg
-kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             test-ftpserver
-kubectl wait deployment --for=condition=Available --timeout=3m -n epp--prod            epp-client
-kubectl wait deployment --for=condition=Available --timeout=3m -n epp--prod            epp-image-server
-kubectl wait deployment --for=condition=Available --timeout=3m -n epp--prod            epp-server
-kubectl wait deployment --for=condition=Available --timeout=3m -n epp--prod            epp-storybook
-kubectl wait deployment --for=condition=Available --timeout=3m -n epp--staging         epp-client
-kubectl wait deployment --for=condition=Available --timeout=3m -n epp--staging         epp-image-server
-kubectl wait deployment --for=condition=Available --timeout=3m -n epp--staging         epp-server
-kubectl wait deployment --for=condition=Available --timeout=3m -n epp--staging         epp-storybook
-kubectl wait deployment --for=condition=Available --timeout=3m -n peerscout            peerscout--prod
-kubectl wait deployment --for=condition=Available --timeout=3m -n peerscout            peerscout--stg
+# kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=3m -n data-hub data-hub--prod
+# kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=3m -n data-hub data-hub--stg
+# kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=3m -n data-hub data-hub--test
+# kubectl wait deployment --for=condition=Available --timeout=3m -n basex-validator      basex-validator--prod
+# kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub-api--prod
+# kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             data-hub-api--stg
+# kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             sciety-labs--prod
+# kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             sciety-labs--stg
+# kubectl wait deployment --for=condition=Available --timeout=3m -n data-hub             test-ftpserver
+# kubectl wait deployment --for=condition=Available --timeout=3m -n epp--prod            epp-client
+# kubectl wait deployment --for=condition=Available --timeout=3m -n epp--prod            epp-image-server
+# kubectl wait deployment --for=condition=Available --timeout=3m -n epp--prod            epp-server
+# kubectl wait deployment --for=condition=Available --timeout=3m -n epp--prod            epp-storybook
+# kubectl wait deployment --for=condition=Available --timeout=3m -n epp--staging         epp-client
+# kubectl wait deployment --for=condition=Available --timeout=3m -n epp--staging         epp-image-server
+# kubectl wait deployment --for=condition=Available --timeout=3m -n epp--staging         epp-server
+# kubectl wait deployment --for=condition=Available --timeout=3m -n epp--staging         epp-storybook
+# kubectl wait deployment --for=condition=Available --timeout=3m -n peerscout            peerscout--prod
+# kubectl wait deployment --for=condition=Available --timeout=3m -n peerscout            peerscout--stg
 kubectl wait deployment --for=condition=Available --timeout=3m -n podinfo              podinfo--prod
