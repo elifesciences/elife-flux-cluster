@@ -26,6 +26,24 @@ spec:
       spec:
         install:
           disableWait: true
+        values:
+          controller:
+            tolerations:
+            - key: "realnode"
+              operator: "Equal"
+              value: "true"
+              effect: "NoSchedule"
+            nodeSelector:
+              kubernetes.io/hostname: elife-flux-test-control-plane
+            admissionWebhooks:
+              patch:
+                tolerations:
+                - key: "realnode"
+                  operator: "Equal"
+                  value: "true"
+                  effect: "NoSchedule"
+                nodeSelector:
+                  kubernetes.io/hostname: elife-flux-test-control-plane
     target:
       kind: HelmRelease
       name: ingress-nginx
@@ -51,6 +69,13 @@ spec:
         values:
           args:
             - --kubelet-insecure-tls
+          tolerations:
+          - key: "realnode"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
+          nodeSelector:
+            kubernetes.io/hostname: elife-flux-test-control-plane
     target:
       kind: HelmRelease
       name: metrics-server

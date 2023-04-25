@@ -9,7 +9,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./deployments/podinfo
+  path: ./deployments
   prune: true
   dependsOn:
     - name: system
