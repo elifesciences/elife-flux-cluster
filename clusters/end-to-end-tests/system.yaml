@@ -79,3 +79,16 @@ spec:
     target:
       kind: HelmRelease
       name: metrics-server
+  - patch: |-
+      spec:
+        values:
+          tolerations:
+          - key: "realnode"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
+          nodeSelector:
+            kubernetes.io/hostname: elife-flux-cluster-control-plane
+    target:
+      kind: HelmRelease
+      name: cert-manager

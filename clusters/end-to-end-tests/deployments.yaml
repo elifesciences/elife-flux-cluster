@@ -13,3 +13,21 @@ spec:
   prune: true
   dependsOn:
     - name: system
+  patches:
+  - patch: |-
+      spec:
+        values:
+          postgresql:
+            persistence:
+              size: 5Gi
+            master:
+              tolerations:
+              - key: "realnode"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
+              nodeSelector:
+                kubernetes.io/hostname: elife-flux-cluster-control-plane
+    target:
+      kind: HelmRelease
+      namespace: data-hub
