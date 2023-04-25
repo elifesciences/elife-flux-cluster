@@ -24,10 +24,12 @@ status:
     cpu: 32
     memory: 256Gi
     pods: 110
+    ephemeral-storage: 60Gi
   capacity:
     cpu: 32
     memory: 256Gi
     pods: 110
+    ephemeral-storage: 60Gi
   nodeInfo:
     architecture: amd64
     bootID: ""
