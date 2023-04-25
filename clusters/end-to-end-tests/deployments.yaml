@@ -14,7 +14,10 @@ spec:
   dependsOn:
     - name: system
   patches:
-  - patch: |-
+  - target:
+      kind: HelmRelease
+      namespace: data-hub--*
+    patch: |-
       apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
       metadata:
@@ -32,6 +35,3 @@ spec:
                 effect: "NoSchedule"
               nodeSelector:
                 kubernetes.io/hostname: elife-flux-cluster-control-plane
-    target:
-      kind: HelmRelease
-      namespace: data-hub

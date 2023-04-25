@@ -79,12 +79,14 @@ spec:
     target:
       kind: HelmRelease
       name: metrics-server
-  - patch: |-
+  - target:
+      kind: HelmRelease
+      name: cert-manager
+    patch: |-
       apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
       metadata:
         name: cert-manager
-        namespace: infra
       spec:
         values:
           tolerations:
@@ -94,6 +96,3 @@ spec:
             effect: "NoSchedule"
           nodeSelector:
             kubernetes.io/hostname: elife-flux-cluster-control-plane
-    target:
-      kind: HelmRelease
-      name: cert-manager
