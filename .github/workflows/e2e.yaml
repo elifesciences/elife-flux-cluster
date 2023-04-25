@@ -36,6 +36,7 @@ jobs:
       - name: Debug failure summaries
         if: failure()
         run: |
+          kubectl get pv,pvc -A -o wide
           kubectl get pods -A -o wide
           flux get all --all-namespaces
           helm list -A
