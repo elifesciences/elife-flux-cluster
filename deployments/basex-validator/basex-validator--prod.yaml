@@ -13,6 +13,12 @@ spec:
         kind: GitRepository
         name: basex-validator-formula
       interval: 1m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
   values:
     ingress:
       host: basex-validator.elifesciences.org
