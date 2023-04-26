@@ -29,6 +29,10 @@ kubectl apply -f scripts/kwok/1_large_simulated_node.yaml
 
 
 
+# Preinstall
+# some components require a secret ahead of deployment
+kubectl create ns monitoring
+kubectl create secret -n monitoring generic newrelic-license --from-literal=prod=prod
 # Install cluster stuff and wait
 flux create source git flux-system --url="$repo" --branch="$branch"
 flux create kustomization flux-system --source=flux-system --path="$test_kustomization_path"
