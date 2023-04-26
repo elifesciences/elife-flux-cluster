@@ -25,20 +25,8 @@ spec:
       spec:
         values:
           postgresql:
-            resources:
-              requests:
-                memory: 0Mi
-                cpu: 0m
             persistence:
-              size: 5Gi
-            master:
-              tolerations:
-              - key: "realnode"
-                operator: "Equal"
-                value: "true"
-                effect: "NoSchedule"
-              nodeSelector:
-                kubernetes.io/hostname: elife-flux-cluster-control-plane
+              enabled: false
   - target:
       kind: HelmRelease
       name: data-hub--stg
@@ -50,20 +38,8 @@ spec:
       spec:
         values:
           postgresql:
-            resources:
-              requests:
-                memory: 0Mi
-                cpu: 0m
             persistence:
-              size: 5Gi
-            master:
-              tolerations:
-              - key: "realnode"
-                operator: "Equal"
-                value: "true"
-                effect: "NoSchedule"
-              nodeSelector:
-                kubernetes.io/hostname: elife-flux-cluster-control-plane
+              enabled: false
   - target:
       kind: HelmRelease
       name: data-hub--test
@@ -75,17 +51,5 @@ spec:
       spec:
         values:
           postgresql:
-            resources:
-              requests:
-                memory: 0Mi
-                cpu: 0m
             persistence:
-              size: 5Gi
-            master:
-              tolerations:
-              - key: "realnode"
-                operator: "Equal"
-                value: "true"
-                effect: "NoSchedule"
-              nodeSelector:
-                kubernetes.io/hostname: elife-flux-cluster-control-plane
+              enabled: false
