@@ -33,10 +33,6 @@ kubectl apply -f scripts/kwok/1_large_simulated_node.yaml
 # some components require a secret ahead of deployment
 kubectl create ns monitoring
 kubectl create secret -n monitoring generic newrelic-license --from-literal=prod=prod
-# reduce the overhead of KinD components
-kubectl scale deployment -n kube-system coredns --replicas=1
-kubectl set resources deployment -n kube-system coredns --requests=cpu=0,memory=0
-kubectl set resources daemonset -n kube-system kindnet --requests=cpu=0,memory=0
 # Install cluster stuff and wait
 flux create source git flux-system --url="$repo" --branch="$branch"
 flux create kustomization flux-system --source=flux-system --path="$test_kustomization_path"
