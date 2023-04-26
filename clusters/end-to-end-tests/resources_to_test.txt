@@ -4,23 +4,23 @@ kustomizations.kustomize.toolkit.fluxcd.io ready flux-system system
 kustomizations.kustomize.toolkit.fluxcd.io ready flux-system deployments
 
 # Test all system resources have "deployed"
-helmreleases.helm.toolkit.fluxcd.io ready autoscaler cluster-autoscaler
-helmreleases.helm.toolkit.fluxcd.io ready infra sealed-secrets
-helmreleases.helm.toolkit.fluxcd.io ready infra ingress-nginx
-helmreleases.helm.toolkit.fluxcd.io ready infra cert-manager
-helmreleases.helm.toolkit.fluxcd.io ready infra external-dns
-helmreleases.helm.toolkit.fluxcd.io ready infra oauth2-proxy
-helmreleases.helm.toolkit.fluxcd.io ready kube-system descheduler
-helmreleases.helm.toolkit.fluxcd.io ready monitoring metrics-server
-helmreleases.helm.toolkit.fluxcd.io ready logging loki-stack
-helmreleases.helm.toolkit.fluxcd.io ready monitoring newrelic
-helmreleases.helm.toolkit.fluxcd.io ready db-operator-system psmdb-operator
-helmreleases.helm.toolkit.fluxcd.io ready monitoring prometheus-stack
+helmrelease ready autoscaler cluster-autoscaler
+helmrelease ready infra sealed-secrets
+helmrelease ready infra ingress-nginx
+helmrelease ready infra cert-manager
+helmrelease ready infra external-dns
+helmrelease ready infra oauth2-proxy
+helmrelease ready kube-system descheduler
+helmrelease ready monitoring metrics-server
+helmrelease ready logging loki-stack
+helmrelease ready monitoring newrelic
+helmrelease ready db-operator-system psmdb-operator
+helmrelease ready monitoring prometheus-stack
 
 kustomizations.kustomize.toolkit.fluxcd.io ready monitoring monitoring-flux
 
 # Test all deployments
-deployment Available basex-validator basex-validator--prod
+helmrelease ready basex-validator basex-validator--prod
 deployment Available data-hub data-hub-api--prod
 deployment Available data-hub data-hub-api--stg
 deployment Available data-hub sciety-labs--prod
@@ -34,9 +34,9 @@ deployment Available epp--staging epp-client
 deployment Available epp--staging epp-image-server
 deployment Available epp--staging epp-server
 deployment Available epp--staging epp-storybook
-deployment Available peerscout peerscout--prod
-deployment Available peerscout peerscout--stg
+helmrelease ready peerscout peerscout--prod
+helmrelease ready peerscout peerscout--prod
 deployment Available podinfo podinfo--prod
-helmreleases.helm.toolkit.fluxcd.io ready data-hub data-hub--prod
-helmreleases.helm.toolkit.fluxcd.io ready data-hub data-hub--stg
-helmreleases.helm.toolkit.fluxcd.io ready data-hub data-hub--test
+helmrelease ready data-hub data-hub--prod
+helmrelease ready data-hub data-hub--stg
+helmrelease ready data-hub data-hub--test
