@@ -45,5 +45,5 @@ while IFS=$' ' read -r resource state namespace name ; do
     if [[ $resource == "" ]]; then
         continue;
     fi
-    kubectl wait "${resource}" --for=condition=${state} --timeout=3m -n ${namespace} ${name}
+    kubectl wait "${resource}" --for=condition=${state} --timeout=5m -n ${namespace} ${name}
 done < "$test_kustomization_path/resources_to_test.txt"
