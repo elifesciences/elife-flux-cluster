@@ -35,3 +35,45 @@ spec:
                 effect: "NoSchedule"
               nodeSelector:
                 kubernetes.io/hostname: elife-flux-cluster-control-plane
+  - target:
+      kind: HelmRelease
+      name: data-hub--stg
+    patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
+        name: not-important
+      spec:
+        values:
+          postgresql:
+            persistence:
+              size: 5Gi
+            master:
+              tolerations:
+              - key: "realnode"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
+              nodeSelector:
+                kubernetes.io/hostname: elife-flux-cluster-control-plane
+  - target:
+      kind: HelmRelease
+      name: data-hub--test
+    patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
+        name: not-important
+      spec:
+        values:
+          postgresql:
+            persistence:
+              size: 5Gi
+            master:
+              tolerations:
+              - key: "realnode"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
+              nodeSelector:
+                kubernetes.io/hostname: elife-flux-cluster-control-plane
