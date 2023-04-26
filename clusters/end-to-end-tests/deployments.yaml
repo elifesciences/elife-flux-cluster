@@ -25,6 +25,10 @@ spec:
       spec:
         values:
           postgresql:
+            resources:
+              requests:
+                memory: 0Mi
+                cpu: 0m
             persistence:
               size: 5Gi
             master:
@@ -46,6 +50,10 @@ spec:
       spec:
         values:
           postgresql:
+            resources:
+              requests:
+                memory: 0Mi
+                cpu: 0m
             persistence:
               size: 5Gi
             master:
@@ -67,6 +75,10 @@ spec:
       spec:
         values:
           postgresql:
+            resources:
+              requests:
+                memory: 0Mi
+                cpu: 0m
             persistence:
               size: 5Gi
             master:
