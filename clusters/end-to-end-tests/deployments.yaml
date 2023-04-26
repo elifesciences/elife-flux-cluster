@@ -16,7 +16,7 @@ spec:
   patches:
   - target:
       kind: HelmRelease
-      namespace: data-hub--*
+      name: data-hub--*
     patch: |-
       apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
