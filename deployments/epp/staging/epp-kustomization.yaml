@@ -58,7 +58,7 @@ spec:
               volumeMounts:
               - name: reviews-config
                 mountPath: /opt/temp/reviews.json
-          volumes:
-          - name: reviews-config
-            configMap:
-              name: epp-prod-temp-reviews-override
+            volumes:
+            - name: reviews-config
+              configMap:
+                name: epp-prod-temp-reviews-override
