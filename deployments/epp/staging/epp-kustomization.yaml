@@ -58,6 +58,7 @@ spec:
               volumeMounts:
               - name: reviews-config
                 mountPath: /opt/temp/reviews.json
+                subPath: reviews.json
             volumes:
             - name: reviews-config
               configMap:
