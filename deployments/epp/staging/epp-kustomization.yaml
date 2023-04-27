@@ -41,3 +41,24 @@ spec:
       s3_bucket: staging-elife-epp-data
       image_server_source_static: S3Source
       image_server_s3_bucket: staging-elife-epp-data
+  patches:
+  - target:
+      name: epp-client
+      kind: Deployment
+    patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: epp-client
+      spec:
+        template:
+          spec:
+            containers:
+            - name: epp-client
+              volumeMounts:
+              - name: reviews.json
+                mountPath: /opt/temp/reviews.json
+          volumes:
+          - name: reviews.json
+            configMap:
+              name: epp-prod-temp-reviews-override
