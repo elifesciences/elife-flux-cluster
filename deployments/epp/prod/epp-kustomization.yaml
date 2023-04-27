@@ -41,3 +41,25 @@ spec:
       s3_bucket: prod-elife-epp-data
       image_server_source_static: S3Source
       image_server_s3_bucket: prod-elife-epp-data
+  patches:
+  - target:
+      name: epp-client
+      kind: Deployment
+    patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: epp-client
+      spec:
+        template:
+          spec:
+            containers:
+            - name: epp-client
+              volumeMounts:
+              - name: reviews-config
+                mountPath: /opt/epp-client/reviews.json
+                subPath: reviews.json
+            volumes:
+            - name: reviews-config
+              configMap:
+                name: epp-prod-temp-reviews-override
