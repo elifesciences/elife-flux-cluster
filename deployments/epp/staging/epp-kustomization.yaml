@@ -56,9 +56,9 @@ spec:
             containers:
             - name: epp-client
               volumeMounts:
-              - name: reviews.json
+              - name: reviews-config
                 mountPath: /opt/temp/reviews.json
           volumes:
-          - name: reviews.json
+          - name: reviews-config
             configMap:
               name: epp-prod-temp-reviews-override
