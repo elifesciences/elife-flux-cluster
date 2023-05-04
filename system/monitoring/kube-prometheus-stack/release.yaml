@@ -54,10 +54,12 @@ spec:
           nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
       plugins:
         - btplc-status-dot-panel
-      env:
-        GF_AUTH_ANONYMOUS_ENABLED: "true"
-        GF_AUTH_ANONYMOUS_ORG_NAME: "Main Org."
-        GF_AUTH_ANONYMOUS_ORG_ROLE: "Viewer"
+      grafana.ini:
+        users:
+          viewers_can_edit: true
+        auth.anonymous:
+          enabled: true
+          org_role: Editor
       rbac:
         pspUseAppArmor: false
         pspEnabled: true
