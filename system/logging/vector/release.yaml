@@ -1,0 +1,72 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vector
+  namespace: logging
+
+spec:
+  interval: 1m
+  releaseName: vector
+  chart:
+    spec:
+      chart: vector
+      version: 0.21.1
+      sourceRef:
+        kind: HelmRepository
+        name: vector
+      interval: 1m
+  install:
+    remediation:
+      retries: 5
+
+  values:
+    role: Agent
+    podMonitor:
+      enabled: true
+    extraVolumes:
+    - name: gcp-data-hub-project-log-shipping
+      secret:
+        secretName: gcp-data-hub-project-log-shipping
+    extraVolumeMounts:
+    - name: gcp-data-hub-project-log-shipping
+      mountPath: /etc/gcp-data-hub-project-log-shipping
+      readOnly: true
+    customConfig:
+      data_dir: /vector-data-dir
+      api:
+        enabled: true
+        address: 127.0.0.1:8686
+        playground: false
+      sources:
+        host_metrics:
+          filesystem:
+            devices:
+              excludes: [binfmt_misc]
+            filesystems:
+              excludes: [binfmt_misc]
+            mountPoints:
+              excludes: ["*/proc/sys/fs/binfmt_misc"]
+          type: host_metrics
+        internal_metrics:
+          type: internal_metrics
+        nginx_logs:
+          type: kubernetes_logs
+          extra_label_selector: app.kubernetes.io/name==ingress-nginx
+      transforms:
+        nginx_json_parse:
+          type: remap
+          inputs:
+            - nginx_logs
+          source: |
+            . = parse_json!(.message)
+      sinks:
+        prom_exporter:
+          type: prometheus_exporter
+          inputs: [host_metrics, internal_metrics]
+          address: 0.0.0.0:9090
+        stdout:
+          type: console
+          inputs: [nginx_json_parse]
+          encoding:
+            codec: json
