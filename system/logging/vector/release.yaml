@@ -60,7 +60,7 @@ spec:
             - nginx_logs
           source: |
             json, err = parse_json(.message)
-            if err == null {
+            if err != null {
               abort
             }
             . = json
