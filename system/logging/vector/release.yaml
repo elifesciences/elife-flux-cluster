@@ -63,7 +63,7 @@ spec:
             if err == null {
               abort
             } else {
-              . = parse_json!(.message)
+              . = json
             }
       sinks:
         prom_exporter:
