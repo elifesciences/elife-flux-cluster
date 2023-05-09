@@ -65,9 +65,8 @@ spec:
             json, err = parse_json(.message)
             if err == null {
               abort
-            } else {
-              . = parse_json!(.message)
             }
+            . = json
         # filter all nginx logs for just the sciety labs request URLs
         filter_nginx_sciety_labs:
           type: filter
