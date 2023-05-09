@@ -59,7 +59,11 @@ spec:
           inputs:
             - nginx_logs
           source: |
-            . = parse_json!(.message)
+            json, err = parse_json(.message)
+            if err == null {
+              abort
+            }
+            . = json
       sinks:
         prom_exporter:
           type: prometheus_exporter
