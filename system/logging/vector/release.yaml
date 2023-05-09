@@ -32,6 +32,9 @@ spec:
     - name: gcp-data-hub-project-log-shipping
       mountPath: /etc/gcp-data-hub-project-log-shipping
       readOnly: true
+    env:
+      - name: VECTOR_LOG
+        value: info
     customConfig:
       data_dir: /vector-data-dir
       api:
@@ -53,13 +56,6 @@ spec:
         nginx_logs:
           type: kubernetes_logs
           extra_label_selector: app.kubernetes.io/name==ingress-nginx
-        filter_nginx_sciety_labs:
-          type: filter
-          inputs:
-            - nginx_json_parse
-          condition: |
-            starts_with(string(.httpRequest.requestUrl) ?? "", "sciety-labs.elifesciences.org") ||
-            starts_with(string(.httpRequest.requestUrl) ?? "", "sciety-discovery.elifesciences.org")
       transforms:
         nginx_json_parse:
           type: remap
@@ -67,16 +63,18 @@ spec:
             - nginx_logs
           source: |
             . = parse_json!(.message)
+        filter_nginx_sciety_labs:
+          type: filter
+          inputs:
+            - nginx_json_parse
+          condition: |
+            starts_with(string(.httpRequest.requestUrl) ?? "", "sciety-labs.elifesciences.org") ||
+            starts_with(string(.httpRequest.requestUrl) ?? "", "sciety-discovery.elifesciences.org")
       sinks:
         prom_exporter:
           type: prometheus_exporter
           inputs: [host_metrics, internal_metrics]
           address: 0.0.0.0:9090
-        stdout:
-          type: console
-          inputs: [nginx_json_parse]
-          encoding:
-            codec: json
         bigquery_gcp:
           type: gcp_cloud_storage
           inputs:
