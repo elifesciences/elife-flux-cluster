@@ -68,6 +68,7 @@ spec:
             } else {
               . = parse_json!(.message)
             }
+        # filter all nginx logs for just the sciety labs request URLs
         filter_nginx_sciety_labs:
           type: filter
           inputs:
@@ -85,6 +86,7 @@ spec:
           inputs: [nginx_json_parse]
           encoding:
             codec: json
+        # Ship just sciety labs filtered nginx logs to GCP
         bigquery_gcp:
           type: gcp_cloud_storage
           inputs:
