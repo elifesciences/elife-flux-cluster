@@ -83,6 +83,8 @@ spec:
         stdout:
           type: console
           inputs: [nginx_json_parse]
+          encoding:
+            codec: native_json
         bigquery_gcp:
           type: gcp_cloud_storage
           inputs:
