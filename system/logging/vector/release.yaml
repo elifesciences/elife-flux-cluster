@@ -62,9 +62,8 @@ spec:
             json, err = parse_json(.message)
             if err == null {
               abort
-            } else {
-              . = json
             }
+            . = json
       sinks:
         prom_exporter:
           type: prometheus_exporter
