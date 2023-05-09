@@ -62,7 +62,12 @@ spec:
           inputs:
             - nginx_logs
           source: |
-            . = parse_json!(.message)
+            json, err = parse_json(.message)
+            if err == null {
+              abort
+            } else {
+              . = parse_json!(.message)
+            }
         filter_nginx_sciety_labs:
           type: filter
           inputs:
