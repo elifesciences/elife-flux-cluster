@@ -32,6 +32,9 @@ spec:
     - name: gcp-data-hub-project-log-shipping
       mountPath: /etc/gcp-data-hub-project-log-shipping
       readOnly: true
+    env:
+      - name: VECTOR_LOG
+        value: info
     customConfig:
       data_dir: /vector-data-dir
       api:
@@ -64,6 +67,14 @@ spec:
               abort
             }
             . = json
+        # filter all nginx logs for just the sciety labs request URLs
+        filter_nginx_sciety_labs:
+          type: filter
+          inputs:
+            - nginx_json_parse
+          condition: |
+            starts_with(string(.httpRequest.requestUrl) ?? "", "sciety-labs.elifesciences.org") ||
+            starts_with(string(.httpRequest.requestUrl) ?? "", "sciety-discovery.elifesciences.org")
       sinks:
         prom_exporter:
           type: prometheus_exporter
@@ -74,3 +85,14 @@ spec:
           inputs: [nginx_json_parse]
           encoding:
             codec: json
+        # Ship just sciety labs filtered nginx logs to GCP
+        bigquery_gcp:
+          type: gcp_cloud_storage
+          inputs:
+            - filter_nginx_sciety_labs
+          bucket: elife-cluster-logs
+          credentials_path: /etc/gcp-data-hub-project-log-shipping/credentials.json
+          key_prefix: flux-prod/sciety-labs/dt=%F/
+          filename_extension: jsonl
+          encoding:
+            codec: native_json
