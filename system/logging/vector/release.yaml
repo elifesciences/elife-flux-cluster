@@ -80,6 +80,9 @@ spec:
           type: prometheus_exporter
           inputs: [host_metrics, internal_metrics]
           address: 0.0.0.0:9090
+        stdout:
+          type: console
+          inputs: [nginx_json_parse]
         bigquery_gcp:
           type: gcp_cloud_storage
           inputs:
