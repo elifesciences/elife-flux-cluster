@@ -42,6 +42,8 @@ spec:
         address: 127.0.0.1:8686
         playground: false
       sources:
+        logs:
+          type: kubernetes_logs
         host_metrics:
           filesystem:
             devices:
@@ -57,6 +59,16 @@ spec:
           type: kubernetes_logs
           extra_label_selector: app.kubernetes.io/name==ingress-nginx
       transforms:
+        json_logs:
+          type: remap
+          inputs:
+            - logs
+          source: |
+            json, err = parse_json(.message)
+            if err == null {
+              .json = json
+              del(.message)
+            }
         nginx_json_parse:
           type: remap
           inputs:
@@ -80,11 +92,6 @@ spec:
           type: prometheus_exporter
           inputs: [host_metrics, internal_metrics]
           address: 0.0.0.0:9090
-        stdout:
-          type: console
-          inputs: [nginx_json_parse]
-          encoding:
-            codec: json
         # Ship just sciety labs filtered nginx logs to GCP
         bigquery_gcp:
           type: gcp_cloud_storage
@@ -96,3 +103,19 @@ spec:
           filename_extension: jsonl
           encoding:
             codec: native_json
+        local_loki:
+          type: loki
+          inputs:
+          - json_logs
+          endpoint: http://loki-gateway/
+          encoding:
+            codec: json
+          labels:
+            host: "${HOSTNAME}"
+            file: "{{`{{ file }}`}}"
+            stream: "{{`{{ stream }}`}}"
+            source_type: "{{`{{ source_type }}`}}"
+            namespace: "{{`{{ kubernetes.pod_namespace }}`}}"
+            pod: "{{`{{ kubernetes.pod_name }}`}}"
+            uid: "{{`{{ kubernetes.pod_uid }}`}}"
+            'labels_*': "{{`{{ kubernetes.pod_labels }}`}}"
