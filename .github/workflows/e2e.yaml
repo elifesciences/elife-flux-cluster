@@ -71,7 +71,7 @@ jobs:
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n kube-system   descheduler
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n monitoring    prometheus-stack
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n monitoring    metrics-server
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n logging       loki-stack
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n logging       loki
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=15m -n monitoring   newrelic
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n db-operator-system psmdb-operator
       - name: Verify deployment manifests
