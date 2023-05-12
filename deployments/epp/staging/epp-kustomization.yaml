@@ -18,7 +18,7 @@ spec:
   - name: ghcr.io/elifesciences/epp-image-server
     newTag: master-e53d15f3-20230307.0757 # {"$imagepolicy": "epp--prod:epp-image-server:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-client
-    newTag: master-d33dfc32-20230511.1122 # {"$imagepolicy": "epp--staging:epp-client:tag"}
+    newTag: master-928b637f-20230512.0338 # {"$imagepolicy": "epp--staging:epp-client:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-storybook
     newTag: master-d33dfc32-20230511.1141 # {"$imagepolicy": "epp--staging:epp-storybook:tag"}
   postBuild:
