@@ -23,7 +23,7 @@ spec:
   values:
     cassandra:
       config:
-        cluster_size: 1
+        cluster_size: 3
     prometheus:
       enabled: false
     grafana:
