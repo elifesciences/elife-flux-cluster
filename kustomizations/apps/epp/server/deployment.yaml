@@ -48,7 +48,7 @@ spec:
               name: ${mongodb_secret_name:=mongodb-psmdb-db-secrets}
               key: ${mongodb_secret_pass_key:=MONGODB_DATABASE_ADMIN_PASSWORD}
         - name: DOCMAPS_API
-          value: ${data_hub_api}
+          value: ${data_hub_api:-undefined}
         - name: S3_SESSION_TOKEN
           value: "/var/run/secrets/eks.amazonaws.com/serviceaccount/token"
         - name: S3_BUCKET
