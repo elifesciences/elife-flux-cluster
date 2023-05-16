@@ -32,38 +32,3 @@ spec:
       enabled: false
     server:
       replicaCount: 1
-      config:
-        persistence:
-          default:
-            sql:
-              host: postgresql_host
-              user: postgresql_user
-              password: postgresql_password
-          visibility:
-            sql:
-              user: postgresql_user
-              password: postgresql_password
-              host: postgresql_host
-
-        # archival:
-        #   history:
-        #     state: "enabled"
-        #     enableRead: true
-        #     provider:
-        #       s3store:
-        #         region: "us-east-1"
-        #   visibility:
-        #     state: "enabled"
-        #     enableRead: true
-        #     provider:
-        #       s3store:
-        #         region: "us-east-1"
-
-        # namespaceDefaults:
-        #   archival:
-        #     history:
-        #       state: "enabled"
-        #       URI: "s3://archival-bucket-name"
-        #     visibility:
-        #       state: "enabled"
-        #       URI: "s3://visibility-archival-bucket-name"
