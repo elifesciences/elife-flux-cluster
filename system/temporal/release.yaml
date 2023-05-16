@@ -32,3 +32,8 @@ spec:
       enabled: false
     server:
       replicaCount: 1
+    web:
+      ingress:
+        enabled: true
+        hosts:
+        - temporal.elifesciences.org
