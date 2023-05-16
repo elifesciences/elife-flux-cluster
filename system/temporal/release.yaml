@@ -1,0 +1,69 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: temporal
+  namespace: temporal
+
+spec:
+  interval: 1m
+  releaseName: temporal
+  chart:
+    spec:
+      chart: temporal
+      version: 1.20.2
+      sourceRef:
+        kind: GitRepository
+        name: temporal
+      interval: 1m
+  install:
+    remediation:
+      retries: 5
+
+  values:
+    cassandra:
+      config:
+        cluster_size: 1
+    prometheus:
+      enabled: false
+    grafana:
+      enabled: false
+    elasticsearch:
+      enabled: false
+    server:
+      replicaCount: 1
+      config:
+        persistence:
+          default:
+            sql:
+              host: postgresql_host
+              user: postgresql_user
+              password: postgresql_password
+          visibility:
+            sql:
+              user: postgresql_user
+              password: postgresql_password
+              host: postgresql_host
+
+        # archival:
+        #   history:
+        #     state: "enabled"
+        #     enableRead: true
+        #     provider:
+        #       s3store:
+        #         region: "us-east-1"
+        #   visibility:
+        #     state: "enabled"
+        #     enableRead: true
+        #     provider:
+        #       s3store:
+        #         region: "us-east-1"
+
+        # namespaceDefaults:
+        #   archival:
+        #     history:
+        #       state: "enabled"
+        #       URI: "s3://archival-bucket-name"
+        #     visibility:
+        #       state: "enabled"
+        #       URI: "s3://visibility-archival-bucket-name"

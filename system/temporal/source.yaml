@@ -1,0 +1,11 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: temporal
+  namespace: temporal
+spec:
+  interval: 10m0s
+  ref:
+    tag: v1.20.2
+  url: https://github.com/temporalio/helm-charts
