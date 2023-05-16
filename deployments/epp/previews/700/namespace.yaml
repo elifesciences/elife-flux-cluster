@@ -2,4 +2,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: epp--preview-564
+  name: epp--preview-700
