@@ -32,6 +32,26 @@ spec:
       enabled: false
     server:
       replicaCount: 1
+      frontend:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+      history:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+      matching:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+      worker:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
     web:
       ingress:
         enabled: true
