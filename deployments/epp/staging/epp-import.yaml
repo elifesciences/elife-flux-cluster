@@ -15,3 +15,9 @@ spec:
   images:
   - name: ghcr.io/elifesciences/enhanced-preprints
     newTag: master-c12351f4-20230517.1457
+  postBuild:
+    substitute:
+      app_env: staging
+      s3_bucket: staging-elife-epp-data
+      epp_server: http://epp-server:3000
+      temporal_server: temporal:7233

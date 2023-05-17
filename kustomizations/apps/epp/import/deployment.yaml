@@ -31,3 +31,10 @@ spec:
             cpu: "100m"
           limits:
             memory: "500Mi"
+        env:
+        - name: BUCKET_NAME
+          value: ${s3_bucket}
+        - name: EPP_SERVER_URI
+          value: ${epp_server}
+        - name: TEMPORAL_SERVER
+          value: ${temporal_server}
