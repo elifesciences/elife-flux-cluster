@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: temporal
-  namespace: epp
+  namespace: temporal
   labels:
     app_name: epp
     app_env: ${app_env}
@@ -17,7 +17,7 @@ spec:
       app: temporal
   template:
     metadata:
-      namespace: epp
+      namespace: temporal
       labels:
         app: temporal
     spec:
