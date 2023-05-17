@@ -3,5 +3,3 @@ kind: Kustomization
 namespace: epp
 resources:
 - deployment.yaml
-- temporal/service.yaml
-- temporal/deployment.yaml
