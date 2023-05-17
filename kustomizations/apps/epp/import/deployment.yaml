@@ -1,38 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: temporal
+  name: temporal-worker
   namespace: epp
   labels:
     app_name: epp
     app_env: ${app_env}
-    app_tier: temporal
+    app_tier: import
 spec:
-  replicas: ${server_replicas:=1}
   strategy:
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: temporal
+      app: temporal-worker
   template:
     metadata:
       namespace: epp
       labels:
-        app: temporal
+        app: temporal-worker
     spec:
       nodeSelector:
         kubernetes.io/arch: amd64
       containers:
       - name: epp-server
-        image: ghcr.io/elifesciences/temporal-cli:latest
+        image: ghcr.io/elifesciences/enhanced-preprints-import-worker:latest
         resources:
           requests:
             cpu: "100m"
           limits:
             memory: "500Mi"
-        env:
-        ports:
-        - containerPort: 7223
-        - containerPort: 8223
