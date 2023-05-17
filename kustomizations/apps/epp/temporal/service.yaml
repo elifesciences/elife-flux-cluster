@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: temporal
+  namespace: epp
+  labels:
+    app_name: epp
+    app_env: ${app_env}
+    app_tier: temporal
+spec:
+  selector:
+    app: temporal
+  ports:
+  - port: 7223
+  - port: 8223

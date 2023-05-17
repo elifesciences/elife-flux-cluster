@@ -16,5 +16,6 @@ resources:
 - storybook
 - storybook/automations/repository.yaml
 - storybook/automations/policy.yaml
+- temporal
 - ingress.yaml
 - ingress-admin.yaml
