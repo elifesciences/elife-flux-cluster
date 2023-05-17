@@ -19,6 +19,7 @@ spec:
   install:
     remediation:
       retries: 5
+  timeout: 10m
 
   values:
     cassandra:
@@ -31,7 +32,7 @@ spec:
     elasticsearch:
       enabled: false
     server:
-      enabled: false
+      enabled: true
       replicaCount: 1
       frontend:
         resources:
