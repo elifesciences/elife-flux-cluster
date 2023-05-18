@@ -32,5 +32,5 @@ spec:
           limits:
             memory: "500Mi"
         ports:
-        - containerPort: 7223
-        - containerPort: 8223
+        - containerPort: 7233
+        - containerPort: 8233

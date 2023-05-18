@@ -11,4 +11,4 @@ spec:
   selector:
     app: temporal
   ports:
-  - port: 8223
+  - port: 8233
