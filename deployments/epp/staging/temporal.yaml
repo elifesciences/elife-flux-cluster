@@ -26,5 +26,5 @@ spec:
       kind: Ingress
       metadata:
         name: temporal
-        annotation:
+        annotations:
           nginx.ingress.kubernetes.io/rewrite-target: /$2
