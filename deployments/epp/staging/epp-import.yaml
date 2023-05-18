@@ -13,8 +13,8 @@ spec:
   prune: true
   targetNamespace: epp--staging
   images:
-  - name: ghcr.io/elifesciences/enhanced-preprints
-    newTag: master-c12351f4-20230517.1457
+  - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
+    newTag: master-87422d23-20230403.0455
   postBuild:
     substitute:
       app_env: staging
