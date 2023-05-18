@@ -12,3 +12,6 @@ spec:
   path: ./kustomizations/services/temporal
   prune: true
   targetNamespace: epp--staging
+  postBuild:
+    substitute:
+      app_env: staging
