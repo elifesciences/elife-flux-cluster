@@ -11,5 +11,7 @@ spec:
   selector:
     app: temporal
   ports:
-  - port: 7223
-  - port: 8223
+  - name: grpc
+    port: 7223
+  - name: ui
+    port: 8223
