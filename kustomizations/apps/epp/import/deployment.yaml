@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: temporal-worker
+  name: epp-import
   namespace: epp
   labels:
     app_name: epp
@@ -14,17 +14,18 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: temporal-worker
+      app: epp-import
   template:
     metadata:
       namespace: epp
       labels:
-        app: temporal-worker
+        app: epp-import
     spec:
+      serviceAccountName: ${serviceaccount_name:=default}
       nodeSelector:
         kubernetes.io/arch: amd64
       containers:
-      - name: epp-server
+      - name: epp-import
         image: ghcr.io/elifesciences/enhanced-preprints-import-worker:latest
         resources:
           requests:

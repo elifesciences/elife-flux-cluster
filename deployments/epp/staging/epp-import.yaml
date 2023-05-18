@@ -21,3 +21,4 @@ spec:
       s3_bucket: staging-elife-epp-data
       epp_server: http://epp-server:3000
       temporal_server: temporal:7233
+      serviceaccount_name: epp-import
