@@ -5,7 +5,7 @@ metadata:
   namespace: temporal
 spec:
   rules:
-  - host: ${hostname}
+  - host: ${ui_hostname}
     http:
       paths:
       - pathType: Prefix
