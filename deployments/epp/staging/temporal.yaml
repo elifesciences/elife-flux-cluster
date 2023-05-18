@@ -16,4 +16,14 @@ spec:
     substitute:
       app_env: staging
       ui_hostname: staging--epp.elifesciences.org
-      ui_path: /temporal
+      ui_path: /temporal(/|$)(.*)
+  patches:
+  - target: Ingress
+    name: temporal
+    patch: |
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata:
+        name: temporal
+        annotation:
+          nginx.ingress.kubernetes.io/rewrite-target: /$2

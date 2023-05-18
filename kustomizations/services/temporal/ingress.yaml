@@ -8,7 +8,7 @@ spec:
   - host: ${ui_hostname}
     http:
       paths:
-      - pathType: Prefix
+      - pathType: ImplementationSpecific
         path: ${ui_path:=/}
         backend:
           service:
