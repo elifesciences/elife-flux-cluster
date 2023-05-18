@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: sciety-labs
-        image: ghcr.io/sciety/sciety-labs_unstable:main-946b4cca-20230518.1356 # {"$imagepolicy": "data-hub:sciety-labs-unstable"}
+        image: ghcr.io/sciety/sciety-labs_unstable:main-d6641be1-20230518.1544 # {"$imagepolicy": "data-hub:sciety-labs-unstable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
