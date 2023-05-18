@@ -18,8 +18,9 @@ spec:
       ui_hostname: staging--epp.elifesciences.org
       ui_path: /temporal(/|$)(.*)
   patches:
-  - target: Ingress
-    name: temporal
+  - target:
+      kind: Ingress
+      name: temporal
     patch: |
       apiVersion: networking.k8s.io/v1
       kind: Ingress
