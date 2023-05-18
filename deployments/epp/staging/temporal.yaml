@@ -15,3 +15,5 @@ spec:
   postBuild:
     substitute:
       app_env: staging
+      ui_hostname: staging--epp.elifesciences.org
+      ui_path: /temporal

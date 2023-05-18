@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: temporal
+  namespace: temporal
+spec:
+  rules:
+  - host: ${hostname}
+    http:
+      paths:
+      - pathType: Prefix
+        path: ${ui_path:=/}
+        backend:
+          service:
+            name: temporal-ui
+            port:
+              number: 8233
