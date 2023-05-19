@@ -31,7 +31,7 @@ spec:
           requests:
             cpu: "100m"
           limits:
-            memory: "500Mi"
+            memory: "1Gi"
         env:
         - name: BUCKET_NAME
           value: ${s3_bucket}
