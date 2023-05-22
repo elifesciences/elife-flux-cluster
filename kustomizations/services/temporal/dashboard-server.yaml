@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: grafana-dashboard-temporal
+  name: grafana-temporal-server-dashboard
   namespace: temporal
   labels:
      grafana_dashboard: "1"
 data:
-  temporal-dashboard.json: |
+  temporal-server-dashboard.json: |
     {
       "annotations": {
         "list": [
