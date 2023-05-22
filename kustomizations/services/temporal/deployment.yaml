@@ -26,6 +26,16 @@ spec:
       containers:
       - name: epp-server
         image: ghcr.io/elifesciences/temporal-cli:latest
+        command:
+          - "/temporal"
+          - "server"
+          - "start-dev"
+          - "--namespace"
+          - "default"
+          - "--ip"
+          - "0.0.0.0"
+          - "--metrics-port"
+          - "9233"
         resources:
           requests:
             cpu: "100m"
@@ -34,3 +44,4 @@ spec:
         ports:
         - containerPort: 7233
         - containerPort: 8233
+        - containerPort: 9233

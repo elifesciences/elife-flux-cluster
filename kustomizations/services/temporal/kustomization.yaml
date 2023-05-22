@@ -6,3 +6,4 @@ resources:
 - service-grpc.yaml
 - service-ui.yaml
 - ingress.yaml
+- podmonitor.yaml
