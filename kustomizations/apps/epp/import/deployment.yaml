@@ -39,3 +39,5 @@ spec:
           value: ${epp_server}
         - name: TEMPORAL_SERVER
           value: ${temporal_server}
+        ports:
+          - containerPort: 9464
