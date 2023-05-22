@@ -55,3 +55,15 @@ spec:
         template:
           spec:
             serviceAccountName: epp-image-server
+  - target:
+      kind: Deployment
+      name: epp-server
+    patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: epp-server
+      spec:
+        template:
+          spec:
+            serviceAccountName: epp-server
