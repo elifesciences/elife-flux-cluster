@@ -42,28 +42,5 @@ spec:
       s3_bucket: staging-elife-epp-data
       image_server_source_static: S3Source
       image_server_s3_bucket: staging-elife-epp-data
-  patches:
-  - target:
-      kind: Deployment
-      name: epp-image-server
-    patch: |
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: epp-image-server
-      spec:
-        template:
-          spec:
-            serviceAccountName: epp-image-server
-  - target:
-      kind: Deployment
-      name: epp-server
-    patch: |
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: epp-server
-      spec:
-        template:
-          spec:
-            serviceAccountName: epp-server
+      image_server_role_arn: arn:aws:iam::512686554592:role/epp-staging-image-server
+      epp_server_role_arn: arn:aws:iam::512686554592:role/epp-staging-epp-server

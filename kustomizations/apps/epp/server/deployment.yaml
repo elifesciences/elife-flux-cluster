@@ -27,6 +27,7 @@ spec:
       containers:
       - name: epp-server
         image: ghcr.io/elifesciences/enhanced-preprints:latest
+        serviceAccountName: epp-server
         resources:
           requests:
             cpu: "200m"
