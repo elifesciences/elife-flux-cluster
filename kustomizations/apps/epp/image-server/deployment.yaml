@@ -22,6 +22,7 @@ spec:
       labels:
         app: epp-image-server
     spec:
+      serviceAccountName: epp-image-server
       containers:
       - name: epp-image-server
         image: ghcr.io/elifesciences/epp-image-server:latest
