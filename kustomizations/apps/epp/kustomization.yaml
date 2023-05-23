@@ -2,10 +2,12 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: epp
 resources:
+- image-server/serviceaccount.yaml
 - image-server/deployment.yaml
 - image-server/service.yaml
 - image-server/automations/repository.yaml
 - image-server/automations/policy.yaml
+- server/serviceaccount.yaml
 - server/deployment.yaml
 - server/service.yaml
 - server/automations/repository.yaml
