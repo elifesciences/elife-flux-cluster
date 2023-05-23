@@ -8,6 +8,7 @@ europePmcLabsLink:
         FROM `elife-data-pipeline.de_proto.v_sciety_event` AS event
         WHERE event_name = 'EvaluationRecorded'
             AND article_doi IS NOT NULL
+            AND NOT is_deleted
   xml:
     providerId: '2112'
     linkTitle: 'Read the evaluations of this preprint'
