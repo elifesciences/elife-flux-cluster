@@ -10,6 +10,6 @@ spec:
     kind: GitRepository
     name: flux-system
   path: ./eks
-  prune: true
+  prune: false
   dependsOn:
     - name: crds
