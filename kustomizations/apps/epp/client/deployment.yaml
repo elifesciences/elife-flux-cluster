@@ -56,3 +56,5 @@ spec:
             cpu: "200m"
             memory: "500Mi"
             ephemeral-storage: "100Mi"
+          limits:
+            memory: "600Mi"

@@ -25,3 +25,5 @@ spec:
           requests:
             cpu: "200m"
             memory: "1.2Gi"
+          limits:
+            memory: "1.2Gi"
