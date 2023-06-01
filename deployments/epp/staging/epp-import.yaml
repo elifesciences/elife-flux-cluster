@@ -14,7 +14,7 @@ spec:
   targetNamespace: epp--staging
   images:
   - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
-    newTag: master-450642dd-20230527.0530 # {"$imagepolicy": "epp--staging:epp-import:tag"}
+    newTag: master-2ac9ee6f-20230601.1842 # {"$imagepolicy": "epp--staging:epp-import:tag"}
   postBuild:
     substitute:
       app_env: staging
