@@ -40,7 +40,6 @@ spec:
         cpu: "10m"
         memory: "50Mi"
       limits:
-        cpu: "100m"
         memory: "100Mi"
     customConfig:
       data_dir: /vector-data-dir
