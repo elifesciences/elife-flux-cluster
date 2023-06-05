@@ -37,6 +37,7 @@ spec:
       compactor:
         retention_enabled: true
         retention_delete_delay: "10m"
+        compaction_interval: "10m"
       limits_config:
         retention_period: 744h
 
