@@ -24,6 +24,8 @@ spec:
   values:
     singleBinary:
       replicas: 1
+      persistence:
+        size: 20Gi
     loki:
       auth_enabled: false
       commonConfig:
