@@ -36,6 +36,7 @@ spec:
         log_level: info
       compactor:
         retention_enabled: true
+        retention_delete_delay: "10m"
       limits_config:
         retention_period: 744h
 
