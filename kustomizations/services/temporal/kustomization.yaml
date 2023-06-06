@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: temporal
+resources:
+- deployment.yaml
+- service-grpc.yaml
+- service-ui.yaml
+- ingress.yaml
+- podmonitor.yaml
+- dashboard-server.yaml
+- dashboard-sdk.yaml

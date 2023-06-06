@@ -14,17 +14,18 @@ spec:
   targetNamespace: epp--staging
   images:
   - name: ghcr.io/elifesciences/enhanced-preprints
-    newTag: master-9c5c490f-20230422.0435 # {"$imagepolicy": "epp--staging:epp-server:tag"}
+    newTag: master-dacc5308-20230605.2155 # {"$imagepolicy": "epp--staging:epp-server:tag"}
   - name: ghcr.io/elifesciences/epp-image-server
     newTag: master-e53d15f3-20230307.0757 # {"$imagepolicy": "epp--prod:epp-image-server:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-client
-    newTag: master-e956fbc1-20230424.2133 # {"$imagepolicy": "epp--staging:epp-client:tag"}
+    newTag: master-685b1bf5-20230606.0319 # {"$imagepolicy": "epp--staging:epp-client:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-    newTag: master-e956fbc1-20230424.2151 # {"$imagepolicy": "epp--staging:epp-storybook:tag"}
+    newTag: master-685b1bf5-20230606.0339 # {"$imagepolicy": "epp--staging:epp-storybook:tag"}
   postBuild:
     substitute:
       app_env: staging
       app_hostname: staging--epp.elifesciences.org
+      data_hub_api: https://data-hub-api--stg.elifesciences.org/enhanced-preprints/docmaps/v1/by-publisher/elife/get-by-manuscript-id?manuscript_id=
       storybook_hostname: staging--epp-storybook.elifesciences.org
       journal_api_hostname: staging--epp-api.elifesciences.org
       asset_prefix: https://continuumtest--journal.elifesciences.org/reviewed-preprints
@@ -41,3 +42,5 @@ spec:
       s3_bucket: staging-elife-epp-data
       image_server_source_static: S3Source
       image_server_s3_bucket: staging-elife-epp-data
+      image_server_role_arn: arn:aws:iam::512686554592:role/epp-staging-image-server
+      epp_server_role_arn: arn:aws:iam::512686554592:role/epp-staging-epp-server

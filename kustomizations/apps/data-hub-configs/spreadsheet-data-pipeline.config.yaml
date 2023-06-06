@@ -49,3 +49,14 @@ spreadsheets:
         datasetName: "{ENV}"
         tableName: 'unmatched_manuscripts'
         tableWriteAppend: true
+
+  # deleted hypothesis annotations
+  - spreadsheetId: '1naXfcCxvTC8fLPhR8K1znC9B5DMxGP7HMpp-2CcO_sY'
+    sheets:
+      - sheetName: 'deleted_hypothesis_list'
+        sheetRange: ''
+        headerLineIndex: 0
+        dataValuesStartLineIndex: 1
+        datasetName: "{ENV}"
+        tableName: 'deleted_hypothesis_annotations'
+        tableWriteAppend: true

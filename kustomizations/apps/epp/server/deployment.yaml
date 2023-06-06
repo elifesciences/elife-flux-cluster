@@ -22,6 +22,7 @@ spec:
       labels:
         app: epp-server
     spec:
+      serviceAccountName: epp-server
       nodeSelector:
         kubernetes.io/arch: amd64
       containers:
@@ -47,6 +48,8 @@ spec:
             secretKeyRef:
               name: ${mongodb_secret_name:=mongodb-psmdb-db-secrets}
               key: ${mongodb_secret_pass_key:=MONGODB_DATABASE_ADMIN_PASSWORD}
+        - name: DOCMAPS_API
+          value: ${data_hub_api:="https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v1/by-publisher/elife/get-by-manuscript-id?manuscript_id="}
         - name: S3_SESSION_TOKEN
           value: "/var/run/secrets/eks.amazonaws.com/serviceaccount/token"
         - name: S3_BUCKET

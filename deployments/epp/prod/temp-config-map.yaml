@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: epp-prod-temp-reviews-override
+  namespace: epp--prod
+data:
+  reviews.json: |
+    {}

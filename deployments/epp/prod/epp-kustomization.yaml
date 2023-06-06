@@ -14,13 +14,13 @@ spec:
   targetNamespace: epp--prod
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints
-      newTag: master-9c5c490f-20230422.0435 # {"$imagepolicy": "epp--prod:epp-server:tag"}
+      newTag: master-dacc5308-20230605.2155 # {"$imagepolicy": "epp--prod:epp-server:tag"}
     - name: ghcr.io/elifesciences/epp-image-server
-      newTag: master-e98296e1-20230316.0421 # {"$imagepolicy": "epp--prod:epp-image-server:tag"}
+      newTag: master-05170692-20230602.1522 # {"$imagepolicy": "epp--prod:epp-image-server:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-client
-      newTag: master-e956fbc1-20230424.2133 # {"$imagepolicy": "epp--prod:epp-client:tag"}
+      newTag: master-685b1bf5-20230606.0319 # {"$imagepolicy": "epp--prod:epp-client:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-      newTag: master-e956fbc1-20230424.2151 # {"$imagepolicy": "epp--prod:epp-storybook:tag"}
+      newTag: master-685b1bf5-20230606.0339 # {"$imagepolicy": "epp--prod:epp-storybook:tag"}
   postBuild:
     substitute:
       app_env: prod
@@ -41,3 +41,27 @@ spec:
       s3_bucket: prod-elife-epp-data
       image_server_source_static: S3Source
       image_server_s3_bucket: prod-elife-epp-data
+      image_server_role_arn: arn:aws:iam::512686554592:role/epp-prod-image-server
+      epp_server_role_arn: arn:aws:iam::512686554592:role/epp-prod-epp-server
+  patches:
+    - target:
+        name: epp-client
+        kind: Deployment
+      patch: |
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: epp-client
+        spec:
+          template:
+            spec:
+              containers:
+              - name: epp-client
+                volumeMounts:
+                - name: reviews-config
+                  mountPath: /opt/epp-client/reviews.json
+                  subPath: reviews.json
+              volumes:
+              - name: reviews-config
+                configMap:
+                  name: epp-prod-temp-reviews-override
