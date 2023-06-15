@@ -1,0 +1,43 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: epp--staging
+  namespace: epp--automation-staging
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kustomizations/apps/epp/client
+  prune: true
+  targetNamespace: epp--automation-staging
+  images:
+  - name: ghcr.io/elifesciences/enhanced-preprints-client
+    newTag: master-14b34fe0-20230614.0712 # {"$imagepolicy": "epp--staging:epp-client:tag"}
+  postBuild:
+    substitute:
+      app_env: epp--automation-staging
+      app_hostname: automation-staging--epp.elifesciences.org
+      epp_server: http://epp-server.epp--staging:3000
+      asset_prefix: https://automation-staging--epp.elifesciences.org
+      iiif_server: https://staging--epp.elifesciences.org/iiif
+      client_replicas: "1"
+  patches:
+  - target:
+      kind: Deployment
+      name: epp-client
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: epp-client
+        namespace: epp
+      spec:
+        template:
+          spec:
+            containers:
+            - name: epp-client
+              env:
+              - name: IS_AUTOMATED
+                value: 1
