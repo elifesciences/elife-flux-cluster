@@ -1,0 +1,28 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: epp--preview-816
+  namespace: epp--previews
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kustomizations/apps/epp/preview
+  prune: true
+  targetNamespace: epp--preview-816
+  images:
+    - name: ghcr.io/elifesciences/enhanced-preprints-client
+      newTag: preview-816@sha256:e235c3bb2679fae1121e1d7b8f804add43291905b76ef6d51878009ce0cbe5b0
+    - name: ghcr.io/elifesciences/enhanced-preprints-storybook
+      newTag: preview-816@sha256:96be0652a4ee819718d41102dcbfc89e814eb64ff0df386bfec49d2cb45730ce
+  postBuild:
+    substitute:
+      app_env: epp--preview-816
+      app_hostname: pr-816--epp.elifesciences.org
+      storybook_hostname: pr-816--epp-storybook.elifesciences.org
+      epp_server: http://epp-server.epp--staging:3000
+      asset_prefix: https://pr-816--epp.elifesciences.org
+      iiif_server: https://staging--epp.elifesciences.org/iiif
+      client_replicas: "1"
