@@ -8,10 +8,8 @@ metadata:
     app_env: ${app_env}
     app_tier: import
 spec:
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+  serviceName: temporal
+  replicas: 1
   selector:
     matchLabels:
       app: temporal
