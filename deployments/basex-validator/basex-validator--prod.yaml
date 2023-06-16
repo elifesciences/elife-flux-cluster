@@ -26,4 +26,4 @@ spec:
       maxUnavailable: 1
       image:
         repository: docker.io/elifesciences/basex-validator # {"$imagepolicy": "basex-validator:basex-validator-stable:name"}
-        tag: master-de4580e6-20230616.0728 # {"$imagepolicy": "basex-validator:basex-validator-stable:tag"}
+        tag: master-04c9312e-20230616.1514 # {"$imagepolicy": "basex-validator:basex-validator-stable:tag"}
