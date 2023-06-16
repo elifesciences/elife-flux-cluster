@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: temporal
   namespace: temporal
@@ -8,10 +8,8 @@ metadata:
     app_env: ${app_env}
     app_tier: import
 spec:
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+  serviceName: temporal
+  replicas: 1
   selector:
     matchLabels:
       app: temporal
@@ -36,6 +34,8 @@ spec:
           - "0.0.0.0"
           - "--metrics-port"
           - "9233"
+          - "--db-filename"
+          - "/data/temporal.sqlite"
         resources:
           requests:
             cpu: "100m"
@@ -45,3 +45,14 @@ spec:
         - containerPort: 7233
         - containerPort: 8233
         - containerPort: 9233
+        volumeMounts:
+        - name: temporal-data
+          mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: temporal-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 10Gi
