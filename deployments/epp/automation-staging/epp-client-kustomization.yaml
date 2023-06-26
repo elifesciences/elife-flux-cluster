@@ -17,7 +17,7 @@ spec:
     newTag: master-14b34fe0-20230614.0712 # {"$imagepolicy": "epp--automation-staging:epp-client:tag"}
   postBuild:
     substitute:
-      app_env: epp--automation-staging
+      app_env: automation-staging
       app_hostname: automation-staging--epp.elifesciences.org
       epp_server: http://epp-server.epp--staging:3000
       asset_prefix: https://automation-staging--epp.elifesciences.org

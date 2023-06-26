@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: epp-admin
+  namespace: epp--automation-staging
+  labels:
+    app_name: epp
+    app_env: automation-staging
+  annotations:
+    nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
+    nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+spec:
+  rules:
+  - host: automation-staging--epp.elifesciences.org
+    http:
+      paths:
+      - path: /import
+        pathType: Prefix
+        backend:
+          service:
+            name: epp-server
+            port:
+              number: 3000
