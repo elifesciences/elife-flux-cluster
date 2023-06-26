@@ -20,7 +20,7 @@ spec:
     - name: ghcr.io/elifesciences/enhanced-preprints-client
       newTag: master-ae6f6d4a-20230624.0116 # {"$imagepolicy": "epp--prod:epp-client:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-      newTag: master-ae6f6d4a-20230624.0136 # {"$imagepolicy": "epp--prod:epp-storybook:tag"}
+      newTag: master-63a6df28-20230626.1101 # {"$imagepolicy": "epp--prod:epp-storybook:tag"}
   postBuild:
     substitute:
       app_env: prod
