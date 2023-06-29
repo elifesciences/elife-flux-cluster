@@ -74,6 +74,8 @@ jobs:
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n logging       loki
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=15m -n monitoring   newrelic
           kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n db-operator-system psmdb-operator
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n db-operator-system pxc-operator
+          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n db-operator-system pg-operator
       - name: Verify deployment manifests
         run: |
           kubectl wait deployment --for=condition=Available --timeout=5m -n podinfo  podinfo--prod
