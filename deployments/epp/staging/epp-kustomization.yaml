@@ -42,6 +42,7 @@ spec:
       s3_bucket: staging-elife-epp-data
       image_server_source_static: S3Source
       image_server_s3_bucket: staging-elife-epp-data
+      image_server_prefix: automation/
       image_server_role_arn: arn:aws:iam::512686554592:role/epp-staging-image-server
       epp_server_role_arn: arn:aws:iam::512686554592:role/epp-staging-epp-server
       is_automated: "automated"
