@@ -12,8 +12,8 @@ spec:
   - name: ./cert-manager.rules
     rules:
     - alert: cert-manager
-      expr: sum (certmanager_certificate_ready_status) != count (count by (name) (certmanager_certificate_ready_status))
+      expr: sum (certmanager_certificate_ready_status) != count (count by (exported_namespace, name) (certmanager_certificate_ready_status))
       for: 5m
       annotations:
         message: |
-          At least one SSL cert manageged by cert-manage is not in a ready state.
+          At least one SSL cert manageged by cert-manager is not in a ready state.
