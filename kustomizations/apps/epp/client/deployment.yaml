@@ -44,6 +44,8 @@ spec:
           value: ${cookie_bot_id:=''}
         - name: ARTICLE_CACHE_AGE
           value: '1800'
+        - name: IS_AUTOMATION
+          value: ${is_automation:-''}
         readinessProbe:
           httpGet:
             path: /
