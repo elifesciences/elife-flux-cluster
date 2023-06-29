@@ -45,7 +45,7 @@ spec:
         - name: ARTICLE_CACHE_AGE
           value: '1800'
         - name: IS_AUTOMATED
-          value: "${is_automated:=''}"
+          value: ${is_automated:=''}
         readinessProbe:
           httpGet:
             path: /
