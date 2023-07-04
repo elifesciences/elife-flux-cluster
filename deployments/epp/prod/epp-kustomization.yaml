@@ -25,7 +25,7 @@ spec:
     substitute:
       app_env: prod
       app_hostname: prod--epp.elifesciences.org
-      # data_hub_api: https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v2/by-publisher/elife/get-by-manuscript-id?manuscript_id=
+      data_hub_api: https://data-hub-api--stg.elifesciences.org/enhanced-preprints/docmaps/v1/by-publisher/elife/get-by-manuscript-id?manuscript_id=
       storybook_hostname: prod--epp-storybook.elifesciences.org
       journal_api_hostname: prod--epp-api.elifesciences.org
       asset_prefix: https://elifesciences.org/reviewed-preprints
