@@ -97,3 +97,15 @@ spec:
             effect: "NoSchedule"
           nodeSelector:
             kubernetes.io/hostname: elife-flux-cluster-control-plane
+  - target:
+      kind: HelmRelease
+      name: loki
+    patch: |
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
+        name: loki
+        namespace: logging
+      spec:
+        install:
+          disableWait: true

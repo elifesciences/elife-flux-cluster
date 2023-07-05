@@ -12,7 +12,7 @@ helmrelease ready infra external-dns
 helmrelease ready infra oauth2-proxy
 helmrelease ready kube-system descheduler
 helmrelease ready monitoring metrics-server
-helmrelease ready logging loki-stack
+helmrelease ready logging loki
 helmrelease ready monitoring newrelic
 helmrelease ready db-operator-system psmdb-operator
 helmrelease ready db-operator-system pxc-operator
