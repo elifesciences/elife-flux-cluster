@@ -9,7 +9,47 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./deployments/podinfo
+  path: ./deployments
   prune: true
   dependsOn:
     - name: system
+  patches:
+  - target:
+      kind: HelmRelease
+      name: data-hub--prod
+    patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
+        name: not-important
+      spec:
+        values:
+          postgresql:
+            persistence:
+              enabled: false
+  - target:
+      kind: HelmRelease
+      name: data-hub--stg
+    patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
+        name: not-important
+      spec:
+        values:
+          postgresql:
+            persistence:
+              enabled: false
+  - target:
+      kind: HelmRelease
+      name: data-hub--test
+    patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
+        name: not-important
+      spec:
+        values:
+          postgresql:
+            persistence:
+              enabled: false

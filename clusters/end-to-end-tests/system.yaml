@@ -17,7 +17,7 @@ spec:
   patches:
   # in a small cluster like kind or minikube the load balancer won't get an external IP.
   # Therefore, we need to disable waiting
-  - patch: |-
+  - patch: |
       apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
       metadata:
@@ -26,10 +26,28 @@ spec:
       spec:
         install:
           disableWait: true
+        values:
+          controller:
+            tolerations:
+            - key: "realnode"
+              operator: "Equal"
+              value: "true"
+              effect: "NoSchedule"
+            nodeSelector:
+              kubernetes.io/hostname: elife-flux-cluster-control-plane
+            admissionWebhooks:
+              patch:
+                tolerations:
+                - key: "realnode"
+                  operator: "Equal"
+                  value: "true"
+                  effect: "NoSchedule"
+                nodeSelector:
+                  kubernetes.io/hostname: elife-flux-cluster-control-plane
     target:
       kind: HelmRelease
       name: ingress-nginx
-  - patch: |-
+  - patch: |
       apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
       metadata:
@@ -41,7 +59,7 @@ spec:
     target:
       kind: HelmRelease
       name: sealed-secrets
-  - patch: |-
+  - patch: |
       apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
       metadata:
@@ -51,6 +69,43 @@ spec:
         values:
           args:
             - --kubelet-insecure-tls
+          tolerations:
+          - key: "realnode"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
+          nodeSelector:
+            kubernetes.io/hostname: elife-flux-cluster-control-plane
     target:
       kind: HelmRelease
       name: metrics-server
+  - target:
+      kind: HelmRelease
+      name: loki
+    patch: |
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
+        name: loki
+        namespace: logging
+      spec:
+        install:
+          disableWait: true
+  - patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
+        name: vector
+        namespace: logging
+      spec:
+        values:
+          tolerations:
+          - key: "realnode"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
+          nodeSelector:
+            kubernetes.io/hostname: elife-flux-test-control-plane
+    target:
+      kind: HelmRelease
+      name: vector

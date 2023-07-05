@@ -16,8 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Setup additional tools
-        uses: ./.github/actions/tools
       - name: Find Flux version
         id: flux-version
         uses: mikefarah/yq@master
@@ -32,56 +30,13 @@ jobs:
         uses: engineerd/setup-kind@v0.5.0
         with:
           version: "v0.18.0"
-      # This step exists because the sealed secrets will fail to decode, so some service fail to deploy without *a* secret, even if it is just nonsense
-      - name: Pre-requisite setup for services (unsealable secrets)
-        run: |
-          kubectl create ns infra
-          kubectl create secret -n infra  generic oauth2-github --from-literal=client-id=client-id --from-literal=client-secret=client-secret --from-literal=cookie-secret=cookie-secret-16
-          kubectl create secret -n infra  generic oauth2-proxy--flux-prod-github --from-literal=client-id=client-id --from-literal=client-secret=client-secret --from-literal=cookie-secret=cookie-secret-16
-          kubectl create ns monitoring
-          kubectl create secret -n monitoring generic newrelic-license --from-literal=prod=prod
-      - name: Reduce resources requests from kind cluster components
-        run: |
-          kubectl scale deployment -n kube-system coredns --replicas=1
-          kubectl set resources deployment -n kube-system coredns --requests=cpu=0,memory=0
-          kubectl set resources daemonset -n kube-system kindnet --requests=cpu=0,memory=0
-      - name: Install Flux v2
-        run: flux install --components-extra=image-reflector-controller,image-automation-controller
-      - name: Setup flux reconciliation
-        run: |
-          flux create source git flux-system \
-          --url=${{ github.event.repository.html_url }} \
-          --branch=${GITHUB_REF#refs/heads/}
-          flux create kustomization flux-system \
-          --source=flux-system \
-          --path=./clusters/end-to-end-tests
-      - name: Verify cluster kustomization reconciliation
-        run: |
-          kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n flux-system crds
-          kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n flux-system system
-          kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n flux-system deployments
-      - name: Verify system helm reconciliations
-        run: |
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n autoscaler    cluster-autoscaler
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=10m -n infra         sealed-secrets
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         ingress-nginx
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         cert-manager
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         external-dns
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n infra         oauth2-proxy
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n kube-system   descheduler
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=7m -n monitoring    prometheus-stack
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n monitoring    metrics-server
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n logging       loki
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=15m -n monitoring   newrelic
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n db-operator-system psmdb-operator
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n db-operator-system pxc-operator
-          kubectl wait helmreleases.helm.toolkit.fluxcd.io --for=condition=ready --timeout=5m -n db-operator-system pg-operator
-      - name: Verify deployment manifests
-        run: |
-          kubectl wait deployment --for=condition=Available --timeout=5m -n podinfo  podinfo--prod
+          skipClusterCreation: true
+      - name: Create a test cluster, deploy this branch, and then test resources come up
+        run: ./scripts/run_cluster_in_kind.sh ${GITHUB_REF#refs/heads/}
       - name: Debug failure summaries
         if: failure()
         run: |
+          kubectl get pods -A -o wide
           flux get all --all-namespaces
           helm list -A
           kubectl -n flux-system get all

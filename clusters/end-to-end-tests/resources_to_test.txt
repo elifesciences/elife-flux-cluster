@@ -1,0 +1,44 @@
+# Test all kustomizations have reconciled
+kustomizations.kustomize.toolkit.fluxcd.io ready flux-system crds
+kustomizations.kustomize.toolkit.fluxcd.io ready flux-system system
+kustomizations.kustomize.toolkit.fluxcd.io ready flux-system deployments
+
+# Test all system resources have "deployed"
+helmrelease ready autoscaler cluster-autoscaler
+helmrelease ready infra sealed-secrets
+helmrelease ready infra ingress-nginx
+helmrelease ready infra cert-manager
+helmrelease ready infra external-dns
+helmrelease ready infra oauth2-proxy
+helmrelease ready kube-system descheduler
+helmrelease ready monitoring metrics-server
+helmrelease ready logging loki
+helmrelease ready monitoring newrelic
+helmrelease ready db-operator-system psmdb-operator
+helmrelease ready db-operator-system pxc-operator
+helmrelease ready db-operator-system pg-operator
+helmrelease ready monitoring prometheus-stack
+
+kustomizations.kustomize.toolkit.fluxcd.io ready monitoring monitoring-flux
+
+# Test all deployments
+helmrelease ready basex-validator basex-validator
+deployment Available data-hub data-hub-api--prod
+deployment Available data-hub data-hub-api--stg
+deployment Available data-hub sciety-labs--prod
+deployment Available data-hub sciety-labs--stg
+deployment Available data-hub test-ftpserver
+deployment Available epp--prod epp-client
+deployment Available epp--prod epp-image-server
+deployment Available epp--prod epp-server
+deployment Available epp--prod epp-storybook
+deployment Available epp--staging epp-client
+deployment Available epp--staging epp-image-server
+deployment Available epp--staging epp-server
+deployment Available epp--staging epp-storybook
+helmrelease ready peerscout peerscout--prod
+helmrelease ready peerscout peerscout--prod
+deployment Available podinfo podinfo--prod
+helmrelease ready data-hub data-hub--prod
+helmrelease ready data-hub data-hub--stg
+helmrelease ready data-hub data-hub--test
