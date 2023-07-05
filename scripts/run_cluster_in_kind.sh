@@ -11,7 +11,7 @@ branch=${1:-master}
 echo "Building KinD cluster using '$branch' branch"
 
 kind delete cluster --name "$name"
-kind create cluster --name "$name" --image=kindest/node:v1.25.8
+kind create cluster --name "$name" --image=kindest/node:v1.27.3
 
 # install kwok into cluster
 kubectl kustomize scripts/kwok/deploy_config | kubectl apply -f -
