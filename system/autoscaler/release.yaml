@@ -9,14 +9,14 @@ spec:
   chart:
     spec:
       chart: cluster-autoscaler
-      version: 9.29.0
+      version: 9.29.1
       sourceRef:
         kind: HelmRepository
         name: cluster-autoscaler
       interval: 1m
   values:
     image:
-      tag: v1.25.1
+      tag: v1.26.3
     autoDiscovery:
       clusterName: kubernetes-aws--flux-prod
       tags:

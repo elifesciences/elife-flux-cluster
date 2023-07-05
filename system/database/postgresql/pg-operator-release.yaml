@@ -2,26 +2,23 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: cert-manager
-  namespace: infra
+  name: pg-operator
+  namespace: db-operator-system
 
 spec:
   interval: 1m
-  releaseName: infra-cert-manager
+  releaseName: pg-operator
   chart:
     spec:
-      chart: cert-manager
-      version: v1.12.2
+      chart: pg-operator
+      version: 1.4.0
       sourceRef:
         kind: HelmRepository
-        name: cert-manager
+        name: percona
       interval: 1m
   install:
     remediation:
       retries: 5
 
   values:
-    installCRDs: false
-    prometheus:
-      servicemonitor:
-        enabled: true
+    watchAllNamespaces: true

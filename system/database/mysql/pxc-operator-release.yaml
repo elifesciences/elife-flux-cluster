@@ -2,26 +2,23 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: cert-manager
-  namespace: infra
+  name: pxc-operator
+  namespace: db-operator-system
 
 spec:
   interval: 1m
-  releaseName: infra-cert-manager
+  releaseName: pxc-operator
   chart:
     spec:
-      chart: cert-manager
-      version: v1.12.2
+      chart: pxc-operator
+      version: 1.12.2
       sourceRef:
         kind: HelmRepository
-        name: cert-manager
+        name: percona
       interval: 1m
   install:
     remediation:
       retries: 5
 
   values:
-    installCRDs: false
-    prometheus:
-      servicemonitor:
-        enabled: true
+    watchAllNamespaces: true

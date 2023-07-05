@@ -1,7 +1,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: epp--preview-780
+  name: epp--preview-837
   namespace: epp--previews
 spec:
   interval: 1m0s
@@ -11,18 +11,19 @@ spec:
     namespace: flux-system
   path: ./kustomizations/apps/epp/preview
   prune: true
-  targetNamespace: epp--preview-780
+  targetNamespace: epp--preview-837
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints-client
-      newTag: preview-780@sha256:9da681399a854ff3b010d54261be386dbac33c81154d213d47ebc326eb54c76c
+      newTag: preview-837@sha256:9a49584e444335080375b6e62af862215d4c1ff595f8876fc1c72271ef549ea9
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-      newTag: preview-780@sha256:2511ccb518378cfa9010246c6e2c7b3ab1fd474aafd14509674d247a5ec583a4
+      newTag: preview-837@sha256:dc227504f7341b8b16eb1ec7780689353d13315d28b5292f8d5805bcb11250e1
   postBuild:
     substitute:
-      app_env: epp--preview-780
-      app_hostname: pr-780--epp.elifesciences.org
-      storybook_hostname: pr-780--epp-storybook.elifesciences.org
+      app_env: epp--preview-837
+      app_hostname: pr-837--epp.elifesciences.org
+      storybook_hostname: pr-837--epp-storybook.elifesciences.org
       epp_server: http://epp-server.epp--staging:3000
-      asset_prefix: https://pr-780--epp.elifesciences.org
+      asset_prefix: https://pr-837--epp.elifesciences.org
       iiif_server: https://staging--epp.elifesciences.org/iiif
       client_replicas: "1"
+      is_automated: "automated"
