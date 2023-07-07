@@ -31,8 +31,10 @@ jobs:
         with:
           version: "v0.18.0"
           skipClusterCreation: true
-      - name: Create a test cluster, deploy this branch, and then test resources come up
-        run: ./scripts/run_cluster_in_kind.sh ${GITHUB_REF#refs/heads/}
+      - name: Create a test cluster and deploy this branch
+        run: ./tests/run_cluster_in_kind.sh ${GITHUB_REF#refs/heads/}
+      - name: then test resources come up
+        run: ./tests/run_tests.sh
       - name: Debug failure summaries
         if: failure()
         run: |
