@@ -31,15 +31,39 @@ jobs:
         with:
           version: "v0.18.0"
           skipClusterCreation: true
-      - name: Create a test cluster, deploy this branch, and then test resources come up
-        run: ./scripts/run_cluster_in_kind.sh ${GITHUB_REF#refs/heads/}
+      - name: Create a test cluster and deploy this branch
+        run: ./tests/run_cluster_in_kind.sh ${GITHUB_REF#refs/heads/}
+      - name: Test resources come up
+        run: ./tests/run_tests.sh
       - name: Debug failure summaries
         if: failure()
         run: |
+          echo "PODS"
+          echo "===="
           kubectl get pods -A -o wide
+          echo ""
+          echo "deployments"
+          echo "==========="
+          kubectl get deployments -A -o wide
+          echo ""
+          echo "statefulsets"
+          echo "============"
+          kubectl get deployments -A -o wide
+          echo ""
+          echo "flux objects"
+          echo "==========="
           flux get all --all-namespaces
+          echo ""
+          echo "helm releases"
+          echo "==========="
           helm list -A
+          echo ""
+          echo "everything in flux-system namespace"
+          echo "==========="
           kubectl -n flux-system get all
+          echo ""
+          echo "all HelmRelease objects"
+          echo "==========="
           kubectl get helmreleases.helm.toolkit.fluxcd.io --all-namespaces
       - name: Debug describe nodes
         if: failure()
