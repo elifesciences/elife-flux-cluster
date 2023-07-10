@@ -13,6 +13,12 @@ spec:
         kind: GitRepository
         name: peerscout--prod
       interval: 1m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
   values:
     image:
       repository: docker.io/elifesciences/data-science-dags_peerscout-api # {"$imagepolicy": "peerscout:peerscout-stable:name"}
