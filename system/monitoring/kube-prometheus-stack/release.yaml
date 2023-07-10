@@ -86,6 +86,7 @@ spec:
             memory: 2000Mi
           requests:
             memory: 1300Mi
+            ephemeral-storage: 10Mi
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         ruleSelector:
