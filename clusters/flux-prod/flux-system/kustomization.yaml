@@ -11,20 +11,20 @@ patches:
     namespace: flux-system
     name: kustomize-controller
   patch: |-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: kustomize-controller
-  namespace: flux-system
-spec:
-  template:
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: kustomize-controller
+      namespace: flux-system
     spec:
-      containers:
-      - name: manager
-        resources:
-          limits:
-            cpu: 1500m
-            memory: 1Gi
-          requests:
-            cpu: 500m
-            memory: 256Mi
+      template:
+        spec:
+          containers:
+          - name: manager
+            resources:
+              limits:
+                cpu: 1500m
+                memory: 1Gi
+              requests:
+                cpu: 500m
+                memory: 256Mi
