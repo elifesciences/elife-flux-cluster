@@ -1,1 +1,402 @@
-{"payload":{"allShortcutsEnabled":false,"fileTree":{"charts/template-controller/crds":{"items":[{"name":"templates.kluctl.io_githubcomments.yaml","path":"charts/template-controller/crds/templates.kluctl.io_githubcomments.yaml","contentType":"file"},{"name":"templates.kluctl.io_gitlabcomments.yaml","path":"charts/template-controller/crds/templates.kluctl.io_gitlabcomments.yaml","contentType":"file"},{"name":"templates.kluctl.io_gitprojectors.yaml","path":"charts/template-controller/crds/templates.kluctl.io_gitprojectors.yaml","contentType":"file"},{"name":"templates.kluctl.io_listgithubpullrequests.yaml","path":"charts/template-controller/crds/templates.kluctl.io_listgithubpullrequests.yaml","contentType":"file"},{"name":"templates.kluctl.io_listgitlabmergerequests.yaml","path":"charts/template-controller/crds/templates.kluctl.io_listgitlabmergerequests.yaml","contentType":"file"},{"name":"templates.kluctl.io_objecthandlers.yaml","path":"charts/template-controller/crds/templates.kluctl.io_objecthandlers.yaml","contentType":"file"},{"name":"templates.kluctl.io_objecttemplates.yaml","path":"charts/template-controller/crds/templates.kluctl.io_objecttemplates.yaml","contentType":"file"},{"name":"templates.kluctl.io_texttemplates.yaml","path":"charts/template-controller/crds/templates.kluctl.io_texttemplates.yaml","contentType":"file"}],"totalCount":8},"charts/template-controller":{"items":[{"name":"crds","path":"charts/template-controller/crds","contentType":"directory"},{"name":"templates","path":"charts/template-controller/templates","contentType":"directory"},{"name":".helmignore","path":"charts/template-controller/.helmignore","contentType":"file"},{"name":"CHANGELOG.md","path":"charts/template-controller/CHANGELOG.md","contentType":"file"},{"name":"Chart.yaml","path":"charts/template-controller/Chart.yaml","contentType":"file"},{"name":"README.md","path":"charts/template-controller/README.md","contentType":"file"},{"name":"values.yaml","path":"charts/template-controller/values.yaml","contentType":"file"}],"totalCount":7},"charts":{"items":[{"name":"flux-kluctl-controller","path":"charts/flux-kluctl-controller","contentType":"directory"},{"name":"template-controller","path":"charts/template-controller","contentType":"directory"}],"totalCount":2},"":{"items":[{"name":".github","path":".github","contentType":"directory"},{"name":"charts","path":"charts","contentType":"directory"},{"name":".gitignore","path":".gitignore","contentType":"file"},{"name":"README.md","path":"README.md","contentType":"file"},{"name":"Taskfile.yml","path":"Taskfile.yml","contentType":"file"},{"name":"cr.yaml","path":"cr.yaml","contentType":"file"},{"name":"ct.yaml","path":"ct.yaml","contentType":"file"},{"name":"install-charts.gif","path":"install-charts.gif","contentType":"file"}],"totalCount":8}},"fileTreeProcessingTime":9.333055,"foldersToFetch":[],"reducedMotionEnabled":null,"repo":{"id":530971728,"defaultBranch":"main","name":"charts","ownerLogin":"kluctl","currentUserCanPush":false,"isFork":false,"isEmpty":false,"createdAt":"2022-08-31T07:07:05.000Z","ownerAvatar":"https://avatars.githubusercontent.com/u/102245272?v=4","public":true,"private":false,"isOrgOwned":true},"refInfo":{"name":"template-controller-0.2.2","listCacheKey":"v0:1687939091.0","canEdit":false,"refType":"tag","currentOid":"106c868a0a57eb467f85a4240cc98d3e9c15fc17"},"path":"charts/template-controller/crds/templates.kluctl.io_objecthandlers.yaml","currentUser":null,"blob":{"rawBlob":"---\napiVersion: apiextensions.k8s.io/v1\nkind: CustomResourceDefinition\nmetadata:\n  annotations:\n    controller-gen.kubebuilder.io/version: v0.9.2\n  creationTimestamp: null\n  name: objecthandlers.templates.kluctl.io\nspec:\n  group: templates.kluctl.io\n  names:\n    kind: ObjectHandler\n    listKind: ObjectHandlerList\n    plural: objecthandlers\n    singular: objecthandler\n  scope: Namespaced\n  versions:\n  - name: v1alpha1\n    schema:\n      openAPIV3Schema:\n        description: ObjectHandler is the Schema for the objecthandlers API\n        properties:\n          apiVersion:\n            description: 'APIVersion defines the versioned schema of this representation\n              of an object. Servers should convert recognized schemas to the latest\n              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'\n            type: string\n          kind:\n            description: 'Kind is a string value representing the REST resource this\n              object represents. Servers may infer this from the endpoint the client\n              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'\n            type: string\n          metadata:\n            type: object\n          spec:\n            description: ObjectHandlerSpec defines the desired state of ObjectHandler\n            properties:\n              forObject:\n                properties:\n                  apiVersion:\n                    type: string\n                  kind:\n                    type: string\n                  name:\n                    type: string\n                  namespace:\n                    type: string\n                required:\n                - apiVersion\n                - kind\n                - name\n                type: object\n              handlers:\n                items:\n                  properties:\n                    pullRequestApprove:\n                      properties:\n                        github:\n                          properties:\n                            owner:\n                              description: Owner specifies the GitHub user or organisation\n                                that owns the repository\n                              type: string\n                            pullRequestId:\n                              description: PullRequestId specifies the pull request\n                                ID.\n                              type: integer\n                            repo:\n                              description: Repo specifies the repository name.\n                              type: string\n                            tokenRef:\n                              description: TokenRef specifies a secret and key to\n                                load the GitHub API token from\n                              properties:\n                                key:\n                                  type: string\n                                secretName:\n                                  type: string\n                              required:\n                              - key\n                              - secretName\n                              type: object\n                          required:\n                          - owner\n                          - pullRequestId\n                          - repo\n                          type: object\n                        gitlab:\n                          properties:\n                            api:\n                              description: API specifies the GitLab API URL to talk\n                                to. If blank, uses https://gitlab.com/.\n                              type: string\n                            mergeRequestId:\n                              description: MergeRequestId specifies the Gitlab merge\n                                request internal ID\n                              type: integer\n                            project:\n                              description: Project specifies the Gitlab group and\n                                project (separated by slash) to use\n                              type: string\n                            tokenRef:\n                              description: TokenRef specifies a secret and key to\n                                load the Gitlab API token from\n                              properties:\n                                key:\n                                  type: string\n                                secretName:\n                                  type: string\n                              required:\n                              - key\n                              - secretName\n                              type: object\n                          required:\n                          - mergeRequestId\n                          - project\n                          type: object\n                        missingReadyConditionIsError:\n                          default: false\n                          type: boolean\n                      type: object\n                    pullRequestCommand:\n                      properties:\n                        commands:\n                          items:\n                            properties:\n                              actions:\n                                items:\n                                  properties:\n                                    annotate:\n                                      properties:\n                                        annotation:\n                                          type: string\n                                        value:\n                                          type: string\n                                      required:\n                                      - annotation\n                                      - value\n                                      type: object\n                                    jsonPatch:\n                                      items:\n                                        type: object\n                                      type: array\n                                      x-kubernetes-preserve-unknown-fields: true\n                                  type: object\n                                type: array\n                              description:\n                                type: string\n                              name:\n                                type: string\n                            required:\n                            - actions\n                            - name\n                            type: object\n                          type: array\n                        github:\n                          properties:\n                            owner:\n                              description: Owner specifies the GitHub user or organisation\n                                that owns the repository\n                              type: string\n                            pullRequestId:\n                              description: PullRequestId specifies the pull request\n                                ID.\n                              type: integer\n                            repo:\n                              description: Repo specifies the repository name.\n                              type: string\n                            tokenRef:\n                              description: TokenRef specifies a secret and key to\n                                load the GitHub API token from\n                              properties:\n                                key:\n                                  type: string\n                                secretName:\n                                  type: string\n                              required:\n                              - key\n                              - secretName\n                              type: object\n                          required:\n                          - owner\n                          - pullRequestId\n                          - repo\n                          type: object\n                        gitlab:\n                          properties:\n                            api:\n                              description: API specifies the GitLab API URL to talk\n                                to. If blank, uses https://gitlab.com/.\n                              type: string\n                            mergeRequestId:\n                              description: MergeRequestId specifies the Gitlab merge\n                                request internal ID\n                              type: integer\n                            project:\n                              description: Project specifies the Gitlab group and\n                                project (separated by slash) to use\n                              type: string\n                            tokenRef:\n                              description: TokenRef specifies a secret and key to\n                                load the Gitlab API token from\n                              properties:\n                                key:\n                                  type: string\n                                secretName:\n                                  type: string\n                              required:\n                              - key\n                              - secretName\n                              type: object\n                          required:\n                          - mergeRequestId\n                          - project\n                          type: object\n                        postHelpComment:\n                          type: boolean\n                      required:\n                      - commands\n                      type: object\n                    pullRequestComment:\n                      properties:\n                        github:\n                          properties:\n                            owner:\n                              description: Owner specifies the GitHub user or organisation\n                                that owns the repository\n                              type: string\n                            pullRequestId:\n                              description: PullRequestId specifies the pull request\n                                ID.\n                              type: integer\n                            repo:\n                              description: Repo specifies the repository name.\n                              type: string\n                            tokenRef:\n                              description: TokenRef specifies a secret and key to\n                                load the GitHub API token from\n                              properties:\n                                key:\n                                  type: string\n                                secretName:\n                                  type: string\n                              required:\n                              - key\n                              - secretName\n                              type: object\n                          required:\n                          - owner\n                          - pullRequestId\n                          - repo\n                          type: object\n                        gitlab:\n                          properties:\n                            api:\n                              description: API specifies the GitLab API URL to talk\n                                to. If blank, uses https://gitlab.com/.\n                              type: string\n                            mergeRequestId:\n                              description: MergeRequestId specifies the Gitlab merge\n                                request internal ID\n                              type: integer\n                            project:\n                              description: Project specifies the Gitlab group and\n                                project (separated by slash) to use\n                              type: string\n                            tokenRef:\n                              description: TokenRef specifies a secret and key to\n                                load the Gitlab API token from\n                              properties:\n                                key:\n                                  type: string\n                                secretName:\n                                  type: string\n                              required:\n                              - key\n                              - secretName\n                              type: object\n                          required:\n                          - mergeRequestId\n                          - project\n                          type: object\n                      type: object\n                  type: object\n                type: array\n              interval:\n                default: 1m\n                type: string\n            required:\n            - forObject\n            - handlers\n            - interval\n            type: object\n          status:\n            description: ObjectHandlerStatus defines the observed state of ObjectHandler\n            properties:\n              conditions:\n                items:\n                  description: \"Condition contains details for one aspect of the current\n                    state of this API Resource. --- This struct is intended for direct\n                    use as an array at the field path .status.conditions.  For example,\n                    \\n type FooStatus struct{ // Represents the observations of a\n                    foo's current state. // Known .status.conditions.type are: \\\"Available\\\",\n                    \\\"Progressing\\\", and \\\"Degraded\\\" // +patchMergeKey=type // +patchStrategy=merge\n                    // +listType=map // +listMapKey=type Conditions []metav1.Condition\n                    `json:\\\"conditions,omitempty\\\" patchStrategy:\\\"merge\\\" patchMergeKey:\\\"type\\\"\n                    protobuf:\\\"bytes,1,rep,name=conditions\\\"` \\n // other fields }\"\n                  properties:\n                    lastTransitionTime:\n                      description: lastTransitionTime is the last time the condition\n                        transitioned from one status to another. This should be when\n                        the underlying condition changed.  If that is not known, then\n                        using the time when the API field changed is acceptable.\n                      format: date-time\n                      type: string\n                    message:\n                      description: message is a human readable message indicating\n                        details about the transition. This may be an empty string.\n                      maxLength: 32768\n                      type: string\n                    observedGeneration:\n                      description: observedGeneration represents the .metadata.generation\n                        that the condition was set based upon. For instance, if .metadata.generation\n                        is currently 12, but the .status.conditions[x].observedGeneration\n                        is 9, the condition is out of date with respect to the current\n                        state of the instance.\n                      format: int64\n                      minimum: 0\n                      type: integer\n                    reason:\n                      description: reason contains a programmatic identifier indicating\n                        the reason for the condition's last transition. Producers\n                        of specific condition types may define expected values and\n                        meanings for this field, and whether the values are considered\n                        a guaranteed API. The value should be a CamelCase string.\n                        This field may not be empty.\n                      maxLength: 1024\n                      minLength: 1\n                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$\n                      type: string\n                    status:\n                      description: status of the condition, one of True, False, Unknown.\n                      enum:\n                      - \"True\"\n                      - \"False\"\n                      - Unknown\n                      type: string\n                    type:\n                      description: type of condition in CamelCase or in foo.example.com/CamelCase.\n                        --- Many .condition.type values are consistent across resources\n                        like Available, but because arbitrary conditions can be useful\n                        (see .node.status.conditions), the ability to deconflict is\n                        important. The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)\n                      maxLength: 316\n                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$\n                      type: string\n                  required:\n                  - lastTransitionTime\n                  - message\n                  - reason\n                  - status\n                  - type\n                  type: object\n                type: array\n              handlerStatus:\n                items:\n                  properties:\n                    error:\n                      type: string\n                    key:\n                      type: string\n                    pullRequestApprove:\n                      properties:\n                        approved:\n                          type: boolean\n                      type: object\n                    pullRequestCommand:\n                      properties:\n                        helpNoteBodyHash:\n                          type: string\n                        helpNoteId:\n                          type: string\n                        lastProcessedCommentTime:\n                          type: string\n                      type: object\n                    pullRequestComment:\n                      properties:\n                        lastPostedStatusHash:\n                          type: string\n                        noteId:\n                          type: string\n                      type: object\n                  required:\n                  - key\n                  type: object\n                type: array\n            type: object\n        type: object\n    served: true\n    storage: true\n    subresources:\n      status: {}\n","colorizedLines":["---","<span class=\"pl-ent\">apiVersion</span>: <span class=\"pl-s\">apiextensions.k8s.io/v1</span>","<span class=\"pl-ent\">kind</span>: <span class=\"pl-s\">CustomResourceDefinition</span>","<span class=\"pl-ent\">metadata</span>:","  <span class=\"pl-ent\">annotations</span>:","    <span class=\"pl-ent\">controller-gen.kubebuilder.io/version</span>: <span class=\"pl-s\">v0.9.2</span>","  <span class=\"pl-ent\">creationTimestamp</span>: <span class=\"pl-c1\">null</span>","  <span class=\"pl-ent\">name</span>: <span class=\"pl-s\">objecthandlers.templates.kluctl.io</span>","<span class=\"pl-ent\">spec</span>:","  <span class=\"pl-ent\">group</span>: <span class=\"pl-s\">templates.kluctl.io</span>","  <span class=\"pl-ent\">names</span>:","    <span class=\"pl-ent\">kind</span>: <span class=\"pl-s\">ObjectHandler</span>","    <span class=\"pl-ent\">listKind</span>: <span class=\"pl-s\">ObjectHandlerList</span>","    <span class=\"pl-ent\">plural</span>: <span class=\"pl-s\">objecthandlers</span>","    <span class=\"pl-ent\">singular</span>: <span class=\"pl-s\">objecthandler</span>","  <span class=\"pl-ent\">scope</span>: <span class=\"pl-s\">Namespaced</span>","  <span class=\"pl-ent\">versions</span>:","  - <span class=\"pl-ent\">name</span>: <span class=\"pl-s\">v1alpha1</span>","    <span class=\"pl-ent\">schema</span>:","      <span class=\"pl-ent\">openAPIV3Schema</span>:","        <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">ObjectHandler is the Schema for the objecthandlers API</span>","        <span class=\"pl-ent\">properties</span>:","          <span class=\"pl-ent\">apiVersion</span>:","            <span class=\"pl-ent\">description</span>: <span class=\"pl-s\"><span class=\"pl-pds\">&#39;</span>APIVersion defines the versioned schema of this representation</span>","<span class=\"pl-s\">              of an object. Servers should convert recognized schemas to the latest</span>","<span class=\"pl-s\">              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources<span class=\"pl-pds\">&#39;</span></span>","            <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","          <span class=\"pl-ent\">kind</span>:","            <span class=\"pl-ent\">description</span>: <span class=\"pl-s\"><span class=\"pl-pds\">&#39;</span>Kind is a string value representing the REST resource this</span>","<span class=\"pl-s\">              object represents. Servers may infer this from the endpoint the client</span>","<span class=\"pl-s\">              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds<span class=\"pl-pds\">&#39;</span></span>","            <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","          <span class=\"pl-ent\">metadata</span>:","            <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","          <span class=\"pl-ent\">spec</span>:","            <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">ObjectHandlerSpec defines the desired state of ObjectHandler</span>","            <span class=\"pl-ent\">properties</span>:","              <span class=\"pl-ent\">forObject</span>:","                <span class=\"pl-ent\">properties</span>:","                  <span class=\"pl-ent\">apiVersion</span>:","                    <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                  <span class=\"pl-ent\">kind</span>:","                    <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                  <span class=\"pl-ent\">name</span>:","                    <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                  <span class=\"pl-ent\">namespace</span>:","                    <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                <span class=\"pl-ent\">required</span>:","                - <span class=\"pl-s\">apiVersion</span>","                - <span class=\"pl-s\">kind</span>","                - <span class=\"pl-s\">name</span>","                <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","              <span class=\"pl-ent\">handlers</span>:","                <span class=\"pl-ent\">items</span>:","                  <span class=\"pl-ent\">properties</span>:","                    <span class=\"pl-ent\">pullRequestApprove</span>:","                      <span class=\"pl-ent\">properties</span>:","                        <span class=\"pl-ent\">github</span>:","                          <span class=\"pl-ent\">properties</span>:","                            <span class=\"pl-ent\">owner</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">Owner specifies the GitHub user or organisation</span>","                                <span class=\"pl-s\">that owns the repository</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                            <span class=\"pl-ent\">pullRequestId</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">PullRequestId specifies the pull request</span>","                                <span class=\"pl-s\">ID.</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">integer</span>","                            <span class=\"pl-ent\">repo</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">Repo specifies the repository name.</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                            <span class=\"pl-ent\">tokenRef</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">TokenRef specifies a secret and key to</span>","                                <span class=\"pl-s\">load the GitHub API token from</span>","                              <span class=\"pl-ent\">properties</span>:","                                <span class=\"pl-ent\">key</span>:","                                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                                <span class=\"pl-ent\">secretName</span>:","                                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                              <span class=\"pl-ent\">required</span>:","                              - <span class=\"pl-s\">key</span>","                              - <span class=\"pl-s\">secretName</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                          <span class=\"pl-ent\">required</span>:","                          - <span class=\"pl-s\">owner</span>","                          - <span class=\"pl-s\">pullRequestId</span>","                          - <span class=\"pl-s\">repo</span>","                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                        <span class=\"pl-ent\">gitlab</span>:","                          <span class=\"pl-ent\">properties</span>:","                            <span class=\"pl-ent\">api</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">API specifies the GitLab API URL to talk</span>","                                <span class=\"pl-s\">to. If blank, uses https://gitlab.com/.</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                            <span class=\"pl-ent\">mergeRequestId</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">MergeRequestId specifies the Gitlab merge</span>","                                <span class=\"pl-s\">request internal ID</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">integer</span>","                            <span class=\"pl-ent\">project</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">Project specifies the Gitlab group and</span>","                                <span class=\"pl-s\">project (separated by slash) to use</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                            <span class=\"pl-ent\">tokenRef</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">TokenRef specifies a secret and key to</span>","                                <span class=\"pl-s\">load the Gitlab API token from</span>","                              <span class=\"pl-ent\">properties</span>:","                                <span class=\"pl-ent\">key</span>:","                                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                                <span class=\"pl-ent\">secretName</span>:","                                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                              <span class=\"pl-ent\">required</span>:","                              - <span class=\"pl-s\">key</span>","                              - <span class=\"pl-s\">secretName</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                          <span class=\"pl-ent\">required</span>:","                          - <span class=\"pl-s\">mergeRequestId</span>","                          - <span class=\"pl-s\">project</span>","                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                        <span class=\"pl-ent\">missingReadyConditionIsError</span>:","                          <span class=\"pl-ent\">default</span>: <span class=\"pl-c1\">false</span>","                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">boolean</span>","                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                    <span class=\"pl-ent\">pullRequestCommand</span>:","                      <span class=\"pl-ent\">properties</span>:","                        <span class=\"pl-ent\">commands</span>:","                          <span class=\"pl-ent\">items</span>:","                            <span class=\"pl-ent\">properties</span>:","                              <span class=\"pl-ent\">actions</span>:","                                <span class=\"pl-ent\">items</span>:","                                  <span class=\"pl-ent\">properties</span>:","                                    <span class=\"pl-ent\">annotate</span>:","                                      <span class=\"pl-ent\">properties</span>:","                                        <span class=\"pl-ent\">annotation</span>:","                                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                                        <span class=\"pl-ent\">value</span>:","                                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                                      <span class=\"pl-ent\">required</span>:","                                      - <span class=\"pl-s\">annotation</span>","                                      - <span class=\"pl-s\">value</span>","                                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                                    <span class=\"pl-ent\">jsonPatch</span>:","                                      <span class=\"pl-ent\">items</span>:","                                        <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">array</span>","                                      <span class=\"pl-ent\">x-kubernetes-preserve-unknown-fields</span>: <span class=\"pl-c1\">true</span>","                                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                                <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">array</span>","                              <span class=\"pl-ent\">description</span>:","                                <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                              <span class=\"pl-ent\">name</span>:","                                <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                            <span class=\"pl-ent\">required</span>:","                            - <span class=\"pl-s\">actions</span>","                            - <span class=\"pl-s\">name</span>","                            <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">array</span>","                        <span class=\"pl-ent\">github</span>:","                          <span class=\"pl-ent\">properties</span>:","                            <span class=\"pl-ent\">owner</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">Owner specifies the GitHub user or organisation</span>","                                <span class=\"pl-s\">that owns the repository</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                            <span class=\"pl-ent\">pullRequestId</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">PullRequestId specifies the pull request</span>","                                <span class=\"pl-s\">ID.</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">integer</span>","                            <span class=\"pl-ent\">repo</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">Repo specifies the repository name.</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                            <span class=\"pl-ent\">tokenRef</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">TokenRef specifies a secret and key to</span>","                                <span class=\"pl-s\">load the GitHub API token from</span>","                              <span class=\"pl-ent\">properties</span>:","                                <span class=\"pl-ent\">key</span>:","                                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                                <span class=\"pl-ent\">secretName</span>:","                                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                              <span class=\"pl-ent\">required</span>:","                              - <span class=\"pl-s\">key</span>","                              - <span class=\"pl-s\">secretName</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                          <span class=\"pl-ent\">required</span>:","                          - <span class=\"pl-s\">owner</span>","                          - <span class=\"pl-s\">pullRequestId</span>","                          - <span class=\"pl-s\">repo</span>","                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                        <span class=\"pl-ent\">gitlab</span>:","                          <span class=\"pl-ent\">properties</span>:","                            <span class=\"pl-ent\">api</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">API specifies the GitLab API URL to talk</span>","                                <span class=\"pl-s\">to. If blank, uses https://gitlab.com/.</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                            <span class=\"pl-ent\">mergeRequestId</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">MergeRequestId specifies the Gitlab merge</span>","                                <span class=\"pl-s\">request internal ID</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">integer</span>","                            <span class=\"pl-ent\">project</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">Project specifies the Gitlab group and</span>","                                <span class=\"pl-s\">project (separated by slash) to use</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                            <span class=\"pl-ent\">tokenRef</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">TokenRef specifies a secret and key to</span>","                                <span class=\"pl-s\">load the Gitlab API token from</span>","                              <span class=\"pl-ent\">properties</span>:","                                <span class=\"pl-ent\">key</span>:","                                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                                <span class=\"pl-ent\">secretName</span>:","                                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                              <span class=\"pl-ent\">required</span>:","                              - <span class=\"pl-s\">key</span>","                              - <span class=\"pl-s\">secretName</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                          <span class=\"pl-ent\">required</span>:","                          - <span class=\"pl-s\">mergeRequestId</span>","                          - <span class=\"pl-s\">project</span>","                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                        <span class=\"pl-ent\">postHelpComment</span>:","                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">boolean</span>","                      <span class=\"pl-ent\">required</span>:","                      - <span class=\"pl-s\">commands</span>","                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                    <span class=\"pl-ent\">pullRequestComment</span>:","                      <span class=\"pl-ent\">properties</span>:","                        <span class=\"pl-ent\">github</span>:","                          <span class=\"pl-ent\">properties</span>:","                            <span class=\"pl-ent\">owner</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">Owner specifies the GitHub user or organisation</span>","                                <span class=\"pl-s\">that owns the repository</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                            <span class=\"pl-ent\">pullRequestId</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">PullRequestId specifies the pull request</span>","                                <span class=\"pl-s\">ID.</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">integer</span>","                            <span class=\"pl-ent\">repo</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">Repo specifies the repository name.</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                            <span class=\"pl-ent\">tokenRef</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">TokenRef specifies a secret and key to</span>","                                <span class=\"pl-s\">load the GitHub API token from</span>","                              <span class=\"pl-ent\">properties</span>:","                                <span class=\"pl-ent\">key</span>:","                                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                                <span class=\"pl-ent\">secretName</span>:","                                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                              <span class=\"pl-ent\">required</span>:","                              - <span class=\"pl-s\">key</span>","                              - <span class=\"pl-s\">secretName</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                          <span class=\"pl-ent\">required</span>:","                          - <span class=\"pl-s\">owner</span>","                          - <span class=\"pl-s\">pullRequestId</span>","                          - <span class=\"pl-s\">repo</span>","                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                        <span class=\"pl-ent\">gitlab</span>:","                          <span class=\"pl-ent\">properties</span>:","                            <span class=\"pl-ent\">api</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">API specifies the GitLab API URL to talk</span>","                                <span class=\"pl-s\">to. If blank, uses https://gitlab.com/.</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                            <span class=\"pl-ent\">mergeRequestId</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">MergeRequestId specifies the Gitlab merge</span>","                                <span class=\"pl-s\">request internal ID</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">integer</span>","                            <span class=\"pl-ent\">project</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">Project specifies the Gitlab group and</span>","                                <span class=\"pl-s\">project (separated by slash) to use</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                            <span class=\"pl-ent\">tokenRef</span>:","                              <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">TokenRef specifies a secret and key to</span>","                                <span class=\"pl-s\">load the Gitlab API token from</span>","                              <span class=\"pl-ent\">properties</span>:","                                <span class=\"pl-ent\">key</span>:","                                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                                <span class=\"pl-ent\">secretName</span>:","                                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                              <span class=\"pl-ent\">required</span>:","                              - <span class=\"pl-s\">key</span>","                              - <span class=\"pl-s\">secretName</span>","                              <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                          <span class=\"pl-ent\">required</span>:","                          - <span class=\"pl-s\">mergeRequestId</span>","                          - <span class=\"pl-s\">project</span>","                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">array</span>","              <span class=\"pl-ent\">interval</span>:","                <span class=\"pl-ent\">default</span>: <span class=\"pl-c1\">1m</span>","                <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","            <span class=\"pl-ent\">required</span>:","            - <span class=\"pl-s\">forObject</span>","            - <span class=\"pl-s\">handlers</span>","            - <span class=\"pl-s\">interval</span>","            <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","          <span class=\"pl-ent\">status</span>:","            <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">ObjectHandlerStatus defines the observed state of ObjectHandler</span>","            <span class=\"pl-ent\">properties</span>:","              <span class=\"pl-ent\">conditions</span>:","                <span class=\"pl-ent\">items</span>:","                  <span class=\"pl-ent\">description</span>: <span class=\"pl-s\"><span class=\"pl-pds\">&quot;</span>Condition contains details for one aspect of the current</span>","<span class=\"pl-s\">                    state of this API Resource. --- This struct is intended for direct</span>","<span class=\"pl-s\">                    use as an array at the field path .status.conditions.  For example,</span>","<span class=\"pl-s\">                    <span class=\"pl-cce\">\\n</span> type FooStatus struct{ // Represents the observations of a</span>","<span class=\"pl-s\">                    foo&#39;s current state. // Known .status.conditions.type are: <span class=\"pl-cce\">\\&quot;</span>Available<span class=\"pl-cce\">\\&quot;</span>,</span>","<span class=\"pl-s\">                    <span class=\"pl-cce\">\\&quot;</span>Progressing<span class=\"pl-cce\">\\&quot;</span>, and <span class=\"pl-cce\">\\&quot;</span>Degraded<span class=\"pl-cce\">\\&quot;</span> // +patchMergeKey=type // +patchStrategy=merge</span>","<span class=\"pl-s\">                    // +listType=map // +listMapKey=type Conditions []metav1.Condition</span>","<span class=\"pl-s\">                    `json:<span class=\"pl-cce\">\\&quot;</span>conditions,omitempty<span class=\"pl-cce\">\\&quot;</span> patchStrategy:<span class=\"pl-cce\">\\&quot;</span>merge<span class=\"pl-cce\">\\&quot;</span> patchMergeKey:<span class=\"pl-cce\">\\&quot;</span>type<span class=\"pl-cce\">\\&quot;</span></span>","<span class=\"pl-s\">                    protobuf:<span class=\"pl-cce\">\\&quot;</span>bytes,1,rep,name=conditions<span class=\"pl-cce\">\\&quot;</span>` <span class=\"pl-cce\">\\n</span> // other fields }<span class=\"pl-pds\">&quot;</span></span>","                  <span class=\"pl-ent\">properties</span>:","                    <span class=\"pl-ent\">lastTransitionTime</span>:","                      <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">lastTransitionTime is the last time the condition</span>","                        <span class=\"pl-s\">transitioned from one status to another. This should be when</span>","                        <span class=\"pl-s\">the underlying condition changed.  If that is not known, then</span>","                        <span class=\"pl-s\">using the time when the API field changed is acceptable.</span>","                      <span class=\"pl-ent\">format</span>: <span class=\"pl-s\">date-time</span>","                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                    <span class=\"pl-ent\">message</span>:","                      <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">message is a human readable message indicating</span>","                        <span class=\"pl-s\">details about the transition. This may be an empty string.</span>","                      <span class=\"pl-ent\">maxLength</span>: <span class=\"pl-c1\">32768</span>","                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                    <span class=\"pl-ent\">observedGeneration</span>:","                      <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">observedGeneration represents the .metadata.generation</span>","                        <span class=\"pl-s\">that the condition was set based upon. For instance, if .metadata.generation</span>","                        <span class=\"pl-s\">is currently 12, but the .status.conditions[x].observedGeneration</span>","                        <span class=\"pl-s\">is 9, the condition is out of date with respect to the current</span>","                        <span class=\"pl-s\">state of the instance.</span>","                      <span class=\"pl-ent\">format</span>: <span class=\"pl-s\">int64</span>","                      <span class=\"pl-ent\">minimum</span>: <span class=\"pl-c1\">0</span>","                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">integer</span>","                    <span class=\"pl-ent\">reason</span>:","                      <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">reason contains a programmatic identifier indicating</span>","                        <span class=\"pl-s\">the reason for the condition&#39;s last transition. Producers</span>","                        <span class=\"pl-s\">of specific condition types may define expected values and</span>","                        <span class=\"pl-s\">meanings for this field, and whether the values are considered</span>","                        <span class=\"pl-s\">a guaranteed API. The value should be a CamelCase string.</span>","                        <span class=\"pl-s\">This field may not be empty.</span>","                      <span class=\"pl-ent\">maxLength</span>: <span class=\"pl-c1\">1024</span>","                      <span class=\"pl-ent\">minLength</span>: <span class=\"pl-c1\">1</span>","                      <span class=\"pl-ent\">pattern</span>: <span class=\"pl-s\">^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$</span>","                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                    <span class=\"pl-ent\">status</span>:","                      <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">status of the condition, one of True, False, Unknown.</span>","                      <span class=\"pl-ent\">enum</span>:","                      - <span class=\"pl-s\"><span class=\"pl-pds\">&quot;</span>True<span class=\"pl-pds\">&quot;</span></span>","                      - <span class=\"pl-s\"><span class=\"pl-pds\">&quot;</span>False<span class=\"pl-pds\">&quot;</span></span>","                      - <span class=\"pl-s\">Unknown</span>","                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                    <span class=\"pl-ent\">type</span>:","                      <span class=\"pl-ent\">description</span>: <span class=\"pl-s\">type of condition in CamelCase or in foo.example.com/CamelCase.</span>","                        <span class=\"pl-s\">--- Many .condition.type values are consistent across resources</span>","                        <span class=\"pl-s\">like Available, but because arbitrary conditions can be useful</span>","                        <span class=\"pl-s\">(see .node.status.conditions), the ability to deconflict is</span>","                        <span class=\"pl-s\">important. The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)</span>","                      <span class=\"pl-ent\">maxLength</span>: <span class=\"pl-c1\">316</span>","                      <span class=\"pl-ent\">pattern</span>: <span class=\"pl-s\">^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$</span>","                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                  <span class=\"pl-ent\">required</span>:","                  - <span class=\"pl-s\">lastTransitionTime</span>","                  - <span class=\"pl-s\">message</span>","                  - <span class=\"pl-s\">reason</span>","                  - <span class=\"pl-s\">status</span>","                  - <span class=\"pl-s\">type</span>","                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">array</span>","              <span class=\"pl-ent\">handlerStatus</span>:","                <span class=\"pl-ent\">items</span>:","                  <span class=\"pl-ent\">properties</span>:","                    <span class=\"pl-ent\">error</span>:","                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                    <span class=\"pl-ent\">key</span>:","                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                    <span class=\"pl-ent\">pullRequestApprove</span>:","                      <span class=\"pl-ent\">properties</span>:","                        <span class=\"pl-ent\">approved</span>:","                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">boolean</span>","                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                    <span class=\"pl-ent\">pullRequestCommand</span>:","                      <span class=\"pl-ent\">properties</span>:","                        <span class=\"pl-ent\">helpNoteBodyHash</span>:","                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                        <span class=\"pl-ent\">helpNoteId</span>:","                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                        <span class=\"pl-ent\">lastProcessedCommentTime</span>:","                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                    <span class=\"pl-ent\">pullRequestComment</span>:","                      <span class=\"pl-ent\">properties</span>:","                        <span class=\"pl-ent\">lastPostedStatusHash</span>:","                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                        <span class=\"pl-ent\">noteId</span>:","                          <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">string</span>","                      <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                  <span class=\"pl-ent\">required</span>:","                  - <span class=\"pl-s\">key</span>","                  <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","                <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">array</span>","            <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","        <span class=\"pl-ent\">type</span>: <span class=\"pl-s\">object</span>","    <span class=\"pl-ent\">served</span>: <span class=\"pl-c1\">true</span>","    <span class=\"pl-ent\">storage</span>: <span class=\"pl-c1\">true</span>","    <span class=\"pl-ent\">subresources</span>:","      <span class=\"pl-ent\">status</span>: <span class=\"pl-s\">{}</span>"],"stylingDirectives":null,"csv":null,"csvError":null,"dependabotInfo":{"showConfigurationBanner":false,"configFilePath":null,"networkDependabotPath":"/kluctl/charts/network/updates","dismissConfigurationNoticePath":"/settings/dismiss-notice/dependabot_configuration_notice","configurationNoticeDismissed":null,"repoAlertsPath":"/kluctl/charts/security/dependabot","repoSecurityAndAnalysisPath":"/kluctl/charts/settings/security_analysis","repoOwnerIsOrg":true,"currentUserCanAdminRepo":false},"displayName":"templates.kluctl.io_objecthandlers.yaml","displayUrl":"https://github.com/kluctl/charts/blob/template-controller-0.2.2/charts/template-controller/crds/templates.kluctl.io_objecthandlers.yaml?raw=true","headerInfo":{"blobSize":"18 KB","deleteInfo":{"deletePath":null,"deleteTooltip":"You must be signed in to make or propose changes"},"editInfo":{"editTooltip":"You must be signed in to make or propose changes"},"ghDesktopPath":null,"gitLfsPath":null,"onBranch":false,"shortPath":"1f7c031","siteNavLoginPath":"/login?return_to=https%3A%2F%2Fgithub.com%2Fkluctl%2Fcharts%2Fblob%2Ftemplate-controller-0.2.2%2Fcharts%2Ftemplate-controller%2Fcrds%2Ftemplates.kluctl.io_objecthandlers.yaml","isCSV":false,"isRichtext":false,"toc":null,"lineInfo":{"truncatedLoc":"402","truncatedSloc":"402"},"mode":"file"},"image":false,"isCodeownersFile":null,"isValidLegacyIssueTemplate":false,"issueTemplateHelpUrl":"https://docs.github.com/articles/about-issue-and-pull-request-templates","issueTemplate":null,"discussionTemplate":null,"language":"YAML","large":false,"loggedIn":false,"newDiscussionPath":"/kluctl/charts/discussions/new","newIssuePath":"/kluctl/charts/issues/new","planSupportInfo":{"repoIsFork":null,"repoOwnedByCurrentUser":null,"requestFullPath":"/kluctl/charts/blob/template-controller-0.2.2/charts/template-controller/crds/templates.kluctl.io_objecthandlers.yaml","showFreeOrgGatedFeatureMessage":null,"showPlanSupportBanner":null,"upgradeDataAttributes":null,"upgradePath":null},"publishBannersInfo":{"dismissActionNoticePath":"/settings/dismiss-notice/publish_action_from_dockerfile","dismissStackNoticePath":"/settings/dismiss-notice/publish_stack_from_file","releasePath":"/kluctl/charts/releases/new?marketplace=true","showPublishActionBanner":false,"showPublishStackBanner":false},"renderImageOrRaw":false,"richText":null,"renderedFileInfo":null,"tabSize":8,"topBannersInfo":{"overridingGlobalFundingFile":false,"globalPreferredFundingPath":null,"repoOwner":"kluctl","repoName":"charts","showInvalidCitationWarning":false,"citationHelpUrl":"https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-on-github/about-citation-files","showDependabotConfigurationBanner":false,"actionsOnboardingTip":null},"truncated":false,"viewable":true,"workflowRedirectUrl":null,"symbols":{"timedOut":false,"notAnalyzed":true,"symbols":[]}},"csrf_tokens":{"/kluctl/charts/branches":{"post":"Li5zq1PoLDeMwjE08RPTKUmVffftIDFx_PRrTB31FvPYj9AzoTeP64fTe4w_ZyDrRDRwVnrOyw3R9-kASvRytQ"}}},"title":"charts/charts/template-controller/crds/templates.kluctl.io_objecthandlers.yaml at template-controller-0.2.2 · kluctl/charts","locale":"en"}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.9.2
+  creationTimestamp: null
+  name: objecthandlers.templates.kluctl.io
+spec:
+  group: templates.kluctl.io
+  names:
+    kind: ObjectHandler
+    listKind: ObjectHandlerList
+    plural: objecthandlers
+    singular: objecthandler
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: ObjectHandler is the Schema for the objecthandlers API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ObjectHandlerSpec defines the desired state of ObjectHandler
+            properties:
+              forObject:
+                properties:
+                  apiVersion:
+                    type: string
+                  kind:
+                    type: string
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - apiVersion
+                - kind
+                - name
+                type: object
+              handlers:
+                items:
+                  properties:
+                    pullRequestApprove:
+                      properties:
+                        github:
+                          properties:
+                            owner:
+                              description: Owner specifies the GitHub user or organisation
+                                that owns the repository
+                              type: string
+                            pullRequestId:
+                              description: PullRequestId specifies the pull request
+                                ID.
+                              type: integer
+                            repo:
+                              description: Repo specifies the repository name.
+                              type: string
+                            tokenRef:
+                              description: TokenRef specifies a secret and key to
+                                load the GitHub API token from
+                              properties:
+                                key:
+                                  type: string
+                                secretName:
+                                  type: string
+                              required:
+                              - key
+                              - secretName
+                              type: object
+                          required:
+                          - owner
+                          - pullRequestId
+                          - repo
+                          type: object
+                        gitlab:
+                          properties:
+                            api:
+                              description: API specifies the GitLab API URL to talk
+                                to. If blank, uses https://gitlab.com/.
+                              type: string
+                            mergeRequestId:
+                              description: MergeRequestId specifies the Gitlab merge
+                                request internal ID
+                              type: integer
+                            project:
+                              description: Project specifies the Gitlab group and
+                                project (separated by slash) to use
+                              type: string
+                            tokenRef:
+                              description: TokenRef specifies a secret and key to
+                                load the Gitlab API token from
+                              properties:
+                                key:
+                                  type: string
+                                secretName:
+                                  type: string
+                              required:
+                              - key
+                              - secretName
+                              type: object
+                          required:
+                          - mergeRequestId
+                          - project
+                          type: object
+                        missingReadyConditionIsError:
+                          default: false
+                          type: boolean
+                      type: object
+                    pullRequestCommand:
+                      properties:
+                        commands:
+                          items:
+                            properties:
+                              actions:
+                                items:
+                                  properties:
+                                    annotate:
+                                      properties:
+                                        annotation:
+                                          type: string
+                                        value:
+                                          type: string
+                                      required:
+                                      - annotation
+                                      - value
+                                      type: object
+                                    jsonPatch:
+                                      items:
+                                        type: object
+                                      type: array
+                                      x-kubernetes-preserve-unknown-fields: true
+                                  type: object
+                                type: array
+                              description:
+                                type: string
+                              name:
+                                type: string
+                            required:
+                            - actions
+                            - name
+                            type: object
+                          type: array
+                        github:
+                          properties:
+                            owner:
+                              description: Owner specifies the GitHub user or organisation
+                                that owns the repository
+                              type: string
+                            pullRequestId:
+                              description: PullRequestId specifies the pull request
+                                ID.
+                              type: integer
+                            repo:
+                              description: Repo specifies the repository name.
+                              type: string
+                            tokenRef:
+                              description: TokenRef specifies a secret and key to
+                                load the GitHub API token from
+                              properties:
+                                key:
+                                  type: string
+                                secretName:
+                                  type: string
+                              required:
+                              - key
+                              - secretName
+                              type: object
+                          required:
+                          - owner
+                          - pullRequestId
+                          - repo
+                          type: object
+                        gitlab:
+                          properties:
+                            api:
+                              description: API specifies the GitLab API URL to talk
+                                to. If blank, uses https://gitlab.com/.
+                              type: string
+                            mergeRequestId:
+                              description: MergeRequestId specifies the Gitlab merge
+                                request internal ID
+                              type: integer
+                            project:
+                              description: Project specifies the Gitlab group and
+                                project (separated by slash) to use
+                              type: string
+                            tokenRef:
+                              description: TokenRef specifies a secret and key to
+                                load the Gitlab API token from
+                              properties:
+                                key:
+                                  type: string
+                                secretName:
+                                  type: string
+                              required:
+                              - key
+                              - secretName
+                              type: object
+                          required:
+                          - mergeRequestId
+                          - project
+                          type: object
+                        postHelpComment:
+                          type: boolean
+                      required:
+                      - commands
+                      type: object
+                    pullRequestComment:
+                      properties:
+                        github:
+                          properties:
+                            owner:
+                              description: Owner specifies the GitHub user or organisation
+                                that owns the repository
+                              type: string
+                            pullRequestId:
+                              description: PullRequestId specifies the pull request
+                                ID.
+                              type: integer
+                            repo:
+                              description: Repo specifies the repository name.
+                              type: string
+                            tokenRef:
+                              description: TokenRef specifies a secret and key to
+                                load the GitHub API token from
+                              properties:
+                                key:
+                                  type: string
+                                secretName:
+                                  type: string
+                              required:
+                              - key
+                              - secretName
+                              type: object
+                          required:
+                          - owner
+                          - pullRequestId
+                          - repo
+                          type: object
+                        gitlab:
+                          properties:
+                            api:
+                              description: API specifies the GitLab API URL to talk
+                                to. If blank, uses https://gitlab.com/.
+                              type: string
+                            mergeRequestId:
+                              description: MergeRequestId specifies the Gitlab merge
+                                request internal ID
+                              type: integer
+                            project:
+                              description: Project specifies the Gitlab group and
+                                project (separated by slash) to use
+                              type: string
+                            tokenRef:
+                              description: TokenRef specifies a secret and key to
+                                load the Gitlab API token from
+                              properties:
+                                key:
+                                  type: string
+                                secretName:
+                                  type: string
+                              required:
+                              - key
+                              - secretName
+                              type: object
+                          required:
+                          - mergeRequestId
+                          - project
+                          type: object
+                      type: object
+                  type: object
+                type: array
+              interval:
+                default: 1m
+                type: string
+            required:
+            - forObject
+            - handlers
+            - interval
+            type: object
+          status:
+            description: ObjectHandlerStatus defines the observed state of ObjectHandler
+            properties:
+              conditions:
+                items:
+                  description: "Condition contains details for one aspect of the current
+                    state of this API Resource. --- This struct is intended for direct
+                    use as an array at the field path .status.conditions.  For example,
+                    \n type FooStatus struct{ // Represents the observations of a
+                    foo's current state. // Known .status.conditions.type are: \"Available\",
+                    \"Progressing\", and \"Degraded\" // +patchMergeKey=type // +patchStrategy=merge
+                    // +listType=map // +listMapKey=type Conditions []metav1.Condition
+                    `json:\"conditions,omitempty\" patchStrategy:\"merge\" patchMergeKey:\"type\"
+                    protobuf:\"bytes,1,rep,name=conditions\"` \n // other fields }"
+                  properties:
+                    lastTransitionTime:
+                      description: lastTransitionTime is the last time the condition
+                        transitioned from one status to another. This should be when
+                        the underlying condition changed.  If that is not known, then
+                        using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: message is a human readable message indicating
+                        details about the transition. This may be an empty string.
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      description: observedGeneration represents the .metadata.generation
+                        that the condition was set based upon. For instance, if .metadata.generation
+                        is currently 12, but the .status.conditions[x].observedGeneration
+                        is 9, the condition is out of date with respect to the current
+                        state of the instance.
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      description: reason contains a programmatic identifier indicating
+                        the reason for the condition's last transition. Producers
+                        of specific condition types may define expected values and
+                        meanings for this field, and whether the values are considered
+                        a guaranteed API. The value should be a CamelCase string.
+                        This field may not be empty.
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      description: status of the condition, one of True, False, Unknown.
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      description: type of condition in CamelCase or in foo.example.com/CamelCase.
+                        --- Many .condition.type values are consistent across resources
+                        like Available, but because arbitrary conditions can be useful
+                        (see .node.status.conditions), the ability to deconflict is
+                        important. The regex it matches is (dns1123SubdomainFmt/)?(qualifiedNameFmt)
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+              handlerStatus:
+                items:
+                  properties:
+                    error:
+                      type: string
+                    key:
+                      type: string
+                    pullRequestApprove:
+                      properties:
+                        approved:
+                          type: boolean
+                      type: object
+                    pullRequestCommand:
+                      properties:
+                        helpNoteBodyHash:
+                          type: string
+                        helpNoteId:
+                          type: string
+                        lastProcessedCommentTime:
+                          type: string
+                      type: object
+                    pullRequestComment:
+                      properties:
+                        lastPostedStatusHash:
+                          type: string
+                        noteId:
+                          type: string
+                      type: object
+                  required:
+                  - key
+                  type: object
+                type: array
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
