@@ -67,29 +67,28 @@ jobs:
           kubectl get helmreleases.helm.toolkit.fluxcd.io --all-namespaces
       - name: Debug describe nodes
         if: failure()
-        run: |
-          kubectl describe nodes
+        run: kubectl describe nodes
       - name: Debug describe pods
         if: failure()
-        run: |
-          kubectl describe pods --all-namespaces
+        run: kubectl describe pods --all-namespaces
       - name: Debug describe helm releases
         if: failure()
-        run: |
-          kubectl describe helmreleases.helm.toolkit.fluxcd.io --all-namespaces
+        run: kubectl describe helmreleases.helm.toolkit.fluxcd.io --all-namespaces
+      - name: Debug describe kustomizations
+        if: failure()
+        run: kubectl describe kustomizations.kustomize.toolkit.fluxcd.io --all-namespaces
       - name: Debug source-controller logs
         if: failure()
-        run: |
-          kubectl -n flux-system logs deploy/source-controller
+        run: kubectl -n flux-system logs deploy/source-controller
       - name: Debug kustomize-controller logs
         if: failure()
-        run: |
-          kubectl -n flux-system logs deploy/kustomize-controller
+        run: kubectl -n flux-system logs deploy/kustomize-controller
       - name: Debug helm-controller logs
         if: failure()
-        run: |
-          kubectl -n flux-system logs deploy/helm-controller
+        run: kubectl -n flux-system logs deploy/helm-controller
       - name: Debug get kwok logs
         if: failure()
-        run: |
-          kubectl logs -n kube-system deployment/kwok-controller
+        run: kubectl logs -n kube-system deployment/kwok-controller
+      - name: Debug get kwok logs
+        if: failure()
+        run: kubectl logs -n kube-system deployment/kwok-controller
