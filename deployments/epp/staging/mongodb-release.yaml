@@ -66,8 +66,4 @@ spec:
           cpu: "300m"
           memory: "0.5G"
       volumeSpec:
-        pvc:
-          accessModes: [ "ReadWriteOnce" ]
-          resources:
-            requests:
-              storage: 20Gi
+        emptyDir: {}
