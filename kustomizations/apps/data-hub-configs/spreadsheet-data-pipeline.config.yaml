@@ -60,3 +60,14 @@ spreadsheets:
         datasetName: "{ENV}"
         tableName: 'deleted_hypothesis_annotations'
         tableWriteAppend: true
+
+  # manuscript published date
+  - spreadsheetId: '1amAlKvdLcaDp5W8Z8g77NmkwbMF5n_u89ArSqPMO8jg'
+    sheets:
+      - sheetName: 'published_date'
+        sheetRange: ''
+        headerLineIndex: 0
+        dataValuesStartLineIndex: 1
+        datasetName: "{ENV}"
+        tableName: 'manuscript_published_date'
+        tableWriteAppend: true
