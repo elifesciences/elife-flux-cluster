@@ -35,60 +35,48 @@ jobs:
         run: ./tests/run_cluster_in_kind.sh ${GITHUB_REF#refs/heads/}
       - name: Test resources come up
         run: ./tests/run_tests.sh
-      - name: Debug failure summaries
+      - name: Debug failure - summaries - Pods
         if: failure()
-        run: |
-          echo "PODS"
-          echo "===="
-          kubectl get pods -A -o wide
-          echo ""
-          echo "deployments"
-          echo "==========="
-          kubectl get deployments -A -o wide
-          echo ""
-          echo "statefulsets"
-          echo "============"
-          kubectl get deployments -A -o wide
-          echo ""
-          echo "flux objects"
-          echo "==========="
-          flux get all --all-namespaces
-          echo ""
-          echo "helm releases"
-          echo "==========="
-          helm list -A
-          echo ""
-          echo "everything in flux-system namespace"
-          echo "==========="
-          kubectl -n flux-system get all
-          echo ""
-          echo "all HelmRelease objects"
-          echo "==========="
-          kubectl get helmreleases.helm.toolkit.fluxcd.io --all-namespaces
-      - name: Debug describe nodes
+        run: kubectl get pods -A -o wide
+      - name: Debug failure - summaries - deployments
+        if: failure()
+        run: kubectl get deployments -A -o wide
+      - name: Debug failure - summaries - statefulsets
+        if: failure()
+        run: kubectl get statefulsets -A -o wide
+      - name: Debug failure - summaries - flux objects
+        if: failure()
+        run: flux get all --all-namespaces
+      - name: Debug failure - summaries - helm releases
+        if: failure()
+        run: helm list -A
+      - name: Debug failure - summaries - everything in flux-system namespace
+        if: failure()
+        run: kubectl -n flux-system get all
+      - name: Debug failure summaries - all HelmRelease objects
+        if: failure()
+        run: kubectl get helmreleases.helm.toolkit.fluxcd.io --all-namespaces
+      - name: Debug failure - describe nodes
         if: failure()
         run: kubectl describe nodes
-      - name: Debug describe pods
+      - name: Debug failure - describe pods
         if: failure()
         run: kubectl describe pods --all-namespaces
-      - name: Debug describe helm releases
+      - name: Debug failure - describe helm releases
         if: failure()
         run: kubectl describe helmreleases.helm.toolkit.fluxcd.io --all-namespaces
-      - name: Debug describe kustomizations
+      - name: Debug failure - describe kustomizations
         if: failure()
         run: kubectl describe kustomizations.kustomize.toolkit.fluxcd.io --all-namespaces
-      - name: Debug source-controller logs
+      - name: Debug failure - source-controller logs
         if: failure()
         run: kubectl -n flux-system logs deploy/source-controller
-      - name: Debug kustomize-controller logs
+      - name: Debug failure - kustomize-controller logs
         if: failure()
         run: kubectl -n flux-system logs deploy/kustomize-controller
-      - name: Debug helm-controller logs
+      - name: Debug failure - helm-controller logs
         if: failure()
         run: kubectl -n flux-system logs deploy/helm-controller
-      - name: Debug get kwok logs
-        if: failure()
-        run: kubectl logs -n kube-system deployment/kwok-controller
-      - name: Debug get kwok logs
+      - name: Debug failure - kwok logs
         if: failure()
         run: kubectl logs -n kube-system deployment/kwok-controller
