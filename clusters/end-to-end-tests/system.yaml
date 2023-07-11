@@ -151,3 +151,24 @@ spec:
             effect: "NoSchedule"
           nodeSelector:
             kubernetes.io/hostname: elife-flux-cluster-control-plane
+  - target:
+      kind: HelmRelease
+      name: prometheus-stack
+    patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
+        name: prometheus-stack
+        namespace: monitoring
+      spec:
+        values:
+          prometheusOperator:
+            admissionWebhooks:
+              patch:
+                tolerations:
+                - key: "realnode"
+                  operator: "Equal"
+                  value: "true"
+                  effect: "NoSchedule"
+                nodeSelector:
+                  kubernetes.io/hostname: elife-flux-cluster-control-plane
