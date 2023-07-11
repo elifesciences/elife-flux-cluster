@@ -53,3 +53,23 @@ spec:
           postgresql:
             persistence:
               enabled: false
+  - target:
+      kind: HelmRelease
+      name: database
+    patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      metadata:
+        name: database
+        namespace: epp--staging
+      spec:
+        values:
+          replsets:
+            - name: rs0
+              tolerations:
+              - key: "realnode"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
+              nodeSelector:
+                kubernetes.io/hostname: elife-flux-cluster-control-plane
