@@ -32,13 +32,13 @@ deployment Available epp--prod epp-client
 deployment Available epp--prod epp-image-server
 deployment Available epp--prod epp-server
 deployment Available epp--prod epp-storybook
-statefulset Available epp--prod mongodb-psmdb-db-rs0
+# statefulset Available epp--prod mongodb-psmdb-db-rs0
 deployment Available epp--staging epp-client
 deployment Available epp--staging epp-image-server
 deployment Available epp--staging epp-server
 deployment Available epp--staging epp-storybook
-statefulset Available epp--staging mongodb-psmdb-db-rs0
-statefulset Available epp--staging database-psmdb-db-rs0
+# statefulset Available epp--staging mongodb-psmdb-db-rs0
+# statefulset Available epp--staging database-psmdb-db-rs0
 helmrelease ready peerscout peerscout--prod
 helmrelease ready peerscout peerscout--prod
 deployment Available podinfo podinfo--prod
