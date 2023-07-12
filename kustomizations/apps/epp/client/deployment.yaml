@@ -46,6 +46,8 @@ spec:
           value: '1800'
         - name: IS_AUTOMATED
           value: ${is_automated:=''}
+        - name: SHOW_PREVIEWS
+          value: ${show_previews:=''}
         readinessProbe:
           httpGet:
             path: /
