@@ -67,3 +67,47 @@ spec:
           memory: "0.5G"
       volumeSpec:
         emptyDir: {}
+    - name: pv-rs0
+      size: 3
+      configuration: |
+        systemLog:
+          verbosity: 0
+          quiet: true
+      antiAffinityTopologyKey: "kubernetes.io/hostname"
+      podDisruptionBudget:
+        maxUnavailable: 1
+      expose:
+        enabled: false
+        exposeType: ClusterIP
+      nonvoting:
+        enabled: false
+        size: 3
+        antiAffinityTopologyKey: "kubernetes.io/hostname"
+        podDisruptionBudget:
+          maxUnavailable: 1
+        resources:
+          limits:
+            cpu: "300m"
+            memory: "0.5G"
+          requests:
+            cpu: "300m"
+            memory: "0.5G"
+        volumeSpec:
+          emptyDir: {}
+      arbiter:
+        enabled: false
+        size: 1
+        antiAffinityTopologyKey: "kubernetes.io/hostname"
+      resources:
+        limits:
+          cpu: "300m"
+          memory: "0.5G"
+        requests:
+          cpu: "300m"
+          memory: "0.5G"
+      volumeSpec:
+        pvc:
+          accessModes: [ "ReadWriteOnce" ]
+          resources:
+            requests:
+              storage: 20Gi
