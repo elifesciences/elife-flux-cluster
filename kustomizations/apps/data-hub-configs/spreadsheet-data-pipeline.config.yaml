@@ -61,13 +61,13 @@ spreadsheets:
         tableName: 'deleted_hypothesis_annotations'
         tableWriteAppend: true
 
-  # reviewed preprint publication timestamp
+  # reviewed preprint publication date
   - spreadsheetId: '1amAlKvdLcaDp5W8Z8g77NmkwbMF5n_u89ArSqPMO8jg'
     sheets:
-      - sheetName: 'publication_timestamp'
+      - sheetName: 'publication_date'
         sheetRange: ''
         headerLineIndex: 0
         dataValuesStartLineIndex: 1
         datasetName: "{ENV}"
-        tableName: 'reviewed_preprint_publication_timestamp'
+        tableName: 'reviewed_preprint_publication_date'
         tableWriteAppend: true
