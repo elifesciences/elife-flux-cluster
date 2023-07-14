@@ -20,7 +20,7 @@ spec:
   - name: ghcr.io/elifesciences/enhanced-preprints-client
     newTag: master-c5bc9fa7-20230714.1303 # {"$imagepolicy": "epp--staging:epp-client:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-    newTag: master-c5bc9fa7-20230714.1326 # {"$imagepolicy": "epp--staging:epp-storybook:tag"}
+    newTag: master-898b86bc-20230714.2334 # {"$imagepolicy": "epp--staging:epp-storybook:tag"}
   postBuild:
     substitute:
       app_env: staging
