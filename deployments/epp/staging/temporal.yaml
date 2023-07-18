@@ -9,7 +9,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./kustomizations/services/temporal
+  path: ./kustomizations/services/temporal-dev-server
   prune: true
   targetNamespace: epp--staging
   postBuild:
