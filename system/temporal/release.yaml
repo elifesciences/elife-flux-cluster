@@ -52,7 +52,7 @@ spec:
               database: temporal
               user: root
               existingSecret: temporal-database-pxc-secrets
-              secretKey: root
+              secretName: root
               maxConns: 20
               maxConnLifetime: "1h"
 
@@ -65,7 +65,7 @@ spec:
               database: temporal_visibility
               user: root
               existingSecret: temporal-database-pxc-secrets
-              secretKey: root
+              secretName: root
               maxConns: 20
               maxConnLifetime: "1h"
       frontend:
