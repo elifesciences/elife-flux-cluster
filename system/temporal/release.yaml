@@ -35,7 +35,7 @@ spec:
       enabled: true
     schema:
       setup:
-        enabled: true
+        enabled: false
       update:
         enabled: false
     server:
