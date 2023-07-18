@@ -21,3 +21,7 @@ spec:
   values:
     backup:
       enabled: false
+    resources:
+      requests:
+        memory: 800Mi
+        cpu: 600m
