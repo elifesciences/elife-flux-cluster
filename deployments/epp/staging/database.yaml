@@ -10,7 +10,7 @@ metadata:
 
 spec:
   interval: 1m
-  releaseName: mongodb
+  releaseName: database
   chart:
     spec:
       chart: psmdb-db
