@@ -10,7 +10,7 @@ metadata:
 
 spec:
   interval: 1m
-  releaseName: database
+  releaseName: epp-database
   chart:
     spec:
       chart: psmdb-db
@@ -27,7 +27,7 @@ spec:
     backup:
       enabled: false
     replsets:
-    - name: replicaset0
+    - name: replicaset
       size: 3
       configuration: |
         systemLog:
