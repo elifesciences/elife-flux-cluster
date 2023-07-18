@@ -31,8 +31,8 @@ spec:
       asset_prefix: https://continuumtest--journal.elifesciences.org/reviewed-preprints
       iiif_server: https://staging--epp.elifesciences.org/iiif
       image_server_source_base_url: https://github.com/elifesciences/enhanced-preprints-data/raw/staging/data/
-      mongodb_hostname: mongodb-psmdb-db-rs0
-      mongodb_secret_name: mongodb-psmdb-db-secrets
+      mongodb_hostname: epp-database-psmdb-db-replicaset
+      mongodb_secret_name: epp-database-psmdb-db-secrets
       mongodb_secret_user_key: MONGODB_DATABASE_ADMIN_USER
       mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD
       google_tag_manager_id: "GTM-NJBS9X"
