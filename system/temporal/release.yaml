@@ -20,7 +20,6 @@ spec:
     remediation:
       retries: 5
   timeout: 10m
-
   values:
     cassandra:
       enabled: false
@@ -41,7 +40,6 @@ spec:
         persistence:
           default:
             driver: "sql"
-
             sql:
               driver: "mysql"
               host: temporal-database-pxc-haproxy
@@ -53,19 +51,18 @@ spec:
               maxConns: 20
               maxConnLifetime: "1h"
 
-        visibility:
-          driver: "sql"
-
-          sql:
-            driver: "mysql"
-            host: temporal-database-pxc-haproxy
-            port: 3306
-            database: temporal_visibility
-            user: root
-            existingSecret: temporal-database-pxc-secrets
-            secretName: root
-            maxConns: 20
-            maxConnLifetime: "1h"
+          visibility:
+            driver: "sql"
+            sql:
+              driver: "mysql"
+              host: temporal-database-pxc-haproxy
+              port: 3306
+              database: temporal_visibility
+              user: root
+              existingSecret: temporal-database-pxc-secrets
+              secretName: root
+              maxConns: 20
+              maxConnLifetime: "1h"
       frontend:
         resources:
           requests:
