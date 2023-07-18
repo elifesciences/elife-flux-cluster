@@ -51,9 +51,8 @@ spec:
               port: 3306
               database: temporal
               user: root
-              existingSecret: true
+              existingSecret: temporal-database-pxc-secrets
               secretKey: root
-              secretName: temporal-database-pxc-secrets
               maxConns: 20
               maxConnLifetime: "1h"
 
@@ -65,9 +64,8 @@ spec:
               port: 3306
               database: temporal_visibility
               user: root
-              existingSecret: true
+              existingSecret: temporal-database-pxc-secrets
               secretKey: root
-              secretName: temporal-database-pxc-secrets
               maxConns: 20
               maxConnLifetime: "1h"
       frontend:
