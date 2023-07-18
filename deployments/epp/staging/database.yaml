@@ -27,7 +27,7 @@ spec:
     backup:
       enabled: false
     replsets:
-    - name: rs0
+    - name: replicaset0
       size: 3
       configuration: |
         systemLog:
