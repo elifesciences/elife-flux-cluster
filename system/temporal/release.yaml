@@ -33,6 +33,11 @@ spec:
       enabled: false
     mysql:
       enabled: true
+    schema:
+      setup:
+        enabled: true
+      update:
+        enabled: false
     server:
       enabled: true
       replicaCount: 1
