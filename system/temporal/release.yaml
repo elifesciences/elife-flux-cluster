@@ -1,182 +1,182 @@
-# ---
-# apiVersion: helm.toolkit.fluxcd.io/v2beta1
-# kind: HelmRelease
-# metadata:
-#   name: temporal
-#   namespace: temporal
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: temporal
+  namespace: temporal
 
-# spec:
-#   interval: 1m
-#   releaseName: temporal
-#   chart:
-#     spec:
-#       chart: ./
-#       version: 1.20.2
-#       sourceRef:
-#         kind: GitRepository
-#         name: temporal
-#       interval: 1m
-#   install:
-#     remediation:
-#       retries: 5
-#   timeout: 10m
-#   values:
-#     cassandra:
-#       enabled: false
-#     prometheus:
-#       enabled: false
-#     grafana:
-#       enabled: false
-#     elasticsearch:
-#       enabled: false
-#     postgresql:
-#       enabled: false
-#     mysql:
-#       enabled: true
-#     schema:
-#       setup:
-#         enabled: true
-#       update:
-#         enabled: true
-#     server:
-#       enabled: true
-#       replicaCount: 1
-#       config:
-#         persistence:
-#           default:
-#             driver: "sql"
-#             sql:
-#               driver: "mysql"
-#               host: temporal-database-pxc-haproxy
-#               port: 3306
-#               database: temporal
-#               user: root
-#               existingSecret: temporal-database-pxc-secrets
-#               maxConns: 20
-#               maxConnLifetime: "1h"
+spec:
+  interval: 1m
+  releaseName: temporal
+  chart:
+    spec:
+      chart: ./
+      version: 1.20.2
+      sourceRef:
+        kind: GitRepository
+        name: temporal
+      interval: 1m
+  install:
+    remediation:
+      retries: 5
+  timeout: 10m
+  values:
+    cassandra:
+      enabled: false
+    prometheus:
+      enabled: false
+    grafana:
+      enabled: false
+    elasticsearch:
+      enabled: false
+    postgresql:
+      enabled: false
+    mysql:
+      enabled: true
+    schema:
+      setup:
+        enabled: true
+      update:
+        enabled: true
+    server:
+      enabled: true
+      replicaCount: 1
+      config:
+        persistence:
+          default:
+            driver: "sql"
+            sql:
+              driver: "mysql"
+              host: temporal-database-pxc-haproxy
+              port: 3306
+              database: temporal
+              user: root
+              existingSecret: temporal-database-pxc-secrets
+              maxConns: 20
+              maxConnLifetime: "1h"
 
-#           visibility:
-#             driver: "sql"
-#             sql:
-#               driver: "mysql"
-#               host: temporal-database-pxc-haproxy
-#               port: 3306
-#               database: temporal_visibility
-#               user: root
-#               existingSecret: temporal-database-pxc-secrets
-#               maxConns: 20
-#               maxConnLifetime: "1h"
-#       frontend:
-#         resources:
-#           requests:
-#             cpu: 100m
-#             memory: 512Mi
-#       history:
-#         resources:
-#           requests:
-#             cpu: 100m
-#             memory: 512Mi
-#       matching:
-#         resources:
-#           requests:
-#             cpu: 100m
-#             memory: 512Mi
-#       worker:
-#         resources:
-#           requests:
-#             cpu: 100m
-#             memory: 512Mi
-#     web:
-#       enabled: false
-#       ingress:
-#         enabled: true
-#         hosts:
-#         - temporal.elifesciences.org
-#         annotations:
-#           nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
-#           nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
-#   postRenderers:
-#   - kustomize:
-#       patches:
-#       - target:
-#           kind: Deployment
-#           name: temporal-frontend
-#         patch: |
-#           apiVersion: apps/v1
-#           kind: Deployment
-#           metadata:
-#             name: temporal-frontend
-#           spec:
-#             template:
-#               spec:
-#                 containers:
-#                 - name: temporal-frontend
-#                   env:
-#                   - name: TEMPORAL_VISIBILITY_STORE_PASSWORD
-#                     valueFrom:
-#                       secretKeyRef:
-#                         key: root
-#                         name: temporal-database-pxc-secrets
-#   - kustomize:
-#       patches:
-#       - target:
-#           kind: Deployment
-#           name: temporal-history
-#         patch: |
-#           apiVersion: apps/v1
-#           kind: Deployment
-#           metadata:
-#             name: temporal-history
-#           spec:
-#             template:
-#               spec:
-#                 containers:
-#                 - name: temporal-history
-#                   env:
-#                   - name: TEMPORAL_VISIBILITY_STORE_PASSWORD
-#                     valueFrom:
-#                       secretKeyRef:
-#                         key: root
-#                         name: temporal-database-pxc-secrets
-#   - kustomize:
-#       patches:
-#       - target:
-#           kind: Deployment
-#           name: temporal-matching
-#         patch: |
-#           apiVersion: apps/v1
-#           kind: Deployment
-#           metadata:
-#             name: temporal-matching
-#           spec:
-#             template:
-#               spec:
-#                 containers:
-#                 - name: temporal-matching
-#                   env:
-#                   - name: TEMPORAL_VISIBILITY_STORE_PASSWORD
-#                     valueFrom:
-#                       secretKeyRef:
-#                         key: root
-#                         name: temporal-database-pxc-secrets
-#   - kustomize:
-#       patches:
-#       - target:
-#           kind: Deployment
-#           name: temporal-worker
-#         patch: |
-#           apiVersion: apps/v1
-#           kind: Deployment
-#           metadata:
-#             name: temporal-worker
-#           spec:
-#             template:
-#               spec:
-#                 containers:
-#                 - name: temporal-worker
-#                   env:
-#                   - name: TEMPORAL_VISIBILITY_STORE_PASSWORD
-#                     valueFrom:
-#                       secretKeyRef:
-#                         key: root
-#                         name: temporal-database-pxc-secrets
+          visibility:
+            driver: "sql"
+            sql:
+              driver: "mysql"
+              host: temporal-database-pxc-haproxy
+              port: 3306
+              database: temporal_visibility
+              user: root
+              existingSecret: temporal-database-pxc-secrets
+              maxConns: 20
+              maxConnLifetime: "1h"
+      frontend:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+      history:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+      matching:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+      worker:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+    web:
+      enabled: false
+      ingress:
+        enabled: true
+        hosts:
+        - temporal.elifesciences.org
+        annotations:
+          nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+  postRenderers:
+  - kustomize:
+      patches:
+      - target:
+          kind: Deployment
+          name: temporal-frontend
+        patch: |
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: temporal-frontend
+          spec:
+            template:
+              spec:
+                containers:
+                - name: temporal-frontend
+                  env:
+                  - name: TEMPORAL_VISIBILITY_STORE_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        key: root
+                        name: temporal-database-pxc-secrets
+  - kustomize:
+      patches:
+      - target:
+          kind: Deployment
+          name: temporal-history
+        patch: |
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: temporal-history
+          spec:
+            template:
+              spec:
+                containers:
+                - name: temporal-history
+                  env:
+                  - name: TEMPORAL_VISIBILITY_STORE_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        key: root
+                        name: temporal-database-pxc-secrets
+  - kustomize:
+      patches:
+      - target:
+          kind: Deployment
+          name: temporal-matching
+        patch: |
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: temporal-matching
+          spec:
+            template:
+              spec:
+                containers:
+                - name: temporal-matching
+                  env:
+                  - name: TEMPORAL_VISIBILITY_STORE_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        key: root
+                        name: temporal-database-pxc-secrets
+  - kustomize:
+      patches:
+      - target:
+          kind: Deployment
+          name: temporal-worker
+        patch: |
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: temporal-worker
+          spec:
+            template:
+              spec:
+                containers:
+                - name: temporal-worker
+                  env:
+                  - name: TEMPORAL_VISIBILITY_STORE_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        key: root
+                        name: temporal-database-pxc-secrets
