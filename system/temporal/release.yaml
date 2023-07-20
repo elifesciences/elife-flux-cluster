@@ -116,6 +116,10 @@ spec:
                     valueFrom:
                       secretKeyRef:
                         key: root
+                  - name: TEMPORAL_STORE_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        key: root
       - target:
           kind: Deployment
           name: temporal-history
@@ -134,6 +138,11 @@ spec:
                     valueFrom:
                       secretKeyRef:
                         key: root
+                  - name: TEMPORAL_STORE_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        key: root
+
       - target:
           kind: Deployment
           name: temporal-matching
@@ -152,6 +161,11 @@ spec:
                     valueFrom:
                       secretKeyRef:
                         key: root
+                  - name: TEMPORAL_STORE_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        key: root
+
       - target:
           kind: Deployment
           name: temporal-worker
@@ -170,6 +184,11 @@ spec:
                     valueFrom:
                       secretKeyRef:
                         key: root
+                  - name: TEMPORAL_STORE_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        key: root
+
       - target:
           kind: Job
           name: temporal-schema-update
