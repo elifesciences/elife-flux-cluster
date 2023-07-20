@@ -87,7 +87,7 @@ spec:
             cpu: 100m
             memory: 512Mi
     web:
-      enabled: false
+      enabled: true
       ingress:
         enabled: true
         hosts:
@@ -116,9 +116,6 @@ spec:
                     valueFrom:
                       secretKeyRef:
                         key: root
-                        name: temporal-database-pxc-secrets
-  - kustomize:
-      patches:
       - target:
           kind: Deployment
           name: temporal-history
@@ -137,9 +134,6 @@ spec:
                     valueFrom:
                       secretKeyRef:
                         key: root
-                        name: temporal-database-pxc-secrets
-  - kustomize:
-      patches:
       - target:
           kind: Deployment
           name: temporal-matching
@@ -158,9 +152,6 @@ spec:
                     valueFrom:
                       secretKeyRef:
                         key: root
-                        name: temporal-database-pxc-secrets
-  - kustomize:
-      patches:
       - target:
           kind: Deployment
           name: temporal-worker
@@ -179,4 +170,64 @@ spec:
                     valueFrom:
                       secretKeyRef:
                         key: root
-                        name: temporal-database-pxc-secrets
+      - target:
+          kind: Job
+          name: temporal-schema-update
+        patch: |
+          apiVersion: batch/v1
+          kind: Job
+          metadata:
+            name: temporal-schema-update
+          spec:
+            template:
+              spec:
+                containers:
+                - name: default-schema
+                  env:
+                  - name: SQL_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        key: root
+                - name: visibility-schema
+                  env:
+                  - name: SQL_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        key: root
+      - target:
+          kind: Job
+          name: temporal-schema-setup
+        patch: |
+          apiVersion: batch/v1
+          kind: Job
+          metadata:
+            name: temporal-schema-setup
+          spec:
+            template:
+              spec:
+                initContainers:
+                - name: create-default-store
+                  env:
+                  - name: SQL_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        key: root
+                - name: create-visibility-store
+                  env:
+                  - name: SQL_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        key: root
+                containers:
+                - name: default-schema
+                  env:
+                  - name: SQL_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        key: root
+                - name: visibility-schema
+                  env:
+                  - name: SQL_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        key: root
