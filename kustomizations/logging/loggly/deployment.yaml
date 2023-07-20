@@ -32,7 +32,7 @@ spec:
         command: ['sh', '-c', '']
       containers:
       - name: fluentd-loggly
-        image: fluent/fluentd-kubernetes-daemonset:v1.16.1-debian-loggly-amd64-1.0
+        image: fluent/fluentd-kubernetes-daemonset:v1.16.2-debian-loggly-amd64-1.0
         env:
         - name: TOKEN
           valueFrom:
