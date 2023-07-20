@@ -35,9 +35,9 @@ spec:
       enabled: true
     schema:
       setup:
-        enabled: true
+        enabled: false
       update:
-        enabled: true
+        enabled: false
     server:
       enabled: true
       replicaCount: 1
