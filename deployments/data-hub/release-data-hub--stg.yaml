@@ -121,7 +121,7 @@ spec:
       - name: CROSS_REF_IMPORT_SCHEDULE_INTERVAL
         value: "@daily"
       - name: GOOGLE_SPREADSHEET_SCHEDULE_INTERVAL
-        value: "@daily"
+        value: "0 */2 * * *" # Every 2 hour
       - name: SEMANTIC_SCHOLAR_PIPELINE_SCHEDULE_INTERVAL
         value: "0 10 * * *" # At 10:00, every day
       - name: SEMANTIC_SCHOLAR_RECOMMENDATION_PIPELINE_SCHEDULE_INTERVAL
