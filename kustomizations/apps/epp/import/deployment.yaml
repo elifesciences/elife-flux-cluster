@@ -3,10 +3,6 @@ kind: Deployment
 metadata:
   name: epp-import
   namespace: epp
-  labels:
-    app_name: epp
-    app_env: ${app_env}
-    app_tier: import
 spec:
   strategy:
     rollingUpdate:
@@ -40,5 +36,7 @@ spec:
           value: ${epp_server}
         - name: TEMPORAL_SERVER
           value: ${temporal_server}
+        - name: XSLT_TRANSFORM_ADDRESS
+          value: http://epp-biorxiv-xslt-api:80
         ports:
           - containerPort: 9464
