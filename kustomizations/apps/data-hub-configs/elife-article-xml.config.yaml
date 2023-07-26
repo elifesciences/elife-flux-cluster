@@ -1,3 +1,5 @@
+# Whenever new searched XML elements are added to the configuration, 
+# it's important to update the tableName to include the updated field for the historic data."
 elifeArticleXml:
   - dataPipelineId: elife-article-xml
     source:
@@ -8,6 +10,8 @@ elifeArticleXml:
           # parameters will be skipped if referenced file does not exist
           - parameterName: Authorization
             filePathEnvName: GITHUB_API_AUTHORIZATION_FILE_PATH
+      # XML elements that we are interested in (by replaceing '-' with '_')
+      searchedXmlElements: ['related_article', 'article_id', 'article_categories']
     target:
       projectName: 'elife-data-pipeline'
       datasetName: '{ENV}'
