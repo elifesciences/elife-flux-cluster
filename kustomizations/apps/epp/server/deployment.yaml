@@ -30,7 +30,7 @@ spec:
         image: ghcr.io/elifesciences/enhanced-preprints:latest
         resources:
           requests:
-            cpu: "200m"
+            cpu: "50m"
           limits:
             memory: "2Gi"
         env:
