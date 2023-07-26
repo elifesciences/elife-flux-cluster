@@ -11,7 +11,7 @@ elifeArticleXml:
           - parameterName: Authorization
             filePathEnvName: GITHUB_API_AUTHORIZATION_FILE_PATH
       # XML elements that we are interested in (by replaceing '-' with '_')
-      searchedXmlElements: ['related_article', 'article_id', 'article_categories']
+      selectedXmlElements: ['related_article', 'article_id', 'article_categories']
     target:
       projectName: 'elife-data-pipeline'
       datasetName: '{ENV}'
