@@ -43,8 +43,8 @@ spec:
           limits:
             memory: 400Mi
           requests:
-            cpu: 100m
-            memory: 200Mi
+            cpu: 10m
+            memory: 250Mi
         volumeMounts:
         - name: config-volume
           mountPath: /config-volume
