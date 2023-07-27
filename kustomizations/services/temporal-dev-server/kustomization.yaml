@@ -7,5 +7,3 @@ resources:
 - service-ui.yaml
 - ingress.yaml
 - podmonitor.yaml
-- dashboard-server.yaml
-- dashboard-sdk.yaml
