@@ -11,7 +11,6 @@ spec:
   chart:
     spec:
       chart: ./
-      version: 1.20.2
       sourceRef:
         kind: GitRepository
         name: temporal
