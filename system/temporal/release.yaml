@@ -41,6 +41,9 @@ spec:
     server:
       enabled: true
       replicaCount: 1
+      metrics:
+        serviceMonitor:
+          enabled: true
       config:
         persistence:
           default:
