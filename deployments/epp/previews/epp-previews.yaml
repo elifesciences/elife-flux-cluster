@@ -22,21 +22,6 @@ spec:
       metadata:
         name: "epp--previews-{{ matrix.pr.number }}"
   - object:
-      apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-      kind: Kustomization
-      metadata:
-        name: "podtato-head-env-{{ matrix.pr.head.label | slugify }}"
-        namespace: default
-      spec:
-        interval: 10m
-        targetNamespace: "podtato-head-{{ matrix.pr.head.label | slugify }}"
-        sourceRef:
-          kind: GitRepository
-          # refers to the same GitRepository created above
-          name: "podtato-head-{{ matrix.pr.head.label | slugify }}"
-        path: "./delivery/kustomize/base"
-        prune: true
-  - object:
       apiVersion: kustomize.toolkit.fluxcd.io/v1
       kind: Kustomization
       metadata:
