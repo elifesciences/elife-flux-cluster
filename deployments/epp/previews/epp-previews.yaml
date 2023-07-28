@@ -1,0 +1,68 @@
+apiVersion: templates.kluctl.io/v1alpha1
+kind: ObjectTemplate
+metadata:
+  name: pr-envs
+  namespace: epp--previews
+spec:
+  serviceAccountName: epp-previews
+  prune: true
+  matrix:
+  - name: pr
+    object:
+      ref:
+        apiVersion: templates.kluctl.io/v1alpha1
+        kind: ListGithubPullRequests
+        name: epp-preview-prs
+      jsonPath: status.pullRequests
+      expandLists: true
+  templates:
+  - object:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: "epp--previews-{{ matrix.pr.number }}"
+  - object:
+      apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+      kind: Kustomization
+      metadata:
+        name: "podtato-head-env-{{ matrix.pr.head.label | slugify }}"
+        namespace: default
+      spec:
+        interval: 10m
+        targetNamespace: "podtato-head-{{ matrix.pr.head.label | slugify }}"
+        sourceRef:
+          kind: GitRepository
+          # refers to the same GitRepository created above
+          name: "podtato-head-{{ matrix.pr.head.label | slugify }}"
+        path: "./delivery/kustomize/base"
+        prune: true
+  - object:
+      apiVersion: kustomize.toolkit.fluxcd.io/v1
+      kind: Kustomization
+      metadata:
+        name: epp--preview-{{ matrix.pr.number }}
+        namespace: epp--previews
+      spec:
+        interval: 1m0s
+        sourceRef:
+          kind: GitRepository
+          name: flux-system
+          namespace: flux-system
+        path: ./kustomizations/apps/epp/preview
+        prune: true
+        targetNamespace: epp--preview-{{ matrix.pr.number }}
+        images:
+          - name: ghcr.io/elifesciences/enhanced-preprints-client
+            newTag: preview-{{ matrix.pr.number }}@latest # how do we get the latest hash? @sha256:9a49584e444335080375b6e62af862215d4c1ff595f8876fc1c72271ef549ea9
+          - name: ghcr.io/elifesciences/enhanced-preprints-storybook
+            newTag: preview-{{ matrix.pr.number }}@latest # how do we get the latest hash? @sha256:dc227504f7341b8b16eb1ec7780689353d13315d28b5292f8d5805bcb11250e1
+        postBuild:
+          substitute:
+            app_env: epp--preview-{{ matrix.pr.number }}
+            app_hostname: pr-{{ matrix.pr.number }}--epp.elifesciences.org
+            storybook_hostname: pr-{{ matrix.pr.number }}--epp-storybook.elifesciences.org
+            epp_server: http://epp-server.epp--staging:3000
+            asset_prefix: https://pr-{{ matrix.pr.number }}--epp.elifesciences.org
+            iiif_server: https://staging--epp.elifesciences.org/iiif
+            client_replicas: "1"
+            is_automated: "automated"
