@@ -1,0 +1,16 @@
+---
+apiVersion: templates.kluctl.io/v1alpha1
+kind: ListGithubPullRequests
+metadata:
+  name: epp-preview-prs
+  namespace: epp--previews
+spec:
+  interval: 1m
+  owner: elifesciences
+  repo: enhanced-preprints-client
+  state: open
+  base: master
+  head: elifesciences:.*
+  labels:
+  - preview-template
+  limit: 10
