@@ -38,9 +38,9 @@ spec:
         targetNamespace: epp--preview-{{ matrix.pr.number }}
         images:
           - name: ghcr.io/elifesciences/enhanced-preprints-client
-            newTag: preview-{{ matrix.pr.number }}@latest # how do we get the latest hash? @sha256:9a49584e444335080375b6e62af862215d4c1ff595f8876fc1c72271ef549ea9
+            newTag: preview-{{ matrix.pr.number }} # how do we get the latest hash? @sha256:9a49584e444335080375b6e62af862215d4c1ff595f8876fc1c72271ef549ea9
           - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-            newTag: preview-{{ matrix.pr.number }}@latest # how do we get the latest hash? @sha256:dc227504f7341b8b16eb1ec7780689353d13315d28b5292f8d5805bcb11250e1
+            newTag: preview-{{ matrix.pr.number }} # how do we get the latest hash? @sha256:dc227504f7341b8b16eb1ec7780689353d13315d28b5292f8d5805bcb11250e1
         postBuild:
           substitute:
             app_env: epp--preview-{{ matrix.pr.number }}
