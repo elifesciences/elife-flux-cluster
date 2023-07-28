@@ -20,7 +20,7 @@ spec:
       apiVersion: v1
       kind: Namespace
       metadata:
-        name: "epp--previews-{{ matrix.pr.number }}"
+        name: "epp--preview-{{ matrix.pr.number }}"
   - object:
       apiVersion: kustomize.toolkit.fluxcd.io/v1
       kind: Kustomization
