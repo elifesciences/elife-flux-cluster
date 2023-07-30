@@ -43,8 +43,8 @@ spec:
         providerRef:
           name: epp-github-dispatch
         eventSeverity: info
-        eventMetadata:
-          github-pr: {{ matrix.pr.number }}
+        # eventMetadata:
+          # github-pr: {{ matrix.pr.number }}
           # github-statuses-url: {{ matrix.pr.statuses_url }}
         eventSources:
           - kind: Kustomization
