@@ -38,7 +38,7 @@ spec:
         eventSources:
           - kind: Kustomization
             name: 'epp--preview-{{ matrix.pr.number }}'
-            namespace: epp--preview-{{ matrix.pr.number }}
+            namespace: epp--previews
   - object:
       apiVersion: kustomize.toolkit.fluxcd.io/v1
       kind: Kustomization
