@@ -33,8 +33,8 @@ spec:
           name: epp-client-github-dispatch
         eventSeverity: info
         eventMetadata:
-          github-pr: "{{ matrix.pr.number }}"
-          github-statuses-url: "{{ matrix.pr.statuses_url }}"
+          github_pr: "{{ matrix.pr.number }}"
+          github_statuses_url: "{{ matrix.pr.statuses_url }}"
         eventSources:
           - kind: Kustomization
             name: 'epp--preview-{{ matrix.pr.number }}'
