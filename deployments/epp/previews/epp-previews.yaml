@@ -22,26 +22,6 @@ spec:
       metadata:
         name: "epp--preview-{{ matrix.pr.number }}"
   - object:
-      apiVersion: notification.toolkit.fluxcd.io/v1beta2
-      kind: Alert
-      metadata:
-        name: epp-deploy-preview-{{ matrix.pr.number }}
-        namespace: epp--previews
-      spec:
-        summary: "EPP deploy Preview for PR {{ matrix.pr.number }}"
-        providerRef:
-          name: epp-client-github-dispatch
-        eventSeverity: info
-        eventMetadata:
-          github_pr: "{{ matrix.pr.number }}"
-          github_statuses_url: "{{ matrix.pr.statuses_url }}"
-          github_sha: "{{ matrix.pr.head.ref }}"
-          github_head_ref: "{{ matrix.pr.head.sha }}"
-        eventSources:
-          - kind: Kustomization
-            name: 'epp--preview-{{ matrix.pr.number }}'
-            namespace: epp--previews
-  - object:
       apiVersion: kustomize.toolkit.fluxcd.io/v1
       kind: Kustomization
       metadata:
@@ -71,3 +51,28 @@ spec:
             iiif_server: https://staging--epp.elifesciences.org/iiif
             client_replicas: "1"
             is_automated: "automated"
+  - object:
+      apiVersion: templates.kluctl.io/v1alpha1
+      kind: GithubComment
+      metadata:
+        name: epp-deploy-preview-{{ matrix.pr.number }}
+        namespace: epp--previews
+      spec:
+        github:
+          owner: elifesciences
+          repo: enhanced-preprints-client
+          pullRequestId: {{ matrix.pr.number }}
+          tokenRef:
+            secretName: github-api-token
+            key: token
+        comment:
+          source:
+            text: |
+              ## Deployment updated!
+
+              The preview environment has been deployed to the cluster.
+
+              Client URL: https://pr-{{ matrix.pr.number }}--epp.elifesciences.org
+              Storybook URL: https://pr-{{ matrix.pr.number }}--epp-storybook.elifesciences.org
+
+              **Note**: If this is a new environment, it can take a few minutes for DNS to update. If it's an updated environment, it can take a while for the deployment to rollout.
