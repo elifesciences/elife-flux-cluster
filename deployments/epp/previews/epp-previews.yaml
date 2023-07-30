@@ -61,7 +61,7 @@ spec:
         github:
           owner: elifesciences
           repo: enhanced-preprints-client
-          pullRequestId: {{ matrix.pr.number }}
+          pullRequestId: "{{ matrix.pr.number }}"
           tokenRef:
             secretName: github-api-token
             key: token
