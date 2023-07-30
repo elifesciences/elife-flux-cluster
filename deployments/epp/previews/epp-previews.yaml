@@ -22,6 +22,21 @@ spec:
       metadata:
         name: "epp--preview-{{ matrix.pr.number }}"
   - object:
+      apiVersion: image.toolkit.fluxcd.io/v1beta1
+      kind: ImagePolicy
+      metadata:
+        name: epp-client-preview-{{ matrix.pr.number }}
+        namespace: epp--previews
+      spec:
+        imageRepositoryRef:
+          name: epp-client
+        filterTags:
+          pattern: '^preview-{{ matrix.pr.number }}-[a-fA-F0-9]+-(?P<ts>.*)'
+          extract: '$ts'
+        policy:
+          numerical:
+            order: asc
+  - object:
       apiVersion: kustomize.toolkit.fluxcd.io/v1
       kind: Kustomization
       metadata:
