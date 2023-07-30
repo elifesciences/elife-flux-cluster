@@ -12,5 +12,5 @@ spec:
   base: master
   head: elifesciences:.*
   labels:
-  - preview-template
+  - preview
   limit: 10
