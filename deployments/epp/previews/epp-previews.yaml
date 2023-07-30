@@ -23,21 +23,10 @@ spec:
         name: "epp--preview-{{ matrix.pr.number }}"
   - object:
       apiVersion: notification.toolkit.fluxcd.io/v1beta2
-      kind: Provider
-      metadata:
-        name: epp-client-github-dispatch
-        namespace: epp--preview-{{ matrix.pr.number }}
-      spec:
-        type: githubdispatch
-        address: https://github.com/elifesciences/enhanced-preprints-client
-        secretRef:
-          name: github-api-token
-  - object:
-      apiVersion: notification.toolkit.fluxcd.io/v1beta2
       kind: Alert
       metadata:
-        name: epp-deploy
-        namespace: epp--preview-{{ matrix.pr.number }}
+        name: epp-deploy-preview-{{ matrix.pr.number }}
+        namespace: epp--previews
       spec:
         summary: "EPP deploy Preview for PR {{ matrix.pr.number }}"
         providerRef:
@@ -48,14 +37,14 @@ spec:
           github-statuses-url: "{{ matrix.pr.statuses_url }}"
         eventSources:
           - kind: Kustomization
-            name: '*'
+            name: 'epp--preview-{{ matrix.pr.number }}'
             namespace: epp--preview-{{ matrix.pr.number }}
   - object:
       apiVersion: kustomize.toolkit.fluxcd.io/v1
       kind: Kustomization
       metadata:
         name: epp--preview-{{ matrix.pr.number }}
-        namespace: epp--preview-{{ matrix.pr.number }}
+        namespace: epp--previews
       spec:
         interval: 1m0s
         sourceRef:
