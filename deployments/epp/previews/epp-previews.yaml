@@ -51,7 +51,7 @@ spec:
             iiif_server: https://staging--epp.elifesciences.org/iiif
             client_replicas: "1"
             is_automated: "automated"
-  - object:
+  - raw: |
       apiVersion: templates.kluctl.io/v1alpha1
       kind: GithubComment
       metadata:
@@ -61,7 +61,7 @@ spec:
         github:
           owner: elifesciences
           repo: enhanced-preprints-client
-          pullRequestId: {{ matrix.pr.number | to_json }}
+          pullRequestId: {{ matrix.pr.number }}
           tokenRef:
             secretName: github-api-token
             key: token
