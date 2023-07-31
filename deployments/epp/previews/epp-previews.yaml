@@ -1,7 +1,7 @@
 apiVersion: templates.kluctl.io/v1alpha1
 kind: ObjectTemplate
 metadata:
-  name: pr-envs
+  name: epp-previews
   namespace: epp--previews
 spec:
   serviceAccountName: epp-previews
@@ -12,7 +12,7 @@ spec:
       ref:
         apiVersion: templates.kluctl.io/v1alpha1
         kind: ListGithubPullRequests
-        name: epp-preview-prs
+        name: epp-client-preview
       jsonPath: status.pullRequests
       expandLists: true
   templates:
@@ -30,6 +30,21 @@ spec:
       spec:
         imageRepositoryRef:
           name: epp-client
+        filterTags:
+          pattern: '^preview-{{ matrix.pr.number }}-[a-fA-F0-9]+-(?P<ts>.*)'
+          extract: '$ts'
+        policy:
+          numerical:
+            order: asc
+  - object:
+      apiVersion: image.toolkit.fluxcd.io/v1beta1
+      kind: ImagePolicy
+      metadata:
+        name: epp-storybook-preview-{{ matrix.pr.number }}
+        namespace: epp--previews
+      spec:
+        imageRepositoryRef:
+          name: epp-storybook
         filterTags:
           pattern: '^preview-{{ matrix.pr.number }}-[a-fA-F0-9]+-(?P<ts>.*)'
           extract: '$ts'
