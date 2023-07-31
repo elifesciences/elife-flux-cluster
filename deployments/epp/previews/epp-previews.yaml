@@ -123,11 +123,38 @@ spec:
               comment:
                 source:
                   text: |
-                    ## Deployment updated!
+                    ## Preview environment created!
 
                     The preview environment has been deployed to the cluster.
 
                     Client URL: https://pr-{{ matrix.pr.number }}--epp.elifesciences.org
                     Storybook URL: https://pr-{{ matrix.pr.number }}--epp-storybook.elifesciences.org
 
-                    **Note**: If this is a new environment, it can take a few minutes for DNS to update. If it's an updated environment, it can take a while for the deployment to rollout.
+                    **Note**: If this is a new environment, it can take a few minutes for DNS to update.
+        - raw: |
+            apiVersion: templates.kluctl.io/v1alpha1
+            kind: GithubComment
+            metadata:
+              name: epp-deploy-preview-{{ matrix.pr.number }}-latestimage
+              namespace: epp--previews
+            spec:
+              github:
+                owner: elifesciences
+                repo: enhanced-preprints-client
+                pullRequestId: {{ matrix.pr.number }}
+                tokenRef:
+                  secretName: github-api-token
+                  key: token
+              comment:
+                source:
+                  text: |
+                    ## Preview environment images deployed
+
+                    The preview environment has been updated:
+                    client image tag: {% raw %}{{ matrix['client-image'].split(':')[1] }}{% endraw %}
+                    storybook image tag: {% raw %}{{ matrix['storybook-image'].split(':')[1] }}{% endraw %}
+
+                    Client URL: https://pr-{{ matrix.pr.number }}--epp.elifesciences.org
+                    Storybook URL: https://pr-{{ matrix.pr.number }}--epp-storybook.elifesciences.org
+
+                    **Note**: Updated images can take a few minutes to roll out.
