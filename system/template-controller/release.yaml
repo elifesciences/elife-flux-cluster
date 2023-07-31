@@ -20,4 +20,21 @@ spec:
     remediation:
       retries: 5
 
-  values:
+  postRenderers:
+  - kustomize:
+      patchesJson6902:
+      - target:
+          kind: ClusterRole
+          name: template-controller-manager-role
+        patch:
+        - op: "add"
+          path: "/rules/-"
+          value:
+            apiGroups:
+            - image.toolkit.fluxcd.io
+            resources:
+            - imagepolicies
+            verbs:
+            - get
+            - list
+            - watch

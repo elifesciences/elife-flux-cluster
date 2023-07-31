@@ -14,13 +14,13 @@ spec:
   targetNamespace: epp--prod
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints
-      newTag: master-b00cdc81-20230725.1329 # {"$imagepolicy": "epp--prod:epp-server:tag"}
+      newTag: master-87a56abc-20230730.1213 # {"$imagepolicy": "epp--prod:epp-server:tag"}
     - name: ghcr.io/elifesciences/epp-image-server
       newTag: master-706d7fa5-20230704.1349 # {"$imagepolicy": "epp--prod:epp-image-server:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-client
-      newTag: master-e210ab88-20230727.1535 # {"$imagepolicy": "epp--prod:epp-client:tag"}
+      newTag: master-ac8badf8-20230731.1213 # {"$imagepolicy": "epp--prod:epp-client:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-      newTag: master-e210ab88-20230727.1606 # {"$imagepolicy": "epp--prod:epp-storybook:tag"}
+      newTag: master-ac8badf8-20230731.1235 # {"$imagepolicy": "epp--prod:epp-storybook:tag"}
   postBuild:
     substitute:
       app_env: prod
