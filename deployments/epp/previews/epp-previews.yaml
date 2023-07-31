@@ -62,14 +62,12 @@ spec:
               apiVersion: image.toolkit.fluxcd.io/v1beta2
               kind: ImagePolicy
               name: epp-client-preview-{{ matrix.pr.number }}
-            jsonPath: status.latestImage
         - name: storybook-image
           object:
             ref:
               apiVersion: image.toolkit.fluxcd.io/v1beta2
               kind: ImagePolicy
               name: epp-storybook-preview-{{ matrix.pr.number }}
-            jsonPath: status.latestImage
         templates:
         - object:
             apiVersion: v1
@@ -93,9 +91,9 @@ spec:
               targetNamespace: epp--preview-{{ matrix.pr.number }}
               images:
                 - name: ghcr.io/elifesciences/enhanced-preprints-client
-                  newTag: "{% raw %}{{ matrix.client-image }}{% endraw %}"
+                  newTag: "{% raw %}{{ matrix.client-image.status.latestImage.split(':')[1] }}{% endraw %}"
                 - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-                  newTag: "{% raw %}{{ matrix.storybook-image }}{% endraw %}"
+                  newTag: "{% raw %}{{ matrix.storybook-image.status.latestImage.split(':')[1] }}{% endraw %}"
               postBuild:
                 substitute:
                   app_env: epp--preview-{{ matrix.pr.number }}
