@@ -13,6 +13,10 @@ resources:
 - server/automations/repository.yaml
 - server/automations/policy.yaml
 - client
+- client/automations/repository.yaml
+- client/automations/policy.yaml
 - storybook
+- storybook/automations/repository.yaml
+- storybook/automations/policy.yaml
 - ingress.yaml
 - ingress-admin.yaml

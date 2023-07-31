@@ -4,5 +4,3 @@ namespace: epp
 resources:
 - deployment.yaml
 - service.yaml
-- automations/repository.yaml
-- automations/policy.yaml
