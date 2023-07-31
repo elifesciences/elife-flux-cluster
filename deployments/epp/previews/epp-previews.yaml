@@ -17,11 +17,6 @@ spec:
       expandLists: true
   templates:
   - object:
-      apiVersion: v1
-      kind: Namespace
-      metadata:
-        name: "epp--preview-{{ matrix.pr.number }}"
-  - object:
       apiVersion: image.toolkit.fluxcd.io/v1beta1
       kind: ImagePolicy
       metadata:
@@ -52,57 +47,87 @@ spec:
           numerical:
             order: asc
   - object:
-      apiVersion: kustomize.toolkit.fluxcd.io/v1
-      kind: Kustomization
-      metadata:
-        name: epp--preview-{{ matrix.pr.number }}
-        namespace: epp--previews
-      spec:
-        interval: 1m0s
-        sourceRef:
-          kind: GitRepository
-          name: flux-system
-          namespace: flux-system
-        path: ./kustomizations/apps/epp/preview
-        prune: true
-        targetNamespace: epp--preview-{{ matrix.pr.number }}
-        images:
-          - name: ghcr.io/elifesciences/enhanced-preprints-client
-            newTag: preview-{{ matrix.pr.number }}-{{ matrix.pr.head.sha }}
-          - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-            newTag: preview-{{ matrix.pr.number }}-{{ matrix.pr.head.sha }}
-        postBuild:
-          substitute:
-            app_env: epp--preview-{{ matrix.pr.number }}
-            app_hostname: pr-{{ matrix.pr.number }}--epp.elifesciences.org
-            storybook_hostname: pr-{{ matrix.pr.number }}--epp-storybook.elifesciences.org
-            epp_server: http://epp-server.epp--staging:3000
-            asset_prefix: https://pr-{{ matrix.pr.number }}--epp.elifesciences.org
-            iiif_server: https://staging--epp.elifesciences.org/iiif
-            client_replicas: "1"
-            is_automated: "automated"
-  - raw: |
       apiVersion: templates.kluctl.io/v1alpha1
-      kind: GithubComment
+      kind: ObjectTemplate
       metadata:
-        name: epp-deploy-preview-{{ matrix.pr.number }}
+        name: epp-preview-{{ matrix.pr.number }}
         namespace: epp--previews
       spec:
-        github:
-          owner: elifesciences
-          repo: enhanced-preprints-client
-          pullRequestId: {{ matrix.pr.number }}
-          tokenRef:
-            secretName: github-api-token
-            key: token
-        comment:
-          source:
-            text: |
-              ## Deployment updated!
+        serviceAccountName: epp-previews
+        prune: true
+        matrix:
+        - name: client-image
+          object:
+            ref:
+              apiVersion: image.toolkit.fluxcd.io/v1beta2
+              kind: ImagePolicy
+              name: epp-client-preview-{{ matrix.pr.number }}
+            jsonPath: status.latestImage
+        - name: storybook-image
+          object:
+            ref:
+              apiVersion: image.toolkit.fluxcd.io/v1beta2
+              kind: ImagePolicy
+              name: epp-storybook-preview-{{ matrix.pr.number }}
+            jsonPath: status.latestImage
+        templates:
+        - object:
+            apiVersion: v1
+            kind: Namespace
+            metadata:
+              name: "epp--preview-{{ matrix.pr.number }}"
+        - object:
+            apiVersion: kustomize.toolkit.fluxcd.io/v1
+            kind: Kustomization
+            metadata:
+              name: epp--preview-{{ matrix.pr.number }}
+              namespace: epp--previews
+            spec:
+              interval: 1m0s
+              sourceRef:
+                kind: GitRepository
+                name: flux-system
+                namespace: flux-system
+              path: ./kustomizations/apps/epp/preview
+              prune: true
+              targetNamespace: epp--preview-{{ matrix.pr.number }}
+              images:
+                - name: ghcr.io/elifesciences/enhanced-preprints-client
+                  newTag: "{% raw %}{{ matrix.client-image }}{% endraw %}"
+                - name: ghcr.io/elifesciences/enhanced-preprints-storybook
+                  newTag: "{% raw %}{{ matrix.storybook-image }}{% endraw %}"
+              postBuild:
+                substitute:
+                  app_env: epp--preview-{{ matrix.pr.number }}
+                  app_hostname: pr-{{ matrix.pr.number }}--epp.elifesciences.org
+                  storybook_hostname: pr-{{ matrix.pr.number }}--epp-storybook.elifesciences.org
+                  epp_server: http://epp-server.epp--staging:3000
+                  asset_prefix: https://pr-{{ matrix.pr.number }}--epp.elifesciences.org
+                  iiif_server: https://staging--epp.elifesciences.org/iiif
+                  client_replicas: "1"
+                  is_automated: "automated"
+        - raw: |
+            apiVersion: templates.kluctl.io/v1alpha1
+            kind: GithubComment
+            metadata:
+              name: epp-deploy-preview-{{ matrix.pr.number }}
+              namespace: epp--previews
+            spec:
+              github:
+                owner: elifesciences
+                repo: enhanced-preprints-client
+                pullRequestId: {{ matrix.pr.number }}
+                tokenRef:
+                  secretName: github-api-token
+                  key: token
+              comment:
+                source:
+                  text: |
+                    ## Deployment updated!
 
-              The preview environment has been deployed to the cluster.
+                    The preview environment has been deployed to the cluster.
 
-              Client URL: https://pr-{{ matrix.pr.number }}--epp.elifesciences.org
-              Storybook URL: https://pr-{{ matrix.pr.number }}--epp-storybook.elifesciences.org
+                    Client URL: https://pr-{{ matrix.pr.number }}--epp.elifesciences.org
+                    Storybook URL: https://pr-{{ matrix.pr.number }}--epp-storybook.elifesciences.org
 
-              **Note**: If this is a new environment, it can take a few minutes for DNS to update. If it's an updated environment, it can take a while for the deployment to rollout.
+                    **Note**: If this is a new environment, it can take a few minutes for DNS to update. If it's an updated environment, it can take a while for the deployment to rollout.
