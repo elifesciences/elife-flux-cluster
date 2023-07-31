@@ -148,7 +148,7 @@ spec:
               comment:
                 source:
                   text: |
-                    ## Preview environment images deployed
+                    ## Preview environment images deployed!
 
                     The preview environment has been updated:
                     client image tag: {% raw %}{{ matrix['client-image'].split(':')[1] }}{% endraw %}
