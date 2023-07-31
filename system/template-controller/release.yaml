@@ -20,4 +20,20 @@ spec:
     remediation:
       retries: 5
 
-  values:
+  postRenderers:
+  - kustomize:
+      patches:
+      - target:
+          apiVersion: rbac.authorization.k8s.io/v1
+          kind: ClusterRole
+          name: template-controller-manager-role
+        patch: |
+          rules:
+          - apiGroups:
+            - image.toolkit.fluxcd.io
+            resources:
+            - imagepolicies
+            verbs:
+            - get
+            - list
+            - watch
