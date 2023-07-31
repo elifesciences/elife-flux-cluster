@@ -93,9 +93,9 @@ spec:
               targetNamespace: epp--preview-{{ matrix.pr.number }}
               images:
                 - name: ghcr.io/elifesciences/enhanced-preprints-client
-                  newTag: "{% raw %}{{ matrix.client-image.split(':')[1] }}{% endraw %}"
+                  newTag: "{% raw %}{{ matrix['client-image'].split(':')[1] }}{% endraw %}"
                 - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-                  newTag: "{% raw %}{{ matrix.storybook-image.split(':')[1] }}{% endraw %}"
+                  newTag: "{% raw %}{{ matrix['storybook-image'].split(':')[1] }}{% endraw %}"
               postBuild:
                 substitute:
                   app_env: epp--preview-{{ matrix.pr.number }}
