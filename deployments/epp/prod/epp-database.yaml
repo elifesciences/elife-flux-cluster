@@ -52,6 +52,7 @@ spec:
           requests:
             cpu: "300m"
             memory: "0.5G"
+            ephemeral-storage: 50M
         volumeSpec:
           emptyDir: {}
       arbiter:
