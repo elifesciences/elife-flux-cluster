@@ -30,7 +30,7 @@ semanticScholarRecommendation:
                           event.event_timestamp AS item_timestamp,
                           event.article_doi AS doi,
                           (event.event_name IN ('UserUnsavedArticle', 'ArticleRemovedFromList')) AS is_excluded,
-                      FROM `elife-data-pipeline.de_proto.v_sciety_event` AS event
+                      FROM `elife-data-pipeline.{ENV}.v_sciety_event` AS event
                       WHERE event.article_doi IS NOT NULL
                           AND event.event_name IN ('UserSavedArticle', 'UserUnsavedArticle', 'ArticleAddedToList', 'ArticleRemovedFromList')
                           -- ensure present in semantic scholar
