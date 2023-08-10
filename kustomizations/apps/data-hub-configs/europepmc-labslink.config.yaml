@@ -5,8 +5,8 @@ europePmcLabsLink:
       projectName: 'elife-data-pipeline'
       sqlQuery: |-
         SELECT DISTINCT article_doi
-        FROM `elife-data-pipeline.de_proto.v_sciety_event` AS event
-        WHERE event_name = 'EvaluationRecorded'
+        FROM `elife-data-pipeline.{ENV}.v_sciety_event` AS event
+        WHERE normalized_event_name IN ('EvaluationRecorded', 'EvaluationPublicationRecorded')
             AND article_doi IS NOT NULL
             AND NOT is_deleted
   xml:

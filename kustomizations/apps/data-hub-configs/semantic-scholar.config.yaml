@@ -13,7 +13,7 @@ semanticScholar:
               UNION DISTINCT
 
               SELECT DISTINCT article_doi AS doi
-              FROM `elife-data-pipeline.de_proto.v_sciety_event`
+              FROM `elife-data-pipeline.{ENV}.v_sciety_event`
               WHERE article_doi IS NOT NULL
         exclude:
           bigQuery:
