@@ -17,10 +17,10 @@ spec:
     replicas: 3
     resources:
       requests:
-        memory: "4Gi"
+        memory: "3Gi"
         cpu: "1000m"
       limits:
-        memory: "4Gi"
+        memory: "3Gi"
         cpu: "1000m"
     roles:
     - "data"
