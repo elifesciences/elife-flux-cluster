@@ -8,6 +8,9 @@ spec:
   general:
     serviceName: opensearch-staging
     version: 2.3.0
+    monitoring:
+      enable: true
+      scrapeInterval: 30s
   dashboards:
     version: 2.3.0
     enable: true
