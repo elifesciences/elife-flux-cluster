@@ -28,7 +28,7 @@ spec:
     roles:
     - "data"
     - "cluster_manager"
-    diskSize: 30Gi
+    diskSize: 60Gi
     persistence:
       pvc:
         accessModes:
