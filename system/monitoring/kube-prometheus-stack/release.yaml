@@ -83,9 +83,9 @@ spec:
         replicas: 1
         resources:
           limits:
-            memory: 2000Mi
+            memory: 3500Mi
           requests:
-            memory: 1300Mi
+            memory: 2000Mi
             ephemeral-storage: 10Mi
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
