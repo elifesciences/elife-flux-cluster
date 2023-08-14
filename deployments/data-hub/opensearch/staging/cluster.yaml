@@ -12,6 +12,7 @@ spec:
       enable: true
       scrapeInterval: 30s
     pluginsList: ["https://github.com/aiven/prometheus-exporter-plugin-for-opensearch/releases/download/2.3.0.0/prometheus-exporter-2.3.0.0.zip"]
+    httpPort: 9200
   dashboards:
     version: 2.3.0
     enable: true
