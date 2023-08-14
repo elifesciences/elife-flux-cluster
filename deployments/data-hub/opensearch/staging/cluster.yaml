@@ -11,6 +11,8 @@ spec:
     monitoring:
       enable: true
       scrapeInterval: 30s
+      tlsConfig:
+        insecureSkipVerify: true
   dashboards:
     version: 2.3.0
     enable: true
