@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: opensearch.rules
+  namespace: monitoring
+spec:
+  "groups":
+  - "name": "opensearch.rules"
+    "rules":
+    - "expr": |
+        rate(opensearch_threadpool_threads_count{name="bulk", type="rejected"}[2m])
+      "record": "bulk:rejected_requests:rate2m"
+    - "expr": |
+        rate(opensearch_threadpool_threads_count{name="bulk", type="completed"}[2m])
+      "record": "bulk:completed_requests:rate2m"
+    - "expr": |
+        sum by (cluster, instance, node) (bulk:rejected_requests:rate2m) / on (cluster, instance, node) (bulk:completed_requests:rate2m)
+      "record": "bulk:reject_ratio:rate2m"
