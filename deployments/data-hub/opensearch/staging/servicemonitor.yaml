@@ -2,8 +2,6 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  labels:
-    opster.io/opensearch-cluster: opensearch-staging
   name: opensearch-staging-monitor
   namespace: data-hub
 spec:
