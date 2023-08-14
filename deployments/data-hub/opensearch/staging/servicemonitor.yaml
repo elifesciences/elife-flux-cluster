@@ -18,6 +18,9 @@ spec:
     interval: 30s
     path: /_prometheus/metrics
     port: "9200"
+    scheme: "https"
+    tlsConfig:
+      insecureSkipVerify: true
   jobLabel: opensearch-staging-monitor
   namespaceSelector:
     matchNames:
