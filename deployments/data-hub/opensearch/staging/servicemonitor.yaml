@@ -17,7 +17,7 @@ spec:
       key: ""
     interval: 30s
     path: /_prometheus/metrics
-    port: "9200"
+    port: "http"
     scheme: "https"
     tlsConfig:
       insecureSkipVerify: true
