@@ -11,7 +11,6 @@ spec:
     monitoring:
       enable: true
       scrapeInterval: 30s
-      pluginUrl: https://github.com/aiven/prometheus-exporter-plugin-for-opensearch/releases/download/2.3.0.0/prometheus-exporter-2.3.0.0.zip
   dashboards:
     version: 2.3.0
     enable: true
