@@ -1,0 +1,33 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    opster.io/opensearch-cluster: opensearch-staging
+  name: opensearch-staging-monitor
+  namespace: data-hub
+spec:
+  endpoints:
+  - basicAuth:
+      password:
+        key: password
+        name: opensearch-staging-admin-password
+      username:
+        key: username
+        name: opensearch-staging-admin-password
+    bearerTokenSecret:
+      key: ""
+    interval: 30s
+    path: /_prometheus/metrics
+    port: "9200"
+  jobLabel: opensearch-staging-monitor
+  namespaceSelector:
+    matchNames:
+    - data-hub
+  podTargetLabels:
+  - opster.io/opensearch-cluster
+  selector:
+    matchLabels:
+      opster.io/opensearch-cluster: opensearch-staging
+  targetLabels:
+  - opster.io/opensearch-cluster
