@@ -2,7 +2,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: opensearch-staging-monitor
+  name: opensearch-monitor-staging
   namespace: data-hub
 spec:
   endpoints:
