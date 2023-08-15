@@ -27,7 +27,6 @@ Dashboards
 - [Grafana Dashboards](https://grafana.elifesciences.org/dashboards)
 - [Prometheus (Metrics)](https://prometheus.elifesciences.org)
 - [Alertmanager](https://alertmanager.elifesciences.org)
-- [NewRelic](https://one.newrelic.com/launcher/nr1-core.explorer?pane=eyJuZXJkbGV0SWQiOiJlbnRpdHktb3ZlcnZpZXctbmVyZGxldHMuazhzLWNsdXN0ZXItb3ZlcnZpZXctZGFzaGJvYXJkIiwiZW50aXR5SWQiOiJNVFExTVRRMU1YeEpUa1pTUVh4T1FYdzBOREE1TURnd09ESXlOVGMyT0RjeE5UUTUifQ==&sidebars[0]=eyJuZXJkbGV0SWQiOiJucjEtY29yZS5hY3Rpb25zIiwiZW50aXR5SWQiOiJNVFExTVRRMU1YeEpUa1pTUVh4T1FYdzBOREE1TURnd09ESXlOVGMyT0RjeE5UUTUiLCJzZWxlY3RlZE5lcmRsZXQiOnsibmVyZGxldElkIjoiZW50aXR5LW92ZXJ2aWV3LW5lcmRsZXRzLms4cy1jbHVzdGVyLW92ZXJ2aWV3LWRhc2hib2FyZCJ9fQ==&platform[timeRange][duration]=1800000&platform[$isFallbackTimeRange]=true)
 
 The __#cluster-alerts__ slack channel receives alerts from:
 
@@ -88,8 +87,6 @@ Services available on the Cluster
 - __cert-manager with letsencrypt__ ([docs/letsencrypt](docs/letsencrypt.md))
   - obtain letsencrypt SSL certs via ingress definitions
 - __PrometheusOperator__ ([docs/monitoring-alerting](docs/monitoring-alerting.md))
-  - cluster also instrumented for NewRelic
-  - Logs get dumped to Loggly
 - __oauth2-proxy__  ([docs/oauth-proxy](docs/oauth-proxy.md))
   - limit access to elifesciences github org
 - __SealedSecrets__ ([docs/sealed-secrets.md](docs/sealed-secrets.md))
