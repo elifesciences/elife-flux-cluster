@@ -38,5 +38,7 @@ spec:
           value: ${temporal_server}
         - name: XSLT_TRANSFORM_ADDRESS
           value: http://epp-biorxiv-xslt-api:80
+        - name: TEMPORAL_NAMESPACE
+          value: ${temporal_namespace}
         ports:
           - containerPort: 9464
