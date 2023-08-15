@@ -4,8 +4,6 @@ Monitoring and Alerting
 
 This document only covers the PrometheusOperator.
 
-The cluster also dumps metrics and logs to NewRelic respectively.
-
 
 ## Prometheus Metrics
 
