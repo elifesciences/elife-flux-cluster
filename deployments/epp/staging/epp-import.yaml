@@ -22,5 +22,5 @@ spec:
       app_env: staging
       s3_bucket: staging-elife-epp-data
       epp_server: http://epp-server:3000
-      temporal_server: temporal-grpc:7233
+      temporal_server: temporal-frontend.temporal:7233
       import_role_arn: arn:aws:iam::512686554592:role/epp-staging-import
