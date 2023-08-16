@@ -7,12 +7,12 @@ metadata:
 spec:
   general:
     serviceName: opensearch-staging
-    version: 2.4.0
+    version: 2.5.0
     monitoring:
       enable: false
-    pluginsList: ["https://github.com/aiven/prometheus-exporter-plugin-for-opensearch/releases/download/2.4.0.0/prometheus-exporter-2.4.0.0.zip"]
+    pluginsList: ["https://github.com/aiven/prometheus-exporter-plugin-for-opensearch/releases/download/2.5.0.0/prometheus-exporter-2.5.0.0.zip"]
   dashboards:
-    version: 2.4.0
+    version: 2.5.0
     enable: true
     replicas: 1
   nodePools:
