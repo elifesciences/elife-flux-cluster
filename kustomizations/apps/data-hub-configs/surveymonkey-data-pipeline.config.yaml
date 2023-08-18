@@ -9,4 +9,4 @@ surveyIdListToRequest:
 surveyMonkeySurveyQuestions:
   table: 'surveymonkey_survey_questions'
 surveyMonkeySurveyAnswers:
-  table: 'surveymonkey_survey_answers'
+  table: 'surveymonkey_survey_answers_v2'
