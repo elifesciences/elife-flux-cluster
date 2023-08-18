@@ -14,7 +14,7 @@ spec:
   targetNamespace: epp--staging
   images:
   - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
-    newTag: master-b70a33e0-20230817.1226 # {"$imagepolicy": "epp--staging:epp-import:tag"}
+    newTag: master-ebe01fe0-20230818.0154 # {"$imagepolicy": "epp--staging:epp-import:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
     newTag: master-5549df11-20230816.1528 # {"$imagepolicy": "epp--staging:epp-biorxiv-xslt-api:tag"}
   postBuild:
