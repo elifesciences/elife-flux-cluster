@@ -33,8 +33,8 @@ spec:
           httpGet:
             path: /
             port: http
-          initialDelaySeconds: 5
-          timeoutSeconds: 30
+          initialDelaySeconds: 10
+          timeoutSeconds: 300
           periodSeconds: 10
         resources:
           limits:
