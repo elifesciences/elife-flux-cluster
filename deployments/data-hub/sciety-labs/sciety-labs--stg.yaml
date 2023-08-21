@@ -27,14 +27,14 @@ spec:
             path: /
             port: http
           initialDelaySeconds: 60
-          timeoutSeconds: 300
+          timeoutSeconds: 30
           periodSeconds: 300
         readinessProbe:
           httpGet:
             path: /
             port: http
           initialDelaySeconds: 10
-          timeoutSeconds: 300
+          timeoutSeconds: 30
           periodSeconds: 300
         resources:
           limits:
