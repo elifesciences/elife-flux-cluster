@@ -1,0 +1,84 @@
+bigQueryToOpenSearch:
+  - dataPipelineId: bigquery_to_opensearch_data_pipeline_1
+    source:
+      bigQuery:
+        projectName: 'elife-data-pipeline'
+        sqlQuery: |-
+          SELECT
+              s2_response.externalIds.DOI AS doi,
+              s2_response.title,
+              s2_response.abstract,
+              ARRAY(
+                SELECT AS STRUCT
+                  author.name,
+                  author.authorId AS s2_author_id
+                FROM UNNEST(s2_response.authors) AS author
+              ) AS authors,
+              s2_response.embedding.vector AS s2_specter_embedding_v1,
+              s2_response.tldr,
+              s2_response.provenance.imported_timestamp AS data_hub_imported_timestamp,
+              s2_response.provenance.request_timestamp AS data_hub_request_timestamp,
+              s2_response.provenance.response_timestamp AS data_hub_response_timestamp,
+              s2_response.paperId AS s2_paper_id,
+              europepmc_response.firstPublicationDate AS publication_date
+          FROM `elife-data-pipeline.de_proto.v_semantic_scholar_response` AS s2_response
+          LEFT JOIN `elife-data-pipeline.prod.v_latest_europepmc_preprint_servers_response` AS europepmc_response
+              ON europepmc_response.doi = s2_response.externalIds.DOI
+          -- adding ORDER BY and LIMIT for development only
+          ORDER BY s2_response.provenance.imported_timestamp
+          LIMIT 1000
+    fieldNamesFor:
+      id: doi
+      timestamp: data_hub_imported_timestamp
+    state:
+      initialState:
+        startTimestamp: '2022-05-01+00:00'
+      stateFile:
+        bucketName: '{ENV}-elife-data-pipeline'
+        objectName: 'airflow-config/bigquery-to-opensearch/{ENV}-state.json'
+    target:
+      openSearch:
+        hostname: 'opensearch-staging'
+        port: 9200
+        verifyCertificates: True
+        secrets:
+          parametersFromFile:
+            - parameterName: username
+              filePathEnvName: OPENSEARCH_USERNAME_FILE_PATH
+            - parameterName: password
+              filePathEnvName: OPENSEARCH_PASSWORD_FILE_PATH
+        indexName: 'preprints_v1'
+        updateIndexSettings: False
+        updateMappings: True
+        indexSettings:
+          # Note: These settings can usually only be applied to a new index.
+          #   It is important to set for example the "knn_vector" fields ahead of time.
+          #   Otherwise it may get initialised with a different type and can't be changed without re-indexing.
+          settings:
+            index:
+              # Default values: https://opensearch.org/docs/latest/search-plugins/knn/knn-index/
+              knn: True
+              "knn.algo_param.ef_search": 512
+          mappings:
+            properties:
+                doi:
+                  type: "text"
+                title:
+                  type: "text"
+                abstract:
+                  type: "text"
+                publication_date:
+                  type: "date"
+                s2_specter_embedding_v1:
+                  type: "knn_vector"
+                  dimension: 768
+                  method:
+                    # Note: we need Lucene for filter support
+                    name: "hnsw"
+                    space_type: "l2"
+                    engine: "lucene"
+                    parameters:
+                      # Default values: https://opensearch.org/docs/latest/search-plugins/knn/knn-index/
+                      ef_construction: 512
+                      m: 16
+    batchSize: 100
