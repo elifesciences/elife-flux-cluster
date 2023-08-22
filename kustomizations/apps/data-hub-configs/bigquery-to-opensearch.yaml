@@ -24,9 +24,6 @@ bigQueryToOpenSearch:
           FROM `elife-data-pipeline.de_proto.v_semantic_scholar_response` AS s2_response
           LEFT JOIN `elife-data-pipeline.prod.v_latest_europepmc_preprint_servers_response` AS europepmc_response
               ON europepmc_response.doi = s2_response.externalIds.DOI
-          -- adding ORDER BY and LIMIT for development only
-          ORDER BY s2_response.provenance.imported_timestamp
-          LIMIT 1000
     fieldNamesFor:
       id: doi
       timestamp: data_hub_imported_timestamp
