@@ -79,4 +79,4 @@ bigQueryToOpenSearch:
                       # Default values: https://opensearch.org/docs/latest/search-plugins/knn/knn-index/
                       ef_construction: 512
                       m: 16
-    batchSize: 1000
+    batchSize: 500
