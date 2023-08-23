@@ -1,0 +1,45 @@
+---
+apiVersion: gemini.fairwinds.com/v1
+kind: SnapshotGroup
+metadata:
+  name: opensearch-prod-0-daily
+spec:
+  persistentVolumeClaim:
+    claimName: data-opensearch-prod-masters-0
+  schedule:
+    - every: 10 minutes
+      keep: 6
+    - every: hour
+      keep: 3
+    - every: day
+      keep: 14
+---
+apiVersion: gemini.fairwinds.com/v1
+kind: SnapshotGroup
+metadata:
+  name: opensearch-prod-1-daily
+spec:
+  persistentVolumeClaim:
+    claimName: data-opensearch-prod-masters-1
+  schedule:
+    - every: 10 minutes
+      keep: 6
+    - every: hour
+      keep: 3
+    - every: day
+      keep: 14
+---
+apiVersion: gemini.fairwinds.com/v1
+kind: SnapshotGroup
+metadata:
+  name: opensearch-prod-2-daily
+spec:
+  persistentVolumeClaim:
+    claimName: data-opensearch-prod-masters-2
+  schedule:
+    - every: 10 minutes
+      keep: 6
+    - every: hour
+      keep: 3
+    - every: day
+      keep: 14
