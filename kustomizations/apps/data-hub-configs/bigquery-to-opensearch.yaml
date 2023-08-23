@@ -37,7 +37,7 @@ bigQueryToOpenSearch:
       openSearch:
         hostname: 'opensearch-staging'
         port: 9200
-        verifyCertificates: True
+        verifyCertificates: False
         secrets:
           parametersFromFile:
             - parameterName: username
