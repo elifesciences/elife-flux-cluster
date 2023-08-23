@@ -26,6 +26,7 @@ metadata:
 spec:
   persistentVolumeClaim:
     claimName: data-opensearch-prod-masters-1
+  template:
     spec:
       spec:
         volumeSnapshotClassName: csi-ebs
@@ -45,9 +46,10 @@ metadata:
 spec:
   persistentVolumeClaim:
     claimName: data-opensearch-prod-masters-2
-      volumeSnapshotClassName: csi-ebs
-        spec:
-          volumeSnapshotClassName: csi-ebs
+  template:
+    spec:
+      spec:
+        volumeSnapshotClassName: csi-ebs
   schedule:
     - every: 10 minutes
       keep: 6
