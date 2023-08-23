@@ -1,0 +1,3 @@
+kubectl 1.27.3
+flux2 2.0.1
+stern 1.26.0
