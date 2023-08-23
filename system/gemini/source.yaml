@@ -1,0 +1,9 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: fairwinds
+  namespace: gemini
+spec:
+  interval: 5m
+  url: https://charts.fairwinds.com/stable
