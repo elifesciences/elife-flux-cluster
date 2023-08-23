@@ -24,6 +24,7 @@ bigQueryToOpenSearch:
           FROM `elife-data-pipeline.{ENV}.v_latest_semantic_scholar_response` AS s2_response
           LEFT JOIN `elife-data-pipeline.{ENV}.v_latest_europepmc_preprint_servers_response` AS europepmc_response
               ON europepmc_response.doi = s2_response.externalIds.DOI
+          WHERE s2_response.externalIds.DOI IS NULL
     fieldNamesFor:
       id: doi
       timestamp: data_hub_imported_timestamp
