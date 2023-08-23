@@ -103,7 +103,7 @@ spec:
       - name: SEMANTIC_SCHOLAR_RECOMMENDATION_CONFIG_FILE_PATH
         value: /dag_config_files/semantic-scholar-recommendation.config.yaml
       - name: BIGQUERY_TO_OPENSEARCH_CONFIG_FILE_PATH
-        value: /dag_config_files/bigquery-to-opensearch.yaml
+        value: /dag_config_files/bigquery-to-opensearch--stg.yaml
       - name: SURVEYMONKEY_DATA_CONFIG_FILE_PATH
         value: /dag_config_files/surveymonkey-data-pipeline.config.yaml
       - name: CIVICRM_EMAIL_DATA_CONFIG_FILE_PATH
