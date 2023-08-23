@@ -71,3 +71,14 @@ spreadsheets:
         datasetName: "{ENV}"
         tableName: 'reviewed_preprint_publication_date'
         tableWriteAppend: true
+
+  # meca path update
+  - spreadsheetId: '1mctCQuNFBjSn97Lihy7_vBO6z7-N-oqyLv4clyi6zHg'
+    sheets:
+      - sheetName: 'meca_path'
+        sheetRange: ''
+        headerLineIndex: 0
+        dataValuesStartLineIndex: 1
+        datasetName: "{ENV}"
+        tableName: 'reviewed_preprint_meca_path_update'
+        tableWriteAppend: true
