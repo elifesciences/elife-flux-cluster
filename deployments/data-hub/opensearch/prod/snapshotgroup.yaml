@@ -28,8 +28,7 @@ spec:
     claimName: data-opensearch-prod-masters-1
   template:
     spec:
-      spec:
-        volumeSnapshotClassName: csi-ebs
+      volumeSnapshotClassName: csi-ebs
   schedule:
     - every: 10 minutes
       keep: 6
@@ -48,8 +47,7 @@ spec:
     claimName: data-opensearch-prod-masters-2
   template:
     spec:
-      spec:
-        volumeSnapshotClassName: csi-ebs
+      volumeSnapshotClassName: csi-ebs
   schedule:
     - every: 10 minutes
       keep: 6
