@@ -5,6 +5,7 @@ namespace: data-hub
 configMapGenerator:
 - name: data-hub-configs
   files:
+  - bigquery-to-opensearch--stg.yaml
   - civicrm-email-report-data-pipeline.config.yaml
   - crossref-event-data-pipeline.config.yaml
   - ejp-xml-data-pipeline.config.yaml
