@@ -20,3 +20,4 @@ resources:
 - storybook/automations/policy.yaml
 - ingress.yaml
 - ingress-admin.yaml
+- import

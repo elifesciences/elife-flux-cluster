@@ -21,6 +21,10 @@ spec:
     newTag: master-609dac08-20230824.1401 # {"$imagepolicy": "epp--staging:epp-client:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-storybook
     newTag: master-609dac08-20230824.1423 # {"$imagepolicy": "epp--staging:epp-storybook:tag"}
+  - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
+    newTag: master-75d07223-20230824.0617 # {"$imagepolicy": "epp--staging:epp-import:tag"}
+  - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
+    newTag: master-e1a75ede-20230822.1508 # {"$imagepolicy": "epp--staging:epp-biorxiv-xslt-api:tag"}
   postBuild:
     substitute:
       app_env: staging
@@ -47,3 +51,7 @@ spec:
       epp_server_role_arn: arn:aws:iam::512686554592:role/epp-staging-epp-server
       is_automated: "automated"
       show_previews: "show"
+      epp_server: http://epp-server:3000
+      temporal_server: temporal-frontend.temporal:7233
+      temporal_namespace: epp--staging
+      import_role_arn: arn:aws:iam::512686554592:role/epp-staging-import
