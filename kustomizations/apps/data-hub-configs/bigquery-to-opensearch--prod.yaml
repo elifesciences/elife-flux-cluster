@@ -38,6 +38,7 @@ bigQueryToOpenSearch:
       openSearch:
         hostname: 'opensearch-prod'
         port: 9200
+        timeout: 120
         verifyCertificates: False
         secrets:
           parametersFromFile:
@@ -79,4 +80,4 @@ bigQueryToOpenSearch:
                       # Default values: https://opensearch.org/docs/latest/search-plugins/knn/knn-index/
                       ef_construction: 512
                       m: 16
-    batchSize: 100
+    batchSize: 1000
