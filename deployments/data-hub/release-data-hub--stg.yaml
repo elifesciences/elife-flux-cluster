@@ -334,12 +334,12 @@ spec:
       - name: semantic-scholar-secret-volume
         secret:
           secretName: semantic-scholar
-      - name: surveymonkey-secret-volume
-        secret:
-          secretName: surveymonkey-credentials
       - name: opensearch-secret-volume
         secret:
           secretName: opensearch-staging-admin-password
+      - name: surveymonkey-secret-volume
+        secret:
+          secretName: surveymonkey-credentials
     postgresql:
       resources:
         requests:
