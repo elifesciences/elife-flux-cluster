@@ -21,7 +21,7 @@ spec:
 apiVersion: gemini.fairwinds.com/v1
 kind: SnapshotGroup
 metadata:
-  name: opensearch-prod-0
+  name: opensearch-prod-1
   namespace: data-hub
 spec:
   persistentVolumeClaim:
@@ -40,7 +40,7 @@ spec:
 apiVersion: gemini.fairwinds.com/v1
 kind: SnapshotGroup
 metadata:
-  name: opensearch-prod-0
+  name: opensearch-prod-2
   namespace: data-hub
 spec:
   persistentVolumeClaim:
