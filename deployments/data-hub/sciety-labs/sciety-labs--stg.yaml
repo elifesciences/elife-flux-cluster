@@ -67,6 +67,8 @@ spec:
           value: /root/.secrets/opensearch/username
         - name: OPENSEARCH_PASSWORD_FILE_PATH
           value: /root/.secrets/opensearch/password
+        - name: OPENSEARCH_INDEX_NAME
+          value: "preprints_v1"
         volumeMounts:
         - name: gcp-credentials-sealed-secret-volume
           mountPath: /root/.gcp
