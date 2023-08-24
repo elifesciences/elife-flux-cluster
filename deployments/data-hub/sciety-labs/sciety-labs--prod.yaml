@@ -60,9 +60,8 @@ spec:
           value: /root/.secrets/twitter_api/twitter_api_authorization.txt
         - name: SEMANTIC_SCHOLAR_API_KEY_FILE_PATH
           value: /root/.secrets/semantic_scholar/semantic_scholar_api_key.txt
-        # Note: We are using "opensearch-staging" until a production instance is available (and populated)
         - name: OPENSEARCH_HOST
-          value: "opensearch-staging"
+          value: "opensearch-prod"
         - name: OPENSEARCH_PORT
           value: "9200"
         - name: OPENSEARCH_USERNAME_FILE_PATH
