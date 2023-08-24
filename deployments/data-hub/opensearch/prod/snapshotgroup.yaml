@@ -1,6 +1,6 @@
 ---
 apiVersion: gemini.fairwinds.com/v1
-kind:
+kind: SnapshotGroup
 metadata:
   name: opensearch-prod-0
   namespace: data-hub
