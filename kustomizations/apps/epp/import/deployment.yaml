@@ -40,5 +40,7 @@ spec:
           value: http://epp-biorxiv-xslt-api:80
         - name: TEMPORAL_NAMESPACE
           value: ${temporal_namespace}
+        - name: TEMPORAL_MAX_CONCURRENT_ACTIVITY_TASK_EXECUTIONS
+          value: "2"
         ports:
           - containerPort: 9464
