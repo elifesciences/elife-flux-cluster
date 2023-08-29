@@ -18,7 +18,7 @@ spec:
   - name: ghcr.io/elifesciences/epp-image-server
     newTag: master-e53d15f3-20230307.0757 # {"$imagepolicy": "epp--prod:epp-image-server:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-client
-    newTag: master-185caec8-20230829.2031 # {"$imagepolicy": "epp--staging:epp-client:tag"}
+    newTag: master-84d5a858-20230829.1529 # {"$imagepolicy": "epp--staging:epp-client:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-storybook
     newTag: master-84d5a858-20230829.1557 # {"$imagepolicy": "epp--staging:epp-storybook:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
@@ -49,7 +49,7 @@ spec:
       image_server_prefix: automation/
       image_server_role_arn: arn:aws:iam::512686554592:role/epp-staging-image-server
       epp_server_role_arn: arn:aws:iam::512686554592:role/epp-staging-epp-server
-      is_automated: ""
+      is_automated: "automated"
       show_previews: "show"
       epp_server: http://epp-server:3000
       temporal_server: temporal-frontend.temporal:7233
