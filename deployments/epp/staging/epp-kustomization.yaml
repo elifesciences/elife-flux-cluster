@@ -55,3 +55,4 @@ spec:
       temporal_server: temporal-frontend.temporal:7233
       temporal_namespace: epp--staging
       import_role_arn: arn:aws:iam::512686554592:role/epp-staging-import
+      disallow_robots: all

@@ -48,6 +48,8 @@ spec:
           value: ${is_automated:=''}
         - name: SHOW_PREVIEWS
           value: ${show_previews:=''}
+        - name: DISALLOW_ROBOTS
+          value: ${disallow_robots:=''}
         readinessProbe:
           httpGet:
             path: /
