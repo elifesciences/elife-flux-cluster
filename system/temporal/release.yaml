@@ -80,14 +80,21 @@ spec:
             provider:
               s3store:
                 region: "us-east-1"
-                URI: "s3://elife-temporal-prod-data"
           visibility:
             state: "enabled"
             enableRead: true
             provider:
               s3store:
                 region: "us-east-1"
-                URI: "s3://elife-temporal-prod-data"
+
+        namespaceDefaults:
+          archival:
+            history:
+              state: "enabled"
+              URI: "s3://elife-temporal-prod-data"
+            visibility:
+              state: "enabled"
+              URI: "s3://elife-temporal-prod-data"
       frontend:
         resources:
           requests:
