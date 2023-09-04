@@ -14,3 +14,7 @@ spec:
         kind: HelmRepository
         name: fairwinds
       interval: 1m
+  values:
+    resources:
+      limits:
+        cpu: 300m
