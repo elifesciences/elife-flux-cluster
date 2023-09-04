@@ -20,6 +20,11 @@ spec:
       retries: 5
   timeout: 10m
   values:
+    serviceAccount:
+      create: true
+      name: temporal
+      extraAnnotations:
+        eks.amazonaws.com/role-arn: arn:aws:iam::512686554592:role/elife-temporal-prod
     cassandra:
       enabled: false
     prometheus:
@@ -68,6 +73,21 @@ spec:
               existingSecret: temporal-database-pxc-secrets
               maxConns: 20
               maxConnLifetime: "1h"
+        archival:
+          history:
+            state: "enabled"
+            enableRead: true
+            provider:
+              s3store:
+                region: "us-east-1"
+                URI: "s3://<bucket-name>"
+          visibility:
+            state: "enabled"
+            enableRead: true
+            provider:
+              s3store:
+                region: "us-east-1"
+                URI: "s3://<bucket-name>"
       frontend:
         resources:
           requests:
