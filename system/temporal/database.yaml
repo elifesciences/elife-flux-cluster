@@ -26,3 +26,5 @@ spec:
         requests:
           memory: 800Mi
           cpu: 600m
+      persistence:
+        size: 30Gi
