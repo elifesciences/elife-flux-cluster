@@ -21,6 +21,11 @@
       "matchPackageNames": ["airflow"],
       "additionalBranchPrefix": "{{packageFile}}-",
       "commitMessage": "{{{commitMessagePrefix}}} {{{commitMessageAction}}} {{{commitMessageTopic}}} {{{packageFile}}} {{{commitMessageExtra}}} {{{commitMessageSuffix}}}"
+    },
+    {
+      "matchFileNames": [".tool-versions"],
+      "matchPackageNames": ["kubectl"],
+      "enabled": false
     }
   ]
 }
