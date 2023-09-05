@@ -25,7 +25,7 @@ spec:
       containers:
       - name: kube-web-view
         # see https://codeberg.org/hjacobs/kube-web-view/releases
-        image: hjacobs/kube-web-view:23.7.0
+        image: hjacobs/kube-web-view:23.8.0
         args:
         - --port=8080
         - --show-container-logs
