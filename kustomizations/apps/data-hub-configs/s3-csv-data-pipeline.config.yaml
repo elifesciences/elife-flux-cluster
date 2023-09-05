@@ -6,6 +6,23 @@ stateFile:
 s3Csv:
   - bucketName: elife-ejp-ftp
     objectKeyPattern:
+      - ejp_query_tool_query_id_DataHub:_RP_Reviews_and_eLife_Assessment_Emails_*_eLife.csv
+    dataPipelineId: rp_reviews_and_elife_assessment_emails
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: rp_reviews_and_elife_assessment_emails
+    tableWriteAppend: True
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/rp_reviews_and_elife_assessment_emails_001.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+    recordProcessingSteps:
+      - html_unescape
+  - bucketName: elife-ejp-ftp
+    objectKeyPattern:
       - ejp_query_tool_query_id_DataHub:_Preprint_Server_DOIs_*_eLife.csv
     dataPipelineId: preprint_server_dois
     headerLineIndex: 3
