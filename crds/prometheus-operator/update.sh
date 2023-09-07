@@ -14,7 +14,9 @@ curl -O https://raw.githubusercontent.com/prometheus-operator/prometheus-operato
 curl -O https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/$1/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagers.yaml
 curl -O https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/$1/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
 curl -O https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/$1/example/prometheus-operator-crd/monitoring.coreos.com_probes.yaml
+curl -O https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/$1/example/prometheus-operator-crd/monitoring.coreos.com_prometheusagents.yaml
 curl -O https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/$1/example/prometheus-operator-crd/monitoring.coreos.com_prometheuses.yaml
 curl -O https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/$1/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
+curl -O https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/$1/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml
 curl -O https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/$1/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
 curl -O https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/$1/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml
