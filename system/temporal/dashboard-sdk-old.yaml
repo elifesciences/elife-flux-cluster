@@ -2113,7 +2113,7 @@ data:
               },
               "yaxes": [
                 {
-                  "format": "dtdurations",
+                  "format": "dtdurationms",
                   "label": null,
                   "logBase": 1,
                   "max": null,
