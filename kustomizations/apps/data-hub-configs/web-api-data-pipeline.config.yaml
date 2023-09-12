@@ -372,7 +372,7 @@ webApi:
           - date
   # EuropePMC: Articles that are evaluated by Sciety (via LabsLink)
   - dataset: '{ENV}'
-    table: 'europepmc_sciety_evaluated'
+    table: 'europepmc_sciety_evaluated_via_labslink'
     dataUrl:
       urlExcludingConfigurableParameters: https://www.ebi.ac.uk/europepmc/webservices/rest/search?resultType=lite&format=json&pageSize=1000&query=(SRC:PPR)%20(LABS_PUBS:%222112%22)
       configurableParameters:
