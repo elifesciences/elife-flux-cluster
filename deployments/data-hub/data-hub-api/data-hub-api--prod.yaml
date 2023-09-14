@@ -14,6 +14,7 @@ spec:
       labels:
         app: data-hub-api--prod
     spec:
+      replicas: 2
       containers:
       - name: data-hub-api
         image: ghcr.io/elifesciences/data-hub-api:1.0.19 # {"$imagepolicy": "data-hub:data-hub-api-stable"}
