@@ -9,6 +9,9 @@ configMapGenerator:
   files:
   - dashboards/control-plane.json
   - dashboards/cluster.json
+  - dashboards/logs.json
   options:
     labels:
       grafana_dashboard: "1"
+      app.kubernetes.io/part-of: flux
+      app.kubernetes.io/component: monitoring
