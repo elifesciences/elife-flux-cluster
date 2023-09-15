@@ -70,6 +70,8 @@ spec:
           value: /root/.secrets/opensearch/password
         - name: OPENSEARCH_INDEX_NAME
           value: "preprints_v1"
+        - name: OPENSEARCH_EMBEDDING_VECTOR_MAPPING_NAME
+          value: "s2_specter_embedding_v1"
         volumeMounts:
         - name: gcp-credentials-sealed-secret-volume
           mountPath: /root/.gcp
