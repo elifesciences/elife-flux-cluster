@@ -56,3 +56,4 @@ spec:
       temporal_namespace: epp--staging
       import_role_arn: arn:aws:iam::512686554592:role/epp-staging-import
       disallow_robots: all
+      worker_replicas: "2"
