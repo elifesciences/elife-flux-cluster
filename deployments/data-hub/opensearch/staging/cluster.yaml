@@ -34,7 +34,7 @@ spec:
         storageClass: csi-ebs-gp2-default
         accessModes:
           - ReadWriteOnce
-  - component: new_masters
+  - component: master
     replicas: 1
     resources:
       requests:
