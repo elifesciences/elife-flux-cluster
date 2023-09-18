@@ -17,7 +17,7 @@ spec:
     replicas: 1
   nodePools:
   - component: masters
-    replicas: 1
+    replicas: 3
     resources:
       requests:
         memory: "3Gi"
