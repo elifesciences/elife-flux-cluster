@@ -49,7 +49,7 @@ spec:
       image_server_prefix: automation/
       image_server_role_arn: arn:aws:iam::512686554592:role/epp-staging-image-server
       epp_server_role_arn: arn:aws:iam::512686554592:role/epp-staging-epp-server
-      is_automated: ""
+      is_automated: "automated"
       show_previews: ""
       epp_server: http://epp-server:3000
       temporal_server: temporal-frontend.temporal:7233
