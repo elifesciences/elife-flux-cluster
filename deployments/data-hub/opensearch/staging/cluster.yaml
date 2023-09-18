@@ -17,7 +17,25 @@ spec:
     replicas: 1
   nodePools:
   - component: masters
-    replicas: 3
+    replicas: 1
+    resources:
+      requests:
+        memory: "3Gi"
+        cpu: "1000m"
+      limits:
+        memory: "3Gi"
+        cpu: "1000m"
+    roles:
+    - "data"
+    - "cluster_manager"
+    diskSize: 60Gi
+    persistence:
+      pvc:
+        storageClass: csi-ebs-gp2-default
+        accessModes:
+          - ReadWriteOnce
+  - component: new_masters
+    replicas: 1
     resources:
       requests:
         memory: "3Gi"
