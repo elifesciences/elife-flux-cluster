@@ -34,21 +34,3 @@ spec:
         storageClass: csi-ebs-gp2-default
         accessModes:
           - ReadWriteOnce
-  - component: master
-    replicas: 3
-    resources:
-      requests:
-        memory: "3Gi"
-        cpu: "1000m"
-      limits:
-        memory: "3Gi"
-        cpu: "1000m"
-    roles:
-    - "data"
-    - "cluster_manager"
-    diskSize: 60Gi
-    persistence:
-      pvc:
-        storageClass: csi-ebs-gp2-default
-        accessModes:
-          - ReadWriteOnce
