@@ -45,5 +45,7 @@ spec:
           value: "10"
         - name: TEMPORAL_MAX_CONCURRENT_WORKFLOW_TASK_EXECUTIONS
           value: "5"
+        - name: TEMPORAL_MAX_CACHED_WORKFLOWS
+          value: "5"
         ports:
           - containerPort: 9464
