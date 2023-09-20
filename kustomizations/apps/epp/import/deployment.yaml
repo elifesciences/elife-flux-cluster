@@ -28,7 +28,7 @@ spec:
           requests:
             cpu: "1500m"
           limits:
-            memory: "7.5Gi"
+            memory: "7Gi"
             cpu: "1500m"
         env:
         - name: BUCKET_NAME
