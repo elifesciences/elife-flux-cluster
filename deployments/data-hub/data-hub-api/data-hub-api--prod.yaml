@@ -6,6 +6,7 @@ metadata:
     app: data-hub-api--prod
   namespace: data-hub
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: data-hub-api--prod
@@ -14,7 +15,6 @@ spec:
       labels:
         app: data-hub-api--prod
     spec:
-      replicas: 2
       containers:
       - name: data-hub-api
         image: ghcr.io/elifesciences/data-hub-api:1.0.20 # {"$imagepolicy": "data-hub:data-hub-api-stable"}
