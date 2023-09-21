@@ -57,3 +57,4 @@ spec:
       import_role_arn: arn:aws:iam::512686554592:role/epp-staging-import
       disallow_robots: all
       worker_replicas: "2"
+      correct_order_author_metadata: "yup"
