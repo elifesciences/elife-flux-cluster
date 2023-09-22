@@ -18,5 +18,5 @@ spec:
   postBuild:
     substitute:
       replicas: "2"
-      hostname: basex-validator--prod.elifesciences.org
+      hostname: basex-validator.elifesciences.org
       env: prod
