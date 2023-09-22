@@ -4,6 +4,7 @@ metadata:
   name: peerscout--prod
   namespace: peerscout
 spec:
+  replicas: 2
   releaseName: peerscout--prod
   interval: 5m
   chart:
