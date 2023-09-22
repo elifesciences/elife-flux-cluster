@@ -26,6 +26,10 @@ spec:
       replicas: 1
       persistence:
         size: 20Gi
+      resources:
+        requests:
+          cpu: 50m
+          memory: 400Mi
     loki:
       auth_enabled: false
       commonConfig:
