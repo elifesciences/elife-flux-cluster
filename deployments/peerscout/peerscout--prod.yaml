@@ -20,6 +20,7 @@ spec:
     remediation:
       retries: 3
   values:
+    replicaCount: 2
     image:
       repository: docker.io/elifesciences/data-science-dags_peerscout-api # {"$imagepolicy": "peerscout:peerscout-stable:name"}
       tag: "0.0.13" # {"$imagepolicy": "peerscout:peerscout-stable:tag"}
