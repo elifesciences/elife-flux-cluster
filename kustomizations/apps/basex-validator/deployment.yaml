@@ -14,8 +14,8 @@ spec:
           image: docker.io/elifesciences/basex-validator:latest
           resources:
             limits:
-              memory: '512Mi'
-              cpu: '1.0'
+              memory: '1Gi'
+              cpu: '0.5m'
           ports:
             - name: http
               containerPort: 8984
