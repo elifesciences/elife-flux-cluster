@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basex-validator
+spec:
+  replicas: ${replicas:=1}
+  strategy:
+    rollingUpdate:
+      maxUnavailable: ${maxUnavailable:=1}
+  template:
+    spec:
+      containers:
+        - name: basex-validator
+          image: docker.io/elifesciences/basex-validator:latest
+          resources:
+            limits:
+              memory: '512Mi'
+              cpu: '1.0'
+          ports:
+            - name: http
+              containerPort: 8984
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: http
+          readinessProbe:
+            tcpSocket:
+              port: http
