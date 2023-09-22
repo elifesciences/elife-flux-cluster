@@ -1,0 +1,53 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: epp--migration-test
+  namespace: epp--migration-test
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kustomizations/apps/epp
+  prune: true
+  targetNamespace: epp--migration-test
+  images:
+    - name: ghcr.io/elifesciences/enhanced-preprints
+      newTag: master-ffad5973-20230922.0851 # {"$imagepolicy": "epp--migration-test:epp-server:tag"}
+    - name: ghcr.io/elifesciences/epp-image-server
+      newTag: master-1835990b-20230902.0312 # {"$imagepolicy": "epp--migration-test:epp-image-server:tag"}
+    - name: ghcr.io/elifesciences/enhanced-preprints-client
+      newTag: master-341c4b01-20230922.0433 # {"$imagepolicy": "epp--migration-test:epp-client:tag"}
+    - name: ghcr.io/elifesciences/enhanced-preprints-storybook
+      newTag: master-341c4b01-20230922.0455 # {"$imagepolicy": "epp--migration-test:epp-storybook:tag"}
+    - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
+      newTag: master-fba20cc3-20230922.0856 # {"$imagepolicy": "epp--migration-test:epp-import:tag"}
+    - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
+      newTag: master-af423030-20230921.0842 # {"$imagepolicy": "epp--migration-test:epp-biorxiv-xslt-api:tag"}
+  postBuild:
+    substitute:
+      app_env: migration-test
+      app_hostname: migration-test--epp.elifesciences.org
+      data_hub_api: https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v2/by-publisher/elife/get-by-manuscript-id?manuscript_id=
+      storybook_hostname: migration-test--epp-storybook.elifesciences.org
+      journal_api_hostname: migration-test--epp-api.elifesciences.org
+      asset_prefix: https://elifesciences.org/reviewed-preprints
+      iiif_server: https://migration-test--epp.elifesciences.org/iiif
+      image_server_source_base_url: https://github.com/elifesciences/enhanced-preprints-data/raw/master/data/
+      mongodb_hostname: epp-database-psmdb-db-replicaset
+      mongodb_secret_name: epp-database-psmdb-db-secrets
+      mongodb_secret_user_key: MONGODB_DATABASE_ADMIN_USER
+      mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD
+      client_replicas: "1"
+      server_replicas: "1"
+      s3_bucket: migration-test-elife-epp-data
+      image_server_source_static: S3Source
+      image_server_s3_bucket: migration-test-elife-epp-data
+      image_server_role_arn: arn:aws:iam::512686554592:role/epp-migration-test-image-server
+      epp_server_role_arn: arn:aws:iam::512686554592:role/epp-migration-test-epp-server
+      epp_server: http://epp-server:3000
+      temporal_server: temporal-frontend.temporal:7233
+      temporal_namespace: epp--migration-test
+      import_role_arn: arn:aws:iam::512686554592:role/epp-migration-test-import
+      disallow_robots: all
