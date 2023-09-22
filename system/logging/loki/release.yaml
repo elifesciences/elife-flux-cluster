@@ -29,7 +29,7 @@ spec:
       resources:
         requests:
           cpu: 50m
-          memory: 400Mi
+          memory: 500Mi
     loki:
       auth_enabled: false
       commonConfig:
@@ -60,3 +60,8 @@ spec:
         enabled: false
         grafanaAgent:
           installOperator: false
+    gateway:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 10Mi
