@@ -54,9 +54,9 @@ spec:
         nginx.ingress.kubernetes.io/auth-secret: peerscout-http-basic-auth--stg
         nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - peerscout'
     resources:
-      requests:
-        cpu: "20m"
-        memory: 2.5Gi
+      limits:
+        cpu: 250m
+        memory: 2Gi
     livenessProbe:
       httpGet:
         path: /api/status
