@@ -61,17 +61,22 @@ spec:
       limits:
         cpu: 500m
         memory: 2.5Gi
-    livenessProbe:
-      httpGet:
-        path: /api/status
-        port: http
-      initialDelaySeconds: 5
-      timeoutSeconds: 30
-      periodSeconds: 30
-    readinessProbe:
-      httpGet:
-        path: /api/status
-        port: http
-      initialDelaySeconds: 5
-      timeoutSeconds: 30
-      periodSeconds: 10
+      livenessProbe:
+        httpGet:
+          path: /api/status
+          port: http
+        timeoutSeconds: 30
+        periodSeconds: 30
+      readinessProbe:
+        httpGet:
+          path: /api/status
+          port: http
+        timeoutSeconds: 30
+        periodSeconds: 30
+      startupProbe:
+        httpGet:
+          path: /api/status
+          port: http
+        timeoutSeconds: 30
+        periodSeconds: 30
+        failureThreshold: 10
