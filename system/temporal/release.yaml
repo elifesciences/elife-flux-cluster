@@ -116,6 +116,8 @@ spec:
             cpu: 100m
             memory: 512Mi
     web:
+      image:
+        tag: 2.18.2
       enabled: true
       ingress:
         enabled: true
