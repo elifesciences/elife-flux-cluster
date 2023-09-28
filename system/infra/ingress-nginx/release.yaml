@@ -60,3 +60,4 @@ spec:
           memory: 150Mi
       replicaCount: 2
       watchIngressWithoutClass: true
+      allowSnippetAnnotations: true
