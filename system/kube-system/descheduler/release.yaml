@@ -18,4 +18,8 @@ spec:
       interval: 1m
   values:
     image:
-      repository: registry.k8s.io/descheduler/descheduler
+      repository: registry.k8s.io/
+    deschedulerPolicy:
+      # We should use anti-affinity rather than this
+      RemoveDuplicates:
+        enabled: false
