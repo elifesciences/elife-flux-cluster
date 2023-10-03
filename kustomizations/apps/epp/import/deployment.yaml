@@ -26,9 +26,10 @@ spec:
         image: ghcr.io/elifesciences/enhanced-preprints-import-worker:latest
         resources:
           requests:
-            cpu: "1500m"
+            memory: "2Gi"
+            cpu: "500m"
           limits:
-            memory: "6.5Gi"
+            memory: "3Gi"
             cpu: "1500m"
         env:
         - name: BUCKET_NAME
