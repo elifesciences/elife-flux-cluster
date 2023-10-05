@@ -49,6 +49,8 @@ bigQueryToOpenSearch:
         indexName: 'preprints_v1'
         updateIndexSettings: False
         updateMappings: True
+        operationMode: 'update'
+        upsert: True
         indexSettings:
           # Note: These settings can usually only be applied to a new index.
           #   It is important to set for example the "knn_vector" fields ahead of time.
@@ -80,4 +82,47 @@ bigQueryToOpenSearch:
                       # Default values: https://opensearch.org/docs/latest/search-plugins/knn/knn-index/
                       ef_construction: 512
                       m: 16
+    batchSize: 1000
+  - dataPipelineId: bigquery_to_opensearch_data_pipeline_sciety_event_2
+    source:
+      bigQuery:
+        projectName: 'elife-data-pipeline'
+        sqlQuery: |-
+          SELECT
+            event.article_doi AS doi,
+            MAX(event_timestamp) AS last_event_timestamp,
+            COUNT(DISTINCT IF(
+              NOT event.is_deleted AND event.normalized_event_name IN ('EvaluationRecorded', 'EvaluationPublicationRecorded'),
+              event.evaluation_locator,
+              NULL
+            )) AS evaluation_count
+          FROM `elife-data-pipeline.prod.v_sciety_event` AS event
+          WHERE event.evaluation_locator IS NOT NULL
+          GROUP BY event.article_doi
+    fieldNamesFor:
+      id: doi
+      timestamp: last_event_timestamp
+    state:
+      initialState:
+        startTimestamp: '2020-01-01+00:00'
+      stateFile:
+        bucketName: '{ENV}-elife-data-pipeline'
+        objectName: 'airflow-config/bigquery-to-opensearch/{ENV}-state-sciety-event.json'
+    target:
+      openSearch:
+        hostname: 'opensearch-staging'
+        port: 9200
+        timeout: 120
+        verifyCertificates: False
+        secrets:
+          parametersFromFile:
+            - parameterName: username
+              filePathEnvName: OPENSEARCH_USERNAME_FILE_PATH
+            - parameterName: password
+              filePathEnvName: OPENSEARCH_PASSWORD_FILE_PATH
+        indexName: 'preprints_v1'
+        updateIndexSettings: False
+        updateMappings: True
+        operationMode: 'update'
+        upsert: True
     batchSize: 1000
