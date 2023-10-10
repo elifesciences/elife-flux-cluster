@@ -26,11 +26,11 @@ spec:
         image: ghcr.io/elifesciences/enhanced-preprints-import-worker:latest
         resources:
           requests:
-            memory: "2Gi"
-            cpu: "500m"
+            memory: ${worker_memory_requests:='2Gi'}
+            cpu: ${worker_cpu_requests:='500m'}
           limits:
-            memory: "3Gi"
-            cpu: "1500m"
+            memory: ${worker_memory_limits:='3Gi'}
+            cpu: ${worker_cpu_limits:='1500m'}
         env:
         - name: BUCKET_NAME
           value: ${s3_bucket}
