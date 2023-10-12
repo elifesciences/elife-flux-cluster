@@ -8,7 +8,7 @@ spec:
   imageRepositoryRef:
     name: epp-server
   filterTags:
-    pattern: '^master-[a-fA-F0-9]+-(?P<ts>.*)-approved$'
+    pattern: '^master-[a-fA-F0-9]+-(?P<ts>[\d\.]+)-approved$'
     extract: '$ts'
   policy:
     numerical:
