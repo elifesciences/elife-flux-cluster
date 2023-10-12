@@ -7,6 +7,7 @@ resources:
 - podmonitor.yaml
 - automations/repository.yaml
 - automations/policy.yaml
+- automations/approved-policy.yaml
 - biorxiv-xslt-api
 commonLabels:
   app_name: epp

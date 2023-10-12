@@ -6,3 +6,4 @@ resources:
 - service.yaml
 - automations/repository.yaml
 - automations/policy.yaml
+- automations/approved-policy.yaml
