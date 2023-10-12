@@ -1,3 +1,4 @@
+---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
@@ -7,7 +8,7 @@ spec:
   imageRepositoryRef:
     name: epp-client
   filterTags:
-    pattern: '^master-[a-fA-F0-9]+-(?P<ts>.*)$'
+    pattern: '^master-[a-fA-F0-9]+-(?P<ts>.*)-approved$'
     extract: '$ts'
   policy:
     numerical:

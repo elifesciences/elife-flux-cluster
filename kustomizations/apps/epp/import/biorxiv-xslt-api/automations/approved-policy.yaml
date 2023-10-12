@@ -1,13 +1,14 @@
+---
 apiVersion: image.toolkit.fluxcd.io/v1beta1
 kind: ImagePolicy
 metadata:
-  name: epp-client
+  name: epp-biorxiv-xslt-api
   namespace: epp
 spec:
   imageRepositoryRef:
-    name: epp-client
+    name: epp-biorxiv-xslt-api
   filterTags:
-    pattern: '^master-[a-fA-F0-9]+-(?P<ts>.*)$'
+    pattern: '^master-[a-fA-F0-9]+-(?P<ts>.*)-approved$'
     extract: '$ts'
   policy:
     numerical:
