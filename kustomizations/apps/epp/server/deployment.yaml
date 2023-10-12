@@ -27,7 +27,7 @@ spec:
         kubernetes.io/arch: amd64
       containers:
       - name: epp-server
-        image: ghcr.io/elifesciences/enhanced-preprints:latest
+        image: ghcr.io/elifesciences/enhanced-preprints-server:latest
         resources:
           requests:
             cpu: "50m"
