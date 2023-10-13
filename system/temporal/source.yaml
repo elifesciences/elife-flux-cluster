@@ -8,5 +8,5 @@ spec:
   interval: 10m0s
   ref:
     # tag: v1.21.5
-    commit: 86a9c6e8ccdb228e0b08182b15109c3417c96dec
+    commit: 0e6dd4679ab462c00c19b76ed0dc0ce52dd4f317
   url: https://github.com/temporalio/helm-charts
