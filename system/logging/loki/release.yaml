@@ -44,7 +44,7 @@ spec:
         compaction_interval: "10m"
         shared_store: filesystem
       limits_config:
-        retention_period: 744h
+        retention_period: 360h
       storage_config:
         boltdb_shipper:
           shared_store: filesystem
