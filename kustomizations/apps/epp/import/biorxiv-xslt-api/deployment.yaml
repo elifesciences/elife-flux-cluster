@@ -4,6 +4,7 @@ metadata:
   name: epp-biorxiv-xslt-api
   namespace: epp
 spec:
+  replicas: ${biorxiv_xslt_api_replicas:=1}
   strategy:
     rollingUpdate:
       maxSurge: 1

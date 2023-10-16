@@ -61,3 +61,4 @@ spec:
       worker_memory_limits: "3Gi"
       worker_cpu_requests: "500m"
       worker_cpu_limits: "1500m"
+      biorxiv_xslt_api_replicas: 8
