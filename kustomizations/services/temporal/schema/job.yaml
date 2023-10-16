@@ -1,0 +1,124 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: temporal-schema-setup
+spec:
+  backoffLimit: 100
+  template:
+    metadata:
+      name: temporal-schema
+    spec:
+      serviceAccountName: temporal
+      restartPolicy: "OnFailure"
+      initContainers:
+        - name: create-default-store
+          image: "temporalio/admin-tools:1.22.0"
+          command: ['temporal-sql-tool', '--database', 'temporal', 'create-database']
+          env:
+            - name: SQL_PLUGIN
+              value: mysql
+            - name: SQL_HOST
+              value: ${mysql_database_host}
+            - name: SQL_PORT
+              value: ${mysql_database_port:="3306"}
+            - name: SQL_USER
+              value: ${mysql_user}
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ${mysql_password_secret}
+                  key: ${mysql_password_secret_key}
+        - name: create-visibility-store
+          image: "temporalio/admin-tools:1.22.0"
+          command: ['temporal-sql-tool', '--database', 'temporal_visibility', 'create-database']
+          env:
+            - name: SQL_PLUGIN
+              value: mysql
+            - name: SQL_HOST
+              value: ${mysql_database_host}
+            - name: SQL_PORT
+              value: ${mysql_database_port:="3306"}
+            - name: SQL_USER
+              value: ${mysql_user}
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ${mysql_password_secret}
+                  key: ${mysql_password_secret_key}
+        - name: default-setup-schema
+          image: "temporalio/admin-tools:1.22.0"
+          command: ['temporal-sql-tool', 'setup-schema', '-v', '0.0']
+          env:
+            - name: SQL_PLUGIN
+              value: mysql
+            - name: SQL_HOST
+              value: ${mysql_database_host}
+            - name: SQL_PORT
+              value: ${mysql_database_port:="3306"}
+            - name: SQL_DATABASE
+              value: ${mysql_database_name}
+            - name: SQL_USER
+              value: ${mysql_user}
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ${mysql_password_secret}
+                  key: ${mysql_password_secret_key}
+        - name: visibility-setup-schema
+          image: "temporalio/admin-tools:1.22.0"
+          command: ['temporal-sql-tool', 'setup-schema', '-v', '0.0']
+          env:
+            - name: SQL_PLUGIN
+              value: mysql
+            - name: SQL_HOST
+              value: ${mysql_database_host}
+            - name: SQL_PORT
+              value: ${mysql_database_port:="3306"}
+            - name: SQL_DATABASE
+              value: ${mysql_visibility_database_name}
+            - name: SQL_USER
+              value: ${mysql_user}
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ${mysql_password_secret}
+                  key: ${mysql_password_secret_key}
+        - name: default-update-schema
+          image: "temporalio/admin-tools:1.22.0"
+          command: ['temporal-sql-tool', 'update-schema', '--schema-dir', '/etc/temporal/schema/mysql/v57/temporal/versioned']
+          env:
+            - name: SQL_PLUGIN
+              value: mysql
+            - name: SQL_HOST
+              value: ${mysql_database_host}
+            - name: SQL_PORT
+              value: ${mysql_database_port:="3306"}
+            - name: SQL_DATABASE
+              value: ${mysql_database_name}
+            - name: SQL_USER
+              value: ${mysql_user}
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ${mysql_password_secret}
+                  key: ${mysql_password_secret_key}
+        - name: visibility-update-schema
+          image: "temporalio/admin-tools:1.22.0"
+          command: ['temporal-sql-tool', 'update-schema', '--schema-dir', '/etc/temporal/schema/mysql/v57/visibility/versioned']
+          env:
+            - name: SQL_PLUGIN
+              value: mysql
+            - name: SQL_HOST
+              value: ${mysql_database_host}
+            - name: SQL_PORT
+              value: ${mysql_database_port:="3306"}
+            - name: SQL_DATABASE
+              value: ${mysql_visibility_database_name}
+            - name: SQL_USER
+              value: ${mysql_user}
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ${mysql_password_secret}
+                  key: ${mysql_password_secret_key}

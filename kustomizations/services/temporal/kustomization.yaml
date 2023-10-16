@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: temporal
 resources:
 - serviceaccount.yaml
+- schema
 configMapGenerator:
 - name: server-config
   files:
