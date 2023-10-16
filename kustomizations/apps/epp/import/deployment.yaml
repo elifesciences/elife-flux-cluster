@@ -43,10 +43,10 @@ spec:
         - name: TEMPORAL_NAMESPACE
           value: ${temporal_namespace}
         - name: TEMPORAL_MAX_CONCURRENT_ACTIVITY_TASK_EXECUTIONS
-          value: "5"
+          value: ${temporal_max_concurrent_activity_task_executions:="25"}
         - name: TEMPORAL_MAX_CONCURRENT_WORKFLOW_TASK_EXECUTIONS
-          value: "2"
+          value: ${temporal_max_concurrent_workflow_task_executions:="5"}
         - name: TEMPORAL_MAX_CACHED_WORKFLOWS
-          value: "2"
+          value: ${temporal_max_cached_workflows:="5"}
         ports:
           - containerPort: 9464
