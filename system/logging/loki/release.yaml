@@ -51,7 +51,7 @@ spec:
 
     tableManager:
       retention_deletes_enabled: true
-      retention_period: 720h
+      retention_period: 360h
 
     test:
       enabled: false
