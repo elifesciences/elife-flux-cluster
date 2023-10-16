@@ -1,0 +1,4 @@
+global:
+  metrics:
+    tags:
+      type: frontend

@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: temporal
+resources:
+- serviceaccount.yaml
+configMapGenerator:
+- name: server-config
+  files:
+  - config/config.yaml
+  - config/config-frontend.yaml
+  - config/config-history.yaml
+  - config/config-matching.yaml
+  - config/config-worker.yaml
