@@ -48,6 +48,9 @@ spec:
       storage_config:
         boltdb_shipper:
           shared_store: filesystem
+      table_manager:
+        retention_deletes_enabled: true
+        retention_period: 720h
 
     test:
       enabled: false
