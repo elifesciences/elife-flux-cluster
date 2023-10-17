@@ -1,0 +1,124 @@
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: temporal-schema-setup
+spec:
+  backoffLimit: 100
+  template:
+    metadata:
+      name: temporal-schema-setup
+    spec:
+      serviceAccountName: temporal
+      initContainers:
+        - name: create-default-store
+          image: "temporalio/admin-tools:1.22.0"
+          command: ['temporal-sql-tool', '--database', 'temporal', 'create-database']
+          env:
+            - name: SQL_PLUGIN
+              value: mysql
+            - name: SQL_HOST
+              value: temporal-database-pxc-haproxy
+            - name: SQL_PORT
+              value: "3306"
+            - name: SQL_USER
+              value: root
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: temporal-database-pxc-secrets
+                  key: password
+        - name: create-visibility-store
+          image: "temporalio/admin-tools:1.22.0"
+          command: ['temporal-sql-tool', '--database', 'temporal_visibility', 'create-database']
+          env:
+            - name: SQL_PLUGIN
+              value: mysql
+            - name: SQL_HOST
+              value: temporal-database-pxc-haproxy
+            - name: SQL_PORT
+              value: "3306"
+            - name: SQL_USER
+              value: root
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: temporal-database-pxc-secrets
+                  key: password
+      containers:
+        - name: setup-default-schema
+          image: "temporalio/admin-tools:1.22.0"
+          command: ['temporal-sql-tool', 'setup-schema', '-v', '0.0']
+          env:
+            - name: SQL_PLUGIN
+              value: mysql
+            - name: SQL_HOST
+              value: temporal-database-pxc-haproxy
+            - name: SQL_PORT
+              value: "3306"
+            - name: SQL_DATABASE
+              value: temporal
+            - name: SQL_USER
+              value: root
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: temporal-database-pxc-secrets
+                  key: password
+        - name: setup-visibility-schema
+          image: "temporalio/admin-tools:1.22.0"
+          command: ['temporal-sql-tool', 'setup-schema', '-v', '0.0']
+          env:
+            - name: SQL_PLUGIN
+              value: mysql
+            - name: SQL_HOST
+              value: temporal-database-pxc-haproxy
+            - name: SQL_PORT
+              value: "3306"
+            - name: SQL_DATABASE
+              value: temporal_visibility
+            - name: SQL_USER
+              value: root
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: temporal-database-pxc-secrets
+                  key: password
+        - name: update-default-schema
+          image: "temporalio/admin-tools:1.22.0"
+          command: ['temporal-sql-tool', 'update-schema', '--schema-dir', '/etc/temporal/schema/mysql/v57/temporal/versioned']
+          env:
+            - name: SQL_PLUGIN
+              value: mysql
+            - name: SQL_HOST
+              value: temporal-database-pxc-haproxy
+            - name: SQL_PORT
+              value: "3306"
+            - name: SQL_DATABASE
+              value: temporal
+            - name: SQL_USER
+              value: root
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: temporal-database-pxc-secrets
+                  key: password
+        - name: update-visibility-schema
+          image: "temporalio/admin-tools:1.22.0"
+          command: ['temporal-sql-tool', 'update-schema', '--schema-dir', '/etc/temporal/schema/mysql/v57/visibility/versioned']
+          env:
+            - name: SQL_PLUGIN
+              value: mysql
+            - name: SQL_HOST
+              value: temporal-database-pxc-haproxy
+            - name: SQL_PORT
+              value: "3306"
+            - name: SQL_DATABASE
+              value: temporal_visibility
+            - name: SQL_USER
+              value: root
+            - name: SQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: temporal-database-pxc-secrets
+                  key: password

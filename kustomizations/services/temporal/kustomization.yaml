@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: temporal
 resources:
 - serviceaccount.yaml
+- schema
 - frontend
 - history
 - matching
