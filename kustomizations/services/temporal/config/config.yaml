@@ -12,9 +12,9 @@ persistence:
         pluginName: "mysql"
         driverName: "mysql"
         databaseName: "temporal"
-        connectAddr: "${{ .Env.TEMPORAL_STORE_HOST }}"
+        connectAddr: "{{ .Env.TEMPORAL_STORE_HOST }}"
         connectProtocol: "tcp"
-        user: "${{ .Env.TEMPORAL_STORE_USER }}"
+        user: "{{ .Env.TEMPORAL_STORE_USER }}"
         password: "{{ .Env.TEMPORAL_STORE_PASSWORD }}"
         maxConnLifetime: 1h
         maxConns: 20
@@ -24,9 +24,9 @@ persistence:
         pluginName: "mysql"
         driverName: "mysql"
         databaseName: "temporal_visibility"
-        connectAddr: "${{ .Env.TEMPORAL_VISIBILITY_STORE_HOST }}"
+        connectAddr: "{{ .Env.TEMPORAL_VISIBILITY_STORE_HOST }}"
         connectProtocol: "tcp"
-        user: "${{ .Env.TEMPORAL_VISIBILITY_STORE_USER }}"
+        user: "{{ .Env.TEMPORAL_VISIBILITY_STORE_USER }}"
         password: "{{ .Env.TEMPORAL_VISIBILITY_STORE_PASSWORD }}"
         maxConnLifetime: 1h
         maxConns: 20
@@ -41,7 +41,7 @@ global:
     port: 7936
   metrics:
     tags:
-      type: "${{ .Env.SERVICES }}"
+      type: "{{ .Env.SERVICES }}"
     prometheus:
       timerType: histogram
       listenAddress: "0.0.0.0:9090"
