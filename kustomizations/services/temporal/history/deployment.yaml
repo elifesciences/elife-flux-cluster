@@ -29,13 +29,13 @@ spec:
             - name: TEMPORAL_STORE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: temporal-database-pxc-secrets
-                  key: password
+                  name: ${temporal_store_password_secret_name}
+                  key: ${temporal_store_password_secret_key}
             - name: TEMPORAL_VISIBILITY_STORE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: temporal-database-pxc-secrets
-                  key: password
+                  name: ${temporal_visibility_store_password_secret_name}
+                  key: ${temporal_visibility_store_password_secret_key}
           ports:
             - name: rpc
               containerPort: 7234
