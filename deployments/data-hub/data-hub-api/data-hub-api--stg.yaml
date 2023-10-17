@@ -95,7 +95,7 @@ metadata:
     app: data-hub-api--stg
   annotations:
     nginx.ingress.kubernetes.io/auth-type: basic
-    nginx.ingress.kubernetes.io/auth-secret: data-hub-api-kotahi-http-basic-auth--stg
+    nginx.ingress.kubernetes.io/auth-secret: data-hub-api-kotahi-http-basic-auth
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Data Hub API Kotahi'
 spec:
   rules:
