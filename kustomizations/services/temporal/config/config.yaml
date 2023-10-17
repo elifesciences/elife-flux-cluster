@@ -14,7 +14,7 @@ persistence:
         databaseName: "temporal"
         connectAddr: "${{ .Env.TEMPORAL_STORE_HOST }}"
         connectProtocol: "tcp"
-        user: "${{ .Env.TEMPORAL_VISIBILITY_STORE_USER }}"
+        user: "${{ .Env.TEMPORAL_STORE_USER }}"
         password: "{{ .Env.TEMPORAL_STORE_PASSWORD }}"
         maxConnLifetime: 1h
         maxConns: 20
@@ -40,6 +40,8 @@ global:
   pprof:
     port: 7936
   metrics:
+    tags:
+      type: "${{ .Env.SERVICES }}"
     prometheus:
       timerType: histogram
       listenAddress: "0.0.0.0:9090"
@@ -64,10 +66,6 @@ archival:
 
 publicClient:
   hostPort: "temporal-frontend:7233"
-
-dynamicConfigClient:
-  filepath: "/etc/temporal/dynamic_config/dynamic_config.yaml"
-  pollInterval: "10s"
 
 services:
   frontend:

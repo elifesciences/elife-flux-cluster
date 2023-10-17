@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: temporal-worker
+spec:
+  type: ClusterIP
+  ports:
+    - port: 7239
+      targetPort: rpc
+      protocol: TCP
+      name: grpc-rpc

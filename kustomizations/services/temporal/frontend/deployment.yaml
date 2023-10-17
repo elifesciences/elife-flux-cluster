@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: temporal-frontend
+spec:
+  replicas: 1
+  template:
+    spec:
+      serviceAccountName: temporal
+      containers:
+        - name: temporal-frontend
+          image: "temporalio/server:1.22.0"
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: SERVICES
+              value: frontend
+            - name: TEMPORAL_STORE_HOST
+              value: ${temporal_store_host}
+            - name: TEMPORAL_STORE_USER
+              value: ${temporal_store_user}
+            - name: TEMPORAL_VISIBILITY_STORE_HOST
+              value: ${temporal_visibility_store_host}
+            - name: TEMPORAL_VISIBILITY_STORE_USER
+              value: ${temporal_visibility_store_user}
+            - name: TEMPORAL_STORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: temporal-database-pxc-secrets
+                  key: password
+            - name: TEMPORAL_VISIBILITY_STORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: temporal-database-pxc-secrets
+                  key: password
+          ports:
+            - name: rpc
+              containerPort: 7233
+              protocol: TCP
+            - name: metrics
+              containerPort: 9090
+              protocol: TCP
+          livenessProbe:
+             initialDelaySeconds: 150
+             tcpSocket:
+               port: rpc
+          volumeMounts:
+            - name: config
+              mountPath: /etc/temporal/config/config.yaml
+              subPath: config.yaml
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+      volumes:
+        - name: config
+          configMap:
+            name: "temporal-server-config"

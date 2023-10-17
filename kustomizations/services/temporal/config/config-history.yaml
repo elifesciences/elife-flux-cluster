@@ -1,4 +1,0 @@
-global:
-  metrics:
-    tags:
-      type: history

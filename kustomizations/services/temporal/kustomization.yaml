@@ -3,12 +3,18 @@ kind: Kustomization
 namespace: temporal
 resources:
 - serviceaccount.yaml
-- schema
+- frontend
+- history
+- matching
+- worker
+- web
+
+commonLabels:
+  app.kubernetes.io/name: temporal
+  app.kubernetes.io/instance: temporal
+
+
 configMapGenerator:
-- name: server-config
+- name: temporal-server-config
   files:
   - config/config.yaml
-  - config/config-frontend.yaml
-  - config/config-history.yaml
-  - config/config-matching.yaml
-  - config/config-worker.yaml
