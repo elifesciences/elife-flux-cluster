@@ -10,7 +10,7 @@ spec:
       serviceAccountName: temporal
       containers:
         - name: temporal-frontend
-          image: "temporalio/server:1.22.0"
+          image: "temporalio/server:latest"
           env:
             - name: POD_IP
               valueFrom:

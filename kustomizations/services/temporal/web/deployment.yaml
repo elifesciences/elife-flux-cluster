@@ -10,7 +10,7 @@ spec:
       serviceAccountName: temporal
       containers:
         - name: temporal-web
-          image: "temporalio/ui:2.18.2"
+          image: "temporalio/ui:latest"
           env:
             - name: TEMPORAL_ADDRESS
               value: "temporal-frontend.default.svc:7233"
