@@ -14,13 +14,13 @@ spec:
   targetNamespace: epp--staging
   images:
   - name: ghcr.io/elifesciences/enhanced-preprints-server
-    newTag: master-85b0967a-20231016.1400 # {"$imagepolicy": "epp--staging:epp-server:tag"}
+    newTag: master-c4c349cb-20231018.0641 # {"$imagepolicy": "epp--staging:epp-server:tag"}
   - name: ghcr.io/elifesciences/epp-image-server
     newTag: master-e53d15f3-20230307.0757 # {"$imagepolicy": "epp--prod:epp-image-server:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-client
-    newTag: master-8740b0a9-20231016.1113 # {"$imagepolicy": "epp--staging:epp-client:tag"}
+    newTag: master-5fba2035-20231018.0657 # {"$imagepolicy": "epp--staging:epp-client:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-    newTag: master-8740b0a9-20231016.1113 # {"$imagepolicy": "epp--staging:epp-storybook:tag"}
+    newTag: master-5fba2035-20231018.0657 # {"$imagepolicy": "epp--staging:epp-storybook:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
     newTag: master-b91dfe50-20231016.1355 # {"$imagepolicy": "epp--staging:epp-import:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
@@ -57,8 +57,8 @@ spec:
       import_role_arn: arn:aws:iam::512686554592:role/epp-staging-import
       disallow_robots: all
       worker_replicas: "4"
-      worker_memory_requests: "2Gi"
-      worker_memory_limits: "3Gi"
+      worker_memory_requests: "3Gi"
+      worker_memory_limits: "4Gi"
       worker_cpu_requests: "500m"
       worker_cpu_limits: "1500m"
       biorxiv_xslt_api_replicas: "8"
