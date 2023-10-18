@@ -44,7 +44,7 @@ spec:
               containerPort: 9090
               protocol: TCP
           livenessProbe:
-             initialDelaySeconds: 300
+             initialDelaySeconds: 150
              tcpSocket:
                port: metrics
           volumeMounts:
