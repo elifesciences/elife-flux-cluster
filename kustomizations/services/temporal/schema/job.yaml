@@ -10,6 +10,7 @@ spec:
       name: temporal-schema-setup
     spec:
       serviceAccountName: temporal
+      restartPolicy: "OnFailure"
       initContainers:
         - name: create-default-store
           image: "temporalio/admin-tools:latest"
