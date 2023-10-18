@@ -19,16 +19,14 @@ spec:
             - name: SQL_PLUGIN
               value: mysql
             - name: SQL_HOST
-              value: temporal-database-pxc-haproxy
-            - name: SQL_PORT
-              value: "3306"
+              value: ${temporal_store_host}
             - name: SQL_USER
-              value: root
+              value: ${temporal_store_user}
             - name: SQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: temporal-database-pxc-secrets
-                  key: password
+                  name: ${temporal_store_password_secret_name}
+                  key: ${temporal_store_password_secret_key}
         - name: create-visibility-store
           image: "temporalio/admin-tools:latest"
           command: ['temporal-sql-tool', '--database', 'temporal_visibility', 'create-database']
@@ -36,16 +34,14 @@ spec:
             - name: SQL_PLUGIN
               value: mysql
             - name: SQL_HOST
-              value: temporal-database-pxc-haproxy
-            - name: SQL_PORT
-              value: "3306"
+              value: ${temporal_visibility_store_host}
             - name: SQL_USER
-              value: root
+              value: ${temporal_visibility_store_database}
             - name: SQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: temporal-database-pxc-secrets
-                  key: password
+                  name: ${temporal_visibility_store_password_secret_name}
+                  key: ${temporal_visibility_store_password_secret_key}
       containers:
         - name: setup-default-schema
           image: "temporalio/admin-tools:latest"
@@ -53,19 +49,17 @@ spec:
           env:
             - name: SQL_PLUGIN
               value: mysql
-            - name: SQL_HOST
-              value: temporal-database-pxc-haproxy
-            - name: SQL_PORT
-              value: "3306"
             - name: SQL_DATABASE
               value: temporal
+            - name: SQL_HOST
+              value: ${temporal_store_host}
             - name: SQL_USER
-              value: root
+              value: ${temporal_store_user}
             - name: SQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: temporal-database-pxc-secrets
-                  key: password
+                  name: ${temporal_store_password_secret_name}
+                  key: ${temporal_store_password_secret_key}
         - name: setup-visibility-schema
           image: "temporalio/admin-tools:latest"
           command: ['temporal-sql-tool', 'setup-schema', '-v', '0.0']
@@ -73,18 +67,16 @@ spec:
             - name: SQL_PLUGIN
               value: mysql
             - name: SQL_HOST
-              value: temporal-database-pxc-haproxy
-            - name: SQL_PORT
-              value: "3306"
+              value: ${temporal_visibility_store_host}
             - name: SQL_DATABASE
-              value: temporal_visibility
+              value: temporal-visibility
             - name: SQL_USER
-              value: root
+              value: ${temporal_visiblity_store_user}
             - name: SQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: temporal-database-pxc-secrets
-                  key: password
+                  name: ${temporal_visibility_store_password_secret_name}
+                  key: ${temporal_visibility_store_password_secret_key}
         - name: update-default-schema
           image: "temporalio/admin-tools:latest"
           command: ['temporal-sql-tool', 'update-schema', '--schema-dir', '/etc/temporal/schema/mysql/v57/temporal/versioned']
@@ -92,18 +84,16 @@ spec:
             - name: SQL_PLUGIN
               value: mysql
             - name: SQL_HOST
-              value: temporal-database-pxc-haproxy
-            - name: SQL_PORT
-              value: "3306"
+              value: ${temporal_store_host}
             - name: SQL_DATABASE
               value: temporal
             - name: SQL_USER
-              value: root
+              value: ${temporal_store_user}
             - name: SQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: temporal-database-pxc-secrets
-                  key: password
+                  name: ${temporal_store_password_secret_name}
+                  key: ${temporal_store_password_secret_key}
         - name: update-visibility-schema
           image: "temporalio/admin-tools:latest"
           command: ['temporal-sql-tool', 'update-schema', '--schema-dir', '/etc/temporal/schema/mysql/v57/visibility/versioned']
@@ -111,15 +101,13 @@ spec:
             - name: SQL_PLUGIN
               value: mysql
             - name: SQL_HOST
-              value: temporal-database-pxc-haproxy
-            - name: SQL_PORT
-              value: "3306"
+              value: ${temporal_visibility_store_host}
             - name: SQL_DATABASE
-              value: temporal_visibility
+              value: temporal-visibility
             - name: SQL_USER
-              value: root
+              value: ${temporal_visiblity_store_user}
             - name: SQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: temporal-database-pxc-secrets
-                  key: password
+                  name: ${temporal_visibility_store_password_secret_name}
+                  key: ${temporal_visibility_store_password_secret_key}
