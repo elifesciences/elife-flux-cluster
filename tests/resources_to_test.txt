@@ -21,7 +21,7 @@ helmrelease ready monitoring prometheus-stack
 kustomizations.kustomize.toolkit.fluxcd.io ready monitoring monitoring-flux
 
 # Test all deployments
-helmrelease ready basex-validator basex-validator
+deployment Available basex-validator--prod basex-validator
 deployment Available data-hub data-hub-api--prod
 deployment Available data-hub data-hub-api--stg
 deployment Available data-hub sciety-labs--prod
