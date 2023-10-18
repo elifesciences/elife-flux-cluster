@@ -36,7 +36,7 @@ spec:
             - name: SQL_HOST
               value: ${temporal_visibility_store_host}
             - name: SQL_USER
-              value: ${temporal_visibility_store_database}
+              value: ${temporal_visibility_store_user}
             - name: SQL_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -71,7 +71,7 @@ spec:
             - name: SQL_DATABASE
               value: temporal-visibility
             - name: SQL_USER
-              value: ${temporal_visiblity_store_user}
+              value: ${temporal_visibility_store_user}
             - name: SQL_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -105,7 +105,7 @@ spec:
             - name: SQL_DATABASE
               value: temporal-visibility
             - name: SQL_USER
-              value: ${temporal_visiblity_store_user}
+              value: ${temporal_visibility_store_user}
             - name: SQL_PASSWORD
               valueFrom:
                 secretKeyRef:
