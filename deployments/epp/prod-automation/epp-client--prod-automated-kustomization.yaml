@@ -19,7 +19,7 @@ spec:
     substitute:
       app_env: prod
       client_replicas: "3"
-      epp_server: http://epp-server.prod:3000
+      epp_server: http://epp-server.epp--prod:3000
       iiif_server: https://prod--epp.elifesciences.org/iiif
       is_automated: yeah
       disallow_robots: all
