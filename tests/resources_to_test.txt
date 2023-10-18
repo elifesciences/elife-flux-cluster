@@ -12,32 +12,59 @@ helmrelease ready infra external-dns
 helmrelease ready infra oauth2-proxy
 helmrelease ready kube-system descheduler
 helmrelease ready monitoring metrics-server
+helmrelease ready monitoring prometheus-stack
 helmrelease ready logging loki
+helmrelease ready logging vector
 helmrelease ready db-operator-system psmdb-operator
 helmrelease ready db-operator-system pxc-operator
 helmrelease ready db-operator-system pg-operator
+helmrelease ready db-operator-system opensearch-operator
 helmrelease ready monitoring prometheus-stack
+helmrelease ready flux-system template-controller
+helmrelease ready gemini gemini
+helmrelease ready temporal temporal-database
+helmrelease ready temporal temporal
+helmrelease ready temporal2 temporal-database
+deployment Available temporal2 temporal-frontend
+deployment Available temporal2 temporal-matching
+deployment Available temporal2 temporal-history
+deployment Available temporal2 temporal-worker
+deployment Available temporal2 temporal-web
+
+
 
 kustomizations.kustomize.toolkit.fluxcd.io ready monitoring monitoring-flux
 
 # Test all deployments
-deployment Available basex-validator--prod basex-validator
+
+## Data Hub
 deployment Available data-hub data-hub-api--prod
 deployment Available data-hub data-hub-api--stg
 deployment Available data-hub sciety-labs--prod
 deployment Available data-hub sciety-labs--stg
 deployment Available data-hub test-ftpserver
+helmrelease ready data-hub data-hub--prod
+helmrelease ready data-hub data-hub--stg
+helmrelease ready data-hub data-hub--test
+
+## EPP
 deployment Available epp--prod epp-client
 deployment Available epp--prod epp-image-server
 deployment Available epp--prod epp-server
 deployment Available epp--prod epp-storybook
+deployment Available epp--prod epp-biorxiv-xslt-api
+helmrelease ready epp--prod epp-database
 deployment Available epp--staging epp-client
 deployment Available epp--staging epp-image-server
 deployment Available epp--staging epp-server
 deployment Available epp--staging epp-storybook
+deployment Available epp--staging epp-biorxiv-xslt-api
+helmrelease ready epp--staging epp-database
+
+## Peerscout
 helmrelease ready peerscout peerscout--prod
 helmrelease ready peerscout peerscout--prod
+
+
 deployment Available podinfo podinfo--prod
-helmrelease ready data-hub data-hub--prod
-helmrelease ready data-hub data-hub--stg
-helmrelease ready data-hub data-hub--test
+deployment Available basex-validator--prod basex-validator
