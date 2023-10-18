@@ -30,3 +30,6 @@ spec:
       temporal_store_password_secret_key: root
       temporal_visibility_store_password_secret_name: temporal-database-pxc-secrets
       temporal_visibility_store_password_secret_key: root
+      s3_archive_aws_region: us-east-1
+      s3_archive_history_uri: "s3://elife-temporal-prod-data/archive/history"
+      s3_archive_visibility_uri: "s3://elife-temporal-prod-data/archive/visibility"

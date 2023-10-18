@@ -61,8 +61,31 @@ clusterMetadata:
 dcRedirectionPolicy:
   policy: "noop"
   toDC: ""
+
 archival:
-  status: "disabled"
+  history:
+    state: "enabled"
+    enableRead: true
+    provider:
+      s3store:
+        region: "${s3_archive_aws_region}"
+  visibility:
+    state: "enabled"
+    enableRead: true
+    provider:
+      s3store:
+        region: "${s3_archive_aws_region}"
+
+namespaceDefaults:
+  archival:
+    history:
+      state: "enabled"
+      URI: "${s3_archive_history_uri}"
+    visibility:
+      state: "enabled"
+      URI: "${s3_archive_visibility_uri}"
+
+
 
 publicClient:
   hostPort: "temporal-frontend:7233"
