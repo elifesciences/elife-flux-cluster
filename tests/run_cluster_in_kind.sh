@@ -15,7 +15,10 @@ kind delete cluster --name "$name"
 kind create cluster --name "$name" --image=kindest/node:v1.27.3
 
 # install kwok into cluster
-kubectl kustomize $tests_path/kwok/deploy_config | kubectl apply -f -
+KWOK_REPO=kubernetes-sigs/kwok
+KWOK_LATEST_RELEASE=$(curl "https://api.github.com/repos/${KWOK_REPO}/releases/latest" | jq -r '.tag_name')
+kubectl apply -f "https://github.com/${KWOK_REPO}/releases/download/${KWOK_LATEST_RELEASE}/kwok.yaml"
+kubectl apply -f "https://github.com/${KWOK_REPO}/releases/download/${KWOK_LATEST_RELEASE}/stage-fast.yaml"
 kubectl wait deployment -n kube-system kwok-controller --timeout=60s --for condition=Available=True
 
 # Install Flux with toleration to run controllers on the real node
