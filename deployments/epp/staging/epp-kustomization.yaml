@@ -13,18 +13,18 @@ spec:
   prune: true
   targetNamespace: epp--staging
   images:
-  - name: ghcr.io/elifesciences/enhanced-preprints
-    newTag: master-2146a2fc-20230925.1101 # {"$imagepolicy": "epp--staging:epp-server:tag"}
+  - name: ghcr.io/elifesciences/enhanced-preprints-server
+    newTag: master-a9d14400-20231018.1301 # {"$imagepolicy": "epp--staging:epp-server:tag"}
   - name: ghcr.io/elifesciences/epp-image-server
     newTag: master-e53d15f3-20230307.0757 # {"$imagepolicy": "epp--prod:epp-image-server:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-client
-    newTag: master-75570734-20230925.1116 # {"$imagepolicy": "epp--staging:epp-client:tag"}
+    newTag: master-20c9cba8-20231018.0920 # {"$imagepolicy": "epp--staging:epp-client:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-    newTag: master-75570734-20230925.1144 # {"$imagepolicy": "epp--staging:epp-storybook:tag"}
+    newTag: master-56371bb1-20231018.1403 # {"$imagepolicy": "epp--staging:epp-storybook:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
-    newTag: master-fba20cc3-20230922.0856 # {"$imagepolicy": "epp--staging:epp-import:tag"}
+    newTag: master-b91dfe50-20231016.1355 # {"$imagepolicy": "epp--staging:epp-import:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
-    newTag: master-f70c388d-20230925.1340 # {"$imagepolicy": "epp--staging:epp-biorxiv-xslt-api:tag"}
+    newTag: master-7d1d4fbf-20231013.1444 # {"$imagepolicy": "epp--staging:epp-biorxiv-xslt-api:tag"}
   postBuild:
     substitute:
       app_env: staging
@@ -56,5 +56,9 @@ spec:
       temporal_namespace: epp--staging
       import_role_arn: arn:aws:iam::512686554592:role/epp-staging-import
       disallow_robots: all
-      worker_replicas: "2"
-      correct_order_author_metadata: "yup"
+      worker_replicas: "4"
+      worker_memory_requests: "3Gi"
+      worker_memory_limits: "4Gi"
+      worker_cpu_requests: "500m"
+      worker_cpu_limits: "1500m"
+      biorxiv_xslt_api_replicas: "8"

@@ -50,8 +50,6 @@ spec:
           value: ${show_previews:=''}
         - name: DISALLOW_ROBOTS
           value: ${disallow_robots:=''}
-        - name: NEXT_PUBLIC_CORRECT_ORDER_AUTHOR_METADATA
-          value: ${correct_order_author_metadata:=''}
         readinessProbe:
           httpGet:
             path: /

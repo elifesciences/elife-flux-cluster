@@ -12,7 +12,7 @@ spec:
   chart:
     spec:
       chart: loki
-      version: 5.23.0
+      version: 5.31.0
       sourceRef:
         kind: HelmRepository
         name: grafana
@@ -25,7 +25,7 @@ spec:
     singleBinary:
       replicas: 1
       persistence:
-        size: 20Gi
+        size: 30Gi
       resources:
         requests:
           cpu: 50m
@@ -44,10 +44,14 @@ spec:
         compaction_interval: "10m"
         shared_store: filesystem
       limits_config:
-        retention_period: 744h
+        retention_period: 360h
       storage_config:
         boltdb_shipper:
           shared_store: filesystem
+
+    tableManager:
+      retention_deletes_enabled: true
+      retention_period: 360h
 
     test:
       enabled: false

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: data-hub-api
-        image: ghcr.io/elifesciences/data-hub-api:1.0.21 # {"$imagepolicy": "data-hub:data-hub-api-stable"}
+        image: ghcr.io/elifesciences/data-hub-api:1.1.0 # {"$imagepolicy": "data-hub:data-hub-api-stable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
@@ -81,6 +81,30 @@ spec:
         paths:
           - pathType: Prefix
             path: "/"
+            backend:
+              service:
+                name: data-hub-api--prod
+                port:
+                  number: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: data-hub-api-kotahi--prod
+  namespace: data-hub
+  labels:
+    app: data-hub-api--prod
+  annotations:
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: data-hub-api-kotahi-http-basic-auth
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - Data Hub API Kotahi'
+spec:
+  rules:
+    - host: data-hub-api.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/kotahi"
             backend:
               service:
                 name: data-hub-api--prod

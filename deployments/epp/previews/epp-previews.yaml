@@ -105,7 +105,7 @@ spec:
                   asset_prefix: https://pr-{{ matrix.pr.number }}--epp.elifesciences.org
                   iiif_server: https://staging--epp.elifesciences.org/iiif
                   client_replicas: "1"
-                  is_automated: automated
+                  is_automated: ""
                   show_previews: all
                   disallow_robots: all
         - raw: |
