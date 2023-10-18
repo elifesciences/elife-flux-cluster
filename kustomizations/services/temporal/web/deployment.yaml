@@ -13,7 +13,7 @@ spec:
           image: "temporalio/ui:latest"
           env:
             - name: TEMPORAL_ADDRESS
-              value: "temporal-frontend.default.svc:7233"
+              value: "temporal-frontend:7233"
           ports:
             - name: http
               containerPort: 8080
