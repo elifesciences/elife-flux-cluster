@@ -1,0 +1,117 @@
+log:
+  stdout: true
+  level: "debug,info"
+
+persistence:
+  defaultStore: default
+  visibilityStore: visibility
+  numHistoryShards: 512
+  datastores:
+    default:
+      sql:
+        pluginName: "mysql"
+        driverName: "mysql"
+        databaseName: "temporal"
+        connectAddr: "{{ .Env.TEMPORAL_STORE_HOST }}"
+        connectProtocol: "tcp"
+        user: "{{ .Env.TEMPORAL_STORE_USER }}"
+        password: "{{ .Env.TEMPORAL_STORE_PASSWORD }}"
+        maxConnLifetime: 1h
+        maxConns: 20
+        secretName: ""
+    visibility:
+      sql:
+        pluginName: "mysql"
+        driverName: "mysql"
+        databaseName: "temporal_visibility"
+        connectAddr: "{{ .Env.TEMPORAL_VISIBILITY_STORE_HOST }}"
+        connectProtocol: "tcp"
+        user: "{{ .Env.TEMPORAL_VISIBILITY_STORE_USER }}"
+        password: "{{ .Env.TEMPORAL_VISIBILITY_STORE_PASSWORD }}"
+        maxConnLifetime: 1h
+        maxConns: 20
+        secretName: ""
+
+global:
+  membership:
+    name: temporal
+    maxJoinDuration: 30s
+    broadcastAddress: {{ default .Env.POD_IP "0.0.0.0" }}
+  pprof:
+    port: 7936
+  metrics:
+    tags:
+      type: "{{ .Env.SERVICES }}"
+    prometheus:
+      timerType: histogram
+      listenAddress: "0.0.0.0:9090"
+
+
+clusterMetadata:
+  enableGlobalDomain: false
+  failoverVersionIncrement: 10
+  masterClusterName: "active"
+  currentClusterName: "active"
+  clusterInformation:
+    active:
+      enabled: true
+      initialFailoverVersion: 1
+      rpcName: "temporal-frontend"
+      rpcAddress: "127.0.0.1:7933"
+dcRedirectionPolicy:
+  policy: "noop"
+  toDC: ""
+
+archival:
+  history:
+    state: "enabled"
+    enableRead: true
+    provider:
+      s3store:
+        region: "${s3_archive_aws_region}"
+  visibility:
+    state: "enabled"
+    enableRead: true
+    provider:
+      s3store:
+        region: "${s3_archive_aws_region}"
+
+namespaceDefaults:
+  archival:
+    history:
+      state: "enabled"
+      URI: "${s3_archive_history_uri}"
+    visibility:
+      state: "enabled"
+      URI: "${s3_archive_visibility_uri}"
+
+
+
+publicClient:
+  hostPort: "temporal-frontend:7233"
+
+services:
+  frontend:
+    rpc:
+      grpcPort: 7233
+      membershipPort: 6933
+      bindOnIP: "0.0.0.0"
+
+  history:
+    rpc:
+      grpcPort: 7234
+      membershipPort: 6934
+      bindOnIP: "0.0.0.0"
+
+  matching:
+    rpc:
+      grpcPort: 7235
+      membershipPort: 6935
+      bindOnIP: "0.0.0.0"
+
+  worker:
+    rpc:
+      grpcPort: 7239
+      membershipPort: 6939
+      bindOnIP: "0.0.0.0"
+
