@@ -9,8 +9,7 @@ persistence:
   datastores:
     default:
       sql:
-        pluginName: "mysql"
-        driverName: "mysql"
+        pluginName: "mysql8"
         databaseName: "temporal"
         connectAddr: "{{ .Env.TEMPORAL_STORE_HOST }}"
         connectProtocol: "tcp"
@@ -21,8 +20,7 @@ persistence:
         secretName: ""
     visibility:
       sql:
-        pluginName: "mysql"
-        driverName: "mysql"
+        pluginName: "mysql8"
         databaseName: "temporal_visibility"
         connectAddr: "{{ .Env.TEMPORAL_VISIBILITY_STORE_HOST }}"
         connectProtocol: "tcp"
