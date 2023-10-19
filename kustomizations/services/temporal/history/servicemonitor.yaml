@@ -1,0 +1,15 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: temporal-history
+spec:
+  endpoints:
+  - port: metrics
+    interval: 30s
+  jobLabel: temporal-history
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: temporal
+      app.kubernetes.io/instance: temporal
+      app.kubernetes.io/component: history
