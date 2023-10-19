@@ -4,9 +4,6 @@ kind: PodMonitor
 metadata:
   name: temporal-frontend
 spec:
-  namespaceSelector:
-    matchNames:
-    - default
   selector:
     matchLabels:
       app.kubernetes.io/name: temporal
