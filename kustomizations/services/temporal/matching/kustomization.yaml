@@ -4,6 +4,6 @@ namespace: temporal
 resources:
 - deployment.yaml
 - service.yaml
-- servicemonitor.yaml
+- podmonitor.yaml
 commonLabels:
   app.kubernetes.io/component: matching
