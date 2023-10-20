@@ -97,7 +97,7 @@ bigQueryToOpenSearch:
               event.evaluation_locator,
               NULL
             )) AS evaluation_count
-          FROM `elife-data-pipeline.prod.v_sciety_event` AS event
+          FROM `elife-data-pipeline.{ENV}.v_sciety_event` AS event
           WHERE event.evaluation_locator IS NOT NULL
           GROUP BY event.article_doi
     fieldNamesFor:
