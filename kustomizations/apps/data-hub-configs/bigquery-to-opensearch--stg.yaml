@@ -1,5 +1,5 @@
 bigQueryToOpenSearch:
-  - dataPipelineId: bigquery_to_opensearch_data_pipeline_s2_1
+  - dataPipelineId: bigquery_to_opensearch_data_pipeline_s2
     source:
       bigQuery:
         projectName: 'elife-data-pipeline'
@@ -19,8 +19,11 @@ bigQueryToOpenSearch:
               s2_response.provenance.imported_timestamp AS s2_data_hub_imported_timestamp,
               s2_response.provenance.request_timestamp AS s2_data_hub_request_timestamp,
               s2_response.provenance.response_timestamp AS s2_data_hub_response_timestamp,
-              s2_response.paperId AS s2_paper_id
+              s2_response.paperId AS s2_paper_id,
+              europepmc_response.firstPublicationDate AS publication_date
           FROM `elife-data-pipeline.{ENV}.v_latest_semantic_scholar_response` AS s2_response
+          LEFT JOIN `elife-data-pipeline.{ENV}.v_latest_europepmc_preprint_servers_response` AS europepmc_response
+              ON europepmc_response.doi = s2_response.externalIds.DOI
           WHERE s2_response.externalIds.DOI IS NOT NULL
     fieldNamesFor:
       id: doi
@@ -80,96 +83,7 @@ bigQueryToOpenSearch:
                       ef_construction: 512
                       m: 16
     batchSize: 1000
-  - dataPipelineId: bigquery_to_opensearch_data_pipeline_europepmc_2
-    source:
-      bigQuery:
-        projectName: 'elife-data-pipeline'
-        sqlQuery: |-
-          SELECT
-              europepmc_response.doi AS doi,
-              europepmc_response.provenance.imported_timestamp AS europepmc_data_hub_imported_timestamp,
-              europepmc_response.firstPublicationDate AS publication_date,
-              europepmc_response.source AS europepmc_source,
-              europepmc_response.id AS europepmc_id,
-              europepmc_response.title_with_markup AS europepmc_title_with_markup,
-              europepmc_response.abstractText AS europepmc_abstract_with_markup,
-              europepmc_response.authorString AS europepmc_author_string,
-              europepmc_response.firstIndexDate AS europepmc_first_index_date,
-              europepmc_response.dateOfRevision AS europepmc_revision_date,
-              europepmc_response.language AS europepmc_language,
-
-              ARRAY(
-                  SELECT AS STRUCT
-                      author.authorId AS author_id,
-                      author.collectiveName AS collective_name,
-                      author.firstName AS first_name,
-                      author.fullName AS full_name,
-                      author.initials,
-                      author.lastName AS last_name,
-                      ARRAY(
-                          SELECT affiliation
-                          FROM UNNEST(author.authorAffiliationDetailsList.authorAffiliation) AS affiliation
-                      ) AS affiliation_string_list
-                  FROM UNNEST(europepmc_response.authorList.author) AS author
-              ) AS europepmc_author_list,
-
-              ARRAY(
-                  SELECT AS STRUCT
-                      version.source,
-                      version.id,
-                      version.versionNumber AS version_number,
-                      version.firstPublishDate AS first_publication_date,
-                      ARRAY(
-                          SELECT publication_type
-                          FROM UNNEST(pubTypeList.pubType) AS publication_type
-                      ) AS publication_type_list
-                  FROM UNNEST(europepmc_response.versionList.version) AS version
-              ) AS europepmc_version_list,
-
-              ARRAY(
-                  SELECT AS STRUCT
-                      full_text_info.availability,
-                      full_text_info.availabilityCode AS availability_code,
-                      full_text_info.documentStyle AS documentStyle,
-                      full_text_info.site AS site,
-                      full_text_info.url,
-                  FROM UNNEST(europepmc_response.fullTextUrlList.fullTextUrl) AS full_text_info
-              ) AS europepmc_full_text_list,
-
-              ARRAY(
-                  SELECT keyword
-                  FROM UNNEST(europepmc_response.keywordList.keyword) AS keyword
-              ) AS europepmc_keyword_string_list
-          FROM `elife-data-pipeline.{ENV}.v_latest_europepmc_preprint_servers_response` AS europepmc_response
-          WHERE europepmc_response.doi IS NOT NULL
-    fieldNamesFor:
-      id: doi
-      timestamp: europepmc_data_hub_imported_timestamp
-    state:
-      initialState:
-        startTimestamp: '2022-10-01+00:00'
-      stateFile:
-        bucketName: '{ENV}-elife-data-pipeline'
-        objectName: 'airflow-config/bigquery-to-opensearch/{ENV}-state-europepmc.json'
-    target:
-      openSearch:
-        hostname: 'opensearch-staging'
-        port: 9200
-        timeout: 120
-        verifyCertificates: False
-        secrets:
-          parametersFromFile:
-            - parameterName: username
-              filePathEnvName: OPENSEARCH_USERNAME_FILE_PATH
-            - parameterName: password
-              filePathEnvName: OPENSEARCH_PASSWORD_FILE_PATH
-        indexName: 'preprints_v1'
-        updateIndexSettings: False
-        updateMappings: True
-        operationMode: 'update'
-        upsert: True
-    batchSize: 1000
-  - dataPipelineId: bigquery_to_opensearch_data_pipeline_sciety_event_3
+  - dataPipelineId: bigquery_to_opensearch_data_pipeline_sciety_event
     source:
       bigQuery:
         projectName: 'elife-data-pipeline'
