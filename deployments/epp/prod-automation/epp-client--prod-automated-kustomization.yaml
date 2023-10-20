@@ -18,7 +18,7 @@ spec:
   postBuild:
     substitute:
       app_env: prod
-      client_replicas: "3"
+      client_replicas: "1"
       epp_server: http://epp-server.epp--prod:3000
       iiif_server: https://prod--epp.elifesciences.org/iiif
       is_automated: yeah
