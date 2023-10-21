@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: temporal
+resources:
+- serviceaccount.yaml
+- schema
+- frontend
+- history
+- matching
+- worker
+- web
+
+commonLabels:
+  app.kubernetes.io/name: temporal
+  app.kubernetes.io/instance: temporal
+
+
+configMapGenerator:
+- name: temporal-server-config
+  files:
+  - config/config_template.yaml

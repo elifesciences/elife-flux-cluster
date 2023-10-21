@@ -1,0 +1,25 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: epp-client
+  namespace: epp--prod-automation
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kustomizations/apps/epp/client
+  prune: true
+  targetNamespace: epp--prod-automation
+  images:
+    - name: ghcr.io/elifesciences/enhanced-preprints-client
+      newTag: master-7182e078-20231018.1428 # {"$imagepolicy": "epp--prod:epp-client:tag"}
+  postBuild:
+    substitute:
+      app_env: prod
+      client_replicas: "1"
+      epp_server: http://epp-server.epp--prod:3000
+      iiif_server: https://staging--epp.elifesciences.org/iiif
+      is_automated: yeah
+      disallow_robots: all

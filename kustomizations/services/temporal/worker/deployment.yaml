@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: temporal-worker
+spec:
+  replicas: 1
+  template:
+    spec:
+      serviceAccountName: temporal
+      containers:
+        - name: temporal-worker
+          image: "temporalio/server:latest"
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: SERVICES
+              value: worker
+            - name: TEMPORAL_STORE_HOST
+              value: ${temporal_store_host}
+            - name: TEMPORAL_STORE_USER
+              value: ${temporal_store_user}
+            - name: TEMPORAL_VISIBILITY_STORE_HOST
+              value: ${temporal_visibility_store_host}
+            - name: TEMPORAL_VISIBILITY_STORE_USER
+              value: ${temporal_visibility_store_user}
+            - name: TEMPORAL_STORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ${temporal_store_password_secret_name}
+                  key: ${temporal_store_password_secret_key}
+            - name: TEMPORAL_VISIBILITY_STORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ${temporal_visibility_store_password_secret_name}
+                  key: ${temporal_visibility_store_password_secret_key}
+          ports:
+            - name: rpc
+              containerPort: 7239
+              protocol: TCP
+            - name: metrics
+              containerPort: 9090
+              protocol: TCP
+          livenessProbe:
+             initialDelaySeconds: 150
+             tcpSocket:
+               port: metrics
+          volumeMounts:
+            - name: config
+              mountPath: /etc/temporal/config/config_template.yaml
+              subPath: config_template.yaml
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+      volumes:
+        - name: config
+          configMap:
+            name: "temporal-server-config"

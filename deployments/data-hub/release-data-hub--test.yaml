@@ -53,7 +53,7 @@ spec:
         AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "90"
       image:
         repository: docker.io/elifesciences/data-hub-with-dags_unstable # {"$imagepolicy": "data-hub:data-hub-unstable:name"}
-        tag: develop-6f572154-20231016.1727 # {"$imagepolicy": "data-hub:data-hub-unstable:tag"}
+        tag: develop-c29026b0-20231020.1540 # {"$imagepolicy": "data-hub:data-hub-unstable:tag"}
       extraEnv:
       # security settings
       - name: AIRFLOW__WEBSERVER__SECRET_KEY
@@ -307,6 +307,14 @@ spec:
         initialDelaySeconds: 60
       readinessProbe:
         initialDelaySeconds: 60
+      extraVolumeMounts:
+      - name: aws-secret-volume
+        mountPath: /home/airflow/.aws
+        readOnly: true
+      extraVolumes:
+      - name: aws-secret-volume
+        secret:
+          secretName: credentials
     triggerer:
       resources:
         requests:

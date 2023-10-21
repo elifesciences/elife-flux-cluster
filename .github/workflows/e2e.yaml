@@ -35,6 +35,9 @@ jobs:
         run: ./tests/run_cluster_in_kind.sh ${GITHUB_REF#refs/heads/}
       - name: Test resources come up
         run: ./tests/run_tests.sh
+      - name: Debug failure - logs - kwok-controller
+        if: failure()
+        run: kubectl logs -n kube-system --previous deployment/kwok-controller
       - name: Debug failure - summaries - Pods
         if: failure()
         run: kubectl get pods -A -o wide

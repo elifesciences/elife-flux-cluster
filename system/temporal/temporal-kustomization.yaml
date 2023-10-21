@@ -1,0 +1,36 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: temporal
+  namespace: temporal
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kustomizations/services/temporal
+  prune: true
+  targetNamespace: temporal
+  images:
+    - name: temporalio/server
+      newTag: 1.22.0
+    - name: temporalio/ui
+      newTag: 2.19.0
+    - name: temporalio/admin-tools
+      newTag: 1.22.0
+  postBuild:
+    substitute:
+      temporal_web_hostname: temporal.elifesciences.org
+      temporal_store_host: temporal-database-pxc-haproxy
+      temporal_store_user: root
+      temporal_visibility_store_host: temporal-database-pxc-haproxy
+      temporal_visibility_store_user: root
+      temporal_store_password_secret_name: temporal-database-pxc-secrets
+      temporal_store_password_secret_key: root
+      temporal_visibility_store_password_secret_name: temporal-database-pxc-secrets
+      temporal_visibility_store_password_secret_key: root
+      s3_archive_aws_region: us-east-1
+      s3_archive_history_uri: "s3://elife-temporal-prod-data"
+      s3_archive_visibility_uri: "s3://elife-temporal-prod-data"
