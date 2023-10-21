@@ -353,7 +353,6 @@ bigQueryToOpenSearch:
         hostname: 'opensearch-staging'
         port: 9200
         timeout: 120
-        # disable verification of certificates in development
         verifyCertificates: False
         secrets:
           parametersFromFile:
