@@ -358,14 +358,6 @@ spec:
           memory: 500Mi
           cpu: 1200m
           ephemeral-storage: "50Mi"
-      extraVolumeMounts:
-      - name: aws-secret-volume
-        mountPath: /home/airflow/.aws
-        readOnly: true
-      extraVolumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
     web:
       webserverConfig:
         stringOverride: |
@@ -390,6 +382,14 @@ spec:
         initialDelaySeconds: 60
       readinessProbe:
         initialDelaySeconds: 60
+      extraVolumeMounts:
+      - name: aws-secret-volume
+        mountPath: /home/airflow/.aws
+        readOnly: true
+      extraVolumes:
+      - name: aws-secret-volume
+        secret:
+          secretName: credentials
     triggerer:
       resources:
         requests:
