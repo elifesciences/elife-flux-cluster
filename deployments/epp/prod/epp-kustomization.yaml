@@ -20,7 +20,7 @@ spec:
     - name: ghcr.io/elifesciences/enhanced-preprints-client
       newTag: master-eccd3662-20231021.1329 # {"$imagepolicy": "epp--prod:epp-client:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-      newTag: master-eccd3662-20231021.1329 # {"$imagepolicy": "epp--prod:epp-storybook:tag"}
+      newTag: master-2215e63a-20231023.1027 # {"$imagepolicy": "epp--prod:epp-storybook:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
       newTag: master-1177cbe9-20231021.1819 # {"$imagepolicy": "epp--prod:epp-import:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
@@ -53,14 +53,12 @@ spec:
       temporal_namespace: epp--prod
       import_role_arn: arn:aws:iam::512686554592:role/epp-prod-import
       disallow_robots: all
-
       worker_replicas: "4"
       worker_memory_requests: "3Gi"
       worker_memory_limits: "4Gi"
       worker_cpu_requests: "500m"
       worker_cpu_limits: "1500m"
       biorxiv_xslt_api_replicas: "8"
-
   patches:
     - target:
         name: epp-client
