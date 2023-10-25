@@ -67,6 +67,12 @@ spec:
           value: /root/.secrets/opensearch/username
         - name: OPENSEARCH_PASSWORD_FILE_PATH
           value: /root/.secrets/opensearch/password
+        # new environment variables that will become active with code change
+        - name: OPENSEARCH_INDEX_V2_NAME
+          value: "preprints_v2"
+        - name: OPENSEARCH_INDEX_V2_EMBEDDING_VECTOR_MAPPING_NAME
+          value: "s2.specter_embedding_v1.vector"
+        # deprecated
         - name: OPENSEARCH_INDEX_NAME
           value: "preprints_v1"
         - name: OPENSEARCH_EMBEDDING_VECTOR_MAPPING_NAME
