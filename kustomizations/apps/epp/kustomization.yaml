@@ -15,9 +15,6 @@ resources:
 - server/automations/policy.yaml
 - server/automations/approved-policy.yaml
 - client
-- client/automations/repository.yaml
-- client/automations/policy.yaml
-- client/automations/approved-policy.yaml
 - storybook
 - storybook/automations/repository.yaml
 - storybook/automations/policy.yaml
