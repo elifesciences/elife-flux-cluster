@@ -24,9 +24,6 @@ spec:
       - name: epp-biorxiv-xslt-api
         image: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api:latest
         resources:
-          requests:
-            cpu: "10m"
-            memory: "100Mi"
           limits:
             cpu: "1000m"
             memory: "1000Gi"
