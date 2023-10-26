@@ -64,5 +64,5 @@ spec:
       biorxiv_xslt_api_replicas: "8"
       biorxiv_xslt_api_memory_requests: "3Gi"
       biorxiv_xslt_api_memory_limits: "3Gi"
-      biorxiv_xslt_api_cpu_requests: "1000m"
+      biorxiv_xslt_api_cpu_requests: "500m"
       biorxiv_xslt_api_cpu_limits: "1000m"
