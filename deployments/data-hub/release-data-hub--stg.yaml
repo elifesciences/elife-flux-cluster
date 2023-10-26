@@ -356,7 +356,7 @@ spec:
       resources:
         requests:
           memory: 500Mi
-          cpu: 1200m
+          cpu: 1000m
           ephemeral-storage: "50Mi"
     web:
       webserverConfig:
