@@ -24,8 +24,11 @@ spec:
       - name: epp-biorxiv-xslt-api
         image: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api:latest
         resources:
+          requests:
+            memory: ${biorxiv_xslt_api_memory_requests:='3Gi'}
+            cpu: ${biorxiv_xslt_api_cpu_requests:='1000m'}
           limits:
-            cpu: "1000m"
-            memory: "3Gi"
+            memory: ${biorxiv_xslt_api_memory_limits:='3Gi'}
+            cpu: ${biorxiv_xslt_api_cpu_limits:='1000m'}
         ports:
           - containerPort: 80
