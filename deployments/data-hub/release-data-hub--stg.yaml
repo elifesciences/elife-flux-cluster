@@ -376,7 +376,7 @@ spec:
       resources:
         requests:
           memory: 900Mi
-          cpu: 150m
+          cpu: 50m
           ephemeral-storage: "100Mi"
       livenessProbe:
         initialDelaySeconds: 60
