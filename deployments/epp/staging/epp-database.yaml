@@ -28,7 +28,7 @@ spec:
       enabled: false
     replsets:
     - name: replicaset
-      size: 3
+      size: 6
       configuration: |
         systemLog:
           verbosity: 0
@@ -69,6 +69,7 @@ spec:
       volumeSpec:
         pvc:
           accessModes: [ "ReadWriteOnce" ]
+          storageClassName: csi-ebs-gp2-default
           resources:
             requests:
               storage: 20Gi
