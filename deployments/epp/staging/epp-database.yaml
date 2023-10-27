@@ -28,7 +28,7 @@ spec:
       enabled: false
     replsets:
     - name: replicaset
-      size: 6
+      size: 3
       configuration: |
         systemLog:
           verbosity: 0
