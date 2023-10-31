@@ -14,7 +14,7 @@ spec:
   targetNamespace: epp--prod-automation
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints-client
-      newTag: master-873546b3-20231031.1341 # {"$imagepolicy": "epp--prod-automation:epp-client:tag"}
+      newTag: master-e93f08f6-20231031.1700 # {"$imagepolicy": "epp--prod-automation:epp-client:tag"}
   postBuild:
     substitute:
       app_env: prod
