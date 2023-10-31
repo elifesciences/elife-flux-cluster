@@ -53,7 +53,7 @@ spec:
         AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "90"
       image:
         repository: docker.io/elifesciences/data-hub-with-dags_unstable # {"$imagepolicy": "data-hub:data-hub-unstable:name"}
-        tag: develop-f42b3c12-20231030.0920 # {"$imagepolicy": "data-hub:data-hub-unstable:tag"}
+        tag: develop-46d1794b-20231031.1504 # {"$imagepolicy": "data-hub:data-hub-unstable:tag"}
       extraEnv:
       # security settings
       - name: AIRFLOW__WEBSERVER__SECRET_KEY
