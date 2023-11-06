@@ -56,7 +56,7 @@ spec:
       temporal_namespace: epp--staging
       import_role_arn: arn:aws:iam::512686554592:role/epp-staging-import
       disallow_robots: all
-      worker_replicas: "4"
+      worker_replicas: "2"
       worker_memory_requests: "4Gi"
       worker_memory_limits: "4.5Gi"
       worker_cpu_requests: "500m"
