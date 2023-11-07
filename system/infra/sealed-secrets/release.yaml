@@ -23,3 +23,5 @@ spec:
 
   values:
     namespace: infra
+    podAnnotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
