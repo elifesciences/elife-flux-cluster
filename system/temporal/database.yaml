@@ -29,6 +29,8 @@ spec:
       persistence:
         size: 30Gi
     haproxy:
+      labels:
+        cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
       resources:
         requests:
           memory: 50Mi
