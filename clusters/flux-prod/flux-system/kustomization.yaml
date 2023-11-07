@@ -28,3 +28,27 @@ patches:
               requests:
                 cpu: 500m
                 memory: 256Mi
+- target:
+    kind: Deployment
+    namespace: flux-system
+  patch: |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: does-not-matter
+      namespace: flux-system
+    spec:
+      template:
+        metadata:
+          annotations:
+            cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+        spec:
+          containers:
+          - name: manager
+            resources:
+              limits:
+                cpu: 1500m
+                memory: 1Gi
+              requests:
+                cpu: 500m
+                memory: 256Mi
