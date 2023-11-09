@@ -96,7 +96,7 @@ spec:
           type: prometheus_exporter
           inputs: [host_metrics, internal_metrics]
           address: 0.0.0.0:9090
-        # Ship just sciety labs filtered nginx logs to GCP
+        # Ship just sciety labs filtered nginx logs to GCP
         bigquery_gcp:
           type: gcp_cloud_storage
           inputs:
