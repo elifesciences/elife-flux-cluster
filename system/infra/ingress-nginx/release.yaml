@@ -30,9 +30,8 @@ spec:
   values:
     controller:
       config:
-        use-forwarded-headers: "false"
+        use-forwarded-headers: "true"
         use-proxy-protocol: "true"
-        # forwarded-for-header: "X-Original-Forwarded-For"
         use-http2: "true"
         log-format-escape-json: "true"
         log-format-upstream: '{"timestamp": "$time_iso8601", "requestID": "$req_id", "proxyUpstreamName": "$proxy_upstream_name", "proxyAlternativeUpstreamName": "$proxy_alternative_upstream_name", "proxyProtocolAddr":"$proxy_protocol_addr", "proxyProtocolPort":"$proxy_protocol_port", "upstreamStatus": "$upstream_status", "upstreamAddr": "$upstream_addr","httpRequest":{"requestMethod": "$request_method", "requestUrl": "$host$request_uri", "status": $status,"requestSize": "$request_length", "responseSize": "$upstream_response_length", "userAgent": "$http_user_agent", "remoteIp": "$remote_addr", "referer": "$http_referer", "latency": "$upstream_response_time s", "protocol":"$server_protocol"}}'
