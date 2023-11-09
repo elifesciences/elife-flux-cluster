@@ -324,6 +324,41 @@ webApi:
   - dataset: '{ENV}'
     table: biorxiv_medrxiv_meca_path_metadata
     dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2022-01
+
+  - dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2022-02
+
+  - dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2022-03
+
+  - dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2022-04
+
+  - dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2022-05
+
+  - dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2022-06
+
+  - dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2022-07
+
+  - dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata
+    dataUrl:
       urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2022-08
 
   - dataset: '{ENV}'
