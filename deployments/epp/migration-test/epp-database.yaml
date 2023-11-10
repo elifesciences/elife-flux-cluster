@@ -1,0 +1,74 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: epp-database
+  namespace: epp--migration-test
+  labels:
+    app_name: epp
+    app_env: migration-test
+
+spec:
+  interval: 1m
+  releaseName: epp-database
+  chart:
+    spec:
+      chart: psmdb-db
+      version: 1.14.4
+      sourceRef:
+        kind: HelmRepository
+        name: percona
+        namespace: db-operator-system
+      interval: 1m
+
+  values:
+    sharding:
+      enabled: false
+    backup:
+      enabled: false
+    replsets:
+    - name: replicaset
+      size: 1
+      configuration: |
+        systemLog:
+          verbosity: 0
+          quiet: true
+      antiAffinityTopologyKey: "kubernetes.io/hostname"
+      podDisruptionBudget:
+        maxUnavailable: 1
+      expose:
+        enabled: false
+        exposeType: ClusterIP
+      nonvoting:
+        enabled: false
+        size: 3
+        antiAffinityTopologyKey: "kubernetes.io/hostname"
+        podDisruptionBudget:
+          maxUnavailable: 1
+        resources:
+          limits:
+            cpu: "300m"
+            memory: "0.5G"
+          requests:
+            cpu: "300m"
+            memory: "0.5G"
+        volumeSpec:
+          emptyDir: {}
+      arbiter:
+        enabled: false
+        size: 1
+        antiAffinityTopologyKey: "kubernetes.io/hostname"
+      resources:
+        limits:
+          cpu: "300m"
+          memory: "0.5G"
+        requests:
+          cpu: "300m"
+          memory: "0.5G"
+          ephemeral-storage: 50M
+      volumeSpec:
+        pvc:
+          accessModes: [ "ReadWriteOnce" ]
+          resources:
+            requests:
+              storage: 20Gi
