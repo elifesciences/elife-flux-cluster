@@ -32,7 +32,6 @@ spec:
       data_hub_api: https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v2/by-publisher/elife/get-by-manuscript-id?manuscript_id=
       storybook_hostname: migration-test--epp-storybook.elifesciences.org
       journal_api_hostname: migration-test--epp-api.elifesciences.org
-      asset_prefix: https://elifesciences.org/reviewed-preprints
       iiif_server: https://migration-test--epp.elifesciences.org/iiif
       image_server_source_base_url: https://github.com/elifesciences/enhanced-preprints-data/raw/master/data/
       mongodb_hostname: epp-database-psmdb-db-replicaset
