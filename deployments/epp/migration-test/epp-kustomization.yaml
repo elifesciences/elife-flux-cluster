@@ -13,7 +13,7 @@ spec:
   prune: true
   targetNamespace: epp--migration-test
   images:
-    - name: ghcr.io/elifesciences/enhanced-preprints
+    - name: ghcr.io/elifesciences/enhanced-preprints-server
       newTag: master-f6f68dee-20231110.0812 # {"$imagepolicy": "epp--migration-test:epp-server:tag"}
     - name: ghcr.io/elifesciences/epp-image-server
       newTag: master-a34dfaa2-20231003.1350 # {"$imagepolicy": "epp--migration-test:epp-image-server:tag"}
