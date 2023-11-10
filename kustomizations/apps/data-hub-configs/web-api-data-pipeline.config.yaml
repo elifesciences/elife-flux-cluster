@@ -321,6 +321,12 @@ webApi:
     dataUrl:
       urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all
 
+  # we keep config for November 2023 for now
+  - dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2023-11
+
   # bioRxiv/medRxiv apis
   # bioRxiv api
   - dataset: '{ENV}'
