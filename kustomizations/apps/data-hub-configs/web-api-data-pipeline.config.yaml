@@ -327,6 +327,12 @@ webApi:
     dataUrl:
       urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2023-11
 
+  # added for missing content
+  - dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2023-03
+
   # bioRxiv/medRxiv apis
   # bioRxiv api
   - dataset: '{ENV}'
