@@ -24,7 +24,7 @@ spec:
     - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
       newTag: master-a697c7ab-20231115.0723 # {"$imagepolicy": "epp--migration-test:epp-import:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
-      newTag: master-d3ad9bdc-20231114.1633 # {"$imagepolicy": "epp--migration-test:epp-biorxiv-xslt-api:tag"}
+      newTag: master-49a193ab-20231115.1308 # {"$imagepolicy": "epp--migration-test:epp-biorxiv-xslt-api:tag"}
   postBuild:
     substitute:
       app_env: migration-test
