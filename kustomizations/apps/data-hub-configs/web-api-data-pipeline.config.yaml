@@ -419,6 +419,7 @@ webApi:
               AND europepmc_response.doi NOT IN (
                 SELECT s2_response.externalIds.DOI
                 FROM `elife-data-pipeline.{ENV}.v_latest_semantic_scholar_response` AS s2_response
+                WHERE s2_response.externalIds.DOI IS NOT NULL
               )
             ORDER BY europepmc_response.doi
       exclude:
