@@ -427,7 +427,7 @@ webApi:
           projectName: 'elife-data-pipeline'
           sqlQuery:
             SELECT response.paper_id
-            FROM `elife-data-pipeline.{ENV}.test_s2_specter_v1_embeddings` AS response
+            FROM `elife-data-pipeline.{ENV}.semantic_scholar_specter_v1_embeddings_web_api_response` AS response
         keyFieldNameFromInclude: 'paper_id'
     urlSourceType:
       name: 's2_title_abstract_embeddings_api'
