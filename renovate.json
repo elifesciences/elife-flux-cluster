@@ -10,7 +10,7 @@
     "fileMatch": [
       "^system/temporal/temporal-kustomization\\.yaml"
     ],
-  }
+  },
   "assignees": [
     "scottaubrey"
   ],
