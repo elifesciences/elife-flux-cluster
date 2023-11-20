@@ -29,7 +29,7 @@ s3Csv:
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
     tableName: preprint_server_dois
-    tableWriteAppend: True
+    tableWriteAppend: False
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/preprint_server_dois_001.json"
@@ -116,7 +116,7 @@ s3Csv:
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
     tableName: 380_datascience_early_career_researchers
-    tableWriteAppend: True
+    tableWriteAppend: False
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/380_datascience_early_career_researchers_001.json"
