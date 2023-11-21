@@ -366,3 +366,47 @@ bigQueryToOpenSearch:
         operationMode: 'update'
         upsert: True
     batchSize: 1000
+
+  - dataPipelineId: bigquery_to_opensearch_data_pipeline_s2_specter_v1_embedding
+    source:
+      bigQuery:
+        projectName: 'elife-data-pipeline'
+        sqlQuery: |-
+          SELECT
+              embeddings_response.paper_id AS doi,
+
+              STRUCT(
+                STRUCT(
+                  'model-apis:specter_v1' AS model_id,
+                  embeddings_response.embedding AS vector,
+                  embeddings_response.imported_timestamp AS data_hub_imported_timestamp
+                ) AS specter_embedding_v1
+              ) AS s2
+          FROM `elife-data-pipeline.{ENV}.semantic_scholar_specter_v1_embeddings_web_api_response` AS embeddings_response
+          ORDER BY paper_id
+    fieldNamesFor:
+      id: doi
+      timestamp: s2.specter_embedding_v1.data_hub_imported_timestamp
+    state:
+      initialState:
+        startTimestamp: '2023-11-16+00:00'
+      stateFile:
+        bucketName: '{ENV}-elife-data-pipeline'
+        objectName: 'airflow-config/bigquery-to-opensearch/{ENV}-state-s2-specter-v1-embedding.json'
+    target:
+      openSearch:
+        hostname: 'opensearch-prod'
+        port: 9200
+        timeout: 120
+        verifyCertificates: False
+        secrets:
+          parametersFromFile:
+            - parameterName: username
+              filePathEnvName: OPENSEARCH_USERNAME_FILE_PATH
+            - parameterName: password
+              filePathEnvName: OPENSEARCH_PASSWORD_FILE_PATH
+        indexName: 'preprints_v2'
+        updateIndexSettings: False
+        updateMappings: True
+        operationMode: 'update'
+        upsert: True
