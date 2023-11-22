@@ -2,14 +2,18 @@ gcpProjectName: 'elife-data-pipeline'
 importedTimestampFieldName: 'imported_timestamp'
 webApi:
 
-  #observer api
-  - dataset: '{ENV}'
+  # Observer API
+  - dataPipelineId: elife_observer_api_publication_dates
+    description:
+      Retrieve legacy POA and VOR publication dates from Observer.
+    dataset: '{ENV}'
     table: published_dates
     dataUrl:
       urlExcludingConfigurableParameters: https://observer.elifesciences.org/report/published-article-index?format=json
 
-  #elifescience people api
-  - dataset: '{ENV}'
+  # elifescience people API
+  - dataPipelineId: elife_people_api_people_staff_profile
+    dataset: '{ENV}'
     table: people_staff_profile
     dataUrl:
       urlExcludingConfigurableParameters: https://api.elifesciences.org/people?
@@ -21,8 +25,9 @@ webApi:
       itemsKeyFromResponseRoot:
         - items
 
-  #elifescience profile api
-  - dataset: '{ENV}'
+  # elifescience profile api
+  - dataPipelineId: elife_profiles_api_people_orcid_profile
+    dataset: '{ENV}'
     table: people_orcid_profile
     dataUrl:
       urlExcludingConfigurableParameters: https://api.elifesciences.org/profiles?
@@ -35,7 +40,8 @@ webApi:
         - items
 
   # hypothesis api (eLife journal)
-  - dataset: '{ENV}'
+  - dataPipelineId: hypothesis_annotations_for_elife_journal
+    dataset: '{ENV}'
     table: hypothesis_annotations
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
@@ -56,7 +62,8 @@ webApi:
         - rows
 
   # hypothesis api (public reviews)
-  - dataset: '{ENV}'
+  - dataPipelineId: hypothesis_annotations_for_public_reviews
+    dataset: '{ENV}'
     table: hypothesis_annotations
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
@@ -76,8 +83,9 @@ webApi:
       itemsKeyFromResponseRoot:
         - rows
 
-  #toggle api
-  - dataset: '{ENV}'
+  # toggl api
+  - dataPipelineId: toggl_for_production_team
+    dataset: '{ENV}'
     table: prod_raw_toggl
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
@@ -107,7 +115,8 @@ webApi:
         - value: api_token
 
   # civi mailing
-  - dataset: '{ENV}'
+  - dataPipelineId: civi_mailing
+    dataset: '{ENV}'
     table: civi_mailing_raw
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
@@ -158,7 +167,8 @@ webApi:
           - modified_date
 
   # civi export
-  - dataset: '{ENV}'
+  - dataPipelineId: civi_contacts
+    dataset: '{ENV}'
     table: civi_contact_raw
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
@@ -207,7 +217,8 @@ webApi:
   # civi mailing recipients
   # note that the civi api does not have field modified_date for this entity
   # so the whole data  (> 17 million records) has to be downloaded at each run
-  - dataset: '{ENV}'
+  - dataPipelineId: civi_mailing_recipient
+    dataset: '{ENV}'
     table: civi_mailing_recipient_raw
     tableWriteAppend: False
     urlSourceType:
@@ -233,7 +244,8 @@ webApi:
         - values
 
   # twitter user details
-  - dataset: '{ENV}'
+  - dataPipelineId: twitter_api_v1_user_details_for_sciety_user
+    dataset: '{ENV}'
     table: twitter_user_details_of_sciety
     dataUrl:
       urlExcludingConfigurableParameters: https://api.twitter.com/1.1/users/show.json?include_entities=False&user_id=1295307136415735808
@@ -243,7 +255,8 @@ webApi:
           filePathEnvName: TWITTER_API_AUTHORIZATION_FILE_PATH
 
   # Twitter API v2 Search: Preprints and Sciety
-  - dataset: '{ENV}'
+  - dataPipelineId: twitter_api_v2_search_for_preprints_and_user
+    dataset: '{ENV}'
     table: twitter_api_v2_search_response
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
@@ -283,7 +296,8 @@ webApi:
         - created_at
 
   # CrossRef Event Data (Cold Spring Harbor Laboratory: mainly bioRxiv, medRxiv)
-  - dataset: '{ENV}'
+  - dataPipelineId: crossref_event_data_for_biorxiv_medrxiv
+    dataset: '{ENV}'
     table: crossref_event_data_web_api
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
@@ -316,26 +330,30 @@ webApi:
 
   # bioRxiv/medRxiv MECA path metadata
   # http://api.biorxiv.org/meca_index/elife/help
-  - dataset: '{ENV}'
+  - dataPipelineId: biorxiv_medrxiv_meca_path_metadata_latest
+    dataset: '{ENV}'
     table: biorxiv_medrxiv_meca_path_metadata
     dataUrl:
       urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all
 
   # we keep config for November 2023 for now
-  - dataset: '{ENV}'
+  - dataPipelineId: biorxiv_medrxiv_meca_path_metadata_2023_11
+    dataset: '{ENV}'
     table: biorxiv_medrxiv_meca_path_metadata
     dataUrl:
       urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2023-11
 
   # added for missing content
-  - dataset: '{ENV}'
+  - dataPipelineId: biorxiv_medrxiv_meca_path_metadata_2023_03
+    dataset: '{ENV}'
     table: biorxiv_medrxiv_meca_path_metadata
     dataUrl:
       urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2023-03
 
   # bioRxiv/medRxiv apis
   # bioRxiv api
-  - dataset: '{ENV}'
+  - dataPipelineId: biorxiv_api
+    dataset: '{ENV}'
     table: 'biorxiv_medrxiv_api_response'
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
@@ -358,8 +376,10 @@ webApi:
       recordTimestamp:
         itemTimestampKeyFromItemRoot:
           - date
+
   # medRxiv api
-  - dataset: '{ENV}'
+  - dataPipelineId: medrxiv_api
+    dataset: '{ENV}'
     table: 'biorxiv_medrxiv_api_response'
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
@@ -382,8 +402,10 @@ webApi:
       recordTimestamp:
         itemTimestampKeyFromItemRoot:
           - date
+
   # EuropePMC: Articles that are evaluated by Sciety (via LabsLink)
-  - dataset: '{ENV}'
+  - dataPipelineId: europepmc_sciety_evaluated_via_labslink
+    dataset: '{ENV}'
     table: 'europepmc_sciety_evaluated_via_labslink'
     dataUrl:
       urlExcludingConfigurableParameters: https://www.ebi.ac.uk/europepmc/webservices/rest/search?resultType=lite&format=json&pageSize=1000&query=(SRC:PPR)%20(LABS_PUBS:%222112%22)
