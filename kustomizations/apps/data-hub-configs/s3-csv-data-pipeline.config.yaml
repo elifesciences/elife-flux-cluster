@@ -29,7 +29,7 @@ s3Csv:
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
     tableName: preprint_server_dois
-    tableWriteAppend: True
+    tableWriteAppend: False
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/preprint_server_dois_001.json"
@@ -116,7 +116,7 @@ s3Csv:
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
     tableName: 380_datascience_early_career_researchers
-    tableWriteAppend: True
+    tableWriteAppend: False
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/380_datascience_early_career_researchers_001.json"
@@ -168,7 +168,7 @@ s3Csv:
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
     tableName: prod_ejp_data_export_date
-    tableWriteAppend: True
+    tableWriteAppend: False
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_ejp_data_export_date_001.json"
@@ -183,7 +183,7 @@ s3Csv:
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
     tableName: prod_ejp_feature_templates
-    tableWriteAppend: True
+    tableWriteAppend: False
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_ejp_feature_templates_001.json"
@@ -234,7 +234,7 @@ s3Csv:
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
     tableName: prod_kriya_digest_sub_article_info
-    tableWriteAppend: True
+    tableWriteAppend: False
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_digest_sub_article_info_001.json"
@@ -246,7 +246,7 @@ s3Csv:
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
     tableName: prod_kriya_press_info
-    tableWriteAppend: True
+    tableWriteAppend: False
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_press_info_001.json"
@@ -258,7 +258,7 @@ s3Csv:
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
     tableName: prod_kriya_published_stage_history
-    tableWriteAppend: True
+    tableWriteAppend: False
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_published_stage_history_001.json"
@@ -270,7 +270,7 @@ s3Csv:
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
     tableName: prod_kriya_published_stage_summary
-    tableWriteAppend: True
+    tableWriteAppend: False
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_published_stage_summary_001.json"
@@ -282,7 +282,7 @@ s3Csv:
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
     tableName: prod_kriya_wip_stage_summary
-    tableWriteAppend: True
+    tableWriteAppend: False
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_wip_stage_summary_001.json"
@@ -294,7 +294,7 @@ s3Csv:
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
     tableName: prod_kriya_wip_stage_history
-    tableWriteAppend: True
+    tableWriteAppend: False
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_wip_stage_history_001.json"
