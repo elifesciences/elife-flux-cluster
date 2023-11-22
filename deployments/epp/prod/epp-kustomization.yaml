@@ -53,12 +53,12 @@ spec:
       temporal_namespace: epp--prod
       import_role_arn: arn:aws:iam::512686554592:role/epp-prod-import
       disallow_robots: all
-      worker_replicas: "2"
+      worker_replicas: "4"
       worker_memory_requests: "3Gi"
       worker_memory_limits: "4Gi"
       worker_cpu_requests: "500m"
       worker_cpu_limits: "1500m"
-      biorxiv_xslt_api_replicas: "2"
+      biorxiv_xslt_api_replicas: "4"
   patches:
     - target:
         name: epp-client
