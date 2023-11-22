@@ -20,3 +20,6 @@ spec:
   install:
     remediation:
       retries: 5
+  values:
+    podAnnotations:
+      cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
