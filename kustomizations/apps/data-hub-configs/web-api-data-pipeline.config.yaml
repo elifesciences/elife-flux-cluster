@@ -84,7 +84,7 @@ webApi:
         - rows
 
   # toggl api
-  - dataPipelineId: toggl_for_production_team
+  - dataPipelineId: toggl
     dataset: '{ENV}'
     table: prod_raw_toggl
     stateFile:
