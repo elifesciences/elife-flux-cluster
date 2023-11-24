@@ -59,8 +59,6 @@ spec:
       worker_cpu_requests: "500m"
       worker_cpu_limits: "1500m"
       biorxiv_xslt_api_replicas: "4"
-      temporal_max_concurrent_workflow_task_executions: "25"
-      temporal_max_cached_workflows: "5"
   patches:
     - target:
         name: epp-client
