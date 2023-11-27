@@ -46,9 +46,6 @@ spec:
         podDisruptionBudget:
           maxUnavailable: 1
         resources:
-          limits:
-            cpu: "300m"
-            memory: "0.5G"
           requests:
             cpu: "300m"
             memory: "0.5G"
@@ -59,9 +56,6 @@ spec:
         size: 1
         antiAffinityTopologyKey: "kubernetes.io/hostname"
       resources:
-        limits:
-          cpu: "300m"
-          memory: "0.5G"
         requests:
           cpu: "300m"
           memory: "0.5G"
