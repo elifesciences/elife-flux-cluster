@@ -38,6 +38,7 @@ semanticScholar:
                           AND TIMESTAMP_DIFF(CURRENT_TIMESTAMP(), provenance.request_timestamp, DAY) < 30
                       )
                   )
+          keyFieldNameFromInclude: 'doi'
     source:
       apiUrl: 'https://api.semanticscholar.org/graph/v1/paper/{doi}'
       params:
