@@ -36,6 +36,8 @@ spec:
           value: ${epp_server:='http://epp-server:3000'}
         - name: NEXT_PUBLIC_IMAGE_SERVER
           value: ${iiif_server}
+        - name: IIIF_SERVER
+          value: ${private_iiif_server:='http://epp-image-server:8182/iiif'}
         - name: ASSET_PREFIX
           value: ${asset_prefix}
         - name: NEXT_PUBLIC_GTM_ID
