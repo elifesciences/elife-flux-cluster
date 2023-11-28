@@ -104,6 +104,7 @@ spec:
                   epp_server: http://epp-server.epp--staging:3000
                   asset_prefix: https://pr-{{ matrix.pr.number }}--epp.elifesciences.org
                   iiif_server: https://staging--epp.elifesciences.org/iiif
+                  private_iiif_server: http://epp-image-server.epp--staging:8182/iiif
                   client_replicas: "1"
                   is_automated: "yeah"
                   show_previews: all
