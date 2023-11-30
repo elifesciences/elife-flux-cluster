@@ -5,6 +5,7 @@ metadata:
   name: temporal-schema-setup
 spec:
   backoffLimit: 100
+  ttlSecondsAfterFinished: 0
   template:
     metadata:
       name: temporal-schema-setup
