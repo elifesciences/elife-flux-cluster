@@ -22,6 +22,9 @@ spec:
     remediation:
       retries: 3
   values:
+    serviceAccount:
+      annotations:
+        eks.amazonaws.com/role-arn: arn:aws:iam::512686554592:role/data-hub-stg-data-hub-worker
     ingress:
       enabled: true
       web:
