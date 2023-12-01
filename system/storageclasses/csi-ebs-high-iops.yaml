@@ -10,5 +10,5 @@ allowVolumeExpansion: true
 parameters:
   fsType: ext4
   type: gp3
-  iops: 3000
-  throughput: 125
+  iops: "3000"
+  throughput: "125"
