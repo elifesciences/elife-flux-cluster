@@ -31,6 +31,6 @@ spec:
     diskSize: 60Gi
     persistence:
       pvc:
-        storageClass: csi-ebs-gp2-default
+        storageClass: csi-ebs-gp3
         accessModes:
           - ReadWriteOnce
