@@ -21,5 +21,6 @@ spec:
       client_replicas: "1"
       epp_server: http://epp-server.epp--prod:3000
       iiif_server: https://staging--epp.elifesciences.org/iiif
+      private_iiif_server: http://epp-image-server.epp--staging:8182/iiif
       is_automated: yeah
       disallow_robots: all
