@@ -298,3 +298,21 @@ s3Csv:
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_wip_stage_history_001.json"
+
+  - dataPipelineId: sciety_events
+    description:
+      Load Sciety Events from CSV to BigQuery.
+      Parse "payload" as JSON.
+    bucketName: sciety-data-extractions
+    objectKeyPattern:
+      - events-from-cronjob.csv
+    headerLineIndex: 0
+    dataValuesStartLineIndex: 1
+    datasetName: "{ENV}"
+    tableName: 'sciety_event'
+    tableWriteAppend: False
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/sciety_events.json"
+    recordProcessingSteps:
+      - parse_json_value
