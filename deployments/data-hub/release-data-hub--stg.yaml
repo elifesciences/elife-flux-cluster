@@ -22,9 +22,10 @@ spec:
     remediation:
       retries: 3
   values:
-    serviceAccount:
-      annotations:
-        eks.amazonaws.com/role-arn: arn:aws:iam::512686554592:role/data-hub-stg-data-hub-worker
+    # SA: temporary disabled, see https://github.com/elifesciences/data-hub-issues/issues/823
+    # serviceAccount:
+    #   annotations:
+    #     eks.amazonaws.com/role-arn: arn:aws:iam::512686554592:role/data-hub-stg-data-hub-worker
     ingress:
       enabled: true
       web:
