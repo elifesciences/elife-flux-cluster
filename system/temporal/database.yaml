@@ -27,6 +27,7 @@ spec:
           memory: 800Mi
           cpu: 600m
       persistence:
+        storageClass: csi-ebs-gp3
         size: 60Gi
       readinessProbes:
         initialDelaySeconds: 300
