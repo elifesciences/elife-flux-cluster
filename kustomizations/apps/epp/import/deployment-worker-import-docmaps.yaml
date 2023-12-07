@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: epp-import
+  name: epp-import-worker-docmaps
   namespace: epp
 spec:
-  replicas: ${worker_replicas:=1}
+  replicas: ${worker_import_docmaps_queue_replicas:=1}
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -12,11 +12,13 @@ spec:
   selector:
     matchLabels:
       app: epp-import
+      task_queue: import-docmaps
   template:
     metadata:
       namespace: epp
       labels:
         app: epp-import
+        task_queue: import-docmaps
     spec:
       serviceAccountName: epp-import
       nodeSelector:
@@ -40,6 +42,8 @@ spec:
           value: ${temporal_server}
         - name: XSLT_TRANSFORM_ADDRESS
           value: http://epp-biorxiv-xslt-api:80
+        - name: TASK_QUEUE_NAME
+          value: import-docmaps
         - name: TEMPORAL_NAMESPACE
           value: "${temporal_namespace}"
         - name: TEMPORAL_MAX_CONCURRENT_ACTIVITY_TASK_EXECUTIONS
