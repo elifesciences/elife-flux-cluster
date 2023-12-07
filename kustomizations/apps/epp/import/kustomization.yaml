@@ -4,6 +4,7 @@ namespace: epp
 resources:
 - serviceaccount.yaml
 - deployment-worker-epp.yaml
+- deployment-worker-import-docmaps.yaml
 - podmonitor.yaml
 - automations/repository.yaml
 - automations/policy.yaml
