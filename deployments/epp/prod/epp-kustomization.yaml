@@ -14,17 +14,17 @@ spec:
   targetNamespace: epp--prod
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints-server
-      newTag: master-4c720121-20231202.1155 # {"$imagepolicy": "epp--prod:epp-server:tag"}
+      newTag: master-09b8ae71-20231206.0201 # {"$imagepolicy": "epp--prod:epp-server:tag"}
     - name: ghcr.io/elifesciences/epp-image-server
       newTag: master-a34dfaa2-20231003.1350 # {"$imagepolicy": "epp--prod:epp-image-server:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-client
-      newTag: master-a90e822b-20231202.1911 # {"$imagepolicy": "epp--prod:epp-client:tag"}
+      newTag: master-7acf1518-20231206.2226 # {"$imagepolicy": "epp--prod:epp-client:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-      newTag: master-a90e822b-20231202.1911 # {"$imagepolicy": "epp--prod:epp-storybook:tag"}
+      newTag: master-7acf1518-20231206.2226 # {"$imagepolicy": "epp--prod:epp-storybook:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
-      newTag: master-d29dc6a6-20231203.0144 # {"$imagepolicy": "epp--prod:epp-import:tag"}
+      newTag: master-a4e6d86a-20231207.0616 # {"$imagepolicy": "epp--prod:epp-import:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
-      newTag: master-f5497b7f-20231124.1036 # {"$imagepolicy": "epp--prod:epp-biorxiv-xslt-api:tag"}
+      newTag: master-ef9f1aea-20231205.1527 # {"$imagepolicy": "epp--prod:epp-biorxiv-xslt-api:tag"}
   postBuild:
     substitute:
       app_env: prod
@@ -53,12 +53,12 @@ spec:
       temporal_namespace: epp--prod
       import_role_arn: arn:aws:iam::512686554592:role/epp-prod-import
       disallow_robots: all
-      worker_replicas: "4"
+      worker_replicas: "8"
       worker_memory_requests: "3Gi"
       worker_memory_limits: "4Gi"
       worker_cpu_requests: "500m"
       worker_cpu_limits: "1500m"
-      biorxiv_xslt_api_replicas: "4"
+      biorxiv_xslt_api_replicas: "6"
   patches:
     - target:
         name: epp-client
