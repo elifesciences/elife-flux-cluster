@@ -4,7 +4,7 @@ metadata:
   name: epp-import-worker-epp
   namespace: epp
 spec:
-  replicas: ${worker_replicas:=1}
+  replicas: ${worker_epp_queue_replicas:=1}
   strategy:
     rollingUpdate:
       maxSurge: 1

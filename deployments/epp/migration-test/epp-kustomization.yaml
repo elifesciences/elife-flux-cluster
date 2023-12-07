@@ -50,5 +50,6 @@ spec:
       temporal_namespace: epp--migration-test
       import_role_arn: arn:aws:iam::512686554592:role/epp-migration-test-import
       disallow_robots: all
-      worker_replicas: "0"
+      worker_import_docmaps_queue_replicas: "0"
+      worker_epp_queue_replicas: "0"
       biorxiv_xslt_api_replicas: "0"
