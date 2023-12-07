@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: epp
 resources:
 - serviceaccount.yaml
-- deployment.yaml
+- deployment-worker-epp.yaml
 - podmonitor.yaml
 - automations/repository.yaml
 - automations/policy.yaml
