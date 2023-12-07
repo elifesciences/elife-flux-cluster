@@ -40,6 +40,9 @@ spec:
           nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
           nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
     airflow:
+      # Utilise KubernetesExecutor alongside Celery Executor
+      # See https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/executor/kubernetes.html (but we're using the community chart)
+      executor: CeleryKubernetesExecutor
       # remove multi-user settings
       usersUpdate: false
       # airflow < 2.0 should be true
@@ -225,6 +228,125 @@ spec:
       # @TODO: legacy env var to be removed in the future - see Hazal or Daniel
       - name: AIRFLOW_NOTIFICATION_EMAIL_CSV_LIST
         value: ""
+    kubernetesPodTemplate:
+      resources:
+        requests:
+          memory: 4.9Gi
+          cpu: 1495m
+          ephemeral-storage: 10Gi
+        limits:
+          memory: 6Gi
+          cpu: 1700m
+      extraVolumeMounts:
+      - name: data-hub-config-volume
+        mountPath: /dag_config_files/
+        readOnly: true
+      - name: github-api-secret-volume
+        mountPath: /dag_secret_files/github_api/
+        readOnly: true
+      - name: twitter-api-secret-volume
+        mountPath: /dag_secret_files/twitter_api/
+        readOnly: true
+      - name: twitter-api-key-secret-volume
+        mountPath: /dag_secret_files/twitter_api_key/
+        readOnly: true
+      - name: twitter-api-secret-secret-volume
+        mountPath: /dag_secret_files/twitter_api_secret/
+        readOnly: true
+      - name: twitter-api-access-token-secret-volume
+        mountPath: /dag_secret_files/twitter_api_access_token/
+        readOnly: true
+      - name: twitter-api-access-token-secret-secret-volume
+        mountPath: /dag_secret_files/twitter_api_access_token_secret/
+        readOnly: true
+      - name: europepmc-labslink-ftp-credentials-volume
+        mountPath: /dag_secret_files/europepmc_labslink_ftp_credentials/
+        readOnly: true
+      - name: gcloud-secret-volume
+        mountPath: /dag_secret_files/gcloud/
+        readOnly: true
+      - name: aws-secret-volume
+        mountPath: /home/airflow/.aws
+        readOnly: true
+      - name: gmail-production-secret-volume
+        mountPath: /dag_secret_files/gmail_production/
+        readOnly: true
+      - name: gmail-open-research-secret-volume
+        mountPath: /dag_secret_files/gmail_open_research/
+        readOnly: true
+      - name: toggl-secret-volume
+        mountPath: /home/airflow/toggl
+        readOnly: true
+      - name: civi-secret-volume
+        mountPath: /home/airflow/civi_key
+        readOnly: true
+      - name: monitoring-urls-volume
+        mountPath: /dag_secret_files/monitoring_urls/
+        readOnly: true
+      - name: semantic-scholar-secret-volume
+        mountPath: /dag_secret_files/semantic_scholar/
+        readOnly: true
+      - name: opensearch-secret-volume
+        mountPath: /dag_secret_files/opensearch/
+        readOnly: true
+      - name: surveymonkey-secret-volume
+        mountPath: /dag_secret_files/surveymonkey/
+        readOnly: true
+      extraVolumes:
+      - name: data-hub-config-volume
+        configMap:
+          name: data-hub-configs
+      - name: github-api-secret-volume
+        secret:
+          secretName: github-api
+      - name: twitter-api-secret-volume
+        secret:
+          secretName: twitter-api
+      - name: twitter-api-key-secret-volume
+        secret:
+          secretName: twitter-api-key
+      - name: twitter-api-secret-secret-volume
+        secret:
+          secretName: twitter-api-secret
+      - name: twitter-api-access-token-secret-volume
+        secret:
+          secretName: twitter-api-access-token
+      - name: twitter-api-access-token-secret-secret-volume
+        secret:
+          secretName: twitter-api-access-token-secret
+      - name: europepmc-labslink-ftp-credentials-volume
+        secret:
+          secretName: europepmc-labslink-ftp-credentials--stg
+      - name: gcloud-secret-volume
+        secret:
+          secretName: gcloud
+      - name: aws-secret-volume
+        secret:
+          secretName: credentials
+      - name: gmail-production-secret-volume
+        secret:
+          secretName: gmail-credentials
+      - name: gmail-open-research-secret-volume
+        secret:
+          secretName: gmail-open-research-credentials
+      - name: toggl-secret-volume
+        secret:
+          secretName: toggl
+      - name: civi-secret-volume
+        secret:
+          secretName: civi-key
+      - name: monitoring-urls-volume
+        secret:
+          secretName: monitoring-urls--stg
+      - name: semantic-scholar-secret-volume
+        secret:
+          secretName: semantic-scholar
+      - name: opensearch-secret-volume
+        secret:
+          secretName: opensearch-staging-admin-password
+      - name: surveymonkey-secret-volume
+        secret:
+          secretName: surveymonkey-credentials
     workers:
       resources:
         requests:
