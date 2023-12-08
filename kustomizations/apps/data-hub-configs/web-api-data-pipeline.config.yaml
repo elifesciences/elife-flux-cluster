@@ -39,8 +39,8 @@ webApi:
       itemsKeyFromResponseRoot:
         - items
 
-  # hypothesis api (eLife journal)
-  - dataPipelineId: hypothesis_annotations_for_elife_journal
+  # hypothesis api (public reviews)
+  - dataPipelineId: hypothesis_annotations_for_public_reviews
     dataset: '{ENV}'
     table: hypothesis_annotations
     stateFile:
@@ -61,8 +61,8 @@ webApi:
       itemsKeyFromResponseRoot:
         - rows
 
-  # hypothesis api (public reviews)
-  - dataPipelineId: hypothesis_annotations_for_public_reviews
+  # hypothesis api (eLife journal)
+  - dataPipelineId: hypothesis_annotations_for_elife_journal
     dataset: '{ENV}'
     table: hypothesis_annotations
     stateFile:
