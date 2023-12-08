@@ -336,20 +336,6 @@ webApi:
     dataUrl:
       urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all
 
-  # we keep config for November 2023 for now
-  - dataPipelineId: biorxiv_medrxiv_meca_path_metadata_2023_11
-    dataset: '{ENV}'
-    table: biorxiv_medrxiv_meca_path_metadata
-    dataUrl:
-      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2023-11
-
-  # added for missing content
-  - dataPipelineId: biorxiv_medrxiv_meca_path_metadata_2023_03
-    dataset: '{ENV}'
-    table: biorxiv_medrxiv_meca_path_metadata
-    dataUrl:
-      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all/2023-03
-
   # bioRxiv/medRxiv apis
   # bioRxiv api
   - dataPipelineId: biorxiv_api
