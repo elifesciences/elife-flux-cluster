@@ -231,124 +231,330 @@ spec:
       - name: AIRFLOW_NOTIFICATION_EMAIL_CSV_LIST
         value: ""
     kubernetesPodTemplate:
-      resources:
-        requests:
-          memory: 4.9Gi
-          cpu: 1495m
-          ephemeral-storage: 10Gi
-        limits:
-          memory: 6Gi
-          cpu: 1700m
-      extraVolumeMounts:
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-      - name: github-api-secret-volume
-        mountPath: /dag_secret_files/github_api/
-        readOnly: true
-      - name: twitter-api-secret-volume
-        mountPath: /dag_secret_files/twitter_api/
-        readOnly: true
-      - name: twitter-api-key-secret-volume
-        mountPath: /dag_secret_files/twitter_api_key/
-        readOnly: true
-      - name: twitter-api-secret-secret-volume
-        mountPath: /dag_secret_files/twitter_api_secret/
-        readOnly: true
-      - name: twitter-api-access-token-secret-volume
-        mountPath: /dag_secret_files/twitter_api_access_token/
-        readOnly: true
-      - name: twitter-api-access-token-secret-secret-volume
-        mountPath: /dag_secret_files/twitter_api_access_token_secret/
-        readOnly: true
-      - name: europepmc-labslink-ftp-credentials-volume
-        mountPath: /dag_secret_files/europepmc_labslink_ftp_credentials/
-        readOnly: true
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /home/airflow/.aws
-        readOnly: true
-      - name: gmail-production-secret-volume
-        mountPath: /dag_secret_files/gmail_production/
-        readOnly: true
-      - name: gmail-open-research-secret-volume
-        mountPath: /dag_secret_files/gmail_open_research/
-        readOnly: true
-      - name: toggl-secret-volume
-        mountPath: /home/airflow/toggl
-        readOnly: true
-      - name: civi-secret-volume
-        mountPath: /home/airflow/civi_key
-        readOnly: true
-      - name: monitoring-urls-volume
-        mountPath: /dag_secret_files/monitoring_urls/
-        readOnly: true
-      - name: semantic-scholar-secret-volume
-        mountPath: /dag_secret_files/semantic_scholar/
-        readOnly: true
-      - name: opensearch-secret-volume
-        mountPath: /dag_secret_files/opensearch/
-        readOnly: true
-      - name: surveymonkey-secret-volume
-        mountPath: /dag_secret_files/surveymonkey/
-        readOnly: true
-      extraVolumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-      - name: github-api-secret-volume
-        secret:
-          secretName: github-api
-      - name: twitter-api-secret-volume
-        secret:
-          secretName: twitter-api
-      - name: twitter-api-key-secret-volume
-        secret:
-          secretName: twitter-api-key
-      - name: twitter-api-secret-secret-volume
-        secret:
-          secretName: twitter-api-secret
-      - name: twitter-api-access-token-secret-volume
-        secret:
-          secretName: twitter-api-access-token
-      - name: twitter-api-access-token-secret-secret-volume
-        secret:
-          secretName: twitter-api-access-token-secret
-      - name: europepmc-labslink-ftp-credentials-volume
-        secret:
-          secretName: europepmc-labslink-ftp-credentials--stg
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gmail-production-secret-volume
-        secret:
-          secretName: gmail-credentials
-      - name: gmail-open-research-secret-volume
-        secret:
-          secretName: gmail-open-research-credentials
-      - name: toggl-secret-volume
-        secret:
-          secretName: toggl
-      - name: civi-secret-volume
-        secret:
-          secretName: civi-key
-      - name: monitoring-urls-volume
-        secret:
-          secretName: monitoring-urls--stg
-      - name: semantic-scholar-secret-volume
-        secret:
-          secretName: semantic-scholar
-      - name: opensearch-secret-volume
-        secret:
-          secretName: opensearch-staging-admin-password
-      - name: surveymonkey-secret-volume
-        secret:
-          secretName: surveymonkey-credentials
+      stringOverride: |-
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          name: dummy-name
+        spec:
+          restartPolicy: Never
+          serviceAccountName: data-hub--stg
+          shareProcessNamespace: false
+          nodeSelector:
+            {}
+          affinity:
+            {}
+          tolerations:
+            []
+          securityContext:
+            fsGroup: 0
+          containers:
+            - name: base      
+              image: docker.io/elifesciences/data-hub-with-dags_unstable:latest
+              imagePullPolicy: Always
+              securityContext:
+                runAsUser: 50000
+                runAsGroup: 0
+              resources:
+                requests:
+                  memory: 4.9Gi
+                  cpu: 1495m
+                  ephemeral-storage: 10Gi
+                limits:
+                  memory: 6Gi
+                  cpu: 1700m
+              envFrom:
+                - secretRef:
+                    name: data-hub--stg-config-envs
+              env:
+                ## KubernetesExecutor Pods use LocalExecutor internally
+                - name: AIRFLOW__CORE__EXECUTOR
+                  value: LocalExecutor        
+                - name: DATABASE_USER
+                  value: "postgres"
+                - name: DATABASE_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: data-hub--stg-postgresql
+                      key: postgresql-password
+                - name: REDIS_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: data-hub--stg-redis
+                      key: redis-password
+                - name: CONNECTION_CHECK_MAX_COUNT
+                  value: "20"
+                - name: AIRFLOW__WEBSERVER__SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: webserver-secret-key
+                      name: webserver-secret-key--stg
+                - name: AIRFLOW__CORE__FERNET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: fernet-key
+                      name: fernet-key--stg
+                - name: ELIFE_ARTICLE_XML_CONFIG_FILE_PATH
+                  value: /dag_config_files/elife-article-xml.config.yaml
+                - name: EUROPEPMC_CONFIG_FILE_PATH
+                  value: /dag_config_files/europepmc.config.yaml
+                - name: EUROPEPMC_LABSLINK_CONFIG_FILE_PATH
+                  value: /dag_config_files/europepmc-labslink--test.config.yaml
+                - name: GMAIL_DATA_CONFIG_FILE_PATH
+                  value: /dag_config_files/gmail-data-pipeline.config.yaml
+                - name: CROSSREF_CONFIG_FILE_PATH
+                  value: /dag_config_files/crossref-event-data-pipeline.config.yaml
+                - name: SPREADSHEET_CONFIG_FILE_PATH
+                  value: /dag_config_files/spreadsheet-data-pipeline.config.yaml
+                - name: WEB_API_CONFIG_FILE_PATH
+                  value: /dag_config_files/web-api-data-pipeline.config.yaml
+                - name: S3_CSV_CONFIG_FILE_PATH
+                  value: /dag_config_files/s3-csv-data-pipeline.config.yaml
+                - name: MONITORING_CONFIG_FILE_PATH
+                  value: /dag_config_files/monitoring.config.yaml
+                - name: MATERIALIZE_BIGQUERY_VIEWS_CONFIG_PATH
+                  value: s3://staging-elife-data-pipeline/airflow-config/bigquery-views
+                - name: TOGGL_API_TOKEN_FILE_PATH
+                  value: /home/airflow/toggl/toggl_api_token.txt
+                - name: CIVICRM_API_KEY_FILE_PATH
+                  value: /home/airflow/civi_key/civi_api_key.txt
+                - name: CIVICRM_SITE_KEY_FILE_PATH
+                  value: /home/airflow/civi_key/civi_site_key.txt
+                - name: EJP_XML_CONFIG_FILE_PATH
+                  value: /dag_config_files/ejp-xml-data-pipeline.config.yaml
+                - name: EXTRACT_KEYWORDS_FILE_PATH
+                  value: /dag_config_files/keyword-extraction-data-pipeline.config.yaml
+                - name: SEMANTIC_SCHOLAR_CONFIG_FILE_PATH
+                  value: /dag_config_files/semantic-scholar.config.yaml
+                - name: SEMANTIC_SCHOLAR_RECOMMENDATION_CONFIG_FILE_PATH
+                  value: /dag_config_files/semantic-scholar-recommendation.config.yaml
+                - name: BIGQUERY_TO_OPENSEARCH_CONFIG_FILE_PATH
+                  value: /dag_config_files/bigquery-to-opensearch--stg.yaml
+                - name: SURVEYMONKEY_DATA_CONFIG_FILE_PATH
+                  value: /dag_config_files/surveymonkey-data-pipeline.config.yaml
+                - name: CIVICRM_EMAIL_DATA_CONFIG_FILE_PATH
+                  value: /dag_config_files/civicrm-email-report-data-pipeline.config.yaml
+                - name: TWITTER_ADS_API_CONFIG_FILE_PATH
+                  value: /dag_config_files/twitter-ads-api.config.yaml
+                - name: ELIFE_ARTICLE_XML_PIPELINE_SCHEDULE_INTERVAL
+                  value: 0 5 * * *
+                - name: EUROPEPMC_PIPELINE_SCHEDULE_INTERVAL
+                  value: 0 6 * * *
+                - name: EUROPEPMC_LABSLNK_PIPELINE_SCHEDULE_INTERVAL
+                  value: 0 10 * * *
+                - name: GMAIL_DATA_PIPELINE_SCHEDULE_INTERVAL
+                  value: 0 7 * * 1-5
+                - name: CROSS_REF_IMPORT_SCHEDULE_INTERVAL
+                  value: '@daily'
+                - name: GOOGLE_SPREADSHEET_SCHEDULE_INTERVAL
+                  value: 0 */2 * * *
+                - name: SEMANTIC_SCHOLAR_PIPELINE_SCHEDULE_INTERVAL
+                  value: 0 10 * * *
+                - name: SEMANTIC_SCHOLAR_RECOMMENDATION_PIPELINE_SCHEDULE_INTERVAL
+                  value: 0 11 * * *
+                - name: BIGQUERY_TO_OPENSEARCH_PIPELINE_SCHEDULE_INTERVAL
+                  value: 0 13 * * *
+                - name: WEB_API_SCHEDULE_INTERVAL
+                  value: 25 2 * * *
+                - name: S3_CSV_SCHEDULE_INTERVAL
+                  value: 25 * * * *
+                - name: MONITOR_DATA_HUB_PIPELINE_HEALTH_SCHEDULE_INTERVAL
+                  value: 50 8-18/3 * * *
+                - name: MATERIALIZE_BIGQUERY_VIEWS_SCHEDULE_INTERVAL
+                  value: '@hourly'
+                - name: DATA_SCIENCE_FORECAST_SCHEDULE_INTERVAL
+                  value: '@hourly'
+                - name: DATA_SCIENCE_PEERSCOUT_RECOMMEND_SCHEDULE_INTERVAL
+                  value: 40 */3 * * *
+                - name: DATA_SCIENCE_PEERSCOUT_EDITOR_PUBMED_SCHEDULE_INTERVAL
+                  value: '@hourly'
+                - name: EJP_XML_SCHEDULE_INTERVAL
+                  value: '*/20 * * * *'
+                - name: EXTRACT_KEYWORDS_SCHEDULE_INTERVAL
+                  value: 10 */2 * * *
+                - name: SURVEYMONKEY_DATA_PIPELINE_SCHEDULE_INTERVAL
+                  value: 0 0 1 * *
+                - name: CIVICRM_EMAIL_REPORT_DATA_PIPELINE_SCHEDULE_INTERVAL
+                  value: '@daily'
+                - name: TWITTER_ADS_API_PIPELINE_SCHEDULE_INTERVAL
+                  value: 0 4 * * *
+                - name: DB_MAINTENANCE_SCHEDULE_INTERVAL
+                  value: '@daily'
+                - name: AIRFLOW_DB_MAINTENANCE_MAX_CLEANUP_DATA_AGE_IN_DAYS
+                  value: "30"
+                - name: DEPLOYMENT_ENV
+                  value: staging
+                - name: AIRFLOW_APPLICATIONS_DIRECTORY_PATH
+                  value: /opt/airflow/auxiliary_data_pipeline_files
+                - name: GITHUB_API_AUTHORIZATION_FILE_PATH
+                  value: /dag_secret_files/github_api/github_api_authorization.txt
+                - name: TWITTER_API_AUTHORIZATION_FILE_PATH
+                  value: /dag_secret_files/twitter_api/twitter_api_authorization.txt
+                - name: TWITTER_API_KEY_FILE_PATH
+                  value: /dag_secret_files/twitter_api_key/twitter_api_key.txt
+                - name: TWITTER_API_SECRET_FILE_PATH
+                  value: /dag_secret_files/twitter_api_secret/twitter_api_secret.txt
+                - name: TWITTER_ACCESS_TOKEN_FILE_PATH
+                  value: /dag_secret_files/twitter_api_access_token/twitter_api_access_token.txt
+                - name: TWITTER_ACCESS_TOKEN_SECRET_FILE_PATH
+                  value: /dag_secret_files/twitter_api_access_token_secret/twitter_api_access_token_secret.txt
+                - name: GMAIL_THREAD_DETAILS_CHUNK_SIZE
+                  value: "100"
+                - name: EUROPEPMC_LABSLINK_FTP_PASSWORD_FILE_PATH
+                  value: /dag_secret_files/europepmc_labslink_ftp_credentials/password
+                - name: EUROPEPMC_LABSLINK_FTP_DIRECTORY_NAME_FILE_PATH
+                  value: /dag_secret_files/europepmc_labslink_ftp_credentials/directory_name
+                - name: GOOGLE_APPLICATION_CREDENTIALS
+                  value: /dag_secret_files/gcloud/credentials.json
+                - name: GMAIL_PRODUCTION_ACCOUNT_SECRET_FILE
+                  value: /dag_secret_files/gmail_production/gmail_credentials.json
+                - name: GMAIL_OPEN_RESEARCH_ACCOUNT_SECRET_FILE
+                  value: /dag_secret_files/gmail_open_research/gmail_open_research_credentials.json
+                - name: SEMANTIC_SCHOLAR_API_KEY_FILE_PATH
+                  value: /dag_secret_files/semantic_scholar/semantic_scholar_api_key.txt
+                - name: OPENSEARCH_USERNAME_FILE_PATH
+                  value: /dag_secret_files/opensearch/username
+                - name: OPENSEARCH_PASSWORD_FILE_PATH
+                  value: /dag_secret_files/opensearch/password
+                - name: SURVEYMONKEY_SECRET_FILE
+                  value: /dag_secret_files/surveymonkey/surveymonkey_credentials.json
+                - name: INITIAL_S3_FILE_LAST_MODIFIED_DATE
+                  value: "2020-02-14 13:00:00"
+                - name: MATERIALIZE_BIGQUERY_VIEWS_GCP_PROJECT
+                  value: elife-data-pipeline
+                - name: MATERIALIZE_BIGQUERY_VIEWS_DATASET
+                  value: staging
+                - name: INITIAL_S3_XML_FILE_LAST_MODIFIED_DATE
+                  value: "2012-01-01 00:00:00"
+                - name: HEALTH_CHECK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      key: health_check_url
+                      name: monitoring-urls--stg
+                - name: DATA_HUB_MONITORING_SLACK_WEBHOOK_URL
+                  valueFrom:
+                    secretKeyRef:
+                      key: slack_webhook_url
+                      name: monitoring-urls--stg
+                - name: AIRFLOW_NOTIFICATION_EMAIL_CSV_LIST
+                  value: ""
+              ports: []
+              command: []
+              args: []
+              volumeMounts:
+                - name: logs-data
+                  mountPath: /opt/airflow/logs
+                - mountPath: /dag_config_files/
+                  name: data-hub-config-volume
+                  readOnly: true
+                - mountPath: /dag_secret_files/github_api/
+                  name: github-api-secret-volume
+                  readOnly: true
+                - mountPath: /dag_secret_files/twitter_api/
+                  name: twitter-api-secret-volume
+                  readOnly: true
+                - mountPath: /dag_secret_files/twitter_api_key/
+                  name: twitter-api-key-secret-volume
+                  readOnly: true
+                - mountPath: /dag_secret_files/twitter_api_secret/
+                  name: twitter-api-secret-secret-volume
+                  readOnly: true
+                - mountPath: /dag_secret_files/twitter_api_access_token/
+                  name: twitter-api-access-token-secret-volume
+                  readOnly: true
+                - mountPath: /dag_secret_files/twitter_api_access_token_secret/
+                  name: twitter-api-access-token-secret-secret-volume
+                  readOnly: true
+                - mountPath: /dag_secret_files/europepmc_labslink_ftp_credentials/
+                  name: europepmc-labslink-ftp-credentials-volume
+                  readOnly: true
+                - mountPath: /dag_secret_files/gcloud/
+                  name: gcloud-secret-volume
+                  readOnly: true
+                - mountPath: /home/airflow/.aws
+                  name: aws-secret-volume
+                  readOnly: true
+                - mountPath: /dag_secret_files/gmail_production/
+                  name: gmail-production-secret-volume
+                  readOnly: true
+                - mountPath: /dag_secret_files/gmail_open_research/
+                  name: gmail-open-research-secret-volume
+                  readOnly: true
+                - mountPath: /home/airflow/toggl
+                  name: toggl-secret-volume
+                  readOnly: true
+                - mountPath: /home/airflow/civi_key
+                  name: civi-secret-volume
+                  readOnly: true
+                - mountPath: /dag_secret_files/monitoring_urls/
+                  name: monitoring-urls-volume
+                  readOnly: true
+                - mountPath: /dag_secret_files/semantic_scholar/
+                  name: semantic-scholar-secret-volume
+                  readOnly: true
+                - mountPath: /dag_secret_files/opensearch/
+                  name: opensearch-secret-volume
+                  readOnly: true
+                - mountPath: /dag_secret_files/surveymonkey/
+                  name: surveymonkey-secret-volume
+                  readOnly: true
+          volumes:    
+            - name: logs-data
+              emptyDir: {}
+            - name: data-hub-config-volume
+              configMap:
+                name: data-hub-configs
+            - name: github-api-secret-volume
+              secret:
+                secretName: github-api
+            - name: twitter-api-secret-volume
+              secret:
+                secretName: twitter-api
+            - name: twitter-api-key-secret-volume
+              secret:
+                secretName: twitter-api-key
+            - name: twitter-api-secret-secret-volume
+              secret:
+                secretName: twitter-api-secret
+            - name: twitter-api-access-token-secret-volume
+              secret:
+                secretName: twitter-api-access-token
+            - name: twitter-api-access-token-secret-secret-volume
+              secret:
+                secretName: twitter-api-access-token-secret
+            - name: europepmc-labslink-ftp-credentials-volume
+              secret:
+                secretName: europepmc-labslink-ftp-credentials--stg
+            - name: gcloud-secret-volume
+              secret:
+                secretName: gcloud
+            - name: aws-secret-volume
+              secret:
+                secretName: credentials
+            - name: gmail-production-secret-volume
+              secret:
+                secretName: gmail-credentials
+            - name: gmail-open-research-secret-volume
+              secret:
+                secretName: gmail-open-research-credentials
+            - name: toggl-secret-volume
+              secret:
+                secretName: toggl
+            - name: civi-secret-volume
+              secret:
+                secretName: civi-key
+            - name: monitoring-urls-volume
+              secret:
+                secretName: monitoring-urls--stg
+            - name: semantic-scholar-secret-volume
+              secret:
+                secretName: semantic-scholar
+            - name: opensearch-secret-volume
+              secret:
+                secretName: opensearch-staging-admin-password
+            - name: surveymonkey-secret-volume
+              secret:
+                secretName: surveymonkey-credentials
     workers:
       resources:
         requests:
