@@ -148,6 +148,8 @@ spec:
         # At minute 40 past every 3rd hour :
       - name: DATA_SCIENCE_PEERSCOUT_RECOMMEND_SCHEDULE_INTERVAL
         value: "40 */3 * * *"
+      - name: DATA_SCIENCE_PEERSCOUT_RECOMMEND_QUEUE
+        value: "kubernetes"
       - name: DATA_SCIENCE_PEERSCOUT_EDITOR_PUBMED_SCHEDULE_INTERVAL
         value: "@hourly"
         # At every 20th minute :
