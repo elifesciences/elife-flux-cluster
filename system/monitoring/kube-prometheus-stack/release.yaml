@@ -85,7 +85,7 @@ spec:
         replicas: 1
         resources:
           limits:
-            memory: 3500Mi
+            memory: 4000Mi
           requests:
             memory: 2000Mi
             ephemeral-storage: 10Mi
