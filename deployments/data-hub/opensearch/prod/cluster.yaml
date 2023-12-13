@@ -21,10 +21,9 @@ spec:
     resources:
       requests:
         memory: "3Gi"
-        cpu: "1000m"
+        cpu: "200m"
       limits:
         memory: "3Gi"
-        cpu: "1000m"
     roles:
     - "data"
     - "cluster_manager"
