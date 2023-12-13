@@ -25,6 +25,7 @@ helmrelease ready gemini gemini
 helmrelease ready temporal temporal-database
 helmrelease ready temporal temporal
 helmrelease ready temporal2 temporal-database
+helmrelease ready keda keda
 deployment Available temporal2 temporal-frontend
 deployment Available temporal2 temporal-matching
 deployment Available temporal2 temporal-history
