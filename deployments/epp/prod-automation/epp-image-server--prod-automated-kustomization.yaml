@@ -1,0 +1,25 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: epp-image-server
+  namespace: epp--prod-automation
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kustomizations/apps/epp/image-server
+  prune: true
+  targetNamespace: epp--prod-automation
+  images:
+    - name: ghcr.io/elifesciences/enhanced-preprints-client
+      newTag: master-da0322e5-20231213.0732 # {"$imagepolicy": "epp--prod-automation:epp-client:tag"}
+  postBuild:
+    substitute:
+      app_env: prod
+      image_server_source_static: S3Source
+      image_server_s3_bucket: prod-elife-epp-data
+      image_server_prefix: automations/
+      image_server_role_arn: arn:aws:iam::512686554592:role/epp-migration-test-image-server
+      image_server_source_base_url: https://github.com/elifesciences/enhanced-preprints-data/raw/master/data/
