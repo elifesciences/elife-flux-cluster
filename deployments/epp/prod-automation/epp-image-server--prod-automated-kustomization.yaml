@@ -21,5 +21,5 @@ spec:
       image_server_source_static: S3Source
       image_server_s3_bucket: prod-elife-epp-data
       image_server_prefix: automations/
-      image_server_role_arn: arn:aws:iam::512686554592:role/epp-migration-test-image-server
+      image_server_role_arn: arn:aws:iam::512686554592:role/epp-prod-image-server
       image_server_source_base_url: https://github.com/elifesciences/enhanced-preprints-data/raw/master/data/
