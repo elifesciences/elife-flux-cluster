@@ -18,3 +18,10 @@ spec:
             name: epp-client
             port:
               number: 3000
+      - pathType: Prefix
+        path: "/iiif"
+        backend:
+          service:
+            name: epp-image-server
+            port:
+              number: 8182
