@@ -18,7 +18,7 @@ spec:
   # in a small cluster like kind or minikube the load balancer won't get an external IP.
   # Therefore, we need to disable waiting
   - patch: |-
-      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
       metadata:
         name: ingress-nginx
@@ -48,7 +48,7 @@ spec:
       kind: HelmRelease
       name: ingress-nginx
   - patch: |-
-      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
       metadata:
         name: metrics-server
@@ -68,7 +68,7 @@ spec:
       kind: HelmRelease
       name: metrics-server
   - patch: |-
-      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
       metadata:
         name: vector
@@ -89,7 +89,7 @@ spec:
       kind: HelmRelease
       name: loki
     patch: |
-      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
       metadata:
         name: loki

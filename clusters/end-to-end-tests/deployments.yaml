@@ -18,7 +18,7 @@ spec:
       kind: HelmRelease
       name: data-hub--prod
     patch: |-
-      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
       metadata:
         name: not-important
@@ -31,7 +31,7 @@ spec:
       kind: HelmRelease
       name: data-hub--stg
     patch: |-
-      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
       metadata:
         name: not-important
@@ -44,7 +44,7 @@ spec:
       kind: HelmRelease
       name: data-hub--test
     patch: |-
-      apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
       metadata:
         name: not-important

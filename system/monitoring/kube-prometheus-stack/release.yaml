@@ -1,5 +1,5 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: prometheus-stack
@@ -163,7 +163,7 @@ spec:
                       source_name: [ spec, sourceRef, name ]
               - groupVersionKind:
                   group: helm.toolkit.fluxcd.io
-                  version: v2beta1
+                  version: v2beta2
                   kind: HelmRelease
                 metricNamePrefix: gotk
                 metrics:
@@ -280,7 +280,7 @@ spec:
                       url: [ spec, url ]
               - groupVersionKind:
                   group: notification.toolkit.fluxcd.io
-                  version: v1beta2
+                  version: v1beta3
                   kind: Alert
                 metricNamePrefix: gotk
                 metrics:
@@ -297,7 +297,7 @@ spec:
                       suspended: [ spec, suspend ]
               - groupVersionKind:
                   group: notification.toolkit.fluxcd.io
-                  version: v1beta2
+                  version: v1beta3
                   kind: Provider
                 metricNamePrefix: gotk
                 metrics:
