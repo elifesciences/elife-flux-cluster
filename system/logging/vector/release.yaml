@@ -37,8 +37,8 @@ spec:
         value: info
     resources:
       requests:
-        cpu: "20m"
-        memory: "50Mi"
+        cpu: "300m"
+        memory: "400Mi"
     customConfig:
       data_dir: /vector-data-dir
       api:
