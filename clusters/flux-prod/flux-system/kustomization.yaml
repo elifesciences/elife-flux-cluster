@@ -46,6 +46,7 @@ patches:
           - name: manager
             resources:
               limits:
+                cpu: 1700m
                 memory: 512Gi
               requests:
                 cpu: 500m
