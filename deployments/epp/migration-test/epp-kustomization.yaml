@@ -14,7 +14,7 @@ spec:
   targetNamespace: epp--migration-test
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints-server
-      newTag: master-4faad9bd-20231218.0952 # {"$imagepolicy": "epp--migration-test:epp-server:tag"}
+      newTag: master-f5044001-20231218.1005 # {"$imagepolicy": "epp--migration-test:epp-server:tag"}
     - name: ghcr.io/elifesciences/epp-image-server
       newTag: master-a34dfaa2-20231003.1350 # {"$imagepolicy": "epp--migration-test:epp-image-server:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-client
