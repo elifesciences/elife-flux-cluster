@@ -54,10 +54,10 @@ spec:
         prometheus.io/port: "10254"
       resources:
         limits:
-          memory: 300Mi
+          memory: 600Mi
         requests:
           cpu: 100m
-          memory: 150Mi
+          memory: 300Mi
       replicaCount: 2
       watchIngressWithoutClass: true
       allowSnippetAnnotations: true
