@@ -19,7 +19,7 @@ spec:
     substitute:
       app_env: prod
       client_replicas: "1"
-      epp_server: http://epp-server.epp--prod:3000
+      epp_server: https://prod--epp.elifesciences.org
       iiif_server: https://prod-automation--epp.elifesciences.org/iiif
       private_iiif_server: http://epp-image-server:8182/iiif
       is_automated: yeah
