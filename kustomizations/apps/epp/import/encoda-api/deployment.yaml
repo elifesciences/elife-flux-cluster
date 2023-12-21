@@ -25,10 +25,9 @@ spec:
         image: ghcr.io/elifesciences/enhanced-preprints-encoda:latest
         resources:
           requests:
-            memory: ${encoda_api_memory_requests:='3Gi'}
-            cpu: ${encoda_api_cpu_requests:='1495m'}
+            memory: ${encoda_api_memory_requests:='500Mi'}
+            cpu: ${encoda_api_cpu_requests:='200m'}
           limits:
-            memory: ${encoda_api_memory_limits:='3Gi'}
-            cpu: ${encoda_api_cpu_limits:='1700m'}
+            memory: ${encoda_api_memory_limits:='1Gi'}
         ports:
           - containerPort: 80
