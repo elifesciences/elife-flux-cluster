@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epp-encoda-api
+  namespace: epp
+spec:
+  replicas: ${encoda_api_replicas:=1}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: epp-encoda-api
+  template:
+    metadata:
+      namespace: epp
+      labels:
+        app: epp-encoda-api
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      containers:
+      - name: epp-encoda-api
+        image: ghcr.io/elifesciences/enhanced-preprints-encoda:latest
+        resources:
+          requests:
+            memory: ${encoda_api_memory_requests:='3Gi'}
+            cpu: ${encoda_api_cpu_requests:='1495m'}
+          limits:
+            memory: ${encoda_api_memory_limits:='3Gi'}
+            cpu: ${encoda_api_cpu_limits:='1700m'}
+        ports:
+          - containerPort: 80
