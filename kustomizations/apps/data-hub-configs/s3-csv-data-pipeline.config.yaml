@@ -49,7 +49,7 @@ s3Csv:
     tableWriteAppend: False
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
-      objectName: "airflow-config/s3-csv/{ENV}-state/preprint_server_dois_002.json"
+      objectName: "airflow-config/s3-csv/{ENV}-state/ejp_preprint_server_dois_v2_001.json"
     inSheetRecordMetadata:
       - metadataSchemaFieldName: date_generated_info
         metadataLineIndex: 1
