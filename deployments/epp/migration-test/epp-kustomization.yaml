@@ -20,7 +20,7 @@ spec:
     - name: ghcr.io/elifesciences/enhanced-preprints-client
       newTag: master-c87cb11e-20231227.2200 # {"$imagepolicy": "epp--migration-test:epp-client:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-      newTag: master-c87cb11e-20231227.2200 # {"$imagepolicy": "epp--migration-test:epp-storybook:tag"}
+      newTag: master-38a16d77-20231228.1505 # {"$imagepolicy": "epp--migration-test:epp-storybook:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
       newTag: master-6f0dcdac-20231224.1040 # {"$imagepolicy": "epp--migration-test:epp-import:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
