@@ -22,7 +22,7 @@ spec:
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
       newTag: master-56b46158-20240103.0927 # {"$imagepolicy": "epp--prod:epp-storybook:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
-      newTag: master-ccdac028-20240103.0625 # {"$imagepolicy": "epp--prod:epp-import:tag"}
+      newTag: master-6b1b579b-20240103.1120 # {"$imagepolicy": "epp--prod:epp-import:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
       newTag: master-39fa50ec-20231220.1532 # {"$imagepolicy": "epp--prod:epp-biorxiv-xslt-api:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-encoda
@@ -62,7 +62,7 @@ spec:
       worker_cpu_requests: "500m"
       worker_cpu_limits: "1500m"
       biorxiv_xslt_api_replicas: "2"
-      is_automated: automated 
+      is_automated: automated
       image_server_prefix: automation/
   patches:
     - target:
