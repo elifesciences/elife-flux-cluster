@@ -9,6 +9,7 @@ spec:
   template:
     metadata:
       name: temporal-setup-namespace-epp--staging
+      namespace: epp--staging
     spec:
       serviceAccountName: temporal
       restartPolicy: "OnFailure"
