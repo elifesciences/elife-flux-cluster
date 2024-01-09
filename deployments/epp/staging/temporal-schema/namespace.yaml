@@ -1,0 +1,34 @@
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: temporal-setup-namespace-epp--staging
+spec:
+  backoffLimit: 100
+  ttlSecondsAfterFinished: 0
+  template:
+    metadata:
+      name: temporal-setup-namespace-epp--staging
+    spec:
+      serviceAccountName: temporal
+      restartPolicy: "OnFailure"
+      initContainers:
+        - name: temporal-check-namespace-created
+          image: "temporalio/admin-tools:latest"
+          env:
+            - name: TEMPORAL_HOST
+              value: temporal-frontend.temporal:7233
+          command:
+          - bash
+          - -c
+          - ' temporal operator namespace describe test || temporal operator namespace create test'
+      containers:
+        - name: temporal-setup-namespace
+          image: "temporalio/admin-tools:latest"
+          env:
+            - name: TEMPORAL_HOST
+              value: temporal-frontend.temporal:7233
+          command:
+          - bash
+          - -c
+          - 'temporal operator namespace update epp--staging --retention 30 --history-archival-state enabled --history-uri s3://elife-temporal-prod-data --visibility-archival-state=enabled --visibility-uri=s3://elife-temporal-prod-data'
