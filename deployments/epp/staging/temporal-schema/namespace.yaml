@@ -12,7 +12,6 @@ spec:
       name: temporal-schema-namespace-epp--staging
       namespace: epp--staging
     spec:
-      serviceAccountName: temporal
       restartPolicy: "OnFailure"
       initContainers:
         - name: temporal-check-namespace-created
