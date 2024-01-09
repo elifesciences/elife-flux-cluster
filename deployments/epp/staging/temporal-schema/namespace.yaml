@@ -17,7 +17,7 @@ spec:
         - name: temporal-check-namespace-created
           image: "temporalio/admin-tools:latest"
           env:
-            - name: TEMPORAL_HOST
+            - name: TEMPORAL_ADDRESS
               value: temporal-frontend.temporal:7233
           command:
           - bash
@@ -27,7 +27,7 @@ spec:
         - name: temporal-setup-namespace
           image: "temporalio/admin-tools:latest"
           env:
-            - name: TEMPORAL_HOST
+            - name: TEMPORAL_ADDRESS
               value: temporal-frontend.temporal:7233
           command:
           - bash
