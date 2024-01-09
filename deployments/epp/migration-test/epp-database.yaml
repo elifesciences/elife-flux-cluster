@@ -63,7 +63,7 @@ spec:
       volumeSpec:
         pvc:
           accessModes: [ "ReadWriteOnce" ]
-          storageClassName: csi-ebs-gp2-default
+          storageClassName: csi-ebs-gp3
           resources:
             requests:
               storage: 20Gi
