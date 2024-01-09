@@ -4,7 +4,7 @@ An easy way to migrate a MongoDB cluster that has a replicaset size > 1 is to re
 
 # Monitor replicaset status:
 ```
-kubectl exec -n epp--migration-test sts/epp-database-psmdb-db-replicaset -it -- bash -c 'mongosh -u "$MONGODB_CLUSTER_ADMIN_USER" -p "$MONGODB_CLUSTER_ADMIN_PASSWORD" --authenticationDatabase admin --eval "rs.status()"'
+kubectl exec -n <the-namespace> sts/epp-database-psmdb-db-replicaset -it -- bash -c 'mongosh -u "$MONGODB_CLUSTER_ADMIN_USER" -p "$MONGODB_CLUSTER_ADMIN_PASSWORD" --authenticationDatabase admin --eval "rs.status()"'
 ```
 # Steps
 
