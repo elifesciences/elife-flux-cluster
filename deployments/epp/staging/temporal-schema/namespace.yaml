@@ -21,7 +21,7 @@ spec:
           command:
           - bash
           - -c
-          - ' temporal operator namespace describe test || temporal operator namespace create test'
+          - ' temporal operator namespace describe epp--staging || temporal operator namespace create epp--staging'
       containers:
         - name: temporal-setup-namespace
           image: "temporalio/admin-tools:latest"
