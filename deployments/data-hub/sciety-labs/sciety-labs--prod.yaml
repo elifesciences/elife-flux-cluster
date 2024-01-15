@@ -122,11 +122,6 @@ metadata:
   namespace: data-hub
   labels:
     app: sciety-labs--prod
-  annotations:
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      if ($http_x_original_forwarded_for != 'labs.sciety.org') {
-        rewrite ^ https://labs.sciety.org$request_uri permanent;
-      }
 spec:
   rules:
     - host: sciety-labs.elifesciences.org
