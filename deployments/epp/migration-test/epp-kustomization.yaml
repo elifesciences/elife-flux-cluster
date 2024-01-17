@@ -14,13 +14,13 @@ spec:
   targetNamespace: epp--migration-test
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints-server
-      newTag: master-b0a4e261-20240116.0805 # {"$imagepolicy": "epp--migration-test:epp-server:tag"}
+      newTag: master-a8d1f003-20240117.0743 # {"$imagepolicy": "epp--migration-test:epp-server:tag"}
     - name: ghcr.io/elifesciences/epp-image-server
       newTag: master-a34dfaa2-20231003.1350 # {"$imagepolicy": "epp--migration-test:epp-image-server:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-client
-      newTag: master-5c8be07e-20240116.1416 # {"$imagepolicy": "epp--migration-test:epp-client:tag"}
+      newTag: master-4d8eab38-20240117.1017 # {"$imagepolicy": "epp--migration-test:epp-client:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-      newTag: master-5c8be07e-20240116.1416 # {"$imagepolicy": "epp--migration-test:epp-storybook:tag"}
+      newTag: master-4d8eab38-20240117.1017 # {"$imagepolicy": "epp--migration-test:epp-storybook:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
       newTag: master-81e6d10b-20240113.2331 # {"$imagepolicy": "epp--migration-test:epp-import:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
