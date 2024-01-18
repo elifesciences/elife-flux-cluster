@@ -120,7 +120,7 @@ spec:
       # queue (airflow executor)
       - name: DATA_SCIENCE_PEERSCOUT_RECOMMEND_QUEUE
         value: "kubernetes"
-      - name: EXTRACT_KEYWORDS_QUEUE_ENV_NAME
+      - name: EXTRACT_KEYWORDS_QUEUE
         value: "kubernetes"
       # scheduler interval
       - name: ELIFE_ARTICLE_XML_PIPELINE_SCHEDULE_INTERVAL
