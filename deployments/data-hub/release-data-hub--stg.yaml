@@ -117,6 +117,11 @@ spec:
         value: /dag_config_files/civicrm-email-report-data-pipeline.config.yaml
       - name: TWITTER_ADS_API_CONFIG_FILE_PATH
         value: /dag_config_files/twitter-ads-api.config.yaml
+      # queue (airflow executor)
+      - name: DATA_SCIENCE_PEERSCOUT_RECOMMEND_QUEUE
+        value: "kubernetes"
+      - name: EXTRACT_KEYWORDS_QUEUE
+        value: "kubernetes"
       # scheduler interval
       - name: ELIFE_ARTICLE_XML_PIPELINE_SCHEDULE_INTERVAL
         value: "0 5 * * *" # At 05:00, every day
@@ -152,8 +157,6 @@ spec:
         # At minute 40 past every 3rd hour :
       - name: DATA_SCIENCE_PEERSCOUT_RECOMMEND_SCHEDULE_INTERVAL
         value: "40 */3 * * *"
-      - name: DATA_SCIENCE_PEERSCOUT_RECOMMEND_QUEUE
-        value: "kubernetes"
       - name: DATA_SCIENCE_PEERSCOUT_EDITOR_PUBMED_SCHEDULE_INTERVAL
         value: "@hourly"
         # At every 20th minute :
