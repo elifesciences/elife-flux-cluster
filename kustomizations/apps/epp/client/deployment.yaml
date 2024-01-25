@@ -32,6 +32,8 @@ spec:
         ports:
         - containerPort: 3000
         env:
+        - name: NEXT_PUBLIC_SITE_NAME
+          value: ${site_name:=''}
         - name: API_SERVER
           value: ${epp_server:='http://epp-server:3000'}
         - name: NEXT_PUBLIC_IMAGE_SERVER
