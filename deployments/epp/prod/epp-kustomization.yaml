@@ -29,6 +29,7 @@ spec:
       newTag: master-402c1eb9-20231120.1025 # {"$imagepolicy": "epp--staging:epp-encoda-api:tag"}
   postBuild:
     substitute:
+      site_name: elife
       app_env: prod
       app_hostname: prod--epp.elifesciences.org
       data_hub_api: https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v2/by-publisher/elife/get-by-manuscript-id?manuscript_id=
