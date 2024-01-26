@@ -21,6 +21,9 @@ spec:
         image: ghcr.io/elifesciences/enhanced-preprints-storybook:latest
         ports:
         - containerPort: 6006
+        env:
+        - name: NEXT_PUBLIC_SITE_NAME
+          value: ${site_name:=''}
         resources:
           requests:
             cpu: "50m"
