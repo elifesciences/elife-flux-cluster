@@ -481,15 +481,17 @@ spec:
     flower:
       resources:
         requests:
-          memory: 300Mi
+          memory: 230Mi
           cpu: 10m
           ephemeral-storage: "50Mi"
     scheduler:
       resources:
         requests:
-          memory: 500Mi
+          memory: 1529Mi
           cpu: 1000m
           ephemeral-storage: "50Mi"
+        limits:
+          memory: 1529Mi
       extraVolumeMounts:
       - name: data-hub-config-volume
         mountPath: /dag_config_files/
@@ -515,7 +517,7 @@ spec:
           AUTH_ROLE_PUBLIC = 'Admin'
       resources:
         requests:
-          memory: 900Mi
+          memory: 1110Mi
           cpu: 50m
           ephemeral-storage: "100Mi"
       livenessProbe:

@@ -347,11 +347,11 @@ spec:
     workers:
       resources:
         requests:
-          memory: 4.9Gi
+          memory: 6459Mi
           cpu: 1495m
           ephemeral-storage: 10Gi
         limits:
-          memory: 6Gi
+          memory: 6459Mi
           cpu: 1700m
       extraVolumeMounts:
       - name: data-hub-config-volume
@@ -473,15 +473,17 @@ spec:
     flower:
       resources:
         requests:
-          memory: 100Mi
+          memory: 264Mi
           cpu: 50m
           ephemeral-storage: "50Mi"
     scheduler:
       resources:
         requests:
-          memory: 500Mi
+          memory: 1382Mi
           cpu: 1200m
           ephemeral-storage: "50Mi"
+        limits:
+          memory: 1382Mi
       extraVolumeMounts:
       - name: data-hub-config-volume
         mountPath: /dag_config_files/
@@ -526,11 +528,17 @@ spec:
       resources:
         requests:
           ephemeral-storage: "50Mi"
+          memory: 837Mi
+          cpu: 200m
     dbMigrations:
       resources:
         requests:
+          memory: 153Mi
+          cpu: 50m
           ephemeral-storage: "50Mi"
     pgbouncer:
       resources:
         requests:
+          memory: 100Mi
+          cpu: 100m
           ephemeral-storage: "10Mi"
