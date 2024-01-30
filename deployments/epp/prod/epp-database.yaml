@@ -58,7 +58,7 @@ spec:
       resources:
         requests:
           cpu: "300m"
-          memory: "0.5G"
+          memory: "2700Mi"
           ephemeral-storage: 50M
       volumeSpec:
         pvc:
