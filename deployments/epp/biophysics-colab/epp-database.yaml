@@ -4,6 +4,9 @@ kind: HelmRelease
 metadata:
   name: epp-database
   namespace: epp--biophysics-colab
+  labels:
+    app_name: epp
+    app_env: biophysics-colab
 
 spec:
   interval: 1m
@@ -25,7 +28,7 @@ spec:
       enabled: false
     replsets:
     - name: replicaset
-      size: 3
+      size: 1
       configuration: |
         systemLog:
           verbosity: 0
