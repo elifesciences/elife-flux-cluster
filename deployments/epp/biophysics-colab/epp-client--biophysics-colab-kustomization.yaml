@@ -20,6 +20,6 @@ spec:
       site_name: biophysics-colab
       app_env: prod
       client_replicas: "1"
-      epp_server: https://prod--epp.elifesciences.org
+      epp_server: http://epp-server:3000
       iiif_server: https://prod--epp.elifesciences.org/iiif
       disallow_robots: all
