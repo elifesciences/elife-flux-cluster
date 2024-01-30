@@ -237,11 +237,11 @@ spec:
       kubernetesPodTemplate:
         resources:
           requests:
-            memory: 4.9Gi
+            memory: 6459Mi
             cpu: 1495m
             ephemeral-storage: 10Gi
           limits:
-            memory: 6Gi
+            memory: 6459Mi
             cpu: 1700m
         extraVolumeMounts:
         - name: data-hub-config-volume
@@ -356,11 +356,11 @@ spec:
     workers:
       resources:
         requests:
-          memory: 4.9Gi
+          memory: 6459Mi
           cpu: 1495m
           ephemeral-storage: 10Gi
         limits:
-          memory: 6Gi
+          memory: 6459Mi
           cpu: 1700m
       extraVolumeMounts:
       - name: data-hub-config-volume
