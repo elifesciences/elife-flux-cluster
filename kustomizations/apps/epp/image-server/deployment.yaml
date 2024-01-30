@@ -30,8 +30,8 @@ spec:
         - containerPort: 8182
         resources:
           requests:
-            cpu: "200m"
-            memory: "2Gi"
+            cpu: "386m"
+            memory: "3202Mi"
         env:
           - name: SOURCE_STATIC
             value: ${image_server_source_static:=HttpSource}
