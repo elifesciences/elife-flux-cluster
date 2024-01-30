@@ -87,7 +87,8 @@ spec:
           limits:
             memory: 4000Mi
           requests:
-            memory: 2000Mi
+            cpu: 250m
+            memory: 3500Mi
             ephemeral-storage: 10Mi
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
