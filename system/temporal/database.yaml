@@ -24,7 +24,7 @@ spec:
     pxc:
       resources:
         requests:
-          memory: 800Mi
+          memory: 1400Mi
           cpu: 600m
       persistence:
         storageClass: csi-ebs-gp3
