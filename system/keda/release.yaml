@@ -24,3 +24,10 @@ spec:
           memory: 100Mi
         limits:
           memory: 100Mi
+      metricServer:
+        limits:
+          cpu: 1
+          memory: 100Mi
+        requests:
+          cpu: 100m
+          memory: 100Mi
