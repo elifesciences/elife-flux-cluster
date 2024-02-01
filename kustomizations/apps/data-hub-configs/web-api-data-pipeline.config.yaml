@@ -328,6 +328,42 @@ webApi:
         itemTimestampKeyFromItemRoot:
           - timestamp
 
+  # Crossref Metadata API
+  # Currently only for OSF Preprints, but more OSF preprint servers will get added
+  - dataPipelineId: crossref_metadata_api
+    dataset: '{ENV}'
+    table: crossref_metadata_api_response
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/generic-web-api/{ENV}-crossref-metadata-state-10.31219.json'
+    urlSourceType:
+      name: 'crossref_metadata_api'
+    dataUrl:
+      urlExcludingConfigurableParameters: http://api.crossref.org/prefixes/10.31219/works?sort=indexed&order=asc
+      configurableParameters:
+        nextPageCursorParameterName: 'cursor'
+        fromDateParameterName: 'from-index-date'
+        defaultStartDate: '2022-01-01+00:00'
+        dateFormat: '%Y-%m-%d'
+        pageSizeParameterName: rows
+        defaultPageSize: 1000
+    response:
+      nextPageCursorKeyFromResponseRoot:
+        - message
+        - next-cursor
+      itemsKeyFromResponseRoot:
+        - message
+        - items
+      totalItemsCountKeyFromResponseRoot:
+        - message
+        - total-results
+      recordTimestamp:
+        itemTimestampKeyFromItemRoot:
+          - 'indexed'
+          - 'date_time'  # this is after the record was processed
+      recordProcessingSteps:
+        - transform_crossref_api_date_parts
+
   # bioRxiv/medRxiv MECA path metadata
   # http://api.biorxiv.org/meca_index/elife/help
   - dataPipelineId: biorxiv_medrxiv_meca_path_metadata_latest
