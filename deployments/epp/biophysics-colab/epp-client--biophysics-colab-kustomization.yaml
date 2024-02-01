@@ -14,7 +14,7 @@ spec:
   targetNamespace: epp--biophysics-colab
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints-client
-      newTag: master-ba9798f7-20240201.1051 # {"$imagepolicy": "epp--biophysics-colab:epp-client:tag"}
+      newTag: master-87463c4d-20240201.1105 # {"$imagepolicy": "epp--biophysics-colab:epp-client:tag"}
   postBuild:
     substitute:
       site_name: biophysics-colab
