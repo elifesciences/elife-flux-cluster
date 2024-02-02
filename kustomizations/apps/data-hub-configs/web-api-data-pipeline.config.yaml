@@ -460,22 +460,22 @@ webApi:
                 ROW_NUMBER() OVER(PARTITION BY paper_id ORDER BY priority) AS _row_number
               FROM (
                 SELECT
-                  europepmc_response.doi AS paper_id,
-                  europepmc_response.title_with_markup AS title,
-                  europepmc_response.abstractText AS abstract,
-                  2 AS priority
-                FROM `elife-data-pipeline.{ENV}.v_latest_europepmc_preprint_servers_response` AS europepmc_response
-                WHERE europepmc_response.doi IS NOT NULL
-
-                UNION ALL
-
-                SELECT
                   crossref_response.doi AS paper_id,
                   ARRAY_TO_STRING(crossref_response.title, '\n') AS title,
                   crossref_response.abstract AS abstract,
                   1 AS priority
                 FROM `elife-data-pipeline.{ENV}.v_latest_crossref_metadata_api_response` AS crossref_response
                 WHERE crossref_response.doi IS NOT NULL
+
+                UNION ALL
+
+                SELECT
+                  europepmc_response.doi AS paper_id,
+                  europepmc_response.title_with_markup AS title,
+                  europepmc_response.abstractText AS abstract,
+                  2 AS priority
+                FROM `elife-data-pipeline.{ENV}.v_latest_europepmc_preprint_servers_response` AS europepmc_response
+                WHERE europepmc_response.doi IS NOT NULL
               )
               WHERE COALESCE(title, '') <> ''
                 AND COALESCE(abstract, '') <> ''
