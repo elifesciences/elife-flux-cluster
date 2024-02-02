@@ -453,19 +453,41 @@ webApi:
           projectName: 'elife-data-pipeline'
           sqlQuery:
             SELECT
-              europepmc_response.doi AS paper_id,
-              europepmc_response.title_with_markup AS title,
-              europepmc_response.abstractText AS abstract,
-            FROM `elife-data-pipeline.{ENV}.v_latest_europepmc_preprint_servers_response` AS europepmc_response
-            WHERE europepmc_response.doi IS NOT NULL
-              AND COALESCE(europepmc_response.title_with_markup, '') <> ''
-              AND COALESCE(europepmc_response.abstractText, '') <> ''
-              AND europepmc_response.doi NOT IN (
-                SELECT s2_response.externalIds.DOI
-                FROM `elife-data-pipeline.{ENV}.v_latest_semantic_scholar_response` AS s2_response
-                WHERE s2_response.externalIds.DOI IS NOT NULL
+              * EXCEPT(_row_number, priority)
+            FROM (
+              SELECT
+                *,
+                ROW_NUMBER() OVER(PARTITION BY paper_id ORDER BY priority) AS _row_number
+              FROM (
+                SELECT
+                  europepmc_response.doi AS paper_id,
+                  europepmc_response.title_with_markup AS title,
+                  europepmc_response.abstractText AS abstract,
+                  2 AS priority
+                FROM `elife-data-pipeline.{ENV}.v_latest_europepmc_preprint_servers_response` AS europepmc_response
+                WHERE europepmc_response.doi IS NOT NULL
+
+                UNION ALL
+
+                SELECT
+                  crossref_response.doi AS paper_id,
+                  ARRAY_TO_STRING(crossref_response.title, '\n') AS title,
+                  crossref_response.abstract AS abstract,
+                  1 AS priority
+                FROM `elife-data-pipeline.{ENV}.v_latest_crossref_metadata_api_response` AS crossref_response
+                WHERE crossref_response.doi IS NOT NULL
               )
-            ORDER BY europepmc_response.doi
+              WHERE COALESCE(title, '') <> ''
+                AND COALESCE(abstract, '') <> ''
+                AND paper_id NOT IN (
+                  SELECT s2_response.externalIds.DOI
+                  FROM `elife-data-pipeline.{ENV}.v_latest_semantic_scholar_response` AS s2_response
+                  WHERE s2_response.externalIds.DOI IS NOT NULL
+                )
+            )
+            WHERE _row_number = 1
+
+            ORDER BY paper_id
       exclude:
         bigQuery:
           ignoreNotFound: true
