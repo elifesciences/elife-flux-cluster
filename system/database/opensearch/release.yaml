@@ -21,3 +21,11 @@ spec:
       retries: 5
 
   values:
+    kubeRbacProxy:
+      resources:
+        limits:
+          cpu: 100m
+          memory: 50Mi
+        requests:
+          cpu: 25m
+          memory: 25Mi
