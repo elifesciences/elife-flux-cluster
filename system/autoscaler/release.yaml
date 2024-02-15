@@ -19,8 +19,6 @@ spec:
       tag: v1.26.3
     autoDiscovery:
       clusterName: kubernetes-aws--flux-prod
-      tags:
-      - kubernetes.io/cluster/kubernetes-aws--flux-prod
     awsRegion: us-east-1
     rbac:
       serviceAccount:
