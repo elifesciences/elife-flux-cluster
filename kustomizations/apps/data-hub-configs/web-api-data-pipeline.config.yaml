@@ -337,7 +337,7 @@ webApi:
       include:
         bigQuery:
           projectName: 'elife-data-pipeline'
-          sqlQuery:
+          sqlQuery: |-
             SELECT doi_prefix
             FROM UNNEST([
               '10.31730',  -- AfricArxiv
