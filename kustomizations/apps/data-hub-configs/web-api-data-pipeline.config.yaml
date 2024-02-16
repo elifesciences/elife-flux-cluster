@@ -340,8 +340,26 @@ webApi:
           sqlQuery:
             SELECT doi_prefix
             FROM UNNEST([
-              '10.31219',
-              '10.31235'
+              '10.31730',  -- AfricArxiv
+              '10.31221',  -- Arabixiv
+              '10.37044',  -- BioHackrXiv
+              '10.34055',  -- BodoArxiv
+              '10.35542',  -- EdArXiv
+              '10.31225',  -- FocUS Archive
+              '10.31226',  -- Frenxiv
+              '10.31228',  -- LawArXiv
+              '10.31229',  -- LIS Scholarship Archive
+              '10.31230',  -- MarXiv
+              '10.33767',  -- MediarXiv
+              '10.31231',  -- MindRxiv
+              '10.31232',  -- NutriXiv
+              '10.31219',  -- OSF Preprints
+              '10.31233',  -- PaleorXiv
+              '10.31234',  -- PsyArXiv
+              '10.31227',  -- RIN arxiv (formerly INArxiv)
+              '10.31235',  -- SocArxiv
+              '10.31236',  -- SportrXiv
+              '10.31237'   -- Thesis Commons (by OSF)
             ]) AS doi_prefix
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
