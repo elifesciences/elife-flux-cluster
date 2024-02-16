@@ -333,17 +333,45 @@ webApi:
   - dataPipelineId: crossref_metadata_api
     dataset: '{ENV}'
     table: crossref_metadata_api_response
+    source:
+      include:
+        bigQuery:
+          projectName: 'elife-data-pipeline'
+          sqlQuery:
+            SELECT doi_prefix
+            FROM UNNEST([
+              '10.31730',  -- AfricArxiv
+              '10.31221',  -- Arabixiv
+              '10.37044',  -- BioHackrXiv
+              '10.34055',  -- BodoArxiv
+              '10.35542',  -- EdArXiv
+              '10.31225',  -- FocUS Archive
+              '10.31226',  -- Frenxiv
+              '10.31228',  -- LawArXiv
+              '10.31229',  -- LIS Scholarship Archive
+              '10.31230',  -- MarXiv
+              '10.33767',  -- MediarXiv
+              '10.31231',  -- MindRxiv
+              '10.31232',  -- NutriXiv
+              '10.31219',  -- OSF Preprints
+              '10.31233',  -- PaleorXiv
+              '10.31234',  -- PsyArXiv
+              '10.31227',  -- RIN arxiv (formerly INArxiv)
+              '10.31235',  -- SocArxiv
+              '10.31236',  -- SportrXiv
+              '10.31237'   -- Thesis Commons (by OSF)
+            ]) AS doi_prefix
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
-      objectName: 'airflow-config/generic-web-api/{ENV}-crossref-metadata-state-10.31219.json'
+      objectName: 'airflow-config/generic-web-api/{ENV}-crossref-metadata-state/{doi_prefix}.json'
     urlSourceType:
       name: 'crossref_metadata_api'
     dataUrl:
-      urlExcludingConfigurableParameters: http://api.crossref.org/prefixes/10.31219/works?sort=indexed&order=asc
+      urlExcludingConfigurableParameters: http://api.crossref.org/prefixes/{doi_prefix}/works?sort=indexed&order=asc
       configurableParameters:
         nextPageCursorParameterName: 'cursor'
         fromDateParameterName: 'from-index-date'
-        defaultStartDate: '2022-01-01+00:00'
+        defaultStartDate: '2000-01-01+00:00'
         dateFormat: '%Y-%m-%d'
         pageSizeParameterName: rows
         defaultPageSize: 1000
