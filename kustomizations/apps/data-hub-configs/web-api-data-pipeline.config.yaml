@@ -333,17 +333,27 @@ webApi:
   - dataPipelineId: crossref_metadata_api
     dataset: '{ENV}'
     table: crossref_metadata_api_response
+    source:
+      include:
+        bigQuery:
+          projectName: 'elife-data-pipeline'
+          sqlQuery:
+            SELECT doi_prefix
+            FROM UNNEST([
+              '10.31219',
+              '10.31235'
+            ]) AS doi_prefix
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
-      objectName: 'airflow-config/generic-web-api/{ENV}-crossref-metadata-state-10.31219.json'
+      objectName: 'airflow-config/generic-web-api/{ENV}-crossref-metadata-state/{doi_prefix}.json'
     urlSourceType:
       name: 'crossref_metadata_api'
     dataUrl:
-      urlExcludingConfigurableParameters: http://api.crossref.org/prefixes/10.31219/works?sort=indexed&order=asc
+      urlExcludingConfigurableParameters: http://api.crossref.org/prefixes/{doi_prefix}/works?sort=indexed&order=asc
       configurableParameters:
         nextPageCursorParameterName: 'cursor'
         fromDateParameterName: 'from-index-date'
-        defaultStartDate: '2022-01-01+00:00'
+        defaultStartDate: '2000-01-01+00:00'
         dateFormat: '%Y-%m-%d'
         pageSizeParameterName: rows
         defaultPageSize: 1000
