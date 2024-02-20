@@ -391,6 +391,7 @@ webApi:
           - 'date_time'  # this is after the record was processed
       recordProcessingSteps:
         - transform_crossref_api_date_parts
+      provenanceEnabled: True
 
   # bioRxiv/medRxiv MECA path metadata
   # http://api.biorxiv.org/meca_index/elife/help
