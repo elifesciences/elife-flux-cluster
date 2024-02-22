@@ -98,7 +98,7 @@ spec:
 
     alertmanager:
       podDisruptionBudget:
-        enabled: true
+        enabled: false
       alertmanagerSpec:
         configSecret: alertmanager-prometheus-operator
         replicas: 1
