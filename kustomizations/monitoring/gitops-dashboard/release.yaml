@@ -1,0 +1,33 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  annotations:
+    metadata.weave.works/description: This is the Weave GitOps Dashboard. It provides a simple way to get insights into your GitOps workloads.
+  name: gitops-dashboard
+spec:
+  chart:
+    spec:
+      chart: weave-gitops
+      sourceRef:
+        kind: HelmRepository
+        name: gitops-dashboard
+  interval: 1h0m0s
+  timeout: 5m
+  values:
+    ingress:
+      enabled: true
+      hosts:
+      - host: ${hostname}
+        paths:
+        - path: /
+          pathType: ImplementationSpecific
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: "https://auth--test-cluster.elifesciences.org/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://auth--test-cluster.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+    adminUser:
+      create: true
+      createClusterRole: true
+      createSecret: false
+    additionalArgs:
+    - --insecure-no-authentication-user=gitops-test-user
