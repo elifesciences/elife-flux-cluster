@@ -16,7 +16,7 @@ spec:
       interval: 1m
   values:
     image:
-      tag: v1.26.3
+      tag: v1.28.2
     autoDiscovery:
       clusterName: kubernetes-aws--flux-prod
     awsRegion: us-east-1
