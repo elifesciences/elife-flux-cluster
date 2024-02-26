@@ -340,6 +340,7 @@ webApi:
           sqlQuery: |-
             SELECT doi_prefix
             FROM UNNEST([
+              -- OSF preprint servers (Center for Open Science)
               '10.31730',  -- AfricArxiv
               '10.31221',  -- Arabixiv
               '10.37044',  -- BioHackrXiv
@@ -351,6 +352,7 @@ webApi:
               '10.31229',  -- LIS Scholarship Archive
               '10.31230',  -- MarXiv
               '10.33767',  -- MediarXiv
+              '10.31222',  -- MetaArXiv
               '10.31231',  -- MindRxiv
               '10.31232',  -- NutriXiv
               '10.31219',  -- OSF Preprints
@@ -359,7 +361,14 @@ webApi:
               '10.31227',  -- RIN arxiv (formerly INArxiv)
               '10.31235',  -- SocArxiv
               '10.31236',  -- SportrXiv
-              '10.31237'   -- Thesis Commons (by OSF)
+              '10.31237',  -- Thesis Commons (by OSF)
+
+              -- California Digital Library (CDL):
+              '10.31223',  -- EarthArXiv
+              '10.32942',  -- EcoEvoRxiv
+
+              -- Open Engineering Inc:
+              '10.31224'   -- engrXiv
             ]) AS doi_prefix
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
