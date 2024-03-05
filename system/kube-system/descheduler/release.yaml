@@ -23,5 +23,13 @@ spec:
       # We should use anti-affinity rather than this
       RemoveDuplicates:
         enabled: false
+      evictLocalStoragePods: true
+      ignorePvcPods: false
+      strategies:
+        RemovePodsViolatingNodeTaints:
+          enabled: false
+        RemovePodsHavingTooManyRestarts:
+          enabled: false
+
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
