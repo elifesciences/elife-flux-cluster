@@ -30,10 +30,10 @@ spec:
         image: ghcr.io/elifesciences/enhanced-preprints-server:latest
         resources:
           requests:
-            cpu: "50m"
+            cpu: "100m"
             memory: "250Mi"
           limits:
-            memory: "2Gi"
+            memory: "700Mi"
         env:
         - name: REPO_TYPE
           value: MongoDB
