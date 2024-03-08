@@ -4,7 +4,7 @@ metadata:
   name: epp-import-worker-epp
   namespace: epp
 spec:
-  replicas: ${worker_epp_queue_replicas:=1}
+  replicas: ${temporal_worker_epp_replicas:=1}
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -28,10 +28,10 @@ spec:
         image: ghcr.io/elifesciences/enhanced-preprints-import-worker:latest
         resources:
           requests:
-            memory: ${worker_memory_requests:='700Mi'}
-            cpu: ${worker_cpu_requests:='50m'}
+            memory: ${temporal_worker_epp_memory_requests:='700Mi'}
+            cpu: ${temporal_worker_epp_cpu_requests:='200m'}
           limits:
-            memory: ${worker_memory_limits:='1Gi'}
+            memory: ${temporal_worker_epp_memory_limits:='1Gi'}
         env:
         - name: BUCKET_NAME
           value: ${s3_bucket}

@@ -54,18 +54,22 @@ spec:
       is_automated: "automated"
       show_previews: ""
       epp_server: http://epp-server:3000
-      temporal_server: temporal-frontend.temporal:7233
-      temporal_namespace: epp--staging
+
       import_role_arn: arn:aws:iam::512686554592:role/epp-staging-import
       disallow_robots: all
-      worker_import_docmaps_queue_replicas: "2"
-      worker_epp_queue_replicas: "1"
-      worker_memory_requests: "4Gi"
-      worker_memory_limits: "4.5Gi"
-      worker_cpu_requests: "500m"
-      worker_cpu_limits: "1500m"
-      biorxiv_xslt_api_replicas: "4"
-      biorxiv_xslt_api_memory_requests: "3Gi"
-      biorxiv_xslt_api_memory_limits: "3Gi"
-      biorxiv_xslt_api_cpu_requests: "500m"
-      biorxiv_xslt_api_cpu_limits: "1000m"
+
+      # where to connect this env workers to
+      temporal_server: temporal-frontend.temporal:7233
+      temporal_namespace: epp--prod
+
+      # High priority, but mostly used for importing the docmap index
+      temporal_worker_epp_replicas: "1"
+      temporal_worker_epp_memory_requests: "625Mi"
+      temporal_worker_epp_memory_limits: "625Mi"
+      temporal_worker_epp_cpu_requests: "203m"
+
+      # The queue doing most of the importing
+      temporal_worker_import_docmaps_replicas: "2"
+      temporal_worker_import_docmaps_memory_requests: "1588Mi"
+      temporal_worker_import_docmaps_memory_limits: "1588Mi"
+      temporal_worker_import_docmaps_cpu_requests: "203m"
