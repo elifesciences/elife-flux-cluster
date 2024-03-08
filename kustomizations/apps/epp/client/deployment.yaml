@@ -68,4 +68,4 @@ spec:
             memory: "200Mi"
             ephemeral-storage: "100Mi"
           limits:
-            memory: "700Mi"
+            memory: "800Mi"
