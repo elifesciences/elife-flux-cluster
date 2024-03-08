@@ -59,8 +59,8 @@ spec:
         antiAffinityTopologyKey: "kubernetes.io/hostname"
       resources:
         requests:
-          cpu: "300m"
-          memory: "2700Mi"
+          cpu: "100m"
+          memory: "1.2Gi"
           ephemeral-storage: 50M
       volumeSpec:
         pvc:
