@@ -24,7 +24,7 @@ spec:
     - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
       newTag: master-914dfd02-20240308.0324-approved # {"$imagepolicy": "epp--prod:epp-import-approved:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
-      newTag: master-65343d99-20240303.1259-approved # {"$imagepolicy": "epp--prod:epp-biorxiv-xslt-api-approved:tag"}
+      newTag: master-8cff838d-20240308.0934-approved # {"$imagepolicy": "epp--prod:epp-biorxiv-xslt-api-approved:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-encoda
       newTag: master-3e54f55b-20240216.1557-approved # {"$imagepolicy": "epp--prod:epp-encoda-api-approved:tag"}
   postBuild:
@@ -54,23 +54,19 @@ spec:
       epp_server: http://epp-server:3000
       import_role_arn: arn:aws:iam::512686554592:role/epp-prod-import
       disallow_robots: all
-
       # where to connect this env workers to
       temporal_server: temporal-frontend.temporal:7233
       temporal_namespace: epp--prod
-
       # High priority, but mostly used for importing the docmap index
       temporal_worker_epp_replicas: "1"
       temporal_worker_epp_memory_requests: "625Mi"
       temporal_worker_epp_memory_limits: "625Mi"
       temporal_worker_epp_cpu_requests: "203m"
-
       # The queue doing most of the importing
       temporal_worker_import_docmaps_replicas: "2"
       temporal_worker_import_docmaps_memory_requests: "1588Mi"
       temporal_worker_import_docmaps_memory_limits: "1588Mi"
       temporal_worker_import_docmaps_cpu_requests: "203m"
-
       biorxiv_xslt_api_replicas: "3"
       is_automated: automated
       image_server_prefix: automation/
