@@ -39,7 +39,14 @@ spec:
           containerPort: 9999
           protocol: TCP
         command:
-        - ./wtf # deliberate attempt to break to monitor whether deployment is disrupted
+        - ./podinfo
+        - --port=9898
+        - --port-metrics=9797
+        - --grpc-port=9999
+        - --grpc-service-name=podinfo
+        - --level=info
+        - --random-delay=false
+        - --random-error=false
         env:
         - name: PODINFO_UI_COLOR
           value: "#34577c"
