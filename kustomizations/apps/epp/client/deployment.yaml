@@ -25,10 +25,6 @@ spec:
       containers:
       - name: epp-client
         image: ghcr.io/elifesciences/enhanced-preprints-client:latest
-        command:
-          - "sh"
-          - "-c"
-          - "yarn build && yarn start"
         ports:
         - containerPort: 3000
         env:
