@@ -60,11 +60,19 @@ spec:
       plugins:
         - btplc-status-dot-panel
       grafana.ini:
-        users:
-          viewers_can_edit: true
-        auth.anonymous:
+        auth:
+          oauth_auto_login: true
+          signout_redirect_url: "https://auth--test-cluster.elifesciences.org/oauth2/sign_out"
+        auth.proxy:
           enabled: true
-          org_role: Editor
+          header_name: X-Email
+          header_property: email
+          headers: Name:X-User
+          enable_login_token: false
+        users:
+          allow_sign_up: false
+          auto_assign_org: true
+          auto_assign_org_role: Admin
       rbac:
         pspUseAppArmor: false
         pspEnabled: true
