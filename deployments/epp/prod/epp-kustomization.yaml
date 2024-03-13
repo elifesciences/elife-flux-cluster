@@ -58,13 +58,13 @@ spec:
       temporal_namespace: epp--prod
       # High priority, but mostly used for importing the docmap index
       temporal_worker_epp_replicas: "4"
-      temporal_worker_epp_memory_requests: "1588Mi"
-      temporal_worker_epp_memory_limits: "1588Mi"
+      temporal_worker_epp_memory_requests: "2000Mi"
+      temporal_worker_epp_memory_limits: "2000Mi"
       temporal_worker_epp_cpu_requests: "203m"
       # The queue doing most of the importing
       temporal_worker_import_docmaps_replicas: "2"
-      temporal_worker_import_docmaps_memory_requests: "1588Mi"
-      temporal_worker_import_docmaps_memory_limits: "1588Mi"
+      temporal_worker_import_docmaps_memory_requests: "2000Mi"
+      temporal_worker_import_docmaps_memory_limits: "2000Mi"
       temporal_worker_import_docmaps_cpu_requests: "203m"
       biorxiv_xslt_api_replicas: "8"
       is_automated: automated
