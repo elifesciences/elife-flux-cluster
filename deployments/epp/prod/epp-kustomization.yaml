@@ -58,8 +58,8 @@ spec:
       temporal_namespace: epp--prod
       # High priority, but mostly used for importing the docmap index
       temporal_worker_epp_replicas: "1"
-      temporal_worker_epp_memory_requests: "625Mi"
-      temporal_worker_epp_memory_limits: "1000Mi"
+      temporal_worker_epp_memory_requests: "1588Mi"
+      temporal_worker_epp_memory_limits: "1588Mi"
       temporal_worker_epp_cpu_requests: "203m"
       # The queue doing most of the importing
       temporal_worker_import_docmaps_replicas: "2"
