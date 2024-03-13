@@ -58,7 +58,7 @@ spec:
       disallow_robots: all
       # where to connect this env workers to
       temporal_server: temporal-frontend.temporal:7233
-      temporal_namespace: epp--prod
+      temporal_namespace: epp--staging
       # High priority, but mostly used for importing the docmap index
       temporal_worker_epp_replicas: "1"
       temporal_worker_epp_memory_requests: "625Mi"
