@@ -57,7 +57,7 @@ spec:
       temporal_server: temporal-frontend.temporal:7233
       temporal_namespace: epp--prod
       # High priority, but mostly used for importing the docmap index
-      temporal_worker_epp_replicas: "1"
+      temporal_worker_epp_replicas: "4"
       temporal_worker_epp_memory_requests: "1588Mi"
       temporal_worker_epp_memory_limits: "1588Mi"
       temporal_worker_epp_cpu_requests: "203m"
