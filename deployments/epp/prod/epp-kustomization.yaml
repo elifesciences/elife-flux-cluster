@@ -14,19 +14,19 @@ spec:
   targetNamespace: epp--prod
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints-server
-      newTag: master-1123f479-20240308.0426-approved # {"$imagepolicy": "epp--prod:epp-server-approved:tag"}
+      newTag: master-dd0e8908-20240313.2150-approved # {"$imagepolicy": "epp--prod:epp-server-approved:tag"}
     - name: ghcr.io/elifesciences/epp-image-server
       newTag: master-79f5107a-20240306.1154 # {"$imagepolicy": "epp--prod:epp-image-server:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-client
-      newTag: master-f179cb9a-20240308.1350-approved # {"$imagepolicy": "epp--prod:epp-client-approved:tag"}
+      newTag: master-cfef2574-20240314.0511-approved # {"$imagepolicy": "epp--prod:epp-client-approved:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-      newTag: master-f179cb9a-20240308.1350 # {"$imagepolicy": "epp--prod:epp-storybook:tag"}
+      newTag: master-cfef2574-20240314.0511 # {"$imagepolicy": "epp--prod:epp-storybook:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
-      newTag: master-4d960d18-20240308.1817-approved # {"$imagepolicy": "epp--prod:epp-import-approved:tag"}
+      newTag: master-d44ae93b-20240314.0320-approved # {"$imagepolicy": "epp--prod:epp-import-approved:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
-      newTag: master-8cff838d-20240308.0934-approved # {"$imagepolicy": "epp--prod:epp-biorxiv-xslt-api-approved:tag"}
+      newTag: master-25820bec-20240312.1317-approved # {"$imagepolicy": "epp--prod:epp-biorxiv-xslt-api-approved:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-encoda
-      newTag: master-3e54f55b-20240216.1557-approved # {"$imagepolicy": "epp--prod:epp-encoda-api-approved:tag"}
+      newTag: master-7e96f75f-20240310.1942-approved # {"$imagepolicy": "epp--prod:epp-encoda-api-approved:tag"}
   postBuild:
     substitute:
       site_name: elife
@@ -35,7 +35,6 @@ spec:
       data_hub_api: https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v2/by-publisher/elife/get-by-manuscript-id?manuscript_id=
       storybook_hostname: prod--epp-storybook.elifesciences.org
       journal_api_hostname: prod--epp-api.elifesciences.org
-      asset_prefix: https://elifesciences.org/reviewed-preprints
       iiif_server: https://prod--epp.elifesciences.org/iiif
       image_server_source_base_url: https://github.com/elifesciences/enhanced-preprints-data/raw/master/data/
       mongodb_hostname: epp-database-psmdb-db-replicaset
@@ -59,13 +58,13 @@ spec:
       temporal_namespace: epp--prod
       # High priority, but mostly used for importing the docmap index
       temporal_worker_epp_replicas: "1"
-      temporal_worker_epp_memory_requests: "625Mi"
-      temporal_worker_epp_memory_limits: "625Mi"
+      temporal_worker_epp_memory_requests: "2000Mi"
+      temporal_worker_epp_memory_limits: "2000Mi"
       temporal_worker_epp_cpu_requests: "203m"
       # The queue doing most of the importing
       temporal_worker_import_docmaps_replicas: "2"
-      temporal_worker_import_docmaps_memory_requests: "1588Mi"
-      temporal_worker_import_docmaps_memory_limits: "1588Mi"
+      temporal_worker_import_docmaps_memory_requests: "2000Mi"
+      temporal_worker_import_docmaps_memory_limits: "2000Mi"
       temporal_worker_import_docmaps_cpu_requests: "203m"
       biorxiv_xslt_api_replicas: "3"
       is_automated: automated

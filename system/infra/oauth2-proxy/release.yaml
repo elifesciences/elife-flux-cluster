@@ -33,6 +33,7 @@ spec:
       whitelist-domain: .elifesciences.org
       cookie-domain: .elifesciences.org
       scope: "user:email,read:org"
+      set-xauthrequest: true
     ingress:
       enabled: "true"
       hosts:
