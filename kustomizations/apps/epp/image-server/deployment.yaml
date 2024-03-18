@@ -8,7 +8,7 @@ metadata:
     app_env: ${app_env}
     app_tier: backend
 spec:
-  replicas: 1
+  replicas: ${image_server_replicas:=1}
   strategy:
     rollingUpdate:
       maxSurge: 1
