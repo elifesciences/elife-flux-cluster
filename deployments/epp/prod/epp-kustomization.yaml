@@ -45,6 +45,7 @@ spec:
       server_replicas: "3"
       google_tag_manager_id: "GTM-WVM8KG"
       cookie_bot_id: 0a5c50d8-fcf9-47b1-8f4f-1eaadb13941b
+      image_server_replicas: "1"
       s3_bucket: prod-elife-epp-data
       image_server_source_static: S3Source
       image_server_s3_bucket: prod-elife-epp-data
@@ -57,7 +58,7 @@ spec:
       temporal_server: temporal-frontend.temporal:7233
       temporal_namespace: epp--prod
       # High priority, but mostly used for importing the docmap index
-      temporal_worker_epp_replicas: "3"
+      temporal_worker_epp_replicas: "1"
       temporal_worker_epp_memory_requests: "2000Mi"
       temporal_worker_epp_memory_limits: "2000Mi"
       temporal_worker_epp_cpu_requests: "203m"
