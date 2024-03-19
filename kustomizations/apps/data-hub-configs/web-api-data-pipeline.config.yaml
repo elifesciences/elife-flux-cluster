@@ -368,7 +368,10 @@ webApi:
               '10.32942',  -- EcoEvoRxiv
 
               -- Open Engineering Inc:
-              '10.31224'   -- engrXiv
+              '10.31224',   -- engrXiv
+
+              -- Cold Spring Harbor Laboratory:
+              '10.1101'    -- bioRxiv, medRxiv, ...
             ]) AS doi_prefix
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
