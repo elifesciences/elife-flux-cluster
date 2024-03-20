@@ -14,7 +14,7 @@ spec:
   targetNamespace: epp--biophysics-colab
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints-server
-      newTag: master-bd64ac36-20240320.2029 # {"$imagepolicy": "epp--biophysics-colab:epp-server:tag"}
+      newTag: master-03c34594-20240320.2235 # {"$imagepolicy": "epp--biophysics-colab:epp-server:tag"}
   postBuild:
     substitute:
       mongodb_hostname: epp-database-psmdb-db-replicaset
