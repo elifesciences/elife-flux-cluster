@@ -378,6 +378,8 @@ webApi:
       objectName: 'airflow-config/generic-web-api/{ENV}-crossref-metadata-state/{doi_prefix}.json'
     urlSourceType:
       name: 'crossref_metadata_api'
+    headers:
+      'User-Agent': 'eLife-Data-Hub-Bot/53.0 (https://github.com/elifesciences/data-hub-core-airflow-dags; mailto:h.ciplak@elifesciences.org)'
     dataUrl:
       urlExcludingConfigurableParameters: http://api.crossref.org/prefixes/{doi_prefix}/works?sort=indexed&order=asc
       configurableParameters:
