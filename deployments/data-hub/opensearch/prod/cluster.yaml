@@ -21,7 +21,7 @@ spec:
     resources:
       requests:
         memory: "4Gi"
-        cpu: "200m"
+        cpu: "1400m"
       limits:
         memory: "4Gi"
     roles:
