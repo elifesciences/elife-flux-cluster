@@ -28,7 +28,7 @@ spec:
             memory: ${biorxiv_xslt_api_memory_requests:='384Mi'}
             cpu: ${biorxiv_xslt_api_cpu_requests:='860m'}
           limits:
-            memory: ${biorxiv_xslt_api_memory_limits:='384Mi'}
+            memory: ${biorxiv_xslt_api_memory_limits:='512Mi'}
             cpu: ${biorxiv_xslt_api_cpu_limits:='1700m'}
         ports:
           - containerPort: 80
