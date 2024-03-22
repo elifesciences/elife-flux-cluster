@@ -103,7 +103,7 @@ spec:
             path: "/enhanced-preprints/docmaps/v2/index"
             backend:
               service:
-                name: data-hub-api--prod
+                name: data-hub-api--stg
                 port:
                   number: 8000
 ---
