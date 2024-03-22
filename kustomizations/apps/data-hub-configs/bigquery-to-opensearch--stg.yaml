@@ -376,7 +376,6 @@ bigQueryToOpenSearch:
               FROM UNNEST(crossref_response.institution) AS _institution
               WHERE _institution.name IN ('bioRxiv', 'medRxiv')
             )
-          )
     fieldNamesFor:
       id: doi
       timestamp: crossref.data_hub_imported_timestamp
