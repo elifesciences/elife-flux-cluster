@@ -72,8 +72,6 @@ metadata:
   namespace: data-hub
   labels:
     app: data-hub-api--prod
-  annotations:
-    nginx.ingress.kubernetes.io/limit-rps: "5" # burst multiplier *5, so accept upto 30 connections, but only pass on 5 at a time.
 spec:
   rules:
     - host: data-hub-api.elifesciences.org
