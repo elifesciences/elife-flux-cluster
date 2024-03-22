@@ -94,6 +94,7 @@ metadata:
     app: data-hub-api--stg
   annotations:
     nginx.ingress.kubernetes.io/limit-rps: "3"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "2"
 spec:
   rules:
     - host: data-hub-api--stg.elifesciences.org
