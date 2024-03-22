@@ -88,6 +88,28 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  name: data-hub-api--prod-docmap-index
+  namespace: data-hub
+  labels:
+    app: data-hub-api--prod
+  annotations:
+    nginx.ingress.kubernetes.io/limit-rps: "2"
+spec:
+  rules:
+    - host: data-hub-api.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/enhanced-preprints/docmaps/v2/index"
+            backend:
+              service:
+                name: data-hub-api--prod
+                port:
+                  number: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
   name: data-hub-api-kotahi--prod
   namespace: data-hub
   labels:
