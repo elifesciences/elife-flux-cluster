@@ -73,7 +73,7 @@ metadata:
   labels:
     app: data-hub-api--stg
   annotations:
-    nginx.ingress.kubernetes.io/limit-rps: "3" # burst multiplier *5, so accept upto 30 connections, but only pass on 3 at a time.
+    nginx.ingress.kubernetes.io/limit-rps: "2" # burst multiplier *5, so accept upto 10 connections, but only pass on 2 at a time.
 spec:
   rules:
     - host: data-hub-api--stg.elifesciences.org
