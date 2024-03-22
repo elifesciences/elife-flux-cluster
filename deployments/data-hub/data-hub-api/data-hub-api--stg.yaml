@@ -72,8 +72,6 @@ metadata:
   namespace: data-hub
   labels:
     app: data-hub-api--stg
-  annotations:
-    nginx.ingress.kubernetes.io/limit-rps: "2" # burst multiplier *5, so accept upto 10 connections, but only pass on 2 at a time.
 spec:
   rules:
     - host: data-hub-api--stg.elifesciences.org
@@ -84,6 +82,28 @@ spec:
             backend:
               service:
                 name: data-hub-api--stg
+                port:
+                  number: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: data-hub-api--prod
+  namespace: data-hub
+  labels:
+    app: data-hub-api--prod
+  annotations:
+    nginx.ingress.kubernetes.io/limit-rps: "2"
+spec:
+  rules:
+    - host: data-hub-api.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/enhanced-preprints/docmaps/v2/index"
+            backend:
+              service:
+                name: data-hub-api--prod
                 port:
                   number: 8000
 ---
