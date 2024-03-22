@@ -121,9 +121,9 @@ spec:
         # At minute 25 past every hour :
       - name: S3_CSV_SCHEDULE_INTERVAL
         value: "25 * * * *"
-        # At minute 50 past every 3rd hour from 8 through 18 :
+        # At minute 20 past every hour from 6 through 21 :
       - name: MONITOR_DATA_HUB_PIPELINE_HEALTH_SCHEDULE_INTERVAL
-        value: "50 8-18/3 * * *"
+        value: "20 6-21/1 * * *"
       - name: MATERIALIZE_BIGQUERY_VIEWS_SCHEDULE_INTERVAL
         value: "@hourly"
       - name: DB_MAINTENANCE_SCHEDULE_INTERVAL
