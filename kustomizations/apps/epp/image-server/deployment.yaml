@@ -32,6 +32,7 @@ spec:
           requests:
             cpu: "386m"
             memory: "3202Mi"
+            ephemeral-storage: "2Gi"
         env:
           - name: SOURCE_STATIC
             value: ${image_server_source_static:=HttpSource}
