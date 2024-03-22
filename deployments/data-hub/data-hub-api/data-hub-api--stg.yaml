@@ -27,21 +27,21 @@ spec:
             path: /
             port: http
           initialDelaySeconds: 5
-          timeoutSeconds: 30
-          periodSeconds: 30
+          timeoutSeconds: 120
+          periodSeconds: 60
         readinessProbe:
           httpGet:
             path: /
             port: http
           initialDelaySeconds: 5
-          timeoutSeconds: 30
-          periodSeconds: 10
+          timeoutSeconds: 120
+          periodSeconds: 60
         resources:
           limits:
-            memory: 768Mi
+            memory: 5120Mi
           requests:
-            cpu: 400m
-            memory: 579Mi
+            cpu: 700m
+            memory: 4096Mi
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /root/.gcp/credentials.json
