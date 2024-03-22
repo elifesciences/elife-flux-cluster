@@ -31,6 +31,32 @@ patches:
     version: v1
     group: apps
     kind: Deployment
+    namespace: helm-controller
+    name: kustomize-controller
+  patch: |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: does-not-matter
+      namespace: helm-controller
+    spec:
+      template:
+        metadata:
+          annotations:
+            cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+        spec:
+          containers:
+          - name: manager
+            resources:
+              limits:
+                memory: 512Mi
+              requests:
+                cpu: 50m
+                memory: 384Mi
+- target:
+    version: v1
+    group: apps
+    kind: Deployment
     namespace: flux-system
     name: kustomize-controller
   patch: |-
