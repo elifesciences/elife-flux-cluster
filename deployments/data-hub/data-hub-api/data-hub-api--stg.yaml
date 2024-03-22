@@ -88,15 +88,15 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: data-hub-api--prod-docmap-index
+  name: data-hub-api--stg-docmap-index
   namespace: data-hub
   labels:
-    app: data-hub-api--prod
+    app: data-hub-api--stg
   annotations:
     nginx.ingress.kubernetes.io/limit-rps: "2"
 spec:
   rules:
-    - host: data-hub-api.elifesciences.org
+    - host: data-hub-api--stg.elifesciences.org
       http:
         paths:
           - pathType: Prefix
