@@ -31,14 +31,14 @@ patches:
     version: v1
     group: apps
     kind: Deployment
-    namespace: helm-controller
-    name: kustomize-controller
+    namespace: flux-system
+    name: helm-controller
   patch: |-
     apiVersion: apps/v1
     kind: Deployment
     metadata:
       name: does-not-matter
-      namespace: helm-controller
+      namespace: flux-system
     spec:
       template:
         metadata:
