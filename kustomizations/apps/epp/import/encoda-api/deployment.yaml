@@ -27,6 +27,7 @@ spec:
           requests:
             memory: ${encoda_api_memory_requests:='500Mi'}
             cpu: ${encoda_api_cpu_requests:='200m'}
+            ephemeral-storage: "50Mi"
           limits:
             memory: ${encoda_api_memory_limits:='1Gi'}
         ports:
