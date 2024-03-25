@@ -20,10 +20,10 @@ spec:
     replicas: 3
     resources:
       requests:
-        memory: "4Gi"
+        memory: "6Gi"
         cpu: "1400m"
       limits:
-        memory: "4Gi"
+        memory: "6Gi"
     roles:
     - "data"
     - "cluster_manager"
