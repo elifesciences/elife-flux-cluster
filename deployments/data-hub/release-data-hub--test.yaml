@@ -279,9 +279,11 @@ spec:
     scheduler:
       resources:
         requests:
-          memory: 500Mi
+          memory: 1733Mi
           cpu: 1000m
           ephemeral-storage: "50Mi"
+        limits:
+          memory: 1733Mi
       extraVolumeMounts:
       - name: data-hub-config-volume
         mountPath: /dag_config_files/
