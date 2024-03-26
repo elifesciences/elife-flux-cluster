@@ -509,7 +509,7 @@ spec:
           AUTH_ROLE_PUBLIC = 'Admin'
       resources:
         requests:
-          memory: 900Mi
+          memory: 1167Mi
           cpu: 50m
           ephemeral-storage: "100Mi"
       livenessProbe:
