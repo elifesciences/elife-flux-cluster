@@ -32,6 +32,7 @@ spec:
           requests:
             cpu: "100m"
             memory: "250Mi"
+            ephemeral-storage: "50Mi"
           limits:
             memory: "700Mi"
         env:
