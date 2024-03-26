@@ -37,10 +37,10 @@ spec:
           timeoutSeconds: 120
           periodSeconds: 60
         resources:
-          limits:
-            memory: 900Mi
           requests:
             cpu: 700m
+            memory: 900Mi
+          limits:
             memory: 1024Mi
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
