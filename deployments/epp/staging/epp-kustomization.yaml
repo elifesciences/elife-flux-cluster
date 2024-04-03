@@ -22,11 +22,11 @@ spec:
   - name: ghcr.io/elifesciences/enhanced-preprints-storybook
     newTag: master-58da7bab-20240403.0057 # {"$imagepolicy": "epp--staging:epp-storybook:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
-    newTag: master-11857da7-20240403.0657 # {"$imagepolicy": "epp--staging:epp-import:tag"}
+    newTag: master-df43ec6c-20240403.0707 # {"$imagepolicy": "epp--staging:epp-import:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
     newTag: master-b2c084fd-20240402.1134 # {"$imagepolicy": "epp--staging:epp-biorxiv-xslt-api:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-encoda
-    newTag: master-7e96f75f-20240310.1942 # {"$imagepolicy": "epp--staging:epp-encoda-api:tag"}
+    newTag: master-0ca7965a-20240403.0655 # {"$imagepolicy": "epp--staging:epp-encoda-api:tag"}
   postBuild:
     substitute:
       site_name: elife
