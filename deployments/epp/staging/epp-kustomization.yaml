@@ -69,3 +69,4 @@ spec:
       temporal_worker_import_docmaps_memory_requests: "1588Mi"
       temporal_worker_import_docmaps_memory_limits: "1588Mi"
       temporal_worker_import_docmaps_cpu_requests: "203m"
+      epp_server_metrics_url: https://prod--gateway.elifesciences.org
