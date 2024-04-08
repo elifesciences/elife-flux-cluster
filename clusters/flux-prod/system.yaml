@@ -19,3 +19,6 @@ spec:
       cluster_domain: flux-prod.elifesciences.org
       aws_account_id: "512686554592"
       aws_region: us-east-1
+
+      # service account arns
+      aws_external_secrets_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-external-secrets
