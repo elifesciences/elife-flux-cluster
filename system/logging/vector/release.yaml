@@ -115,7 +115,7 @@ spec:
           encoding:
             codec: json
           labels:
-            host: "${HOSTNAME}"
+            host: "${HOSTNAME_NONSENSE:-'$HOSTNAME'}"
             file: "{{`{{ file }}`}}"
             stream: "{{`{{ stream }}`}}"
             source_type: "{{`{{ source_type }}`}}"

@@ -13,3 +13,9 @@ spec:
   prune: true
   dependsOn:
     - name: crds
+  postBuild:
+    substitute:
+      cluster_name: flux-prod
+      cluster_domain: flux-prod.elifesciences.org
+      aws_account_id: "512686554592"
+      aws_region: us-east-1
