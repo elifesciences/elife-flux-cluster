@@ -5,5 +5,5 @@ resources:
 - deployment.yaml
 - service.yaml
 - podmonitor.yaml
-commonLabels:
+labels:
   app.kubernetes.io/component: frontend
