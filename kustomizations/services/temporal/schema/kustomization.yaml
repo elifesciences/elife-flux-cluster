@@ -3,5 +3,7 @@ kind: Kustomization
 namespace: temporal
 resources:
 - job.yaml
-commonLabels:
-  app.kubernetes.io/component: schema
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/component: schema

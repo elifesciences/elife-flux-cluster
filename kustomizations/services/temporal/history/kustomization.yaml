@@ -5,5 +5,7 @@ resources:
 - deployment.yaml
 - service.yaml
 - podmonitor.yaml
-commonLabels:
-  app.kubernetes.io/component: history
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/component: history

@@ -10,12 +10,14 @@ resources:
 - worker
 - web
 
-commonLabels:
-  app.kubernetes.io/name: temporal
-  app.kubernetes.io/instance: temporal
 
 
 configMapGenerator:
-- name: temporal-server-config
-  files:
+- files:
   - config/config_template.yaml
+  name: temporal-server-config
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/instance: temporal
+    app.kubernetes.io/name: temporal
