@@ -10,7 +10,7 @@ resources:
 - worker
 - web
 
-labels:
+commonLabels:
   app.kubernetes.io/name: temporal
   app.kubernetes.io/instance: temporal
 

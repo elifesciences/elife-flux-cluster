@@ -5,5 +5,5 @@ resources:
 - deployment.yaml
 - service.yaml
 - podmonitor.yaml
-labels:
+commonLabels:
   app.kubernetes.io/component: matching

@@ -8,7 +8,7 @@ resources:
 - deployment.yaml
 - ingress.yaml
 
-labels:
+commonLabels:
   app.kubernetes.io/component: basex-validator
   app.kubernetes.io/instance: basex-validator--${env}
   app.kubernetes.io/name: basex-validator
