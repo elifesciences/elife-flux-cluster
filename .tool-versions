@@ -5,3 +5,4 @@ kubie 0.23.0
 kustomize 5.4.1
 yq 4.43.1
 kubeconform 0.6.4
+envsubst 1.4.2
