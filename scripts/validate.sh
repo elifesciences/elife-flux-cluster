@@ -72,8 +72,8 @@ find ./clusters -maxdepth 2 -type f -name '*.yaml' -print0 | while IFS= read -r 
 done
 
 
-echo "# INFO - Validating kustomize overlays"
-find . -type f -name $kustomize_config -print0 | while IFS= read -r -d $'\0' file;
+echo "# INFO - Validating kustomize overlays (excluding ./clusters path)"
+find . -type f -name $kustomize_config -not -path "*clusters/*" -print0 | while IFS= read -r -d $'\0' file;
   do
     echo "## INFO - Validating kustomization ${file/%$kustomize_config}"
     tmp_dir=$(mktemp -d)
@@ -83,6 +83,7 @@ find . -type f -name $kustomize_config -print0 | while IFS= read -r -d $'\0' fil
       echo "## ERROR ${file/%$kustomize_config} failed kustomize build"
       cat $tmp_dir/kustomize_error
       rm -Rf $tmp_dir
+      # echo $tmp_dir
       exit 1
     fi
 
@@ -91,6 +92,7 @@ find . -type f -name $kustomize_config -print0 | while IFS= read -r -d $'\0' fil
       echo "## ERROR ${file/%$kustomize_config} failed envsubst"
       cat $tmp_dir/envsubst_error
       rm -Rf $tmp_dir
+      # echo $tmp_dir
       exit 1
     fi
 
@@ -99,6 +101,7 @@ find . -type f -name $kustomize_config -print0 | while IFS= read -r -d $'\0' fil
       echo "## ERROR ${file/%$kustomize_config} failed kubeconform"
       cat $tmp_dir/kubeconform_error
       rm -Rf $tmp_dir
+      # echo $tmp_dir
       exit 1
     fi
 
