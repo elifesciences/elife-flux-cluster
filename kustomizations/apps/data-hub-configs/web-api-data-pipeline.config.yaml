@@ -549,7 +549,7 @@ webApi:
     batchSize: 800
 
   # get all elife collections as list
-  - dataPipelineId: elife_collections
+  - dataPipelineId: elife_collections_list
     dataset: '{ENV}'
     table: elife_collections_list
     tableWriteAppend: False
@@ -559,6 +559,27 @@ webApi:
         pageSizeParameterName: per-page
         defaultPageSize: 100
         pageParameterName: page
+    response:
+      itemsKeyFromResponseRoot:
+        - items
+
+  # get individual elife collections details
+  - dataPipelineId: elife_collections_detail
+    dataset: '{ENV}'
+    table: elife_collections_detail
+    source:
+      include:
+        bigQuery:
+          projectName: 'elife-data-pipeline'
+          sqlQuery:
+            SELECT id AS collection_id
+            FROM `elife-data-pipeline.{ENV}.elife_collections_list`
+            WHERE imported_timestamp = (
+              SELECT MAX(imported_timestamp)
+              FROM `elife-data-pipeline.{ENV}.elife_collections_list`
+            )
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.elifesciences.org/collections/{collection_id}
     response:
       itemsKeyFromResponseRoot:
         - items
