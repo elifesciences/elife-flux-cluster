@@ -547,3 +547,14 @@ webApi:
       itemsKeyFromResponseRoot:
         - preds
     batchSize: 800
+
+  # elife collections data pipeline
+  - dataPipelineId: elife_collections
+    dataset: '{ENV}'
+    table: elife_collections
+    tableWriteAppend: False
+    dataUrl:
+      urlExcludingConfigurableParameters: https://prod--gateway.elifesciences.org/collections
+    response:
+      itemsKeyFromResponseRoot:
+        - items
