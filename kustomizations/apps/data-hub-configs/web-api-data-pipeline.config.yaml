@@ -572,14 +572,10 @@ webApi:
         bigQuery:
           projectName: 'elife-data-pipeline'
           sqlQuery:
-            SELECT id AS collection_id
+            SELECT id
             FROM `elife-data-pipeline.{ENV}.elife_collections_list`
-            WHERE imported_timestamp = (
-              SELECT MAX(imported_timestamp)
-              FROM `elife-data-pipeline.{ENV}.elife_collections_list`
-            )
     dataUrl:
-      urlExcludingConfigurableParameters: https://api.elifesciences.org/collections/{collection_id}
+      urlExcludingConfigurableParameters: https://api.elifesciences.org/collections/{id}
     response:
       itemsKeyFromResponseRoot:
         - items
