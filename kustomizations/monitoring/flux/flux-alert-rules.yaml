@@ -10,7 +10,7 @@ spec:
   - name: GitOpsToolkit
     rules:
     - alert: FluxReconciliationFailure
-      expr: max(gotk_reconcile_condition{status="False",type="Ready"}) by (exported_namespace, name, kind) + on(exported_namespace, name, kind) (max(gotk_reconcile_condition{status="Deleted"}) by (exported_namespace, name, kind)) * 2 == 1
+      expr: max(gotk_resource_info{ready="False"}) by (exported_namespace, name, kind) == 1
       for: 5m
       annotations:
         message: |
