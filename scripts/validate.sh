@@ -30,15 +30,32 @@
 
 
 ## Set up Additional Environment variables that need values for clusters
-export temporal_web_hostname=test-temporal-url
-export temporal_store_host=test-db-host
-export temporal_store_user=test-db-user
-export temporal_visibility_store_host=test-db-host
-export temporal_visibility_store_user=test-db-user
-export temporal_store_password_secret_name=test-db-secret-name
-export temporal_store_password_secret_key=test-db-secret-key
-export temporal_visibility_store_password_secret_name=test-db-secret-name
-export temporal_visibility_store_password_secret_key=test-db-secret-key
+export temporal_web_hostname="test"
+export temporal_store_host="test"
+export temporal_store_user="test"
+export temporal_visibility_store_host="test"
+export temporal_visibility_store_user="test"
+export temporal_store_password_secret_name="test"
+export temporal_store_password_secret_key="test"
+export temporal_visibility_store_password_secret_name="test"
+export temporal_visibility_store_password_secret_key="test"
+export app_hostname="test"
+export epp_server_role_arn="test"
+export iiif_server="test"
+export image_server_role_arn="test"
+export image_server_s3_bucket="test"
+export import_role_arn="test"
+export journal_api_hostname="test"
+export mongodb_hostname="test"
+export storybook_hostname="test"
+export app_env="test"
+export epp_server="test"
+export s3_bucket="test"
+export temporal_namespace="test"
+export temporal_server="test"
+export ts="test"
+export env="test"
+export hostname="test"
 
 # Settings for various tool calls
 #
@@ -87,22 +104,27 @@ find . -type f -name $kustomize_config -not -path "*clusters/*" -print0 | while 
       exit 1
     fi
 
-    cat $tmp_dir/kustomize_output | envsubst -no-unset > $tmp_dir/envsubst_output 2> $tmp_dir/envsubst_error
+    cat $tmp_dir/kustomize_output | kubeconform $kubeconform_config > $tmp_dir/kubeconform_output 2> $tmp_dir/kubeconform_error
     if [[ ${PIPESTATUS[1]} != 0 ]]; then
-      echo "## ERROR ${file/%$kustomize_config} failed envsubst"
-      cat $tmp_dir/envsubst_error
-      rm -Rf $tmp_dir
-      # echo $tmp_dir
-      exit 1
-    fi
+      echo "## INFO ${file/%$kustomize_config} failed kubeconform, trying with envsubst"
+      cat $tmp_dir/kustomize_output | envsubst -no-unset > $tmp_dir/envsubst_output 2> $tmp_dir/envsubst_error
+      if [[ ${PIPESTATUS[1]} != 0 ]]; then
+        echo "## ERROR ${file/%$kustomize_config} failed envsubst"
+        cat $tmp_dir/envsubst_error
+        rm -Rf $tmp_dir
+        # echo $tmp_dir
+        exit 1
+      fi
 
-    cat $tmp_dir/envsubst_output | kubeconform $kubeconform_config > $tmp_dir/kubeconform_output 2> $tmp_dir/kubeconform_error
-    if [[ ${PIPESTATUS[1]} != 0 ]]; then
-      echo "## ERROR ${file/%$kustomize_config} failed kubeconform"
-      cat $tmp_dir/kubeconform_error
-      rm -Rf $tmp_dir
-      # echo $tmp_dir
-      exit 1
+      cat $tmp_dir/envsubst_output | kubeconform $kubeconform_config > $tmp_dir/kubeconform_output 2> $tmp_dir/kubeconform_error
+      if [[ ${PIPESTATUS[1]} != 0 ]]; then
+        echo "## ERROR ${file/%$kustomize_config} failed kubeconform"
+        cat $tmp_dir/kubeconform_error
+        cat $tmp_dir/kubeconform_output
+        rm -Rf $tmp_dir
+        # echo $tmp_dir
+        exit 1
+      fi
     fi
 
     rm -Rf $tmp_dir
