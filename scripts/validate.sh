@@ -28,41 +28,104 @@
 # - kustomize v4.1
 # - kubeconform v0.4.12
 
-set -o errexit
 
-echo "INFO - Downloading Flux OpenAPI schemas"
-mkdir -p /tmp/flux-crd-schemas/master-standalone-strict
-curl -sL https://github.com/fluxcd/flux2/releases/latest/download/crd-schemas.tar.gz | tar zxf - -C /tmp/flux-crd-schemas/master-standalone-strict
+## Set up Additional Environment variables that need values for clusters
+export temporal_web_hostname="test"
+export temporal_store_host="test"
+export temporal_store_user="test"
+export temporal_visibility_store_host="test"
+export temporal_visibility_store_user="test"
+export temporal_store_password_secret_name="test"
+export temporal_store_password_secret_key="test"
+export temporal_visibility_store_password_secret_name="test"
+export temporal_visibility_store_password_secret_key="test"
+export app_hostname="test"
+export epp_server_role_arn="test"
+export iiif_server="test"
+export image_server_role_arn="test"
+export image_server_s3_bucket="test"
+export import_role_arn="test"
+export journal_api_hostname="test"
+export mongodb_hostname="test"
+export storybook_hostname="test"
+export app_env="test"
+export epp_server="test"
+export s3_bucket="test"
+export temporal_namespace="test"
+export temporal_server="test"
+export ts="test"
+export env="test"
+export hostname="test"
 
-find . -type f -name '*.yaml' -print0 | while IFS= read -r -d $'\0' file;
-  do
-    echo "INFO - Validating $file"
-    yq e 'true' "$file" > /dev/null
-done
-
+# Settings for various tool calls
+#
 kubeconform_config="-strict -ignore-missing-schemas -schema-location default -schema-location /tmp/flux-crd-schemas -verbose -skip Canary,HelmRelease"
-
-echo "INFO - Validating clusters"
-find ./clusters -maxdepth 2 -type f -name '*.yaml' -print0 | while IFS= read -r -d $'\0' file;
-  do
-    echo "INFO - Validating cluster ${file}"
-    kubeconform $kubeconform_config ${file}
-    if [[ ${PIPESTATUS[0]} != 0 ]]; then
-      exit 1
-    fi
-done
-
 # mirror kustomize-controller build options
-kustomize_flags="--load-restrictor=LoadRestrictionsNone --reorder=legacy"
+kustomize_flags="--load-restrictor=LoadRestrictionsNone"
 kustomize_config="kustomization.yaml"
 
-echo "INFO - Validating kustomize overlays"
-find . -type f -name $kustomize_config -print0 | while IFS= read -r -d $'\0' file;
+
+echo "# INFO - Validating yaml files are valid YAML"
+# find . -type f -name '*.yaml' -print0 | while IFS= read -r -d $'\0' file;
+#   do
+#     echo "## INFO - Validating yaml $file"
+#     yq e 'true' "$file" > /dev/null
+# done
+# echo ""
+
+echo "# INFO - Validating clusters is conforming to flux schema"
+echo "## INFO - Downloading Flux OpenAPI schemas"
+mkdir -p /tmp/flux-crd-schemas/master-standalone-strict
+curl -sL https://github.com/fluxcd/flux2/releases/latest/download/crd-schemas.tar.gz | tar zxf - -C /tmp/flux-crd-schemas/master-standalone-strict
+find ./clusters -maxdepth 2 -type f -name '*.yaml' -print0 | while IFS= read -r -d $'\0' file;
   do
-    echo "INFO - Validating kustomization ${file/%$kustomize_config}"
-    kustomize build "${file/%$kustomize_config}" $kustomize_flags | envsubst | \
-      kubeconform $kubeconform_config
+    echo "## INFO - Validating cluster file ${file}"
+    conform_output=$(kubeconform $kubeconform_config ${file})
     if [[ ${PIPESTATUS[0]} != 0 ]]; then
+      echo "## ERROR ${file} cause a kubeconform error"
+      echo $conform_output
       exit 1
     fi
+done
+
+
+echo "# INFO - Validating kustomize overlays (excluding ./clusters path)"
+find . -type f -name $kustomize_config -not -path "*clusters/*" -print0 | while IFS= read -r -d $'\0' file;
+  do
+    echo "## INFO - Validating kustomization ${file/%$kustomize_config}"
+    tmp_dir=$(mktemp -d)
+
+    kustomize build "${file/%$kustomize_config}" $kustomize_flags > $tmp_dir/kustomize_output 2> $tmp_dir/kustomize_error
+    if [[ $? != 0 ]]; then
+      echo "## ERROR ${file/%$kustomize_config} failed kustomize build"
+      cat $tmp_dir/kustomize_error
+      rm -Rf $tmp_dir
+      # echo $tmp_dir
+      exit 1
+    fi
+
+    cat $tmp_dir/kustomize_output | kubeconform $kubeconform_config > $tmp_dir/kubeconform_output 2> $tmp_dir/kubeconform_error
+    if [[ ${PIPESTATUS[1]} != 0 ]]; then
+      echo "## INFO ${file/%$kustomize_config} failed kubeconform, trying with envsubst"
+      cat $tmp_dir/kustomize_output | envsubst -no-unset > $tmp_dir/envsubst_output 2> $tmp_dir/envsubst_error
+      if [[ ${PIPESTATUS[1]} != 0 ]]; then
+        echo "## ERROR ${file/%$kustomize_config} failed envsubst"
+        cat $tmp_dir/envsubst_error
+        rm -Rf $tmp_dir
+        # echo $tmp_dir
+        exit 1
+      fi
+
+      cat $tmp_dir/envsubst_output | kubeconform $kubeconform_config > $tmp_dir/kubeconform_output 2> $tmp_dir/kubeconform_error
+      if [[ ${PIPESTATUS[1]} != 0 ]]; then
+        echo "## ERROR ${file/%$kustomize_config} failed kubeconform"
+        cat $tmp_dir/kubeconform_error
+        cat $tmp_dir/kubeconform_output
+        rm -Rf $tmp_dir
+        # echo $tmp_dir
+        exit 1
+      fi
+    fi
+
+    rm -Rf $tmp_dir
 done

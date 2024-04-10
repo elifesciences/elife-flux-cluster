@@ -4,24 +4,13 @@ on:
   workflow_dispatch:
   push:
 
-env:
-  temporal_web_hostname: test-temporal-url
-  temporal_store_host: test-db-host
-  temporal_store_user: test-db-user
-  temporal_visibility_store_host: test-db-host
-  temporal_visibility_store_user: test-db-user
-  temporal_store_password_secret_name: test-db-secret-name
-  temporal_store_password_secret_key: test-db-secret-key
-  temporal_visibility_store_password_secret_name: test-db-secret-name
-  temporal_visibility_store_password_secret_key: test-db-secret-key
-
 jobs:
   manifests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup tools
-        uses: ./.github/actions/tools
+      - name: Install asdf & tools
+        uses: asdf-vm/actions/install@v3
       - name: Validate manifests
         run: ./scripts/validate.sh
