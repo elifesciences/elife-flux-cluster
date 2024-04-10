@@ -29,6 +29,17 @@
 # - kubeconform v0.4.12
 
 
+## Set up Additional Environment variables that need values for clusters
+export temporal_web_hostname=test-temporal-url
+export temporal_store_host=test-db-host
+export temporal_store_user=test-db-user
+export temporal_visibility_store_host=test-db-host
+export temporal_visibility_store_user=test-db-user
+export temporal_store_password_secret_name=test-db-secret-name
+export temporal_store_password_secret_key=test-db-secret-key
+export temporal_visibility_store_password_secret_name=test-db-secret-name
+export temporal_visibility_store_password_secret_key=test-db-secret-key
+
 # Settings for various tool calls
 #
 kubeconform_config="-strict -ignore-missing-schemas -schema-location default -schema-location /tmp/flux-crd-schemas -verbose -skip Canary,HelmRelease"
