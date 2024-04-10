@@ -44,7 +44,7 @@ export temporal_visibility_store_password_secret_key=test-db-secret-key
 #
 kubeconform_config="-strict -ignore-missing-schemas -schema-location default -schema-location /tmp/flux-crd-schemas -verbose -skip Canary,HelmRelease"
 # mirror kustomize-controller build options
-kustomize_flags="--load-restrictor=LoadRestrictionsNone --reorder=legacy"
+kustomize_flags="--load-restrictor=LoadRestrictionsNone"
 kustomize_config="kustomization.yaml"
 
 
