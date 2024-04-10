@@ -548,12 +548,13 @@ webApi:
         - preds
     batchSize: 800
 
-  # elife collections data pipeline
+  # get all elife collections as list
   - dataPipelineId: elife_collections
     dataset: '{ENV}'
-    table: elife_collections
+    table: elife_collections_list
+    tableWriteAppend: False
     dataUrl:
-      urlExcludingConfigurableParameters: https://prod--gateway.elifesciences.org/collections
+      urlExcludingConfigurableParameters: https://api.elifesciences.org/collections?
       configurableParameters:
         pageSizeParameterName: per-page
         defaultPageSize: 100
