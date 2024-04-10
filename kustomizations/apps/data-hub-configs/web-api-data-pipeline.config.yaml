@@ -552,9 +552,12 @@ webApi:
   - dataPipelineId: elife_collections
     dataset: '{ENV}'
     table: elife_collections
-    tableWriteAppend: False
     dataUrl:
       urlExcludingConfigurableParameters: https://prod--gateway.elifesciences.org/collections
+      configurableParameters:
+        pageSizeParameterName: per-page
+        defaultPageSize: 100
+        pageParameterName: page
     response:
       itemsKeyFromResponseRoot:
         - items
