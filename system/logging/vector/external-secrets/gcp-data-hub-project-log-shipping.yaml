@@ -1,0 +1,17 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: gcp-data-hub-project-log-shipping
+  namespace: logging
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: secret-store
+    kind: ClusterSecretStore
+  target:
+    name: gcp-data-hub-project-log-shipping
+    creationPolicy: Owner
+  dataFrom:
+  - extract:
+      key: clusters/shared/gcp-data-hub-project-log-shipping
+      decodingStrategy: Base64
