@@ -22,6 +22,31 @@ spec:
       retries: 5
 
   values:
+    deploymentMode: SingleBinary
+    backend:
+      replicas: 0
+    read:
+      replicas: 0
+    write:
+      replicas: 0
+    ingester:
+      replicas: 0
+    querier:
+      replicas: 0
+    queryFrontend:
+      replicas: 0
+    queryScheduler:
+      replicas: 0
+    distributor:
+      replicas: 0
+    compactor:
+      replicas: 0
+    indexGateway:
+      replicas: 0
+    bloomCompactor:
+      replicas: 0
+    bloomGateway:
+      replicas: 0
     singleBinary:
       replicas: 1
       persistence:
@@ -30,14 +55,17 @@ spec:
         requests:
           cpu: 50m
           memory: 500Mi
+
     loki:
       auth_enabled: false
+      ingester:
+        chunk_encoding: snappy
       commonConfig:
         replication_factor: 1
+      # This means no long term persistence
+      useTestSchema: true
       storage:
         type: 'filesystem'
-      server:
-        log_level: info
       compactor:
         retention_enabled: true
         retention_delete_delay: "10m"
@@ -45,25 +73,8 @@ spec:
         shared_store: filesystem
       limits_config:
         retention_period: 360h
-      storage_config:
-        boltdb_shipper:
-          shared_store: filesystem
-
-    tableManager:
-      retention_deletes_enabled: true
-      retention_period: 360h
-
     test:
       enabled: false
-    monitoring:
-      grafanaAgent:
-        enabled: false
-      lokiCanary:
-        enabled: false
-      selfMonitoring:
-        enabled: false
-        grafanaAgent:
-          installOperator: false
     gateway:
       resources:
         requests:
