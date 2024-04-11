@@ -573,14 +573,14 @@ webApi:
           projectName: 'elife-data-pipeline'
           sqlQuery:
             SELECT id
-            FROM `elife-data-pipeline.{ENV}.elife_collections_list`
+            FROM UNNEST(['560cc395']) AS id --`elife-data-pipeline.{ENV}.elife_collections_list`
     urlSourceType:
       name: 'crossref_metadata_api' # this url source type name can be updated in future
-      sourceTypeSpecificValues:
-        fieldsToReturn:
-          - id
-          - title
-          - published
-          - content
     dataUrl:
       urlExcludingConfigurableParameters: https://api.elifesciences.org/collections/{id}
+    # response:
+    #   fieldsToReturn:
+    #       - 'id'
+    #       - 'title'
+    #       - 'published'
+    #       - 'content'
