@@ -70,9 +70,13 @@ spec:
         retention_enabled: true
         retention_delete_delay: "10m"
         compaction_interval: "10m"
-        shared_store: filesystem
+        delete_request_store: filesystem
       limits_config:
         retention_period: 360h
+    chunksCache:
+      allocatedMemory: 512
+    resultsCache:
+      allocatedMemory: 4096
     test:
       enabled: false
     gateway:
