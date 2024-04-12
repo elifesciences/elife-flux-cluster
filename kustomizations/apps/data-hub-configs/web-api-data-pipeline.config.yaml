@@ -578,3 +578,34 @@ webApi:
       name: 'crossref_metadata_api' # this url source type name can be updated in future
     dataUrl:
       urlExcludingConfigurableParameters: https://api.elifesciences.org/collections/{id}
+
+  # get all elife podcast episodes as list
+  - dataPipelineId: elife_podcast_list
+    dataset: '{ENV}'
+    table: elife_podcast_list
+    tableWriteAppend: False
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.elifesciences.org/podcast-episodes?
+      configurableParameters:
+        pageSizeParameterName: per-page
+        defaultPageSize: 100
+        pageParameterName: page
+    response:
+      itemsKeyFromResponseRoot:
+        - items
+
+  # get individual elife podcast episodes
+  - dataPipelineId: elife_podcast_episodes
+    dataset: '{ENV}'
+    table: elife_podcast_episodes
+    source:
+      include:
+        bigQuery:
+          projectName: 'elife-data-pipeline'
+          sqlQuery:
+            SELECT podcast.number AS id
+            FROM `elife-data-pipeline.{ENV}.elife_podcast_list` AS podcast
+    urlSourceType:
+      name: 'crossref_metadata_api' # this url source type name can be updated in future
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.elifesciences.org/podcast-episodes/{id}
