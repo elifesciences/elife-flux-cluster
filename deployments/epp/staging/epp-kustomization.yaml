@@ -70,3 +70,42 @@ spec:
       temporal_worker_import_docmaps_memory_limits: "1588Mi"
       temporal_worker_import_docmaps_cpu_requests: "203m"
       epp_server_metrics_url: https://prod--gateway.elifesciences.org
+  patches:
+  - target:
+      kind: Deployment
+      name: epp-import-worker-epp
+    patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: epp-import-worker-epp
+      spec:
+        template:
+          spec:
+            nodeSelector:
+              eks.amazonaws.com/capacityType: SPOT
+              eks.amazonaws.com/nodegroup: kubernetes-aws--flux-prod-epp-import-workers
+            tolerations:
+            - key: "kubernetes-aws--flux-prod-epp-import-workers"
+              operator: "Equal"
+              value: "required"
+              effect: "NoSchedule"
+  - target:
+      kind: Deployment
+      name: epp-import-worker-docmaps
+    patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: epp-import-worker-docmaps
+      spec:
+        template:
+          spec:
+            nodeSelector:
+              eks.amazonaws.com/capacityType: SPOT
+              eks.amazonaws.com/nodegroup: kubernetes-aws--flux-prod-epp-import-workers
+            tolerations:
+            - key: "kubernetes-aws--flux-prod-epp-import-workers"
+              operator: "Equal"
+              value: "required"
+              effect: "NoSchedule"
