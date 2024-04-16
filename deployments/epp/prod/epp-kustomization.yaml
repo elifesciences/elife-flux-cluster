@@ -70,3 +70,4 @@ spec:
       biorxiv_xslt_api_replicas: "3"
       is_automated: automated
       image_server_prefix: automation/
+      epp_server_metrics_url: https://prod--gateway.elifesciences.org
