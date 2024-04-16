@@ -22,4 +22,6 @@ spec:
   values:
     postgresqlSecretName: foo
     hostname: bar
- 
+    images:
+      frontend:
+        tag: 42ac1e0d6c805f3137f9735923198e60f5e64901
