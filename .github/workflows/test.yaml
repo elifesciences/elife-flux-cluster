@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install asdf & tools
-        uses: asdf-vm/actions/install@v3
+      - name: Install tools
+        uses: jdx/mise-action@v2
       - name: Validate manifests
         run: ./scripts/validate.sh
