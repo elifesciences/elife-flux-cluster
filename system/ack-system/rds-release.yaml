@@ -26,4 +26,4 @@ spec:
 
     serviceAccount:
       annotations:
-        eks.amazonaws.com/role-arn: arn:aws:iam::512686554592:role/elife-flux-test-ack-rds-controller-cluster-role
+        eks.amazonaws.com/role-arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-rds-controller-cluster-role
