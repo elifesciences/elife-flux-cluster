@@ -21,7 +21,7 @@ spec:
       retries: 3
   values:
     postgresqlSecretName: foo
-    hostname: bar
+    hostname: sciety-demo.elifesciences.org
     ingestionAuthBearerToken: not-really-secret-bearer-token
     images:
       frontend:
