@@ -19,5 +19,5 @@ spec:
   values:
     image:
       tag: 12.17.0
-      auth:
-        postgresPassword: "the-database-password"
+    auth:
+      postgresPassword: "the-database-password"
