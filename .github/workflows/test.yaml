@@ -14,3 +14,5 @@ jobs:
         uses: jdx/mise-action@v2
       - name: Validate manifests
         run: ./scripts/validate.sh
+      - name: Cleanup mise
+        run: mise implode -y
