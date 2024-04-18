@@ -17,3 +17,5 @@ spec:
         name: bitnami
       interval: 1m
   values:
+    image:
+      tag: 12.17.0
