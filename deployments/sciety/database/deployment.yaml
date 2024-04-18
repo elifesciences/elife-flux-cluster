@@ -23,3 +23,10 @@ spec:
             - name: postgres
               containerPort: 5432
               protocol: TCP
+          env:
+            - name: POSTGRES_USER
+              value: the-database-user
+            - name: POSTGRES_PASSWORD
+              value: the-database-password
+            - name: POSTGRES_DB
+              value: the-database-name
