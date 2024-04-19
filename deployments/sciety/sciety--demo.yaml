@@ -37,3 +37,4 @@ spec:
     googleTagManagerId: ""
     prelightsFeedKey: bogus-prelights-feed-key
     healthchecksPingKey: bogus-healthchecks-ping-key
+    enableEventsExportToS3: "false"
