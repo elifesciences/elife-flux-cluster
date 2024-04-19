@@ -38,3 +38,4 @@ spec:
     prelightsFeedKey: bogus-prelights-feed-key
     healthchecksPingKey: bogus-healthchecks-ping-key
     enableEventsExportToS3: false
+    certManagerClusterIssuer: letsencrypt-prod
