@@ -35,3 +35,13 @@ spec:
       - secretName: parca-tls
         hosts:
         - parca.${cluster_domain}
+    server:
+      resources:
+        requests:
+          cpu: 500m
+          memory: 2Gi
+    agent:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 100Mi
