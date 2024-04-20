@@ -4,4 +4,4 @@ namespace: parca
 resources:
 - namespace.yaml
 - source.yaml
-- release.yaml
+# - release.yaml
