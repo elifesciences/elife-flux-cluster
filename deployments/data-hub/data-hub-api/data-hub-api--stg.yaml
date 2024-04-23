@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: data-hub-api
-        image: ghcr.io/elifesciences/data-hub-api_unstable:develop-cb30e62b-20240423.1351 # {"$imagepolicy": "data-hub:data-hub-api-unstable"}
+        image: ghcr.io/elifesciences/data-hub-api_unstable:develop-f575bbab-20240423.1402 # {"$imagepolicy": "data-hub:data-hub-api-unstable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
