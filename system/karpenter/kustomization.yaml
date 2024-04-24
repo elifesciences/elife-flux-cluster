@@ -5,5 +5,5 @@ resources:
 - namespace.yaml
 - source.yaml
 - release.yaml
-- nodeclasses
+# - nodeclasses
 # - nodegroups
