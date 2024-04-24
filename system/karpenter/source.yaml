@@ -1,0 +1,9 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: karpenter
+spec:
+  interval: 5m
+  type: oci
+  url: oci://public.ecr.aws/karpenter

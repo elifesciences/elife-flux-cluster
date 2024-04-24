@@ -1,0 +1,43 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: karpenter
+  namespace: karpenter
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: karpenter
+      version: 0.36.0
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: karpenter
+  values:
+    settings:
+      clusterName: kubernetes-aws--flux-test
+    serviceAccount:
+      annotations:
+        eks.amazonaws.com/role-arn: ${aws_karpenter_service_account_role_arn}
+
+    controller:
+      resources:
+        requests:
+          cpu: 1
+          memory: 1Gi
+        limits:
+          cpu: 1
+          memory: 1Gi
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: karpenter.sh/nodepool
+              operator: DoesNotExist
+          - matchExpressions:
+            - key: eks.amazonaws.com/nodegroup
+              operator: In
+              values:
+              - kubernetes-aws--flux-test--worker
