@@ -16,7 +16,7 @@ spec:
         name: karpenter
   values:
     settings:
-      clusterName: kubernetes-aws--flux-test
+      clusterName: kubernetes-aws--${cluster_name}
     serviceAccount:
       annotations:
         eks.amazonaws.com/role-arn: ${aws_karpenter_service_account_role_arn}
@@ -40,4 +40,4 @@ spec:
             - key: eks.amazonaws.com/nodegroup
               operator: In
               values:
-              - kubernetes-aws--flux-test--worker
+              - kubernetes-aws--${cluster_name}--worker
