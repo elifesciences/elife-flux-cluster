@@ -63,7 +63,7 @@ spec:
       temporal_worker_epp_memory_limits: "6500Mi"
       temporal_worker_epp_cpu_requests: "203m"
       # The queue doing most of the importing
-      temporal_worker_import_docmaps_replicas: "2"
+      temporal_worker_import_docmaps_replicas: "5"
       temporal_worker_import_docmaps_memory_requests: "6500Mi"
       temporal_worker_import_docmaps_memory_limits: "6500Mi"
       temporal_worker_import_docmaps_cpu_requests: "203m"
