@@ -1,7 +1,7 @@
 apiVersion: karpenter.sh/v1beta1
 kind: NodePool
 metadata:
-  name: default
+  name: cluster-service
 spec:
   template:
     metadata:
@@ -13,6 +13,10 @@ spec:
         apiVersion: karpenter.k8s.aws/v1beta1
         kind: EC2NodeClass
         name: general
+      taints:
+        - key: project
+          value: "${cluster_name}"
+          effect: NoSchedule
       requirements:
         - key: kubernetes.io/os
           operator: In
