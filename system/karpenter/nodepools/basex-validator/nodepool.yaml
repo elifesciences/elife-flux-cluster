@@ -14,8 +14,8 @@ spec:
         kind: EC2NodeClass
         name: basex-validator
       taints:
-        - key: basex-validator
-          value: "true"
+        - key: project
+          value: "basex-validator"
           effect: NoSchedule
       requirements:
         - key: kubernetes.io/os

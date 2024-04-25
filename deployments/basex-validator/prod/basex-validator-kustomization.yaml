@@ -34,7 +34,7 @@ spec:
             nodeSelector:
               karpenter.sh/nodepool: basex-validator
             tolerations:
-            - key: "basex-validator"
-              operator: "Equal"
+            - key: project
+              value: "basex-validator"
               value: "true"
               effect: "NoSchedule"
