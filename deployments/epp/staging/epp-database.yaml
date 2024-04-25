@@ -37,7 +37,7 @@ spec:
         karpenter.sh/nodepool: epp-db
       tolerations:
       - key: project
-        value: "epp-db"
+        value: "epp"
         operator: "Equal"
         effect: "NoSchedule"
       configuration: |
