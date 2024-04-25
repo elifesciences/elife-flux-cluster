@@ -1,8 +1,0 @@
-apiVersion: image.toolkit.fluxcd.io/v1beta2
-kind: ImageRepository
-metadata:
-  name: sciety
-  namespace: sciety
-spec:
-  interval: 5m
-  image: sciety/sciety
