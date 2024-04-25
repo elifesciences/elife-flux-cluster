@@ -31,6 +31,13 @@ spec:
       size: 3
       annotations:
         "cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes": "bin"
+      nodeSelector:
+        karpenter.sh/nodepool: epp
+      tolerations:
+      - key: "epp"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
       configuration: |
         systemLog:
           verbosity: 0
