@@ -6,4 +6,4 @@ resources:
 - source.yaml
 - release.yaml
 - nodeclasses
-- nodegroups
+- nodepools
