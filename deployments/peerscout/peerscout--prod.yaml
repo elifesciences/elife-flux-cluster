@@ -80,3 +80,10 @@ spec:
         timeoutSeconds: 30
         periodSeconds: 30
         failureThreshold: 10
+    nodeSelector:
+      karpenter.sh/nodepool: peerscout
+    tolerations:
+    - key: "peerscout"
+      operator: "Equal"
+      value: "true"
+      effect: "NoSchedule"
