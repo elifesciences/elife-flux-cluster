@@ -14,8 +14,8 @@ spec:
         kind: EC2NodeClass
         name: data-hub
       taints:
-        - key: data-hub
-          value: "true"
+        - key: project
+          value: "data-hub"
           effect: NoSchedule
       requirements:
         - key: kubernetes.io/os
