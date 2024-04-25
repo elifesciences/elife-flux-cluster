@@ -5,5 +5,5 @@ resources:
 - general.yaml
 - epp.yaml
 - data-hub.yaml
-- peerscount.yaml
+- peerscout.yaml
 - basex-validator.yaml
