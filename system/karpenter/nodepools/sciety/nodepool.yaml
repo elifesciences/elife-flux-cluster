@@ -14,8 +14,8 @@ spec:
         kind: EC2NodeClass
         name: sciety
       taints:
-        - key: sciety
-          value: "true"
+        - key: projects
+          value: "sciety"
           effect: NoSchedule
       requirements:
         - key: kubernetes.io/os
