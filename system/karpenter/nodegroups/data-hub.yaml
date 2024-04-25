@@ -1,7 +1,7 @@
 apiVersion: karpenter.sh/v1beta1
 kind: NodePool
 metadata:
-  name: default
+  name: data-hub
 spec:
   template:
     metadata:
