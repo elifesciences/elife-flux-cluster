@@ -5,6 +5,7 @@ resources:
 # - default.yaml
 - data-hub.yaml
 - epp.yaml
+- epp-db.yaml
 - peerscout.yaml
 - basex-validator.yaml
 - sciety.yaml

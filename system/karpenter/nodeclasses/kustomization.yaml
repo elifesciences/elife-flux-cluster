@@ -4,6 +4,7 @@ namespace: karpenter
 resources:
 - general.yaml
 - epp.yaml
+- epp-db.yaml
 - data-hub.yaml
 - peerscout.yaml
 - basex-validator.yaml
