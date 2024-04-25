@@ -67,7 +67,7 @@ spec:
       temporal_worker_import_docmaps_memory_requests: "6500Mi"
       temporal_worker_import_docmaps_memory_limits: "6500Mi"
       temporal_worker_import_docmaps_cpu_requests: "203m"
-      biorxiv_xslt_api_replicas: "3"
+      biorxiv_xslt_api_replicas: "8"
       is_automated: automated
       image_server_prefix: automation/
       epp_server_metrics_url: https://prod--gateway.elifesciences.org
