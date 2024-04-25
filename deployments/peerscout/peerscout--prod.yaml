@@ -83,7 +83,7 @@ spec:
     nodeSelector:
       karpenter.sh/nodepool: peerscout
     tolerations:
-    - key: "peerscout"
+    - key: "project"
       operator: "Equal"
-      value: "true"
+      value: "peerscout"
       effect: "NoSchedule"

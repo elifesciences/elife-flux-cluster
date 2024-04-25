@@ -14,8 +14,8 @@ spec:
         kind: EC2NodeClass
         name: peerscout
       taints:
-        - key: peerscout
-          value: "true"
+        - key: project
+          value: "peerscout"
           effect: NoSchedule
       requirements:
         - key: kubernetes.io/os
