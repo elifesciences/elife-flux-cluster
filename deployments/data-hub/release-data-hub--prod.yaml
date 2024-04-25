@@ -117,7 +117,7 @@ spec:
         value: "kubernetes"
       - name: EXTRACT_KEYWORDS_QUEUE
         value: "kubernetes"
-      # scheduler interval
+      # scheduler interval (hours are in UTC timezone)
       - name: ELIFE_ARTICLE_XML_PIPELINE_SCHEDULE_INTERVAL
         value: "0 3 * * *" # At 03:00, every day
       - name: EUROPEPMC_PIPELINE_SCHEDULE_INTERVAL
@@ -129,9 +129,9 @@ spec:
         value: "0 7 * * 1-5"
       - name: CROSS_REF_IMPORT_SCHEDULE_INTERVAL
         value: "@daily"
-        # At minute 20 past every hour from 7 through 20 on every day-of-week from Monday through Friday.
+        # At minute 20 past every hour from 6 through 19 on every day-of-week from Monday through Friday.
       - name: GOOGLE_SPREADSHEET_SCHEDULE_INTERVAL
-        value: "20 7-20/1 * * 1-5"
+        value: "20 6-19/1 * * 1-5"
       - name: SEMANTIC_SCHOLAR_PIPELINE_SCHEDULE_INTERVAL
         value: "0 10 * * *" # At 10:00, every day
       - name: SEMANTIC_SCHOLAR_RECOMMENDATION_PIPELINE_SCHEDULE_INTERVAL
