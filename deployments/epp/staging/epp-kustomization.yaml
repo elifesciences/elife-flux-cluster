@@ -83,12 +83,11 @@ spec:
         template:
           spec:
             nodeSelector:
-              eks.amazonaws.com/capacityType: SPOT
-              eks.amazonaws.com/nodegroup: kubernetes-aws--flux-prod-epp-import-workers
+              karpenter.sh/capacity-type: spot
             tolerations:
-            - key: "kubernetes-aws--flux-prod-epp-import-workers"
+            - key: "epp"
               operator: "Equal"
-              value: "required"
+              value: "true"
               effect: "NoSchedule"
   - target:
       kind: Deployment
@@ -102,10 +101,9 @@ spec:
         template:
           spec:
             nodeSelector:
-              eks.amazonaws.com/capacityType: SPOT
-              eks.amazonaws.com/nodegroup: kubernetes-aws--flux-prod-epp-import-workers
+              karpenter.sh/capacity-type: spot
             tolerations:
-            - key: "kubernetes-aws--flux-prod-epp-import-workers"
+            - key: "epp"
               operator: "Equal"
-              value: "required"
+              value: "true"
               effect: "NoSchedule"
