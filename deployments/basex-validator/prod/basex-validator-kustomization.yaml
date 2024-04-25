@@ -36,5 +36,5 @@ spec:
             tolerations:
             - key: project
               value: "basex-validator"
-              value: "true"
+              operator: "Equal"
               effect: "NoSchedule"
