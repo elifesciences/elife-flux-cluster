@@ -84,7 +84,7 @@ spec:
             nodeSelector:
               karpenter.sh/nodepool: epp
             tolerations:
-            - key: "epp"
+            - key: project
+              value: "epp"
               operator: "Equal"
-              value: "true"
               effect: "NoSchedule"

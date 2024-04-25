@@ -14,8 +14,8 @@ spec:
         kind: EC2NodeClass
         name: epp
       taints:
-        - key: epp
-          value: "true"
+        - key: project
+          value: "epp"
           effect: NoSchedule
       requirements:
         - key: kubernetes.io/os
