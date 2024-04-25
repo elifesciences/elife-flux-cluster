@@ -73,30 +73,11 @@ spec:
   patches:
   - target:
       kind: Deployment
-      name: epp-import-worker-epp
     patch: |
       apiVersion: apps/v1
       kind: Deployment
       metadata:
-        name: epp-import-worker-epp
-      spec:
-        template:
-          spec:
-            nodeSelector:
-              karpenter.sh/capacity-type: spot
-            tolerations:
-            - key: "epp"
-              operator: "Equal"
-              value: "true"
-              effect: "NoSchedule"
-  - target:
-      kind: Deployment
-      name: epp-import-worker-docmaps
-    patch: |
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: epp-import-worker-docmaps
+        name: any
       spec:
         template:
           spec:
