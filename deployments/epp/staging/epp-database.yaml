@@ -22,6 +22,8 @@ spec:
       interval: 1m
 
   values:
+    image:
+      tag: 6.0.9-7-multi
     sharding:
       enabled: false
     backup:
