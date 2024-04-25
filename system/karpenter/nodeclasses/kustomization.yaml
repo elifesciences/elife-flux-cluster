@@ -3,3 +3,5 @@ kind: Kustomization
 namespace: karpenter
 resources:
 - general.yaml
+- epp.yaml
+- data-hub.yaml

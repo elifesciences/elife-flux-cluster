@@ -2,7 +2,7 @@
 apiVersion: karpenter.k8s.aws/v1beta1
 kind: EC2NodeClass
 metadata:
-  name: general
+  name: epp
 spec:
   amiFamily: AL2 # Amazon Linux 2
   role: "elife-${cluster_name}-karpenter--KarpenterNodeRole"
@@ -17,7 +17,7 @@ spec:
     - id: ami-01520c51b1b0e680b # AMD64 AMI ID
   tags:
     Cluster: "${cluster_name}"
-    Project: "${cluster_name}"
+    Project: epp
   blockDeviceMappings:
     - deviceName: /dev/xvda
       ebs:
