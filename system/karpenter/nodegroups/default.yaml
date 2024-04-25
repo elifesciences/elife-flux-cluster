@@ -25,7 +25,7 @@ spec:
           values: ["m", "c", "r"]
         - key: karpenter.k8s.aws/instance-generation
           operator: Gt
-          values: ["3"]
+          values: ["4"]
         - key: "kubernetes.io/arch"
           operator: In
           values: ["amd64"]
