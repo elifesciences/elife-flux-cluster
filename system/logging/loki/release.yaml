@@ -50,7 +50,7 @@ spec:
     singleBinary:
       replicas: 1
       persistence:
-        size: 30Gi
+        size: 60Gi
       resources:
         requests:
           cpu: 50m
