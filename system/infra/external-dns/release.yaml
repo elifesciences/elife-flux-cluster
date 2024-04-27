@@ -36,4 +36,4 @@ spec:
         cpu: 10m
     serviceAccount:
       annotations:
-        eks.amazonaws.com/role-arn: arn:aws:iam::512686554592:role/kubernetes-aws--flux-prod--external-dns
+        eks.amazonaws.com/role-arn: ${aws_external_dns_service_account_role_arn}
