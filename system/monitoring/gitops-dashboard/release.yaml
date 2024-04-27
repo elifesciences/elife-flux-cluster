@@ -18,7 +18,7 @@ spec:
     ingress:
       enabled: true
       hosts:
-      - host: ${hostname}
+      - host: gitops-dashboard--${cluster_domain}
         paths:
         - path: /
           pathType: ImplementationSpecific
@@ -31,3 +31,5 @@ spec:
       createSecret: false
     additionalArgs:
     - --insecure-no-authentication-user=gitops-test-user
+    nodeSelector:
+      Project: ${cluster_name}
