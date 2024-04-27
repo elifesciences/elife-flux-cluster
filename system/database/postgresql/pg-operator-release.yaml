@@ -22,3 +22,6 @@ spec:
 
   values:
     watchAllNamespaces: true
+
+    nodeSelector:
+      Project: ${cluster_name}
