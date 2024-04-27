@@ -30,4 +30,4 @@ spec:
 
     deployment:
       nodeSelector:
-        Project: flux-test
+        Project: ${cluster_name}
