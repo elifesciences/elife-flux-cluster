@@ -13,10 +13,6 @@ spec:
         apiVersion: karpenter.k8s.aws/v1beta1
         kind: EC2NodeClass
         name: cluster-services
-      taints:
-        - key: project
-          value: "${cluster_name}"
-          effect: NoSchedule
       requirements:
         - key: kubernetes.io/os
           operator: In
