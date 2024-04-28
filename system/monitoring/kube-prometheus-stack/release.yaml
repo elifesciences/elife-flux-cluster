@@ -44,6 +44,8 @@ spec:
         requests:
           memory: 150Mi
 
+      nodeSelector:
+        Project: ${cluster_name}
     grafana:
       ingress:
         enabled: "true"
@@ -81,6 +83,9 @@ spec:
           searchNamespace: ALL
       podAnnotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+      nodeSelector:
+        Project: ${cluster_name}
+
     prometheus-node-exporter:
       rbac:
         pspEnabled: true
@@ -108,6 +113,8 @@ spec:
         ruleSelector:
           matchExpressions:
             - {key: app, operator: In, values: [kube-prometheus-stack, flux, kubediff, cert-manager]}
+        nodeSelector:
+          Project: ${cluster_name}
 
     alertmanager:
       podDisruptionBudget:
@@ -120,6 +127,8 @@ spec:
             memory: 200Mi
           requests:
             memory: 20Mi
+        nodeSelector:
+          Project: ${cluster_name}
       ingress:
         enabled: "true"
         hosts:
@@ -398,3 +407,5 @@ spec:
                       ready: [ status, conditions, "[type=Ready]", status ]
                       suspended: [ spec, suspend ]
                       source_name: [ spec, sourceRef, name ]
+      nodeSelector:
+        Project: ${cluster_name}
