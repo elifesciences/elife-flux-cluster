@@ -38,10 +38,6 @@ spec:
     tolerations:
     - effect: NoSchedule
       operator: Exists
-    resources:
-      requests:
-        cpu: "100m"
-        memory: "200Mi"
     customConfig:
       data_dir: /vector-data-dir
       api:
