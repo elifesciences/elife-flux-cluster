@@ -40,8 +40,8 @@ spec:
       operator: Exists
     resources:
       requests:
-        cpu: "40m"
-        memory: "100Mi"
+        cpu: "100m"
+        memory: "200Mi"
     customConfig:
       data_dir: /vector-data-dir
       api:
