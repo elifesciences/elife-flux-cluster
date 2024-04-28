@@ -25,12 +25,7 @@ spec:
         app: podinfo--prod
     spec:
       nodeSelector:
-        karpenter.sh/capacity-type: spot
-      tolerations:
-      - key: "epp"
-        operator: "Equal"
-        value: "true"
-        effect: "NoSchedule"
+        Project: ${cluster_name}
       containers:
       - name: podinfod
         image: docker.io/stefanprodan/podinfo:6.6.2 # {"$imagepolicy": "podinfo:podinfo-stable"}
