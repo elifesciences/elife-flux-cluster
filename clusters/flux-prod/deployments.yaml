@@ -13,3 +13,6 @@ spec:
   prune: true
   dependsOn:
     - name: system
+  postBuild:
+    substitute:
+      cluster_name: flux-prod
