@@ -55,6 +55,8 @@ spec:
         requests:
           cpu: 50m
           memory: 500Mi
+      nodeSelector:
+        Project: ${cluster_name}
 
     loki:
       auth_enabled: false
