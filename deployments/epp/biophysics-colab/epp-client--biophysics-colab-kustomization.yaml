@@ -41,3 +41,19 @@ spec:
                   - "sh"
                   - "-c"
                   - "yarn build && yarn start"
+    - target:
+        kind: Deployment
+      patch: |
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: any
+        spec:
+          template:
+            spec:
+              nodeSelector:
+                Project: epp
+              tolerations:
+              - key: project
+                value: "epp"
+                operator: "Equal"
