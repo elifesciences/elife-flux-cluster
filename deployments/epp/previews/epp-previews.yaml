@@ -108,6 +108,23 @@ spec:
                   is_automated: "yeah"
                   show_previews: all
                   disallow_robots: all
+              patches:
+              - target:
+                  kind: Deployment
+                patch: |
+                  apiVersion: apps/v1
+                  kind: Deployment
+                  metadata:
+                    name: any
+                  spec:
+                    template:
+                      spec:
+                        nodeSelector:
+                          Project: epp
+                        tolerations:
+                        - key: project
+                          value: "epp"
+                          operator: "Equal"
         - raw: |
             apiVersion: templates.kluctl.io/v1alpha1
             kind: GithubComment
