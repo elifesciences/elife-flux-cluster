@@ -71,3 +71,20 @@ spec:
       is_automated: automated
       image_server_prefix: automation/
       epp_server_metrics_url: https://prod--gateway.elifesciences.org
+  patches:
+  - target:
+      kind: Deployment
+    patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: any
+      spec:
+        template:
+          spec:
+            nodeSelector:
+              karpenter.sh/nodepool: epp
+            tolerations:
+            - key: project
+              value: "epp"
+              operator: "Equal"
