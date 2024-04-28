@@ -16,7 +16,7 @@ spec:
         kind: HelmRepository
         name: sealed-secrets
       interval: 1m
-  timeout: 3m
+  timeout: 2m
   install:
     remediation:
       retries: 5
@@ -25,3 +25,5 @@ spec:
     namespace: infra
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+    nodeSelector:
+      Project: ${cluster_name}
