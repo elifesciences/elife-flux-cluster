@@ -92,3 +92,5 @@ spec:
           memory: 10Mi
       nodeSelector:
         Project: ${cluster_name}
+    lokiCanary:
+      enabled: false
