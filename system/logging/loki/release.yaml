@@ -86,3 +86,5 @@ spec:
         requests:
           cpu: 50m
           memory: 10Mi
+      nodeSelector:
+        Project: ${cluster_name}
