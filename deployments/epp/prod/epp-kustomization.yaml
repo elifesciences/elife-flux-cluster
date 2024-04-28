@@ -61,12 +61,12 @@ spec:
       temporal_worker_epp_replicas: "1"
       temporal_worker_epp_memory_requests: "6500Mi"
       temporal_worker_epp_memory_limits: "6500Mi"
-      temporal_worker_epp_cpu_requests: "203m"
+      temporal_worker_epp_cpu_requests: "200m"
       # The queue doing most of the importing
       temporal_worker_import_docmaps_replicas: "2"
       temporal_worker_import_docmaps_memory_requests: "6500Mi"
       temporal_worker_import_docmaps_memory_limits: "6500Mi"
-      temporal_worker_import_docmaps_cpu_requests: "203m"
+      temporal_worker_import_docmaps_cpu_requests: "1200m"
       biorxiv_xslt_api_replicas: "3"
       is_automated: automated
       image_server_prefix: automation/
