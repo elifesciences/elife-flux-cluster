@@ -22,6 +22,8 @@ spec:
         application: kube-web-view
     spec:
       serviceAccountName: kube-web-view
+      nodeSelector:
+        Project: ${cluster_name}
       containers:
       - name: kube-web-view
         # see https://codeberg.org/hjacobs/kube-web-view/releases
