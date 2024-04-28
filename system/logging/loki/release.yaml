@@ -77,8 +77,12 @@ spec:
         retention_period: 360h
     chunksCache:
       allocatedMemory: 512
+      nodeSelector:
+        Project: ${cluster_name}
     resultsCache:
       allocatedMemory: 4096
+      nodeSelector:
+        Project: ${cluster_name}
     test:
       enabled: false
     gateway:
