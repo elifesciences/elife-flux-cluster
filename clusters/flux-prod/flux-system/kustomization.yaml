@@ -19,6 +19,16 @@ patches:
           annotations:
             cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
         spec:
+          tolerations:
+          - key: CriticalAddonsOnly
+            operator: Exists
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: karpenter.sh/nodepool
+                    operator: DoesNotExist
           containers:
           - name: manager
             resources:
@@ -41,9 +51,6 @@ patches:
       namespace: flux-system
     spec:
       template:
-        metadata:
-          annotations:
-            cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
         spec:
           containers:
           - name: manager
