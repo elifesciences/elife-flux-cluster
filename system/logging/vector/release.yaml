@@ -35,6 +35,9 @@ spec:
     env:
       - name: VECTOR_LOG
         value: info
+    tolerations:
+    - effect: NoSchedule
+      operator: Exists
     resources:
       requests:
         cpu: "40m"
