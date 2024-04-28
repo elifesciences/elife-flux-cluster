@@ -82,7 +82,7 @@ spec:
         template:
           spec:
             nodeSelector:
-              karpenter.sh/nodepool: epp
+              Project: epp
             tolerations:
             - key: project
               value: "epp"
