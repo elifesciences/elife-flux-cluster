@@ -61,3 +61,5 @@ spec:
       replicaCount: 2
       watchIngressWithoutClass: true
       allowSnippetAnnotations: true
+      nodeSelector:
+        Project: ${cluster_name}
