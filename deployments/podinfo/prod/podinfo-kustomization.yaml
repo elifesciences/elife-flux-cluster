@@ -17,7 +17,7 @@ spec:
     newTag: 6.6.2 # {"$imagepolicy": "podinfo--prod:podinfo-stable:tag"}
   postBuild:
     substitute:
-      hostname: podinfo--prod.elifesciences.org
+      hostname: podinfo.elifesciences.org
   patches:
   - target:
       kind: Ingress
