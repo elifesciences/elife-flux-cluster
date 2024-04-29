@@ -40,6 +40,9 @@ spec:
       usersUpdate: false
       # airflow < 2.0 should be true
       legacyCommands: false
+      # apply pods to correct node pool
+      defaultNodeSelector:
+        Project: data-hub
       config:
         AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "True"
         AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: "100"
