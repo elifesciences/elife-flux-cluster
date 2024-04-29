@@ -14,17 +14,17 @@
   },
   "packageRules": [
     {
-      "matchPackageNames": ["descheduler"],
+      "matchDepNames": ["descheduler"],
       "enabled": false
     },
     {
-      "matchPackageNames": ["airflow"],
+      "matchDepNames": ["airflow"],
       "additionalBranchPrefix": "{{packageFile}}-",
       "commitMessage": "{{{commitMessagePrefix}}} {{{commitMessageAction}}} {{{commitMessageTopic}}} {{{packageFile}}} {{{commitMessageExtra}}} {{{commitMessageSuffix}}}"
     },
     {
       "matchFileNames": [".tool-versions"],
-      "matchPackageNames": ["kubectl"],
+      "matchDepNames": ["kubectl"],
       "enabled": false
     }
   ]
