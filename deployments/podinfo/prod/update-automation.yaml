@@ -33,4 +33,4 @@ spec:
         {{ end -}}
   update:
     strategy: Setters
-    path: ./deployments/podinfo
+    path: ./deployments/podinfo/prod
