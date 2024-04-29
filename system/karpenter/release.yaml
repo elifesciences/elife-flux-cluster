@@ -15,6 +15,7 @@ spec:
         kind: HelmRepository
         name: karpenter
   values:
+    logLevel: info
     settings:
       clusterName: kubernetes-aws--${cluster_name}
       featureGates:
