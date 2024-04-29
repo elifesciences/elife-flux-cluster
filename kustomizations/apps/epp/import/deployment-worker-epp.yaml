@@ -30,7 +30,7 @@ spec:
           requests:
             memory: ${temporal_worker_epp_memory_requests:='700Mi'}
             cpu: ${temporal_worker_epp_cpu_requests:='200m'}
-            ephemeral-storage: ${temporal_worker_epp_ephemeral_storage_requests:='1Gi'}
+            ephemeral-storage: ${temporal_worker_epp_ephemeral_storage_requests:='10Gi'}
           limits:
             memory: ${temporal_worker_epp_memory_limits:='1Gi'}
         env:
