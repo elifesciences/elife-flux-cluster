@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: podinfo--prod
+  name: podinfo
   labels:
-    app: podinfo--prod
+    app: podinfo
   namespace: podinfo
 spec:
   minReadySeconds: 5
@@ -15,20 +15,18 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: podinfo--prod
+      app: podinfo
   template:
     metadata:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9797"
       labels:
-        app: podinfo--prod
+        app: podinfo
     spec:
-      nodeSelector:
-        Project: ${cluster_name}
       containers:
       - name: podinfod
-        image: docker.io/stefanprodan/podinfo:6.6.2 # {"$imagepolicy": "podinfo:podinfo-stable"}
+        image: docker.io/stefanprodan/podinfo:latest
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
@@ -46,7 +44,7 @@ spec:
         - --port-metrics=9797
         - --grpc-port=9999
         - --grpc-service-name=podinfo
-        - --level=info
+        - --level=debug
         - --random-delay=false
         - --random-error=false
         env:
@@ -72,8 +70,8 @@ spec:
           timeoutSeconds: 5
         resources:
           limits:
-            cpu: 100m
-            memory: 32Mi
+            cpu: 2000m
+            memory: 512Mi
           requests:
-            cpu: 10m
-            memory: 16Mi
+            cpu: 100m
+            memory: 64Mi
