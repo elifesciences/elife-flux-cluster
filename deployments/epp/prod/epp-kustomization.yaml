@@ -20,7 +20,7 @@ spec:
     - name: ghcr.io/elifesciences/enhanced-preprints-client
       newTag: master-205a3ea7-20240427.0420-approved # {"$imagepolicy": "epp--prod:epp-client-approved:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-      newTag: master-205a3ea7-20240427.0420 # {"$imagepolicy": "epp--prod:epp-storybook:tag"}
+      newTag: master-f235d8bc-20240429.0949 # {"$imagepolicy": "epp--prod:epp-storybook:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
       newTag: master-0bfeb3c1-20240427.0943-approved # {"$imagepolicy": "epp--prod:epp-import-approved:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
@@ -72,19 +72,19 @@ spec:
       image_server_prefix: automation/
       epp_server_metrics_url: https://prod--gateway.elifesciences.org
   patches:
-  - target:
-      kind: Deployment
-    patch: |
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: any
-      spec:
-        template:
-          spec:
-            nodeSelector:
-              Project: epp
-            tolerations:
-            - key: project
-              value: "epp"
-              operator: "Equal"
+    - target:
+        kind: Deployment
+      patch: |
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: any
+        spec:
+          template:
+            spec:
+              nodeSelector:
+                Project: epp
+              tolerations:
+              - key: project
+                value: "epp"
+                operator: "Equal"
