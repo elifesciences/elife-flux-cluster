@@ -4,8 +4,8 @@ metadata:
   name: epp-biorxiv-xslt-api
 spec:
   hosts:
-  - epp-encoda-api-scaler.${keda_autoscaler_namespace_fix}
-  - epp-encoda-api-scaler.${keda_autoscaler_namespace_fix}.svc.cluster.local
+  - epp-biorxiv-xslt-api-scaler.${keda_autoscaler_namespace_fix}
+  - epp-biorxiv-xslt-api-scaler.${keda_autoscaler_namespace_fix}.svc.cluster.local
   pathPrefixes:
   - /
   scaleTargetRef:
