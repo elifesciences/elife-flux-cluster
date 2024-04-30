@@ -69,7 +69,7 @@ spec:
       temporal_worker_import_docmaps_memory_requests: "6500Mi"
       temporal_worker_import_docmaps_memory_limits: "6500Mi"
       temporal_worker_import_docmaps_cpu_requests: "1200m"
-      temporal_worker_encoda_api_namespace_fix: 'epp--staging'
+      keda_autoscaler_namespace_fix: 'epp--staging'
       epp_server_metrics_url: https://prod--gateway.elifesciences.org
   patches:
   - target:

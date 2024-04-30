@@ -67,7 +67,7 @@ spec:
       temporal_worker_import_docmaps_memory_requests: "6500Mi"
       temporal_worker_import_docmaps_memory_limits: "6500Mi"
       temporal_worker_import_docmaps_cpu_requests: "1200m"
-      temporal_worker_encoda_api_namespace_fix: 'epp--prod'
+      keda_autoscaler_namespace_fix: 'epp--prod'
       biorxiv_xslt_api_replicas: "3"
       is_automated: automated
       image_server_prefix: automation/
