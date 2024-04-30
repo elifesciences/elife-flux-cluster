@@ -4,6 +4,8 @@ namespace: epp
 resources:
 - deployment.yaml
 - service.yaml
+- http-scaled-object.yaml
+- service-scaler.yaml
 - automations/repository.yaml
 - automations/policy.yaml
 - automations/approved-policy.yaml
