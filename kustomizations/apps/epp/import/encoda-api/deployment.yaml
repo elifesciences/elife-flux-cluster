@@ -4,7 +4,7 @@ metadata:
   name: epp-encoda-api
   namespace: epp
 spec:
-  replicas: ${encoda_api_replicas:=1}
+  replicas: 1
   strategy:
     rollingUpdate:
       maxSurge: 1
