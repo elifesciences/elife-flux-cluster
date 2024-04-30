@@ -53,3 +53,20 @@ spec:
                       - key: project
                         value: "sciety"
                         operator: "Equal"
+  - target:
+      kind: Deployment
+      name: sciety--demo--database
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: not-important
+      spec:
+        template:
+          spec:
+            nodeSelector:
+              Project: sciety
+            tolerations:
+            - key: project
+              value: "sciety"
+              operator: "Equal"
