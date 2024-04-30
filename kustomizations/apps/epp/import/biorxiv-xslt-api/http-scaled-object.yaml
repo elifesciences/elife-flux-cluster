@@ -16,6 +16,6 @@ spec:
     port: 80
   replicas:
     min: 1
-    max: 30
-  scaledownPeriod: 600
+    max: 20
+  scaledownPeriod: 900
   targetPendingRequests: 2
