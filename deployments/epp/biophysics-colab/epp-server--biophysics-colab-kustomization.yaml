@@ -14,7 +14,7 @@ spec:
   targetNamespace: epp--biophysics-colab
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints-server
-      newTag: master-3cfd2d92-20240427.0230 # {"$imagepolicy": "epp--biophysics-colab:epp-server:tag"}
+      newTag: master-9eebe361-20240430.0107 # {"$imagepolicy": "epp--biophysics-colab:epp-server:tag"}
   postBuild:
     substitute:
       mongodb_hostname: epp-database-psmdb-db-replicaset
@@ -22,19 +22,19 @@ spec:
       mongodb_secret_user_key: MONGODB_DATABASE_ADMIN_USER
       mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD
   patches:
-  - target:
-      kind: Deployment
-    patch: |
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: any
-      spec:
-        template:
-          spec:
-            nodeSelector:
-              Project: epp
-            tolerations:
-            - key: project
-              value: "epp"
-              operator: "Equal"
+    - target:
+        kind: Deployment
+      patch: |
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: any
+        spec:
+          template:
+            spec:
+              nodeSelector:
+                Project: epp
+              tolerations:
+              - key: project
+                value: "epp"
+                operator: "Equal"
