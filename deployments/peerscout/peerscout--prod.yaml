@@ -81,7 +81,7 @@ spec:
       periodSeconds: 30
       failureThreshold: 10
     nodeSelector:
-      karpenter.sh/nodepool: peerscout
+      Project: peerscout
     tolerations:
     - key: "project"
       operator: "Equal"

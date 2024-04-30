@@ -7,7 +7,7 @@ spec:
     metadata:
       labels:
         Cluster: "${cluster_name}"
-        Project: basex-validator
+        Project: peerscout
     spec:
       nodeClassRef:
         apiVersion: karpenter.k8s.aws/v1beta1
