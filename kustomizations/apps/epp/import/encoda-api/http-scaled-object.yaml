@@ -5,8 +5,8 @@ metadata:
 spec:
   hosts:
   - epp-encoda-api-scaler
-  - epp-encoda-api-scaler.svc
-  - epp-encoda-api-scaler.svc.cluster.local
+  - epp-encoda-api-scaler.epp
+  - epp-encoda-api-scaler.epp.svc.cluster.local
   pathPrefixes:
   - /
   scaleTargetRef:
