@@ -28,4 +28,4 @@ spec:
         Project: ${cluster_name}
 
       # extend reponse timeout by alot for EPP
-      responseHeaderTimeout: 120s
+      responseHeaderTimeout: 180s
