@@ -17,5 +17,5 @@ spec:
   replicas:
     min: 1
     max: 10
-  scaledownPeriod: 60
+  scaledownPeriod: 300
   targetPendingRequests: 5
