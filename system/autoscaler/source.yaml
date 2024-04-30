@@ -1,9 +1,0 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: cluster-autoscaler
-  namespace: autoscaler
-spec:
-  interval: 5m
-  url: https://kubernetes.github.io/autoscaler
