@@ -32,7 +32,7 @@ spec:
         template:
           spec:
             nodeSelector:
-              project: basex-validator
+              Project: basex-validator
             tolerations:
             - key: project
               value: "basex-validator"
