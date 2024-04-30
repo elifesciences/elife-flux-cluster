@@ -14,6 +14,12 @@ spec:
       labels:
         app: sciety-labs--stg
     spec:
+      nodeSelector:
+        Project: sciety
+      tolerations:
+      - key: project
+        value: "sciety"
+        operator: "Equal"
       containers:
       - name: sciety-labs
         image: ghcr.io/sciety/sciety-labs_unstable:main-efce9358-20240327.1031 # {"$imagepolicy": "data-hub:sciety-labs-unstable"}

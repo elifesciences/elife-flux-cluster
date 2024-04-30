@@ -26,6 +26,12 @@ spec:
         cpu: "1000m"
       limits:
         memory: "3Gi"
+    nodeSelector:
+      Project: sciety
+    tolerations:
+    - key: project
+      value: "sciety"
+      operator: "Equal"
     roles:
     - "data"
     - "cluster_manager"
