@@ -16,4 +16,3 @@ resources:
 - storybook/automations/approved-policy.yaml
 - ingress.yaml
 - import
-- service-scaler
