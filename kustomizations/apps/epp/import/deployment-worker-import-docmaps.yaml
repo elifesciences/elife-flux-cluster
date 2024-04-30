@@ -43,7 +43,7 @@ spec:
         - name: XSLT_TRANSFORM_ADDRESS
           value: http://epp-biorxiv-xslt-api:80
         - name: ENCODA_TRANSFORM_ADDRESS
-          value: http://epp-encoda-api-scaler.${temporal_worker_encoda_api_namespace_fix}:8080
+          value: http://epp-encoda-api-scaler.${keda_autoscaler_namespace_fix}:8080
         - name: TEMPORAL_TASK_QUEUE
           value: import-docmaps
         - name: TEMPORAL_NAMESPACE
