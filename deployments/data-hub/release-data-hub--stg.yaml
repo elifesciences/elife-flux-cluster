@@ -485,6 +485,14 @@ spec:
           memory: 200Mi
           cpu: 100m
           ephemeral-storage: "10Mi"
+      # apply pods to correct node pool
+      master:
+        nodeSelector:
+          Project: data-hub
+        tolerations:
+        - key: project
+          value: "data-hub"
+          operator: "Equal"
     flower:
       resources:
         requests:
@@ -551,3 +559,12 @@ spec:
       resources:
         requests:
           ephemeral-storage: "10Mi"
+    redis:
+      # apply pods to correct node pool
+      master:
+        nodeSelector:
+          Project: data-hub
+        tolerations:
+        - key: project
+          value: "data-hub"
+          operator: "Equal"
