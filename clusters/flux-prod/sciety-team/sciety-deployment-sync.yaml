@@ -22,3 +22,34 @@ spec:
   sourceRef:
     kind: GitRepository
     name: sciety-deployment
+
+
+  patches:
+  - target:
+      kind: HelmRelease
+      name: sciety--demo
+    patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      kind: HelmRelease
+      metadata:
+        name: not-important
+      spec:
+        postRenderers:
+        - kustomize:
+            patches:
+            - target:
+                kind: Deployment
+              patch: |-
+                apiVersion: helm.toolkit.fluxcd.io/v2beta2
+                kind: Deployment
+                metadata:
+                  name: not-important
+                spec:
+                  template:
+                    spec:
+                      nodeSelector:
+                        Project: sciety
+                      tolerations:
+                      - key: project
+                        value: "sciety"
+                        operator: "Equal"
