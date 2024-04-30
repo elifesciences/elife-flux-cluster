@@ -278,12 +278,13 @@ spec:
           cpu: 100m
           ephemeral-storage: "10Mi"
       # apply pods to correct node pool
-      nodeSelector:
-        Project: data-hub
-      tolerations:
-      - key: project
-        value: "data-hub"
-        operator: "Equal"
+      master:
+        nodeSelector:
+          Project: data-hub
+        tolerations:
+        - key: project
+          value: "data-hub"
+          operator: "Equal"
     flower:
       resources:
         requests:
