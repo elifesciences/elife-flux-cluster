@@ -32,7 +32,7 @@ spec:
         template:
           spec:
             nodeSelector:
-              karpenter.sh/nodepool: basex-validator
+              project: basex-validator
             tolerations:
             - key: project
               value: "basex-validator"
