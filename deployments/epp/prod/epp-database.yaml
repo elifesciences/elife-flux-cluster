@@ -23,7 +23,7 @@ spec:
 
   values:
     image:
-      tag: 6.0.9-7-multi
+      tag: 6.0.15-12-multi
     sharding:
       enabled: false
     backup:
