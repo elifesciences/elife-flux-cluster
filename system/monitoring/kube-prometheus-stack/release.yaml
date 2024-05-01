@@ -103,10 +103,10 @@ spec:
         replicas: 1
         resources:
           limits:
-            memory: 4600Mi
+            memory: 6000Mi
           requests:
             cpu: 250m
-            memory: 4599Mi
+            memory: 4600Mi
             ephemeral-storage: 10Mi
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
