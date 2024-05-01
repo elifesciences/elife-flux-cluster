@@ -4,6 +4,7 @@ metadata:
   name: epp-import-worker-docmaps
   namespace: epp
 spec:
+  replicas: ${temporal_worker_import_docmaps_replicas:=1}
   strategy:
     rollingUpdate:
       maxSurge: 1
