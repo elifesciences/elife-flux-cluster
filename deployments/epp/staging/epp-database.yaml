@@ -24,6 +24,8 @@ spec:
   values:
     image:
       tag: 6.0.15-12-multi
+    initImage:
+      tag: main
     sharding:
       enabled: false
     backup:
