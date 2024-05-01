@@ -32,7 +32,7 @@ spec:
       annotations:
         "cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes": "bin"
       nodeSelector:
-        karpenter.sh/nodepool: epp
+        Project: epp
         kubernetes.io/arch: amd64
       tolerations:
       - key: project
