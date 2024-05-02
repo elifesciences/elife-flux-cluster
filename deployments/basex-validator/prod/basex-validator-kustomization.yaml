@@ -14,27 +14,27 @@ spec:
   targetNamespace: basex-validator--prod
   images:
     - name: docker.io/elifesciences/basex-validator
-      newTag: master-c60bed93-20240425.1407 # {"$imagepolicy": "basex-validator--prod:basex-validator-stable:tag"}
+      newTag: master-71785bcf-20240502.0748 # {"$imagepolicy": "basex-validator--prod:basex-validator-stable:tag"}
   postBuild:
     substitute:
       replicas: "2"
       hostname: basex-validator.elifesciences.org
       env: prod
   patches:
-  - target:
-      kind: Deployment
-    patch: |
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: any
-      spec:
-        template:
-          spec:
-            nodeSelector:
-              Project: basex-validator
-            tolerations:
-            - key: project
-              value: "basex-validator"
-              operator: "Equal"
-              effect: "NoSchedule"
+    - target:
+        kind: Deployment
+      patch: |
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: any
+        spec:
+          template:
+            spec:
+              nodeSelector:
+                Project: basex-validator
+              tolerations:
+              - key: project
+                value: "basex-validator"
+                operator: "Equal"
+                effect: "NoSchedule"
