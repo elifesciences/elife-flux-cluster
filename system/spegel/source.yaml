@@ -7,4 +7,4 @@ metadata:
 spec:
   type: "oci"
   interval: 5m0s
-  url: oci://ghcr.io/xenitab/helm-charts
+  url: oci://ghcr.io/spegel-org/helm-charts
