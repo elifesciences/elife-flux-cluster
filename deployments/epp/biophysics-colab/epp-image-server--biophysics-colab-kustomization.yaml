@@ -14,7 +14,7 @@ spec:
   targetNamespace: epp--biophysics-colab
   images:
     - name: ghcr.io/elifesciences/epp-image-server
-      newTag: master-1226897f-20240426.0029 # {"$imagepolicy": "epp--biophysics-colab:epp-image-server:tag"}
+      newTag: master-a22edddb-20240502.0759 # {"$imagepolicy": "epp--biophysics-colab:epp-image-server:tag"}
   postBuild:
     substitute:
       app_env: biophysics-colab
@@ -24,19 +24,19 @@ spec:
       image_server_role_arn: arn:aws:iam::512686554592:role/epp-biophysics-colab-image-server
       image_server_source_base_url: https://github.com/elifesciences/enhanced-preprints-data/raw/master/data/
   patches:
-  - target:
-      kind: Deployment
-    patch: |
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: any
-      spec:
-        template:
-          spec:
-            nodeSelector:
-              Project: epp
-            tolerations:
-            - key: project
-              value: "epp"
-              operator: "Equal"
+    - target:
+        kind: Deployment
+      patch: |
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: any
+        spec:
+          template:
+            spec:
+              nodeSelector:
+                Project: epp
+              tolerations:
+              - key: project
+                value: "epp"
+                operator: "Equal"
