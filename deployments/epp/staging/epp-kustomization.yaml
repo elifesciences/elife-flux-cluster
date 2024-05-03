@@ -61,14 +61,8 @@ spec:
       temporal_namespace: epp--staging
       # High priority, but mostly used for importing the docmap index
       temporal_worker_epp_replicas: "1"
-      temporal_worker_epp_memory_requests: "2000Mi"
-      temporal_worker_epp_memory_limits: "2000Mi"
-      temporal_worker_epp_cpu_requests: "200m"
       # The queue doing most of the importing
       temporal_worker_import_docmaps_replicas: "2"
-      temporal_worker_import_docmaps_memory_requests: "2000Mi"
-      temporal_worker_import_docmaps_memory_limits: "2000Mi"
-      temporal_worker_import_docmaps_cpu_requests: "1200m"
       keda_autoscaler_namespace_fix: 'epp--staging'
       epp_server_metrics_url: https://prod--gateway.elifesciences.org
   patches:
