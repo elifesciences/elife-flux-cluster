@@ -32,9 +32,9 @@ spec:
         - containerPort: 8182
         resources:
           requests:
-            cpu: "386m"
-            memory: "3202Mi"
-            ephemeral-storage: "2Gi"
+            memory: ${epp_image_server_memory_requests:='300Mi'}
+            cpu: ${epp_image_server_cpu_requests:='50m'}
+            ephemeral-storage: ${epp_image_server_ephemeral_storage_requests:='2Gi'}
         env:
           - name: SOURCE_STATIC
             value: ${image_server_source_static:=HttpSource}
