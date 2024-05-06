@@ -1,13 +1,13 @@
 apiVersion: karpenter.sh/v1beta1
 kind: NodePool
 metadata:
-  name: cluster-services-t3
+  name: basex-validator-t3
 spec:
   template:
     metadata:
       labels:
         Cluster: "${cluster_name}"
-        Project: "${cluster_name}"
+        Project: basex-validator
     spec:
       nodeClassRef:
         apiVersion: karpenter.k8s.aws/v1beta1
