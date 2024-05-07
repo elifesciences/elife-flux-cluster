@@ -119,6 +119,8 @@ spec:
         value: /dag_config_files/civicrm-email-report-data-pipeline.config.yaml
       - name: TWITTER_ADS_API_CONFIG_FILE_PATH
         value: /dag_config_files/twitter-ads-api.config.yaml
+      - name: GOOGLE_ANALYTICS_CONFIG_FILE_PATH
+        value: /dag_config_files/ga-data-pipeline.config.yaml
       # queue (airflow executor)
       - name: DATA_SCIENCE_PEERSCOUT_RECOMMEND_QUEUE
         value: "kubernetes"

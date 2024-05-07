@@ -26,5 +26,6 @@ configMapGenerator:
   - surveymonkey-data-pipeline.config.yaml
   - twitter-ads-api.config.yaml
   - web-api-data-pipeline.config.yaml
+  - ga-data-pipeline.config.yaml
 generatorOptions:
   disableNameSuffixHash: true
