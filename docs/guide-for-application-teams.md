@@ -43,6 +43,11 @@ Provide a secret to an application
 1. Store the secret in [AWS Secrets Manager](https://us-east-1.console.aws.amazon.com/secretsmanager/listsecrets?region=us-east-1) under a team-based prefix such as `sciety-team/*`.
 1. Create an [`ExternalSecret`](https://external-secrets.io/latest/api/spec/#external-secrets.io/v1beta1.ExternalSecret) manifest to pull the secret into the cluster, in the form of a Kubernetes [`Secret`](https://kubernetes.io/docs/concepts/configuration/secret/) managed by the platform.
 
+Kubernetes resources can use the secret:
+
+- directly in workloads e.g. via an [environment variable](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#environment-variables)
+- by receiving its value as an [Helm release value](https://fluxcd.io/flux/components/helm/helmreleases/#values-references)
+
 Services available on the Cluster
 =================================
 
