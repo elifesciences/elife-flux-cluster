@@ -11,6 +11,7 @@ Dashboards
 - [Grafana Dashboards](https://grafana.elifesciences.org/dashboards)
 - [Prometheus (Metrics)](https://prometheus.elifesciences.org)
 - [Alertmanager](https://alertmanager.elifesciences.org)
+- [AWS console for the `512686554592` account](https://512686554592.signin.aws.amazon.com/)
 
 The __#cluster-alerts__ slack channel receives alerts from:
 
@@ -33,6 +34,14 @@ Adding Helm Charts
     -   Setup an [`ImagePolicy`](https://fluxcd.io/docs/components/image/imagepolicies/) to choose what the latest tag is
     -   Setup an [`ImageUpdateAutomation`](https://fluxcd.io/docs/components/image/imageupdateautomations/) to describe which `GitRepository` object you want flux to update, and which directory
     -   Add a [policy marker](https://fluxcd.io/docs/guides/image-update/#configure-image-update-for-custom-resources) to tell Flux how to update te yaml files
+
+Provide a secret to an application
+----------------------------------
+
+### Via AWS Secrets Manager
+
+1. Store the secret in [AWS Secrets Manager](https://us-east-1.console.aws.amazon.com/secretsmanager/listsecrets?region=us-east-1) under a team-based prefix such as `sciety-team/*`.
+1. Create an [`ExternalSecret`](https://external-secrets.io/latest/api/spec/#external-secrets.io/v1beta1.ExternalSecret) manifest to pull the secret into the cluster, in the form of a Kubernetes [`Secret`](https://kubernetes.io/docs/concepts/configuration/secret/) managed by the platform.
 
 Services available on the Cluster
 =================================
