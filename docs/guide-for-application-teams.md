@@ -54,6 +54,8 @@ Services available on the Cluster
 - __PrometheusOperator__ ([docs/monitoring-alerting](docs/monitoring-alerting.md))
 - __oauth2-proxy__  ([docs/oauth-proxy](docs/oauth-proxy.md))
   - limit access to elifesciences github org
+- __ExternalSecrets Operator__
+  - pulls in secrets from storage easily accessible to the application teams
 - __SealedSecrets__ ([docs/sealed-secrets.md](docs/sealed-secrets.md))
   - encrypt secrets for safe storage in this repo
 - __Loki__
