@@ -8,9 +8,8 @@ Dashboards
 ==========
 
 - [Kubernetes Dashboard](https://k8s-dashboard.elifesciences.org)
-- [Grafana Dashboards](https://grafana.elifesciences.org/dashboards)
-- [Prometheus (Metrics)](https://prometheus.elifesciences.org)
-- [Alertmanager](https://alertmanager.elifesciences.org)
+- [Grafana Dashboards](https://grafana.flux-prod.elifesciences.org/dashboards)
+- [Alertmanager](https://alertmanager.flux-prod.elifesciences.org)
 - [AWS console for the `512686554592` account](https://512686554592.signin.aws.amazon.com/)
 
 The __#cluster-alerts__ slack channel receives alerts from:
@@ -56,7 +55,7 @@ Services available on the Cluster
   - `host` entries ending in `.elifesciences.org` will be added to our zone by ExternalDNS
 - __cert-manager with letsencrypt__ ([docs/letsencrypt](docs/letsencrypt.md))
   - obtain letsencrypt SSL certs via ingress definitions
-- __PrometheusOperator__ ([docs/monitoring-alerting](docs/monitoring-alerting.md))
+- __VictoriaMetrics Operator__ ([docs/monitoring-alerting](docs/monitoring-alerting.md))
 - __oauth2-proxy__  ([docs/oauth-proxy](docs/oauth-proxy.md))
   - limit access to elifesciences github org
 - __ExternalSecrets Operator__
