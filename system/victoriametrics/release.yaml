@@ -116,6 +116,11 @@ spec:
         Project: ${cluster_name}
       spec:
         externalURL: https://alertmanager.${cluster_domain}
+      resources:
+        requests:
+          cpu: 10m
+          memory: 100Mi
+        limits: {}
       ingress:
         enabled: true
         hosts:
