@@ -2,7 +2,6 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-datasource-loki
-  namespace: logging
   labels:
     grafana_datasource: "1"
 data:
@@ -11,4 +10,4 @@ data:
     datasources:
       - name: loki
         type: loki
-        url: "http://loki-gateway.logging/"
+        url: "http://loki-gateway.loki/"

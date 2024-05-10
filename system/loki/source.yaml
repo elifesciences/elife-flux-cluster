@@ -2,9 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: vector
-  namespace: logging
-
+  name: grafana
 spec:
-  interval: 5m
-  url: https://helm.vector.dev
+  interval: 5m0s
+  url: https://grafana.github.io/helm-charts

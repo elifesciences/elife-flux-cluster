@@ -3,8 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: vector
-  namespace: logging
-
 spec:
   interval: 1m
   releaseName: vector
@@ -102,15 +100,15 @@ spec:
             - filter_nginx_sciety_labs
           bucket: elife-cluster-logs
           credentials_path: /etc/gcp-data-hub-project-log-shipping/credentials.json
-          key_prefix: flux-prod/sciety-labs/dt=%F/
+          key_prefix: ${cluster_name}/sciety-labs/dt=%F/
           filename_extension: jsonl
           encoding:
             codec: native_json
-        local_loki:
+        loki:
           type: loki
           inputs:
           - json_logs
-          endpoint: http://loki-gateway/
+          endpoint: http://loki-gateway.loki/
           encoding:
             codec: json
           labels:
