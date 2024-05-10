@@ -44,8 +44,8 @@ spec:
                     storage: 125Gi
           resources:
             requests:
-              cpu: 500m
-              memory: 2.1Gi
+              cpu: 600m
+              memory: 2.5Gi
             limits: {}
 
         vmselect:
