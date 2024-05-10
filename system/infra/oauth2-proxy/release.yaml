@@ -38,7 +38,7 @@ spec:
     ingress:
       enabled: "true"
       hosts:
-        - oauth-proxy.elifesciences.org
+        - "${oauth2_proxy_hostname}"
     replicaCount: 2
     nodeSelector:
       Project: ${cluster_name}

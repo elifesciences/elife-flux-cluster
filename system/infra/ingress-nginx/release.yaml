@@ -43,7 +43,7 @@ spec:
           service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: 'true'
           service.beta.kubernetes.io/aws-load-balancer-type: nlb
           service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "3600"
-          service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "creator=ingress,cluster=elife-flux-cluster"
+          service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "creator=ingress,cluster=${ingress_loadbalancer_cluster_name}"
           service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
       metrics:
         enabled: "true"
