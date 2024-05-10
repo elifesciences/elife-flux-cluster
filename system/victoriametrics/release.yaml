@@ -42,6 +42,11 @@ spec:
                 resources:
                   requests:
                     storage: 125Gi
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1.5Gi
+            limits: {}
 
         vmselect:
           nodeSelector:
@@ -52,8 +57,10 @@ spec:
                 storageClassName: csi-ebs-gp3
 
           resources:
-            limits:
-              cpu: 1000m
+            requests:
+              cpu: 250m
+              memory: 150Mi
+            limits: {}
         vminsert:
           nodeSelector:
             Project: ${cluster_name}
@@ -64,8 +71,9 @@ spec:
         nodeSelector:
           Project: ${cluster_name}
         resources:
-          limits:
-            cpu: 1000m
+          requests:
+            cpu: 200m
+          limits: {}
     vmalert:
       spec:
         nodeSelector:
