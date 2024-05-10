@@ -11,6 +11,7 @@ Dashboards
 - [Grafana Dashboards](https://grafana.elifesciences.org/dashboards)
 - [Prometheus (Metrics)](https://prometheus.elifesciences.org)
 - [Alertmanager](https://alertmanager.elifesciences.org)
+- [AWS console for the `512686554592` account](https://512686554592.signin.aws.amazon.com/)
 
 The __#cluster-alerts__ slack channel receives alerts from:
 
@@ -34,6 +35,19 @@ Adding Helm Charts
     -   Setup an [`ImageUpdateAutomation`](https://fluxcd.io/docs/components/image/imageupdateautomations/) to describe which `GitRepository` object you want flux to update, and which directory
     -   Add a [policy marker](https://fluxcd.io/docs/guides/image-update/#configure-image-update-for-custom-resources) to tell Flux how to update te yaml files
 
+Provide a secret to an application
+----------------------------------
+
+### Via AWS Secrets Manager
+
+1. Store the secret in [AWS Secrets Manager](https://us-east-1.console.aws.amazon.com/secretsmanager/listsecrets?region=us-east-1) under a team-based prefix such as `sciety-team/*`.
+1. Create an [`ExternalSecret`](https://external-secrets.io/latest/api/spec/#external-secrets.io/v1beta1.ExternalSecret) manifest to pull the secret into the cluster, in the form of a Kubernetes [`Secret`](https://kubernetes.io/docs/concepts/configuration/secret/) managed by the platform.
+
+Kubernetes resources can use the secret:
+
+- directly in workloads e.g. via an [environment variable](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#environment-variables)
+- by receiving its value as an [Helm release value](https://fluxcd.io/flux/components/helm/helmreleases/#values-references)
+
 Services available on the Cluster
 =================================
 
@@ -45,6 +59,8 @@ Services available on the Cluster
 - __PrometheusOperator__ ([docs/monitoring-alerting](docs/monitoring-alerting.md))
 - __oauth2-proxy__  ([docs/oauth-proxy](docs/oauth-proxy.md))
   - limit access to elifesciences github org
+- __ExternalSecrets Operator__
+  - pulls in secrets from storage easily accessible to the application teams
 - __SealedSecrets__ ([docs/sealed-secrets.md](docs/sealed-secrets.md))
   - encrypt secrets for safe storage in this repo
 - __Loki__
