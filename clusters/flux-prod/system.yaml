@@ -25,3 +25,9 @@ spec:
       aws_karpenter_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-karpenter-cluster-role
       aws_ack_rds_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-rds-controller-cluster-role
       aws_external_dns_service_account_role_arn: arn:aws:iam::512686554592:role/kubernetes-aws--flux-prod--external-dns
+
+
+      # oauth2-proxy urls
+      oauth2_proxy_signout_url: "https://oauth-proxy.elifesciences.org/oauth2/sign_out"
+      oauth2_proxy_auth_url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
+      oauth2_proxy_auth_signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
