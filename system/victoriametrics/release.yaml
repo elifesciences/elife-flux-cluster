@@ -45,7 +45,7 @@ spec:
           resources:
             requests:
               cpu: 500m
-              memory: 2Gi
+              memory: 2.1Gi
             limits: {}
 
         vmselect:
