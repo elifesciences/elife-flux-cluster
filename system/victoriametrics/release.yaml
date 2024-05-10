@@ -140,6 +140,16 @@ spec:
     victoria-metrics-operator:
       nodeSelector:
         Project: ${cluster_name}
+      resources:
+        requests:
+          cpu: 10m
+          memory: 100Mi
+        limits: {}
     kube-state-metrics:
       nodeSelector:
         Project: ${cluster_name}
+      resources:
+        requests:
+          cpu: 20m
+          memory: 100Mi
+        limits: {}
