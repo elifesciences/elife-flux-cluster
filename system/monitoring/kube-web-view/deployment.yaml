@@ -1,6 +1,4 @@
 ---
-# adapted from https://github.com/hjacobs/kube-web-view/tree/master/deploy
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -8,9 +6,6 @@ metadata:
   namespace: monitoring
   labels:
     application: kube-web-view
-  annotations:
-    fluxcd.io/automated: "true"
-    filter.fluxcd.io/kube-web-view: "semver:*"
 spec:
   replicas: 1
   selector:
