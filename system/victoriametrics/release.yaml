@@ -68,7 +68,7 @@ spec:
             maxLabelsPerTimeseries: "50"
           resources:
             requests:
-              cpu: 100m
+              cpu: 200m
               memory: 200Mi
             limits: {}
     vmagent:
@@ -78,6 +78,7 @@ spec:
         resources:
           requests:
             cpu: 200m
+            memory: 100Mi
           limits: {}
     vmalert:
       spec:
@@ -85,6 +86,11 @@ spec:
           Project: ${cluster_name}
         extraArgs:
           'external.url': https://vmalert.${cluster_domain}
+        resources:
+          requests:
+            cpu: 200m
+            memory: 200Mi
+          limits: {}
       ingress:
         enabled: true
         annotations:
