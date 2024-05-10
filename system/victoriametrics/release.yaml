@@ -1,0 +1,126 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: victoriametrics
+spec:
+  releaseName: victoriametrics
+  chart:
+    spec:
+      chart: victoria-metrics-k8s-stack
+      sourceRef:
+        kind: HelmRepository
+        name: victoriametrics
+      version: "0.21.3"
+  interval: 1h0m0s
+  valuesFrom:
+    - kind: ConfigMap
+      name: alertmanager-values
+      valuesKey: 'alertmanager-values.yaml'
+    - kind: Secret
+      name: alerts-urls
+      valuesKey: slack-api-url
+      targetPath: alertmanager.config.global.slack_api_url
+    - kind: Secret
+      name: alerts-urls
+      valuesKey: healthchecks-io-url
+      targetPath: alertmanager.config.receivers[1].webhook_configs[0].url
+  values:
+    fullnameOverride: victoriametrics
+    vmsingle:
+      enabled: false
+    vmcluster:
+      enabled: true
+      spec:
+        retentionPeriod: "3" # months
+        vmstorage:
+          nodeSelector:
+            Project: ${cluster_name}
+          storage:
+            volumeClaimTemplate:
+              spec:
+                storageClassName: csi-ebs-st1
+                resources:
+                  requests:
+                    storage: 125Gi
+
+        vmselect:
+          nodeSelector:
+            Project: ${cluster_name}
+          storage:
+            volumeClaimTemplate:
+              spec:
+                storageClassName: csi-ebs-gp3
+
+          resources:
+            limits:
+              cpu: 1000m
+        vminsert:
+          nodeSelector:
+            Project: ${cluster_name}
+          extraArgs:
+            maxLabelsPerTimeseries: "50"
+    vmagent:
+      spec:
+        nodeSelector:
+          Project: ${cluster_name}
+        resources:
+          limits:
+            cpu: 1000m
+    vmalert:
+      spec:
+        nodeSelector:
+          Project: ${cluster_name}
+        extraArgs:
+          'external.url': https://vmalert.${cluster_domain}
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          nginx.ingress.kubernetes.io/auth-url: "https://auth--test-cluster.elifesciences.org/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: "https://auth--test-cluster.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+        hosts:
+          - vmalert.${cluster_domain}
+        tls:
+          - secretName: vmalert-tls
+            hosts:
+              - vmalert.${cluster_domain}
+    grafana:
+      enabled: false
+      forceDeployDatasource: true
+      sidecar:
+        dashboards:
+          label: grafana_dashboard
+        datasources:
+          label: grafana_datasource
+    alertmanager:
+      nodeSelector:
+        Project: ${cluster_name}
+      spec:
+        externalURL: https://alertmanager.${cluster_domain}
+      ingress:
+        enabled: true
+        hosts:
+          - alertmanager.${cluster_domain}
+        tls:
+          - secretName: alertmanager-tls
+            hosts:
+              - alertmanager.${cluster_domain}
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          nginx.ingress.kubernetes.io/auth-url: "https://auth--test-cluster.elifesciences.org/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: "https://auth--test-cluster.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+    defaultRules:
+      rules:
+        kubeScheduler: false # lives on EKS
+        kubeApiserver: false # too memory intensive
+      disabled:
+        KubeCPUOvercommit: true
+        KubeletTooManyPods: true
+    kubeControllerManager:
+      enabled: false # lives on EKS
+    victoria-metrics-operator:
+      nodeSelector:
+        Project: ${cluster_name}
+    kube-state-metrics:
+      nodeSelector:
+        Project: ${cluster_name}
