@@ -73,6 +73,8 @@ spec:
             limits: {}
     vmagent:
       spec:
+        extraArgs:
+          "promscrape.kubernetesSDCheckInterval": "10s"
         nodeSelector:
           Project: ${cluster_name}
         resources:
