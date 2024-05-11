@@ -56,10 +56,10 @@ patches:
           - name: manager
             resources:
               limits:
-                memory: 512Mi
+                memory: 1024Mi
               requests:
                 cpu: 50m
-                memory: 384Mi
+                memory: 512Mi
 - target:
     version: v1
     group: apps
