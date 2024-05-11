@@ -146,6 +146,8 @@ spec:
     kubeControllerManager:
       enabled: false # lives on EKS
     victoria-metrics-operator:
+      operator:
+        disable_prometheus_converter: false
       nodeSelector:
         Project: ${cluster_name}
       resources:
