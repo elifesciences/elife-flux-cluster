@@ -58,8 +58,8 @@ spec:
 
           resources:
             requests:
-              cpu: 250m
-              memory: 150Mi
+              cpu: 400m
+              memory: 250Mi
             limits: {}
         vminsert:
           nodeSelector:
@@ -68,8 +68,8 @@ spec:
             maxLabelsPerTimeseries: "50"
           resources:
             requests:
-              cpu: 200m
-              memory: 250Mi
+              cpu: 250m
+              memory: 400Mi
             limits: {}
     vmagent:
       spec:
@@ -78,7 +78,7 @@ spec:
         resources:
           requests:
             cpu: 300m
-            memory: 200Mi
+            memory: 250Mi
           limits: {}
     vmalert:
       spec:
@@ -89,7 +89,7 @@ spec:
         resources:
           requests:
             cpu: 200m
-            memory: 200Mi
+            memory: 450Mi
           limits: {}
       ingress:
         enabled: true
@@ -147,7 +147,7 @@ spec:
         Project: ${cluster_name}
       resources:
         requests:
-          cpu: 10m
+          cpu: 40m
           memory: 100Mi
         limits: {}
     kube-state-metrics:
@@ -156,11 +156,11 @@ spec:
       resources:
         requests:
           cpu: 20m
-          memory: 100Mi
+          memory: 150Mi
         limits: {}
     prometheus-node-exporter:
       resources:
         requests:
-          cpu: 50m
+          cpu: 40m
           memory: 100Mi
         limits: {}
