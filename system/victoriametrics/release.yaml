@@ -74,7 +74,8 @@ spec:
     vmagent:
       spec:
         extraArgs:
-          "promscrape.kubernetesSDCheckInterval": "10s"
+          "promscrape.kubernetesSDCheckInterval": "5s"
+          "promscrape.suppressScrapeErrorsDelay": "5s"
         nodeSelector:
           Project: ${cluster_name}
         resources:
