@@ -4,4 +4,3 @@ namespace: epp
 resources:
 - repository.yaml
 - policy.yaml
-- approved-policy.yaml
