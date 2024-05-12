@@ -3,8 +3,7 @@ kind: Kustomization
 namespace: temporal
 configMapGenerator:
 - files:
-  - temporal-dashboard-sdk-old.json
-  - temporal-dashboard-sdk-new.json
+  - temporal-dashboard-sdk.json
   - temporal-dashboard-server.json
   name: temporal-dashboards
 patches:
