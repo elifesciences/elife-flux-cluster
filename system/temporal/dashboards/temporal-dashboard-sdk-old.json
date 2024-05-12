@@ -25,7 +25,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "victoriametrics"
+        "uid": "$datasource"
       },
       "gridPos": {
         "h": 1,
@@ -39,7 +39,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "refId": "A"
         }
@@ -54,7 +54,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "victoriametrics"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -100,7 +100,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "expr": "sum(rate(temporal_request{namespace=~\"$Namespace\"}[5m]))",
           "interval": "",
@@ -110,7 +110,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "expr": "sum(rate(temporal_request_failure{namespace=~\"$Namespace\"}[5m]))",
           "interval": "",
@@ -155,7 +155,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "victoriametrics"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -201,7 +201,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "expr": "sum by (operation) ((rate(temporal_request{namespace=~\"$Namespace\"}[5m])))",
           "interval": "",
@@ -246,7 +246,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "victoriametrics"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -292,7 +292,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "expr": "sum by (operation) (rate(temporal_request_failure{namespace=~\"$Namespace\"}[5m]))",
           "interval": "",
@@ -337,7 +337,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "victoriametrics"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -383,7 +383,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "expr": "histogram_quantile(0.95, sum by (namespace, operation, le) (rate(temporal_request_latency_bucket{namespace=~\"$Namespace\"}[5m])))",
           "interval": "",
@@ -425,7 +425,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "victoriametrics"
+        "uid": "$datasource"
       },
       "gridPos": {
         "h": 1,
@@ -442,7 +442,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -481,7 +481,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum(rate(temporal_workflow_completed{namespace=~\"$Namespace\"}[5m]))",
               "hide": false,
@@ -492,7 +492,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum(rate(temporal_workflow_failed{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
@@ -502,7 +502,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum(rate(temporal_workflow_canceled{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
@@ -512,7 +512,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum(rate(temporal_workflow_continue_as_new{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
@@ -557,7 +557,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -596,7 +596,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_endtoend_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, workflow_type, le))",
               "interval": "",
@@ -641,7 +641,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -680,7 +680,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum by (namespace, workflow_type) (rate(temporal_workflow_completed{namespace=~\"$Namespace\"}[5m]))",
               "hide": false,
@@ -726,7 +726,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -765,7 +765,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum by (namespace, workflow_type) (rate(temporal_workflow_failed{namespace=~\"$Namespace\"}[5m]))",
               "hide": false,
@@ -809,7 +809,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "refId": "A"
         }
@@ -821,7 +821,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "victoriametrics"
+        "uid": "$datasource"
       },
       "gridPos": {
         "h": 1,
@@ -838,7 +838,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -877,7 +877,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum by (namespace, workflow_type) (rate(temporal_workflow_task_queue_poll_succeed{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
@@ -922,7 +922,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -961,7 +961,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum by (namespace) (rate(temporal_workflow_task_queue_poll_succeed{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
@@ -1006,7 +1006,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1045,7 +1045,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum by (namespace) (rate(temporal_workflow_task_queue_poll_empty{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
@@ -1090,7 +1090,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1129,7 +1129,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_schedule_to_start_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, le))",
               "interval": "",
@@ -1174,7 +1174,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1213,7 +1213,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_schedule_to_start_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, workflow_type, le))",
               "interval": "",
@@ -1258,7 +1258,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1297,7 +1297,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum by (namespace) (rate(temporal_workflow_task_execution_failed{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
@@ -1342,7 +1342,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1381,7 +1381,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum by (namespace, workflow_type) (rate(temporal_workflow_task_execution_failed{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
@@ -1426,7 +1426,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1465,7 +1465,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_execution_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, le))",
               "interval": "",
@@ -1510,7 +1510,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1549,7 +1549,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_execution_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, workflow_type, le))",
               "interval": "",
@@ -1594,7 +1594,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1633,7 +1633,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_replay_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, le))",
               "interval": "",
@@ -1678,7 +1678,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1717,7 +1717,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_replay_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, workflow_type, le))",
               "interval": "",
@@ -1760,7 +1760,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "refId": "A"
         }
@@ -1772,7 +1772,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "victoriametrics"
+        "uid": "$datasource"
       },
       "gridPos": {
         "h": 1,
@@ -1786,7 +1786,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "refId": "A"
         }
@@ -1801,7 +1801,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "victoriametrics"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1847,7 +1847,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "expr": "sum by (namespace) (rate(temporal_activity_execution_latency_count{namespace=~\"$Namespace\"}[5m]))",
           "interval": "",
@@ -1892,7 +1892,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "victoriametrics"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -1938,7 +1938,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "expr": "sum by (namespace, activity_type) (rate(temporal_activity_execution_latency_count{namespace=~\"$Namespace\"}[5m]))",
           "interval": "",
@@ -1983,7 +1983,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "victoriametrics"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2029,7 +2029,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "expr": "sum by (namespace, activity_type) (rate(temporal_activity_execution_failed{namespace=~\"$Namespace\"}[5m]))",
           "interval": "",
@@ -2074,7 +2074,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "victoriametrics"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2120,7 +2120,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "expr": "histogram_quantile(0.95, sum(rate(temporal_activity_execution_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, activity_type, le))",
           "interval": "",
@@ -2167,7 +2167,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "victoriametrics"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -2213,7 +2213,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "expr": "histogram_quantile(0.95, sum(rate(temporal_activity_endtoend_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, activity_type, le))",
           "interval": "",
@@ -2255,7 +2255,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "victoriametrics"
+        "uid": "$datasource"
       },
       "gridPos": {
         "h": 1,
@@ -2272,7 +2272,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -2311,7 +2311,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum by (namespace) (rate(temporal_activity_poll_no_task{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
@@ -2356,7 +2356,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -2395,7 +2395,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "histogram_quantile(0.95, sum(rate(temporal_activity_schedule_to_start_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, le))",
               "interval": "",
@@ -2440,7 +2440,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -2479,7 +2479,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "histogram_quantile(0.95, sum(rate(temporal_activity_schedule_to_start_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, activity_type, le))",
               "interval": "",
@@ -2522,7 +2522,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "refId": "A"
         }
@@ -2534,7 +2534,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "victoriametrics"
+        "uid": "$datasource"
       },
       "gridPos": {
         "h": 1,
@@ -2551,7 +2551,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -2590,7 +2590,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum by (namespace) (rate(temporal_sticky_cache_hit{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
@@ -2635,7 +2635,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -2674,7 +2674,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum by (namespace) (rate(temporal_sticky_cache_miss{namespace=~\"Namespace\"}[5m]))",
               "interval": "",
@@ -2719,7 +2719,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -2758,7 +2758,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum by (namespace) (rate(temporal_sticky_cache_total_forced_eviction{namespace=~\"Namespace\"}[5m]))",
               "interval": "",
@@ -2803,7 +2803,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -2842,7 +2842,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "victoriametrics"
+                "uid": "$datasource"
               },
               "expr": "sum by (namespace) (temporal_sticky_cache_size)",
               "interval": "",
@@ -2885,7 +2885,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "victoriametrics"
+            "uid": "$datasource"
           },
           "refId": "A"
         }
@@ -2900,6 +2900,27 @@
   "tags": [],
   "templating": {
     "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "default",
+          "value": "default"
+        },
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
       {
         "allValue": ".*",
         "current": {
