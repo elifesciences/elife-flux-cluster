@@ -115,15 +115,15 @@ spec:
         datasources:
           label: grafana_datasource
     alertmanager:
-      nodeSelector:
-        Project: ${cluster_name}
       spec:
         externalURL: https://alertmanager.${cluster_domain}
-      resources:
-        requests:
-          cpu: 10m
-          memory: 100Mi
-        limits: {}
+        nodeSelector:
+          Project: ${cluster_name}
+        resources:
+          requests:
+            cpu: 10m
+            memory: 100Mi
+          limits: {}
       ingress:
         enabled: true
         hosts:
