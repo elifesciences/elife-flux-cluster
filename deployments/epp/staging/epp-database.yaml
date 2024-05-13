@@ -31,6 +31,8 @@ spec:
       size: 3
       annotations:
         "cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes": "bin"
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '9216'
       nodeSelector:
         Project: epp
         kubernetes.io/arch: amd64
@@ -77,3 +79,23 @@ spec:
           resources:
             requests:
               storage: 20Gi
+      sidecars:
+      - image: "percona/mongodb_exporter:0.40.0"
+        name: mongodb-exporter
+        args:
+        - "--mongodb.uri=mongodb://127.0.0.1:27017"
+        - "--collector.replicasetstatus=true"
+        - "--collector.diagnosticdata=true"
+        ports:
+          - containerPort: 9216
+        env:
+          - name: MONGODB_USER
+            valueFrom:
+              secretKeyRef:
+                key: MONGODB_DATABASE_ADMIN_USER
+                name: mongo-psmdb-db-secrets
+          - name: MONGODB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: MONGODB_DATABASE_ADMIN_PASSWORD
+                name: mongo-psmdb-db-secrets
