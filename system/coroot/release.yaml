@@ -22,6 +22,8 @@ spec:
         hostname: coroot.${cluster_domain}
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
+          nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
         tls:
         - secretName: coroot-tls
           hosts:
