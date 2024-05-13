@@ -1,8 +1,0 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: parca
-spec:
-  interval: 5m0s
-  url: https://parca-dev.github.io/helm-charts/
