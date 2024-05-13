@@ -93,9 +93,9 @@ spec:
             valueFrom:
               secretKeyRef:
                 key: MONGODB_DATABASE_ADMIN_USER
-                name: mongo-psmdb-db-secrets
+                name: epp-database-psmdb-db-secrets
           - name: MONGODB_PASSWORD
             valueFrom:
               secretKeyRef:
                 key: MONGODB_DATABASE_ADMIN_PASSWORD
-                name: mongo-psmdb-db-secrets
+                name: epp-database-psmdb-db-secrets
