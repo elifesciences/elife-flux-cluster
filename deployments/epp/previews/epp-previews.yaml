@@ -119,6 +119,11 @@ spec:
                   spec:
                     template:
                       spec:
+                        containers:
+                        - name:
+                          env:
+                          - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+                            value: http://coroot.coroot:8080/v1/traces
                         nodeSelector:
                           Project: epp
                         tolerations:
