@@ -45,8 +45,10 @@ spec:
           resources:
             requests:
               cpu: 600m
-              memory: 6Gi
+              memory: 7Gi
             limits: {}
+          extraArgs:
+            "memory.allowedPercent": "80"
 
         vmselect:
           nodeSelector:
