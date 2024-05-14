@@ -1,71 +1,34 @@
 # Test all kustomizations have reconciled
-kustomizations.kustomize.toolkit.fluxcd.io ready flux-system crds
-kustomizations.kustomize.toolkit.fluxcd.io ready flux-system system
-kustomizations.kustomize.toolkit.fluxcd.io ready flux-system deployments
+2m kustomizations.kustomize.toolkit.fluxcd.io ready flux-system crds
+2m kustomizations.kustomize.toolkit.fluxcd.io ready flux-system system
+2m kustomizations.kustomize.toolkit.fluxcd.io ready flux-system deployments
 
 # Test all system resources have "deployed"
-helmrelease ready autoscaler cluster-autoscaler
-helmrelease ready infra sealed-secrets
-helmrelease ready infra ingress-nginx
-helmrelease ready infra cert-manager
-helmrelease ready infra external-dns
-helmrelease ready infra oauth2-proxy
-helmrelease ready kube-system descheduler
-helmrelease ready monitoring metrics-server
-helmrelease ready monitoring prometheus-stack
-helmrelease ready logging loki
-helmrelease ready logging vector
-helmrelease ready db-operator-system psmdb-operator
-helmrelease ready db-operator-system pxc-operator
-helmrelease ready db-operator-system pg-operator
-helmrelease ready db-operator-system opensearch-operator
-helmrelease ready monitoring prometheus-stack
-helmrelease ready flux-system template-controller
-helmrelease ready gemini gemini
-helmrelease ready temporal temporal-database
-helmrelease ready temporal temporal
-helmrelease ready temporal2 temporal-database
-helmrelease ready keda keda
-deployment Available temporal2 temporal-frontend
-deployment Available temporal2 temporal-matching
-deployment Available temporal2 temporal-history
-deployment Available temporal2 temporal-worker
-deployment Available temporal2 temporal-web
+2m helmrelease ready db-operator-system psmdb-operator
+2m helmrelease ready db-operator-system pg-operator
+2m helmrelease ready db-operator-system pxc-operator
+2m helmrelease ready flux-system gitops-dashboard
+2m helmrelease ready ack-system rds
+2m helmrelease ready external-secrets external-secrets
+2m helmrelease ready flux-system template-controller
+2m helmrelease ready loki loki
+2m helmrelease ready victoriametrics victoriametrics
+2m helmrelease ready infra sealed-secrets
+2m helmrelease ready keda keda
+2m helmrelease ready keda keda-add-ons-http
+2m helmrelease ready karpenter karpenter
+2m helmrelease ready kube-system descheduler
+2m helmrelease ready monitoring metrics-server
+2m helmrelease ready spegel spegel
+2m helmrelease ready grafana grafana
+2m helmrelease ready vector vector
+2m helmrelease ready infra external-dns
+2m helmrelease ready infra ingress-nginx
+2m helmrelease ready infra oauth2-proxy
+2m helmrelease ready infra cert-manager
+2m helmrelease ready db-operator-system opensearch-operator
 
-
-
-kustomizations.kustomize.toolkit.fluxcd.io ready monitoring monitoring-flux
+2m kustomizations.kustomize.toolkit.fluxcd.io ready monitoring monitoring-flux
 
 # Test all deployments
-
-## Data Hub
-deployment Available data-hub data-hub-api--prod
-deployment Available data-hub data-hub-api--stg
-deployment Available data-hub sciety-labs--prod
-deployment Available data-hub sciety-labs--stg
-deployment Available data-hub test-ftpserver
-helmrelease ready data-hub data-hub--prod
-helmrelease ready data-hub data-hub--stg
-helmrelease ready data-hub data-hub--test
-
-## EPP
-deployment Available epp--prod epp-client
-deployment Available epp--prod epp-image-server
-deployment Available epp--prod epp-server
-deployment Available epp--prod epp-storybook
-deployment Available epp--prod epp-biorxiv-xslt-api
-helmrelease ready epp--prod epp-database
-deployment Available epp--staging epp-client
-deployment Available epp--staging epp-image-server
-deployment Available epp--staging epp-server
-deployment Available epp--staging epp-storybook
-deployment Available epp--staging epp-biorxiv-xslt-api
-helmrelease ready epp--staging epp-database
-
-## Peerscout
-helmrelease ready peerscout peerscout--prod
-helmrelease ready peerscout peerscout--prod
-
-
-deployment Available podinfo podinfo--prod
-deployment Available basex-validator--prod basex-validator
+2m deployment Available podinfo--staging podinfo
