@@ -11,3 +11,6 @@ spec:
     name: flux-system
   path: ./crds
   prune: true
+  postBuild:
+    substitute:
+      cluster_name: end-to-end-tests

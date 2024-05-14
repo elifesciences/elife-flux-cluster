@@ -13,6 +13,18 @@ spec:
   prune: true
   dependsOn:
     - name: crds
+  postBuild:
+    substitute:
+      cluster_name: end-to-end-tests
+      cluster_domain: end-to-end-tests.internal
+
+      # TODO: structure repo so that these aren't required
+      aws_region: no-north-1
+
+      oauth2_proxy_hostname: "oauth2-proxy"
+      oauth2_proxy_signout_url: "https://localhost:8080/oauth2/sign_out"
+      oauth2_proxy_auth_url: "https://localhost:8080/oauth2/auth"
+      oauth2_proxy_auth_signin: "https://localhost:8080/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
 
   patches:
   # in a small cluster like kind or minikube the load balancer won't get an external IP.
@@ -44,6 +56,7 @@ spec:
                   effect: "NoSchedule"
                 nodeSelector:
                   kubernetes.io/hostname: elife-flux-cluster-control-plane
+
     target:
       kind: HelmRelease
       name: ingress-nginx
@@ -93,7 +106,88 @@ spec:
       kind: HelmRelease
       metadata:
         name: loki
-        namespace: logging
+        namespace: grafana
       spec:
         install:
           disableWait: true
+  - target:
+      kind: HelmRelease
+      name: mimir
+    patch: |
+      apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      kind: HelmRelease
+      metadata:
+        name: mimir
+        namespace: grafana
+      spec:
+        install:
+          disableWait: true
+  - target:
+      kind: HelmRelease
+      name: opensearch-operator
+    patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      kind: HelmRelease
+      metadata:
+        name: opensearch-operator
+        namespace: db-operator-system
+      spec:
+        values:
+          tolerations:
+          - key: "realnode"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
+          nodeSelector:
+            kubernetes.io/hostname: elife-flux-cluster-control-plane
+  - target:
+      kind: HelmRelease
+      name: cert-manager
+    patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      kind: HelmRelease
+      metadata:
+        name: cert-manager
+      spec:
+        values:
+          tolerations:
+          - key: "realnode"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
+          nodeSelector:
+            kubernetes.io/hostname: elife-flux-cluster-control-plane
+          cainjector:
+            tolerations:
+            - key: "realnode"
+              operator: "Equal"
+              value: "true"
+              effect: "NoSchedule"
+            nodeSelector:
+              kubernetes.io/hostname: elife-flux-cluster-control-plane
+          webhook:
+            tolerations:
+            - key: "realnode"
+              operator: "Equal"
+              value: "true"
+              effect: "NoSchedule"
+            nodeSelector:
+              kubernetes.io/hostname: elife-flux-cluster-control-plane
+  - target:
+      kind: HelmRelease
+      name: external-secrets
+    patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      kind: HelmRelease
+      metadata:
+        name: external-secrets
+      spec:
+        values:
+          global:
+            tolerations:
+            - key: "realnode"
+              operator: "Equal"
+              value: "true"
+              effect: "NoSchedule"
+            nodeSelector:
+              kubernetes.io/hostname: elife-flux-cluster-control-plane
