@@ -46,4 +46,4 @@ kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --
 # Force reconcile of all kustomizations
 flux reconcile kustomization crds
 flux reconcile kustomization system
-# flux reconcile kustomization deployments
+flux reconcile kustomization deployments
