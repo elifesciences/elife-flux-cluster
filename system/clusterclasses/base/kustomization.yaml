@@ -17,5 +17,6 @@ resources:
 - ../../nidhogg
 - ../../spegel
 - ../../template-controller
+- ../../temporal
 - ../../vector
 - ../../victoriametrics
