@@ -17,9 +17,6 @@ spec:
         name: ingress-nginx
       interval: 1m
 
-  dependsOn:
-  - name: sealed-secrets
-    namespace: infra
   install:
     remediation:
       retries: 3
