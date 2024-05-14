@@ -12,7 +12,7 @@ branch=${1:-master}
 echo "Building KinD cluster using '$branch' branch"
 
 kind delete cluster --name "$name"
-kind create cluster --name "$name" --image=kindest/node:v1.27.3
+kind create cluster --name "$name" --image=kindest/node:v1.28.9
 
 # install kwok into cluster
 KWOK_RELEASE=v0.5.1
