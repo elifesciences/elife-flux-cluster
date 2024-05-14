@@ -77,7 +77,7 @@ spec:
       spec:
         extraArgs:
           "promscrape.kubernetesSDCheckInterval": "10s"
-          "promscrape.suppressScrapeErrorsDelay": "10s"
+          "promscrape.suppressScrapeErrorsDelay": "15s"
         nodeSelector:
           Project: ${cluster_name}
         resources:
