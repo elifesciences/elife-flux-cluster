@@ -1,18 +1,18 @@
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: deployments
-  namespace: flux-system
-spec:
-  interval: 1m0s
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./deployments
-  prune: true
-  dependsOn:
-    - name: system
-  postBuild:
-    substitute:
-      cluster_name: end-to-end-tests
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: deployments
+#   namespace: flux-system
+# spec:
+#   interval: 1m0s
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   path: ./deployments
+#   prune: true
+#   dependsOn:
+#     - name: system
+#   postBuild:
+#     substitute:
+#       cluster_name: end-to-end-tests

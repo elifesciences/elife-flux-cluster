@@ -6,80 +6,65 @@ on:
     branches-ignore:
     - master
     tags-ignore: [ '*' ]
-    paths-ignore:
-      - 'kustomizations/apps/*'
-      - 'kustomizations/deployments/*'
 
 jobs:
   run-on-kubernetes:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-      - name: Find Flux version
-        id: flux-version
-        uses: mikefarah/yq@master
+        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4
+      # Seemingly something mise installs breaks post-checkout.
+      # this runs a post-task after post-mise (for caching) but before post-checkout
+      - name: Clean up Mise
+        uses: gacts/run-and-post-run@v1
         with:
-          cmd: echo FLUX_VERSION=$(yq 'select(document_index == 0) | .metadata.labels["app.kubernetes.io/version"] | sub("v(.*)", "${1}")' clusters/flux-prod/flux-system/gotk-components.yaml) >> $GITHUB_OUTPUT
-      - name: Setup Flux
-        uses: fluxcd/flux2/action@main
-        with:
-          version: ${{ steps.flux-version.outputs.FLUX_VERSION }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Setup Kubernetes (Kind)
-        uses: engineerd/setup-kind@v0.5.0
-        with:
-          version: "v0.18.0"
-          skipClusterCreation: true
+          run: echo "Nothing"
+          post: mise implode -y
+      - name: Install tools
+        uses: jdx/mise-action@v2
       - name: Create a test cluster and deploy this branch
         run: ./tests/run_cluster_in_kind.sh ${GITHUB_REF#refs/heads/}
       - name: Test resources come up
         run: ./tests/run_tests.sh
-      - name: Debug failure - logs - kwok-controller
+      - name: Debug failure summaries
         if: failure()
-        run: kubectl logs -n kube-system --previous deployment/kwok-controller
-      - name: Debug failure - summaries - Pods
+        run: |
+          echo "echo "All Flux components""
+          flux get all --all-namespaces
+          echo "Helm list"
+          helm list -A
+          echo "kubectl get all in namespace flux-system"
+          kubectl -n flux-system get all -o wide
+          echo "kubectl get all helm releases"
+          kubectl get helmreleases.helm.toolkit.fluxcd.io --all-namespaces
+          echo "kubectl get all pods"
+          kubectl get pods -A -o wide
+      - name: Debug describe nodes
         if: failure()
-        run: kubectl get pods -A -o wide
-      - name: Debug failure - summaries - deployments
+        run: |
+          kubectl describe nodes
+      - name: Debug describe pods
         if: failure()
-        run: kubectl get deployments -A -o wide
-      - name: Debug failure - summaries - statefulsets
+        run: |
+          kubectl describe pods --all-namespaces
+      - name: Debug describe helm releases
         if: failure()
-        run: kubectl get statefulsets -A -o wide
-      - name: Debug failure - summaries - flux objects
+        run: |
+          kubectl describe helmreleases.helm.toolkit.fluxcd.io --all-namespaces
+      - name: Debug source-controller logs
         if: failure()
-        run: flux get all --all-namespaces
-      - name: Debug failure - summaries - helm releases
+        run: |
+          kubectl -n flux-system logs deploy/source-controller
+      - name: Debug kustomize-controller logs
         if: failure()
-        run: helm list -A
-      - name: Debug failure - summaries - everything in flux-system namespace
+        run: |
+          kubectl -n flux-system logs deploy/kustomize-controller
+      - name: Debug helm-controller logs
         if: failure()
-        run: kubectl -n flux-system get all
-      - name: Debug failure summaries - all HelmRelease objects
+        run: |
+          kubectl -n flux-system logs deploy/helm-controller
+      - name: Debug kwok controller
         if: failure()
-        run: kubectl get helmreleases.helm.toolkit.fluxcd.io --all-namespaces
-      - name: Debug failure - describe nodes
-        if: failure()
-        run: kubectl describe nodes
-      - name: Debug failure - describe pods
-        if: failure()
-        run: kubectl describe pods --all-namespaces
-      - name: Debug failure - describe helm releases
-        if: failure()
-        run: kubectl describe helmreleases.helm.toolkit.fluxcd.io --all-namespaces
-      - name: Debug failure - describe kustomizations
-        if: failure()
-        run: kubectl describe kustomizations.kustomize.toolkit.fluxcd.io --all-namespaces
-      - name: Debug failure - source-controller logs
-        if: failure()
-        run: kubectl -n flux-system logs deploy/source-controller
-      - name: Debug failure - kustomize-controller logs
-        if: failure()
-        run: kubectl -n flux-system logs deploy/kustomize-controller
-      - name: Debug failure - helm-controller logs
-        if: failure()
-        run: kubectl -n flux-system logs deploy/helm-controller
-      - name: Debug failure - kwok logs
-        if: failure()
-        run: kubectl logs -n kube-system deployment/kwok-controller
+        run: |
+          kubectl -n kube-system logs deploy/kwok-controller
+          kubectl -n kube-system logs deploy/kwok-controller --previous

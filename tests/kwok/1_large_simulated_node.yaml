@@ -13,6 +13,7 @@ metadata:
     kubernetes.io/role: agent
     node-role.kubernetes.io/agent: ""
     type: kwok
+    Project: end-to-end-tests
   name: kwok-node-0
 spec:
   # taints: # Avoid scheduling actual running pods to fake Node
@@ -24,12 +25,10 @@ status:
     cpu: 32
     memory: 256Gi
     pods: 110
-    ephemeral-storage: 60Gi
   capacity:
     cpu: 32
     memory: 256Gi
     pods: 110
-    ephemeral-storage: 60Gi
   nodeInfo:
     architecture: amd64
     bootID: ""
