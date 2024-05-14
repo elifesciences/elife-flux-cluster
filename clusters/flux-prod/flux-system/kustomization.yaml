@@ -103,7 +103,7 @@ patches:
           - name: manager
             resources:
               limits:
-                memory: 1Gi
+                memory: 768Mi
               requests:
                 cpu: 50m
-                memory: 1Gi
+                memory: 768Mi
