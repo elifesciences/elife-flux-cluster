@@ -28,19 +28,19 @@ spec:
 
   postRenderers:
   - kustomize:
-      patchesJson6902:
+      patches:
       - target:
           kind: ClusterRole
           name: template-controller-manager-role
-        patch:
-        - op: "add"
-          path: "/rules/-"
-          value:
-            apiGroups:
-            - image.toolkit.fluxcd.io
-            resources:
-            - imagepolicies
-            verbs:
-            - get
-            - list
-            - watch
+        patch: |
+          - op: "add"
+            path: "/rules/-"
+            value:
+              apiGroups:
+              - image.toolkit.fluxcd.io
+              resources:
+              - imagepolicies
+              verbs:
+              - get
+              - list
+              - watch
