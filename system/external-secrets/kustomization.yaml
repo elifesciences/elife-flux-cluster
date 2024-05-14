@@ -4,4 +4,3 @@ namespace: external-secrets
 resources:
 - namespace
 - external-secrets
-- secret-store
