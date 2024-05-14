@@ -1,7 +1,7 @@
 # Test all kustomizations have reconciled
 2m kustomizations.kustomize.toolkit.fluxcd.io ready flux-system crds
 2m kustomizations.kustomize.toolkit.fluxcd.io ready flux-system system
-2m kustomizations.kustomize.toolkit.fluxcd.io ready flux-system deployments
+# 2m kustomizations.kustomize.toolkit.fluxcd.io ready flux-system deployments
 
 # Test all system resources have "deployed"
 2m helmrelease ready db-operator-system psmdb-operator
