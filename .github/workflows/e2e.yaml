@@ -37,7 +37,7 @@ jobs:
         run: ./tests/run_tests.sh
       - name: Debug failure - logs - kwok-controller
         if: failure()
-        run: kubectl logs -n kube-system --previous deployment/kwok-controller
+        run: stern --no-follow -n kube-system deployment/kwok-controller
       - name: Debug failure - summaries - Pods
         if: failure()
         run: kubectl get pods -A -o wide
@@ -73,13 +73,13 @@ jobs:
         run: kubectl describe kustomizations.kustomize.toolkit.fluxcd.io --all-namespaces
       - name: Debug failure - source-controller logs
         if: failure()
-        run: kubectl -n flux-system logs deploy/source-controller
+        run: stern --no-follow -n flux-system deploy/source-controller
       - name: Debug failure - kustomize-controller logs
         if: failure()
-        run: kubectl -n flux-system logs deploy/kustomize-controller
+        run: stern --no-follow -n flux-system deploy/kustomize-controller
       - name: Debug failure - helm-controller logs
         if: failure()
-        run: kubectl -n flux-system logs deploy/helm-controller
+        run: stern --no-follow -n flux-system deploy/helm-controller
       - name: Debug failure - kwok logs
         if: failure()
-        run: kubectl logs -n kube-system deployment/kwok-controller
+        run: stern --no-follow -n kube-system deployment/kwok-controller
