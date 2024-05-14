@@ -46,7 +46,7 @@ spec:
               value: "true"
               effect: "NoSchedule"
             nodeSelector:
-              Project: end-to-end-tests
+              kubernetes.io/hostname: elife-flux-cluster-control-plane
             admissionWebhooks:
               patch:
                 tolerations:
@@ -55,7 +55,7 @@ spec:
                   value: "true"
                   effect: "NoSchedule"
                 nodeSelector:
-                  Project: end-to-end-tests
+                  kubernetes.io/hostname: elife-flux-cluster-control-plane
 
     target:
       kind: HelmRelease
@@ -76,7 +76,7 @@ spec:
             value: "true"
             effect: "NoSchedule"
           nodeSelector:
-            Project: end-to-end-tests
+            kubernetes.io/hostname: elife-flux-cluster-control-plane
     target:
       kind: HelmRelease
       name: metrics-server
@@ -94,7 +94,7 @@ spec:
             value: "true"
             effect: "NoSchedule"
           nodeSelector:
-            Project: end-to-end-tests
+            kubernetes.io/hostname: elife-flux-cluster-control-plane
     target:
       kind: HelmRelease
       name: vector
@@ -139,7 +139,7 @@ spec:
             value: "true"
             effect: "NoSchedule"
           nodeSelector:
-            Project: end-to-end-tests
+            kubernetes.io/hostname: elife-flux-cluster-control-plane
   - target:
       kind: HelmRelease
       name: cert-manager
@@ -156,7 +156,7 @@ spec:
             value: "true"
             effect: "NoSchedule"
           nodeSelector:
-            Project: end-to-end-tests
+            kubernetes.io/hostname: elife-flux-cluster-control-plane
           cainjector:
             tolerations:
             - key: "realnode"
@@ -164,7 +164,7 @@ spec:
               value: "true"
               effect: "NoSchedule"
             nodeSelector:
-              Project: end-to-end-tests
+              kubernetes.io/hostname: elife-flux-cluster-control-plane
           webhook:
             tolerations:
             - key: "realnode"
@@ -172,7 +172,7 @@ spec:
               value: "true"
               effect: "NoSchedule"
             nodeSelector:
-              Project: end-to-end-tests
+              kubernetes.io/hostname: elife-flux-cluster-control-plane
   - target:
       kind: HelmRelease
       name: external-secrets
@@ -190,4 +190,4 @@ spec:
               value: "true"
               effect: "NoSchedule"
             nodeSelector:
-              Project: end-to-end-tests
+              kubernetes.io/hostname: elife-flux-cluster-control-plane
