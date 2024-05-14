@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../flux-system
+- ../../infra
+- ../../ack-system
+- ../../coroot
+- ../../database
+- ../../external-secrets
+- ../../gemini
+- ../../grafana
+- ../../karpenter
+- ../../keda
+- ../../kube-system
+- ../../loki
+- ../../monitoring
+- ../../nidhogg
+- ../../spegel
+- ../../template-controller
+- ../../vector
+- ../../victoriametrics

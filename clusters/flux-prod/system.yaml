@@ -9,7 +9,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./system
+  path: ./system/clusters/flux-prod
   prune: true
   dependsOn:
     - name: crds
