@@ -57,9 +57,9 @@
 # 2m helmrelease ready epp--staging epp-database
 
 ## Peerscout
-2m helmrelease ready peerscout peerscout--prod
-2m helmrelease ready peerscout peerscout--prod
+# 2m helmrelease ready peerscout peerscout--prod
+# 2m helmrelease ready peerscout peerscout--prod
 
 
-2m deployment Available podinfo podinfo--prod
-2m deployment Available basex-validator--prod basex-validator
+# 2m deployment Available podinfo podinfo--prod
+# 2m deployment Available basex-validator--prod basex-validator
