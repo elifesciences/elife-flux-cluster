@@ -30,7 +30,7 @@ How to Pin
   if not: investigate other way to pin and autodetect upgrades
 
 ```
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: sealed-secrets

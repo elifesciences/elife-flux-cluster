@@ -30,7 +30,7 @@ spec:
   # in a small cluster like kind or minikube the load balancer won't get an external IP.
   # Therefore, we need to disable waiting
   - patch: |-
-      apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       metadata:
         name: ingress-nginx
@@ -61,7 +61,7 @@ spec:
       kind: HelmRelease
       name: ingress-nginx
   - patch: |-
-      apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       metadata:
         name: metrics-server
@@ -81,7 +81,7 @@ spec:
       kind: HelmRelease
       name: metrics-server
   - patch: |-
-      apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       metadata:
         name: vector
@@ -102,7 +102,7 @@ spec:
       kind: HelmRelease
       name: loki
     patch: |
-      apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       metadata:
         name: loki
@@ -114,7 +114,7 @@ spec:
       kind: HelmRelease
       name: mimir
     patch: |
-      apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       metadata:
         name: mimir
@@ -126,7 +126,7 @@ spec:
       kind: HelmRelease
       name: opensearch-operator
     patch: |-
-      apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       metadata:
         name: opensearch-operator
@@ -144,7 +144,7 @@ spec:
       kind: HelmRelease
       name: cert-manager
     patch: |-
-      apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       metadata:
         name: cert-manager
@@ -177,7 +177,7 @@ spec:
       kind: HelmRelease
       name: external-secrets
     patch: |-
-      apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       metadata:
         name: external-secrets
