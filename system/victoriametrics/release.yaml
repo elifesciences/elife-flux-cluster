@@ -60,7 +60,7 @@ spec:
 
           resources:
             requests:
-              cpu: 400m
+              cpu: 900m
               memory: 250Mi
             limits: {}
         vminsert:
