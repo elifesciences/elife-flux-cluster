@@ -33,8 +33,7 @@ kubectl label node "$name-control-plane" Project="end-to-end-tests"
 # taint the current node to not schedule workloads by default
 kubectl taint node "$name-control-plane" realnode=true:NoSchedule
 # Install kwok nodes to run "workloads" on
-kubectl apply -f $tests_path/kwok/1_large_simulated_node.yaml
-kubectl apply -f $tests_path/kwok/4_smaller_simulated_nodes.yaml
+kubectl apply -f $tests_path/kwok/
 
 
 
@@ -46,4 +45,4 @@ kubectl wait kustomizations.kustomize.toolkit.fluxcd.io --for=condition=ready --
 # Force reconcile of all kustomizations
 flux reconcile kustomization crds
 flux reconcile kustomization system
-# flux reconcile kustomization deployments
+flux reconcile kustomization deployments

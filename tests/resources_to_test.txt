@@ -1,7 +1,7 @@
 # Test all kustomizations have reconciled
 2m kustomizations.kustomize.toolkit.fluxcd.io ready flux-system crds
 2m kustomizations.kustomize.toolkit.fluxcd.io ready flux-system system
-# 2m kustomizations.kustomize.toolkit.fluxcd.io ready flux-system deployments
+2m kustomizations.kustomize.toolkit.fluxcd.io ready flux-system deployments
 
 # Test all system resources have "deployed"
 2m helmrelease ready db-operator-system psmdb-operator
@@ -33,33 +33,33 @@
 # Test all deployments
 
 ## Data Hub
-# 2m deployment Available data-hub data-hub-api--prod
-# 2m deployment Available data-hub data-hub-api--stg
-# 2m deployment Available data-hub sciety-labs--prod
-# 2m deployment Available data-hub sciety-labs--stg
-# 2m deployment Available data-hub test-ftpserver
-# 2m helmrelease ready data-hub data-hub--prod
-# 2m helmrelease ready data-hub data-hub--stg
-# 2m helmrelease ready data-hub data-hub--test
+2m deployment Available data-hub data-hub-api--prod
+2m deployment Available data-hub data-hub-api--stg
+2m deployment Available data-hub sciety-labs--prod
+2m deployment Available data-hub sciety-labs--stg
+2m deployment Available data-hub test-ftpserver
+2m helmrelease ready data-hub data-hub--prod
+2m helmrelease ready data-hub data-hub--stg
+2m helmrelease ready data-hub data-hub--test
 
 ## EPP
-# 2m deployment Available epp--prod epp-client
-# 2m deployment Available epp--prod epp-image-server
-# 2m deployment Available epp--prod epp-server
-# 2m deployment Available epp--prod epp-storybook
-# 2m deployment Available epp--prod epp-biorxiv-xslt-api
-# 2m helmrelease ready epp--prod epp-database
-# 2m deployment Available epp--staging epp-client
-# 2m deployment Available epp--staging epp-image-server
-# 2m deployment Available epp--staging epp-server
-# 2m deployment Available epp--staging epp-storybook
-# 2m deployment Available epp--staging epp-biorxiv-xslt-api
-# 2m helmrelease ready epp--staging epp-database
+2m deployment Available epp--prod epp-client
+2m deployment Available epp--prod epp-image-server
+2m deployment Available epp--prod epp-server
+2m deployment Available epp--prod epp-storybook
+2m deployment Available epp--prod epp-biorxiv-xslt-api
+2m helmrelease ready epp--prod epp-database
+2m deployment Available epp--staging epp-client
+2m deployment Available epp--staging epp-image-server
+2m deployment Available epp--staging epp-server
+2m deployment Available epp--staging epp-storybook
+2m deployment Available epp--staging epp-biorxiv-xslt-api
+2m helmrelease ready epp--staging epp-database
 
 ## Peerscout
-# 2m helmrelease ready peerscout peerscout--prod
-# 2m helmrelease ready peerscout peerscout--prod
+2m helmrelease ready peerscout peerscout--prod
+2m helmrelease ready peerscout peerscout--prod
 
 
-# 2m deployment Available podinfo podinfo--prod
-# 2m deployment Available basex-validator--prod basex-validator
+2m deployment Available podinfo podinfo--prod
+2m deployment Available basex-validator--prod basex-validator

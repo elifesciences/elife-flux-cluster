@@ -9,13 +9,13 @@ metadata:
     beta.kubernetes.io/arch: amd64
     beta.kubernetes.io/os: linux
     kubernetes.io/arch: amd64
-    kubernetes.io/hostname: kwok-node-1
+    kubernetes.io/hostname: kwok-node-data-hub-1
     kubernetes.io/os: linux
     kubernetes.io/role: agent
     node-role.kubernetes.io/agent: ""
     type: kwok
-    Project: end-to-end-tests
-  name: kwok-node-1
+    Project: data-hub
+  name: kwok-node-data-hub-1
 spec:
   # taints: # Avoid scheduling actual running pods to fake Node
   #   - effect: NoSchedule
@@ -26,10 +26,12 @@ status:
     cpu: 4
     memory: 16Gi
     pods: 110
+    ephemeral-storage: 40Gi
   capacity:
     cpu: 4
     memory: 16Gi
     pods: 110
+    ephemeral-storage: 40Gi
   nodeInfo:
     architecture: amd64
     bootID: ""
@@ -53,13 +55,13 @@ metadata:
     beta.kubernetes.io/arch: amd64
     beta.kubernetes.io/os: linux
     kubernetes.io/arch: amd64
-    kubernetes.io/hostname: kwok-node-2
+    kubernetes.io/hostname: kwok-node-data-hub-2
     kubernetes.io/os: linux
     kubernetes.io/role: agent
     node-role.kubernetes.io/agent: ""
     type: kwok
-    Project: end-to-end-tests
-  name: kwok-node-2
+    Project: data-hub
+  name: kwok-node-data-hub-2
 spec:
   # taints: # Avoid scheduling actual running pods to fake Node
   #   - effect: NoSchedule
@@ -70,10 +72,12 @@ status:
     cpu: 4
     memory: 16Gi
     pods: 110
+    ephemeral-storage: 40Gi
   capacity:
     cpu: 4
     memory: 16Gi
     pods: 110
+    ephemeral-storage: 40Gi
   nodeInfo:
     architecture: amd64
     bootID: ""
@@ -97,13 +101,13 @@ metadata:
     beta.kubernetes.io/arch: amd64
     beta.kubernetes.io/os: linux
     kubernetes.io/arch: amd64
-    kubernetes.io/hostname: kwok-node-3
+    kubernetes.io/hostname: kwok-node-data-hub-3
     kubernetes.io/os: linux
     kubernetes.io/role: agent
     node-role.kubernetes.io/agent: ""
     type: kwok
-    Project: end-to-end-tests
-  name: kwok-node-3
+    Project: data-hub
+  name: kwok-node-data-hub-3
 spec:
   # taints: # Avoid scheduling actual running pods to fake Node
   #   - effect: NoSchedule
@@ -114,10 +118,12 @@ status:
     cpu: 4
     memory: 16Gi
     pods: 110
+    ephemeral-storage: 40Gi
   capacity:
     cpu: 4
     memory: 16Gi
     pods: 110
+    ephemeral-storage: 40Gi
   nodeInfo:
     architecture: amd64
     bootID: ""
@@ -141,13 +147,13 @@ metadata:
     beta.kubernetes.io/arch: amd64
     beta.kubernetes.io/os: linux
     kubernetes.io/arch: amd64
-    kubernetes.io/hostname: kwok-node-4
+    kubernetes.io/hostname: kwok-node-data-hub-4
     kubernetes.io/os: linux
     kubernetes.io/role: agent
     node-role.kubernetes.io/agent: ""
     type: kwok
-    Project: end-to-end-tests
-  name: kwok-node-4
+    Project: data-hub
+  name: kwok-node-data-hub-4
 spec:
   # taints: # Avoid scheduling actual running pods to fake Node
   #   - effect: NoSchedule
@@ -158,10 +164,12 @@ status:
     cpu: 4
     memory: 16Gi
     pods: 110
+    ephemeral-storage: 40Gi
   capacity:
     cpu: 4
     memory: 16Gi
     pods: 110
+    ephemeral-storage: 40Gi
   nodeInfo:
     architecture: amd64
     bootID: ""
