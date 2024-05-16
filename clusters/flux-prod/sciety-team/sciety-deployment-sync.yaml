@@ -70,3 +70,14 @@ spec:
             - key: project
               value: "sciety"
               operator: "Equal"
+  - target:
+      kind: PerconaPGCluster
+      name: sciety--demo
+    patch: |-
+      - op: add
+        path: spec/instances/0
+        value:
+          tolerations:
+          - key: project
+            value: "sciety"
+            operator: "Equal"
