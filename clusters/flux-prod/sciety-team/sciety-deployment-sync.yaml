@@ -107,7 +107,7 @@ spec:
             value: "sciety"
             operator: "Equal"
       - op: add
-        path: /spec/backups/pgbackrest/repohost/affinity/nodeAffinity
+        path: /spec/backups/pgbackrest/repoHost/affinity/nodeAffinity
         value:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
@@ -117,7 +117,7 @@ spec:
                 values:
                 - sciety
       - op: add
-        path: /spec/backups/pgbackrest/repohost/tolerations
+        path: /spec/backups/pgbackrest/repoHost/tolerations
         value:
           - key: project
             value: "sciety"
