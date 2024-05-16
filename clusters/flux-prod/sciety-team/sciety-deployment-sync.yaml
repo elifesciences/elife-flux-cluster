@@ -148,4 +148,4 @@ spec:
         path: /spec/proxy/pgBouncer/config
         value:
           global:
-            client_tls_sslmode: allow
+            client_tls_sslmode: disable
