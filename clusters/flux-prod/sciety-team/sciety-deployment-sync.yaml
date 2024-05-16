@@ -74,23 +74,19 @@ spec:
       kind: PerconaPGCluster
       name: sciety--demo
     patch: |-
-      apiVersion: pgv2.percona.com/v2
-      kind: PerconaPGCluster
-      metadata:
-        name: not-important
-      spec:
-        instances:
-        - name: instance1
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                - matchExpressions:
-                  - key: Project
-                    operator: In
-                    values:
-                    - sciety
-          tolerations:
-          - key: project
-            value: "sciety"
-            operator: "Equal"
+      - op: add
+        path: spec/instances/0/affinity/nodeAffinity
+        value:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: Project
+                operator: In
+                values:
+                - sciety
+      - op: add
+        path: spec/instances/0/tolerations
+        value:
+        - key: project
+          value: "sciety"
+          operator: "Equal"
