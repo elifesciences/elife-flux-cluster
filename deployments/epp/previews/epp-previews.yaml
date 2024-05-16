@@ -17,7 +17,7 @@ spec:
       expandLists: true
   templates:
   - object:
-      apiVersion: image.toolkit.fluxcd.io/v1beta1
+      apiVersion: image.toolkit.fluxcd.io/v1beta2
       kind: ImagePolicy
       metadata:
         name: epp-client-preview-{{ matrix.pr.number }}
@@ -32,7 +32,7 @@ spec:
           numerical:
             order: asc
   - object:
-      apiVersion: image.toolkit.fluxcd.io/v1beta1
+      apiVersion: image.toolkit.fluxcd.io/v1beta2
       kind: ImagePolicy
       metadata:
         name: epp-storybook-preview-{{ matrix.pr.number }}
