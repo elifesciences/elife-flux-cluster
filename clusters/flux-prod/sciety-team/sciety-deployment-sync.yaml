@@ -61,14 +61,16 @@ spec:
                 metadata:
                   name: not-important
                 spec:
-                  template:
+                  jobTemplate:
                     spec:
-                      nodeSelector:
-                        Project: sciety
-                      tolerations:
-                      - key: project
-                        value: "sciety"
-                        operator: "Equal"
+                      template:
+                        spec:
+                          nodeSelector:
+                            Project: sciety
+                          tolerations:
+                          - key: project
+                            value: "sciety"
+                            operator: "Equal"
   - target:
       kind: Deployment
       name: sciety--demo--database
