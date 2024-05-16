@@ -53,6 +53,22 @@ spec:
                       - key: project
                         value: "sciety"
                         operator: "Equal"
+            - target:
+                kind: CronJob
+              patch: |-
+                apiVersion: v1
+                kind: CronJob
+                metadata:
+                  name: not-important
+                spec:
+                  template:
+                    spec:
+                      nodeSelector:
+                        Project: sciety
+                      tolerations:
+                      - key: project
+                        value: "sciety"
+                        operator: "Equal"
   - target:
       kind: Deployment
       name: sciety--demo--database
