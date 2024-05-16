@@ -85,6 +85,18 @@ spec:
             cpu: 450m
             memory: 350Mi
           limits: {}
+      ingress:
+        enabled: true
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          nginx.ingress.kubernetes.io/auth-url: "https://auth--test-cluster.elifesciences.org/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: "https://auth--test-cluster.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+        hosts:
+          - vmagent.${cluster_domain}
+        tls:
+          - secretName: vmagent-tls
+            hosts:
+              - vmagent.${cluster_domain}
     vmalert:
       spec:
         nodeSelector:
