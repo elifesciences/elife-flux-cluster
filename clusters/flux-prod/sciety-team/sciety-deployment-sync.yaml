@@ -149,3 +149,14 @@ spec:
         value:
           global:
             client_tls_sslmode: disable
+  - target:
+      kind: HelmRelease
+      name: sciety--demo
+    patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: not-important
+      spec:
+        values:
+          pgSslMode: "disable"
