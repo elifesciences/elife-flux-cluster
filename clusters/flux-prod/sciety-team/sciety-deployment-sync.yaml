@@ -75,7 +75,7 @@ spec:
       name: sciety--demo
     patch: |-
       - op: add
-        path: spec/instances/0
+        path: /spec/instances/0
         value:
           tolerations:
           - key: project
