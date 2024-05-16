@@ -9,7 +9,9 @@ spec:
     serviceName: opensearch-prod
     version: 2.9.0
     monitoring:
-      enable: true
+      enable: false
+    pluginsList:
+    - "https://github.com/aiven/prometheus-exporter-plugin-for-opensearch/releases/download/2.9.0.0/prometheus-exporter-2.9.0.0.zip"
   dashboards:
     version: 2.9.0
     enable: true
