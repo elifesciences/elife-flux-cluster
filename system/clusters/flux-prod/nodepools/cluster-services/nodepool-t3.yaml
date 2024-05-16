@@ -28,7 +28,7 @@ spec:
           values: ["us-east-1c", "us-east-1d"]
   weight: 100
   limits:
-    cpu: 24
+    cpu: 48
   disruption:
     consolidationPolicy: WhenUnderutilized
     expireAfter: 720h # 30 * 24h = 720h
