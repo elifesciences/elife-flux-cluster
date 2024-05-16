@@ -159,4 +159,4 @@ spec:
         name: not-important
       spec:
         values:
-          pgSslMode: "disable"
+          pgSslMode: disable
