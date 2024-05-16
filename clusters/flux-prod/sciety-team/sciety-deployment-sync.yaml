@@ -106,3 +106,19 @@ spec:
           - key: project
             value: "sciety"
             operator: "Equal"
+      - op: add
+        path: /backups/pgbackrest/repohost/affinity/nodeAffinity
+        value:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: Project
+                operator: In
+                values:
+                - sciety
+      - op: add
+        path: /backups/pgbackrest/repohost/tolerations
+        value:
+          - key: project
+            value: "sciety"
+            operator: "Equal"
