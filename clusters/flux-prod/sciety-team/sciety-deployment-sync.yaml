@@ -140,3 +140,10 @@ spec:
           - key: project
             value: "sciety"
             operator: "Equal"
+  - target:
+      kind: PerconaPGCluster
+      name: sciety--demo
+    patch: |-
+      - op: add
+        path: /spec/proxy/pgBouncer/config/global/client_tls_sslmode
+        value: allow
