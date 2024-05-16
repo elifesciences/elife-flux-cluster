@@ -75,6 +75,8 @@ spec:
             limits: {}
     vmagent:
       spec:
+        externalLabels:
+          cluster: ${cluster_name}
         extraArgs:
           "promscrape.kubernetesSDCheckInterval": "5s"
           "promscrape.suppressScrapeErrorsDelay": "15s"
