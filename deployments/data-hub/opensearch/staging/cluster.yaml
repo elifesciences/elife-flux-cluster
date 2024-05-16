@@ -9,7 +9,7 @@ spec:
     serviceName: opensearch-staging
     version: 2.9.0
     monitoring:
-      enable: true
+      enable: false
     pluginsList:
     - "repository-s3"
   dashboards:

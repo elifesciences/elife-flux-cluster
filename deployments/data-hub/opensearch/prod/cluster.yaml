@@ -9,7 +9,7 @@ spec:
     serviceName: opensearch-prod
     version: 2.9.0
     monitoring:
-      enable: true
+      enable: false
   dashboards:
     version: 2.9.0
     enable: true
