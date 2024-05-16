@@ -2561,7 +2561,7 @@ data:
                 "hide": 0,
                 "includeAll": false,
                 "label": "Cluster",
-                "name": "cluster",
+                "name": "exported_cluster",
                 "query": "label_values(opensearch_cluster_status, exported_cluster)",
                 "refresh": 1,
                 "regex": "",
