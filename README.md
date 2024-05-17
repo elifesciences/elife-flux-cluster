@@ -23,7 +23,7 @@ Admins can configure `kubectl` for this cluster with:
 Dashboards
 ==========
 
-- [Kubernetes Dashboard](https://k8s-dashboard.elifesciences.org)
+- [Kubernetes Dashboard](https://k8s-dashboard.flux-prod.elifesciences.org)
 - [Grafana Dashboards](https://grafana.flux-prod.elifesciences.org/dashboards)
 - [Alertmanager](https://alertmanager.flux-prod.elifesciences.org)
 
@@ -72,10 +72,10 @@ Adding Helm Charts
 
 Debugging
 --------
-- [k8s dash](https://k8s-dashboard.elifesciences.org/clusters/local)
-- [Flux logs](https://k8s-dashboard.elifesciences.org/clusters/local/namespaces/flux/deployments/flux/logs)
-- [HelmOperator logs](https://k8s-dashboard.elifesciences.org/clusters/local/namespaces/flux/deployments/helm-operator/logs)
-- [State of all Canaries](https://k8s-dashboard.elifesciences.org/clusters/local/namespaces/_all/canaries?)
+- [k8s dash](https://k8s-dashboard.flux-prod.elifesciences.org/clusters/local)
+- [Flux logs](https://k8s-dashboard.flux-prod.elifesciences.org/clusters/local/namespaces/flux/deployments/flux/logs)
+- [HelmOperator logs](https://k8s-dashboard.flux-prod.elifesciences.org/clusters/local/namespaces/flux/deployments/helm-operator/logs)
+- [State of all Canaries](https://k8s-dashboard.flux-prod.elifesciences.org/clusters/local/namespaces/_all/canaries?)
 
 Services available on the Cluster
 =================================

@@ -7,7 +7,7 @@ Use one of these git repo to control the cluster state (no `kubectl` or `helm` c
 Dashboards
 ==========
 
-- [Kubernetes Dashboard](https://k8s-dashboard.elifesciences.org)
+- [Kubernetes Dashboard](https://k8s-dashboard.flux-prod.elifesciences.org)
 - [Grafana Dashboards](https://grafana.flux-prod.elifesciences.org/dashboards)
 - [Alertmanager](https://alertmanager.flux-prod.elifesciences.org)
 - [AWS console for the `512686554592` account](https://512686554592.signin.aws.amazon.com/)

@@ -66,6 +66,6 @@ NOTE: `letsencrypt-staging` is also available as an issuer if you are doing a lo
 Observability
 ---------------
 
-- [list of certificates](https://k8s-dashboard.elifesciences.org/clusters/local/namespaces/_all/certificates?)
-- [cert-manager logs](https://k8s-dashboard.elifesciences.org/clusters/local/namespaces/infra/deployments/infra-cert-manager/logs)
-- [cert-manager issuers status](https://k8s-dashboard.elifesciences.org/clusters/local/clusterissuers)
+- [list of certificates](https://k8s-dashboard.flux-prod.elifesciences.org/clusters/local/namespaces/_all/certificates?)
+- [cert-manager logs](https://k8s-dashboard.flux-prod.elifesciences.org/clusters/local/namespaces/infra/deployments/infra-cert-manager/logs)
+- [cert-manager issuers status](https://k8s-dashboard.flux-prod.elifesciences.org/clusters/local/clusterissuers)
