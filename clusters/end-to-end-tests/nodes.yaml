@@ -2,17 +2,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: deployments
+  name: nodes
   namespace: flux-system
 spec:
   interval: 1m0s
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./deployments/clusters/end-to-end-tests
+  path: ./nodes/clusters/end-to-end-tests
   prune: true
-  dependsOn:
-    - name: system
   postBuild:
     substitute:
       cluster_name: end-to-end-tests
+      cluster_domain: end-to-end-tests.internal

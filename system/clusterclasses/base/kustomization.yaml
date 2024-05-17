@@ -9,7 +9,6 @@ resources:
 - ../../external-secrets
 - ../../gemini
 - ../../grafana
-- ../../karpenter
 - ../../keda
 - ../../kube-system
 - ../../loki
