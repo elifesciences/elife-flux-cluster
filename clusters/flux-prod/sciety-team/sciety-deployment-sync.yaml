@@ -76,17 +76,15 @@ spec:
       name: sciety--demo
     patch: |-
       - op: add
-        path: /spec/instances/0
+        path: /spec/instances/0/affinity/nodeAffinity
         value:
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                - matchExpressions:
-                  - key: Project
-                    operator: In
-                    values:
-                    - sciety
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: Project
+                operator: In
+                values:
+                - sciety
       - op: add
         path: /spec/instances/0/tolerations
         value:
