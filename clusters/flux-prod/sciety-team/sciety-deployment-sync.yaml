@@ -94,17 +94,15 @@ spec:
             value: "sciety"
             operator: "Equal"
       - op: add
-        path: /spec/proxy/pgBouncer
+        path: /spec/proxy/pgBouncer/affinity/nodeAffinity
         value:
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                - matchExpressions:
-                  - key: Project
-                    operator: In
-                    values:
-                    - sciety
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: Project
+                operator: In
+                values:
+                - sciety
       - op: add
         path: /spec/proxy/pgBouncer/tolerations
         value:
@@ -112,23 +110,18 @@ spec:
             value: "sciety"
             operator: "Equal"
       - op: add
-        path: /spec/backups/pgbackrest
+        path: /spec/backups/pgbackrest/repoHost/affinity/nodeAffinity
         value:
-          repoHost:
-            affinity:
-              nodeAffinity:
-                requiredDuringSchedulingIgnoredDuringExecution:
-                  nodeSelectorTerms:
-                  - matchExpressions:
-                    - key: Project
-                      operator: In
-                      values:
-                      - sciety
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: Project
+                operator: In
+                values:
+                - sciety
       - op: add
-        path: /spec/backups/pgbackrest
+        path: /spec/backups/pgbackrest/repoHost/tolerations
         value:
-          repoHost:
-            tolerations:
-              - key: project
-                value: "sciety"
-                operator: "Equal"
+          - key: project
+            value: "sciety"
+            operator: "Equal"
