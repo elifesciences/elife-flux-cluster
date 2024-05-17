@@ -7,13 +7,257 @@ importedTimestampFieldName: 'imported_timestamp'
 
 
 googleAnalyticsPipelines:
-  - pipelineID: 'ga_universal_analytics_data_1'
+  # - pipelineID: 'ga_universal_analytics_data_1'
+  #   defaultStartDate: "2014-11-01"
+  #   endDate: "2023-06-30"
+  #   batchDateInterval:
+  #     months: 1
+  #   dataset: '{ENV}'
+  #   table: 'ga_universal_analytics_data'
+  #   viewId: "93573727"  # "Web traffic excluding eLife IP"
+
+  #   dimensions:
+  #     - 'ga:date'
+  #     - 'ga:pagePath'
+  #   metrics:
+  #     - 'ga:sessions'
+  #     - 'ga:pageviews'
+  #     - 'ga:uniquePageviews'
+  #   stateFile:
+  #     bucketName: '{ENV}-elife-data-pipeline'
+  #     objectName: 'airflow-config/ga-universal-analytics/state/{ENV}-ga_universal_analytics_data_1.json'
+
+
+  # Dimensions: yearMonth
+
+  - pipelineID: 'ga_universal_analytics_data_by_year_month_for_user_and_session_metrics_1'
     defaultStartDate: "2014-11-01"
     endDate: "2023-06-30"
     batchDateInterval:
       months: 1
     dataset: '{ENV}'
-    table: 'ga_universal_analytics_data'
+    table: 'temp_ga_universal_analytics_data'
+    viewId: "93573727"  # "Web traffic excluding eLife IP"
+
+    dimensions:
+      - 'ga:yearMonth'
+    metrics:
+      - 'ga:users'
+      - 'ga:newUsers'
+      - 'ga:percentNewSessions'
+      - 'ga:sessionsPerUser'
+      - 'ga:sessions'
+      - 'ga:bounces'
+      - 'ga:bounceRate'
+      - 'ga:sessionDuration'
+      - 'ga:avgSessionDuration'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_year_month_for_user_and_session_metrics_1.json'
+
+  - pipelineID: 'ga_universal_analytics_data_by_year_month_for_page_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'temp_ga_universal_analytics_data'
+    viewId: "93573727"  # "Web traffic excluding eLife IP"
+
+    dimensions:
+      - 'ga:yearMonth'
+    metrics:
+      - 'ga:entrances'
+      - 'ga:entranceRate'
+      - 'ga:pageviews'
+      - 'ga:pageviewsPerSession'
+      - 'ga:uniquePageviews'
+      - 'ga:timeOnPage'
+      - 'ga:avgTimeOnPage'
+      - 'ga:exits'
+      - 'ga:exitRate'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_year_month_for_page_metrics_1.json'
+
+
+  # Dimensions: yearMonth + country
+
+  - pipelineID: 'ga_universal_analytics_data_by_yearmonth_and_country_for_user_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'temp_ga_universal_analytics_data'
+    viewId: "93573727"  # "Web traffic excluding eLife IP"
+
+    dimensions:
+      - 'ga:yearMonth'
+      - 'ga:country'
+      - 'ga:countryIsoCode'
+    metrics:
+      - 'ga:users'
+      - 'ga:newUsers'
+      - 'ga:percentNewSessions'
+      - 'ga:sessionsPerUser'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_yearmonth_and_country_for_user_metrics_1.json'
+
+  - pipelineID: 'ga_universal_analytics_data_by_yearmonth_and_country_for_session_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'temp_ga_universal_analytics_data'
+    viewId: "93573727"  # "Web traffic excluding eLife IP"
+
+    dimensions:
+      - 'ga:yearMonth'
+      - 'ga:country'
+      - 'ga:countryIsoCode'
+    metrics:
+      - 'ga:sessions'
+      - 'ga:bounces'
+      - 'ga:bounceRate'
+      - 'ga:sessionDuration'
+      - 'ga:avgSessionDuration'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_yearmonth_and_country_for_session_metrics_1.json'
+
+  - pipelineID: 'ga_universal_analytics_data_by_yearmonth_and_country_for_page_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'temp_ga_universal_analytics_data'
+    viewId: "93573727"  # "Web traffic excluding eLife IP"
+
+    dimensions:
+      - 'ga:yearMonth'
+      - 'ga:country'
+      - 'ga:countryIsoCode'
+    metrics:
+      - 'ga:entrances'
+      - 'ga:entranceRate'
+      - 'ga:pageviews'
+      - 'ga:pageviewsPerSession'
+      - 'ga:uniquePageviews'
+      - 'ga:timeOnPage'
+      - 'ga:avgTimeOnPage'
+      - 'ga:exits'
+      - 'ga:exitRate'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_yearmonth_and_country_for_page_metrics_1.json'
+
+
+  # Dimensions: yearMonth + pagePath
+
+  - pipelineID: 'ga_universal_analytics_data_by_yearmonth_and_path_for_user_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'temp_ga_universal_analytics_data'
+    viewId: "93573727"  # "Web traffic excluding eLife IP"
+
+    dimensions:
+      - 'ga:yearMonth'
+      - 'ga:pagePath'
+    metrics:
+      - 'ga:users'
+      - 'ga:newUsers'
+      - 'ga:percentNewSessions'
+      - 'ga:sessionsPerUser'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_yearmonth_and_path_for_user_metrics_1.json'
+
+  - pipelineID: 'ga_universal_analytics_data_by_yearmonth_and_path_for_session_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'temp_ga_universal_analytics_data'
+    viewId: "93573727"  # "Web traffic excluding eLife IP"
+
+    dimensions:
+      - 'ga:yearMonth'
+      - 'ga:pagePath'
+    metrics:
+      - 'ga:sessions'
+      - 'ga:bounces'
+      - 'ga:bounceRate'
+      - 'ga:sessionDuration'
+      - 'ga:avgSessionDuration'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_yearmonth_and_path_for_session_metrics_1.json'
+
+  - pipelineID: 'ga_universal_analytics_data_by_yearmonth_and_path_for_page_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'temp_ga_universal_analytics_data'
+    viewId: "93573727"  # "Web traffic excluding eLife IP"
+
+    dimensions:
+      - 'ga:yearMonth'
+      - 'ga:pagePath'
+    metrics:
+      - 'ga:entrances'
+      - 'ga:entranceRate'
+      - 'ga:pageviews'
+      - 'ga:pageviewsPerSession'
+      - 'ga:uniquePageviews'
+      - 'ga:timeOnPage'
+      - 'ga:avgTimeOnPage'
+      - 'ga:exits'
+      - 'ga:exitRate'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_yearmonth_and_path_for_page_metrics_1.json'
+
+
+  # Dimensions: date + pagePath
+
+  - pipelineID: 'ga_universal_analytics_data_by_date_and_path_for_user_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'temp_ga_universal_analytics_data'
+    viewId: "93573727"  # "Web traffic excluding eLife IP"
+
+    dimensions:
+      - 'ga:date'
+      - 'ga:pagePath'
+    metrics:
+      - 'ga:users'
+      - 'ga:newUsers'
+      - 'ga:percentNewSessions'
+      - 'ga:sessionsPerUser'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_date_and_path_for_user_metrics_1.json'
+
+  - pipelineID: 'ga_universal_analytics_data_by_date_and_path_for_session_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'temp_ga_universal_analytics_data'
     viewId: "93573727"  # "Web traffic excluding eLife IP"
 
     dimensions:
@@ -21,8 +265,36 @@ googleAnalyticsPipelines:
       - 'ga:pagePath'
     metrics:
       - 'ga:sessions'
-      - 'ga:pageviews'
-      - 'ga:uniquePageviews'
+      - 'ga:bounces'
+      - 'ga:bounceRate'
+      - 'ga:sessionDuration'
+      - 'ga:avgSessionDuration'
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
-      objectName: 'airflow-config/ga-universal-analytics/state/{ENV}-ga_universal_analytics_data_1.json'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_date_and_path_for_session_metrics_1.json'
+
+  - pipelineID: 'ga_universal_analytics_data_by_date_and_path_for_page_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'temp_ga_universal_analytics_data'
+    viewId: "93573727"  # "Web traffic excluding eLife IP"
+
+    dimensions:
+      - 'ga:date'
+      - 'ga:pagePath'
+    metrics:
+      - 'ga:entrances'
+      - 'ga:entranceRate'
+      - 'ga:pageviews'
+      - 'ga:pageviewsPerSession'
+      - 'ga:uniquePageviews'
+      - 'ga:timeOnPage'
+      - 'ga:avgTimeOnPage'
+      - 'ga:exits'
+      - 'ga:exitRate'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_date_and_path_for_page_metrics_1.json'
