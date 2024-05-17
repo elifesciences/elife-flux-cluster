@@ -7,27 +7,6 @@ importedTimestampFieldName: 'imported_timestamp'
 
 
 googleAnalyticsPipelines:
-  # - pipelineID: 'ga_universal_analytics_data_1'
-  #   defaultStartDate: "2014-11-01"
-  #   endDate: "2023-06-30"
-  #   batchDateInterval:
-  #     months: 1
-  #   dataset: '{ENV}'
-  #   table: 'ga_universal_analytics_data'
-  #   viewId: "93573727"  # "Web traffic excluding eLife IP"
-
-  #   dimensions:
-  #     - 'ga:date'
-  #     - 'ga:pagePath'
-  #   metrics:
-  #     - 'ga:sessions'
-  #     - 'ga:pageviews'
-  #     - 'ga:uniquePageviews'
-  #   stateFile:
-  #     bucketName: '{ENV}-elife-data-pipeline'
-  #     objectName: 'airflow-config/ga-universal-analytics/state/{ENV}-ga_universal_analytics_data_1.json'
-
-
   # Dimensions: yearMonth
 
   - pipelineID: 'ga_universal_analytics_data_by_year_month_for_user_and_session_metrics_1'
