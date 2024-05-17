@@ -31,6 +31,12 @@ spec:
         RemovePodsHavingTooManyRestarts:
           enabled: false
 
+        # This is better handled by Karpenter
+        HighNodeUtilization:
+          enabled: false
+        LowNodeUtilization:
+          enabled: false
+
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
     tolerations:
