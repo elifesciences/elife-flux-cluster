@@ -36,7 +36,7 @@ googleAnalyticsPipelines:
     batchDateInterval:
       months: 1
     dataset: '{ENV}'
-    table: 'temp_ga_universal_analytics_data'
+    table: 'ga_universal_analytics_data'
     viewId: "93573727"  # "Web traffic excluding eLife IP"
 
     dimensions:
@@ -61,7 +61,7 @@ googleAnalyticsPipelines:
     batchDateInterval:
       months: 1
     dataset: '{ENV}'
-    table: 'temp_ga_universal_analytics_data'
+    table: 'ga_universal_analytics_data'
     viewId: "93573727"  # "Web traffic excluding eLife IP"
 
     dimensions:
@@ -89,7 +89,7 @@ googleAnalyticsPipelines:
     batchDateInterval:
       months: 1
     dataset: '{ENV}'
-    table: 'temp_ga_universal_analytics_data'
+    table: 'ga_universal_analytics_data'
     viewId: "93573727"  # "Web traffic excluding eLife IP"
 
     dimensions:
@@ -111,7 +111,7 @@ googleAnalyticsPipelines:
     batchDateInterval:
       months: 1
     dataset: '{ENV}'
-    table: 'temp_ga_universal_analytics_data'
+    table: 'ga_universal_analytics_data'
     viewId: "93573727"  # "Web traffic excluding eLife IP"
 
     dimensions:
@@ -134,7 +134,7 @@ googleAnalyticsPipelines:
     batchDateInterval:
       months: 1
     dataset: '{ENV}'
-    table: 'temp_ga_universal_analytics_data'
+    table: 'ga_universal_analytics_data'
     viewId: "93573727"  # "Web traffic excluding eLife IP"
 
     dimensions:
@@ -164,7 +164,7 @@ googleAnalyticsPipelines:
     batchDateInterval:
       months: 1
     dataset: '{ENV}'
-    table: 'temp_ga_universal_analytics_data'
+    table: 'ga_universal_analytics_data'
     viewId: "93573727"  # "Web traffic excluding eLife IP"
 
     dimensions:
@@ -185,7 +185,7 @@ googleAnalyticsPipelines:
     batchDateInterval:
       months: 1
     dataset: '{ENV}'
-    table: 'temp_ga_universal_analytics_data'
+    table: 'ga_universal_analytics_data'
     viewId: "93573727"  # "Web traffic excluding eLife IP"
 
     dimensions:
@@ -207,7 +207,7 @@ googleAnalyticsPipelines:
     batchDateInterval:
       months: 1
     dataset: '{ENV}'
-    table: 'temp_ga_universal_analytics_data'
+    table: 'ga_universal_analytics_data'
     viewId: "93573727"  # "Web traffic excluding eLife IP"
 
     dimensions:
@@ -236,7 +236,7 @@ googleAnalyticsPipelines:
     batchDateInterval:
       months: 1
     dataset: '{ENV}'
-    table: 'temp_ga_universal_analytics_data'
+    table: 'ga_universal_analytics_data'
     viewId: "93573727"  # "Web traffic excluding eLife IP"
 
     dimensions:
@@ -257,7 +257,7 @@ googleAnalyticsPipelines:
     batchDateInterval:
       months: 1
     dataset: '{ENV}'
-    table: 'temp_ga_universal_analytics_data'
+    table: 'ga_universal_analytics_data'
     viewId: "93573727"  # "Web traffic excluding eLife IP"
 
     dimensions:
@@ -279,7 +279,7 @@ googleAnalyticsPipelines:
     batchDateInterval:
       months: 1
     dataset: '{ENV}'
-    table: 'temp_ga_universal_analytics_data'
+    table: 'ga_universal_analytics_data'
     viewId: "93573727"  # "Web traffic excluding eLife IP"
 
     dimensions:
