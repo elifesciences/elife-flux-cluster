@@ -141,15 +141,6 @@ spec:
             value: "sciety"
             operator: "Equal"
   - target:
-      kind: PerconaPGCluster
-      name: sciety--demo
-    patch: |-
-      - op: add
-        path: /spec/proxy/pgBouncer/config
-        value:
-          global:
-            client_tls_sslmode: disable
-  - target:
       kind: HelmRelease
       name: sciety--demo
     patch: |-
