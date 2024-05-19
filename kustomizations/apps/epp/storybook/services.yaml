@@ -4,7 +4,5 @@ metadata:
   name: epp-storybook
   namespace: epp
 spec:
-  selector:
-    app: epp-storybook
   ports:
   - port: 6006

@@ -4,7 +4,5 @@ metadata:
   name: epp-biorxiv-xslt-api
   namespace: epp
 spec:
-  selector:
-    app: epp-biorxiv-xslt-api
   ports:
   - port: 80

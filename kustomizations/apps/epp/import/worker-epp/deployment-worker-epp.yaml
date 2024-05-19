@@ -1,24 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: epp-import-worker-docmaps
+  name: epp-import-worker-epp
   namespace: epp
 spec:
-  replicas: ${temporal_worker_import_docmaps_replicas:=1}
+  replicas: ${temporal_worker_epp_replicas:=1}
   strategy:
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 0
-  selector:
-    matchLabels:
-      app: epp-import
-      task_queue: import-docmaps
   template:
-    metadata:
-      namespace: epp
-      labels:
-        app: epp-import
-        task_queue: import-docmaps
     spec:
       serviceAccountName: epp-import
       nodeSelector:
@@ -28,11 +19,11 @@ spec:
         image: ghcr.io/elifesciences/enhanced-preprints-import-worker:latest
         resources:
           requests:
-            memory: ${temporal_worker_import_docmaps_memory_requests:='1Gi'}
-            cpu: ${temporal_worker_import_docmaps_cpu_requests:='200m'}
-            ephemeral-storage: ${temporal_worker_import_docmaps_ephemeral_storage_requests:='10Gi'}
+            memory: ${temporal_worker_epp_memory_requests:='700Mi'}
+            cpu: ${temporal_worker_epp_cpu_requests:='700m'}
+            ephemeral-storage: ${temporal_worker_epp_ephemeral_storage_requests:='10Gi'}
           limits:
-            memory: ${temporal_worker_import_docmaps_memory_limits:='1Gi'}
+            memory: ${temporal_worker_epp_memory_limits:='1Gi'}
         env:
         - name: BUCKET_NAME
           value: ${s3_bucket}
@@ -45,14 +36,14 @@ spec:
         - name: ENCODA_TRANSFORM_ADDRESS
           value: http://epp-encoda-api-scaler.${keda_autoscaler_namespace_fix}:8080
         - name: TEMPORAL_TASK_QUEUE
-          value: import-docmaps
+          value: epp
         - name: TEMPORAL_NAMESPACE
           value: "${temporal_namespace}"
         - name: TEMPORAL_MAX_CONCURRENT_ACTIVITY_TASK_EXECUTIONS
-          value: "${temporal_worker_import_docmaps_max_concurrent_activity_task_executions:='10'}"
+          value: "${temporal_worker_epp_max_concurrent_activity_task_executions:='10'}"
         - name: TEMPORAL_MAX_CONCURRENT_WORKFLOW_TASK_EXECUTIONS
-          value: "${temporal_worker_import_docmaps_max_concurrent_workflow_task_executions:='5'}"
+          value: "${temporal_worker_epp_max_concurrent_workflow_task_executions:='5'}"
         - name: TEMPORAL_MAX_CACHED_WORKFLOWS
-          value: "${temporal_worker_import_docmaps_max_cached_workflows:='5'}"
+          value: "${temporal_worker_epp_max_cached_workflows:='5'}"
         ports:
           - containerPort: 9464

@@ -1,0 +1,15 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: epp-import-worker-docmaps
+  namespace: epp
+spec:
+  selector:
+    matchExpressions:
+    - key: app.kubernetes.io/name
+      operator: In
+      values:
+        - worker-import-docmaps
+  podMetricsEndpoints:
+  - targetPort: 9464

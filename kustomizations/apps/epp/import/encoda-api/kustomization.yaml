@@ -12,6 +12,4 @@ resources:
 labels:
 - includeSelectors: true
   pairs:
-    app_env: ${app_env}
-    app_name: epp
-    app_tier: encoda-api
+    app.kubernetes.io/name: encoda-api

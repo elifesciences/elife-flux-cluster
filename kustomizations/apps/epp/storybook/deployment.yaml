@@ -3,18 +3,9 @@ kind: Deployment
 metadata:
   name: epp-storybook
   namespace: epp
-  labels:
-    app: epp-storybook
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: epp-storybook
   template:
-    metadata:
-      namespace: epp
-      labels:
-        app: epp-storybook
     spec:
       containers:
       - name: epp-storybook

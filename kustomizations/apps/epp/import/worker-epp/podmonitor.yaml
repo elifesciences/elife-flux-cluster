@@ -2,14 +2,14 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: epp-import
+  name: epp-import-worker-epp
   namespace: epp
 spec:
   selector:
     matchExpressions:
-    - key: app
+    - key: app.kubernetes.io/name
       operator: In
       values:
-        - epp-import
+        - import-worker-epp
   podMetricsEndpoints:
   - targetPort: 9464

@@ -4,10 +4,12 @@ namespace: epp
 resources:
 - automations/repository.yaml
 - automations/policy.yaml
+- automations/approved-policy.yaml
 - deployment.yaml
-- services.yaml
+- service.yaml
+- serviceaccount.yaml
 labels:
 - includeSelectors: true
   pairs:
-    app.kubernetes.io/component: client
-    app.kubernetes.io/name: storybook
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: server

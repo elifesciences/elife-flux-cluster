@@ -3,9 +3,8 @@ kind: Kustomization
 namespace: epp
 resources:
 - serviceaccount.yaml
-- deployment-worker-epp.yaml
-- deployment-worker-import-docmaps.yaml
-- podmonitor.yaml
+- worker-epp
+- worker-import-docmaps
 - automations/repository.yaml
 - automations/policy.yaml
 - automations/approved-policy.yaml
@@ -14,6 +13,4 @@ resources:
 labels:
 - includeSelectors: true
   pairs:
-    app_env: ${app_env}
-    app_name: epp
-    app_tier: import
+    app.kubernetes.io/component: import
