@@ -15,8 +15,9 @@ test: validate
 # targets for interacting with flux in the cluster
 reconcile:
 	flux reconcile kustomization flux-system --with-source
-	flux reconcile kustomization crds
+	flux reconcile kustomization policies
 	flux reconcile kustomization nodes
+	flux reconcile kustomization crds
 	flux reconcile kustomization system
 	flux reconcile kustomization deployments
 
