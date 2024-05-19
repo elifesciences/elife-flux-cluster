@@ -65,21 +65,3 @@ spec:
       temporal_worker_import_docmaps_replicas: "2"
       keda_autoscaler_namespace_fix: 'epp--staging'
       epp_server_metrics_url: https://prod--gateway.elifesciences.org
-  patches:
-  - target:
-      kind: Deployment
-    patch: |
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: any
-      spec:
-        template:
-          spec:
-            nodeSelector:
-              Project: epp
-            tolerations:
-            - key: project
-              value: "epp"
-              operator: "Equal"
-              effect: "NoSchedule"
