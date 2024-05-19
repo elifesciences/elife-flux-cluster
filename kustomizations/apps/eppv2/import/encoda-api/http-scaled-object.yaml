@@ -1,0 +1,21 @@
+kind: HTTPScaledObject
+apiVersion: http.keda.sh/v1alpha1
+metadata:
+  name: epp-encoda-api
+spec:
+  hosts:
+  - epp-encoda-api-scaler.${keda_autoscaler_namespace_fix}
+  - epp-encoda-api-scaler.${keda_autoscaler_namespace_fix}.svc.cluster.local
+  pathPrefixes:
+  - /
+  scaleTargetRef:
+    name: epp-encoda-api
+    kind: Deployment
+    apiVersion: apps/v1
+    service: epp-encoda-api
+    port: 3000
+  replicas:
+    min: 1
+    max: 10
+  scaledownPeriod: 300
+  targetPendingRequests: 5

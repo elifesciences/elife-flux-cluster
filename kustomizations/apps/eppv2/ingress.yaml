@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: epp
+  namespace: epp
+spec:
+  rules:
+  - host: ${app_hostname}
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: epp-client
+            port:
+              number: 3000
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          service:
+            name: epp-server
+            port:
+              number: 3000
+      - pathType: Prefix
+        path: "/iiif"
+        backend:
+          service:
+            name: epp-image-server
+            port:
+              number: 8182
+  - host: ${journal_api_hostname}
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          service:
+            name: epp-client
+            port:
+              number: 3000
+  - host: ${storybook_hostname}
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: epp-storybook
+            port:
+              number: 6006

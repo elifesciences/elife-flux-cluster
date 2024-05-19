@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: epp-server
+  namespace: epp
+spec:
+  ports:
+  - port: 3000

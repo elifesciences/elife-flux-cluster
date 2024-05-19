@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: epp
+resources:
+- deployment-worker-epp.yaml
+- podmonitor.yaml
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/component: import
+    app.kubernetes.io/name: worker-epp
+    epp.elifesciences.org/task_queue: epp

@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: epp
+resources:
+- serviceaccount.yaml
+- worker-epp
+- worker-import-docmaps
+- automations/repository.yaml
+- automations/policy.yaml
+- automations/approved-policy.yaml
+- biorxiv-xslt-api
+- encoda-api
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/component: import
