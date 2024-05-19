@@ -1,0 +1,15 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: epp-encoda-api-approved
+  namespace: epp
+spec:
+  imageRepositoryRef:
+    name: epp-encoda-api
+  filterTags:
+    pattern: '^master-[a-fA-F0-9]+-(?P<ts>[\d\.]+)-approved$'
+    extract: '$ts'
+  policy:
+    numerical:
+      order: asc

@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epp-client
+  namespace: epp
+  labels:
+    app_name: epp
+    app_env: ${app_env}
+    app_tier: frontend
+spec:
+  replicas: ${client_replicas:=1}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: epp-client
+  template:
+    metadata:
+      namespace: epp
+      labels:
+        app: epp-client
+    spec:
+      containers:
+      - name: epp-client
+        image: ghcr.io/elifesciences/enhanced-preprints-client:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NEXT_PUBLIC_SITE_NAME
+          value: ${site_name:=''}
+        - name: API_SERVER
+          value: ${epp_server:='http://epp-server:3000'}
+        - name: NEXT_PUBLIC_IMAGE_SERVER
+          value: ${iiif_server}
+        - name: IIIF_SERVER
+          value: ${private_iiif_server:='http://epp-image-server:8182/iiif'}
+        - name: NEXT_PUBLIC_GTM_ID
+          value: ${google_tag_manager_id:=''}
+        - name: NEXT_PUBLIC_COOKIEBOT_ID
+          value: ${cookie_bot_id:=''}
+        - name: ARTICLE_CACHE_AGE
+          value: '1800'
+        - name: IS_AUTOMATED
+          value: ${is_automated:=''}
+        - name: SHOW_PREVIEWS
+          value: ${show_previews:=''}
+        - name: DISALLOW_ROBOTS
+          value: ${disallow_robots:=''}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          failureThreshold: 10
+          timeoutSeconds: 10
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "200Mi"
+            ephemeral-storage: "100Mi"
+          limits:
+            memory: "800Mi"

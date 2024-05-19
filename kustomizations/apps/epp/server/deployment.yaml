@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epp-server
+  namespace: epp
+  labels:
+    app_name: epp
+    app_env: ${app_env}
+    app_tier: backend
+spec:
+  replicas: ${server_replicas:=1}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: epp-server
+  template:
+    metadata:
+      namespace: epp
+      labels:
+        app: epp-server
+    spec:
+      serviceAccountName: epp-server
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      containers:
+      - name: epp-server
+        image: ghcr.io/elifesciences/enhanced-preprints-server:latest
+        resources:
+          requests:
+            memory: ${epp_server_memory_requests:='250Mi'}
+            cpu: ${epp_server_cpu_requests:='100m'}
+            ephemeral-storage: ${epp_server_ephemeral_storage_requests:='50Mi'}
+        env:
+        - name: REPO_TYPE
+          value: MongoDB
+        - name: REPO_CONNECTION
+          value: "${mongodb_hostname}"
+        - name: REPO_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: ${mongodb_secret_name:=mongodb-psmdb-db-secrets}
+              key: ${mongodb_secret_user_key:=MONGODB_DATABASE_ADMIN_USER}
+        - name: REPO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ${mongodb_secret_name:=mongodb-psmdb-db-secrets}
+              key: ${mongodb_secret_pass_key:=MONGODB_DATABASE_ADMIN_PASSWORD}
+        - name: DOCMAPS_API
+          value: ${data_hub_api:="https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v1/by-publisher/elife/get-by-manuscript-id?manuscript_id="}
+        - name: S3_SESSION_TOKEN
+          value: "/var/run/secrets/eks.amazonaws.com/serviceaccount/token"
+        - name: S3_BUCKET
+          value: "${s3_bucket}"
+        - name: ELIFE_METRICS_URL
+          value: "${epp_server_metrics_url:=''}"
+        ports:
+        - containerPort: 3000
+        readinessProbe:
+          httpGet:
+            path: /api/preprints
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 3
+          timeoutSeconds: 5

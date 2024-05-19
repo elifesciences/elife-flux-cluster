@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: epp-client
+  namespace: epp
+  labels:
+    app_name: epp
+    app_env: ${app_env}
+    app_tier: frontend
+spec:
+  selector:
+    app: epp-client
+  ports:
+  - port: 3000

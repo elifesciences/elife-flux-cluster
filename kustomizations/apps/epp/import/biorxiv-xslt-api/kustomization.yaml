@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: epp
+resources:
+- deployment.yaml
+- service.yaml
+- http-scaled-object.yaml
+- service-scaler.yaml
+- automations/repository.yaml
+- automations/policy.yaml
+- automations/approved-policy.yaml
+labels:
+- includeSelectors: true
+  pairs:
+    app_name: epp
+    app_env: ${app_env}
+    app_tier: biorxiv-xslt-api
