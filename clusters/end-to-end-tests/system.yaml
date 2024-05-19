@@ -13,6 +13,8 @@ spec:
   prune: true
   dependsOn:
     - name: crds
+    - name: nodes
+    - name: policies
   postBuild:
     substitute:
       cluster_name: end-to-end-tests
