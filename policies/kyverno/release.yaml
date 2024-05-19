@@ -1,0 +1,92 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kyverno
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: kyverno
+      version: "3.2.2"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: kyverno
+  values:
+    global: &global
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: type
+              operator: NotIn
+              values: ["karpenter", "kwok"] # Don't place this on cluster-controlled nodes
+      tolerations:
+      - key: CriticalAddonsOnly
+        operator: Exists
+      - effect: NoExecute
+        key: node.kubernetes.io/not-ready
+        operator: Exists
+        tolerationSeconds: 300
+      - effect: NoExecute
+        key: node.kubernetes.io/unreachable
+        operator: Exists
+        tolerationSeconds: 300
+        matchLabelKeys:
+        - pod-template-hash
+    admissionController:
+      replicas: 3
+      <<: *global
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/instance: kyverno
+            app.kubernetes.io/part-of: kyverno
+            app.kubernetes.io/component: admission-controller
+    backgroundController:
+      replicas: 2
+      <<: *global
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/instance: kyverno
+            app.kubernetes.io/part-of: kyverno
+            app.kubernetes.io/component: background-controller
+    cleanupController:
+      replicas: 2
+      <<: *global
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/instance: kyverno
+            app.kubernetes.io/part-of: kyverno
+            app.kubernetes.io/component: cleanup-controller
+    reportsController:
+      replicas: 2
+      <<: *global
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/instance: kyverno
+            app.kubernetes.io/part-of: kyverno
+            app.kubernetes.io/component: reports-controller
+    webhooksCleanup:
+      <<: *global
+    cleanupJobs:
+      admissionReports:
+        <<: *global
+      clusterAdmissionReports:
+        <<: *global
