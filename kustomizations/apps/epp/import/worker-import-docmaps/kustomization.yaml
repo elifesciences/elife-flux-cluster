@@ -8,3 +8,4 @@ labels:
 - includeSelectors: true
   pairs:
     app.kubernetes.io/name: worker-import-docmaps
+    epp.elifesciences.org/task_queue: import-docmaps
