@@ -1,0 +1,28 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: namespace-to-nodeselector-peerscout
+  annotations:
+    policies.kyverno.io/title: Add nodeSelector and toleration to pods in peerscout namespaces
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/minversion: 1.6.0
+spec:
+  rules:
+  - name: add-nodeselector
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+          namespaces:
+          - "peerscout*"
+    mutate:
+      patchStrategicMerge:
+        spec:
+          nodeSelector:
+            Project: peerscout
+          tolerations:
+          - key: project
+            value: "data-hub"
+            operator: "Equal"
+            effect: "NoSchedule"
