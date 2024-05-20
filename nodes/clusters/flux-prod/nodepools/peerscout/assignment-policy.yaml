@@ -23,6 +23,6 @@ spec:
             Project: peerscout
           tolerations:
           - key: project
-            value: "data-hub"
+            value: "peerscout"
             operator: "Equal"
             effect: "NoSchedule"
