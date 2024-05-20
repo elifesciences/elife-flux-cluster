@@ -20,21 +20,3 @@ spec:
       replicas: "2"
       hostname: basex-validator.elifesciences.org
       env: prod
-  patches:
-    - target:
-        kind: Deployment
-      patch: |
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: any
-        spec:
-          template:
-            spec:
-              nodeSelector:
-                Project: basex-validator
-              tolerations:
-              - key: project
-                value: "basex-validator"
-                operator: "Equal"
-                effect: "NoSchedule"
