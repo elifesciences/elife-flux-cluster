@@ -52,4 +52,4 @@ spec:
       patchStrategicMerge:
         spec:
           nodeSelector:
-            Project: flux-test
+            Project: flux-prod
