@@ -15,7 +15,7 @@ spec:
           kinds:
           - Pod
           namespaces:
-          - basex-validator
+          - "basex-validator*"
     mutate:
       patchStrategicMerge:
         spec:
