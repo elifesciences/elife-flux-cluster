@@ -1,0 +1,28 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: namespace-to-nodeselector-data-hub
+  annotations:
+    policies.kyverno.io/title: Add nodeSelector and toleration to pods in data-hub namespaces
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/minversion: 1.6.0
+spec:
+  rules:
+  - name: add-nodeselector
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+          namespaces:
+          - "data-hub*"
+    mutate:
+      patchStrategicMerge:
+        spec:
+          nodeSelector:
+            Project: data-hub
+          tolerations:
+          - key: project
+            value: "data-hub"
+            operator: "Equal"
+            effect: "NoSchedule"
