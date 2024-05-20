@@ -38,6 +38,9 @@ spec:
       any:
       - resources:
           kinds:
+          - Daemonsets
+      - resources:
+          kinds:
           - Pod
           names:
           - helm-controller-*
