@@ -33,14 +33,6 @@ spec:
         "cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes": "bin"
         prometheus.io/scrape: 'true'
         prometheus.io/port: '9216'
-      nodeSelector:
-        Project: epp
-        kubernetes.io/arch: amd64
-      tolerations:
-      - key: project
-        value: "epp"
-        operator: "Equal"
-        effect: "NoSchedule"
       configuration: |
         systemLog:
           verbosity: 0
