@@ -38,7 +38,7 @@ spec:
       any:
       - resources:
           kinds:
-          - Daemonsets
+          - Daemonset
       - resources:
           kinds:
           - Pod
