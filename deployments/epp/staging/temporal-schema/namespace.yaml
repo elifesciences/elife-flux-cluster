@@ -12,13 +12,6 @@ spec:
       name: temporal-schema-namespace-epp--staging
       namespace: epp--staging
     spec:
-      nodeSelector:
-        Project: epp
-      tolerations:
-      - key: project
-        value: "epp"
-        operator: "Equal"
-        effect: "NoSchedule"
       restartPolicy: "OnFailure"
       initContainers:
         - name: temporal-check-namespace-created

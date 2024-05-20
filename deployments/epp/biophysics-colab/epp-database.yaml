@@ -31,14 +31,6 @@ spec:
       size: 3
       annotations:
         "cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes": "bin"
-      nodeSelector:
-        Project: epp
-        kubernetes.io/arch: amd64
-      tolerations:
-      - key: project
-        value: "epp"
-        operator: "Equal"
-        effect: "NoSchedule"
       configuration: |
         systemLog:
           verbosity: 0

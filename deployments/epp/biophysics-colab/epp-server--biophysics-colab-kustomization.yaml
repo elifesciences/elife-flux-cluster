@@ -21,20 +21,3 @@ spec:
       mongodb_secret_name: epp-database-psmdb-db-secrets
       mongodb_secret_user_key: MONGODB_DATABASE_ADMIN_USER
       mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD
-  patches:
-    - target:
-        kind: Deployment
-      patch: |
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: any
-        spec:
-          template:
-            spec:
-              nodeSelector:
-                Project: epp
-              tolerations:
-              - key: project
-                value: "epp"
-                operator: "Equal"

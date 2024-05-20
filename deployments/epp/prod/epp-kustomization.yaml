@@ -69,20 +69,3 @@ spec:
       epp_image_server_memory_requests: 4Gi
       epp_image_server_cpu_requests: 600m
       epp_server_cpu_requests: 150m
-  patches:
-    - target:
-        kind: Deployment
-      patch: |
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: any
-        spec:
-          template:
-            spec:
-              nodeSelector:
-                Project: epp
-              tolerations:
-              - key: project
-                value: "epp"
-                operator: "Equal"

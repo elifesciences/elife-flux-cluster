@@ -23,20 +23,3 @@ spec:
       image_server_prefix: automation/
       image_server_role_arn: arn:aws:iam::512686554592:role/epp-biophysics-colab-image-server
       image_server_source_base_url: https://github.com/elifesciences/enhanced-preprints-data/raw/master/data/
-  patches:
-    - target:
-        kind: Deployment
-      patch: |
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: any
-        spec:
-          template:
-            spec:
-              nodeSelector:
-                Project: epp
-              tolerations:
-              - key: project
-                value: "epp"
-                operator: "Equal"

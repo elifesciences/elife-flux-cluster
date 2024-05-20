@@ -23,37 +23,3 @@ spec:
       epp_server: http://epp-server:3000
       iiif_server: https://biophysics-colab--epp.elifesciences.org/iiif
       disallow_robots: all
-  patches:
-    - target:
-        name: epp-client
-        kind: Deployment
-      patch: |
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: epp-client
-        spec:
-          template:
-            spec:
-              containers:
-              - name: epp-client
-                command:
-                  - "sh"
-                  - "-c"
-                  - "yarn build && yarn start"
-    - target:
-        kind: Deployment
-      patch: |
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: any
-        spec:
-          template:
-            spec:
-              nodeSelector:
-                Project: epp
-              tolerations:
-              - key: project
-                value: "epp"
-                operator: "Equal"
