@@ -74,10 +74,3 @@ spec:
       initialDelaySeconds: 5
       timeoutSeconds: 30
       periodSeconds: 10
-    nodeSelector:
-      Project: peerscout
-    tolerations:
-    - key: "project"
-      operator: "Equal"
-      value: "peerscout"
-      effect: "NoSchedule"

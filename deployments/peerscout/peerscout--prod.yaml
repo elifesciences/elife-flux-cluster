@@ -80,10 +80,3 @@ spec:
       timeoutSeconds: 30
       periodSeconds: 30
       failureThreshold: 10
-    nodeSelector:
-      Project: peerscout
-    tolerations:
-    - key: "project"
-      operator: "Equal"
-      value: "peerscout"
-      effect: "NoSchedule"
