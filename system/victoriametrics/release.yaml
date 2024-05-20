@@ -45,7 +45,7 @@ spec:
           resources:
             requests:
               cpu: 3000m
-              memory: 7Gi
+              memory: 15Gi
             limits: {}
           extraArgs:
             "memory.allowedPercent": "80"
