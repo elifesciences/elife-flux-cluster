@@ -1,0 +1,28 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: namespace-to-nodeselector-basex-validator
+  annotations:
+    policies.kyverno.io/title: Add nodeSelector and toleration to pods in basex-validator namespaces
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/minversion: 1.6.0
+spec:
+  rules:
+  - name: add-nodeselector
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+          namespaces:
+          - basex-validator
+    mutate:
+      patchStrategicMerge:
+        spec:
+          nodeSelector:
+            Project: basex-validator
+          tolerations:
+          - key: project
+            value: "basex-validator"
+            operator: "Equal"
+            effect: "NoSchedule"
