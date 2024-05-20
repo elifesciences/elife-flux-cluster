@@ -15,12 +15,6 @@ spec:
       labels:
         app: sciety-labs--prod
     spec:
-      nodeSelector:
-        Project: sciety
-      tolerations:
-      - key: project
-        value: "sciety"
-        operator: "Equal"
       containers:
       - name: sciety-labs
         image: ghcr.io/sciety/sciety-labs:0.0.68 # {"$imagepolicy": "data-hub:sciety-labs-stable"}

@@ -44,12 +44,6 @@ spec:
       # airflow < 2.0 should be true
       legacyCommands: false
       # run pods to correct node pool
-      defaultNodeSelector:
-        Project: data-hub
-      defaultTolerations:
-      - key: project
-        value: "data-hub"
-        operator: "Equal"
       config:
         AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "True"
         AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: "100"
@@ -480,14 +474,6 @@ spec:
           cpu: 100m
       persistence:
         size: 25Gi
-      # apply pods to correct node pool
-      master:
-        nodeSelector:
-          Project: data-hub
-        tolerations:
-        - key: project
-          value: "data-hub"
-          operator: "Equal"
     flower:
       resources:
         requests:
@@ -560,12 +546,3 @@ spec:
           memory: 100Mi
           cpu: 100m
           ephemeral-storage: "10Mi"
-    redis:
-      # apply pods to correct node pool
-      master:
-        nodeSelector:
-          Project: data-hub
-        tolerations:
-        - key: project
-          value: "data-hub"
-          operator: "Equal"

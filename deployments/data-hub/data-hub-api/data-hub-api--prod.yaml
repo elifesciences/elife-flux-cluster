@@ -14,12 +14,6 @@ spec:
       labels:
         app: data-hub-api--prod
     spec:
-      nodeSelector:
-        Project: data-hub
-      tolerations:
-      - key: project
-        value: "data-hub"
-        operator: "Equal"
       containers:
       - name: data-hub-api
         image: ghcr.io/elifesciences/data-hub-api:1.1.23 # {"$imagepolicy": "data-hub:data-hub-api-stable"}

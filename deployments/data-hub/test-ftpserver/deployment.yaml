@@ -15,12 +15,6 @@ spec:
       labels:
         application: test-ftpserver
     spec:
-      nodeSelector:
-        Project: data-hub
-      tolerations:
-      - key: project
-        value: "data-hub"
-        operator: "Equal"
       containers:
       - name: test-ftpserver
         image: garethflowers/ftp-server:0.7.0

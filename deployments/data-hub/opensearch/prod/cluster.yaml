@@ -16,12 +16,6 @@ spec:
     version: 2.9.0
     enable: true
     replicas: 1
-    nodeSelector:
-      Project: sciety
-    tolerations:
-    - key: project
-      value: "sciety"
-      operator: "Equal"
   nodePools:
   - component: masters
     replicas: 3
@@ -31,12 +25,6 @@ spec:
         cpu: "1400m"
       limits:
         memory: "6Gi"
-    nodeSelector:
-      Project: sciety
-    tolerations:
-    - key: project
-      value: "sciety"
-      operator: "Equal"
     roles:
     - "data"
     - "cluster_manager"
