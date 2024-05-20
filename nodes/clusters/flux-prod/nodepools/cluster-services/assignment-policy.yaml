@@ -20,10 +20,10 @@ spec:
           - coroot
           - db-operator-system
           - external-secrets
+          - flux-system
           - gemini
           - grafana
           - infra
-          - karpenter
           - keda
           - kube-system
           - loki
@@ -33,6 +33,7 @@ spec:
           - stg
           - vector
           - victoriametrics
+          - temporal
     exclude:
       any:
       - resources:
@@ -45,7 +46,8 @@ spec:
           - kustomize-controller-*
           - notification-controller-*
           - source-controller-*
-
+          namespaces:
+          - flux-system
     mutate:
       patchStrategicMerge:
         spec:
