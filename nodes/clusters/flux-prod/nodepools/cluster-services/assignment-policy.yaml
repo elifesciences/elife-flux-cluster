@@ -1,0 +1,41 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: namespace-to-nodeselector-cluster-services
+  annotations:
+    policies.kyverno.io/title: Add nodeSelector and toleration to pods in cluster-services namespaces
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/minversion: 1.6.0
+spec:
+  rules:
+  - name: add-nodeselector
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+          namespaces:
+          - ack-system
+          - adm
+          - coroot
+          - db-operator-system
+          - external-secrets
+          - flux-system
+          - gemini
+          - grafana
+          - infra
+          - karpenter
+          - keda
+          - kube-system
+          - loki
+          - monitoring
+          - nidhogg
+          - spegel
+          - stg
+          - vector
+          - victoriametrics
+    mutate:
+      patchStrategicMerge:
+        spec:
+          nodeSelector:
+            Project: flux-test
