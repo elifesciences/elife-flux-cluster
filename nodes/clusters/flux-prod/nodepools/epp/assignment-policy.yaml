@@ -1,0 +1,28 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: namespace-to-nodeselector-epp
+  annotations:
+    policies.kyverno.io/title: Add nodeSelector and toleration to pods in epp namespaces
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/minversion: 1.6.0
+spec:
+  rules:
+  - name: add-nodeselector
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+          namespaces:
+          - "epp*"
+    mutate:
+      patchStrategicMerge:
+        spec:
+          nodeSelector:
+            Project: epp
+          tolerations:
+          - key: project
+            value: "epp"
+            operator: "Equal"
+            effect: "NoSchedule"
