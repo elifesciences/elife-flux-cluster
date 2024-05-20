@@ -31,6 +31,8 @@ spec:
       size: 3
       annotations:
         "cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes": "bin"
+      nodeSelector:
+        kubernetes.io/arch: amd64
       configuration: |
         systemLog:
           verbosity: 0
