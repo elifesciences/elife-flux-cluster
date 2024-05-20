@@ -305,7 +305,7 @@ s3Csv:
       Parse "payload" as JSON.
     bucketName: sciety-data-extractions
     objectKeyPattern:
-      - events-from-cronjob.csv
+      - sciety--prod--events-from-cronjob.csv
     headerLineIndex: 0
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
