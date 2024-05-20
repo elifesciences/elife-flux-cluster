@@ -38,7 +38,7 @@ spec:
       - resources:
           kinds:
           - Pod
-          name:
+          names:
           - helm-controller-*
           - image-automation-controller-*
           - image-reflector-controller-*
