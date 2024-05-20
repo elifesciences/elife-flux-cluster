@@ -20,7 +20,6 @@ spec:
           - coroot
           - db-operator-system
           - external-secrets
-          - flux-system
           - gemini
           - grafana
           - infra
@@ -34,6 +33,19 @@ spec:
           - stg
           - vector
           - victoriametrics
+    exclude:
+      any:
+      - resources:
+          kinds:
+          - Pod
+          name:
+          - helm-controller-*
+          - image-automation-controller-*
+          - image-reflector-controller-*
+          - kustomize-controller-*
+          - notification-controller-*
+          - source-controller-*
+
     mutate:
       patchStrategicMerge:
         spec:
