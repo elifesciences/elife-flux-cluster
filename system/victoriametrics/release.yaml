@@ -49,6 +49,7 @@ spec:
             limits: {}
           extraArgs:
             "memory.allowedPercent": "80"
+            "inmemoryDataFlushInterval": "15s"
 
         vmselect:
           nodeSelector:
