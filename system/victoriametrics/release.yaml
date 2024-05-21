@@ -130,6 +130,9 @@ spec:
           label: grafana_dashboard
         datasources:
           label: grafana_datasource
+      ingress:
+        hosts:
+        - grafana.${cluster_domain}
     alertmanager:
       spec:
         externalURL: https://alertmanager.${cluster_domain}
