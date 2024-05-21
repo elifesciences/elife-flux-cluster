@@ -44,13 +44,12 @@ spec:
                     storage: 500Gi
           resources:
             requests:
-              cpu: 3000m
-              memory: 15Gi
+              cpu: 600m
+              memory: 4Gi
             limits: {}
           extraArgs:
             "memory.allowedPercent": "80"
             "inmemoryDataFlushInterval": "15s"
-
         vmselect:
           nodeSelector:
             Project: ${cluster_name}
@@ -61,8 +60,8 @@ spec:
 
           resources:
             requests:
-              cpu: 1500m
-              memory: 250Mi
+              cpu: 600m
+              memory: 320Mi
             limits: {}
         vminsert:
           nodeSelector:
