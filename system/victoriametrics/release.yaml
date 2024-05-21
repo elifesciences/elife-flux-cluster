@@ -163,6 +163,7 @@ spec:
         KubeCPUOvercommit: true
         KubeletTooManyPods: true
         TooHighChurnRate: true
+        TooManyScrapeErrors: true
     kubeControllerManager:
       enabled: false # lives on EKS
     victoria-metrics-operator:
