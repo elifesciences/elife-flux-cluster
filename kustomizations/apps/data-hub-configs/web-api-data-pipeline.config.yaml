@@ -609,3 +609,27 @@ webApi:
       name: 'crossref_metadata_api' # this url source type name can be updated in future
     dataUrl:
       urlExcludingConfigurableParameters: https://api.elifesciences.org/podcast-episodes/{id}
+
+  # get updated RP VORs from journal
+  - dataPipelineId: updated_reviewed_preprint_vor
+    dataset: '{ENV}'
+    table: updated_reviewed_preprint_vor
+    tableWriteAppend: False
+    source:
+      include:
+        bigQuery:
+          projectName: 'elife-data-pipeline'
+          sqlQuery:
+            SELECT 
+              article_id
+            FROM `elife-data-pipeline.{ENV}.v_elife_article_xml_data`
+            WHERE is_latest_xml_version
+              AND vor_publication_date IS NOT NULL
+              AND CAST(article_xml_version AS NUMERIC) >1
+              AND article_id IN (
+                SELECT manuscript_id FROM `elife-data-pipeline.{ENV}.mv_docmaps_index`
+              )
+    urlSourceType:
+      name: 'crossref_metadata_api' # this url source type name can be updated in future
+    dataUrl:
+      urlExcludingConfigurableParameters: https://prod--gateway.elifesciences.org/articles/{article_id}/versions
