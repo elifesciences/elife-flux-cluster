@@ -614,6 +614,7 @@ webApi:
   - dataPipelineId: updated_reviewed_preprint_vor
     dataset: '{ENV}'
     table: updated_reviewed_preprint_vor
+    tableWriteAppend: False
     source:
       include:
         bigQuery:
