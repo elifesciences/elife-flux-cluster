@@ -3,29 +3,25 @@ kind: ClusterPolicy
 metadata:
   name: spread-pods
   annotations:
-    policies.kyverno.io/title: Spread Pods Across Nodes
-    policies.kyverno.io/category: Sample
-    policies.kyverno.io/subject: Deployment, Pod
+    policies.kyverno.io/title: Spread Pods Across Nodes with standard kubernetes labels
+    policies.kyverno.io/subject: Deployment, StatefulSet, Pod
     policies.kyverno.io/minversion: 1.6.0
     policies.kyverno.io/description: >-
       Deployments to a Kubernetes cluster with multiple availability zones often need to
       distribute those replicas to align with those zones to ensure site-level failures
-      do not impact availability. This policy matches Deployments with the label
-      `distributed=required` and mutates them to spread Pods across zones.
+      do not impact availability. This policy matches Deployments with the standard kubernetes
+      labels and mutates them to spread Pods across zones.
 spec:
   rules:
-    - name: spread-pods-across-nodes with standard app.kubernetes.io/instance, app.kubernetes.io/component and app.kubernetes.io/name labels
-      # Matches any Deployment or STS
+    - name: spread-deployment-pods-across-nodes-with-standard-labels
+      # Matches any Deployment
       match:
         any:
         - resources:
             kinds:
             - Deployment
-            - StatefulSet
             namespaces:
             - victoriametrics
-            names:
-            - vmstorage-victoriametrics
       preconditions:
         all:
         - key: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/instance\" || ''}}"
@@ -42,10 +38,49 @@ spec:
           spec:
             template:
               spec:
-                # Adds the topologySpreadConstraints field if non-existent in the request.
                 +(topologySpreadConstraints):
                 - maxSkew: 1
-                  topologyKey: topology.kubernetes.io/zone
+                  # Ideally we would use the zone, but since we replicate greater than the number of zone we host, that
+                  # would result in unschedulable workloads
+                  # topologyKey: topology.kubernetes.io/zone
+                  topologyKey: kubernetes.io/hostname
+                  whenUnsatisfiable: DoNotSchedule
+                  labelSelector:
+                    matchLabels:
+                      app.kubernetes.io/instance: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/instance\"}}"
+                      app.kubernetes.io/component: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/component\"}}"
+                      app.kubernetes.io/name: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/name\"}}"
+    - name: spread-statefulset-pods-across-nodes-with-standard-labels
+      # Matches any STS
+      match:
+        any:
+        - resources:
+            kinds:
+            - StatefulSet
+            namespaces:
+            - victoriametrics
+      preconditions:
+        all:
+        - key: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/instance\" || ''}}"
+          operator: NotEquals
+          value: ""
+        - key: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/component\" || ''}}"
+          operator: NotEquals
+          value: ""
+        - key: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/name\" || ''}}"
+          operator: NotEquals
+          value: ""
+      mutate:
+        patchStrategicMerge:
+          spec:
+            template:
+              spec:
+                +(topologySpreadConstraints):
+                - maxSkew: 1
+                  # Ideally we would use the zone, but since we replicate greater than the number of zone we host, that
+                  # would result in unschedulable workloads
+                  # topologyKey: topology.kubernetes.io/zone
+                  topologyKey: kubernetes.io/hostname
                   whenUnsatisfiable: DoNotSchedule
                   labelSelector:
                     matchLabels:
