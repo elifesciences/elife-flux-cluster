@@ -22,6 +22,7 @@ spec:
             - Deployment
             namespaces:
             - victoriametrics
+            - epp--staging
       preconditions:
         all:
         - key: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/instance\" || ''}}"
@@ -59,6 +60,7 @@ spec:
             - StatefulSet
             namespaces:
             - victoriametrics
+            - epp--staging
       preconditions:
         all:
         - key: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/instance\" || ''}}"
