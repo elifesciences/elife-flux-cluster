@@ -9,7 +9,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./kustomizations/apps/epp
+  path: ./kustomizations/apps/eppv2
   prune: true
   targetNamespace: epp--staging
   images:
