@@ -10,6 +10,7 @@ resources:
 - import
 
 labels:
-- pairs:
+- includeSelectors: true
+  pairs:
     app.kubernetes.io/part-of: epp
     app.kubernetes.io/instance: epp-${app_env}
