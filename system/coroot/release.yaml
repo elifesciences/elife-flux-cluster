@@ -45,3 +45,5 @@ spec:
     clickhouse:
       nodeSelector:
         Project: ${cluster_name}
+      persistence:
+        size: 150Gi
