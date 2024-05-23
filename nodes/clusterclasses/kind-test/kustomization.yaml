@@ -7,7 +7,25 @@ resources:
 - ../../nodepools
 
 patches:
-- patch: |-
+- target:
+    kind: HelmRelease
+    name: karpenter
+  patch: |-
+    apiVersion: apps/v1
+    kind: HelmRelease
+    metadata:
+      name: notused
+    spec:
+      values:
+        tolerations:
+        - key: "realnode"
+          operator: "Equal"
+          effect: "NoSchedule"
+
+- target:
+    kind: Deployment
+    name: kwok-controller
+  patch: |-
     apiVersion: apps/v1
     kind: Deployment
     metadata:
