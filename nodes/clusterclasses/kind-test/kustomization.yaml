@@ -20,6 +20,9 @@ patches:
           - operator: "Equal"
             key: CriticalAddonsOnly
             effect: NoSchedule
+          - key: "realnode"
+            operator: "Equal"
+            effect: "NoSchedule"
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
