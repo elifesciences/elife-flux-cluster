@@ -38,6 +38,9 @@ patches:
     - op: replace
       path: /apiVersion
       value: kwok.karpenter.sh/v1alpha1
+    - op: remove
+      path: /spec
+
 - target:
     kind: NodePool
   patch: |
