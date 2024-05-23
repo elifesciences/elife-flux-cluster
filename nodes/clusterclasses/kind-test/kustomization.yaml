@@ -21,7 +21,7 @@ patches:
         - key: "realnode"
           operator: "Equal"
           effect: "NoSchedule"
-          value: "true
+          value: "true"
 - target:
     kind: Deployment
     name: kwok-controller
