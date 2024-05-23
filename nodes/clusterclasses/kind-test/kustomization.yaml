@@ -2,3 +2,46 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - ../../kwok
+- https://raw.githubusercontent.com/kubernetes-sigs/karpenter/main/kwok/apis/crds/kwok.karpenter.sh_kwoknodeclasses.yaml
+- ../../karpenter
+- ../../nodepools
+
+patches:
+- patch: |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: kwok-controller
+      namespace: kube-system
+    spec:
+      template:
+        spec:
+          tolerations:
+          - operator: "Equal"
+            key: CriticalAddonsOnly
+            effect: NoSchedule
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: kwok.x-k8s.io/node
+                    operator: DoesNotExist
+- target:
+    kind: EC2NodeClass
+  patch: |
+    - op: replace
+      path: /kind
+      value: KWOKNodeClass
+- target:
+    kind: NodePool
+  patch: |
+    apiVersion: karpenter.sh/v1beta1
+    kind: NodePool
+    metadata:
+      name: notused
+    spec:
+      template:
+        spec:
+          nodeClassRef:
+            kind: KWOKNodeClass
