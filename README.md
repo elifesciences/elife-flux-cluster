@@ -32,6 +32,15 @@ The __#cluster-alerts__ slack channel receives alerts from:
 - Alertmanager
 - Healthchecks.io (monitors Alertmanager heartbeat)
 
+How to make a change
+====================
+
+- Ensure that you have run `mise install` to get up-to-date dependencies.
+- Ensure that you have run `make validate` and it completed correctly.
+- Follow [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit messages.
+- Add a suffix to the commit message containing the issue e.g. `elifesciences/issues#1234`
+- Look at the [GitOps dashboard](https://gitops-dashboard--flux-prod.elifesciences.org/) to see the change being applied.
+
 Adding/Editing Deployments
 ==========================
 
