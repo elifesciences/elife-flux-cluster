@@ -78,7 +78,7 @@ echo "# INFO - Validating clusters is conforming to flux schema"
 echo "## INFO - Downloading Flux OpenAPI schemas"
 mkdir -p /tmp/flux-crd-schemas/master-standalone-strict
 curl -sL https://github.com/fluxcd/flux2/releases/latest/download/crd-schemas.tar.gz | tar zxf - -C /tmp/flux-crd-schemas/master-standalone-strict
-find ./clusters -maxdepth 2 -type f -name '*.yaml' -print0 | while IFS= read -r -d $'\0' file;
+find ./clusters -type f -name '*.yaml' -print0 | while IFS= read -r -d $'\0' file;
   do
     echo "## INFO - Validating cluster file ${file}"
     conform_output=$(kubeconform $kubeconform_config ${file})
