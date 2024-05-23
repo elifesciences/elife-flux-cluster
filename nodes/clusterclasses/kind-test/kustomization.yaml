@@ -41,6 +41,7 @@ patches:
           - key: "realnode"
             operator: "Equal"
             effect: "NoSchedule"
+            value: "true"
           affinity:
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
