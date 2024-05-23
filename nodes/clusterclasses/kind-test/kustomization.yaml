@@ -29,10 +29,15 @@ patches:
                     operator: DoesNotExist
 - target:
     kind: EC2NodeClass
+    group: karpenter.k8s.aws
+    version: v1beta1
   patch: |
     - op: replace
       path: /kind
       value: KWOKNodeClass
+    - op: replace
+      path: /apiVersion
+      value: kwok.karpenter.sh/v1alpha1
 - target:
     kind: NodePool
   patch: |
