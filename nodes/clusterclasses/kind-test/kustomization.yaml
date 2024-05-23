@@ -17,6 +17,8 @@ patches:
       name: notused
     spec:
       values:
+        image:
+          repository: public.ecr.aws/karpenter/kwok
         tolerations:
         - key: "realnode"
           operator: "Equal"
