@@ -14,8 +14,6 @@ patches:
       name: notused
     spec:
       values:
-        settings:
-          clusterName: kubernetes-aws--${cluster_name}
         serviceAccount:
           annotations:
             eks.amazonaws.com/role-arn: ${aws_karpenter_service_account_role_arn}

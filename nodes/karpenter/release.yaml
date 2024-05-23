@@ -17,6 +17,7 @@ spec:
   values:
     logLevel: debug
     settings:
+      clusterName: kubernetes-aws--${cluster_name}
       featureGates:
         spotToSpotConsolidation: true
     controller:
