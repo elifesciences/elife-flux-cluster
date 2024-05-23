@@ -28,8 +28,6 @@ spec:
         - secretName: coroot-tls
           hosts:
             - coroot.${cluster_domain}
-      persistentVolume:
-        size: 30Gi
     corootClusterAgent:
       nodeSelector:
         Project: ${cluster_name}
