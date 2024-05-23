@@ -11,7 +11,7 @@ patches:
     kind: HelmRelease
     name: karpenter
   patch: |-
-    apiVersion: apps/v1
+    apiVersion: helm.toolkit.fluxcd.io/v2
     kind: HelmRelease
     metadata:
       name: notused
@@ -22,7 +22,6 @@ patches:
           operator: "Equal"
           effect: "NoSchedule"
           value: "true
-
 - target:
     kind: Deployment
     name: kwok-controller
