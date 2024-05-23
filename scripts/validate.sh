@@ -91,7 +91,7 @@ done
 
 
 echo "# INFO - Validating kustomize overlays (excluding ./clusters path)"
-find . -type f -name $kustomize_config -not -path "*clusters/*" -print0 | while IFS= read -r -d $'\0' file;
+find . -type f -name $kustomize_config -not -path "./clusters/*" -print0 | while IFS= read -r -d $'\0' file;
   do
     echo "## INFO - Validating kustomization ${file/%$kustomize_config}"
     tmp_dir=$(mktemp -d)
