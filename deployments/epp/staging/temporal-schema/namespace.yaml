@@ -32,4 +32,4 @@ spec:
           command:
           - bash
           - -c
-          - 'temporal operator namespace update epp--staging --retention 30 --history-archival-state enabled --history-uri s3://elife-temporal-prod-data --visibility-archival-state=enabled --visibility-uri=s3://elife-temporal-prod-data'
+          - 'temporal operator namespace update epp--staging --retention 30d --history-archival-state enabled --history-uri s3://elife-temporal-prod-data --visibility-archival-state=enabled --visibility-uri=s3://elife-temporal-prod-data'
