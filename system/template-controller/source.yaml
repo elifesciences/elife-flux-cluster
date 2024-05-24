@@ -3,8 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: kluctl
-  namespace: flux-system
-
+  namespace: template-controller
 spec:
   interval: 5m
   url: http://kluctl.github.io/charts
