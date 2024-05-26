@@ -2,3 +2,78 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - ../../kwok
+- https://raw.githubusercontent.com/kubernetes-sigs/karpenter/main/kwok/apis/crds/kwok.karpenter.sh_kwoknodeclasses.yaml
+- ../../karpenter
+- ../../nodepools
+
+patches:
+- target:
+    kind: HelmRelease
+    name: karpenter
+  patch: |-
+    apiVersion: helm.toolkit.fluxcd.io/v2
+    kind: HelmRelease
+    metadata:
+      name: notused
+    spec:
+      values:
+        image:
+          repository: public.ecr.aws/karpenter/kwok
+        tolerations:
+        - key: "realnode"
+          operator: "Equal"
+          effect: "NoSchedule"
+          value: "true"
+- target:
+    kind: Deployment
+    name: kwok-controller
+  patch: |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: kwok-controller
+      namespace: kube-system
+    spec:
+      template:
+        spec:
+          tolerations:
+          - operator: "Equal"
+            key: CriticalAddonsOnly
+            effect: NoSchedule
+          - key: "realnode"
+            operator: "Equal"
+            effect: "NoSchedule"
+            value: "true"
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: kwok.x-k8s.io/node
+                    operator: DoesNotExist
+- target:
+    kind: EC2NodeClass
+    group: karpenter.k8s.aws
+    version: v1beta1
+  patch: |
+    - op: replace
+      path: /kind
+      value: KWOKNodeClass
+    - op: replace
+      path: /apiVersion
+      value: kwok.karpenter.sh/v1alpha1
+    - op: remove
+      path: /spec
+
+- target:
+    kind: NodePool
+  patch: |
+    apiVersion: karpenter.sh/v1beta1
+    kind: NodePool
+    metadata:
+      name: notused
+    spec:
+      template:
+        spec:
+          nodeClassRef:
+            kind: KWOKNodeClass

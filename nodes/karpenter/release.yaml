@@ -20,10 +20,6 @@ spec:
       clusterName: kubernetes-aws--${cluster_name}
       featureGates:
         spotToSpotConsolidation: true
-    serviceAccount:
-      annotations:
-        eks.amazonaws.com/role-arn: ${aws_karpenter_service_account_role_arn}
-
     controller:
       resources:
         requests:
@@ -39,4 +35,4 @@ spec:
           - matchExpressions:
             - key: type
               operator: NotIn
-              values: ["karpenter", "kwok"] # Don't place this on cluster-controlled nodes
+              values: ["karpenter"] # Don't place this on cluster-controlled nodes
