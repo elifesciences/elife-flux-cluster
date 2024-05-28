@@ -5,7 +5,7 @@ resources:
 - image-server
 - server
 - client
-- storybook
+# - storybook
 - ingress.yaml
 - import
 
