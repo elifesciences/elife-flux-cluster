@@ -8,6 +8,7 @@ spec:
       labels:
         Cluster: "${cluster_name}"
         Project: basex-validator
+        elifesciences.org/project: basex-validator
         type: karpenter
     spec:
       nodeClassRef:

@@ -8,6 +8,7 @@ spec:
       labels:
         Cluster: "${cluster_name}"
         Project: "epp"
+        elifesciences.org/project: "epp"
         type: karpenter
     spec:
       nodeClassRef:

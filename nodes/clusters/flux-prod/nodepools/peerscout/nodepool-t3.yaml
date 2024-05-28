@@ -8,6 +8,7 @@ spec:
       labels:
         Cluster: "${cluster_name}"
         Project: peerscout
+        elifesciences.org/project: peerscout
         type: karpenter
     spec:
       nodeClassRef:
