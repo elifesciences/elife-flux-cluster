@@ -19,7 +19,7 @@ spec:
     - name: temporalio/ui
       newTag: 2.27.1
     - name: temporalio/admin-tools
-      newTag: 1.22.7
+      newTag: 1.23.1
   postBuild:
     substitute:
       temporal_web_hostname: temporal.elifesciences.org
