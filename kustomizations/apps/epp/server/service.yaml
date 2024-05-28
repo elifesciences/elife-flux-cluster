@@ -3,12 +3,6 @@ kind: Service
 metadata:
   name: epp-server
   namespace: epp
-  labels:
-    app_name: epp
-    app_env: ${app_env}
-    app_tier: backend
 spec:
-  selector:
-    app: epp-server
   ports:
   - port: 3000

@@ -1,8 +1,0 @@
-apiVersion: image.toolkit.fluxcd.io/v1beta2
-kind: ImageRepository
-metadata:
-  name: epp-import
-  namespace: epp
-spec:
-  interval: 5m
-  image: ghcr.io/elifesciences/enhanced-preprints-import-worker

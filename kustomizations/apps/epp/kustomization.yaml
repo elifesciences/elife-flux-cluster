@@ -3,15 +3,14 @@ kind: Kustomization
 namespace: epp
 resources:
 - image-server
-- server/serviceaccount.yaml
-- server/deployment.yaml
-- server/service.yaml
-- server/automations/repository.yaml
-- server/automations/policy.yaml
-- server/automations/approved-policy.yaml
+- server
 - client
 - storybook
-- storybook/automations/repository.yaml
-- storybook/automations/policy.yaml
 - ingress.yaml
 - import
+
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/part-of: epp
+    app.kubernetes.io/instance: epp-${app_env}

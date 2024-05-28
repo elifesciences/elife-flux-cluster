@@ -4,7 +4,5 @@ metadata:
   name: epp-encoda-api
   namespace: epp
 spec:
-  selector:
-    app: epp-encoda-api
   ports:
   - port: 3000

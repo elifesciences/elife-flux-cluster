@@ -6,3 +6,8 @@ resources:
 - deployment.yaml
 - service.yaml
 - automations
+labels:
+- includeSelectors: true
+  pairs:
+    app.kubernetes.io/component: client
+    app.kubernetes.io/name: image-server

@@ -12,6 +12,4 @@ resources:
 labels:
 - includeSelectors: true
   pairs:
-    app_name: epp
-    app_env: ${app_env}
-    app_tier: biorxiv-xslt-api
+    app.kubernetes.io/name: biorxiv-xslt-api

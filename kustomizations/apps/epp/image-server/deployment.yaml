@@ -3,24 +3,13 @@ kind: Deployment
 metadata:
   name: epp-image-server
   namespace: epp
-  labels:
-    app_name: epp
-    app_env: ${app_env}
-    app_tier: backend
 spec:
   replicas: ${image_server_replicas:=1}
   strategy:
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 0
-  selector:
-    matchLabels:
-      app: epp-image-server
   template:
-    metadata:
-      namespace: epp
-      labels:
-        app: epp-image-server
     spec:
       serviceAccountName: epp-image-server
       containers:
