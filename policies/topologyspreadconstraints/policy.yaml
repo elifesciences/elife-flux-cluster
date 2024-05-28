@@ -60,7 +60,7 @@ spec:
             - StatefulSet
             namespaces:
             - victoriametrics
-            - epp--staging
+            - "epp--*"
       preconditions:
         all:
         - key: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/instance\" || ''}}"
