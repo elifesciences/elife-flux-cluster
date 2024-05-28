@@ -15,7 +15,7 @@ spec:
   targetNamespace: temporal
   images:
     - name: temporalio/server
-      newTag: 1.22.7
+      newTag: 1.23.1
     - name: temporalio/ui
       newTag: 2.27.1
     - name: temporalio/admin-tools
