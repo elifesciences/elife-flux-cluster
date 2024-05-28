@@ -88,7 +88,7 @@ spec:
                 kind: GitRepository
                 name: flux-system
                 namespace: flux-system
-              path: ./kustomizations/apps/epp/preview
+              path: ./kustomizations/apps/eppv2/preview
               prune: true
               targetNamespace: epp--preview-{{ matrix.pr.number }}
               images:
