@@ -9,7 +9,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./kustomizations/apps/epp/server
+  path: ./kustomizations/apps/eppv2/server
   prune: true
   targetNamespace: epp--biophysics-colab
   images:
