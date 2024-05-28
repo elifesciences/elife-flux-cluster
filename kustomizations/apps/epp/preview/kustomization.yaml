@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: epp
 resources:
 - ../client
-- ../storybook
 - ingress.yaml

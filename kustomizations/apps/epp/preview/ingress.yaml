@@ -15,13 +15,3 @@ spec:
             name: epp-client
             port:
               number: 3000
-  - host: ${storybook_hostname}
-    http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: epp-storybook
-            port:
-              number: 6006

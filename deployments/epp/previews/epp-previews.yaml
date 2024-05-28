@@ -32,21 +32,6 @@ spec:
           numerical:
             order: asc
   - object:
-      apiVersion: image.toolkit.fluxcd.io/v1beta2
-      kind: ImagePolicy
-      metadata:
-        name: epp-storybook-preview-{{ matrix.pr.number }}
-        namespace: epp--previews
-      spec:
-        imageRepositoryRef:
-          name: epp-storybook
-        filterTags:
-          pattern: '^preview-{{ matrix.pr.number }}-[a-fA-F0-9]+-(?P<ts>.*)'
-          extract: '$ts'
-        policy:
-          numerical:
-            order: asc
-  - object:
       apiVersion: templates.kluctl.io/v1alpha1
       kind: ObjectTemplate
       metadata:
@@ -62,13 +47,6 @@ spec:
               apiVersion: image.toolkit.fluxcd.io/v1beta2
               kind: ImagePolicy
               name: epp-client-preview-{{ matrix.pr.number }}
-            jsonPath: status.latestImage
-        - name: storybook-image
-          object:
-            ref:
-              apiVersion: image.toolkit.fluxcd.io/v1beta2
-              kind: ImagePolicy
-              name: epp-storybook-preview-{{ matrix.pr.number }}
             jsonPath: status.latestImage
         templates:
         - object:
@@ -94,13 +72,10 @@ spec:
               images:
                 - name: ghcr.io/elifesciences/enhanced-preprints-client
                   newTag: "{% raw %}{{ matrix['client-image'].split(':')[1] }}{% endraw %}"
-                - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-                  newTag: "{% raw %}{{ matrix['storybook-image'].split(':')[1] }}{% endraw %}"
               postBuild:
                 substitute:
                   app_env: epp--preview-{{ matrix.pr.number }}
                   app_hostname: pr-{{ matrix.pr.number }}--epp.elifesciences.org
-                  storybook_hostname: pr-{{ matrix.pr.number }}--epp-storybook.elifesciences.org
                   epp_server: http://epp-server.epp--staging:3000
                   iiif_server: https://staging--epp.elifesciences.org/iiif
                   private_iiif_server: http://epp-image-server.epp--staging:8182/iiif
@@ -159,7 +134,6 @@ spec:
                     The preview environment has been deployed to the cluster.
 
                     Client URL: https://pr-{{ matrix.pr.number }}--epp.elifesciences.org
-                    Storybook URL: https://pr-{{ matrix.pr.number }}--epp-storybook.elifesciences.org
 
                     **Note**: If this is a new environment, it can take a few minutes for DNS to update.
         - raw: |
@@ -183,9 +157,7 @@ spec:
 
                     The preview environment has been updated:
                     client image tag: {% raw %}{{ matrix['client-image'].split(':')[1] }}{% endraw %}
-                    storybook image tag: {% raw %}{{ matrix['storybook-image'].split(':')[1] }}{% endraw %}
 
                     Client URL: https://pr-{{ matrix.pr.number }}--epp.elifesciences.org
-                    Storybook URL: https://pr-{{ matrix.pr.number }}--epp-storybook.elifesciences.org
 
                     **Note**: Updated images can take a few minutes to roll out.
