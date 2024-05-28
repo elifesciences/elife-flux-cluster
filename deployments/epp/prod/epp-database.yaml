@@ -27,47 +27,58 @@ spec:
     backup:
       enabled: false
     replsets:
-    - name: replicaset
-      size: 3
-      annotations:
-        "cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes": "bin"
-      nodeSelector:
-        kubernetes.io/arch: amd64
-      configuration: |
-        systemLog:
-          verbosity: 0
-          quiet: true
-      antiAffinityTopologyKey: "kubernetes.io/hostname"
-      podDisruptionBudget:
-        maxUnavailable: 1
-      expose:
-        enabled: false
-        exposeType: ClusterIP
-      nonvoting:
-        enabled: false
+      rs0:
+        name: replicaset
         size: 3
+        annotations:
+          "cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes": "bin"
+          prometheus.io/scrape: 'true'
+          prometheus.io/port: '9216'
+        configuration: |
+          systemLog:
+            verbosity: 0
+            quiet: true
         antiAffinityTopologyKey: "kubernetes.io/hostname"
         podDisruptionBudget:
           maxUnavailable: 1
+        expose:
+          enabled: false
+        nonvoting:
+          enabled: false
+        arbiter:
+          enabled: false
         resources:
           requests:
-            cpu: "300m"
-            memory: "0.5G"
+            cpu: "50m"
+            memory: "1.2Gi"
+            ephemeral-storage: 50M
+          limits:
+            cpu: null
+            memory: null
         volumeSpec:
-          emptyDir: {}
-      arbiter:
-        enabled: false
-        size: 1
-        antiAffinityTopologyKey: "kubernetes.io/hostname"
-      resources:
-        requests:
-          cpu: "50m"
-          memory: "1.2Gi"
-          ephemeral-storage: 50M
-      volumeSpec:
-        pvc:
-          accessModes: [ "ReadWriteOnce" ]
-          storageClassName: csi-ebs-gp3
-          resources:
-            requests:
-              storage: 20Gi
+          pvc:
+            accessModes: [ "ReadWriteOnce" ]
+            storageClassName: csi-ebs-gp3
+            resources:
+              requests:
+                storage: 20Gi
+        sidecars:
+        - image: "percona/mongodb_exporter:0.40.0"
+          name: mongodb-exporter
+          args:
+          - "--mongodb.uri=mongodb://127.0.0.1:27017"
+          - "--collector.replicasetstatus=true"
+          - "--collector.diagnosticdata=true"
+          ports:
+            - containerPort: 9216
+          env:
+            - name: MONGODB_USER
+              valueFrom:
+                secretKeyRef:
+                  key: MONGODB_DATABASE_ADMIN_USER
+                  name: epp-database-psmdb-db-secrets
+            - name: MONGODB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: MONGODB_DATABASE_ADMIN_PASSWORD
+                  name: epp-database-psmdb-db-secrets
