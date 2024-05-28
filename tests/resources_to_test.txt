@@ -7,10 +7,10 @@
 2m helmrelease ready db-operator-system psmdb-operator
 2m helmrelease ready db-operator-system pg-operator
 2m helmrelease ready db-operator-system pxc-operator
-2m helmrelease ready flux-system gitops-dashboard
+2m helmrelease ready gitops-dashboard gitops-dashboard
 2m helmrelease ready ack-system rds
 2m helmrelease ready external-secrets external-secrets
-2m helmrelease ready flux-system template-controller
+2m helmrelease ready template-controller template-controller
 2m helmrelease ready loki loki
 2m helmrelease ready victoriametrics victoriametrics
 2m helmrelease ready infra sealed-secrets
