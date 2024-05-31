@@ -32,9 +32,6 @@ spec:
         - key: karpenter.k8s.aws/instance-generation
           operator: Gt
           values: ["4"]
-        - key: karpenter.k8s.aws/instance-family
-          operator: NotIn
-          values: ["m7i-flex"]
         - key: "kubernetes.io/arch"
           operator: In
           values: ["amd64", "arm64"]
