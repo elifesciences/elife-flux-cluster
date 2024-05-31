@@ -53,7 +53,7 @@ spec:
               subPath: config_template.yaml
           resources:
             requests:
-              cpu: 50m
+              cpu: 30m
               memory: 100Mi
             limits:
               memory: 100Mi
