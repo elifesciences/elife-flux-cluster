@@ -54,9 +54,9 @@ spec:
           resources:
             requests:
               cpu: 134m
-              memory: 1Gi
+              memory: 660Gi
             limits:
-              memory: 1065Mi
+              memory: 660Mi
       volumes:
         - name: config
           configMap:
