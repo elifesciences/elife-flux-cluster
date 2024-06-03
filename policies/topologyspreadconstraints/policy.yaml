@@ -23,6 +23,8 @@ spec:
             namespaces:
             - victoriametrics
             - "epp--*"
+            - "journal*"
+            - "basex-validator*"
       preconditions:
         all:
         - key: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/instance\" || ''}}"
@@ -61,6 +63,8 @@ spec:
             namespaces:
             - victoriametrics
             - "epp--*"
+            - "journal*"
+            - "basex-validator*"
       preconditions:
         all:
         - key: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/instance\" || ''}}"
