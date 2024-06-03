@@ -25,5 +25,3 @@ spec:
     namespace: infra
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
-    nodeSelector:
-      Project: ${cluster_name}

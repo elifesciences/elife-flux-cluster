@@ -40,5 +40,3 @@ spec:
       hosts:
         - "${oauth2_proxy_hostname}"
     replicaCount: 2
-    nodeSelector:
-      Project: ${cluster_name}
