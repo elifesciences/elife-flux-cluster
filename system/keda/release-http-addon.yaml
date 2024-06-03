@@ -17,15 +17,5 @@ spec:
   values:
     crds:
       install: false
-    operator:
-      nodeSelector:
-        Project: ${cluster_name}
-    scaler:
-      nodeSelector:
-        Project: ${cluster_name}
-    interceptor:
-      nodeSelector:
-        Project: ${cluster_name}
-
       # extend reponse timeout
       responseHeaderTimeout: 180s
