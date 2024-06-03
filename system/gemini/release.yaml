@@ -20,5 +20,3 @@ spec:
         cpu: 500m
     additionalPodAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
-    nodeSelector:
-      Project: ${cluster_name}
