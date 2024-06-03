@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
 - ../../kyverno
 - ../../topologyspreadconstraints
-- ../../nodeallocation
+- ../../elife-default-project
