@@ -59,6 +59,3 @@ spec:
       - secretName: grafana-tls
         hosts:
         - grafana.${cluster_domain}
-
-    nodeSelector:
-      Project: ${cluster_name}
