@@ -54,6 +54,9 @@ spec:
             kind: Namespace
             metadata:
               name: "epp--preview-{{ matrix.pr.number }}"
+              annotations:
+                elifesciences.org/default-project: epp
+
         - object:
             apiVersion: kustomize.toolkit.fluxcd.io/v1
             kind: Kustomization
