@@ -24,6 +24,3 @@ spec:
     serviceAccount:
       annotations:
         eks.amazonaws.com/role-arn: ${aws_external_secrets_service_account_role_arn}
-    global:
-      nodeSelector:
-        Project: ${cluster_name}
