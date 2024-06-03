@@ -18,7 +18,7 @@ spec:
           command: ['temporal-sql-tool', '--database', 'temporal', 'create-database']
           env:
             - name: SQL_PLUGIN
-              value: mysql
+              value: mysql8
             - name: SQL_HOST
               value: ${temporal_store_host}
             - name: SQL_USER
@@ -33,7 +33,7 @@ spec:
           command: ['temporal-sql-tool', '--database', 'temporal_visibility', 'create-database']
           env:
             - name: SQL_PLUGIN
-              value: mysql
+              value: mysql8
             - name: SQL_HOST
               value: ${temporal_visibility_store_host}
             - name: SQL_USER
@@ -49,7 +49,7 @@ spec:
           command: ['temporal-sql-tool', 'setup-schema', '-v', '0.0']
           env:
             - name: SQL_PLUGIN
-              value: mysql
+              value: mysql8
             - name: SQL_DATABASE
               value: temporal
             - name: SQL_HOST
@@ -66,7 +66,7 @@ spec:
           command: ['temporal-sql-tool', 'setup-schema', '-v', '0.0']
           env:
             - name: SQL_PLUGIN
-              value: mysql
+              value: mysql8
             - name: SQL_HOST
               value: ${temporal_visibility_store_host}
             - name: SQL_DATABASE
@@ -83,7 +83,7 @@ spec:
           command: ['temporal-sql-tool', 'update-schema', '--schema-dir', '/etc/temporal/schema/mysql/v8/temporal/versioned']
           env:
             - name: SQL_PLUGIN
-              value: mysql
+              value: mysql8
             - name: SQL_HOST
               value: ${temporal_store_host}
             - name: SQL_DATABASE
@@ -100,7 +100,7 @@ spec:
           command: ['temporal-sql-tool', 'update-schema', '--schema-dir', '/etc/temporal/schema/mysql/v8/visibility/versioned']
           env:
             - name: SQL_PLUGIN
-              value: mysql
+              value: mysql8
             - name: SQL_HOST
               value: ${temporal_visibility_store_host}
             - name: SQL_DATABASE
