@@ -1,0 +1,126 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: elife-default-project
+  annotations:
+    policies.kyverno.io/title: Add metadata, nodeSelector, toleration to workloads from namespace or workload objects
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/minversion: 1.6.0
+spec:
+  rules:
+  - name: add-default-project-pod
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    context:
+    - name: default_namespace_project
+      apiCall:
+        urlPath: "/api/v1/namespaces/{{request.namespace}}"
+        jmesPath: "metadata.annotations.\"elifesciences.org/default-project\" || ''"
+    - name: default_project
+      variable:
+        value: "{{ request.object.metadata.annotations.\"elifesciences.org/default-project\" || default_namespace_project || '' }}"
+    preconditions:
+      all:
+      - key: "{{ default_project }}"
+        operator: NotEquals
+        value: ""
+      - key: "{{ [request.\"object\".metadata.ownerReferences[].kind, [request.\"object\".kind]][] }}"
+        operator: AllNotIn
+        value: DaemonSet
+        message: DaemonSets should probably be allocated to all node, regardless of default project
+      - key: "{{ [request.\"object\".spec.template.spec.tolerations, request.\"object\".spec.tolerations][].key }}"
+        operator: AllNotIn
+        value: CriticalAddonsOnly
+        message: This workload should be allocated to the core NodePool, not reallocated to cluster services
+    mutate:
+      patchesJson6902: |-
+        - op: add
+          path: "/metadata/annotations/elifesciences.org~1project"
+          value: "{{ default_project }}"
+        - op: add
+          path: "/metadata/labels/elifesciences.org~1project"
+          value: "{{ default_project }}"
+        - op: add
+          path: "/spec/nodeSelector/elifesciences.org~1project"
+          value: "{{ default_project }}"
+        - op: add
+          path: "/spec/tolerations/-"
+          value:
+            key: project
+            value: "{{ default_project }}"
+            operator: "Equal"
+            effect: "NoSchedule"
+  - name: add-default-project-controllers
+    match:
+      any:
+      - resources:
+          kinds:
+          - Deployment
+          - Job
+          - ReplicaSet
+          - ReplicationController
+          - StatefulSet
+    context:
+    - name: default_namespace_project
+      apiCall:
+        urlPath: "/api/v1/namespaces/{{request.namespace}}"
+        jmesPath: "metadata.annotations.\"elifesciences.org/default-project\" || ''"
+    - name: default_project
+      variable:
+        value: "{{ request.object.metadata.annotations.\"elifesciences.org/default-project\" || default_namespace_project || '' }}"
+    preconditions:
+      all:
+      - key: "{{ default_project }}"
+        operator: NotEquals
+        value: ""
+      - key: "{{ [request.\"object\".spec.template.spec.tolerations, request.\"object\".spec.tolerations][].key }}"
+        operator: AllNotIn
+        value: CriticalAddonsOnly
+        message: This workload should be allocated to the core NodePool, not reallocated to cluster services
+    mutate:
+      patchStrategicMerge:
+        metadata:
+          annotations:
+            elifesciences.org/project: "{{ default_project }}"
+          labels:
+            elifesciences.org/project: "{{ default_project }}"
+  - name: add-default-project-cronjob
+    match:
+      any:
+      - resources:
+          kinds:
+          - CronJob
+    context:
+    - name: default_namespace_project
+      apiCall:
+        urlPath: "/api/v1/namespaces/{{request.namespace}}"
+        jmesPath: "metadata.annotations.\"elifesciences.org/default-project\" || ''"
+    - name: default_project
+      variable:
+        value: "{{ request.object.metadata.annotations.\"elifesciences.org/default-project\" || default_namespace_project || '' }}"
+    preconditions:
+      all:
+      - key: "{{ default_project }}"
+        operator: NotEquals
+        value: ""
+      - key: "{{ [request.\"object\".spec.template.spec.tolerations, request.\"object\".spec.tolerations][].key }}"
+        operator: AllNotIn
+        value: CriticalAddonsOnly
+        message: This workload should be allocated to the core NodePool, not reallocated to cluster services
+    mutate:
+      patchStrategicMerge:
+        spec:
+          metadata:
+          annotations:
+            elifesciences.org/project: "{{ default_project }}"
+          labels:
+            elifesciences.org/project: "{{ default_project }}"
+          jobTemplate:
+            metadata:
+              annotations:
+                elifesciences.org/project: "{{ default_project }}"
+              labels:
+                elifesciences.org/project: "{{ default_project }}"
