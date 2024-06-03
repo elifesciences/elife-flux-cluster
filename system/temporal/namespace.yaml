@@ -5,3 +5,5 @@ metadata:
   name: temporal
   labels:
     name: temporal
+  annotations:
+    elifesciences.org/default-project: ${cluster_name}
