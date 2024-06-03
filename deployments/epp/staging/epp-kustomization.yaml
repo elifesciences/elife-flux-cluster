@@ -65,68 +65,68 @@ spec:
       temporal_worker_import_docmaps_replicas: "2"
       keda_autoscaler_namespace_fix: 'epp--staging'
       epp_server_metrics_url: https://prod--gateway.elifesciences.org
-    patches:
-    - target:
-        kind: Deployment
-        name: epp-client
-      patch: |
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: any
-        spec:
-          template:
-            spec:
-              containers:
-              - name: epp-client
-                env:
-                - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
-                  value: http://coroot.coroot:8080/v1/traces
-    - target:
-        kind: Deployment
-        name: epp-server
-      patch: |
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: any
-        spec:
-          template:
-            spec:
-              containers:
-              - name: epp-server
-                env:
-                - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
-                  value: http://coroot.coroot:8080/v1/traces
-    - target:
-        kind: Deployment
-        name: epp-import-worker-docmaps
-      patch: |
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: any
-        spec:
-          template:
-            spec:
-              containers:
-              - name: epp-import
-                env:
-                - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
-                  value: http://coroot.coroot:8080/v1/traces
-    - target:
-        kind: Deployment
-        name: epp-import-worker-epp
-      patch: |
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: any
-        spec:
-          template:
-            spec:
-              containers:
-              - name: epp-import
-                env:
-                - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
-                  value: http://coroot.coroot:8080/v1/traces
+  patches:
+  - target:
+      kind: Deployment
+      name: epp-client
+    patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: any
+      spec:
+        template:
+          spec:
+            containers:
+            - name: epp-client
+              env:
+              - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+                value: http://coroot.coroot:8080/v1/traces
+  - target:
+      kind: Deployment
+      name: epp-server
+    patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: any
+      spec:
+        template:
+          spec:
+            containers:
+            - name: epp-server
+              env:
+              - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+                value: http://coroot.coroot:8080/v1/traces
+  - target:
+      kind: Deployment
+      name: epp-import-worker-docmaps
+    patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: any
+      spec:
+        template:
+          spec:
+            containers:
+            - name: epp-import
+              env:
+              - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+                value: http://coroot.coroot:8080/v1/traces
+  - target:
+      kind: Deployment
+      name: epp-import-worker-epp
+    patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: any
+      spec:
+        template:
+          spec:
+            containers:
+            - name: epp-import
+              env:
+              - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+                value: http://coroot.coroot:8080/v1/traces
