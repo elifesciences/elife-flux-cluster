@@ -10,7 +10,6 @@ resources:
 - ../../gemini
 - ../../grafana
 - ../../keda
-- ../../kube-system
 - ../../loki
 - ../../monitoring
 - ../../nidhogg
