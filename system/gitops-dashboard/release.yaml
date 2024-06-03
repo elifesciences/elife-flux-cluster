@@ -31,5 +31,3 @@ spec:
       createSecret: false
     additionalArgs:
     - --insecure-no-authentication-user=gitops-test-user
-    nodeSelector:
-      Project: ${cluster_name}
