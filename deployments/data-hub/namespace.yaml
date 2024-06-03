@@ -1,5 +1,7 @@
 ---
-  apiVersion: v1
-  kind: Namespace
-  metadata:
-    name: data-hub
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: data-hub
+  annotations:
+    elifesciences.org/default-project: data-hub
