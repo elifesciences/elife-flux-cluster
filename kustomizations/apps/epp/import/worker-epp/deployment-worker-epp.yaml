@@ -31,14 +31,10 @@ spec:
           value: ${epp_server}
         - name: TEMPORAL_SERVER
           value: ${temporal_server}
-        # - name: XSLT_TRANSFORM_ADDRESS
-        #   value: http://epp-biorxiv-xslt-api-scaler.${keda_autoscaler_namespace_fix}:8080
-        # - name: ENCODA_TRANSFORM_ADDRESS
-        #   value: http://epp-encoda-api-scaler.${keda_autoscaler_namespace_fix}:8080
         - name: XSLT_TRANSFORM_ADDRESS
-          value: http://epp-biorxiv-xslt-api
+          value: http://epp-biorxiv-xslt-api-scaler.${keda_autoscaler_namespace_fix}:8080
         - name: ENCODA_TRANSFORM_ADDRESS
-          value: http://epp-encoda-api:3000
+          value: http://epp-encoda-api-scaler.${keda_autoscaler_namespace_fix}:8080
         - name: TEMPORAL_TASK_QUEUE
           value: epp
         - name: TEMPORAL_NAMESPACE
