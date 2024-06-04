@@ -89,18 +89,6 @@ spec:
               patches:
               - target:
                   kind: Deployment
-                patch: |
-                  apiVersion: apps/v1
-                  kind: Deployment
-                  metadata:
-                    name: any
-                  spec:
-                    template:
-                      spec:
-                        nodeSelector:
-                          kubernetes.io/arch: amd64
-              - target:
-                  kind: Deployment
                   name: epp-client
                 patch: |
                   apiVersion: apps/v1
