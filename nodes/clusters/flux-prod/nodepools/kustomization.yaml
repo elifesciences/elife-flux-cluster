@@ -5,7 +5,5 @@ resources:
 - cluster-services
 - data-hub
 - epp
-- peerscout
-- basex-validator
 - sciety
 - journal
