@@ -31,15 +31,3 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
           nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
-  - target:
-      kind: Deployment
-    patch: |
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: any
-      spec:
-        template:
-          spec:
-            nodeSelector:
-              Project: ${cluster_name}
