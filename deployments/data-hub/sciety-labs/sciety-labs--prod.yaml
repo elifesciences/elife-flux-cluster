@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sciety-labs--prod
+  annotations:
+    elifesciences.org/default-project: sciety
   labels:
     app: sciety-labs--prod
   namespace: data-hub
