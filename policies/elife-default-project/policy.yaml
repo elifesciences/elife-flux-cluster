@@ -87,6 +87,13 @@ spec:
             elifesciences.org/project: "{{ default_project }}"
           labels:
             elifesciences.org/project: "{{ default_project }}"
+        spec:
+          template:
+            metadata:
+              annotations:
+                elifesciences.org/project: "{{ default_project }}"
+              labels:
+                elifesciences.org/project: "{{ default_project }}"
   - name: add-default-project-cronjob
     match:
       any:
@@ -112,15 +119,17 @@ spec:
         message: This workload should be allocated to the core NodePool, not reallocated to cluster services
     mutate:
       patchStrategicMerge:
-        spec:
-          metadata:
+        metadata:
           annotations:
             elifesciences.org/project: "{{ default_project }}"
           labels:
             elifesciences.org/project: "{{ default_project }}"
+        spec:
           jobTemplate:
-            metadata:
-              annotations:
-                elifesciences.org/project: "{{ default_project }}"
-              labels:
-                elifesciences.org/project: "{{ default_project }}"
+            spec:
+              template:
+                metadata:
+                  annotations:
+                    elifesciences.org/project: "{{ default_project }}"
+                  labels:
+                    elifesciences.org/project: "{{ default_project }}"
