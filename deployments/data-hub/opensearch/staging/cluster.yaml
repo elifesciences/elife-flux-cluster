@@ -19,9 +19,13 @@ spec:
     version: 2.9.0
     enable: true
     replicas: 1
+    annotations:
+      elifesciences.org/project: sciety
   nodePools:
   - component: masters
     replicas: 3
+    annotations:
+      elifesciences.org/project: sciety
     resources:
       requests:
         memory: "3Gi"
