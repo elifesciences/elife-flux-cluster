@@ -4,4 +4,3 @@ namespace: karpenter
 resources:
 - nodeclass.yaml
 - nodepool.yaml
-- assignment-policy.yaml
