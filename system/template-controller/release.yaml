@@ -22,8 +22,6 @@ spec:
   values:
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
-    nodeSelector:
-      Project: ${cluster_name}
 
   postRenderers:
   - kustomize:
