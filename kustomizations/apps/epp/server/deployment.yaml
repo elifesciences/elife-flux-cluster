@@ -12,8 +12,6 @@ spec:
   template:
     spec:
       serviceAccountName: epp-server
-      nodeSelector:
-        kubernetes.io/arch: amd64
       containers:
       - name: epp-server
         image: ghcr.io/elifesciences/enhanced-preprints-server:latest
