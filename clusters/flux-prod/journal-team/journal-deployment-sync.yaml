@@ -22,3 +22,14 @@ spec:
   sourceRef:
     kind: GitRepository
     name: journal-team-deployment
+  patches:
+  # Auto assign any pods to the journal nodepool
+  - target:
+      kind: Namespace
+    patch: |-
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: not-important
+        annotations:
+          elifesciences.org/default-project: journal
