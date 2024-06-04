@@ -97,7 +97,7 @@ spec:
           'external.url': https://vmalert.${cluster_domain}
         resources:
           requests:
-            cpu: 200m
+            cpu: 210m
             memory: 450Mi
           limits: {}
       ingress:
