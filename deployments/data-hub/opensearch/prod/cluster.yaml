@@ -13,7 +13,7 @@ spec:
     pluginsList:
     - "https://github.com/aiven/prometheus-exporter-plugin-for-opensearch/releases/download/2.9.0.0/prometheus-exporter-2.9.0.0.zip"
     annotations:
-      elifesciences.org/default-project: sciety
+      elifesciences.org/project: sciety
   dashboards:
     version: 2.9.0
     enable: true

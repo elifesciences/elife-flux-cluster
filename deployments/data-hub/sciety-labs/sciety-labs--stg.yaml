@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: sciety-labs--stg
   annotations:
-    elifesciences.org/default-project: sciety
+    elifesciences.org/project: sciety
   labels:
     app: sciety-labs--stg
   namespace: data-hub
