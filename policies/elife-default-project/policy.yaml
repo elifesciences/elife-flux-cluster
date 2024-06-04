@@ -21,7 +21,7 @@ spec:
         jmesPath: "metadata.annotations.\"elifesciences.org/default-project\" || ''"
     - name: default_project
       variable:
-        value: "{{ request.object.metadata.annotations.\"elifesciences.org/default-project\" || default_namespace_project || '' }}"
+        value: "{{ request.object.metadata.annotations.\"elifesciences.org/project\" || default_namespace_project || '' }}"
     preconditions:
       all:
       - key: "{{ default_project }}"
@@ -70,7 +70,7 @@ spec:
         jmesPath: "metadata.annotations.\"elifesciences.org/default-project\" || ''"
     - name: default_project
       variable:
-        value: "{{ request.object.metadata.annotations.\"elifesciences.org/default-project\" || default_namespace_project || '' }}"
+        value: "{{ request.object.metadata.annotations.\"elifesciences.org/project\" || default_namespace_project || '' }}"
     preconditions:
       all:
       - key: "{{ default_project }}"
@@ -104,7 +104,7 @@ spec:
     - name: default_namespace_project
       apiCall:
         urlPath: "/api/v1/namespaces/{{request.namespace}}"
-        jmesPath: "metadata.annotations.\"elifesciences.org/default-project\" || ''"
+        jmesPath: "metadata.annotations.\"elifesciences.org/project\" || ''"
     - name: default_project
       variable:
         value: "{{ request.object.metadata.annotations.\"elifesciences.org/default-project\" || default_namespace_project || '' }}"
