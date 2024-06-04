@@ -38,7 +38,7 @@ spec:
         - name: XSLT_TRANSFORM_ADDRESS
           value: http://epp-biorxiv-xslt-api
         - name: ENCODA_TRANSFORM_ADDRESS
-          value: http://epp-encoda-api
+          value: http://epp-encoda-api:3000
         - name: TEMPORAL_TASK_QUEUE
           value: epp
         - name: TEMPORAL_NAMESPACE
