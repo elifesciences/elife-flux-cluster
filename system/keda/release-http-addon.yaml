@@ -17,5 +17,6 @@ spec:
   values:
     crds:
       install: false
+    interceptor:
       # extend reponse timeout
       responseHeaderTimeout: 180s
