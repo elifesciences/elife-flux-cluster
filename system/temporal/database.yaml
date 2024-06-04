@@ -35,8 +35,6 @@ spec:
       livenessProbes:
         initialDelaySeconds: 300
         failureThreshold: 10
-      nodeSelector:
-        Project: ${cluster_name}
     haproxy:
       annotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
@@ -44,5 +42,3 @@ spec:
         requests:
           memory: 100Mi
           cpu: 170m
-      nodeSelector:
-        Project: ${cluster_name}

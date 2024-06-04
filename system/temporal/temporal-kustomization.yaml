@@ -34,18 +34,3 @@ spec:
       s3_archive_aws_region: us-east-1
       s3_archive_history_uri: "s3://elife-temporal-prod-data"
       s3_archive_visibility_uri: "s3://elife-temporal-prod-data"
-  patches:
-  - target:
-      kind: Deployment
-      namespace: temporal
-    patch: |-
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: does-not-matter
-        namespace: temporal
-      spec:
-        template:
-          spec:
-            nodeSelector:
-              Project: ${cluster_name}
