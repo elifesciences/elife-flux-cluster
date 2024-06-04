@@ -33,8 +33,6 @@ spec:
       spec:
         retentionPeriod: "3" # months
         vmstorage:
-          nodeSelector:
-            Project: ${cluster_name}
           storage:
             volumeClaimTemplate:
               spec:
@@ -51,8 +49,6 @@ spec:
             "memory.allowedPercent": "80"
             "inmemoryDataFlushInterval": "15s"
         vmselect:
-          nodeSelector:
-            Project: ${cluster_name}
           storage:
             volumeClaimTemplate:
               spec:
@@ -64,8 +60,6 @@ spec:
               memory: 320Mi
             limits: {}
         vminsert:
-          nodeSelector:
-            Project: ${cluster_name}
           extraArgs:
             maxLabelsPerTimeseries: "50"
           resources:
@@ -80,8 +74,6 @@ spec:
         extraArgs:
           "promscrape.kubernetesSDCheckInterval": "5s"
           "promscrape.suppressScrapeErrorsDelay": "30s"
-        nodeSelector:
-          Project: ${cluster_name}
         resources:
           requests:
             cpu: 450m
@@ -101,8 +93,6 @@ spec:
               - vmagent.${cluster_domain}
     vmalert:
       spec:
-        nodeSelector:
-          Project: ${cluster_name}
         extraArgs:
           'external.url': https://vmalert.${cluster_domain}
         resources:
@@ -136,8 +126,6 @@ spec:
     alertmanager:
       spec:
         externalURL: https://alertmanager.${cluster_domain}
-        nodeSelector:
-          Project: ${cluster_name}
         resources:
           requests:
             cpu: 10m
@@ -169,16 +157,12 @@ spec:
     victoria-metrics-operator:
       operator:
         disable_prometheus_converter: false
-      nodeSelector:
-        Project: ${cluster_name}
       resources:
         requests:
           cpu: 40m
           memory: 100Mi
         limits: {}
     kube-state-metrics:
-      nodeSelector:
-        Project: ${cluster_name}
       resources:
         requests:
           cpu: 20m
