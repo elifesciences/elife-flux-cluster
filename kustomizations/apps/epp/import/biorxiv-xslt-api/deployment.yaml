@@ -15,10 +15,10 @@ spec:
         image: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api:latest
         resources:
           requests:
-            memory: ${biorxiv_xslt_api_memory_requests:='4096Mi'}
+            memory: ${biorxiv_xslt_api_memory_requests:='6144Mi'}
             cpu: ${biorxiv_xslt_api_cpu_requests:='1700m'}
           limits:
-            memory: ${biorxiv_xslt_api_memory_limits:='4096Mi'}
+            memory: ${biorxiv_xslt_api_memory_limits:='6144Mi'}
             cpu: ${biorxiv_xslt_api_cpu_limits:='1700m'}
         ports:
           - containerPort: 80
