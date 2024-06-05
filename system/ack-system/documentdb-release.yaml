@@ -27,3 +27,8 @@ spec:
     serviceAccount:
       annotations:
         eks.amazonaws.com/role-arn: ${aws_ack_documentdb_service_account_role_arn}
+
+    resourceTags:
+    - services.k8s.aws/controller-version=%CONTROLLER_SERVICE%-%CONTROLLER_VERSION%
+    - services.k8s.aws/namespace=%K8S_NAMESPACE%
+    - Cluster=${cluster_name}
