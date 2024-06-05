@@ -5,3 +5,5 @@ resources:
 - namespace.yaml
 - source.yaml
 - rds-release.yaml
+- documentdb-release.yaml
+- s3-release.yaml
