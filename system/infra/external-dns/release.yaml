@@ -29,10 +29,8 @@ spec:
         enabled: true
 
     resources:
-      limits:
-        memory: 100Mi
       requests:
-        memory: 50Mi
+        memory: 60Mi
         cpu: 10m
     serviceAccount:
       annotations:
