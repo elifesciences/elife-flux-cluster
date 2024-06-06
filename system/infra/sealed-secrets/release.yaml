@@ -25,3 +25,7 @@ spec:
     namespace: infra
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+    resources:
+      requests:
+        cpu: 200m
+        memory: 150Mi

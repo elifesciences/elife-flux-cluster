@@ -53,8 +53,7 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/port: "10254"
       resources:
-        limits:
-          memory: 600Mi
+        limits: {}
         requests:
           cpu: 100m
           memory: 300Mi
