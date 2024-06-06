@@ -16,6 +16,9 @@ spec:
         name: grafana
   values:
     sidecar:
+      resources:
+        cpu: 40m
+        memory: 90Mi
       alerts:
         enabled: true
         searchNamespace: ALL
@@ -59,3 +62,7 @@ spec:
       - secretName: grafana-tls
         hosts:
         - grafana.${cluster_domain}
+    resources:
+      requests:
+        cpu: 100m
+        memory: 133Mi
