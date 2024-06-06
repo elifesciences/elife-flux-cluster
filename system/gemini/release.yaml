@@ -16,7 +16,9 @@ spec:
       interval: 1m
   values:
     resources:
-      limits:
-        cpu: 500m
+      limits: {}
+      requests:
+        cpu: 13m
+        memory: 20Mi
     additionalPodAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
