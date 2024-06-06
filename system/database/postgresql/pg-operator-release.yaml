@@ -22,3 +22,9 @@ spec:
 
   values:
     watchAllNamespaces: true
+
+    resources:
+      limits: {}
+      requests:
+        cpu: 30m
+        memory: 15Mi
