@@ -33,5 +33,5 @@ spec:
     - --insecure-no-authentication-user=gitops-test-user
     resources:
       requests:
-        cpu: 10m
+        cpu: 22m
         memory: 100Mi
