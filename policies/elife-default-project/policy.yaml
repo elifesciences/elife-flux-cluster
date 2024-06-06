@@ -133,3 +133,65 @@ spec:
                     elifesciences.org/project: "{{ default_project }}"
                   labels:
                     elifesciences.org/project: "{{ default_project }}"
+  - name: add-default-project-ack-databases
+    match:
+      any:
+      - resources:
+          kinds:
+          - DBInstance
+          - DBClusters
+    context:
+    - name: default_namespace_project
+      apiCall:
+        urlPath: "/api/v1/namespaces/{{request.namespace}}"
+        jmesPath: "metadata.annotations.\"elifesciences.org/default-project\" || ''"
+    - name: default_project
+      variable:
+        value: "{{ request.object.metadata.annotations.\"elifesciences.org/project\" || default_namespace_project || '' }}"
+    preconditions:
+      all:
+      - key: "{{ default_project }}"
+        operator: NotEquals
+        value: ""
+    mutate:
+      patchStrategicMerge:
+        metadata:
+          annotations:
+            elifesciences.org/project: "{{ default_project }}"
+          labels:
+            elifesciences.org/project: "{{ default_project }}"
+        spec:
+          tags:
+          - key: Project
+            value: "{{ default_project }}"
+  - name: add-default-project-ack-buckets
+    match:
+      any:
+      - resources:
+          kinds:
+          - Bucket
+    context:
+    - name: default_namespace_project
+      apiCall:
+        urlPath: "/api/v1/namespaces/{{request.namespace}}"
+        jmesPath: "metadata.annotations.\"elifesciences.org/default-project\" || ''"
+    - name: default_project
+      variable:
+        value: "{{ request.object.metadata.annotations.\"elifesciences.org/project\" || default_namespace_project || '' }}"
+    preconditions:
+      all:
+      - key: "{{ default_project }}"
+        operator: NotEquals
+        value: ""
+    mutate:
+      patchStrategicMerge:
+        metadata:
+          annotations:
+            elifesciences.org/project: "{{ default_project }}"
+          labels:
+            elifesciences.org/project: "{{ default_project }}"
+        spec:
+          tagging:
+            tagSet:
+            - key: Project
+              value: "{{ default_project }}"
