@@ -83,7 +83,7 @@ spec:
     chunksCache:
       allocatedMemory: 512
     resultsCache:
-      allocatedMemory: 4096
+      allocatedMemory: 512
     test:
       enabled: false
     serviceAccount:
