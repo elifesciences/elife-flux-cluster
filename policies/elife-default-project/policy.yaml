@@ -138,8 +138,10 @@ spec:
       any:
       - resources:
           kinds:
-          - DBInstance
-          - DBClusters
+          - documentdb.services.k8s.aws/v1alpha1/DBCluster
+          - rds.services.k8s.aws/v1alpha1/DBCluster
+          - documentdb.services.k8s.aws/v1alpha1/DBInstance
+          - rds.services.k8s.aws/v1alpha1/DBInstance
     context:
     - name: default_namespace_project
       apiCall:
@@ -169,7 +171,7 @@ spec:
       any:
       - resources:
           kinds:
-          - Bucket
+          - s3.services.k8s.aws/v1alpha1/Bucket
     context:
     - name: default_namespace_project
       apiCall:
