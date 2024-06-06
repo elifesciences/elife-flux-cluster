@@ -32,3 +32,9 @@ spec:
     - services.k8s.aws/controller-version=%CONTROLLER_SERVICE%-%CONTROLLER_VERSION%
     - services.k8s.aws/namespace=%K8S_NAMESPACE%
     - Cluster=${cluster_name}
+
+    resources:
+      requests:
+        memory: "30Mi"
+        cpu: "10m"
+      limits: {}
