@@ -32,11 +32,10 @@ patches:
           containers:
           - name: manager
             resources:
-              limits:
-                memory: 384Mi
+              limits: {}
               requests:
                 cpu: 50m
-                memory: 256Mi
+                memory: 150Mi
 - target:
     version: v1
     group: apps
@@ -55,12 +54,10 @@ patches:
           containers:
           - name: manager
             resources:
-              limits:
-                cpu: 1700m
-                memory: 512Mi
+              limits: {}
               requests:
-                cpu: 500m
-                memory: 384Mi
+                cpu: 300m
+                memory: 300Mi
 - target:
     version: v1
     group: apps
@@ -79,8 +76,7 @@ patches:
           containers:
           - name: manager
             resources:
-              limits:
-                memory: 768Mi
+              limits: {}
               requests:
-                cpu: 50m
-                memory: 768Mi
+                cpu: 35m
+                memory: 200Mi
