@@ -17,8 +17,9 @@ spec:
   values:
     sidecar:
       resources:
-        cpu: 10m
-        memory: 90Mi
+        requests:
+          cpu: 10m
+          memory: 90Mi
       alerts:
         enabled: true
         searchNamespace: ALL
