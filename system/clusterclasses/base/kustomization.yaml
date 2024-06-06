@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
 - ../../infra
 - ../../ack-system
-- ../../coroot
+# - ../../coroot
 - ../../database
 - ../../external-secrets
 - ../../gitops-dashboard
