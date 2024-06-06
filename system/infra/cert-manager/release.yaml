@@ -32,7 +32,7 @@ spec:
     webhook:
       resources:
         requests:
-          cpu: 50m
+          cpu: 10m
           memory: 20Mi
     cainjector:
       resources:

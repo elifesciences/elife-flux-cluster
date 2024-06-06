@@ -55,8 +55,8 @@ spec:
       resources:
         limits: {}
         requests:
-          cpu: 100m
-          memory: 300Mi
+          cpu: 80m
+          memory: 263Mi
       replicaCount: 2
       watchIngressWithoutClass: true
       allowSnippetAnnotations: true
