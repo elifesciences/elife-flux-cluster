@@ -16,7 +16,7 @@ spec:
       interval: 1m
   values:
     resources:
-      limits: {}
+      limits: null
       requests:
         cpu: 13m
         memory: 20Mi
