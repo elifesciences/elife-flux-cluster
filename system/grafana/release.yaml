@@ -17,7 +17,7 @@ spec:
   values:
     sidecar:
       resources:
-        cpu: 40m
+        cpu: 10m
         memory: 90Mi
       alerts:
         enabled: true
@@ -64,5 +64,5 @@ spec:
         - grafana.${cluster_domain}
     resources:
       requests:
-        cpu: 100m
+        cpu: 20m
         memory: 133Mi
