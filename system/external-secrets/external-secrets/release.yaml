@@ -24,3 +24,19 @@ spec:
     serviceAccount:
       annotations:
         eks.amazonaws.com/role-arn: ${aws_external_secrets_service_account_role_arn}
+
+    resources:
+      requests:
+        cpu: 10m
+        memory: 41Mi
+
+    webhook:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 35Mi
+    certController:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 180Mi
