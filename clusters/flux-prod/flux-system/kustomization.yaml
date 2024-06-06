@@ -29,13 +29,16 @@ patches:
                 - matchExpressions:
                   - key: karpenter.sh/nodepool
                     operator: DoesNotExist
-          containers:
-          - name: manager
-            resources:
-              limits: {}
-              requests:
-                cpu: 50m
-                memory: 150Mi
+- target:
+    kind: Deployment
+    namespace: flux-system
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/resources
+      value:
+        requests:
+          cpu: 50m
+          memory: 150Mi
 - target:
     version: v1
     group: apps
@@ -43,21 +46,12 @@ patches:
     namespace: flux-system
     name: kustomize-controller
   patch: |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: kustomize-controller
-      namespace: flux-system
-    spec:
-      template:
-        spec:
-          containers:
-          - name: manager
-            resources:
-              limits: {}
-              requests:
-                cpu: 300m
-                memory: 300Mi
+    - op: replace
+      path: /spec/template/spec/containers/0/resources
+      value:
+        requests:
+          cpu: 300m
+          memory: 300Mi
 - target:
     version: v1
     group: apps
@@ -65,18 +59,9 @@ patches:
     namespace: flux-system
     name: image-reflector-controller
   patch: |-
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: image-reflector-controller
-      namespace: flux-system
-    spec:
-      template:
-        spec:
-          containers:
-          - name: manager
-            resources:
-              limits: {}
-              requests:
-                cpu: 35m
-                memory: 200Mi
+    - op: replace
+      path: /spec/template/spec/containers/0/resources
+      value:
+        requests:
+          cpu: 35m
+          memory: 200Mi
