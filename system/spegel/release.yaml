@@ -16,5 +16,5 @@ spec:
         name: spegel
     resources:
       requests:
-        cpu: 10m
+        cpu: 5m
         memory: 20Mi
