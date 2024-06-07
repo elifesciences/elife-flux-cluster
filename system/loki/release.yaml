@@ -28,7 +28,7 @@ spec:
         requests:
           cpu: 10m
           memory: 90Mi
-        limits: {}
+        limits: null
 
     read:
       replicas: 3
@@ -36,7 +36,7 @@ spec:
         requests:
           cpu: 10m
           memory: 100Mi
-        limits: {}
+        limits: null
 
     write:
       replicas: 3
@@ -44,7 +44,7 @@ spec:
         requests:
           cpu: 80m
           memory: 500Mi
-        limits: {}
+        limits: null
 
     gateway:
       replicas: 1
@@ -52,7 +52,7 @@ spec:
         requests:
           cpu: 10m
           memory: 15Mi
-        limits: {}
+        limits: null
     lokiCanary:
       enabled: false
     singleBinary:
@@ -109,7 +109,7 @@ spec:
         requests:
           cpu: 10m
           memory: 520Mi
-        limits: {}
+        limits: null
 
     resultsCache:
       allocatedMemory: 128
@@ -117,7 +117,7 @@ spec:
         requests:
           cpu: 10m
           memory: 128Mi
-        limits: {}
+        limits: null
 
     test:
       enabled: false
@@ -131,4 +131,4 @@ spec:
         requests:
           cpu: 10m
           memory: 90Mi
-        limits: {}
+        limits: null
