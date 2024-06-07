@@ -125,7 +125,6 @@ spec:
       annotations:
         eks.amazonaws.com/role-arn: arn:aws:iam::512686554592:role/elife-${cluster_name}-loki-cluster-role
 
-
     sidecar:
       resources:
         requests:
