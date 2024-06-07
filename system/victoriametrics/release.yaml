@@ -43,10 +43,9 @@ spec:
           resources:
             requests:
               cpu: 450m
-              memory: 5120Mi
+              memory: 8192Mi
             limits: {}
           extraArgs:
-            "memory.allowedPercent": "80"
             "inmemoryDataFlushInterval": "15s"
         vmselect:
           storage:
