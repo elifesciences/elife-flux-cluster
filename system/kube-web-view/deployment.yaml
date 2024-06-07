@@ -3,7 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kube-web-view
-  namespace: monitoring
   labels:
     application: kube-web-view
 spec:
@@ -34,11 +33,9 @@ spec:
             path: /health
             port: 8080
         resources:
-          limits:
-            memory: 100Mi
           requests:
             cpu: 5m
-            memory: 100Mi
+            memory: 50Mi
         securityContext:
           readOnlyRootFilesystem: true
           runAsNonRoot: true

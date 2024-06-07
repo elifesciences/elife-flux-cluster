@@ -11,6 +11,7 @@ resources:
 - ../../grafana
 - ../../keda
 - ../../loki
+- ../../kube-web-view
 - ../../monitoring
 - ../../nidhogg
 - ../../spegel
