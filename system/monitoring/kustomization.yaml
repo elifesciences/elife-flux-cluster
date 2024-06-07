@@ -7,4 +7,3 @@ resources:
 - alertrules-misc.yaml
 - alerts
 - dashboards
-- metrics-server

@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metrics-server
+  annotations:
+    elifesciences.org/default-project: ${cluster_name}

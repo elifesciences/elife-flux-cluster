@@ -12,6 +12,7 @@ resources:
 - ../../keda
 - ../../loki
 - ../../kube-web-view
+- ../../metrics-server
 - ../../monitoring
 - ../../nidhogg
 - ../../spegel
