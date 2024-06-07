@@ -42,8 +42,8 @@ spec:
                     storage: 500Gi
           resources:
             requests:
-              cpu: 600m
-              memory: 8Gi
+              cpu: 450m
+              memory: 4Gi
             limits: {}
           extraArgs:
             "memory.allowedPercent": "80"
@@ -56,16 +56,16 @@ spec:
 
           resources:
             requests:
-              cpu: 600m
-              memory: 320Mi
+              cpu: 500m
+              memory: 400Mi
             limits: {}
         vminsert:
           extraArgs:
             maxLabelsPerTimeseries: "50"
           resources:
             requests:
-              cpu: 500m
-              memory: 500Mi
+              cpu: 250m
+              memory: 200Mi
             limits: {}
     vmagent:
       spec:
@@ -76,8 +76,8 @@ spec:
           "promscrape.suppressScrapeErrorsDelay": "30s"
         resources:
           requests:
-            cpu: 450m
-            memory: 350Mi
+            cpu: 400m
+            memory: 250Mi
           limits: {}
       ingress:
         enabled: true
@@ -97,8 +97,8 @@ spec:
           'external.url': https://vmalert.${cluster_domain}
         resources:
           requests:
-            cpu: 200m
-            memory: 450Mi
+            cpu: 100m
+            memory: 100Mi
           limits: {}
       ingress:
         enabled: true
@@ -159,8 +159,8 @@ spec:
         disable_prometheus_converter: false
       resources:
         requests:
-          cpu: 40m
-          memory: 100Mi
+          cpu: 10m
+          memory: 40Mi
         limits: {}
     kube-state-metrics:
       resources:
