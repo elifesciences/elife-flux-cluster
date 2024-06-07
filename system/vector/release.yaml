@@ -22,6 +22,10 @@ spec:
     role: Agent
     podMonitor:
       enabled: true
+    resources:
+      requests:
+        cpu: 10m
+        memory: 50Mi
     extraVolumes:
     - name: gcp-data-hub-project-log-shipping
       secret:
