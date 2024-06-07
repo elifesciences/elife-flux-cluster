@@ -42,3 +42,8 @@ spec:
         requests:
           memory: 15Mi
           cpu: 150m
+    logcollector:
+      resources:
+        requests:
+          memory: 15Mi
+          cpu: 10m
