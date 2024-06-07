@@ -20,3 +20,27 @@ spec:
     interceptor:
       # extend reponse timeout
       responseHeaderTimeout: 180s
+      resources:
+        limits: null
+        requests:
+          cpu: 10m
+          memory: 15Mi
+
+    operator:
+      resources:
+        limits: null
+        requests:
+          cpu: 10m
+          memory: 20Mi
+      kubeRbacProxy:
+        resources:
+          limits: null
+          requests:
+            cpu: 10m
+            memory: 20Mi
+    scaler:
+      resources:
+        limits: null
+        requests:
+          cpu: 10m
+          memory: 15Mi

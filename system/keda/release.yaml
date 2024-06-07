@@ -21,13 +21,15 @@ spec:
       operator:
         requests:
           cpu: 10m
-          memory: 100Mi
-        limits:
-          memory: 100Mi
+          memory: 45Mi
+        limits: null
       metricServer:
-        limits:
-          cpu: 1
-          memory: 100Mi
+        limits: null
         requests:
-          cpu: 100m
-          memory: 100Mi
+          cpu: 10m
+          memory: 35Mi
+      webhooks:
+        limits: null
+        requests:
+          cpu: 10m
+          memory: 10Mi
