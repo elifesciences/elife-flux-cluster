@@ -24,7 +24,7 @@ spec:
     pxc:
       resources:
         requests:
-          memory: 1400Mi
+          memory: 900Mi
           cpu: 200m
       persistence:
         storageClass: csi-ebs-gp3
@@ -40,5 +40,5 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       resources:
         requests:
-          memory: 100Mi
-          cpu: 170m
+          memory: 15Mi
+          cpu: 150m
