@@ -148,6 +148,7 @@ spec:
         kubeScheduler: false # lives on EKS
         kubeApiserver: false # too memory intensive
       disabled:
+        KubeMemoryOvercommit: true
         KubeCPUOvercommit: true
         KubeletTooManyPods: true
         TooHighChurnRate: true
