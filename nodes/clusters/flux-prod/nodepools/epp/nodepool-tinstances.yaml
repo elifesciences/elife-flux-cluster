@@ -1,7 +1,7 @@
 apiVersion: karpenter.sh/v1beta1
 kind: NodePool
 metadata:
-  name: epp-t4g
+  name: epp-tinstances
 spec:
   template:
     metadata:
