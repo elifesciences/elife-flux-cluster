@@ -4,5 +4,4 @@ namespace: karpenter
 resources:
 - nodeclass.yaml
 - nodepool.yaml
-- nodepool-tinstances.yaml
 # - nodepool-t3.yaml
