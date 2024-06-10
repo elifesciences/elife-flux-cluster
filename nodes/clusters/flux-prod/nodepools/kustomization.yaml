@@ -4,4 +4,3 @@ namespace: karpenter
 resources:
 - cluster-services
 - data-hub
-- epp
