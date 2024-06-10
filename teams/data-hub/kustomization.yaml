@@ -4,5 +4,3 @@ resources:
 - storageclass.yaml
 - nodeclass.yaml
 - nodepool.yaml
-- nodeclass-new.yaml
-- nodepool-new.yaml
