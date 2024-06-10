@@ -14,7 +14,7 @@ spec:
         karpenter.sh/discovery: "kubernetes-aws--${cluster_name}"
   tags:
     Cluster: "${cluster_name}"
-    Project: sciety
+    Project: "${team_name}"
   blockDeviceMappings:
     - deviceName: /dev/xvda
       ebs:

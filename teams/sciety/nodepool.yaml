@@ -1,14 +1,14 @@
 apiVersion: karpenter.sh/v1beta1
 kind: NodePool
 metadata:
-  name: sciety-t3
+  name: sciety
 spec:
   template:
     metadata:
       labels:
         Cluster: "${cluster_name}"
-        Project: sciety
-        elifesciences.org/project: sciety
+        Project: "${team_name}"
+        elifesciences.org/project: "${team_name}"
         type: karpenter
     spec:
       nodeClassRef:
@@ -17,7 +17,7 @@ spec:
         name: sciety
       taints:
         - key: project
-          value: "sciety"
+          value: "${team_name}"
           effect: NoSchedule
       requirements:
         - key: kubernetes.io/os
@@ -25,16 +25,21 @@ spec:
           values: ["linux"]
         - key: karpenter.sh/capacity-type
           operator: In
-          values: ["on-demand"]
-        - key: karpenter.k8s.aws/instance-family
+          values: ["spot"]
+        - key: karpenter.k8s.aws/instance-category
           operator: In
-          values: ["t3"]
+          values: ["m", "c", "r"]
+        - key: karpenter.k8s.aws/instance-generation
+          operator: Gt
+          values: ["4"]
+        - key: "kubernetes.io/arch"
+          operator: In
+          values: ["amd64"]
         - key: "topology.kubernetes.io/zone"
           operator: In
           values: ["us-east-1c", "us-east-1d"]
-  weight: 100
   limits:
-    cpu: 48
+    cpu: 1000
   disruption:
     consolidationPolicy: WhenUnderutilized
     expireAfter: 720h # 30 * 24h = 720h
