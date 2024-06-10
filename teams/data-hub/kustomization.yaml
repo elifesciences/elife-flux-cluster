@@ -2,5 +2,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - storageclass.yaml
-- nodeclass.yaml
-- nodepool.yaml
+- nodeclass-new.yaml
+- nodepool-new.yaml
