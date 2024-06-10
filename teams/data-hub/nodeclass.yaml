@@ -1,0 +1,25 @@
+---
+apiVersion: karpenter.k8s.aws/v1beta1
+kind: EC2NodeClass
+metadata:
+  name: data-hub
+spec:
+  amiFamily: AL2 # Amazon Linux 2
+  role: "elife-${cluster_name}-karpenter--KarpenterNodeRole"
+  subnetSelectorTerms:
+    - id: subnet-07e912335040a0866
+    - id: subnet-0110e7685debdb5eb
+  securityGroupSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: "kubernetes-aws--${cluster_name}"
+  tags:
+    Cluster: "${cluster_name}"
+    Project: "${team_name}"
+  blockDeviceMappings:
+    - deviceName: /dev/xvda
+      ebs:
+        volumeSize: 20Gi
+        volumeType: gp3
+        iops: 3000
+        deleteOnTermination: true
+        throughput: 125
