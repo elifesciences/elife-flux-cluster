@@ -1,14 +1,14 @@
 apiVersion: karpenter.sh/v1beta1
 kind: NodePool
 metadata:
-  name: journal
+  name: journal-t3
 spec:
   template:
     metadata:
       labels:
         Cluster: "${cluster_name}"
-        Project: journal
-        elifesciences.org/project: journal
+        Project: "${team_name}"
+        elifesciences.org/project: "${team_name}"
         type: karpenter
     spec:
       nodeClassRef:
@@ -17,7 +17,7 @@ spec:
         name: journal
       taints:
         - key: project
-          value: "journal"
+          value: "${team_name}"
           effect: NoSchedule
       requirements:
         - key: kubernetes.io/os
@@ -25,21 +25,16 @@ spec:
           values: ["linux"]
         - key: karpenter.sh/capacity-type
           operator: In
-          values: ["spot"]
-        - key: karpenter.k8s.aws/instance-category
+          values: ["on-demand"]
+        - key: karpenter.k8s.aws/instance-family
           operator: In
-          values: ["m", "c", "r"]
-        - key: karpenter.k8s.aws/instance-generation
-          operator: Gt
-          values: ["4"]
-        - key: "kubernetes.io/arch"
-          operator: In
-          values: ["amd64"]
+          values: ["t3"]
         - key: "topology.kubernetes.io/zone"
           operator: In
           values: ["us-east-1c", "us-east-1d"]
+  weight: 100
   limits:
-    cpu: 1000
+    cpu: 48
   disruption:
     consolidationPolicy: WhenUnderutilized
     expireAfter: 720h # 30 * 24h = 720h

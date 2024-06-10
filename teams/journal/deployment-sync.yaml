@@ -23,7 +23,7 @@ spec:
     kind: GitRepository
     name: journal-team-deployment
   patches:
-  # Auto assign any pods to the journal nodepool
+  # Auto assign any pods to the team nodepool
   - target:
       kind: Namespace
     patch: |-
@@ -32,4 +32,4 @@ spec:
       metadata:
         name: not-important
         annotations:
-          elifesciences.org/default-project: journal
+          elifesciences.org/default-project: ${team_name}
