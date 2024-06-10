@@ -1,0 +1,48 @@
+apiVersion: karpenter.sh/v1beta1
+kind: NodePool
+metadata:
+  name: epp-new
+spec:
+  template:
+    metadata:
+      labels:
+        Cluster: "${cluster_name}"
+        Project: "${team_name}"
+        elifesciences.org/project: "${team_name}"
+        type: karpenter
+    spec:
+      nodeClassRef:
+        apiVersion: karpenter.k8s.aws/v1beta1
+        kind: EC2NodeClass
+        name: epp-new
+      taints:
+        - key: project
+          value: "${team_name}"
+          effect: NoSchedule
+      requirements:
+        - key: kubernetes.io/os
+          operator: In
+          values: ["linux"]
+        - key: karpenter.sh/capacity-type
+          operator: In
+          values: ["spot"]
+        - key: karpenter.k8s.aws/instance-category
+          operator: In
+          values: ["m", "c", "r", "t"]
+        - key: karpenter.k8s.aws/instance-generation
+          operator: Gt
+          values: ["3"]
+        - key: karpenter.k8s.aws/instance-family
+          operator: NotIn
+          values: ["m4", "c4", "r4"]
+        - key: "kubernetes.io/arch"
+          operator: In
+          values: ["amd64", "arm64"]
+        - key: "topology.kubernetes.io/zone"
+          operator: In
+          values: ["us-east-1c", "us-east-1d"]
+  limits:
+    cpu: 1000
+  disruption:
+    consolidationPolicy: WhenUnderutilized
+    expireAfter: 720h # 30 * 24h = 720h
