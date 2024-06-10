@@ -1,7 +1,7 @@
 apiVersion: karpenter.sh/v1beta1
 kind: NodePool
 metadata:
-  name: epp
+  name: epp-old
 spec:
   template:
     metadata:
@@ -14,7 +14,7 @@ spec:
       nodeClassRef:
         apiVersion: karpenter.k8s.aws/v1beta1
         kind: EC2NodeClass
-        name: epp
+        name: epp-old
       taints:
         - key: project
           value: "epp"
