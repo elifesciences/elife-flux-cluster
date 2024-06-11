@@ -2,13 +2,12 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: csi-ebs-gp3
+  name: ebs-gp2
 provisioner: ebs.csi.aws.com
 volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: Delete
 allowVolumeExpansion: true
 parameters:
   fsType: ext4
-  type: gp3
-  iops: "3000"
-  throughput: "125"
+  type: gp2
+  tagSpecification_1: "Project=${cluster_name}"

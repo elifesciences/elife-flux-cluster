@@ -4,3 +4,6 @@ resources:
 - csi-ebs-gp2.yaml
 - csi-ebs-gp3.yaml
 - csi-ebs-st1.yaml
+- ebs-gp2.yaml
+- ebs-gp3.yaml
+- ebs-st1.yaml
