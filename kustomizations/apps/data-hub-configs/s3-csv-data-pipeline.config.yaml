@@ -319,15 +319,3 @@ s3Csv:
     airflow:
       taskParameters:
         queue: 'kubernetes'
-        executor_config:
-          pod_override:
-            spec:
-              containers:
-                - name: 'base'
-                  resources:
-                    limits:
-                      memory: 1gb
-                      cpu: 1000m
-                    requests:
-                      memory: 1gb
-                      cpu: 100m
