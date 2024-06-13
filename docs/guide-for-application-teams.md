@@ -47,6 +47,55 @@ Kubernetes resources can use the secret:
 - directly in workloads e.g. via an [environment variable](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#environment-variables)
 - by receiving its value as an [Helm release value](https://fluxcd.io/flux/components/helm/helmreleases/#values-references)
 
+
+Provision managed databases
+===========================
+
+Use the [ACK RDS operator](https://aws-controllers-k8s.github.io/community/docs/tutorials/rds-example/#deploy-database-instances), which is available in the cluster.
+
+```yaml
+apiVersion: rds.services.k8s.aws/v1alpha1
+kind: DBInstance
+metadata:
+  name: sciety-demo
+  namespace: sciety
+spec:
+  allocatedStorage: 20
+  dbInstanceClass: db.t4g.micro
+  dbInstanceIdentifier: sciety-demo
+  engine: postgres
+  engineVersion: "12"
+  masterUsername: "postgres"
+  masterUserPassword:
+    name: demo-database
+    key: password
+  vpcSecurityGroupIDs:
+    - sg-0a04b1c8433227e63
+  dbSubnetGroupName: elife-flux-prod-ack-rds-controller-all-dbs
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: demo-database
+  namespace: sciety
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: secret-store
+    kind: ClusterSecretStore
+  target:
+    name: demo-database
+    creationPolicy: Owner
+  dataFrom:
+  - extract:
+      key: sciety-team/demo-database
+```
+
+This depends on a secret existing in AWS Secrets Manager with the name `sciety-team/demo-database` with a _Secret key_ of `password`.
+
+To extract and provide non-secret connection details to the application we suggest you use [FieldExport](https://aws-controllers-k8s.github.io/community/docs/tutorials/rds-example/#connect-to-database-instances).
+
+
 Services available on the Cluster
 =================================
 
