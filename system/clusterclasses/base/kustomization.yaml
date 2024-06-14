@@ -20,3 +20,4 @@ resources:
 - ../../temporal
 - ../../vector
 - ../../victoriametrics
+- ../../victorialogs

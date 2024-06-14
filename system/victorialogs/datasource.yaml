@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasource-victorialogs
+  labels:
+    grafana_datasource: "1"
+data:
+  datasource.yaml: |-
+    apiVersion: 1
+    datasources:
+      - name: victorialogs
+        type: victorialogs-datasource
+        access: proxy
+        url: "http://victorialogs-victoria-logs-single-server.victorialogs:9428/"
