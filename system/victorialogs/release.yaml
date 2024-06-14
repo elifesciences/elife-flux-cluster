@@ -17,6 +17,8 @@ spec:
       retentionPeriod: 1
       persistentVolume:
         enabled: true
+        storageClass: ebs-gp3
+        size: 10Gi
       ingress:
         enabled: true
         annotations:
