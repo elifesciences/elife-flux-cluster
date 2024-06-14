@@ -32,7 +32,11 @@ spec:
       plugins:
         enabled: true
         searchNamespace: ALL
+    plugins:
+    - https://github.com/VictoriaMetrics/victorialogs-datasource/releases/download/v0.2.1/victorialogs-datasource-v0.2.1.zip;victorialogs-datasource
     grafana.ini:
+      plugins:
+        allow_loading_unsigned_plugins: victorialogs-datasource
       auth:
         oauth_auto_login: true
         signout_redirect_url: "${oauth2_proxy_signout_url}"
