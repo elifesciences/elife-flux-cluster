@@ -1,0 +1,40 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: opensearch
+
+spec:
+  interval: 1m
+  timeout: 10m
+  releaseName: opensearch
+  chart:
+    spec:
+      chart: opensearchservice-chart
+      version: 0.0.25
+      sourceRef:
+        kind: HelmRepository
+        name: ack
+      interval: 1m
+  install:
+    remediation:
+      retries: 5
+
+  values:
+    aws:
+      region: us-east-1
+
+    serviceAccount:
+      annotations:
+        eks.amazonaws.com/role-arn: ${aws_ack_opensearch_service_account_role_arn}
+
+    resourceTags:
+    - services.k8s.aws/controller-version=%CONTROLLER_SERVICE%-%CONTROLLER_VERSION%
+    - services.k8s.aws/namespace=%K8S_NAMESPACE%
+    - Cluster=${cluster_name}
+
+    resources:
+      requests:
+        memory: "30Mi"
+        cpu: "10m"
+      limits: {}

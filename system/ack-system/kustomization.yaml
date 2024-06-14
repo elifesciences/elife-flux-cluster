@@ -7,3 +7,4 @@ resources:
 - rds-release.yaml
 - documentdb-release.yaml
 - s3-release.yaml
+- opensearch-release.yaml
