@@ -10,7 +10,7 @@
     "scottaubrey"
   ],
   "flux": {
-    "fileMatch": ["deployments/.+\\.yaml$", "system/.+\\.yaml$", "clusters/.+\\.yaml$", "kustomizations/.+\\.yaml$"]
+    "fileMatch": ["deployments/.+\\.yaml$", "system/.+\\.yaml$", "clusters/.+\\.yaml$", "kustomizations/.+\\.yaml$", "policies/.+\\.yaml$", "nodes/.+\\.yaml$", "teams/.+\\.yaml$"]
   },
   "packageRules": [
     {
