@@ -82,6 +82,9 @@ webApi:
           - updated
       itemsKeyFromResponseRoot:
         - rows
+    airflow:
+      dagParameters:
+        schedule: '@hourly'
 
   # toggl api
   - dataPipelineId: toggl
