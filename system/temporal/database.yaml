@@ -19,11 +19,11 @@ spec:
       interval: 1m
 
   values:
-    # request certs with cert-manager, not helm charts
-    certManager: true
     backup:
       enabled: false
     pxc:
+      # request certs with cert-manager, not helm charts
+      certManager: true
       resources:
         requests:
           memory: 900Mi
