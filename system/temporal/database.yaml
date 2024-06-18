@@ -26,7 +26,7 @@ spec:
       certManager: true
       resources:
         requests:
-          memory: 910Mi
+          memory: 900Mi
           cpu: 200m
       persistence:
         storageClass: csi-ebs-gp3
