@@ -85,6 +85,9 @@ webApi:
     airflow:
       dagParameters:
         schedule: '@hourly'
+        tags:
+          - 'Web API'
+          - 'DocMaps'
 
   # toggl api
   - dataPipelineId: toggl
