@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: data-hub-api
-        image: ghcr.io/elifesciences/data-hub-api:1.1.24 # {"$imagepolicy": "data-hub:data-hub-api-stable"}
+        image: ghcr.io/elifesciences/data-hub-api:1.1.25 # {"$imagepolicy": "data-hub:data-hub-api-stable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
