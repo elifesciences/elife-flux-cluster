@@ -326,8 +326,8 @@ s3Csv:
                 - name: 'base'
                   resources:
                     limits:
-                      memory: 1gb
+                      memory: 1Gi
                       cpu: 1000m
                     requests:
-                      memory: 1gb
+                      memory: 1Gi
                       cpu: 100m
