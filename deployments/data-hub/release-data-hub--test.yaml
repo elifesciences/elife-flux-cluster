@@ -117,6 +117,7 @@ spec:
         value: "@daily"
       - name: SEMANTIC_SCHOLAR_PIPELINE_SCHEDULE_INTERVAL
         value: "0 10 * * *" # At 10:00, every day
+        # At minute 20 past every hour from 6 through 21 :
       - name: MONITOR_DATA_HUB_PIPELINE_HEALTH_SCHEDULE_INTERVAL
         value: "20 6-21/1 * * *"
       - name: MATERIALIZE_BIGQUERY_VIEWS_SCHEDULE_INTERVAL
