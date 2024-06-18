@@ -3,6 +3,14 @@ importedTimestampFieldName: "imported_timestamp"
 stateFile:
   defaultBucketName: "{ENV}-elife-data-pipeline"
   defaultSystemGeneratedObjectPrefix: "airflow-config/{ENV}-s3-csv/state/s3-csv"
+
+defaultConfig:
+  airflow:
+    dagParameters:
+      schedule: '*/30 * * * *'  # At every 30th minute
+      tags:
+        - 'CSV'
+
 s3Csv:
   - bucketName: elife-ejp-ftp
     objectKeyPattern:

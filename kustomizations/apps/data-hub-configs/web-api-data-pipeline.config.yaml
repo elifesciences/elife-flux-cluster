@@ -1,5 +1,13 @@
 gcpProjectName: 'elife-data-pipeline'
 importedTimestampFieldName: 'imported_timestamp'
+
+defaultConfig:
+  airflow:
+    dagParameters:
+      schedule: '25 2 * * *'  # At 02:25
+      tags:
+        - 'Web API'
+
 webApi:
 
   # Observer API
