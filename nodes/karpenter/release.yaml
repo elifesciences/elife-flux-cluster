@@ -18,6 +18,7 @@ spec:
     logLevel: debug
     settings:
       clusterName: kubernetes-aws--${cluster_name}
+      interruptionQueue: ${aws_karpenter_interruption_queue}
       featureGates:
         spotToSpotConsolidation: true
     serviceAccount:

@@ -17,6 +17,7 @@ spec:
       cluster_domain: flux-prod.elifesciences.org
       aws_account_id: "512686554592"
       aws_region: us-east-1
+      aws_karpenter_interruption_queue: elife-flux-prod-karpenter
 
       # service account arns
       aws_karpenter_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-karpenter-cluster-role
