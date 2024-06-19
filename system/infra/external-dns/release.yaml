@@ -21,7 +21,6 @@ spec:
       retries: 5
 
   values:
-    replicaCount: 1
     txtOwnerId: ${external_dns_cluster_name}
     metrics:
       enabled: true
