@@ -323,6 +323,99 @@ googleAnalyticsPipelines:
       objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_yearmonth_and_usertype_and_channelgrouping_and_source_and_medium_and_social_network_and_destination_url_and_path_and_title_for_page_metrics_1.json'
 
 
+  # Dimensions: yearMonth + Channel Grouping + Source + Medium + Social Network + Campaign + Landing Page + pagePath + pageTitle
+
+  - pipelineID: 'ga_universal_analytics_data_by_yearmonth_and__channelgrouping_and_source_and_medium_and_social_network_and_campaign_and_landing_page_and_path_and_title_for_user_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'ga_universal_analytics_data'
+    viewId: "93573727"  # "Web traffic excluding eLife IP"
+
+    dimensions:
+      - 'ga:yearMonth'
+      - 'ga:channelGrouping'
+      - 'ga:source'
+      - 'ga:medium'
+      - 'ga:socialNetwork'
+      - 'ga:campaign'
+      - 'ga:landingPagePath'
+      - 'ga:pagePath'
+      - 'ga:pageTitle'
+    metrics:
+      - 'ga:users'
+      - 'ga:newUsers'
+      - 'ga:percentNewSessions'
+      - 'ga:sessionsPerUser'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_yearmonth_and__channelgrouping_and_source_and_medium_and_social_network_and_campaign_and_landing_page_and_path_and_title_for_user_metrics_1.json'
+
+  - pipelineID: 'ga_universal_analytics_data_by_yearmonth_and__channelgrouping_and_source_and_medium_and_social_network_and_campaign_and_landing_page_and_path_and_title_for_session_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'ga_universal_analytics_data'
+    viewId: "93573727"  # "Web traffic excluding eLife IP"
+
+    dimensions:
+      - 'ga:yearMonth'
+      - 'ga:channelGrouping'
+      - 'ga:source'
+      - 'ga:medium'
+      - 'ga:socialNetwork'
+      - 'ga:campaign'
+      - 'ga:landingPagePath'
+      - 'ga:pagePath'
+      - 'ga:pageTitle'
+    metrics:
+      - 'ga:sessions'
+      - 'ga:bounces'
+      - 'ga:bounceRate'
+      - 'ga:sessionDuration'
+      - 'ga:avgSessionDuration'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_yearmonth_and__channelgrouping_and_source_and_medium_and_social_network_and_campaign_and_landing_page_and_path_and_title_for_session_metrics_1.json'
+
+  - pipelineID: 'ga_universal_analytics_data_by_yearmonth_and__channelgrouping_and_source_and_medium_and_social_network_and_campaign_and_landing_page_and_path_and_title_for_page_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'ga_universal_analytics_data'
+    viewId: "93573727"  # "Web traffic excluding eLife IP"
+
+    dimensions:
+      - 'ga:yearMonth'
+      - 'ga:channelGrouping'
+      - 'ga:source'
+      - 'ga:medium'
+      - 'ga:socialNetwork'
+      - 'ga:campaign'
+      - 'ga:landingPagePath'
+      - 'ga:pagePath'
+      - 'ga:pageTitle'
+    metrics:
+      - 'ga:entrances'
+      - 'ga:entranceRate'
+      - 'ga:pageviews'
+      - 'ga:pageviewsPerSession'
+      - 'ga:uniquePageviews'
+      - 'ga:timeOnPage'
+      - 'ga:avgTimeOnPage'
+      - 'ga:exits'
+      - 'ga:exitRate'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_yearmonth_and__channelgrouping_and_source_and_medium_and_social_network_and_campaign_and_landing_page_and_path_and_title_for_page_metrics_1.json'
+
+
   # Dimensions: date + pagePath
 
   - pipelineID: 'ga_universal_analytics_data_by_date_and_path_for_user_metrics_1'
