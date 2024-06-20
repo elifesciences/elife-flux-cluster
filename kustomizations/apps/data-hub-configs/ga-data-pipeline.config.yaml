@@ -18,10 +18,10 @@ defaultConfig:
               - name: 'base'
                 resources:
                   limits:
-                    memory: 512Mi
+                    memory: 768Mi
                     cpu: 1000m
                   requests:
-                    memory: 512Mi
+                    memory: 768Mi
                     cpu: 100m
 
 # NOTE THAT there is a limit in the number of dimensions and metrics that can be requested
