@@ -11,7 +11,7 @@ spec:
   chart:
     spec:
       chart: external-dns
-      version: 7.5.6
+      version: 8.0.0
       sourceRef:
         kind: HelmRepository
         name: external-dns
@@ -21,7 +21,6 @@ spec:
       retries: 5
 
   values:
-    replicaCount: 1
     txtOwnerId: ${external_dns_cluster_name}
     metrics:
       enabled: true
