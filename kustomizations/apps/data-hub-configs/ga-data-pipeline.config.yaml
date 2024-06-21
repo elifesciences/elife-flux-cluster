@@ -416,6 +416,41 @@ googleAnalyticsPipelines:
       objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_yearmonth_and__channelgrouping_and_source_and_medium_and_social_network_and_campaign_and_landing_page_and_path_and_title_for_page_metrics_1.json'
 
 
+  # Dimensions: yearMonth + Source/Medium + Social Network + Campaign + pagePath + Page Title + Event Category + Event Action + Event Label
+  # Note: failed to use Default Channel Grouping in that combination, at least within Looker Studio
+
+  - pipelineID: 'ga_universal_analytics_data_by_yearmonth_and__channelgrouping_and_source_medium_and_campaign_and_path_and_title_and_event_category_action_label_for_event_and_basic_page_session_and_user_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'ga_universal_analytics_data'
+    viewId: "93573727"  # "Web traffic excluding eLife IP"
+
+    dimensions:
+      - 'ga:yearMonth'
+      - 'ga:sourceMedium'
+      - 'ga:socialNetwork'
+      - 'ga:campaign'
+      - 'ga:pagePath'
+      - 'ga:pageTitle'
+      - 'ga:eventCategory'
+      - 'ga:eventAction'
+      - 'ga:eventLabel'
+    metrics:
+      - 'ga:totalEvents'
+      - 'ga:uniqueEvents'
+      - 'ga:eventValue'
+      - 'ga:pageviews'
+      - 'ga:sessions'
+      - 'ga:users'
+      - 'ga:newUsers'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/93573727/ga_universal_analytics_data_by_yearmonth_and__channelgrouping_and_source_medium_and_campaign_and_path_and_title_and_event_category_action_label_for_event_and_basic_page_session_and_user_metrics_1.json'
+
+
   # Dimensions: date + pagePath
 
   - pipelineID: 'ga_universal_analytics_data_by_date_and_path_for_user_metrics_1'
