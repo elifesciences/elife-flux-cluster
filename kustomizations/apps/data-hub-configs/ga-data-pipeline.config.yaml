@@ -9,7 +9,7 @@ defaultConfig:
         - 'GA'
         - 'UA'
     taskParameters:
-      retries: 3
+      retries: 20
       queue: 'kubernetes'
       executor_config:
         pod_override:
