@@ -540,3 +540,76 @@ googleAnalyticsPipelines:
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
       objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/243656664/sciety_ga_universal_analytics_data_by_year_month_for_page_metrics_1.json'
+
+
+  # Sciety
+  # Dimensions: yearMonth + pagePath
+
+  - pipelineID: 'sciety_ga_universal_analytics_data_by_yearmonth_and_path_for_user_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'ga_universal_analytics_data'
+    viewId: "243656664"  # "Sciety.org - Unfiltered"
+
+    dimensions:
+      - 'ga:yearMonth'
+      - 'ga:pagePath'
+    metrics:
+      - 'ga:users'
+      - 'ga:newUsers'
+      - 'ga:percentNewSessions'
+      - 'ga:sessionsPerUser'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/243656664/sciety_ga_universal_analytics_data_by_yearmonth_and_path_for_user_metrics_1.json'
+
+  - pipelineID: 'sciety_ga_universal_analytics_data_by_yearmonth_and_path_for_session_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'ga_universal_analytics_data'
+    viewId: "243656664"  # "Sciety.org - Unfiltered"
+
+    dimensions:
+      - 'ga:yearMonth'
+      - 'ga:pagePath'
+    metrics:
+      - 'ga:sessions'
+      - 'ga:bounces'
+      - 'ga:bounceRate'
+      - 'ga:sessionDuration'
+      - 'ga:avgSessionDuration'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/243656664/sciety_ga_universal_analytics_data_by_yearmonth_and_path_for_session_metrics_1.json'
+
+  - pipelineID: 'sciety_ga_universal_analytics_data_by_yearmonth_and_path_for_page_metrics_1'
+    defaultStartDate: "2014-11-01"
+    endDate: "2023-06-30"
+    batchDateInterval:
+      months: 1
+    dataset: '{ENV}'
+    table: 'ga_universal_analytics_data'
+    viewId: "243656664"  # "Sciety.org - Unfiltered"
+
+    dimensions:
+      - 'ga:yearMonth'
+      - 'ga:pagePath'
+    metrics:
+      - 'ga:entrances'
+      - 'ga:entranceRate'
+      - 'ga:pageviews'
+      - 'ga:pageviewsPerSession'
+      - 'ga:uniquePageviews'
+      - 'ga:timeOnPage'
+      - 'ga:avgTimeOnPage'
+      - 'ga:exits'
+      - 'ga:exitRate'
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/ga-universal-analytics/state/by-view-id/243656664/sciety_ga_universal_analytics_data_by_yearmonth_and_path_for_page_metrics_1.json'
