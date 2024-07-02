@@ -8,7 +8,9 @@ spec:
   interval: 1m0s
   ref:
     branch: main
-  url: https://github.com/elifesciences/journal-team-deployment.git
+  secretRef:
+    name: flux-system
+  url: ssh://git@github.com/elifesciences/journal-team-deployment
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
