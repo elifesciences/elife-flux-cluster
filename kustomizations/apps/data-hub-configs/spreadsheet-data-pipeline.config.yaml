@@ -50,6 +50,17 @@ spreadsheets:
         tableName: 'unmatched_manuscripts'
         tableWriteAppend: true
 
+  # override hypothesis matching
+  - spreadsheetId: '15QcK8w-ssB7109RQEDtFpJPZ0J5HTGxoHa_2TtpMBbg'
+    sheets:
+      - sheetName: 'override_hypothesis_matching'
+        sheetRange: ''
+        headerLineIndex: 0
+        dataValuesStartLineIndex: 1
+        datasetName: "{ENV}"
+        tableName: 'override_hypothesis_matching'
+        tableWriteAppend: true
+
   # deleted hypothesis annotations
   - spreadsheetId: '1naXfcCxvTC8fLPhR8K1znC9B5DMxGP7HMpp-2CcO_sY'
     sheets:
