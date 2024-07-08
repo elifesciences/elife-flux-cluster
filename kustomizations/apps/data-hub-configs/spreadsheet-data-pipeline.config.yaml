@@ -39,7 +39,7 @@ spreadsheets:
         #  - metadataSchemaFieldName: 'metadata_example'
         #    metadataLineIndex: 1
 
-  # unmatched manuscripts
+  # unmatched manuscripts and override hypothesis matching
   - spreadsheetId: '15QcK8w-ssB7109RQEDtFpJPZ0J5HTGxoHa_2TtpMBbg'
     sheets:
       - sheetName: 'unmatched_list'
@@ -50,9 +50,6 @@ spreadsheets:
         tableName: 'unmatched_manuscripts'
         tableWriteAppend: true
 
-  # override hypothesis matching
-  - spreadsheetId: '15QcK8w-ssB7109RQEDtFpJPZ0J5HTGxoHa_2TtpMBbg'
-    sheets:
       - sheetName: 'override_hypothesis_matching'
         sheetRange: ''
         headerLineIndex: 0
