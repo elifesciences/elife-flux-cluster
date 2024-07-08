@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: victoriametrics
-      version: "0.23.5"
+      version: "0.24.0"
   interval: 1h0m0s
   valuesFrom:
     - kind: ConfigMap
@@ -144,16 +144,22 @@ spec:
           nginx.ingress.kubernetes.io/auth-signin: "https://auth--test-cluster.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
     defaultRules:
       rules:
-        kubeScheduler: false # lives on EKS
-        kubeApiserver: false # too memory intensive
-      disabled:
-        KubeMemoryOvercommit: true
-        KubeCPUOvercommit: true
-        KubeletTooManyPods: true
-        TooHighChurnRate: true
-        TooManyScrapeErrors: true
+        KubeMemoryOvercommit:
+          create: false
+        KubeCPUOvercommit:
+          create: false
+        KubeletTooManyPods:
+          create: false
+        TooHighChurnRate:
+          create: false
+        TooManyScrapeErrors:
+          create: false
     kubeControllerManager:
       enabled: false # lives on EKS
+    kubeScheduler:
+      enabled: false # lives on EKS
+    kubeApiserver:
+      enabled: false # too memory intensive
     victoria-metrics-operator:
       operator:
         disable_prometheus_converter: false
