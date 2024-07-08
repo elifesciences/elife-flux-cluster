@@ -60,4 +60,3 @@
 
 
 # 2m deployment Available podinfo podinfo--prod
-# 2m deployment Available basex-validator--prod basex-validator
