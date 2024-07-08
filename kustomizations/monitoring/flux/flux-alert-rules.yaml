@@ -10,7 +10,7 @@ spec:
   - name: GitOpsToolkit
     rules:
     - alert: FluxReconciliationFailure
-      expr: max(gotk_resource_info{ready="False"}) by (exported_namespace, name, kind) == 1
+      expr: max(gotk_resource_info{ready="False"}) by (exported_namespace, name, customresource_kind) == 1
       for: 5m
       annotations:
         message: |
