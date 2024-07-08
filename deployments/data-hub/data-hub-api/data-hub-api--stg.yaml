@@ -45,6 +45,8 @@ spec:
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /root/.gcp/credentials.json
+        - name: DOCMAP_BASEPATH
+          value: https://data-hub-api--stg.elifesciences.org/
         volumeMounts:
         - name: gcp-credentials-sealed-secret-volume
           mountPath: /root/.gcp
