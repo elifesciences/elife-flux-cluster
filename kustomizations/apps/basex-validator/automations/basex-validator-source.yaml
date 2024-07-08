@@ -1,7 +1,0 @@
-apiVersion: image.toolkit.fluxcd.io/v1beta2
-kind: ImageRepository
-metadata:
-  name: basex-validator
-spec:
-  interval: 5m
-  image: docker.io/elifesciences/basex-validator
