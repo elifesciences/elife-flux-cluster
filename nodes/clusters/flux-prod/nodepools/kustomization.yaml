@@ -3,4 +3,3 @@ kind: Kustomization
 namespace: karpenter
 resources:
 - cluster-services
-- data-hub
