@@ -231,12 +231,12 @@ spec:
           airflow-executor: KubernetesExecutor
         resources:
           requests:
-            memory: 4.9Gi
-            cpu: 1495m
-            ephemeral-storage: 10Gi
+            memory: 2Gi
+            cpu: 1000m
+            ephemeral-storage: 5Gi
           limits:
-            memory: 6Gi
-            cpu: 1700m
+            memory: 2.5Gi
+            cpu: 1200m
         extraVolumeMounts:
         - name: data-hub-config-volume
           mountPath: /dag_config_files/
