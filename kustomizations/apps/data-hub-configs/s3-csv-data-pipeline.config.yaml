@@ -214,6 +214,9 @@ s3Csv:
   - dataPipelineId: prod_task_adept_timer_report_range_001
     description:
       For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
     bucketName: prod-elife-task-adept
     objectKeyPattern:
       - Timer_Report_Range_for_*
@@ -229,6 +232,9 @@ s3Csv:
   - dataPipelineId: prod_task_adept_carina_eol_kriya_001
     description:
       For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
     bucketName: prod-elife-task-adept
     objectKeyPattern:
       - Carina_EOL_Kriya_*
@@ -244,6 +250,9 @@ s3Csv:
   - dataPipelineId: prod_task_adept_carina_eol_elife_001
     description:
       For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
     bucketName: prod-elife-task-adept
     objectKeyPattern:
       - Carina_EOL_eLife_*
@@ -259,6 +268,9 @@ s3Csv:
   - dataPipelineId: prod_kriya_digest_sub_article_info_001
     description:
       For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
     bucketName: prod-elife-kriya
     objectKeyPattern:
       - Digest_Sub-article_Info_*
@@ -274,6 +286,9 @@ s3Csv:
   - dataPipelineId: prod_kriya_press_info_001
     description:
       For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
     bucketName: prod-elife-kriya
     objectKeyPattern:
       - Press_Info_*
@@ -289,6 +304,9 @@ s3Csv:
   - dataPipelineId: prod_kriya_published_stage_history_001
     description:
       For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
     bucketName: prod-elife-kriya
     objectKeyPattern:
       - Published_Stage_History_*
@@ -304,6 +322,9 @@ s3Csv:
   - dataPipelineId: prod_kriya_published_stage_summary_001
     description:
       For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
     bucketName: prod-elife-kriya
     objectKeyPattern:
       - Published_Stage_Summary_*
@@ -319,6 +340,9 @@ s3Csv:
   - dataPipelineId: prod_kriya_wip_stage_summary_001
     description:
       For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
     bucketName: prod-elife-kriya
     objectKeyPattern:
       - WIP_Stage_Summary_*
@@ -334,6 +358,9 @@ s3Csv:
   - dataPipelineId: prod_kriya_wip_stage_history_001
     description:
       For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
     bucketName: prod-elife-kriya
     objectKeyPattern:
       - WIP_Stage_History_*
