@@ -233,6 +233,8 @@ spec:
       - name: AIRFLOW_NOTIFICATION_EMAIL_CSV_LIST
         value: ""
       kubernetesPodTemplate:
+        podLabels:
+          app: data-hub--stg
         resources:
           requests:
             memory: 6459Mi
