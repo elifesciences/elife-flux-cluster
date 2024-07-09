@@ -10,7 +10,7 @@ spec:
     kind: GitRepository
     name: flux-system
   path: ./nodes/clusters/flux-prod
-  prune: true
+  prune: false
   postBuild:
     substitute:
       cluster_name: flux-prod
