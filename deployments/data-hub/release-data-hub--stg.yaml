@@ -234,7 +234,8 @@ spec:
         value: ""
       kubernetesPodTemplate:
         podLabels:
-          app: data-hub--stg
+          release: data-hub--stg
+          airflow-executor: KubernetesExecutor
         resources:
           requests:
             memory: 6459Mi
