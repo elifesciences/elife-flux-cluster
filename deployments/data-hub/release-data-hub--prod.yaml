@@ -226,6 +226,9 @@ spec:
       - name: AIRFLOW_NOTIFICATION_EMAIL_CSV_LIST
         value: ""
       kubernetesPodTemplate:
+        podLabels:
+          release: data-hub--prod
+          airflow-executor: KubernetesExecutor
         resources:
           requests:
             memory: 4.9Gi
