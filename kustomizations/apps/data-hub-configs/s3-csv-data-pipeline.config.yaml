@@ -329,6 +329,8 @@ s3Csv:
         queue: 'kubernetes'
         executor_config:
           pod_override:
+            name: 'csv-sciety_events--{ENV}'
+            random_name_suffix: False
             spec:
               containers:
                 - name: 'base'
