@@ -10,12 +10,26 @@ defaultConfig:
       schedule: '*/30 * * * *'  # At every 30th minute
       tags:
         - 'CSV'
+    taskParameters:
+      queue: 'kubernetes'
+      executor_config:
+        pod_override:
+          spec:
+            containers:
+              - name: 'base'
+                resources:
+                  limits:
+                    memory: 1Gi
+                    cpu: 1000m
+                  requests:
+                    memory: 1Gi
+                    cpu: 100m
 
 s3Csv:
-  - bucketName: elife-ejp-ftp
+  - dataPipelineId: rp_reviews_and_elife_assessment_emails
+    bucketName: elife-ejp-ftp
     objectKeyPattern:
       - ejp_query_tool_query_id_DataHub:_RP_Reviews_and_eLife_Assessment_Emails_*_eLife.csv
-    dataPipelineId: rp_reviews_and_elife_assessment_emails
     headerLineIndex: 3
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
@@ -29,10 +43,11 @@ s3Csv:
         metadataLineIndex: 1
     recordProcessingSteps:
       - html_unescape
-  - bucketName: elife-ejp-ftp
+
+  - dataPipelineId: ejp_manuscript_version_notes
+    bucketName: elife-ejp-ftp
     objectKeyPattern:
       - ejp_query_tool_query_id_DataHub:_Manuscript_Version_Notes_*_eLife.csv
-    dataPipelineId: ejp_manuscript_version_notes
     headerLineIndex: 3
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
@@ -46,10 +61,13 @@ s3Csv:
         metadataLineIndex: 1
     recordProcessingSteps:
       - html_unescape
-  - bucketName: elife-ejp-ftp
+
+  - dataPipelineId: manuscript_license
+    description: 
+      For DocMaps
+    bucketName: elife-ejp-ftp
     objectKeyPattern:
       - ejp_query_tool_query_id_DataHub:_Manuscript_License_*_eLife.csv
-    dataPipelineId: manuscript_license
     headerLineIndex: 3
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
@@ -63,10 +81,11 @@ s3Csv:
         metadataLineIndex: 1
     recordProcessingSteps:
       - html_unescape
-  - bucketName: elife-ejp-ftp
+
+  - dataPipelineId: 767_datascience_person_roles_001
+    bucketName: elife-ejp-ftp
     objectKeyPattern:
       - ejp_query_tool_query_id_DataScience:_Person_Roles_*_eLife.csv
-    dataPipelineId: 767_datascience_person_roles_001
     headerLineIndex: 3
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
@@ -80,11 +99,12 @@ s3Csv:
         metadataLineIndex: 1
     recordProcessingSteps:
       - html_unescape
-  - bucketName: elife-ejp-ftp
+
+  - dataPipelineId: 779_datascience_reviewer_info_all_001
+    bucketName: elife-ejp-ftp
     objectKeyPattern:
       - ejp_query_tool_query_id_DataScience:_Reviewer_info_-_all_*_eLife.csv
       - ejp_query_tool_query_id_DataScience:_Reviewer_info_-_last_week_*_eLife.csv
-    dataPipelineId: 779_datascience_reviewer_info_all_001
     headerLineIndex: 3
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
@@ -98,11 +118,12 @@ s3Csv:
         metadataLineIndex: 1
     recordProcessingSteps:
       - html_unescape
-  - bucketName: elife-ejp-ftp
+
+  - dataPipelineId: editorial_manuscript_consultation_session_001
+    bucketName: elife-ejp-ftp
     objectKeyPattern:
       - ejp_query_tool_query_id_DataScience:_Consultation_Sessions_-_all_*_eLife.csv
       - ejp_query_tool_query_id_DataScience:_Consultation_Sessions_-_last_week_*_eLife.csv
-    dataPipelineId: editorial_manuscript_consultation_session_001
     headerLineIndex: 3
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
@@ -116,10 +137,11 @@ s3Csv:
         metadataLineIndex: 1
     recordProcessingSteps:
       - html_unescape
-  - bucketName: elife-ejp-ftp
+
+  - dataPipelineId: 380_datascience_early_career_researchers_001
+    bucketName: elife-ejp-ftp
     objectKeyPattern:
       - ejp_query_tool_query_id_DataScience:_Early_Career_Researchers_*_eLife.csv
-    dataPipelineId: 380_datascience_early_career_researchers_001
     headerLineIndex: 3
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
@@ -133,10 +155,11 @@ s3Csv:
         metadataLineIndex: 1
     recordProcessingSteps:
       - html_unescape
-  - bucketName: elife-ejp-ftp
+
+  - dataPipelineId: 489_datascience_editor_keywords_001
+    bucketName: elife-ejp-ftp
     objectKeyPattern:
       - ejp_query_tool_query_id_DataScience:_Editor_Keywords_*_eLife.csv
-    dataPipelineId: 489_datascience_editor_keywords_001
     headerLineIndex: 3
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
@@ -150,11 +173,12 @@ s3Csv:
         metadataLineIndex: 1
     recordProcessingSteps:
       - html_unescape
-  - bucketName: elife-ejp-ftp
+
+  - dataPipelineId: datascience_etoc_content_subscribers_last_week_001
+    bucketName: elife-ejp-ftp
     objectKeyPattern:
       - ejp_query_tool_query_id_DataScience:_eToc_Content_Subscribers_-_all_*_eLife.csv
       - ejp_query_tool_query_id_DataScience:_eToc_Content_Subscribers_-_last_week_*_eLife.csv
-    dataPipelineId: datascience_etoc_content_subscribers_last_week_001
     headerLineIndex: 3
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
@@ -168,10 +192,11 @@ s3Csv:
         metadataLineIndex: 1
     recordProcessingSteps:
       - html_unescape
-  - bucketName: elife-ejp-ftp
+
+  - dataPipelineId: prod_ejp_data_export_date_001
+    bucketName: elife-ejp-ftp
     objectKeyPattern:
       - ejp_query_tool_query_id_Production_Data:_Export_dates_*_eLife.csv
-    dataPipelineId: prod_ejp_data_export_date_001
     headerLineIndex: 3
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
@@ -183,10 +208,11 @@ s3Csv:
     inSheetRecordMetadata:
       - metadataSchemaFieldName: date_generated_info
         metadataLineIndex: 1
-  - bucketName: elife-ejp-ftp
+
+  - dataPipelineId: prod_ejp_feature_templates_001
+    bucketName: elife-ejp-ftp
     objectKeyPattern:
       - ejp_query_tool_query_id_Production_Data:_Feature_templates_*_eLife.csv
-    dataPipelineId: prod_ejp_feature_templates_001
     headerLineIndex: 3
     dataValuesStartLineIndex: 4
     datasetName: "{ENV}"
@@ -198,10 +224,16 @@ s3Csv:
     inSheetRecordMetadata:
       - metadataSchemaFieldName: date_generated_info
         metadataLineIndex: 1
-  - bucketName: prod-elife-task-adept
+
+  - dataPipelineId: prod_task_adept_timer_report_range_001
+    description:
+      For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
+    bucketName: prod-elife-task-adept
     objectKeyPattern:
       - Timer_Report_Range_for_*
-    dataPipelineId: prod_task_adept_timer_report_range_001
     headerLineIndex: 0
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
@@ -210,10 +242,16 @@ s3Csv:
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_task_adept_timer_report_range_001.json"
-  - bucketName: prod-elife-task-adept
+
+  - dataPipelineId: prod_task_adept_carina_eol_kriya_001
+    description:
+      For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
+    bucketName: prod-elife-task-adept
     objectKeyPattern:
       - Carina_EOL_Kriya_*
-    dataPipelineId: prod_task_adept_carina_eol_kriya_001
     headerLineIndex: 0
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
@@ -222,10 +260,16 @@ s3Csv:
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_task_adept_carina_eol_kriya_001.json"
-  - bucketName: prod-elife-task-adept
+
+  - dataPipelineId: prod_task_adept_carina_eol_elife_001
+    description:
+      For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
+    bucketName: prod-elife-task-adept
     objectKeyPattern:
       - Carina_EOL_eLife_*
-    dataPipelineId: prod_task_adept_carina_eol_elife_001
     headerLineIndex: 0
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
@@ -234,10 +278,16 @@ s3Csv:
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_task_adept_carina_eol_elife_001.json"
-  - bucketName: prod-elife-kriya
+
+  - dataPipelineId: prod_kriya_digest_sub_article_info_001
+    description:
+      For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
+    bucketName: prod-elife-kriya
     objectKeyPattern:
       - Digest_Sub-article_Info_*
-    dataPipelineId: prod_kriya_digest_sub_article_info_001
     headerLineIndex: 0
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
@@ -246,10 +296,16 @@ s3Csv:
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_digest_sub_article_info_001.json"
-  - bucketName: prod-elife-kriya
+
+  - dataPipelineId: prod_kriya_press_info_001
+    description:
+      For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
+    bucketName: prod-elife-kriya
     objectKeyPattern:
       - Press_Info_*
-    dataPipelineId: prod_kriya_press_info_001
     headerLineIndex: 0
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
@@ -258,10 +314,16 @@ s3Csv:
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_press_info_001.json"
-  - bucketName: prod-elife-kriya
+
+  - dataPipelineId: prod_kriya_published_stage_history_001
+    description:
+      For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
+    bucketName: prod-elife-kriya
     objectKeyPattern:
       - Published_Stage_History_*
-    dataPipelineId: prod_kriya_published_stage_history_001
     headerLineIndex: 0
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
@@ -270,10 +332,16 @@ s3Csv:
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_published_stage_history_001.json"
-  - bucketName: prod-elife-kriya
+
+  - dataPipelineId: prod_kriya_published_stage_summary_001
+    description:
+      For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
+    bucketName: prod-elife-kriya
     objectKeyPattern:
       - Published_Stage_Summary_*
-    dataPipelineId: prod_kriya_published_stage_summary_001
     headerLineIndex: 0
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
@@ -282,10 +350,16 @@ s3Csv:
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_published_stage_summary_001.json"
-  - bucketName: prod-elife-kriya
+
+  - dataPipelineId: prod_kriya_wip_stage_summary_001
+    description:
+      For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
+    bucketName: prod-elife-kriya
     objectKeyPattern:
       - WIP_Stage_Summary_*
-    dataPipelineId: prod_kriya_wip_stage_summary_001
     headerLineIndex: 0
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
@@ -294,10 +368,16 @@ s3Csv:
     stateFile:
       bucketName: "{ENV}-elife-data-pipeline"
       objectName: "airflow-config/s3-csv/{ENV}-state/prod_kriya_wip_stage_summary_001.json"
-  - bucketName: prod-elife-kriya
+
+  - dataPipelineId: prod_kriya_wip_stage_history_001
+    description:
+      For Production Team
+    airflow:
+      dagParameters:
+        schedule: "@daily"
+    bucketName: prod-elife-kriya
     objectKeyPattern:
       - WIP_Stage_History_*
-    dataPipelineId: prod_kriya_wip_stage_history_001
     headerLineIndex: 0
     dataValuesStartLineIndex: 1
     datasetName: "{ENV}"
@@ -324,18 +404,3 @@ s3Csv:
       objectName: "airflow-config/s3-csv/{ENV}-state/sciety_events.json"
     recordProcessingSteps:
       - parse_json_value
-    airflow:
-      taskParameters:
-        queue: 'kubernetes'
-        executor_config:
-          pod_override:
-            spec:
-              containers:
-                - name: 'base'
-                  resources:
-                    limits:
-                      memory: 1Gi
-                      cpu: 1000m
-                    requests:
-                      memory: 1Gi
-                      cpu: 100m
