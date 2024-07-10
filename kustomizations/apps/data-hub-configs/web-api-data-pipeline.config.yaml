@@ -428,6 +428,12 @@ webApi:
     table: biorxiv_medrxiv_meca_path_metadata
     dataUrl:
       urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index/elife/all
+    airflow:
+      dagParameters:
+        schedule: '@hourly'
+        tags:
+          - 'Web API'
+          - 'DocMaps'
 
   # bioRxiv/medRxiv apis
   # bioRxiv api
@@ -576,6 +582,11 @@ webApi:
     response:
       itemsKeyFromResponseRoot:
         - items
+    airflow:
+      dagParameters:
+        tags:
+          - 'Web API'
+          - 'DocMaps'
 
   # get individual elife collections details
   - dataPipelineId: elife_collections_detail
@@ -592,6 +603,11 @@ webApi:
       name: 'crossref_metadata_api' # this url source type name can be updated in future
     dataUrl:
       urlExcludingConfigurableParameters: https://api.elifesciences.org/collections/{id}
+    airflow:
+      dagParameters:
+        tags:
+          - 'Web API'
+          - 'DocMaps'
 
   # get all elife podcast episodes as list
   - dataPipelineId: elife_podcast_list
@@ -607,6 +623,11 @@ webApi:
     response:
       itemsKeyFromResponseRoot:
         - items
+    airflow:
+      dagParameters:
+        tags:
+          - 'Web API'
+          - 'DocMaps'
 
   # get individual elife podcast episodes
   - dataPipelineId: elife_podcast_episodes
@@ -623,6 +644,11 @@ webApi:
       name: 'crossref_metadata_api' # this url source type name can be updated in future
     dataUrl:
       urlExcludingConfigurableParameters: https://api.elifesciences.org/podcast-episodes/{id}
+    airflow:
+      dagParameters:
+        tags:
+          - 'Web API'
+          - 'DocMaps'
 
   # get updated RP VORs from journal
   - dataPipelineId: updated_reviewed_preprint_vor
@@ -646,3 +672,8 @@ webApi:
       name: 'crossref_metadata_api' # this url source type name can be updated in future
     dataUrl:
       urlExcludingConfigurableParameters: https://prod--gateway.elifesciences.org/articles/{article_id}/versions
+    airflow:
+      dagParameters:
+        tags:
+          - 'Web API'
+          - 'DocMaps'
