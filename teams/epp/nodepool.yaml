@@ -46,3 +46,5 @@ spec:
   disruption:
     consolidationPolicy: WhenUnderutilized
     expireAfter: 720h # 30 * 24h = 720h
+    budgets:
+    - nodes: 1
