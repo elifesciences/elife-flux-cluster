@@ -126,7 +126,7 @@ spec:
             'labels_*': "{{`{{ kubernetes.pod_labels }}`}}"
         victorialogs:
           inputs:
-          - json_logs
+          - logs
           type: elasticsearch
           endpoints:
           - "http://victorialogs-victoria-logs-single-server.victorialogs:9428/insert/elasticsearch/"
@@ -137,4 +137,4 @@ spec:
           query:
             _msg_field: "message"
             _time_field: "timestamp"
-            _stream_fields: "host,container_name"
+            _stream_fields: "kubernetes.pod_namespace,kubernetes.container_name"
