@@ -1,7 +1,0 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: coroot
-  annotations:
-    elifesciences.org/default-project: ${cluster_name}
