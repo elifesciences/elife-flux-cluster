@@ -14,7 +14,7 @@ spec:
   interval: 1h0m0s
   values:
     server:
-      retentionPeriod: 1
+      retentionPeriod: 30d
       persistentVolume:
         enabled: true
         storageClass: ebs-gp3
