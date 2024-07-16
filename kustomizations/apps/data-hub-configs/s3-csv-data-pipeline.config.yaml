@@ -10,20 +10,20 @@ defaultConfig:
       schedule: '*/30 * * * *'  # At every 30th minute
       tags:
         - 'CSV'
-    # taskParameters:
-    #   queue: 'kubernetes'
-    #   executor_config:
-    #     pod_override:
-    #       spec:
-    #         containers:
-    #           - name: 'base'
-    #             resources:
-    #               limits:
-    #                 memory: 1Gi
-    #                 cpu: 1000m
-    #               requests:
-    #                 memory: 1Gi
-    #                 cpu: 100m
+    taskParameters:
+      queue: 'kubernetes'
+      executor_config:
+        pod_override:
+          spec:
+            containers:
+              - name: 'base'
+                resources:
+                  limits:
+                    memory: 1Gi
+                    cpu: 1000m
+                  requests:
+                    memory: 1Gi
+                    cpu: 100m
 
 s3Csv:
   - dataPipelineId: rp_reviews_and_elife_assessment_emails
@@ -404,17 +404,3 @@ s3Csv:
       objectName: "airflow-config/s3-csv/{ENV}-state/sciety_events.json"
     recordProcessingSteps:
       - parse_json_value
-    taskParameters:
-      queue: 'kubernetes'
-      executor_config:
-        pod_override:
-          spec:
-            containers:
-              - name: 'base'
-                resources:
-                  limits:
-                    memory: 1Gi
-                    cpu: 1000m
-                  requests:
-                    memory: 1Gi
-                    cpu: 100m
