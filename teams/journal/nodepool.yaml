@@ -28,10 +28,10 @@ spec:
           values: ["spot"]
         - key: karpenter.k8s.aws/instance-category
           operator: In
-          values: ["m", "c", "r"]
-        - key: karpenter.k8s.aws/instance-generation
-          operator: Gt
-          values: ["4"]
+          values: ["m", "c", "r", "t"]
+        - key: karpenter.k8s.aws/instance-hypervisor
+          operator: In
+          values: ["nitro"]
         - key: "kubernetes.io/arch"
           operator: In
           values: ["amd64"]
