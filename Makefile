@@ -61,6 +61,9 @@ watch-nodes-upgrading:
 watch-pods-upgrading:
 	watch "kubectl get pods -A --sort-by=.spec.nodeName -o custom-columns=NAMESPACE:.metadata.namespace,NAME:.metadata.name,READY?:.status.conditions[*].status,NODE:.spec.nodeName,IMAGE:.status.containerStatuses[*].image"
 
+watch-nodes:
+	watch -w -n0.5 'kubectl get nodes -o custom-columns=NAME:.metadata.name,STATUS:.status.conditions[-1].type,CREATED:.metadata.creationTimestamp,PROVIDERID:.spec.providerID,PROJECT:.metadata.labels.elifesciences\\.org/project,NODEPOOL:.metadata.labels.karpenter\\.sh/nodepool,CAPACITYTYPE:.metadata.labels.karpenter\\.sh/capacity-type,INSTANCETYPE:.metadata.labels.beta\\.kubernetes\\.io/instance-type,ZONE:.metadata.labels.topology\\.kubernetes\\.io/zone | sort -k6b,6'
+
 watch-pods-nodes-upgrading:
 	watch "kubectl get pods -A --sort-by=.spec.nodeName -o custom-columns=NAMESPACE:.metadata.namespace,NAME:.metadata.name,READY?:.status.conditions[*].status,NODE:.spec.nodeName"
 
