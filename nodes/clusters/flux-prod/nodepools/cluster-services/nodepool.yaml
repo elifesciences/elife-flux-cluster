@@ -24,13 +24,16 @@ spec:
           values: ["spot"]
         - key: karpenter.k8s.aws/instance-category
           operator: In
-          values: ["m", "c", "r"]
+          values: ["m", "c", "r", "t"]
         - key: karpenter.k8s.aws/instance-generation
           operator: Gt
-          values: ["4"]
+          values: ["3"]
+        - key: karpenter.k8s.aws/instance-family
+          operator: NotIn
+          values: ["m4", "c4", "r4"]
         - key: "kubernetes.io/arch"
           operator: In
-          values: ["amd64"]
+          values: ["amd64", "arm64"]
         - key: "topology.kubernetes.io/zone"
           operator: In
           values: ["us-east-1c", "us-east-1d"]
