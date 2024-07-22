@@ -64,16 +64,6 @@ spec:
           type: kubernetes_logs
           extra_label_selector: app.kubernetes.io/name==ingress-nginx
       transforms:
-        json_logs:
-          type: remap
-          inputs:
-            - logs
-          source: |
-            json, err = parse_json(.message)
-            if err == null {
-              .json = json
-              del(.message)
-            }
         nginx_json_parse:
           type: remap
           inputs:
@@ -108,22 +98,6 @@ spec:
           filename_extension: jsonl
           encoding:
             codec: native_json
-        loki:
-          type: loki
-          inputs:
-          - json_logs
-          endpoint: http://loki-gateway.loki/
-          encoding:
-            codec: json
-          labels:
-            host: "${HOSTNAME_NONSENSE:-'$HOSTNAME'}"
-            file: "{{`{{ file }}`}}"
-            stream: "{{`{{ stream }}`}}"
-            source_type: "{{`{{ source_type }}`}}"
-            namespace: "{{`{{ kubernetes.pod_namespace }}`}}"
-            pod: "{{`{{ kubernetes.pod_name }}`}}"
-            uid: "{{`{{ kubernetes.pod_uid }}`}}"
-            'labels_*': "{{`{{ kubernetes.pod_labels }}`}}"
         victorialogs:
           inputs:
           - logs
