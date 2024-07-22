@@ -1,4 +1,4 @@
-kubectl     prefix:1.28
+kubectl     prefix:1.30
 flux2       2.3.0
 stern       1.26.0
 kubie       0.23.0
