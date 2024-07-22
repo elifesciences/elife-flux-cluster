@@ -2,6 +2,7 @@ kubectl     prefix:1.30
 flux2       2.3.0
 stern       1.26.0
 kubie       0.23.0
+kind        0.23.0
 kustomize   5.4.3
 yq          4.44.2
 kubeconform 0.6.4
