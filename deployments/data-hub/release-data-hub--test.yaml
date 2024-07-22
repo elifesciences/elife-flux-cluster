@@ -186,12 +186,11 @@ spec:
     workers:
       resources:
         requests:
-          memory: 4.9Gi
-          cpu: 1495m
+          memory: 7500Mi
+          cpu: 800m
           ephemeral-storage: 10Gi
         limits:
-          memory: 6Gi
-          cpu: 1700m
+          memory: 7500Mi
       extraVolumeMounts:
       - name: data-hub-config-volume
         mountPath: /dag_config_files/
