@@ -19,7 +19,7 @@ spec:
           requests:
             memory: ${temporal_worker_import_docmaps_memory_requests:='1Gi'}
             cpu: ${temporal_worker_import_docmaps_cpu_requests:='200m'}
-            ephemeral-storage: ${temporal_worker_import_docmaps_ephemeral_storage_requests:='10Gi'}
+            ephemeral-storage: ${temporal_worker_import_docmaps_ephemeral_storage_requests:='15Gi'}
           limits:
             memory: ${temporal_worker_import_docmaps_memory_limits:='1Gi'}
         env:
