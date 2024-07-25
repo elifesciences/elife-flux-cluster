@@ -152,6 +152,8 @@ spec:
           create: false
         TooHighChurnRate:
           create: false
+        TooHighChurnRate24h:
+          create: false
         TooManyScrapeErrors:
           create: false
     kubeControllerManager:
