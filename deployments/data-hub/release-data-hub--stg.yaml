@@ -131,7 +131,7 @@ spec:
       - name: EUROPEPMC_PIPELINE_SCHEDULE_INTERVAL
         value: "0 6 * * *" # At 06:00, every day
       - name: EUROPEPMC_LABSLNK_PIPELINE_SCHEDULE_INTERVAL
-        value: "10 * * * *" # 40 past the hour, every day
+        value: "40 * * * *" # 40 past the hour, every day
         # At 07:00 on every day-of-week from Monday through Friday:
       - name: GMAIL_DATA_PIPELINE_SCHEDULE_INTERVAL
         value: "0 7 * * 1-5"
