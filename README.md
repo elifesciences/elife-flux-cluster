@@ -14,11 +14,9 @@ cli action needed/wanted).
 
 Cluster infrastructure is defined in [builder](https://github.com/elifesciences/builder) in the [kubernetes-aws section](https://github.com/elifesciences/builder/blob/52d3c002d1246910243a44e88c7d94d26052e104/projects/elife.yaml#L1999).
 
-Admins can configure `kubectl` for this cluster with:
+Users can configure `kubectl` for this cluster with:
 
-        aws eks update-kubeconfig \
-           --name kubernetes-aws--flux-prod \
-           --role arn:aws:iam::512686554592:role/kubernetes-aws--flux-prod--AmazonEKSUserRole
+        aws eks update-kubeconfig --name kubernetes-aws--flux-prod
 
 Dashboards
 ==========
