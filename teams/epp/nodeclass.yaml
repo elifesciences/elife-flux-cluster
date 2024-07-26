@@ -6,9 +6,12 @@ metadata:
 spec:
   amiFamily: AL2 # Amazon Linux 2
   role: "elife-${cluster_name}-karpenter--KarpenterNodeRole"
+  associatePublicIPAddress: true
   subnetSelectorTerms:
     - id: subnet-07e912335040a0866
     - id: subnet-0110e7685debdb5eb
+    - tags:
+        karpenter.sh/discovery: "kubernetes-aws--${cluster_name}"
   securityGroupSelectorTerms:
     - tags:
         karpenter.sh/discovery: "kubernetes-aws--${cluster_name}"
