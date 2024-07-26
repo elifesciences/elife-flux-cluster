@@ -35,9 +35,6 @@ spec:
         - key: "kubernetes.io/arch"
           operator: In
           values: ["amd64"]
-        - key: "topology.kubernetes.io/zone"
-          operator: In
-          values: ["us-east-1c", "us-east-1d"]
   limits:
     cpu: 1000
   disruption:
