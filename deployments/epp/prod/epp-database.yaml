@@ -28,7 +28,23 @@ spec:
     sharding:
       enabled: false
     backup:
-      enabled: false
+      enabled: true
+      image:
+        tag: 2.4.1-multi
+      storages:
+        epp-prod-backups:
+          type: s3
+          s3:
+            bucket: "${aws_backup_s3_bucket}"
+            region: "${aws_region}"
+            prefix: "epp/prod/"
+      tasks:
+      - name: "daily-backup"
+        enabled: true
+        schedule: "0 0 * * *"
+        keep: 3
+        type: logical
+        storageName: epp-prod-backups
     replsets:
       rs0:
         name: replicaset
