@@ -21,6 +21,7 @@ spec:
       cluster_domain: flux-prod.elifesciences.org
       aws_account_id: "512686554592"
       aws_region: us-east-1
+      aws_backup_s3_bucket: "elife-flux-prod-backups"
 
       # workaround old cluster names
       external_dns_cluster_name: flux-cluster

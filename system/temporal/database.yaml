@@ -20,7 +20,20 @@ spec:
 
   values:
     backup:
-      enabled: false
+      enabled: true
+      storages:
+        temporal-prod-backups:
+          type: s3
+          s3:
+            annotations:
+              eks.amazonaws.com/role-arn: "${aws_backup_service_account_role_arn}"
+            bucket: "${aws_backup_s3_bucket}/temporal/prod"
+            region: "${aws_region}"
+      schedule:
+        - name: "daily-backup"
+          schedule: "0 0 * * *"
+          keep: 3
+          storageName: temporal-prod-backups
     pxc:
       nodeSelector:
         kubernetes.io/arch: amd64
