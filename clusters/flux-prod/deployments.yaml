@@ -16,3 +16,6 @@ spec:
   postBuild:
     substitute:
       cluster_name: flux-prod
+
+      # service account arns
+      aws_backup_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-backups-cluster-role

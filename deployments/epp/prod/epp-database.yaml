@@ -37,6 +37,7 @@ spec:
           "cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes": "bin"
           prometheus.io/scrape: 'true'
           prometheus.io/port: '9216'
+        serviceAccountName: epp-database-instance
         configuration: |
           systemLog:
             verbosity: 0
