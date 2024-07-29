@@ -37,7 +37,7 @@ spec:
           s3:
             bucket: "${aws_backup_s3_bucket}"
             region: "${aws_region}"
-            prefix: "epp/prod/"
+            prefix: "epp/prod"
       tasks:
       - name: "daily-backup"
         enabled: true
