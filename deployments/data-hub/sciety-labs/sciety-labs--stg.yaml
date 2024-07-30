@@ -124,6 +124,9 @@ metadata:
   namespace: data-hub
   labels:
     app: sciety-labs--stg
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      location /robots.txt {return 200 "User-agent: *\nDisallow: /\n";}
 spec:
   rules:
     - host: sciety-labs--stg.elifesciences.org
