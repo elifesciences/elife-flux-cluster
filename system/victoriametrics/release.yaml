@@ -69,6 +69,7 @@ spec:
       ingress:
         select:
           enabled: true
+          path: /select/0/vmui/
           hosts:
             - victoriametrics.${cluster_domain}
           tls:
@@ -77,8 +78,8 @@ spec:
                 - victoriametrics.${cluster_domain}
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-prod"
-            nginx.ingress.kubernetes.io/auth-url: "https://auth--test-cluster.elifesciences.org/oauth2/auth"
-            nginx.ingress.kubernetes.io/auth-signin: "https://auth--test-cluster.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+            nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
+            nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
     vmagent:
       spec:
         externalLabels:
@@ -95,8 +96,8 @@ spec:
         enabled: true
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-prod"
-          nginx.ingress.kubernetes.io/auth-url: "https://auth--test-cluster.elifesciences.org/oauth2/auth"
-          nginx.ingress.kubernetes.io/auth-signin: "https://auth--test-cluster.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+          nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
+          nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
         hosts:
           - vmagent.${cluster_domain}
         tls:
@@ -116,8 +117,8 @@ spec:
         enabled: true
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-prod"
-          nginx.ingress.kubernetes.io/auth-url: "https://auth--test-cluster.elifesciences.org/oauth2/auth"
-          nginx.ingress.kubernetes.io/auth-signin: "https://auth--test-cluster.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+          nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
+          nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
         hosts:
           - vmalert.${cluster_domain}
         tls:
@@ -153,8 +154,8 @@ spec:
               - alertmanager.${cluster_domain}
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-prod"
-          nginx.ingress.kubernetes.io/auth-url: "https://auth--test-cluster.elifesciences.org/oauth2/auth"
-          nginx.ingress.kubernetes.io/auth-signin: "https://auth--test-cluster.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+          nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
+          nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
     defaultRules:
       rules:
         KubeMemoryOvercommit:
