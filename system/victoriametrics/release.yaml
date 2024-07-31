@@ -69,7 +69,6 @@ spec:
       ingress:
         select:
           enabled: true
-          path: /select/0/vmui/
           hosts:
             - victoriametrics.${cluster_domain}
           tls:
