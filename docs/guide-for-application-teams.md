@@ -26,7 +26,7 @@ When the existing dashboards do not given enough insight, or you need to perform
 aws eks update-kubeconfig --name kubernetes-aws--flux-prod
 ```
 
-Access can be granted by the platform team, upon request.
+[Access can be granted](https://github.com/elifesciences/kubernetes-cluster-provisioning/blob/main/clusters/flux-prod/main.tf#L79) by the platform team, upon request.
 
 Adding/Editing Deployments
 ==========================
