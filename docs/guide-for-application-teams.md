@@ -17,6 +17,17 @@ The __#cluster-alerts__ slack channel receives alerts from:
 - Alertmanager
 - Healthchecks.io (monitors Alertmanager heartbeat)
 
+Troubleshooting
+===============
+
+When the existing dashboards do not given enough insight, or you need to perform one-off actions on the cluster, `kubectl` access can be set up with:
+
+```
+aws eks update-kubeconfig --name kubernetes-aws--flux-prod
+```
+
+Access can be granted by the platform team, upon request.
+
 Adding/Editing Deployments
 ==========================
 
