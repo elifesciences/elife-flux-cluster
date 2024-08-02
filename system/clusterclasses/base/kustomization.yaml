@@ -11,6 +11,7 @@ resources:
 - ../../keda
 # - ../../loki
 - ../../kube-web-view
+- ../../kubecost
 - ../../metrics-server
 - ../../monitoring
 - ../../nidhogg

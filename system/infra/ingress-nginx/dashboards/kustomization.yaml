@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+configMapGenerator:
+- name: ingress-dashboards
+  files:
+  - kubernetes-nginx-ingress-via-prometheus.json
+patches:
+- patch: |
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: ingress-dashboards
+      labels:
+        grafana_dashboard: "1"

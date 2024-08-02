@@ -1,0 +1,51 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kubecost
+
+spec:
+  interval: 1m
+  timeout: 10m
+  releaseName: kubecost
+  chart:
+    spec:
+      chart: cost-analyzer
+      version: 2.3.4
+      sourceRef:
+        kind: HelmRepository
+        name: kubecost
+      interval: 1m
+  install:
+    remediation:
+      retries: 5
+  values:
+    prometheus:
+      server:
+        persistentVolume:
+          storageClass: ebs-gp3
+    persistentVolume:
+      storageClass: ebs-gp3
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
+        nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
+      hosts:
+      - kubecost.${cluster_domain}
+      tls:
+      - secretName: kubecost-tls
+        hosts:
+        - kubecost.${cluster_domain}
+    serviceAccount:
+      annotations:
+        eks.amazonaws.com/role-arn: ${aws_kubecost_service_account_role_arn}
+    kubecostProductConfigs:
+      clusterProfile: production
+      spotLabel: karpenter.sh/capacity-type
+      spotLabelValue: spot
+      projectID: ${aws_account_id}
+      awsSpotDataRegion: ${aws_region}
+      awsSpotDataBucket: elife-cost-data
+      awsSpotDataPrefix: spot-instance-data
