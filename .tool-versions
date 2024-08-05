@@ -4,6 +4,6 @@ stern       1.26.0
 kubie       0.23.0
 kind        0.23.0
 kustomize   5.4.3
-yq          4.44.2
+yq          4.44.3
 kubeconform 0.6.4
 envsubst    1.4.2
