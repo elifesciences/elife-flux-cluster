@@ -6,7 +6,7 @@ bigQueryToOpenSearch:
         projectName: 'elife-data-pipeline'
         sqlQuery: |-
           SELECT
-              s2_response.externalIds.DOI AS doi,
+              LOWER(s2_response.externalIds.DOI) AS doi,
 
               STRUCT(
                 s2_response.provenance.imported_timestamp AS data_hub_imported_timestamp,
