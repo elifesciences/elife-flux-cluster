@@ -430,6 +430,10 @@ bigQueryToOpenSearch:
             properties:
                 doi:
                   type: "text"
+                calculated:
+                  properties:
+                    doi_prefix:
+                      type: "keyword"
                 s2:
                   properties:
                     author_list:
