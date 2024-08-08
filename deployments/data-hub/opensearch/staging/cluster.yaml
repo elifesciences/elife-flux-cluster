@@ -35,6 +35,7 @@ spec:
     roles:
     - "data"
     - "cluster_manager"
+    - "ingest"
     diskSize: 60Gi
     persistence:
       pvc:
