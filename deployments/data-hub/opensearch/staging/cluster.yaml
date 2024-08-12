@@ -23,6 +23,10 @@ spec:
         base_path: opensearch-snapshots/data-hub/staging
     annotations:
       elifesciences.org/project: sciety
+    # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
+    additionalVolumes:
+    - name: aws-iam-token
+      path: /usr/share/opensearch/config/aws-iam-token
   dashboards:
     version: 2.9.0
     enable: true
@@ -34,6 +38,9 @@ spec:
     replicas: 3
     annotations:
       elifesciences.org/project: sciety
+    additionalConfig:
+      # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
+      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token/token
     resources:
       requests:
         memory: "3Gi"
