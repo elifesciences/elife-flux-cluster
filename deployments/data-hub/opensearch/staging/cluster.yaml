@@ -7,12 +7,20 @@ metadata:
 spec:
   general:
     serviceName: opensearch-staging
+    serviceAccount: opensearch-staging
     version: 2.9.0
     monitoring:
       enable: false
     pluginsList:
     - "https://github.com/aiven/prometheus-exporter-plugin-for-opensearch/releases/download/2.9.0.0/prometheus-exporter-2.9.0.0.zip"
     - "repository-s3"
+    snapshotRepositories:
+    - name: ${aws_backup_s3_bucket}
+      type: s3
+      settings:
+        bucket: ${aws_backup_s3_bucket}
+        region: ${aws_region}
+        base_path: opensearch-snapshots/data-hub/staging
     annotations:
       elifesciences.org/project: sciety
   dashboards:
