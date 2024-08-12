@@ -5,6 +5,7 @@ defaultConfig:
   airflow:
     dagParameters:
       schedule: '25 2 * * *'  # At 02:25
+      max_active_runs: 1
       tags:
         - 'Web API'
 
