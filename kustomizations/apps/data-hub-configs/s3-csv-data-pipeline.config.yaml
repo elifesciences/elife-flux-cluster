@@ -8,6 +8,7 @@ defaultConfig:
   airflow:
     dagParameters:
       schedule: '*/30 * * * *'  # At every 30th minute
+      max_active_runs: 1
       tags:
         - 'CSV'
     taskParameters:
