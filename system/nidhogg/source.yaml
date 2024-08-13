@@ -7,5 +7,5 @@ metadata:
 spec:
   interval: 10m0s
   ref:
-    tag: v0.5.2
+    tag: v0.5.3
   url: https://github.com/pelotech/nidhogg
