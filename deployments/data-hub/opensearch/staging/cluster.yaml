@@ -58,9 +58,8 @@ spec:
       whenUnsatisfiable: DoNotSchedule
       labelSelector:
         matchLabels:
-          app.kubernetes.io/instance: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/instance\"}}"
-          app.kubernetes.io/component: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/component\"}}"
-          app.kubernetes.io/name: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/name\"}}"
+          opster.io/opensearch-cluster: opensearch-staging
+          opster.io/opensearch-nodepool: masters
     persistence:
       pvc:
         storageClass: csi-ebs-gp3
