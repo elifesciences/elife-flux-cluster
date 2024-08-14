@@ -52,6 +52,15 @@ spec:
     - "cluster_manager"
     - "ingest"
     diskSize: 200Gi
+    topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: DoNotSchedule
+      labelSelector:
+        matchLabels:
+          app.kubernetes.io/instance: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/instance\"}}"
+          app.kubernetes.io/component: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/component\"}}"
+          app.kubernetes.io/name: "{{request.object.spec.template.metadata.labels.\"app.kubernetes.io/name\"}}"
     persistence:
       pvc:
         storageClass: csi-ebs-gp3
