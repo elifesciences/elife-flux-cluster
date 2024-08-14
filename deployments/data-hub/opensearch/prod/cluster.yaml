@@ -36,6 +36,14 @@ spec:
     - "cluster_manager"
     - "ingest"
     diskSize: 200Gi
+    topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: DoNotSchedule
+      labelSelector:
+        matchLabels:
+          opster.io/opensearch-cluster: opensearch-prod
+          opster.io/opensearch-nodepool: masters
     persistence:
       pvc:
         storageClass: csi-ebs-gp3
