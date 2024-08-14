@@ -4,6 +4,7 @@ namespace: epp
 resources:
 - serviceaccount.yaml
 - deployment.yaml
+- pod-disruption-budget.yaml
 - service.yaml
 - automations
 labels:
@@ -11,3 +12,7 @@ labels:
   pairs:
     app.kubernetes.io/component: client
     app.kubernetes.io/name: image-server
+  fields:
+    - path: spec/selector/matchLabels
+      kind: PodDisruptionBudget
+      create: true

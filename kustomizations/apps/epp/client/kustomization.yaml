@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: epp
 resources:
 - deployment.yaml
+- pod-disruption-budget.yaml
 - service.yaml
 - automations
 labels:
@@ -10,3 +11,7 @@ labels:
   pairs:
     app.kubernetes.io/component: client
     app.kubernetes.io/name: client
+  fields:
+    - path: spec/selector/matchLabels
+      kind: PodDisruptionBudget
+      create: true

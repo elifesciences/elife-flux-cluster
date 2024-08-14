@@ -6,6 +6,7 @@ resources:
 - automations/policy.yaml
 - automations/approved-policy.yaml
 - deployment.yaml
+- pod-disruption-budget.yaml
 - service.yaml
 - serviceaccount.yaml
 labels:
@@ -13,3 +14,7 @@ labels:
   pairs:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: server
+  fields:
+    - path: spec/selector/matchLabels
+      kind: PodDisruptionBudget
+      create: true
