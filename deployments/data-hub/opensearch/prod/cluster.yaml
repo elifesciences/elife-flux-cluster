@@ -7,13 +7,26 @@ metadata:
 spec:
   general:
     serviceName: opensearch-prod
+    serviceAccount: opensearch-prod
     version: 2.9.0
     monitoring:
       enable: false
     pluginsList:
     - "https://github.com/aiven/prometheus-exporter-plugin-for-opensearch/releases/download/2.9.0.0/prometheus-exporter-2.9.0.0.zip"
+    - "repository-s3"
+    snapshotRepositories:
+    - name: ${aws_backup_s3_bucket}
+      type: s3
+      settings:
+        bucket: ${aws_backup_s3_bucket}
+        region: ${aws_region}
+        base_path: data-hub/opensearch/prod/
     annotations:
       elifesciences.org/project: sciety
+    # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
+    additionalVolumes:
+    - name: aws-iam-token
+      path: /usr/share/opensearch/config/aws-iam-token
   dashboards:
     version: 2.9.0
     enable: true
@@ -25,6 +38,9 @@ spec:
     replicas: 3
     annotations:
       elifesciences.org/project: sciety
+    additionalConfig:
+      # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
+      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token/token
     resources:
       requests:
         memory: "6Gi"
