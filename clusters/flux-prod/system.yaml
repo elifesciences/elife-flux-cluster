@@ -22,6 +22,7 @@ spec:
       aws_account_id: "512686554592"
       aws_region: us-east-1
       aws_backup_s3_bucket: "elife-flux-prod-backups"
+      aws_backup_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-backups-cluster-role
 
       # workaround old cluster names
       external_dns_cluster_name: flux-cluster
@@ -37,7 +38,6 @@ spec:
       aws_ack_sqs_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-sqs-controller-cluster-role
       aws_external_dns_service_account_role_arn: arn:aws:iam::512686554592:role/kubernetes-aws--flux-prod--external-dns
       aws_kubecost_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-kubecost-cluster-role
-      aws_backup_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-backups-cluster-role
 
 
       # oauth2-proxy urls
