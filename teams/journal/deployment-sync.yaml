@@ -37,9 +37,9 @@ spec:
           elifesciences.org/default-project: ${team_name}
   postBuild:
     substitute:
-      cluster_name: ${cluster_name}
-      cluster_domain: ${cluster_domain}
-      aws_account_id: ${aws_account_id}
-      aws_region: ${aws_region}
-      aws_backup_s3_bucket: ${aws_backup_s3_bucket}
-      aws_backup_service_account_role_arn: ${aws_backup_service_account_role_arn}
+      cluster_name: "${cluster_name}"
+      cluster_domain: "${cluster_domain}"
+      aws_account_id: "${aws_account_id}"
+      aws_region: "${aws_region}"
+      aws_backup_s3_bucket: "${aws_backup_s3_bucket}"
+      aws_backup_service_account_role_arn: "${aws_backup_service_account_role_arn}"
