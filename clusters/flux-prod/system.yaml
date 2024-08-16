@@ -36,7 +36,7 @@ spec:
       aws_ack_opensearch_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-opensearch-controller-cluster-role
       aws_ack_elasticache_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-elasticache-controller-cluster-role
       aws_ack_sqs_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-sqs-controller-cluster-role
-      aws_ack_iam_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-test-ack-iam-controller-cluster-role
+      aws_ack_iam_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-iam-controller-cluster-role
       aws_external_dns_service_account_role_arn: arn:aws:iam::512686554592:role/kubernetes-aws--flux-prod--external-dns
       aws_kubecost_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-kubecost-cluster-role
 
