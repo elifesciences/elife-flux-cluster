@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: karpenter
-      version: 0.37.0
+      version: 0.37.1
       interval: 5m
       sourceRef:
         kind: HelmRepository
@@ -40,3 +40,9 @@ spec:
             - key: type
               operator: NotIn
               values: ["karpenter", "kwok"] # Don't place this on cluster-controlled nodes
+    # This workaround is because the default image provided by karpenter doesn't run on arm64
+    postInstallHook:
+      image:
+        repository: bitnami/kubectl
+        tag: "1.30"
+        digest: sha256:13210e634b6368173205e8559d7c9216cce13795f28f93c39b1bb8784cac8074
