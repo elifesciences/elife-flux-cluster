@@ -10,3 +10,4 @@ resources:
 - opensearch-release.yaml
 - elasticache-release.yaml
 - sqs-release.yaml
+- iam-release.yaml
