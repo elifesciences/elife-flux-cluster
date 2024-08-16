@@ -9,3 +9,4 @@ resources:
 - s3-release.yaml
 - opensearch-release.yaml
 - elasticache-release.yaml
+- sqs-release.yaml
