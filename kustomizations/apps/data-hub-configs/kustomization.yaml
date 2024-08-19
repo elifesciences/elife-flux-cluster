@@ -17,6 +17,7 @@ configMapGenerator:
   - europepmc-labslink--test.config.yaml
   - gmail-data-pipeline.config.yaml
   - keyword-extraction-data-pipeline.config.yaml
+  - kubernetes-pipeline.config.yaml
   - monitoring.config.yaml
   - s3-csv-data-pipeline.config.yaml
   - s3-csv-data-pipeline--test.config.yaml
