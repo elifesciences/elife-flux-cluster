@@ -10,6 +10,8 @@ kubernetesPipelines:
       - '-m'
       - 'data_pipeline.elife_article_xml.cli'
     env:
+      - name: DEPLOYMENT_ENV
+        value: staging
       - name: ELIFE_ARTICLE_XML_CONFIG_FILE_PATH
         value: /dag_config_files/elife-article-xml.config.yaml
       - name: GITHUB_API_AUTHORIZATION_FILE_PATH
