@@ -99,6 +99,6 @@ spec:
       maxUnavailable: 1
     persistence:
       pvc:
-        storageClass: sciety-gp3
+        storageClass: data-hub-gp3
         accessModes:
           - ReadWriteOnce
