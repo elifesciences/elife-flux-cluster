@@ -23,8 +23,6 @@ spec:
         bucket: ${aws_backup_s3_bucket}
         region: ${aws_region}
         base_path: data-hub/opensearch/staging
-    annotations:
-      elifesciences.org/project: sciety
     # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
     additionalVolumes:
     - name: aws-iam-token
