@@ -5,6 +5,8 @@ metadata:
   name: opensearch-staging
   namespace: data-hub
 spec:
+  confMgmt:
+    smartScaler: true
   general:
     serviceName: opensearch-staging
     serviceAccount: opensearch-staging
