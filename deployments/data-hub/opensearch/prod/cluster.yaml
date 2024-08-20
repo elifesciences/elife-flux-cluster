@@ -23,8 +23,6 @@ spec:
         bucket: ${aws_backup_s3_bucket}
         region: ${aws_region}
         base_path: data-hub/opensearch/prod
-    annotations:
-      elifesciences.org/project: sciety
     # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
     additionalVolumes:
     - name: aws-iam-token
@@ -33,8 +31,6 @@ spec:
     version: 2.9.0
     enable: true
     replicas: 1
-    annotations:
-      elifesciences.org/project: sciety
   nodePools:
   - component: cluster-managers
     replicas: 3
@@ -98,8 +94,6 @@ spec:
           - ReadWriteOnce
   - component: ingest
     replicas: 3
-    annotations:
-      elifesciences.org/project: sciety
     additionalConfig:
       # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
       s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token/token
