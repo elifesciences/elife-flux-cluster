@@ -5,6 +5,8 @@ metadata:
   name: opensearch-prod
   namespace: data-hub
 spec:
+  confMgmt:
+    smartScaler: true
   general:
     serviceName: opensearch-prod
     serviceAccount: opensearch-prod
