@@ -37,7 +37,7 @@ spec:
       elifesciences.org/project: sciety
   nodePools:
   - component: masters
-    replicas: 3
+    replicas: 0
     annotations:
       elifesciences.org/project: sciety
     additionalConfig:
