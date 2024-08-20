@@ -68,3 +68,35 @@ spec:
         storageClass: csi-ebs-gp3
         accessModes:
           - ReadWriteOnce
+  - component: data-nodes
+    replicas: 2
+    annotations:
+      elifesciences.org/project: sciety
+    additionalConfig:
+      # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
+      s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token/token
+    resources:
+      requests:
+        memory: "3Gi"
+        cpu: "1000m"
+      limits:
+        memory: "3Gi"
+    roles:
+    - "data"
+    diskSize: 200Gi
+    topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: DoNotSchedule
+      labelSelector:
+        matchLabels:
+          opster.io/opensearch-cluster: opensearch-staging
+          opster.io/opensearch-nodepool: data
+    pdb:
+      enable: true
+      maxUnavailable: 1
+    persistence:
+      pvc:
+        storageClass: data-hub-gp3
+        accessModes:
+          - ReadWriteOnce
