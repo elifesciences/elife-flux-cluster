@@ -50,7 +50,6 @@ spec:
     roles:
     - "data"
     - "cluster_manager"
-    - "ingest"
     diskSize: 200Gi
     topologySpreadConstraints:
     - maxSkew: 1
