@@ -91,7 +91,7 @@ spec:
       labelSelector:
         matchLabels:
           opster.io/opensearch-cluster: opensearch-staging
-          opster.io/opensearch-nodepool: data
+          opster.io/opensearch-nodepool: data-nodes
     pdb:
       enable: true
       maxUnavailable: 1
