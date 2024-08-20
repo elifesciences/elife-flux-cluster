@@ -41,7 +41,7 @@ spec:
       certManager: true
       resources:
         requests:
-          memory: 900Mi
+          memory: 1.2Gi
           cpu: 200m
       persistence:
         storageClass: csi-ebs-gp3
@@ -59,8 +59,8 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       resources:
         requests:
-          memory: 15Mi
-          cpu: 150m
+          memory: 25Mi
+          cpu: 200m
     logcollector:
       resources:
         requests:
