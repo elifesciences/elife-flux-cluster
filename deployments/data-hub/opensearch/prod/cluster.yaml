@@ -67,7 +67,7 @@ spec:
         accessModes:
           - ReadWriteOnce
   - component: data-nodes
-    replicas: 2
+    replicas: 3
     additionalConfig:
       # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
       s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token/token
