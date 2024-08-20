@@ -42,8 +42,8 @@ spec:
                     storage: 500Gi
           resources:
             requests:
-              cpu: 450m
-              memory: 8192Mi
+              cpu: 650m
+              memory: 9313Mi
             limits: {}
           extraArgs:
             "inmemoryDataFlushInterval": "15s"
