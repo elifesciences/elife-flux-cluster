@@ -99,10 +99,10 @@ spec:
       s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token/token
     resources:
       requests:
-        memory: "2.2Gi"
+        memory: "2190Mi"
         cpu: "100m"
       limits:
-        memory: "2.2Gi"
+        memory: "2190Mi"
     roles:
     - "ingest"
     diskSize: 10Gi
