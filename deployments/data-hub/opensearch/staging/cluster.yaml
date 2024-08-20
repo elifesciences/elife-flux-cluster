@@ -93,16 +93,16 @@ spec:
         accessModes:
           - ReadWriteOnce
   - component: ingest
-    replicas: 3
+    replicas: 1
     additionalConfig:
       # This is to work around JRE permission issues, see https://github.com/opensearch-project/opensearch-k8s-operator/issues/442
       s3.client.default.identity_token_file: /usr/share/opensearch/config/aws-iam-token/token
     resources:
       requests:
-        memory: "3Gi"
-        cpu: "1000m"
+        memory: "2.2Gi"
+        cpu: "100m"
       limits:
-        memory: "3Gi"
+        memory: "2.2Gi"
     roles:
     - "ingest"
     diskSize: 10Gi
