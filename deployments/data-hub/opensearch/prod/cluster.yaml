@@ -73,6 +73,9 @@ spec:
         cpu: "1000m"
       limits:
         memory: "6Gi"
+    probes:
+      startup:
+        initialDelaySeconds: 30
     roles:
     - "data"
     diskSize: 200Gi
