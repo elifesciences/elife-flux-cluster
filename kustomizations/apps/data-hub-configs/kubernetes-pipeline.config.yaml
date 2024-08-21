@@ -38,6 +38,13 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
+    resources:
+      limits:
+        memory: 1Gi
+        cpu: 1000m
+      requests:
+        memory: 1Gi
+        cpu: 100m
 
   - dataPipelineId: 'Extract_Keywords_From_Corpus_Kubernetes'
     airflow:
@@ -77,3 +84,11 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
+    resources:
+      requests:
+        memory: 4.9Gi
+        cpu: 1495m
+        ephemeral-storage: 6Gi
+      limits:
+        memory: 6Gi
+        cpu: 1700m
