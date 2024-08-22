@@ -75,7 +75,7 @@ spec:
             name: fernet-key--stg
             key: fernet-key
       - name: KUBERNETES_PIPELINE_CONFIG_FILE_PATH
-        value: /dag_config_files/kubernetes-pipeline.config.yaml
+        value: /dag_config_files/kubernetes-pipeline--stg.config.yaml
       # config file paths:
       - name: ELIFE_ARTICLE_XML_CONFIG_FILE_PATH
         value: /dag_config_files/elife-article-xml.config.yaml
