@@ -3,7 +3,7 @@ kubernetesPipelines:
   - dataPipelineId: 'Elife_Article_Xml_Pipeline_Kubernetes'
     airflow:
       dagParameters:
-        schedule: null
+        schedule: '0 3 * * *'  # At 03:00, every day
     image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
     imagePullPolicy: Always
     arguments: 
@@ -50,7 +50,7 @@ kubernetesPipelines:
   - dataPipelineId: 'Extract_Keywords_From_Corpus_Kubernetes'
     airflow:
       dagParameters:
-        schedule: null
+        schedule: '10 */2 * * *'  # At minute 10 past every other hour
     image: 'docker.io/elifesciences/peerscout-dags_unstable:latest'
     imagePullPolicy: Always
     arguments: 
