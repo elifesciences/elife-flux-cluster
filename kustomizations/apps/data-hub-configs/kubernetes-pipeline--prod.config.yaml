@@ -4,7 +4,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: null
-    image: 'docker.io/elifesciences/data-hub-with-dags_unstable:latest'
+    image: 'docker.io/elifesciences/data-hub-core-dags:latest'
     imagePullPolicy: Always
     arguments: 
       - 'python'
@@ -12,7 +12,7 @@ kubernetesPipelines:
       - 'data_pipeline.elife_article_xml.cli'
     env:
       - name: DEPLOYMENT_ENV
-        value: staging
+        value: {ENV}
       - name: ELIFE_ARTICLE_XML_CONFIG_FILE_PATH
         value: /dag_config_files/elife-article-xml.config.yaml
       - name: GITHUB_API_AUTHORIZATION_FILE_PATH
@@ -51,14 +51,15 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: null
-    image: 'docker.io/elifesciences/peerscout-dags:0.0.1'
+    image: 'docker.io/elifesciences/peerscout-dags:latest'
+    imagePullPolicy: Always
     arguments: 
       - 'python'
       - '-m'
       - 'peerscout.cli'
     env:
       - name: DEPLOYMENT_ENV
-        value: staging
+        value: {ENV}
       - name: EXTRACT_KEYWORDS_FILE_PATH
         value: /dag_config_files/keyword-extraction-data-pipeline.config.yaml
       - name: GOOGLE_APPLICATION_CREDENTIALS
