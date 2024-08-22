@@ -4,7 +4,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: null
-    image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
+    image: 'docker.io/elifesciences/data-hub-core-dags:latest'
     imagePullPolicy: Always
     arguments: 
       - 'python'
@@ -51,7 +51,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: null
-    image: 'docker.io/elifesciences/peerscout-dags_unstable:latest'
+    image: 'docker.io/elifesciences/peerscout-dags:latest'
     imagePullPolicy: Always
     arguments: 
       - 'python'
