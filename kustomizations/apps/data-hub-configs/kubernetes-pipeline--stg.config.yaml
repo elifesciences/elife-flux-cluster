@@ -51,7 +51,8 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: null
-    image: 'docker.io/elifesciences/peerscout-dags:0.0.1'
+    image: 'docker.io/elifesciences/peerscout-dags_unstable:latest'
+    imagePullPolicy: Always
     arguments: 
       - 'python'
       - '-m'
