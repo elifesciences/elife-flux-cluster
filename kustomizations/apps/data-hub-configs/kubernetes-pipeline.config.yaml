@@ -5,6 +5,7 @@ kubernetesPipelines:
       dagParameters:
         schedule: null
     image: 'docker.io/elifesciences/data-hub-with-dags_unstable:latest'
+    imagePullPolicy: Always
     arguments: 
       - 'python'
       - '-m'
