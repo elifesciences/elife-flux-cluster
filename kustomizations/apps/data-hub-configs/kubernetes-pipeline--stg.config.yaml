@@ -12,7 +12,7 @@ kubernetesPipelines:
       - 'data_pipeline.elife_article_xml.cli'
     env:
       - name: DEPLOYMENT_ENV
-        value: staging
+        value: {ENV}
       - name: ELIFE_ARTICLE_XML_CONFIG_FILE_PATH
         value: /dag_config_files/elife-article-xml.config.yaml
       - name: GITHUB_API_AUTHORIZATION_FILE_PATH
@@ -58,7 +58,7 @@ kubernetesPipelines:
       - 'peerscout.cli'
     env:
       - name: DEPLOYMENT_ENV
-        value: staging
+        value: {ENV}
       - name: EXTRACT_KEYWORDS_FILE_PATH
         value: /dag_config_files/keyword-extraction-data-pipeline.config.yaml
       - name: GOOGLE_APPLICATION_CREDENTIALS
