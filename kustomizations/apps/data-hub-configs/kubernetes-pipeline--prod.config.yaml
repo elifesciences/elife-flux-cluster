@@ -199,7 +199,7 @@ kubernetesPipelines:
         memory: 1Gi
         cpu: 100m
 
-  - dataPipelineId: 'EuropePmc_Pipeline_Labslink_Kubernetes'
+  - dataPipelineId: 'EuropePmc_Labslink_Pipeline_Kubernetes'
     airflow:
       dagParameters:
         schedule: '40 * * * *' # 40 past the hour, every day
