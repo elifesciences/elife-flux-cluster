@@ -4,6 +4,8 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '0 3 * * *'  # At 03:00, every day
+        tags:
+          - 'Kubernetes'
     image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
     imagePullPolicy: Always
     arguments: 
@@ -99,6 +101,8 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: "0 13 * * *" # At 13:00, every day
+        tags:
+          - 'Kubernetes'
     image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
     imagePullPolicy: Always
     arguments: 
@@ -156,6 +160,8 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '0 6 * * *'  # At 06:00, every day
+        tags:
+          - 'Kubernetes'
     image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
     imagePullPolicy: Always
     arguments: 
@@ -203,6 +209,8 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '40 * * * *' # 40 past the hour, every day
+        tags:
+          - 'Kubernetes'
     image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
     imagePullPolicy: Always
     arguments: 
@@ -260,6 +268,8 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '@hourly'
+        tags:
+          - 'Kubernetes'
     image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
     imagePullPolicy: Always
     arguments: 
