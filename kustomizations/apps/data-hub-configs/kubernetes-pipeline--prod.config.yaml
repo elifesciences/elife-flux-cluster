@@ -161,7 +161,7 @@ kubernetesPipelines:
     arguments: 
       - 'python'
       - '-m'
-      - 'data_pipeline.europepmc.cli'
+      - 'data_pipeline.europepmc.cli_europepmc'
     env:
       - name: DEPLOYMENT_ENV
         value: '{ENV}'
