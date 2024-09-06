@@ -317,10 +317,10 @@ kubernetesPipelines:
         memory: 1Gi
         cpu: 100m
 
-  - dataPipelineId: 'Web_API_Pipeline_Kubernetes'
+  - dataPipelineId: 'Web_API_elife_observer_api_publication_dates_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '@daily'
+        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'Kubernetes'
     image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
@@ -329,6 +329,7 @@ kubernetesPipelines:
       - 'python'
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=elife_observer_api_publication_dates'
     env:
       - name: DEPLOYMENT_ENV
         value: '{ENV}'
