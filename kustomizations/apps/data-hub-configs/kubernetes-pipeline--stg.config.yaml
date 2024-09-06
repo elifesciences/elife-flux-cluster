@@ -316,3 +316,52 @@ kubernetesPipelines:
       requests:
         memory: 1Gi
         cpu: 100m
+
+  - dataPipelineId: 'Web_API_Pipeline_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '@daily'
+        tags:
+          - 'Kubernetes'
+    image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
+    imagePullPolicy: Always
+    arguments: 
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+    env:
+      - name: DEPLOYMENT_ENV
+        value: '{ENV}'
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /dag_secret_files/gcloud/credentials.json
+      - name: AWS_CONFIG_FILE
+        value: /dag_secret_files/aws/credentials
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+    volumeMounts:
+      - name: gcloud-secret-volume
+        mountPath: /dag_secret_files/gcloud/
+        readOnly: true
+      - name: aws-secret-volume
+        mountPath: /dag_secret_files/aws
+        readOnly: true
+      - name: data-hub-config-volume
+        mountPath: /dag_config_files/
+        readOnly: true
+    volumes:
+      - name: aws-secret-volume
+        secret:
+          secretName: credentials
+      - name: gcloud-secret-volume
+        secret:
+          secretName: gcloud
+      - name: data-hub-config-volume
+        configMap:
+          name: data-hub-configs
+    resources:
+      limits:
+        memory: 1Gi
+        cpu: 1000m
+      requests:
+        memory: 1Gi
+        cpu: 100m
