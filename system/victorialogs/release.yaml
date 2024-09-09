@@ -17,7 +17,7 @@ spec:
       retentionPeriod: 30d
       persistentVolume:
         enabled: true
-        storageClass: ebs-gp3
+        storageClassName: ebs-gp3
         size: 40Gi
       ingress:
         enabled: true
