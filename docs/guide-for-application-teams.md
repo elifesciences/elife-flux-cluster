@@ -122,7 +122,7 @@ Services available on the Cluster
   - pulls in secrets from storage easily accessible to the application teams
 - __SealedSecrets__ ([docs/sealed-secrets.md](docs/sealed-secrets.md))
   - encrypt secrets for safe storage in this repo
-- __Loki__
+- __VictoriaLogs__
   - Stores logs for services in cluster, is queriable from Grafana as a data source.
 - __Percona Server for MongoDB operator__
   - Used to run a MongoDB cluster, with support for automated backup, reconvery and upgrades.

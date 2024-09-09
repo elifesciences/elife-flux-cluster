@@ -102,18 +102,6 @@ spec:
       name: vector
   - target:
       kind: HelmRelease
-      name: loki
-    patch: |
-      apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      metadata:
-        name: loki
-        namespace: grafana
-      spec:
-        install:
-          disableWait: true
-  - target:
-      kind: HelmRelease
       name: mimir
     patch: |
       apiVersion: helm.toolkit.fluxcd.io/v2
