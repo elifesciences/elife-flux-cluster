@@ -1,8 +1,0 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: grafana
-spec:
-  interval: 5m0s
-  url: https://grafana.github.io/helm-charts
