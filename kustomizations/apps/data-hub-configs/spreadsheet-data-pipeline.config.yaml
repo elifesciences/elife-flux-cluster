@@ -90,3 +90,14 @@ spreadsheets:
         datasetName: "{ENV}"
         tableName: 'reviewed_preprint_meca_path_update'
         tableWriteAppend: true
+
+    # eJP invalid manuscripts to exclude
+  - spreadsheetId: '1xGUTxD4U67kcjNuJ7zXz1XSkK-0wCiR6h-Om64dp2pM'
+    sheets:
+      - sheetName: 'invalid_manuscripts'
+        sheetRange: ''
+        headerLineIndex: 0
+        dataValuesStartLineIndex: 1
+        datasetName: "{ENV}"
+        tableName: 'invalid_manuscripts_to_exclude'
+        tableWriteAppend: true
