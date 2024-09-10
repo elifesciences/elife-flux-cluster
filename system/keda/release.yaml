@@ -33,3 +33,7 @@ spec:
         requests:
           cpu: 10m
           memory: 10Mi
+    podIdentity:
+      aws:
+        irsa:
+          enabled: true
