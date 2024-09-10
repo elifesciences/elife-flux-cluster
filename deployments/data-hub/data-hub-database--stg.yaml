@@ -62,7 +62,7 @@ spec:
     kind: secret
     key: user
   from:
-    path: ".status.endpoint.address"
+    path: ".spec.masterUsername"
     resource:
       group: rds.services.k8s.aws
       kind: DBInstance
