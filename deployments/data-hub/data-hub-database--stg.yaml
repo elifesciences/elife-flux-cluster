@@ -113,5 +113,5 @@ spec:
       kubernetes_secret_name: data-hub-database--stg
       creation_policy: "Merge"
     substituteFrom:
-    - kind: ConfigMap
+    - kind: Secret
       name: data-hub-database--stg
