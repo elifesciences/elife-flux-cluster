@@ -29,6 +29,7 @@ spec:
       ingress_loadbalancer_cluster_name: elife-flux-cluster
 
       # service account arns
+      aws_keda_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-keda-cluster-role
       aws_external_secrets_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-external-secrets
       aws_ack_rds_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-rds-controller-cluster-role
       aws_ack_documentdb_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-documentdb-controller-cluster-role

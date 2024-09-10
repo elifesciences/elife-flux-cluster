@@ -37,3 +37,4 @@ spec:
       aws:
         irsa:
           enabled: true
+          roleArn: "${aws_keda_service_account_role_arn}"
