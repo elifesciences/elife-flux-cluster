@@ -16,6 +16,9 @@ spec:
   vpcSecurityGroupIDs:
     - sg-0a04b1c8433227e63
   dbSubnetGroupName: elife-flux-prod-ack-rds-controller-all-dbs
+  tags:
+  - key: "Project"
+    value: "data-hub"
 ---
 apiVersion: services.k8s.aws/v1alpha1
 kind: FieldExport
