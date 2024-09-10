@@ -71,7 +71,7 @@ spec:
 apiVersion: services.k8s.aws/v1alpha1
 kind: FieldExport
 metadata:
-  name: data-hub-database--stg-user
+  name: data-hub-database--stg-secretarn
   namespace: data-hub
 spec:
   to:
