@@ -6,7 +6,7 @@ metadata:
 spec:
   allocatedStorage: 8
   dbInstanceClass: db.t4g.micro
-  dbInstanceIdentifier: data-hub-database--stg
+  dbInstanceIdentifier: data-hub-database-stg
   dbName: postgres
   port: 5432
   engine: postgres
