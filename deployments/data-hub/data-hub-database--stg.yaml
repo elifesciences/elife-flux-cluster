@@ -1,0 +1,66 @@
+apiVersion: rds.services.k8s.aws/v1alpha1
+kind: DBInstance
+metadata:
+  name: data-hub-database--stg
+  namespace: data-hub
+spec:
+  allocatedStorage: 8
+  dbInstanceClass: db.t4g.micro
+  dbName: postgres
+  port: 5432
+  engine: postgres
+  engineVersion: "16"
+  vpcSecurityGroupIDs:
+    - sg-0a04b1c8433227e63
+  dbSubnetGroupName: elife-flux-prod-ack-rds-controller-all-dbs
+---
+apiVersion: services.k8s.aws/v1alpha1
+kind: FieldExport
+metadata:
+  name: data-hub-database--stg-host
+  namespace: data-hub
+spec:
+  to:
+    name: data-hub-database--stg
+    kind: secret
+    key: host
+  from:
+    path: ".status.endpoint.address"
+    resource:
+      group: rds.services.k8s.aws
+      kind: DBInstance
+      name: data-hub-database--stg
+---
+apiVersion: services.k8s.aws/v1alpha1
+kind: FieldExport
+metadata:
+  name: data-hub-database--stg-port
+  namespace: data-hub
+spec:
+  to:
+    name: data-hub-database--stg
+    kind: secret
+    key: port
+  from:
+    path: ".status.endpoint.port"
+    resource:
+      group: rds.services.k8s.aws
+      kind: DBInstance
+      name: data-hub-database--stg
+---
+apiVersion: services.k8s.aws/v1alpha1
+kind: FieldExport
+metadata:
+  name: data-hub-database--stg-user
+  namespace: data-hub
+spec:
+  to:
+    name: data-hub-database--stg
+    kind: secret
+    key: user
+  from:
+    path: ".status.endpoint.address"
+    resource:
+      group: rds.services.k8s.aws
+      kind: DBInstance
+      name: data-hub-database--stg
