@@ -67,3 +67,11 @@ spec:
       group: rds.services.k8s.aws
       kind: DBInstance
       name: data-hub-database--stg
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: data-hub-database--stg
+  namespace: data-hub
+type: Opaque
+data: {}
