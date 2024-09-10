@@ -8,6 +8,7 @@ spec:
   dbInstanceClass: db.t4g.micro
   dbInstanceIdentifier: data-hub-database-stg
   manageMasterUserPassword: true
+  masterUsername: postgres
   dbName: postgres
   port: 5432
   engine: postgres
