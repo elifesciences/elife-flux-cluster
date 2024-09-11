@@ -1,0 +1,99 @@
+---
+apiVersion: pgv2.percona.com/v2
+kind: PerconaPGCluster
+metadata:
+  name: ${cluster_name}
+  namespace: database
+spec:
+  crVersion: ${operator_version}
+  image: percona/percona-postgresql-operator:${operator_version}-ppg${postgres_version}-postgres
+  postgresVersion: ${postgres_version}
+  port: 5432
+  instances:
+  - name: instance1
+    replicas: 3
+    dataVolumeClaimSpec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: ${storage_size}
+      storageClassName: ${storage_class}
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/arch
+              operator: In
+              values:
+              - amd64
+  metadata:
+    annotations:
+      eks.amazonaws.com/role-arn: "${aws_backup_service_account_role_arn}"
+  backups:
+    pgbackrest:
+      global:
+        repo1-path: /${project}/${cluster_name}
+        repo1-retention-full: "14"
+        repo1-retention-full-type: time
+        repo1-s3-key-type: web-id
+      image: percona/percona-postgresql-operator:${operator_version}-ppg${postgres_version}-pgbackrest
+      manual:
+        repoName: repo1
+      jobs:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - amd64
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    postgres-operator.crunchydata.com/data: pgbackrest
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+      repos:
+      - name: repo1
+        s3:
+          bucket: ${aws_backup_s3_bucket}
+          endpoint: s3.${aws_region}.amazonaws.com
+          region: ${aws_region}
+        schedules:
+          differential: 0 1 * * 1-6
+          full: 0 0 * * 6
+  pmm:
+    enabled: false
+    image: percona/pmm-client:2.42.0
+  proxy:
+    pgBouncer:
+      image: percona/percona-postgresql-operator:${operator_version}-ppg${postgres_version}-pgbouncer
+      exposeSuperusers: true
+      port: 5432
+      replicas: 3
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  postgres-operator.crunchydata.com/role: pgbouncer
+              topologyKey: kubernetes.io/hostname
+            weight: 1
+  standby:
+    enabled: false
+  unmanaged: false

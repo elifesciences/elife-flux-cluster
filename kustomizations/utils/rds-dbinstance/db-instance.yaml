@@ -1,0 +1,21 @@
+apiVersion: rds.services.k8s.aws/v1alpha1
+kind: DBInstance
+metadata:
+  name: ${instance_name}
+  namespace: database
+spec:
+  allocatedStorage: ${instance_storage}
+  dbInstanceClass: ${instance_class}
+  dbInstanceIdentifier: ${instance_name}
+  manageMasterUserPassword: true
+  masterUsername: postgres
+  dbName: postgres
+  port: 5432
+  engine: postgres
+  engineVersion: "${engine_version}"
+  vpcSecurityGroupIDs:
+    - sg-0a04b1c8433227e63
+  dbSubnetGroupName: elife-flux-prod-ack-rds-controller-all-dbs
+  tags:
+  - key: "Project"
+    value: "${project}"

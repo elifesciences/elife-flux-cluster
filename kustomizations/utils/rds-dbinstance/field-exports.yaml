@@ -1,0 +1,59 @@
+---
+apiVersion: services.k8s.aws/v1alpha1
+kind: FieldExport
+metadata:
+  name: ${instance_name}-host
+  namespace: database
+spec:
+  to:
+    name: ${instance_name}-connection-values
+    kind: secret
+    key: host
+  from:
+    path: ".status.endpoint.address"
+    resource:
+      group: rds.services.k8s.aws
+      kind: DBInstance
+      name: ${instance_name}
+---
+apiVersion: services.k8s.aws/v1alpha1
+kind: FieldExport
+metadata:
+  name: ${instance_name}-port
+  namespace: database
+spec:
+  to:
+    name: ${instance_name}-connection-values
+    kind: secret
+    key: port
+  from:
+    path: ".status.endpoint.port"
+    resource:
+      group: rds.services.k8s.aws
+      kind: DBInstance
+      name: ${instance_name}
+---
+apiVersion: services.k8s.aws/v1alpha1
+kind: FieldExport
+metadata:
+  name: ${instance_name}-secretarn
+  namespace: database
+spec:
+  to:
+    name: ${instance_name}-connection-values
+    kind: secret
+    key: secretmanager_secret_name
+  from:
+    path: ".status.masterUserSecret.secretARN"
+    resource:
+      group: rds.services.k8s.aws
+      kind: DBInstance
+      name: ${instance_name}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ${instance_name}-connection-values
+  namespace: database
+type: Opaque
+data: {}
