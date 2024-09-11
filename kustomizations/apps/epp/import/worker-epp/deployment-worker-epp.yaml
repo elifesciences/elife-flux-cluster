@@ -43,7 +43,5 @@ spec:
           value: "${temporal_worker_epp_max_concurrent_workflow_task_executions:='5'}"
         - name: TEMPORAL_MAX_CACHED_WORKFLOWS
           value: "${temporal_worker_epp_max_cached_workflows:='5'}"
-        - name: ENCODA_DEFAULT_VERSION
-          value: ${encoda_default_version}
         ports:
           - containerPort: 9464
