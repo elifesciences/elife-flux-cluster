@@ -2,6 +2,28 @@
 # apiVersion: kustomize.toolkit.fluxcd.io/v1
 # kind: Kustomization
 # metadata:
+#   name: data-hub-database--stg
+#   namespace: data-hub
+# spec:
+#   interval: 1m0s
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#     namespace: flux-system
+#   path: ./kustomizations/utils/rds-dbinstance
+#   prune: true
+#   targetNamespace: data-hub
+#   postBuild:
+#     substitute:
+#       instance_name: "data-hub-database-stg"
+#       instance_storage: "8"
+#       instance_class: db.t4g.micro
+#       engine_version: "16"
+#       project: data-hub
+# ---
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
 #   name: data-hub-database--stg-password-secret
 #   namespace: data-hub
 # spec:
@@ -13,6 +35,8 @@
 #   path: ./kustomizations/utils/external-secret
 #   prune: true
 #   targetNamespace: data-hub
+#   dependsOn:
+#   - name: data-hub-database--stg
 #   postBuild:
 #     substitute:
 #       external_secret_name: "data-hub-database--stg-password-secret"
@@ -21,3 +45,35 @@
 #     substituteFrom:
 #     - kind: Secret
 #       name: data-hub-database--stg
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: data-hub-database--stg
+  namespace: data-hub
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kustomizations/utils/pg-cluster
+  prune: true
+  targetNamespace: data-hub
+  postBuild:
+    substitute:
+      # define cluster
+      cluster_name: data-hub-database--stg
+      project: data-hub
+      operator_version: "2.4.1"
+      postgres_version: "16"
+
+      # define storage
+      storage_size: 8Gi
+      storage_class: data-hub-gp3
+
+      # define backup setup
+      aws_region: ${aws_region}
+      aws_backup_s3_bucket: ${aws_backup_s3_bucket}
+      aws_backup_service_account_role_arn: ${aws_backup_service_account_role_arn}
