@@ -30,10 +30,10 @@ spec:
             bucket: "${aws_backup_s3_bucket}/temporal/prod"
             region: "${aws_region}"
       schedule:
-        - name: "daily-backup"
-          schedule: "0 0 * * *"
-          keep: 3
-          storageName: temporal-prod-backups
+        # - name: "daily-backup"
+        #   schedule: "0 0 * * *"
+        #   keep: 3
+        #   storageName: temporal-prod-backups
     pxc:
       nodeSelector:
         kubernetes.io/arch: amd64
