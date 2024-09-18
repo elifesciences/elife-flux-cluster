@@ -173,7 +173,7 @@ spec:
       enabled: false # lives on EKS
     kubeScheduler:
       enabled: false # lives on EKS
-    kubeApiserver:
+    kubeApiServer:
       enabled: false # too memory intensive
     victoria-metrics-operator:
       operator:
