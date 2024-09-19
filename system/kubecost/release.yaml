@@ -22,6 +22,12 @@ spec:
   values:
     prometheus:
       server:
+        resources:
+          request:
+            cpu: 312m
+            memory: 1500Mi
+          limits:
+            memory: 1500Mi
         persistentVolume:
           storageClass: ebs-gp3
     persistentVolume:
@@ -63,14 +69,6 @@ spec:
             memory: 70Mi
           limits:
             memory: 70Mi
-    prometheus:
-      server:
-        resources:
-          request:
-            cpu: 312m
-            memory: 1500Mi
-          limits:
-            memory: 1500Mi
     kubecostProductConfigs:
       clusterProfile: production
       spotLabel: karpenter.sh/capacity-type
