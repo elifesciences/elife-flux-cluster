@@ -41,6 +41,10 @@ spec:
     serviceAccount:
       annotations:
         eks.amazonaws.com/role-arn: ${aws_kubecost_service_account_role_arn}
+    kubecostModel:
+      resources:
+        limits:
+          cpu: 1000m
     kubecostProductConfigs:
       clusterProfile: production
       spotLabel: karpenter.sh/capacity-type
