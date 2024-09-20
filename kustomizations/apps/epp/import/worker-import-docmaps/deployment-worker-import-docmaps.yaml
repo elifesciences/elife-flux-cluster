@@ -34,7 +34,7 @@ spec:
         - name: ENCODA_TRANSFORM_ADDRESS
           value: http://epp-encoda-api-scaler.${keda_autoscaler_namespace_fix}:8080
         - name: ENCODA_RESHAPE
-          value: ${encoda_reshape:='true'}
+          value: ${encoda_reshape}
         - name: TEMPORAL_TASK_QUEUE
           value: import-docmaps
         - name: TEMPORAL_NAMESPACE

@@ -57,6 +57,7 @@ export temporal_server="test"
 export ts="test"
 export env="test"
 export hostname="test"
+export encoda_reshape="test"
 
 # Settings for various tool calls
 #
