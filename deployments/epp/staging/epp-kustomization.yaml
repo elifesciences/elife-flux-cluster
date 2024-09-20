@@ -26,7 +26,7 @@ spec:
   - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
     newTag: master-bb2df551-20240914.1343 # {"$imagepolicy": "epp--staging:epp-biorxiv-xslt-api:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-encoda
-    newTag: master-cb9cdd64-20240920.1117 # {"$imagepolicy": "epp--staging:epp-encoda-api:tag"}
+    newTag: master-408867ab-20240920.1143 # {"$imagepolicy": "epp--staging:epp-encoda-api:tag"}
   postBuild:
     substitute:
       site_name: elife
