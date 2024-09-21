@@ -34,7 +34,7 @@ spec:
           values: ["nitro"]
         - key: "kubernetes.io/arch"
           operator: In
-          values: ["amd64"]
+          values: ["amd64", "arm64"]
   limits:
     cpu: 1000
   disruption:
