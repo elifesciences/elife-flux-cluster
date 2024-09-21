@@ -2680,7 +2680,7 @@ data:
             "multi": false,
             "name": "node",
             "options": [],
-            "query": "label_values(opensearch_jvm_uptime_seconds{exported_cluster=\"$exported_cluster\"}, node)",
+            "query": "label_values(opensearch_jvm_uptime_seconds{namespace=\"$namespace\", exported_cluster=\"$exported_cluster\"}, node)",
             "refresh": 1,
             "regex": "",
             "skipUrlSync": false,
