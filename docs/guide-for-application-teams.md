@@ -28,7 +28,7 @@ aws eks update-kubeconfig --name kubernetes-aws--flux-prod
 
 [Access can be granted](https://github.com/elifesciences/kubernetes-cluster-provisioning/blob/main/clusters/flux-prod/main.tf#L79) by the platform team, upon request.
 
-Adding/Editing Deployments
+Adding/Editing Kubernetes manifests
 ==========================
 
 Adding Helm Charts
@@ -45,10 +45,11 @@ Adding Helm Charts
     -   Setup an [`ImageUpdateAutomation`](https://fluxcd.io/docs/components/image/imageupdateautomations/) to describe which `GitRepository` object you want flux to update, and which directory
     -   Add a [policy marker](https://fluxcd.io/docs/guides/image-update/#configure-image-update-for-custom-resources) to tell Flux how to update the yaml files
   
-Managing persistent volumes and their claims
---------------------------------------------
+Managing persistence
+--------------------
 
 - `PersistentVolumes` will automatically fulfill the `PersistentVolumeClaims` created by the respective application teams.
+  - `storageClass` needs to be specified for all `PersistentVolumeClaims`.
 - Direct changes to `PersistentVolumes` by any means other than `PersistentVolumeClaims` must only be done by the platform team.
 
 Provide a secret to an application
