@@ -43,7 +43,13 @@ Adding Helm Charts
     -   Setup an [`ImageRepository`](https://fluxcd.io/docs/components/image/imagerepositories/) to query container registry for tags
     -   Setup an [`ImagePolicy`](https://fluxcd.io/docs/components/image/imagepolicies/) to choose what the latest tag is
     -   Setup an [`ImageUpdateAutomation`](https://fluxcd.io/docs/components/image/imageupdateautomations/) to describe which `GitRepository` object you want flux to update, and which directory
-    -   Add a [policy marker](https://fluxcd.io/docs/guides/image-update/#configure-image-update-for-custom-resources) to tell Flux how to update te yaml files
+    -   Add a [policy marker](https://fluxcd.io/docs/guides/image-update/#configure-image-update-for-custom-resources) to tell Flux how to update the yaml files
+  
+Managing persistent volumes and their claims
+--------------------------------------------
+
+- `PersistentVolumes` will automatically fulfill the `PersistentVolumeClaims` created by the respective application teams.
+- Direct changes to `PersistentVolumes` by any means other than `PersistentVolumeClaims` must only be done by the platform team.
 
 Provide a secret to an application
 ----------------------------------
