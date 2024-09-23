@@ -125,5 +125,5 @@ Services available on the Cluster
 - __VictoriaLogs__
   - Stores logs for services in cluster, is queriable from Grafana as a data source.
 - __Percona Server for MongoDB operator__
-  - Used to run a MongoDB cluster, with support for automated backup, reconvery and upgrades.
-  - Deployed in "cluster-wide" mode. Each namespace can deploy it's own cluster of pods from the central operator.
+  - Used to run a MongoDB cluster, with support for automated backup, recovery and upgrades.
+  - Deployed in "cluster-wide" mode. Each namespace can deploy a database, for example using a [Helm chart](https://github.com/percona/percona-helm-charts/blob/main/charts/psmdb-db/README.md).
