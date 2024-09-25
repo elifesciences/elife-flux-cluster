@@ -36,6 +36,12 @@ spec:
         matchLabelKeys:
         - pod-template-hash
     admissionController:
+      container:
+        resources:
+          limits: null
+          requests:
+            cpu: 10m
+            memory: 76Mi
       replicas: 3
       <<: *global
       topologySpreadConstraints:
@@ -48,6 +54,11 @@ spec:
             app.kubernetes.io/part-of: kyverno
             app.kubernetes.io/component: admission-controller
     backgroundController:
+      resources:
+        limits: null
+        requests:
+          cpu: 10m
+          memory: 60Mi
       replicas: 2
       <<: *global
       topologySpreadConstraints:
@@ -60,6 +71,11 @@ spec:
             app.kubernetes.io/part-of: kyverno
             app.kubernetes.io/component: background-controller
     cleanupController:
+      resources:
+        limits: null
+        requests:
+          cpu: 10m
+          memory: 32Mi
       replicas: 2
       <<: *global
       topologySpreadConstraints:
@@ -72,6 +88,11 @@ spec:
             app.kubernetes.io/part-of: kyverno
             app.kubernetes.io/component: cleanup-controller
     reportsController:
+      resources:
+        limits: null
+        requests:
+          cpu: 10m
+          memory: 67Mi
       replicas: 2
       <<: *global
       topologySpreadConstraints:
