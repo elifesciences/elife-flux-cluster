@@ -9,6 +9,7 @@ resources:
 - ../../gemini
 - ../../grafana
 - ../../keda
+- ../../kong-system
 - ../../kube-web-view
 - ../../kubecost
 - ../../metrics-server
