@@ -2,7 +2,7 @@
 
 Use one of these git repo to control the cluster state (no `kubectl` or `helm` cli action needed/wanted):
 
-- https://github.com/sciety/deployment
+- https://github.com/sciety/sciety-team-deployment
 
 Dashboards
 ==========
