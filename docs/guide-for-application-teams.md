@@ -50,6 +50,7 @@ Managing persistence
 
 - `PersistentVolumes` will automatically fulfill the `PersistentVolumeClaims` created by the respective application teams.
   - `storageClass` needs to be specified for all `PersistentVolumeClaims`.
+  - `storageClass` value should be team-specific, for cost tracking purposes (e.g. `sciety-gp3`).
 - Direct changes to `PersistentVolumes` by any means other than `PersistentVolumeClaims` must only be done by the platform team.
 
 Provide a secret to an application
