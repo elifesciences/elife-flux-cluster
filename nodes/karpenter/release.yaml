@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: karpenter
-      version: 1.0.2
+      version: 1.0.3
       interval: 5m
       sourceRef:
         kind: HelmRepository
