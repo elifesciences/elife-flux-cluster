@@ -11,6 +11,9 @@ fi
 
 cd $(dirname $0)
 
-curl -O https://raw.githubusercontent.com/aws/karpenter-provider-aws/$1/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml
-curl -O https://raw.githubusercontent.com/aws/karpenter-provider-aws/$1/pkg/apis/crds/karpenter.sh_nodeclaims.yaml
-curl -O https://raw.githubusercontent.com/aws/karpenter-provider-aws/$1/pkg/apis/crds/karpenter.sh_nodepools.yaml
+curl -sO https://raw.githubusercontent.com/aws/karpenter-provider-aws/$1/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml
+yq -i '.spec.conversion.webhook.clientConfig.service.namespace|="karpenter"' karpenter.k8s.aws_ec2nodeclasses.yaml
+curl -sO https://raw.githubusercontent.com/aws/karpenter-provider-aws/$1/pkg/apis/crds/karpenter.sh_nodeclaims.yaml
+yq -i '.spec.conversion.webhook.clientConfig.service.namespace|="karpenter"' karpenter.sh_nodeclaims.yaml
+curl -sO https://raw.githubusercontent.com/aws/karpenter-provider-aws/$1/pkg/apis/crds/karpenter.sh_nodepools.yaml
+yq -i '.spec.conversion.webhook.clientConfig.service.namespace|="karpenter"' karpenter.sh_nodepools.yaml

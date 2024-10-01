@@ -10,4 +10,4 @@ fi
 
 cd $(dirname $0)
 
-curl -L https://github.com/kedacore/keda/releases/download/v$1/keda-$1-crds.yaml > keda.crd.yaml
+curl -sL https://github.com/kedacore/keda/releases/download/v$1/keda-$1-crds.yaml > keda.crd.yaml

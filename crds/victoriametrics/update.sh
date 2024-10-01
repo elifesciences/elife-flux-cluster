@@ -10,4 +10,4 @@ fi
 
 cd $(dirname $0)
 
-curl -O https://raw.githubusercontent.com/VictoriaMetrics/helm-charts/victoria-metrics-k8s-stack-$1/charts/victoria-metrics-k8s-stack/charts/crds/crds/crd.yaml
+curl -sO https://raw.githubusercontent.com/VictoriaMetrics/helm-charts/victoria-metrics-k8s-stack-$1/charts/victoria-metrics-k8s-stack/charts/crds/crds/crd.yaml

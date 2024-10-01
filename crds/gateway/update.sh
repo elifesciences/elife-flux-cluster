@@ -10,4 +10,4 @@ fi
 
 cd $(dirname $0)
 
-curl -L kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v$1/standard-install.yaml > gateway-api.crd.yaml
+curl -sL kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v$1/standard-install.yaml > gateway-api.crd.yaml

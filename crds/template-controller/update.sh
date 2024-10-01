@@ -10,11 +10,11 @@ fi
 
 cd $(dirname $0)
 
-curl -O https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_githubcomments.yaml
-curl -O https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_gitlabcomments.yaml
-curl -O https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_gitprojectors.yaml
-curl -O https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_listgithubpullrequests.yaml
-curl -O https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_listgitlabmergerequests.yaml
-curl -O https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_objecthandlers.yaml
-curl -O https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_objecttemplates.yaml
-curl -O https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_texttemplates.yaml
+curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_githubcomments.yaml
+curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_gitlabcomments.yaml
+curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_gitprojectors.yaml
+curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_listgithubpullrequests.yaml
+curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_listgitlabmergerequests.yaml
+curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_objecthandlers.yaml
+curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_objecttemplates.yaml
+curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_texttemplates.yaml

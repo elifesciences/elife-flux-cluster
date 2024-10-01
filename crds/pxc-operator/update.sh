@@ -10,4 +10,4 @@ fi
 
 cd $(dirname $0)
 
-curl -O https://raw.githubusercontent.com/percona/percona-helm-charts/pxc-operator-$1/charts/pxc-operator/crds/crd.yaml
+curl -sO https://raw.githubusercontent.com/percona/percona-helm-charts/pxc-operator-$1/charts/pxc-operator/crds/crd.yaml

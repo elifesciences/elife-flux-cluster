@@ -10,4 +10,4 @@ fi
 
 cd $(dirname $0)
 
-curl -O https://raw.githubusercontent.com/bitnami-labs/sealed-secrets/$1/helm/sealed-secrets/crds/bitnami.com_sealedsecrets.yaml
+curl -sO https://raw.githubusercontent.com/bitnami-labs/sealed-secrets/helm-v$1/helm/sealed-secrets/crds/bitnami.com_sealedsecrets.yaml

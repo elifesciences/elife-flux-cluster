@@ -10,4 +10,4 @@ fi
 
 cd $(dirname $0)
 
-curl -L https://github.com/kedacore/http-add-on/releases/download/v$1/keda-http-add-on-$1-crds.yaml > keda-http-add-on.crd.yaml
+curl -sL https://github.com/kedacore/http-add-on/releases/download/v$1/keda-http-add-on-$1-crds.yaml > keda-http-add-on.crd.yaml

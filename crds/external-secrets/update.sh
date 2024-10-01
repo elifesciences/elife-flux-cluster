@@ -11,4 +11,4 @@ fi
 
 cd $(dirname $0)
 
-curl -L https://raw.githubusercontent.com/external-secrets/external-secrets/$1/deploy/crds/bundle.yaml > external-secrets.crds.yaml
+curl -sL https://raw.githubusercontent.com/external-secrets/external-secrets/$1/deploy/crds/bundle.yaml > external-secrets.crds.yaml
