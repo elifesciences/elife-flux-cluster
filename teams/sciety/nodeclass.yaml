@@ -1,10 +1,11 @@
 ---
-apiVersion: karpenter.k8s.aws/v1beta1
+apiVersion: karpenter.k8s.aws/v1
 kind: EC2NodeClass
 metadata:
   name: sciety
 spec:
-  amiFamily: AL2 # Amazon Linux 2
+  amiSelectorTerms:
+  - alias: al2@latest
   role: "elife-${cluster_name}-karpenter--KarpenterNodeRole"
   associatePublicIPAddress: true
   subnetSelectorTerms:
