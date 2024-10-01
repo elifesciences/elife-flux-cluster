@@ -83,13 +83,19 @@ spec:
                       uses https://gitlab.com/.
                     type: string
                   mergeRequestId:
+                    anyOf:
+                    - type: integer
+                    - type: string
                     description: MergeRequestId specifies the Gitlab merge request
                       internal ID
-                    type: integer
+                    x-kubernetes-int-or-string: true
                   project:
+                    anyOf:
+                    - type: integer
+                    - type: string
                     description: Project specifies the Gitlab group and project (separated
-                      by slash) to use
-                    type: string
+                      by slash) to use, or the numeric project id
+                    x-kubernetes-int-or-string: true
                   tokenRef:
                     description: TokenRef specifies a secret and key to load the Gitlab
                       API token from
