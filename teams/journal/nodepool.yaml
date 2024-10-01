@@ -1,4 +1,4 @@
-apiVersion: karpenter.sh/v1beta1
+apiVersion: karpenter.sh/v1
 kind: NodePool
 metadata:
   name: journal
@@ -11,8 +11,9 @@ spec:
         elifesciences.org/project: "${team_name}"
         type: karpenter
     spec:
+      expireAfter: 720h # 30 * 24h = 720h
       nodeClassRef:
-        apiVersion: karpenter.k8s.aws/v1beta1
+        group: karpenter.k8s.aws
         kind: EC2NodeClass
         name: journal
       taints:
@@ -38,7 +39,7 @@ spec:
   limits:
     cpu: 1000
   disruption:
-    consolidationPolicy: WhenUnderutilized
-    expireAfter: 720h # 30 * 24h = 720h
+    consolidateAfter: "0s"
+    consolidationPolicy: WhenEmptyOrUnderutilized
     budgets:
     - nodes: "1"
