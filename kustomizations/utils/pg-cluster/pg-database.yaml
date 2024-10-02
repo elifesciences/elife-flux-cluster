@@ -70,7 +70,7 @@ spec:
           full: 0 0 * * 6
   pmm:
     enabled: false
-    image: percona/pmm-client:2.43.0
+    image: percona/pmm-client:2.43.1
   proxy:
     pgBouncer:
       image: percona/percona-postgresql-operator:${operator_version}-ppg${postgres_version}-pgbouncer
