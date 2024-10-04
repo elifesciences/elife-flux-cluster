@@ -1670,3 +1670,46 @@ kubernetesPipelines:
       requests:
         memory: 2Gi
         cpu: 100m
+
+  - dataPipelineId: 'Data_Science_PeerScout_Recommend_Senior_Editors_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '40 */3 * * *'  # At minute 40 past every 3rd hour
+        tags:
+          - 'Kubernetes'
+          - 'Data Science'
+          - 'PeerScout'
+    image: 'docker.io/elifesciences/data-science-dags_unstable:latest'
+    imagePullPolicy: Always
+    arguments: 
+      - 'python'
+      - '-m'
+      - 'data_science_pipeline.cli.peerscout_recommend_senior_editors'
+    env:
+      - name: DEPLOYMENT_ENV
+        value: '{ENV}'
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /dag_secret_files/gcloud/credentials.json
+      - name: AWS_CONFIG_FILE
+        value: /dag_secret_files/aws/credentials
+    volumeMounts:
+      - name: gcloud-secret-volume
+        mountPath: /dag_secret_files/gcloud/
+        readOnly: true
+      - name: aws-secret-volume
+        mountPath: /dag_secret_files/aws
+        readOnly: true
+    volumes:
+      - name: aws-secret-volume
+        secret:
+          secretName: credentials
+      - name: gcloud-secret-volume
+        secret:
+          secretName: gcloud
+    resources:
+      limits:
+        memory: 2Gi
+        cpu: 1000m
+      requests:
+        memory: 2Gi
+        cpu: 100m
