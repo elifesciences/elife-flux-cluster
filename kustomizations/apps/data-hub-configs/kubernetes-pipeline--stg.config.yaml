@@ -1538,9 +1538,8 @@ kubernetesPipelines:
           secretName: gcloud
     resources:
       limits:
-        memory: 6459Mi
-        cpu: 1700m
+        memory: 1Gi
+        cpu: 1000m
       requests:
-        memory: 6459Mi
-        cpu: 1495m
-        ephemeral-storage: 10Gi
+        memory: 1Gi
+        cpu: 100m
