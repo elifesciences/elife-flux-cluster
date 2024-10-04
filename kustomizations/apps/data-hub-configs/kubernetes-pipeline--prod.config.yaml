@@ -325,7 +325,6 @@ kubernetesPipelines:
         memory: 1Gi
         cpu: 100m
 
-
   - dataPipelineId: 'Data_Science_PeerScout_Build_Reviewing_Editor_Profiles_Kubernetes'
     airflow:
       dagParameters:
