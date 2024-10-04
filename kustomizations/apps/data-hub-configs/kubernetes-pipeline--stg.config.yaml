@@ -1520,8 +1520,6 @@ kubernetesPipelines:
         value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
-      - name: AIRFLOW_APPLICATIONS_DIRECTORY_PATH
-        value: /opt/airflow/auxiliary_data_pipeline_files
     volumeMounts:
       - name: gcloud-secret-volume
         mountPath: /dag_secret_files/gcloud/
