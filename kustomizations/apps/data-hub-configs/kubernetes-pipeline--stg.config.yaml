@@ -4,6 +4,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '0 3 * * *'  # At 03:00, every day
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
     image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
@@ -101,6 +102,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: "0 13 * * *" # At 13:00, every day
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
     image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
@@ -160,6 +162,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '0 6 * * *'  # At 06:00, every day
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
     image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
@@ -209,6 +212,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '40 * * * *' # 40 past the hour, every day
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
     image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
@@ -268,6 +272,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '@hourly'
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
     image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
@@ -321,6 +326,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Web API'
@@ -372,6 +378,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Web API'
@@ -423,6 +430,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Web API'
@@ -474,6 +482,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Web API'
@@ -525,6 +534,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '@hourly'
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'DocMaps'
@@ -577,6 +587,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Web API'
@@ -628,6 +639,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Web API'
@@ -679,6 +691,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Web API'
@@ -730,6 +743,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Web API'
@@ -781,6 +795,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Web API'
@@ -832,6 +847,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Web API'
@@ -883,6 +899,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Web API'
@@ -934,6 +951,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Web API'
@@ -985,6 +1003,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'DocMaps'
@@ -1037,6 +1056,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'DocMaps'
@@ -1089,6 +1109,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'DocMaps'
@@ -1141,6 +1162,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Web API'
@@ -1192,6 +1214,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Web API'
@@ -1243,6 +1266,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '15 2 * * *'  # At 02:15 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'DocMaps'
@@ -1295,6 +1319,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'DocMaps'
@@ -1347,6 +1372,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '15 2 * * *'  # At 02:15 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'DocMaps'
@@ -1399,6 +1425,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'DocMaps'
@@ -1451,6 +1478,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'DocMaps'
@@ -1503,6 +1531,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '0 2 * * *'  # At 02:00 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Data Science'
@@ -1546,6 +1575,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '0 2 * * *'  # At 02:00 am
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Data Science'
@@ -1589,6 +1619,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '@hourly'
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Data Science'
@@ -1632,6 +1663,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '40 */3 * * *'  # At minute 40 past every 3rd hour
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Data Science'
@@ -1675,6 +1707,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '40 */3 * * *'  # At minute 40 past every 3rd hour
+        max_active_runs: 1
         tags:
           - 'Kubernetes'
           - 'Data Science'
