@@ -1507,7 +1507,7 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
-    image: 'docker.io/elifesciences/data-science-dags:latest'
+    image: 'docker.io/elifesciences/data-science-dags_unstable:latest'
     imagePullPolicy: Always
     arguments: 
       - 'python'
