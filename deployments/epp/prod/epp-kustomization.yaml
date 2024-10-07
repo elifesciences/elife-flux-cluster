@@ -69,4 +69,3 @@ spec:
       epp_image_server_memory_requests: 4Gi
       epp_image_server_cpu_requests: 600m
       epp_server_cpu_requests: 150m
-      encoda_reshape: "\"true\""
