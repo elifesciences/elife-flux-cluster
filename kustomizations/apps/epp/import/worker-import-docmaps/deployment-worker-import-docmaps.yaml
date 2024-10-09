@@ -44,6 +44,6 @@ spec:
         - name: TEMPORAL_MAX_CACHED_WORKFLOWS
           value: "${temporal_worker_import_docmaps_max_cached_workflows:='5'}"
         - name: NODE_OPTIONS
-          value: "--max-old-space-size=${temporal_worker_import_docmaps_node_max_old_space_size:=3072}"
+          value: "--max-old-space-size=${temporal_worker_import_docmaps_node_max_old_space_size:=3584}"
         ports:
           - containerPort: 9464
