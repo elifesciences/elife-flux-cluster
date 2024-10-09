@@ -17,11 +17,11 @@ spec:
         image: ghcr.io/elifesciences/enhanced-preprints-import-worker:latest
         resources:
           requests:
-            memory: ${temporal_worker_import_docmaps_memory_requests:='8Gi'}
+            memory: ${temporal_worker_import_docmaps_memory_requests:='2Gi'}
             cpu: ${temporal_worker_import_docmaps_cpu_requests:='200m'}
             ephemeral-storage: ${temporal_worker_import_docmaps_ephemeral_storage_requests:='15Gi'}
           limits:
-            memory: ${temporal_worker_import_docmaps_memory_limits:='8Gi'}
+            memory: ${temporal_worker_import_docmaps_memory_limits:='2Gi'}
         env:
         - name: BUCKET_NAME
           value: ${s3_bucket}
@@ -43,5 +43,7 @@ spec:
           value: "${temporal_worker_import_docmaps_max_concurrent_workflow_task_executions:='5'}"
         - name: TEMPORAL_MAX_CACHED_WORKFLOWS
           value: "${temporal_worker_import_docmaps_max_cached_workflows:='5'}"
+        - name: NODE_OPTIONS
+          value: "--max-old-space-size=${temporal_worker_import_docmaps_node_max_old_space_size:='2000'}"
         ports:
           - containerPort: 9464
