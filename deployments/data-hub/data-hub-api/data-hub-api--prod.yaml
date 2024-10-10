@@ -93,6 +93,7 @@ metadata:
   labels:
     app: data-hub-api--prod
   annotations:
+    nginx.ingress.kubernetes.io/limit-connections: "3"
     nginx.ingress.kubernetes.io/limit-rps: "3"
     nginx.ingress.kubernetes.io/limit-burst-multiplier: "2"
 spec:
