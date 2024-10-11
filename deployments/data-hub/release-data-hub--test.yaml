@@ -288,6 +288,13 @@ spec:
         configMap:
           name: data-hub-configs
     web:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       # Fix for helm chart 8.6.0 not supporting airflow 2.3
       webserverConfig:
         stringOverride: |
