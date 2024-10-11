@@ -10,6 +10,7 @@ spec:
         Project: "${team_name}"
         elifesciences.org/project: "${team_name}"
         type: karpenter
+        data-hub-workload: "services"
     spec:
       expireAfter: 720h # 30 * 24h = 720h
       nodeClassRef:
