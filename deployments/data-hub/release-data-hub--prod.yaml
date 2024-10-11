@@ -468,19 +468,48 @@ spec:
         secret:
           secretName: surveymonkey-credentials
     postgresql:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       resources:
         requests:
           memory: 200Mi
           cpu: 100m
       persistence:
         size: 25Gi
+    redis:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
     flower:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       resources:
         requests:
           memory: 264Mi
           cpu: 50m
           ephemeral-storage: "50Mi"
     scheduler:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       resources:
         requests:
           memory: 1733Mi
@@ -536,18 +565,39 @@ spec:
         secret:
           secretName: credentials
     triggerer:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       resources:
         requests:
           ephemeral-storage: "50Mi"
           memory: 837Mi
           cpu: 200m
     dbMigrations:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       resources:
         requests:
           memory: 153Mi
           cpu: 50m
           ephemeral-storage: "50Mi"
     pgbouncer:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       resources:
         requests:
           memory: 100Mi
