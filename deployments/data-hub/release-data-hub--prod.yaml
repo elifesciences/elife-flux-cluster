@@ -556,8 +556,14 @@ spec:
           ephemeral-storage: "100Mi"
       livenessProbe:
         initialDelaySeconds: 60
+        periodSeconds: 30
+        timeoutSeconds: 30
+        failureThreshold: 10
       readinessProbe:
         initialDelaySeconds: 60
+        periodSeconds: 30
+        timeoutSeconds: 30
+        failureThreshold: 10
       extraVolumeMounts:
       - name: aws-secret-volume
         mountPath: /home/airflow/.aws
