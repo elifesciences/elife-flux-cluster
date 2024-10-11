@@ -260,18 +260,47 @@ spec:
         secret:
           secretName: surveymonkey-credentials
     postgresql:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       resources:
         requests:
           memory: 200Mi
           cpu: 100m
           ephemeral-storage: "10Mi"
+    redis:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
     flower:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       resources:
         requests:
           memory: 100Mi
           cpu: 50m
           ephemeral-storage: "50Mi"
     scheduler:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       resources:
         requests:
           memory: 1733Mi
@@ -328,14 +357,35 @@ spec:
         secret:
           secretName: credentials
     triggerer:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       resources:
         requests:
           ephemeral-storage: "50Mi"
     dbMigrations:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       resources:
         requests:
           ephemeral-storage: "50Mi"
     pgbouncer:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       resources:
         requests:
           ephemeral-storage: "10Mi"
