@@ -503,6 +503,13 @@ spec:
         configMap:
           name: data-hub-configs
     web:
+      tolerations:
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
+      nodeSelector:
+        data-hub-workload: "services"
       webserverConfig:
         stringOverride: |
           from airflow import configuration as conf
