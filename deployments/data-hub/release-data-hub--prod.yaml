@@ -468,27 +468,29 @@ spec:
         secret:
           secretName: surveymonkey-credentials
     postgresql:
-      tolerations:
-        - key: workload
-          operator: Equal
-          value: "services"
-          effect: NoSchedule
-      nodeSelector:
-        data-hub-workload: "services"
       resources:
         requests:
           memory: 200Mi
           cpu: 100m
       persistence:
         size: 25Gi
+      master:
+        tolerations:
+          - key: workload
+            operator: Equal
+            value: "services"
+            effect: NoSchedule
+        nodeSelector:
+          data-hub-workload: "services"
     redis:
-      tolerations:
-        - key: workload
-          operator: Equal
-          value: "services"
-          effect: NoSchedule
-      nodeSelector:
-        data-hub-workload: "services"
+      master:
+        tolerations:
+          - key: workload
+            operator: Equal
+            value: "services"
+            effect: NoSchedule
+        nodeSelector:
+          data-hub-workload: "services"
     flower:
       tolerations:
         - key: workload
