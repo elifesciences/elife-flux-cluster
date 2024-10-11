@@ -470,8 +470,11 @@ spec:
     postgresql:
       resources:
         requests:
-          memory: 200Mi
+          memory: 4500Mi
           cpu: 100m
+        limits:
+          memory: 4500Mi
+          cpu: 1000m
       persistence:
         size: 25Gi
       master:
