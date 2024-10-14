@@ -678,3 +678,56 @@ webApi:
         tags:
           - 'Web API'
           - 'DocMaps'
+
+  - dataPipelineId: openalex_works_metadata_for_preprints
+    description:
+      Retrieve OpenAlex metadata for all of the preprints.
+      Currently this will get all of the preprints every time because we do not yet have premium access.
+    airflow:
+      dagParameters:
+        schedule: null
+    dataset: '{ENV}'
+    table: openalex_works_api_response
+    urlSourceType:
+      # Note: We currently need to use `crossref_metadata_api` for the cursor parameter to work
+      name: 'crossref_metadata_api'
+    dataUrl:
+      urlExcludingConfigurableParameters: 'https://api.openalex.org/works?filter=type:preprint'
+      configurableParameters:
+        # nextPageCursorParameterName: 'cursor'
+        pageSizeParameterName: 'per-page'
+        defaultPageSize: 200
+    response:
+      nextPageCursorKeyFromResponseRoot:
+        - meta
+        - next_cursor
+      itemsKeyFromResponseRoot:
+        - results
+      totalItemsCountKeyFromResponseRoot:
+        - meta
+        - count
+      recordTimestamp:
+        itemTimestampKeyFromItemRoot:
+          - 'updated_date'
+      provenanceEnabled: True
+      fieldsToReturn:
+        - id
+        - doi
+        - type
+        - type_crossref
+        - indexed_in
+        - open_access
+        - title
+        - authorships
+        - concepts
+        - primary_topic
+        - topics
+        - keywords
+        - created_date
+        - updated_date
+        - publication_date
+        - language
+        - locations
+        - primary_location
+        - best_oa_location
+        - related_works
