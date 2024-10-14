@@ -3,7 +3,7 @@ flux2       2.4.0
 stern       1.26.0
 kubie       0.23.0
 kind        0.24.0
-kustomize   5.4.3
+kustomize   5.5.0
 yq          4.44.3
 kubeconform 0.6.4
 envsubst    1.4.2
