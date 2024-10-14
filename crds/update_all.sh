@@ -14,3 +14,5 @@ cd $(dirname $0)
 ./sealed-secrets/update.sh $(cat ../system/infra/sealed-secrets/release.yaml  | yq .spec.chart.spec.version)
 ./template-controller/update.sh $(cat ../system/template-controller/release.yaml  | yq .spec.chart.spec.version)
 ./victoriametrics/update.sh $(cat ../system/victoriametrics/release.yaml  | yq .spec.chart.spec.version)
+
+./ack-controllers/documentdb-controller/update.sh $(cat ../system/ack-system/documentdb-release.yaml  | yq .spec.chart.spec.version)
