@@ -2,7 +2,7 @@
 
 # As script to
 if [ -z "$1" ]; then
-    echo 'ERROR: specify a template-controller helm chart git reference to get the CRDs'
+    echo 'ERROR: specify a elasticache-controller helm chart git reference to get the CRDs'
     echo "e.g. \`$0 1.0.1\`"
     exit 1
 fi
