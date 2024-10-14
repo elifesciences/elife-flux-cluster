@@ -5,8 +5,8 @@ metadata:
   name: ${cluster_name}
   namespace: database
 spec:
-  crVersion: ${operator_version}
-  image: percona/percona-postgresql-operator:${operator_version}-ppg${postgres_version}-postgres
+  crVersion: ${operator_version:-2.5.0}
+  image: percona/percona-postgresql-operator:${operator_version:-2.5.0}-ppg${postgres_version}-postgres
   postgresVersion: ${postgres_version}
   port: 5432
   instances:
@@ -38,7 +38,7 @@ spec:
         repo1-retention-full: "14"
         repo1-retention-full-type: time
         repo1-s3-key-type: web-id
-      image: percona/percona-postgresql-operator:${operator_version}-ppg${postgres_version}-pgbackrest
+      image: percona/percona-postgresql-operator:${operator_version:-2.5.0}-ppg${postgres_version}-pgbackrest
       manual:
         repoName: repo1
       jobs:
@@ -73,7 +73,7 @@ spec:
     image: percona/pmm-client:2.43.1
   proxy:
     pgBouncer:
-      image: percona/percona-postgresql-operator:${operator_version}-ppg${postgres_version}-pgbouncer
+      image: percona/percona-postgresql-operator:${operator_version:-2.5.0}-ppg${postgres_version}-pgbouncer
       exposeSuperusers: true
       port: 5432
       replicas: 3
