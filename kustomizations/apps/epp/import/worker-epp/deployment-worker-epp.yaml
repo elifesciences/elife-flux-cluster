@@ -33,8 +33,6 @@ spec:
           value: http://epp-biorxiv-xslt-api-scaler.${keda_autoscaler_namespace_fix}:8080
         - name: ENCODA_TRANSFORM_ADDRESS
           value: http://epp-encoda-api-scaler.${keda_autoscaler_namespace_fix}:8080
-        - name: ENCODA_DEFAULT_VERSION
-          value: "${temporal_worker_epp_encoda_version}"
         - name: TEMPORAL_TASK_QUEUE
           value: epp
         - name: TEMPORAL_NAMESPACE

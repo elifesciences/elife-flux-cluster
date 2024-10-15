@@ -59,8 +59,6 @@ spec:
       # where to connect this env workers to
       temporal_server: temporal-frontend.temporal:7233
       temporal_namespace: epp--staging
-      temporal_worker_epp_encoda_version: '1.0.8'
-      temporal_worker_import_docmaps_encoda_version: '1.0.8'
       # High priority, but mostly used for importing the docmap index
       temporal_worker_epp_replicas: "1"
       # The queue doing most of the importing
