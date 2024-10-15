@@ -57,7 +57,7 @@ spec:
         AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: "60"
       image:
         repository: docker.io/elifesciences/data-hub-with-dags # {"$imagepolicy": "data-hub:data-hub-stable:name"}
-        tag: 0.0.167 # {"$imagepolicy": "data-hub:data-hub-stable:tag"}
+        tag: 0.0.168 # {"$imagepolicy": "data-hub:data-hub-stable:tag"}
       extraEnv:
       # security settings
       - name: AIRFLOW__WEBSERVER__SECRET_KEY
@@ -479,27 +479,27 @@ spec:
         size: 25Gi
       master:
         tolerations:
-          - key: workload
-            operator: Equal
-            value: "services"
-            effect: NoSchedule
+        - key: workload
+          operator: Equal
+          value: "services"
+          effect: NoSchedule
         nodeSelector:
           data-hub-workload: "services"
     redis:
       master:
         tolerations:
-          - key: workload
-            operator: Equal
-            value: "services"
-            effect: NoSchedule
-        nodeSelector:
-          data-hub-workload: "services"
-    flower:
-      tolerations:
         - key: workload
           operator: Equal
           value: "services"
           effect: NoSchedule
+        nodeSelector:
+          data-hub-workload: "services"
+    flower:
+      tolerations:
+      - key: workload
+        operator: Equal
+        value: "services"
+        effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
       resources:
@@ -509,10 +509,10 @@ spec:
           ephemeral-storage: "50Mi"
     scheduler:
       tolerations:
-        - key: workload
-          operator: Equal
-          value: "services"
-          effect: NoSchedule
+      - key: workload
+        operator: Equal
+        value: "services"
+        effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
       resources:
@@ -532,10 +532,10 @@ spec:
           name: data-hub-configs
     web:
       tolerations:
-        - key: workload
-          operator: Equal
-          value: "services"
-          effect: NoSchedule
+      - key: workload
+        operator: Equal
+        value: "services"
+        effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
       webserverConfig:
@@ -577,10 +577,10 @@ spec:
           secretName: credentials
     triggerer:
       tolerations:
-        - key: workload
-          operator: Equal
-          value: "services"
-          effect: NoSchedule
+      - key: workload
+        operator: Equal
+        value: "services"
+        effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
       resources:
@@ -590,10 +590,10 @@ spec:
           cpu: 200m
     dbMigrations:
       tolerations:
-        - key: workload
-          operator: Equal
-          value: "services"
-          effect: NoSchedule
+      - key: workload
+        operator: Equal
+        value: "services"
+        effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
       resources:
@@ -603,10 +603,10 @@ spec:
           ephemeral-storage: "50Mi"
     pgbouncer:
       tolerations:
-        - key: workload
-          operator: Equal
-          value: "services"
-          effect: NoSchedule
+      - key: workload
+        operator: Equal
+        value: "services"
+        effect: NoSchedule
       nodeSelector:
         data-hub-workload: "services"
       resources:
