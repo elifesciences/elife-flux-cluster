@@ -9,7 +9,7 @@ spec:
     "rules":
     - "alert": "OpenSearchClusterNotHealthy"
       "annotations":
-        "message": "Cluster {{ $labels.exported_cluster }} health status has been RED for at least 2m. Cluster does not accept writes, shards may be missing or master node hasn't been elected yet."
+        "message": "Cluster {{ $labels.exported_cluster }}({{ $labels.exported_namespace }}) health status has been RED for at least 2m. Cluster does not accept writes, shards may be missing or master node hasn't been elected yet."
         "summary": "Cluster health status is RED"
       "expr": |
         sum by (exported_cluster) (opensearch_cluster_status == 2)
@@ -18,7 +18,7 @@ spec:
         "severity": "critical"
     - "alert": "OpenSearchClusterNotHealthy"
       "annotations":
-        "message": "Cluster {{ $labels.exported_cluster }} health status has been YELLOW for at least 20m. Some shard replicas are not allocated."
+        "message": "Cluster {{ $labels.exported_cluster }}({{ $labels.exported_namespace }}) health status has been YELLOW for at least 20m. Some shard replicas are not allocated."
         "summary": "Cluster health status is YELLOW"
       "expr": |
         sum by (exported_cluster) (opensearch_cluster_status == 1)
@@ -36,7 +36,7 @@ spec:
         "severity": "warning"
     - "alert": "OpenSearchNodeDiskWatermarkReached"
       "annotations":
-        "message": "Disk Low Watermark Reached at {{ $labels.node }} node in {{ $labels.exported_cluster }} cluster. Shards can not be allocated to this node anymore. You should consider adding more disk to the node."
+        "message": "Disk Low Watermark Reached at {{ $labels.node }} node in {{ $labels.exported_cluster }}({{ $labels.exported_namespace }}) cluster. Shards can not be allocated to this node anymore. You should consider adding more disk to the node."
         "summary": "Disk Low Watermark Reached - disk saturation is {{ $value }}%"
       "expr": |
         sum by (exported_cluster, instance, node) (
@@ -52,7 +52,7 @@ spec:
         "severity": "alert"
     - "alert": "OpenSearchNodeDiskWatermarkReached"
       "annotations":
-        "message": "Disk High Watermark Reached at {{ $labels.node }} node in {{ $labels.exported_cluster }} cluster. Some shards will be re-allocated to different nodes if possible. Make sure more disk space is added to the node or drop old indices allocated to this node."
+        "message": "Disk High Watermark Reached at {{ $labels.node }} node in {{ $labels.exported_cluster }}({{ $labels.exported_namespace }}) cluster. Some shards will be re-allocated to different nodes if possible. Make sure more disk space is added to the node or drop old indices allocated to this node."
         "summary": "Disk High Watermark Reached - disk saturation is {{ $value }}%"
       "expr": |
         sum by (exported_cluster, instance, node) (
@@ -68,7 +68,7 @@ spec:
         "severity": "high"
     - "alert": "OpenSearchJVMHeapUseHigh"
       "annotations":
-        "message": "JVM Heap usage on the node {{ $labels.node }} in {{ $labels.exported_cluster }} cluster is {{ $value }}%."
+        "message": "JVM Heap usage on the node {{ $labels.node }} in {{ $labels.exported_cluster }}({{ $labels.exported_namespace }}) cluster is {{ $value }}%."
         "summary": "JVM Heap usage on the node is high"
       "expr": |
         sum by (exported_cluster, instance, node) (opensearch_jvm_mem_heap_used_percent) > 75
@@ -77,7 +77,7 @@ spec:
         "severity": "alert"
     - "alert": "OpenSearchHostSystemCPUHigh"
       "annotations":
-        "message": "System CPU usage on the node {{ $labels.node }} in {{ $labels.exported_cluster }} cluster is {{ $value }}%"
+        "message": "System CPU usage on the node {{ $labels.node }} in {{ $labels.exported_cluster }}({{ $labels.exported_namespace }}) cluster is {{ $value }}%"
         "summary": "System CPU usage is high"
       "expr": |
         sum by (exported_cluster, instance, node) (opensearch_os_cpu_percent) > 90
@@ -86,7 +86,7 @@ spec:
         "severity": "alert"
     - "alert": "OpenSearchProcessCPUHigh"
       "annotations":
-        "message": "OSE process CPU usage on the node {{ $labels.node }} in {{ $labels.exported_cluster }} cluster is {{ $value }}%"
+        "message": "OSE process CPU usage on the node {{ $labels.node }} in {{ $labels.exported_cluster }}({{ $labels.exported_namespace }}) cluster is {{ $value }}%"
         "summary": "OSE process CPU usage is high"
       "expr": |
         sum by (exported_cluster, instance, node) (opensearch_process_cpu_percent) > 90
