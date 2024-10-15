@@ -694,7 +694,7 @@ webApi:
     dataUrl:
       urlExcludingConfigurableParameters: 'https://api.openalex.org/works?filter=type:preprint'
       configurableParameters:
-        # nextPageCursorParameterName: 'cursor'
+        nextPageCursorParameterName: 'cursor'
         pageSizeParameterName: 'per-page'
         defaultPageSize: 200
     response:
