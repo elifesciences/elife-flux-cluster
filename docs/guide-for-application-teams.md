@@ -66,6 +66,8 @@ Kubernetes resources can use the secret:
 - directly in workloads e.g. via an [environment variable](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#environment-variables)
 - by receiving its value as an [Helm release value](https://fluxcd.io/flux/components/helm/helmreleases/#values-references)
 
+ExternalSecret periodically refreshes the Kubernetes Secrets. You can [manually force a sync](https://external-secrets.io/latest/introduction/faq/#can-i-manually-trigger-a-secret-refresh):
+`kubectl annotate es my-es force-sync=$(date +%s) --overwrite`
 
 Provision managed databases
 ===========================
