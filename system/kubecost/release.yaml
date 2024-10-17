@@ -23,7 +23,7 @@ spec:
     prometheus:
       server:
         resources:
-          request:
+          requests:
             cpu: 312m
             memory: 1500Mi
           limits:
@@ -49,14 +49,14 @@ spec:
         eks.amazonaws.com/role-arn: ${aws_kubecost_service_account_role_arn}
     kubecostModel:
       resources:
-        request:
+        requests:
           cpu: 1000m
           memory: 646Mi
         limits:
           memory: 646Mi
     kubecostAggregator:
       resources:
-        request:
+        requests:
           cpu: 1000m
           memory: 1483Mi
         limits:
@@ -64,7 +64,7 @@ spec:
           memory: 15000Mi
       cloudCost:
         resources:
-          request:
+          requests:
             cpu: 384m
             memory: 70Mi
           limits:
