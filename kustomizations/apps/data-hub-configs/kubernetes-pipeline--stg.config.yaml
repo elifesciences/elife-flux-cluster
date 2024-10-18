@@ -1484,6 +1484,9 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Sciety'
           - 'Web API'
+      taskParameters:
+        annotations:
+          karpenter.sh/do-not-disrupt: "true"
     image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
     imagePullPolicy: Always
     arguments: 
