@@ -1487,6 +1487,9 @@ kubernetesPipelines:
       taskParameters:
         annotations:
           karpenter.sh/do-not-disrupt: "true"
+        security_context:
+          runAsUser: 0  # 0 is the root user ID
+          runAsGroup: 0  # 0 is the root group ID
     image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
     imagePullPolicy: Always
     arguments: 
