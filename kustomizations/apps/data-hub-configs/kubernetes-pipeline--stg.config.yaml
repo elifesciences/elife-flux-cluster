@@ -1514,7 +1514,7 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
       - name: large-temp-volume
-        mountPath: /tmp
+        mountPath: /var/tmp
         readOnly: false
     volumes:
       - name: aws-secret-volume
