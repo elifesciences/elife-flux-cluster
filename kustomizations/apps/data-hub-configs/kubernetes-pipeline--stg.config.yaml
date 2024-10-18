@@ -1510,6 +1510,9 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         mountPath: /dag_config_files/
         readOnly: true
+      - name: large-temp-volume
+        mountPath: /tmp
+        readOnly: false
     volumes:
       - name: aws-secret-volume
         secret:
@@ -1520,6 +1523,15 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
+      - name: large-temp-volume
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "data-hub-gp3"
+              resources:
+                requests:
+                  storage: 100Gi
     resources:
       limits:
         memory: 600Mi
