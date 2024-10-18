@@ -1503,6 +1503,8 @@ kubernetesPipelines:
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
+      - name: TMPDIR
+        value: /tmp
     volumeMounts:
       - name: gcloud-secret-volume
         mountPath: /dag_secret_files/gcloud/
@@ -1514,7 +1516,7 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
       - name: large-temp-volume
-        mountPath: /var/tmp
+        mountPath: /tmp
         readOnly: false
     volumes:
       - name: aws-secret-volume
