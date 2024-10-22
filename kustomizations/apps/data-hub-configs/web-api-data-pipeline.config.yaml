@@ -728,6 +728,7 @@ webApi:
         - indexed_in
         - open_access
         - title
+        - display_name
         - authorships
         - concepts
         - primary_topic
@@ -735,6 +736,7 @@ webApi:
         - keywords
         - created_date
         - updated_date
+        - publication_year
         - publication_date
         - language
         - locations
