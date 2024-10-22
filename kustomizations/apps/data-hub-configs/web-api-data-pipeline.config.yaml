@@ -728,6 +728,7 @@ webApi:
         - indexed_in
         - open_access
         - title
+        - display_name
         - authorships
         - concepts
         - primary_topic
