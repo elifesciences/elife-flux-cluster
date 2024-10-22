@@ -735,6 +735,7 @@ webApi:
         - keywords
         - created_date
         - updated_date
+        - publication_year
         - publication_date
         - language
         - locations
