@@ -689,6 +689,9 @@ webApi:
         schedule: null
     dataset: '{ENV}'
     table: openalex_works_api_response
+    stateFile:
+      bucketName: '{ENV}-elife-data-pipeline'
+      objectName: 'airflow-config/generic-web-api/{ENV}-openalex_works_metadata_for_preprints-state.json'
     urlSourceType:
       # Note: We currently need to use `crossref_metadata_api` for the cursor parameter to work
       # It is also currently required for the `filter` parameter support
