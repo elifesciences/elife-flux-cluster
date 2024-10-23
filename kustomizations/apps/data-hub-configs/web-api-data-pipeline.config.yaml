@@ -391,6 +391,9 @@ webApi:
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
       objectName: 'airflow-config/generic-web-api/{ENV}-crossref-metadata-state/{doi_prefix}.json'
+    retry:
+      maxRetryCount: 0
+      retryOnResponseStatusList: []
     urlSourceType:
       name: 'crossref_metadata_api'
     headers:
@@ -420,6 +423,7 @@ webApi:
           - 'date_time'  # this is after the record was processed
       recordProcessingSteps:
         - transform_crossref_api_date_parts
+      onSameNextCursor: Continue
       provenanceEnabled: True
 
   # bioRxiv/medRxiv MECA path metadata
@@ -692,6 +696,14 @@ webApi:
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
       objectName: 'airflow-config/generic-web-api/{ENV}-openalex_works_metadata_for_preprints-state.json'
+    retry:
+      maxRetryCount: 10
+      retryBackoffFactor: 1
+      retryOnResponseStatusList:
+        - 429
+        - 500
+        - 502
+        - 504
     urlSourceType:
       # Note: We currently need to use `crossref_metadata_api` for the cursor parameter to work
       # It is also currently required for the `filter` parameter support
@@ -719,6 +731,7 @@ webApi:
       recordTimestamp:
         itemTimestampKeyFromItemRoot:
           - 'publication_date'
+      onSameNextCursor: Error
       provenanceEnabled: True
       fieldsToReturn:
         - id
