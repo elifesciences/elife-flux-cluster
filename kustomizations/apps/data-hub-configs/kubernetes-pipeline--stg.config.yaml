@@ -1490,7 +1490,7 @@ kubernetesPipelines:
         security_context:
           runAsUser: 0  # 0 is the root user ID
           runAsGroup: 0  # 0 is the root group ID
-    image: 'docker.io/elifesciences/data-hub-core-dags_unstable:latest'
+    image: 'docker.io/elifesciences/data-hub-core-dags_unstable:HEAD-dbf1ac61-20241022.0912'
     imagePullPolicy: Always
     arguments: 
       - 'python'
