@@ -1,0 +1,12 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: data-hub-core-dags-stable
+  namespace: data-hub
+spec:
+  imageRepositoryRef:
+    name: data-hub-core-dags-stable
+    namespace: data-hub
+  policy:
+    semver:
+      range: '*'
