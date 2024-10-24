@@ -14,21 +14,3 @@ spec:
         name: kong
       interval: 1m
   values:
-  postRenderers:
-  - kustomize:
-      patches:
-        - target:
-            kind: ClusterRole
-            name: kong-gateway-operator-gateway-operator-manager-role
-          patch: |
-            - op: add
-              path: /rules/-
-              value:
-                apiGroups:
-                - gateway-operator.konghq.com
-                resources:
-                - dataplanemetricsextensions
-                verbs:
-                - get
-                - list
-                - watch
