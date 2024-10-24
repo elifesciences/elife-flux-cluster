@@ -7,7 +7,7 @@ kubernetesPipelines:
         max_active_runs: 1
         tags:
           - 'Kubernetes'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -54,7 +54,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '10 */2 * * *'  # At minute 10 past every other hour
-    image: '${data_hub_peerscout_dags_unstable_image_repo}:${data_hub_peerscout_dags_unstable_image_tag}'
+    image: '${data_hub_peerscout_dags_unstable_image_repo:-docker.io/elifesciences/peerscout-dags_unstable}:${data_hub_peerscout_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -105,7 +105,7 @@ kubernetesPipelines:
         max_active_runs: 1
         tags:
           - 'Kubernetes'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -165,7 +165,7 @@ kubernetesPipelines:
         max_active_runs: 1
         tags:
           - 'Kubernetes'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -215,7 +215,7 @@ kubernetesPipelines:
         max_active_runs: 1
         tags:
           - 'Kubernetes'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -275,7 +275,7 @@ kubernetesPipelines:
         max_active_runs: 1
         tags:
           - 'Kubernetes'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -330,7 +330,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -382,7 +382,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -434,7 +434,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -486,7 +486,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -539,7 +539,7 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -591,7 +591,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -643,7 +643,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -695,7 +695,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -747,7 +747,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -799,7 +799,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -851,7 +851,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -903,7 +903,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -956,7 +956,7 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -1009,7 +1009,7 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -1062,7 +1062,7 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -1114,7 +1114,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -1166,7 +1166,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -1219,7 +1219,7 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -1272,7 +1272,7 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -1325,7 +1325,7 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -1378,7 +1378,7 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -1431,7 +1431,7 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -1490,7 +1490,7 @@ kubernetesPipelines:
         security_context:
           runAsUser: 0  # 0 is the root user ID
           runAsGroup: 0  # 0 is the root group ID
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    image: '${data_hub_core_dags_unstable_image_repo:-docker.io/elifesciences/data-hub-core-dags_unstable}:${data_hub_core_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -1559,7 +1559,7 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
-    image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
+    image: '${data_hub_data_science_dags_unstable_image_repo:-docker.io/elifesciences/data-science-dags_unstable}:${data_hub_data_science_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -1603,7 +1603,7 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
-    image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
+    image: '${data_hub_data_science_dags_unstable_image_repo:-docker.io/elifesciences/data-science-dags_unstable}:${data_hub_data_science_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -1647,7 +1647,7 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
-    image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
+    image: '${data_hub_data_science_dags_unstable_image_repo:-docker.io/elifesciences/data-science-dags_unstable}:${data_hub_data_science_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -1691,7 +1691,7 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
-    image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
+    image: '${data_hub_data_science_dags_unstable_image_repo:-docker.io/elifesciences/data-science-dags_unstable}:${data_hub_data_science_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
@@ -1735,7 +1735,7 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
-    image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
+    image: '${data_hub_data_science_dags_unstable_image_repo:-docker.io/elifesciences/data-science-dags_unstable}:${data_hub_data_science_dags_unstable_image_tag:-latest}'
     imagePullPolicy: Always
     arguments:
       - 'python'
