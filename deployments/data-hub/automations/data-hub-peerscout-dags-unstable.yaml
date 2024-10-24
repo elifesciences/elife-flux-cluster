@@ -1,7 +1,7 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
-  name: data-hub-peerscount-dags-unstable
+  name: data-hub-peerscout-dags-unstable
   namespace: data-hub
 spec:
   interval: 5m
