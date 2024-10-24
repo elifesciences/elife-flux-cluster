@@ -17,7 +17,7 @@ spec:
     name: data-hub-data-science-dags-unstable
     namespace: data-hub
   filterTags:
-    pattern: '^HEAD-[a-fA-F0-9]+-(?P<ts>.*)'
+    pattern: '^develop-[a-fA-F0-9]+-(?P<ts>.*)'
     extract: '$ts'
   policy:
     numerical:
