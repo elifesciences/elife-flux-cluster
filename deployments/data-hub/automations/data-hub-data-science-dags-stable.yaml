@@ -5,7 +5,7 @@ metadata:
   namespace: data-hub
 spec:
   interval: 5m
-  image: docker.io/elifesciences/data-hub-data-science-dags
+  image: docker.io/elifesciences/data-science-dags
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy

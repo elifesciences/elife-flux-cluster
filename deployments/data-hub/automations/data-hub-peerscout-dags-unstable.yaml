@@ -5,7 +5,7 @@ metadata:
   namespace: data-hub
 spec:
   interval: 5m
-  image: docker.io/elifesciences/data-hub-peerscout-dags_unstable
+  image: docker.io/elifesciences/data-science-dags_peerscout-api_unstable
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImagePolicy
