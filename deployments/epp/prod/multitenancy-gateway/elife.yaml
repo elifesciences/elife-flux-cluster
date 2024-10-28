@@ -2,7 +2,7 @@
 kind: HTTPRoute
 apiVersion: gateway.networking.k8s.io/v1
 metadata:
-  name: annotations
+  name: elife-server
   namespace: epp--prod
   annotations:
     konghq.com/preserve-host: "false"
