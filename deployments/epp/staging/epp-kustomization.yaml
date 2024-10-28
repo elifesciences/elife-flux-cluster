@@ -14,15 +14,15 @@ spec:
   targetNamespace: epp--staging
   images:
   - name: ghcr.io/elifesciences/enhanced-preprints-server
-    newTag: master-fedaecde-20241025.0218 # {"$imagepolicy": "epp--staging:epp-server:tag"}
+    newTag: master-62511b7c-20241025.1859 # {"$imagepolicy": "epp--staging:epp-server:tag"}
   - name: ghcr.io/elifesciences/epp-image-server
     newTag: master-9797adfc-20240617.1602 # {"$imagepolicy": "epp--staging:epp-image-server:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-client
-    newTag: master-684c723f-20241025.0643 # {"$imagepolicy": "epp--staging:epp-client:tag"}
+    newTag: master-c658dcd9-20241026.0104 # {"$imagepolicy": "epp--staging:epp-client:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-storybook
     newTag: master-ddbcbcff-20240524.1045 # {"$imagepolicy": "epp--staging:epp-storybook:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
-    newTag: master-fc9e9f43-20241025.0311 # {"$imagepolicy": "epp--staging:epp-import:tag"}
+    newTag: master-806fec48-20241026.0457 # {"$imagepolicy": "epp--staging:epp-import:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
     newTag: master-1e6e944a-20241023.1029 # {"$imagepolicy": "epp--staging:epp-biorxiv-xslt-api:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-encoda
