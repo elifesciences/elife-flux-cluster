@@ -1,0 +1,38 @@
+---
+kind: GatewayConfiguration
+apiVersion: gateway-operator.konghq.com/v1beta1
+metadata:
+  name: epp-server-gateway-prod
+  namespace: epp--prod
+spec:
+  dataPlaneOptions:
+    network:
+      services:
+        ingress:
+          type: ClusterIP # internal gateway only
+    deployment:
+      podTemplateSpec:
+        spec:
+          containers:
+          - name: proxy
+            resources:
+              limits:
+                memory: 650Mi
+              requests:
+                cpu: 100m
+                memory: 630Mi
+  controlPlaneOptions:
+    deployment:
+      podTemplateSpec:
+        spec:
+          containers:
+          - name: controller
+            resources:
+              limits:
+                memory: 250Mi
+              requests:
+                cpu: 100m
+                memory: 230Mi
+            env:
+            - name: CONTROLLER_INGRESS_CLASS
+              value: epp-server-gateway-prod
