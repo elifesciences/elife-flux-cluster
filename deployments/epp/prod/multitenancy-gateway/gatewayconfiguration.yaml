@@ -9,7 +9,7 @@ spec:
     network:
       services:
         ingress:
-          externalTrafficPolicy: Local
+          externalTrafficPolicy: ""
           type: ClusterIP # internal gateway only
     deployment:
       podTemplateSpec:
