@@ -79,6 +79,7 @@ spec:
                 substitute:
                   app_env: epp--preview-{{ matrix.pr.number }}
                   app_hostname: pr-{{ matrix.pr.number }}--epp.elifesciences.org
+                  app_brand: default
                   epp_server: http://epp-server.epp--staging:3000
                   iiif_server: https://staging--epp.elifesciences.org/iiif
                   private_iiif_server: http://epp-image-server.epp--staging:8182/iiif

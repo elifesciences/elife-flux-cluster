@@ -3,6 +3,9 @@ kind: Ingress
 metadata:
   name: epp
   namespace: epp
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_clear_input_headers "x-epp-brand: ${app_brand}";
 spec:
   rules:
   - host: ${app_hostname}
