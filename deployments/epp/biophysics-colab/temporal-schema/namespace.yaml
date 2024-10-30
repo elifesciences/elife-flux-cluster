@@ -41,4 +41,4 @@ spec:
           command:
           - bash
           - -c
-          - 'temporal operator search-attribute create --name ManuscriptId --type Text && temporal operator search-attribute create --name DocmapURL --type Text'
+          - 'temporal operator search-attribute -n epp--biophysics-colab create --name ManuscriptId --type Text && temporal operator search-attribute create --name DocmapURL --type Text'
