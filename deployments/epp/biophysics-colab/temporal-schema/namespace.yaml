@@ -39,6 +39,6 @@ spec:
             - name: TEMPORAL_ADDRESS
               value: temporal-frontend.temporal:7233
           command:
-          - base
+          - bash
           - -c
           - 'temporal operator search-attribute create --name ManuscriptId --type Text && temporal operator search-attribute create --name DocmapURL --type Text'
