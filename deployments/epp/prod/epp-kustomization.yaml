@@ -31,6 +31,7 @@ spec:
     substitute:
       site_name: elife
       app_env: prod
+      app_brand: elife
       app_hostname: prod--epp.elifesciences.org
       data_hub_api: https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v2/by-publisher/elife/get-by-manuscript-id?manuscript_id=
       storybook_hostname: prod--epp-storybook.elifesciences.org
