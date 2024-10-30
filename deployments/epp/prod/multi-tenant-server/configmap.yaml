@@ -6,10 +6,10 @@ metadata:
 data:
   default.conf: |
     upstream bpc {
-      server epp-server-bpc;
+      server epp-server.epp--biophysics-colab;
     }
     upstream elife {
-      server epp-server-elife;
+      server epp-server.epp--prod:3000;
     }
 
     map $request_method $api_prefix {
