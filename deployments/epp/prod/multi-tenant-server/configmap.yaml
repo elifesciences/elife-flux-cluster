@@ -5,15 +5,29 @@ metadata:
   namespace: epp--prod
 data:
   default.conf: |
+    upstream bpc {
+      server epp-server-bpc;
+    }
+    upstream elife {
+      server epp-server-elife;
+    }
+
+    map $request_method $api_prefix {
+      POST    '';
+      DELETE  '';
+      default '/api';
+    }
+
+    map $request_uri $tenant {
+      ~^/api/([A-Za-z0-9\-]+)    $1;
+    }
+
     server {
       listen 80;
 
-      location /api/elife {
-          proxy_pass http://epp-server.epp--prod:3000/api;
-      }
-
-      location /api/bpc {
-          proxy_pass http://epp-server.epp--biophysics-colab:3000/api;
+      location ~ ^/api/.* {
+          rewrite ^/api/[A-Za-z0-9\-]+(/.*) $api_prefix$1 break;
+          proxy_pass http://$tenant;
       }
 
       location / {
