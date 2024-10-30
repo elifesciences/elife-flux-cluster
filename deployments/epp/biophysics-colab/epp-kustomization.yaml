@@ -1,0 +1,58 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: epp--biophysics-colab
+  namespace: epp--biophysics-colab
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kustomizations/apps/epp
+  prune: true
+  targetNamespace: epp--biophysics-colab
+  images:
+  - name: ghcr.io/elifesciences/enhanced-preprints-server
+    newTag: master-cbb7c0b6-20241030.0137 # {"$imagepolicy": "epp--biophysics-colab:epp-server:tag"}
+  - name: ghcr.io/elifesciences/epp-image-server
+    newTag: master-9797adfc-20240617.1602 # {"$imagepolicy": "epp--biophysics-colab:epp-image-server:tag"}
+  - name: ghcr.io/elifesciences/enhanced-preprints-client
+    newTag: master-c658dcd9-20241026.0104 # {"$imagepolicy": "epp--biophysics-colab:epp-client:tag"}
+  - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
+    newTag: master-1d49d9b8-20241030.0326 # {"$imagepolicy": "epp--biophysics-colab:epp-import:tag"}
+  - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
+    newTag: master-1e6e944a-20241023.1029 # {"$imagepolicy": "epp--biophysics-colab:epp-biorxiv-xslt-api:tag"}
+  - name: ghcr.io/elifesciences/enhanced-preprints-encoda
+    newTag: master-c2702dd0-20241029.1831 # {"$imagepolicy": "epp--biophysics-colab:epp-encoda-api:tag"}
+  postBuild:
+    substitute:
+      site_name: biophysics-colab
+      app_env: prod
+      app_hostname: biophysics-colab--epp.elifesciences.org
+      journal_api_hostname: biophysics-colab--epp-api.elifesciences.org
+      iiif_server: https://biophysics-colab--epp.elifesciences.org/iiif
+      mongodb_hostname: epp-database-psmdb-db-replicaset
+      mongodb_secret_name: epp-database-psmdb-db-secrets
+      mongodb_secret_user_key: MONGODB_DATABASE_ADMIN_USER
+      mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD
+      client_replicas: "1"
+      server_replicas: "1"
+      s3_bucket: biophysics-colab-elife-epp-data
+      image_server_source_static: S3Source
+      image_server_s3_bucket: biophysics-colab-elife-epp-data
+      image_server_prefix: automation/
+      image_server_role_arn: arn:aws:iam::512686554592:role/epp-biophysics-colab-image-server
+      epp_server_role_arn: arn:aws:iam::512686554592:role/epp-staging-epp-server
+      show_previews: ""
+      epp_server: http://epp-server:3000
+      import_role_arn: arn:aws:iam::512686554592:role/epp-biophysics-colab-import
+      disallow_robots: all
+      # where to connect this env workers to
+      temporal_server: temporal-frontend.temporal:7233
+      temporal_namespace: epp--biophysics-colab
+      # High priority, but mostly used for importing the docmap index
+      temporal_worker_epp_replicas: "1"
+      # The queue doing most of the importing
+      temporal_worker_import_docmaps_replicas: "0"
+      keda_autoscaler_namespace_fix: 'epp--biophysics-colab'
