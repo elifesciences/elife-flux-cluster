@@ -8,12 +8,12 @@ data:
     server {
       listen 80;
 
-      location /api/elife/ {
-          proxy_pass http://epp-server.epp--prod:3000/api/;
+      location /elife/ {
+          proxy_pass http://epp-server.epp--prod:3000/;
       }
 
-      location /api/bpc/ {
-          proxy_pass http://epp-server.epp--biophysics-colab:3000/api/;
+      location /bpc/ {
+          proxy_pass http://epp-server.epp--biophysics-colab:3000/;
       }
 
       location / {
