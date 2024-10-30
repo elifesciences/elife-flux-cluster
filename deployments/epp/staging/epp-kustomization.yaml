@@ -31,7 +31,6 @@ spec:
     substitute:
       site_name: elife
       app_env: staging
-      app_brand: default
       app_hostname: staging--epp.elifesciences.org
       data_hub_api: https://data-hub-api--stg.elifesciences.org/enhanced-preprints/docmaps/v2/by-publisher/elife/get-by-manuscript-id?manuscript_id=
       storybook_hostname: staging--epp-storybook.elifesciences.org

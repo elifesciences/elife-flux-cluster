@@ -3,9 +3,6 @@ kind: Ingress
 metadata:
   name: epp
   namespace: epp--biophysics-colab
-  annotations:
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      more_clear_input_headers "x-epp-brand: biophysics_colab";
   labels:
     app_name: epp
     app_env: prod
