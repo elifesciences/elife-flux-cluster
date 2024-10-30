@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: epp-multi-tenant-server
+data:
+  default.conf: |
+    server {
+      listen 80;
+
+      location /elife/ {
+          proxy_pass http://epp-server.epp--prod:3000/;
+      }
+
+      location /bpc/ {
+          proxy_pass http://epp-server.epp--biophysics-colab:3000/;
+      }
+
+      location / {
+          root   /usr/share/nginx/html;
+          index  index.html index.htm;
+      }
+    }

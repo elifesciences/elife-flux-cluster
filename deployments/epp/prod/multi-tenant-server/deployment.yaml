@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epp-multi-tenant-server
+spec:
+  selector:
+    matchLabels:
+      app: epp-multi-tenant-server
+  template:
+    metadata:
+      labels:
+        app: epp-multi-tenant-server
+    spec:
+      containers:
+      - name: epp-multi-tenant-server
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: site-config
+          mountPath: /etc/nginx/conf.d/default.conf
+      volumes:
+      - name: site-config
+        configMap:
+          name: epp-multi-tenant-server
+          items:
+          - key: default.conf
+            path: default.conf
