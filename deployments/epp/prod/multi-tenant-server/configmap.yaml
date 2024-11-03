@@ -25,17 +25,17 @@ data:
     server {
       listen 80;
 
-      location ~ ^/api/.* {
-          rewrite ^/api/[A-Za-z0-9\-]+(/.*) $api_prefix$1 break;
-          proxy_pass http://$tenant;
-      }
-
-      location /api/elife/config {
+      location = /api/elife/config {
           return 200 '{"id":"elife","layout":"default","i18nNamespace":"elife","logo":"https://sciety.org/static/images/article-page/elife-logo-sm.svg","colors":{"primary":"#087acc","primaryDark":"#0769b0"}}';
       }
 
-      location /api/bpc/config {
+      location = /api/bpc/config {
           return 200 '{"id":"biophysics-colab","layout":"biophysics-colab","i18nNamespace":"biophysics_colab","logo":"https://sciety.org/static/images/home-page/biophysics-colab.png","colors":{"primary":"#5556a8","primaryDark":"#50519b"}}';
+      }
+
+      location ~ ^/api/.* {
+          rewrite ^/api/[A-Za-z0-9\-]+(/.*) $api_prefix$1 break;
+          proxy_pass http://$tenant;
       }
 
       location / {
