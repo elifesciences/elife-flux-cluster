@@ -5,7 +5,7 @@ metadata:
   namespace: epp--prod
 data:
   default.conf: |
-    upstream bpc {
+    upstream biophysics-colab {
       server epp-server.epp--biophysics-colab;
     }
     upstream elife {
