@@ -6,7 +6,7 @@ metadata:
 data:
   default.conf: |
     upstream biophysics-colab {
-      server epp-server.epp--biophysics-colab;
+      server epp-server.epp--biophysics-colab:3000;
     }
     upstream elife {
       server epp-server.epp--prod:3000;
