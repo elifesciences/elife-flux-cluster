@@ -10,4 +10,5 @@ fi
 
 cd $(dirname $0)
 
+curl -sL https://raw.githubusercontent.com/Kong/charts/refs/tags/gateway-operator-$1/charts/gateway-operator/charts/kubernetes-configuration-crds/crds/kubernetes-configuration-crds.yaml > kong-config.crd.yaml
 curl -sL https://raw.githubusercontent.com/Kong/charts/refs/tags/gateway-operator-$1/charts/gateway-operator/crds/custom-resource-definitions.yaml > kong.crd.yaml
