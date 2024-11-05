@@ -7,5 +7,5 @@ metadata:
 spec:
   interval: 10m0s
   ref:
-    tag: v0.0.16
+    tag: v0.0.17
   url: https://github.com/elifesciences/data-science-dags
