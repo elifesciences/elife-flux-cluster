@@ -5,7 +5,7 @@ metadata:
   namespace: epp--preview-2202
   annotations:
     nginx.ingress.kubernetes.io/configuration-snippet: |
-      more_set_input_headers "x-epp-tenant-id: biophsyics-colab";
+      more_set_input_headers "x-epp-tenant-id: biophysics-colab";
 spec:
   rules:
   - host: pr-2202--epp-biophysics-colab.elifesciences.org
