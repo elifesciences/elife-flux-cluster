@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: epp-elife
+  namespace: epp--preview-2202
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_input_headers "x-epp-tenant-id: elife";
+spec:
+  rules:
+  - host: pr-2202--epp-elife.elifesciences.org
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: epp-client
+            port:
+              number: 3000
