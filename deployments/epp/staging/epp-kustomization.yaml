@@ -19,8 +19,6 @@ spec:
     newTag: master-9797adfc-20240617.1602 # {"$imagepolicy": "epp--staging:epp-image-server:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-client
     newTag: master-d00941dc-20241101.1531 # {"$imagepolicy": "epp--staging:epp-client:tag"}
-  - name: ghcr.io/elifesciences/enhanced-preprints-storybook
-    newTag: master-ddbcbcff-20240524.1045 # {"$imagepolicy": "epp--staging:epp-storybook:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
     newTag: master-7d56ae48-20241104.1443 # {"$imagepolicy": "epp--staging:epp-import:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
@@ -33,7 +31,6 @@ spec:
       app_env: staging
       app_hostname: staging--epp.elifesciences.org
       data_hub_api: https://data-hub-api--stg.elifesciences.org/enhanced-preprints/docmaps/v2/by-publisher/elife/get-by-manuscript-id?manuscript_id=
-      storybook_hostname: staging--epp-storybook.elifesciences.org
       journal_api_hostname: staging--epp-api.elifesciences.org
       iiif_server: https://staging--epp.elifesciences.org/iiif
       image_server_source_base_url: https://github.com/elifesciences/enhanced-preprints-data/raw/staging/data/

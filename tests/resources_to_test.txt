@@ -43,13 +43,11 @@
 # 2m deployment Available epp--prod epp-client
 # 2m deployment Available epp--prod epp-image-server
 # 2m deployment Available epp--prod epp-server
-# 2m deployment Available epp--prod epp-storybook
 # 2m deployment Available epp--prod epp-biorxiv-xslt-api
 # 2m helmrelease ready epp--prod epp-database
 # 2m deployment Available epp--staging epp-client
 # 2m deployment Available epp--staging epp-image-server
 # 2m deployment Available epp--staging epp-server
-# 2m deployment Available epp--staging epp-storybook
 # 2m deployment Available epp--staging epp-biorxiv-xslt-api
 # 2m helmrelease ready epp--staging epp-database
 
