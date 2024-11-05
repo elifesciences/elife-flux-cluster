@@ -41,7 +41,7 @@ spec:
           value: ${disallow_robots:=''}
         readinessProbe:
           httpGet:
-            path: /
+            path: /api/ping
             port: 3000
           initialDelaySeconds: 30
           periodSeconds: 5
