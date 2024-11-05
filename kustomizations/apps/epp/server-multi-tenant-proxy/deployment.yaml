@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: epp-multi-tenant-server
-  namespace: epp--prod
+  namespace: epp
 spec:
   selector:
     matchLabels:

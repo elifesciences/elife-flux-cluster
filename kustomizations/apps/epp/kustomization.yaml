@@ -4,6 +4,7 @@ namespace: epp
 resources:
 - image-server
 - server
+- server-multi-tenant-proxy
 - client
 - ingress.yaml
 - import
