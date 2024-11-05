@@ -80,6 +80,7 @@ spec:
                   app_env: epp--preview-{{ matrix.pr.number }}
                   app_hostname: pr-{{ matrix.pr.number }}--epp.elifesciences.org
                   epp_server: http://epp-server.epp--staging:3000
+                  epp_multi_tenant_server: http://epp-multi-tenant-server.epp--staging
                   iiif_server: https://staging--epp.elifesciences.org/iiif
                   private_iiif_server: http://epp-image-server.epp--staging:8182/iiif
                   client_replicas: "1"

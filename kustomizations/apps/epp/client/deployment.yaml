@@ -21,6 +21,8 @@ spec:
           value: ${site_name:=''}
         - name: API_SERVER
           value: ${epp_server:='http://epp-server:3000'}
+        - name: MULTI_TENANT_API_SERVER
+          value: ${epp_multi_tenant_server:='http://epp-multi-tenant-server'}
         - name: NEXT_PUBLIC_IMAGE_SERVER
           value: ${iiif_server}
         - name: IIIF_SERVER
