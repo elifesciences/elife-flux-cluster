@@ -71,6 +71,9 @@ spec:
   pmm:
     enabled: false
     image: percona/pmm-client:2.43.2
+    # Not sure why percona keep making values mandatory when they're not enabled
+    secret: NOTUSED
+    serverHost: NOTUSED
   proxy:
     pgBouncer:
       image: percona/percona-postgresql-operator:${operator_version:-2.5.0}-ppg${postgres_version}-pgbouncer
