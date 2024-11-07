@@ -1775,7 +1775,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'XML'
-    image: 'elifesciences/data-hub-ejp-xml-pipeline_unstable:HEAD-1c1cc459-20241106.1700'  # we need to update this with place holders
+    image: 'elifesciences/data-hub-ejp-xml-pipeline_unstable:HEAD-824d02eb-20241107.1159'  # we need to update this with place holders
     imagePullPolicy: Always
     arguments:
       - 'python'
