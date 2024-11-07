@@ -33,3 +33,5 @@ spec:
           - secretName: victorialogs-tls
             hosts:
               - victorialogs.${cluster_domain}
+    fluent-bit:
+      enabled: false
