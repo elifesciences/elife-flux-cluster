@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: victoriametrics
-      version: "0.7.1"
+      version: "0.7.3"
   interval: 1h0m0s
   values:
     server:
@@ -33,3 +33,5 @@ spec:
           - secretName: victorialogs-tls
             hosts:
               - victorialogs.${cluster_domain}
+    fluent-bit:
+      enabled: false
