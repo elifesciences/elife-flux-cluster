@@ -25,3 +25,5 @@ spec:
       data_hub_data_science_dags_unstable_image_tag: develop-43ba3c08-20241104.1650 # {"$imagepolicy": "data-hub:data-hub-data-science-dags-unstable:tag"}
       data_hub_peerscout_dags_unstable_image_repo: docker.io/elifesciences/peerscout-dags_unstable # {"$imagepolicy": "data-hub:data-hub-peerscout-dags-unstable:name"}
       data_hub_peerscout_dags_unstable_image_tag: HEAD-97338d07-20241029.0909 # {"$imagepolicy": "data-hub:data-hub-peerscout-dags-unstable:tag"}
+      data_hub_ejp_xml_pipeline_unstable_image_repo: docker.io/elifesciences/data-hub-ejp-xml-pipeline_unstable # {"$imagepolicy": "data-hub:data-hub-ejp-xml-pipeline-unstable:name"}
+      data_hub_ejp_xml_pipeline_unstable_image_tag: HEAD-824d02eb-20241107.1159 # {"$imagepolicy": "data-hub:data-hub-ejp-xml-pipeline-unstable:tag"}
