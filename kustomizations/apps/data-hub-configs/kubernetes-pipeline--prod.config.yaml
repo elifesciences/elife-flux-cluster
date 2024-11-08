@@ -1775,7 +1775,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'XML'
-    image: 'elifesciences/data-hub-ejp-xml-pipeline:0.0.1' # this will be updated with placeholders
+    image: '${data_hub_ejp_xml_pipeline_stable_image_repo}:${data_hub_ejp_xml_pipeline_stable_image_tag}'
     imagePullPolicy: Always
     arguments:
       - 'python'
