@@ -17,5 +17,5 @@ spec:
     name: data-hub-ejp-xml-pipeline-stable
     namespace: data-hub
   policy:
-    numerical:
-      order: asc
+    semver:
+      range: '*'
