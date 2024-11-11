@@ -60,7 +60,7 @@ spec:
             limits: {}
         vminsert:
           extraArgs:
-            maxLabelsPerTimeseries: "50"
+            maxLabelsPerTimeseries: "55"
           resources:
             requests:
               cpu: 500m
