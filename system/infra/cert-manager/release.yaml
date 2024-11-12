@@ -21,6 +21,9 @@ spec:
       retries: 5
 
   values:
+    serviceAccount:
+      annotations:
+        eks.amazonaws.com/role-arn: ${aws_cert_manager_service_account_role_arn}
     config:
       apiVersion: controller.config.cert-manager.io/v1alpha1
       kind: ControllerConfiguration
