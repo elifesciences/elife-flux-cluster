@@ -1,0 +1,16 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: openalex-api
+  namespace: data-hub
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: secret-store
+    kind: ClusterSecretStore
+  target:
+    name: openalex-api
+    creationPolicy: Owner
+  dataFrom:
+  - extract:
+      key: data-team/data-hub/openalex-api
