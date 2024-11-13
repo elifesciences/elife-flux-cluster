@@ -686,8 +686,6 @@ webApi:
   - dataPipelineId: openalex_works_metadata_for_preprints
     description:
       Retrieve OpenAlex metadata for all of the preprints.
-      Currently this will use the publication date to chunk data.
-      It is recommended to use the `updated_date` which requires premium access.
     airflow:
       dagParameters:
         schedule: null
@@ -695,7 +693,7 @@ webApi:
     table: openalex_works_api_response
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
-      objectName: 'airflow-config/generic-web-api/{ENV}-openalex_works_metadata_for_preprints-state.json'
+      objectName: 'airflow-config/generic-web-api/{ENV}-openalex_works_metadata_for_preprints-state-by-updated-date.json'
     retry:
       maxRetryCount: 10
       retryBackoffFactor: 1
@@ -704,6 +702,10 @@ webApi:
         - 500
         - 502
         - 504
+    headers:
+      parametersFromFile:
+        - parameterName: api_key
+          filePathEnvName: OPENALEX_API_KEY_FILE_PATH
     urlSourceType:
       # Note: We currently need to use `crossref_metadata_api` for the cursor parameter to work
       # It is also currently required for the `filter` parameter support
@@ -712,11 +714,12 @@ webApi:
       urlExcludingConfigurableParameters: 'https://api.openalex.org/works?filter=type:preprint'
       configurableParameters:
         nextPageCursorParameterName: 'cursor'
-        fromDateParameterName: 'from_publication_date'
-        toDateParameterName: 'to_publication_date'
+        fromDateParameterName: 'from_updated_date'
+        toDateParameterName: 'to_updated_date'
         daysDiffFromStartTillEnd: 30
-        defaultStartDate: '1744-01-01+00:00'
-        dateFormat: '%Y-%m-%d'
+        defaultStartDate: '2024-04-23+00:00'
+        # Note: OpenAlex do not seem to use timezones
+        dateFormat: '%Y-%m-%dT%H:%M:%S.%f'
         pageSizeParameterName: 'per-page'
         defaultPageSize: 200
     response:
@@ -730,7 +733,7 @@ webApi:
         - count
       recordTimestamp:
         itemTimestampKeyFromItemRoot:
-          - 'publication_date'
+          - 'updated_date'
       onSameNextCursor: Error
       provenanceEnabled: True
       fieldsToReturn:
