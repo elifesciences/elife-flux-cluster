@@ -6,7 +6,7 @@ metadata:
   labels:
     application: kube-web-view
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    cert-manager.io/cluster-issuer: "letsencrypt"
     nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
     nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
 spec:
