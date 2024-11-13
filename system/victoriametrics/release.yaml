@@ -76,7 +76,7 @@ spec:
               hosts:
                 - victoriametrics.${cluster_domain}
           annotations:
-            cert-manager.io/cluster-issuer: "letsencrypt-prod"
+            cert-manager.io/cluster-issuer: "letsencrypt"
             nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
             nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
     vmagent:
@@ -94,7 +94,7 @@ spec:
       ingress:
         enabled: true
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          cert-manager.io/cluster-issuer: "letsencrypt"
           nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
           nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
         hosts:
@@ -115,7 +115,7 @@ spec:
       ingress:
         enabled: true
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          cert-manager.io/cluster-issuer: "letsencrypt"
           nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
           nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
         hosts:
@@ -152,7 +152,7 @@ spec:
             hosts:
               - alertmanager.${cluster_domain}
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          cert-manager.io/cluster-issuer: "letsencrypt"
           nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
           nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
     defaultRules:
