@@ -15,7 +15,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt
   name: sciencebeam-texture--prod
   namespace: sciencebeam
 spec:
@@ -43,7 +43,7 @@ values:
     ingress:
         enabled: "true"
         annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        cert-manager.io/cluster-issuer: "letsencrypt"
         hosts:
         - host: sciencebeam-texture.elifesciences.org
         paths:
