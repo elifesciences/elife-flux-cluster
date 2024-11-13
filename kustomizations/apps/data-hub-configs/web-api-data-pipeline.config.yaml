@@ -716,7 +716,7 @@ webApi:
         nextPageCursorParameterName: 'cursor'
         fromDateParameterName: 'from_updated_date'
         toDateParameterName: 'to_updated_date'
-        daysDiffFromStartTillEnd: 30
+        daysDiffFromStartTillEnd: 1
         defaultStartDate: '2024-04-23+00:00'
         # Note: OpenAlex do not seem to use timezones
         dateFormat: '%Y-%m-%dT%H:%M:%S.%f'
