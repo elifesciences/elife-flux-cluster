@@ -10,6 +10,7 @@ resources:
 - automations/approved-policy.yaml
 - biorxiv-xslt-api
 - encoda-api
+- import-controller
 labels:
 - includeSelectors: true
   pairs:
