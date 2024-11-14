@@ -1,0 +1,20 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: epp-import-controller
+  annotations:
+    nginx.ingress.kubernetes.io/auth-signin: https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri
+    nginx.ingress.kubernetes.io/auth-url: https://oauth-proxy.elifesciences.org/oauth2/auth
+spec:
+  rules:
+      - host: ${import_controller_hostname}
+        http:
+          paths:
+            - path: /
+              pathType: Prefix
+              backend:
+                service:
+                  name: epp-import-controller
+                  port:
+                    number: 5000

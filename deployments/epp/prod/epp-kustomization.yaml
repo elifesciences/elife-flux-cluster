@@ -66,3 +66,4 @@ spec:
       epp_image_server_memory_requests: 4Gi
       epp_image_server_cpu_requests: 600m
       epp_server_cpu_requests: 150m
+      import_controller_hostname: prod--epp-controller.elifesciences.org
