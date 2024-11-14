@@ -440,6 +440,37 @@ webApi:
           - 'Web API'
           - 'DocMaps'
 
+  - dataPipelineId: biorxiv_medrxiv_meca_path_metadata_v2
+    dataset: '{ENV}'
+    table: biorxiv_medrxiv_meca_path_metadata_v2
+    source:
+      include:
+        bigQuery:
+          projectName: 'elife-data-pipeline'
+          sqlQuery: |-
+            SELECT DISTINCT
+              CONCAT(manuscript_version.preprint_doi, 'v', manuscript_version.preprint_version) AS biorxiv_versioned_doi
+            FROM `elife-data-pipeline.{ENV}.mv_docmaps_index`
+            JOIN UNNEST(manuscript_versions) AS manuscript_version
+            WHERE STARTS_WITH(manuscript_version.preprint_doi , '10.1101')
+              AND manuscript_version.preprint_version IS NOT NULL
+      exclude:
+        bigQuery:
+          ignoreNotFound: true
+          projectName: 'elife-data-pipeline'
+          sqlQuery:
+            SELECT
+              CONCAT(meca_path_metadata.tdm_doi, 'v', meca_path_metadata.ms_version) AS biorxiv_versioned_doi
+            FROM `elife-data-pipeline.{ENV}.biorxiv_medrxiv_meca_path_metadata_v2`
+            JOIN UNNEST(results) AS meca_path_metadata
+        keyFieldNameFromInclude: 'biorxiv_versioned_doi'
+    urlSourceType:
+      name: 'crossref_metadata_api'
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index_v2/elife/{biorxiv_versioned_doi}
+    response:
+      provenanceEnabled: True
+
   # bioRxiv/medRxiv apis
   # bioRxiv api
   - dataPipelineId: biorxiv_api
