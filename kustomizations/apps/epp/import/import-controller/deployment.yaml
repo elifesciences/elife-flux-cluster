@@ -16,6 +16,15 @@ spec:
         image: ghcr.io/elifesciences/enhanced-preprints-import-controller:latest
         ports:
         - containerPort: 5000
+        env:
+          - name: TEMPORAL_NAMESPACE
+            value: ${import_controller_temporal_namespace:='epp--staging'}
+          - name: TEMPORAL_UI
+            value: ${import_controller_temporal_ui:='https://temporal.elifesciences.org'}
+          - name: TEMPORAL_SERVER
+            value: ${import_controller_temporal_server:='temporal-frontend.temporal:7233'}
+          - name: TEMPORAL_TASK_QUEUE
+            value: ${import_controller_temporal_task_queue:='epp'}
         readinessProbe:
           httpGet:
             path: /ping
