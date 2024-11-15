@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: epp-import-controller
-        image: ghcr.io/elifesciences/enhanced-preprints-import-controller:master-ba50c746-20241115.1451
+        image: ghcr.io/elifesciences/enhanced-preprints-import-controller:latest
         ports:
         - containerPort: 5000
         env:
