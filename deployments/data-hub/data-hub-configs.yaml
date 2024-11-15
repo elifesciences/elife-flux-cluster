@@ -20,7 +20,7 @@ spec:
       data_hub_peerscout_dags_stable_image_repo: docker.io/elifesciences/peerscout-dags # {"$imagepolicy": "data-hub:data-hub-peerscout-dags-stable:name"}
       data_hub_peerscout_dags_stable_image_tag: 0.0.2 # {"$imagepolicy": "data-hub:data-hub-peerscout-dags-stable:tag"}
       data_hub_ejp_xml_pipeline_stable_image_repo: docker.io/elifesciences/data-hub-ejp-xml-pipeline # {"$imagepolicy": "data-hub:data-hub-ejp-xml-pipeline-stable:name"}
-      data_hub_ejp_xml_pipeline_stable_image_tag: 0.0.1 # {"$imagepolicy": "data-hub:data-hub-ejp-xml-pipeline-stable:tag"}
+      data_hub_ejp_xml_pipeline_stable_image_tag: 0.0.2 # {"$imagepolicy": "data-hub:data-hub-ejp-xml-pipeline-stable:tag"}
       data_hub_core_dags_unstable_image_repo: docker.io/elifesciences/data-hub-core-dags_unstable # {"$imagepolicy": "data-hub:data-hub-core-dags-unstable:name"}
       data_hub_core_dags_unstable_image_tag: HEAD-b924aa36-20241114.1423 # {"$imagepolicy": "data-hub:data-hub-core-dags-unstable:tag"}
       data_hub_data_science_dags_unstable_image_repo: docker.io/elifesciences/data-science-dags_unstable # {"$imagepolicy": "data-hub:data-hub-data-science-dags-unstable:name"}
