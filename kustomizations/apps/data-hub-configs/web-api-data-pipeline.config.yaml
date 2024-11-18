@@ -701,8 +701,6 @@ webApi:
               AND article_id IN (
                 SELECT manuscript_id FROM `elife-data-pipeline.{ENV}.mv_docmaps_index`
               )
-    urlSourceType:
-      name: 'crossref_metadata_api' # this url source type name can be updated in future
     dataUrl:
       urlExcludingConfigurableParameters: https://prod--gateway.elifesciences.org/articles/{article_id}/versions
     airflow:
