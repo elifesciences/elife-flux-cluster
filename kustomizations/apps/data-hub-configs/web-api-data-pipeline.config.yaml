@@ -636,8 +636,6 @@ webApi:
           sqlQuery:
             SELECT id
             FROM `elife-data-pipeline.{ENV}.elife_collections_list`
-    urlSourceType:
-      name: 'crossref_metadata_api' # this url source type name can be updated in future
     dataUrl:
       urlExcludingConfigurableParameters: https://api.elifesciences.org/collections/{id}
     airflow:
