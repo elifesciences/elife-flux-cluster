@@ -465,11 +465,12 @@ webApi:
             JOIN UNNEST(results) AS meca_path_metadata
         keyFieldNameFromInclude: 'biorxiv_versioned_doi'
     urlSourceType:
-      name: 'crossref_metadata_api'
+      name: 'single_source_value'
     dataUrl:
       urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index_v2/elife/{biorxiv_versioned_doi}
     response:
       provenanceEnabled: True
+    batchSize: 100
 
   # bioRxiv/medRxiv apis
   # bioRxiv api
