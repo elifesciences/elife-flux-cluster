@@ -19,7 +19,7 @@ spec:
       instance_storage: "8"
       instance_class: db.t3.small
       engine: postgres
-      engine_version: \"16\"
+      engine_version: "\"16\""
       project: data-hub
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
