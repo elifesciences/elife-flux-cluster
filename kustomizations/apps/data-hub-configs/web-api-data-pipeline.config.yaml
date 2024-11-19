@@ -442,7 +442,7 @@ webApi:
 
   - dataPipelineId: biorxiv_medrxiv_meca_path_metadata_v2
     dataset: '{ENV}'
-    table: biorxiv_medrxiv_meca_path_metadata_v2
+    table: biorxiv_medrxiv_meca_path_metadata_v2_api_response
     source:
       include:
         bigQuery:
@@ -461,7 +461,7 @@ webApi:
           sqlQuery:
             SELECT
               CONCAT(meca_path_metadata.tdm_doi, 'v', meca_path_metadata.ms_version) AS biorxiv_versioned_doi
-            FROM `elife-data-pipeline.{ENV}.biorxiv_medrxiv_meca_path_metadata_v2`
+            FROM `elife-data-pipeline.{ENV}.biorxiv_medrxiv_meca_path_metadata_v2_api_response`
             JOIN UNNEST(results) AS meca_path_metadata
         keyFieldNameFromInclude: 'biorxiv_versioned_doi'
     urlSourceType:
