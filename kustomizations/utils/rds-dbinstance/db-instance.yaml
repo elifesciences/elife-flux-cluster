@@ -8,10 +8,10 @@ spec:
   dbInstanceClass: ${instance_class}
   dbInstanceIdentifier: ${instance_name}
   manageMasterUserPassword: true
-  masterUsername: postgres
-  dbName: postgres
+  masterUsername: "${master_username:-postgres}"
+  dbName: "${db_name:-postgres}"
   port: 5432
-  engine: postgres
+  engine: "${engine:-postgres}"
   engineVersion: "${engine_version}"
   vpcSecurityGroupIDs:
     - sg-0a04b1c8433227e63

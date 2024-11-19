@@ -33,7 +33,7 @@ spec:
         enabled: true
         searchNamespace: ALL
     plugins:
-    - https://github.com/VictoriaMetrics/victorialogs-datasource/releases/download/v0.5.0/victorialogs-datasource-v0.5.0.zip;victorialogs-datasource
+    - https://github.com/VictoriaMetrics/victorialogs-datasource/releases/download/v0.7.0/victorialogs-datasource-v0.7.0.zip;victorialogs-datasource
     grafana.ini:
       plugins:
         allow_loading_unsigned_plugins: victorialogs-datasource
