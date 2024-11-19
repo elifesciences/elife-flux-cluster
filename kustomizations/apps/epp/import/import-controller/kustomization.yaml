@@ -7,6 +7,7 @@ resources:
 - ingress.yaml
 - automations/repository.yaml
 - automations/policy.yaml
+- automations/approved-policy.yaml
 labels:
 - includeSelectors: true
   pairs:
