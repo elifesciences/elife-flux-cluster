@@ -947,7 +947,7 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_biorxiv_medrxiv_meca_path_metadata_v2_Kubernetes'
     airflow:
       dagParameters:
-        schedule: null
+        schedule: '@hourly'
         max_active_runs: 1
         tags:
           - 'Kubernetes'
