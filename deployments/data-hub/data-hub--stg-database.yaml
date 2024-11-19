@@ -41,7 +41,7 @@ spec:
   postBuild:
     substitute:
       external_secret_name: data-hub-database--stg-password-secret
-      kubernetes_secret_name: data-hub-database--stg
+      kubernetes_secret_name: data-hub-database-stg-connection-values
       creation_policy: Merge
     substituteFrom:
     - kind: Secret
