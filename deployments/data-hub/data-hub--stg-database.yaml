@@ -45,4 +45,4 @@ spec:
       creation_policy: Merge
     substituteFrom:
     - kind: Secret
-      name: data-hub-database--stg
+      name: data-hub-database-stg-connection-values
