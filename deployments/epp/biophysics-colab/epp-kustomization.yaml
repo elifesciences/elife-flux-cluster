@@ -48,7 +48,7 @@ spec:
       epp_server: http://epp-server:3000
       import_role_arn: arn:aws:iam::512686554592:role/epp-biophysics-colab-import
       disallow_robots: all
-      disable_terms: "true"
+      disable_terms: all
       # where to connect this env workers to
       temporal_server: temporal-frontend.temporal:7233
       temporal_namespace: epp--biophysics-colab
