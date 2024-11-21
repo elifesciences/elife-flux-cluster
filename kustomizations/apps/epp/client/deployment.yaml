@@ -40,7 +40,7 @@ spec:
         - name: DISALLOW_ROBOTS
           value: ${disallow_robots:=''}
         - name: DISABLE_TERMS
-          value: ${disable_terms:=''}
+          value: ${disable_terms:='false'}
         readinessProbe:
           httpGet:
             path: /api/ping

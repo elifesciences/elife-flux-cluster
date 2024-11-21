@@ -87,7 +87,6 @@ spec:
                   is_automated: "yeah"
                   show_previews: all
                   disallow_robots: all
-                  disable_terms: all
         - raw: |
             apiVersion: templates.kluctl.io/v1alpha1
             kind: GithubComment
