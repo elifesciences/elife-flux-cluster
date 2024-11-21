@@ -39,6 +39,8 @@ spec:
           value: ${show_previews:=''}
         - name: DISALLOW_ROBOTS
           value: ${disallow_robots:=''}
+        - name: NEXT_PUBLIC_DISABLE_TERMS
+          value: ${disable_terms:='false'}
         readinessProbe:
           httpGet:
             path: /api/ping
