@@ -39,7 +39,7 @@ spec:
           value: ${show_previews:=''}
         - name: DISALLOW_ROBOTS
           value: ${disallow_robots:=''}
-        - name: DISABLE_TERMS
+        - name: NEXT_PUBLIC_DISABLE_TERMS
           value: ${disable_terms:='false'}
         readinessProbe:
           httpGet:
