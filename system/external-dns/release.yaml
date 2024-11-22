@@ -37,5 +37,3 @@ spec:
     policy: sync
     provider:
       name: aws
-    extraArgs:
-      - --dry-run
