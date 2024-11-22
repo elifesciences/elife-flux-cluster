@@ -4,7 +4,6 @@ namespace: infra
 resources:
 - namespace.yaml
 - cert-manager
-- external-dns
 - external-secrets
 - ingress-nginx
 - oauth2-proxy
