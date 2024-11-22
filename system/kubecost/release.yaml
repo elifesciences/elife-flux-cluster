@@ -51,17 +51,17 @@ spec:
       resources:
         requests:
           cpu: 1000m
-          memory: 738Mi
+          memory: 834Mi
         limits:
-          memory: 738Mi
+          memory: 834Mi
     kubecostAggregator:
       resources:
         requests:
           cpu: 1000m
-          memory: 3758Mi
+          memory: 4267Mi
         limits:
           cpu: 1000m
-          memory: 3758Mi
+          memory: 4267Mi
       cloudCost:
         resources:
           requests:
