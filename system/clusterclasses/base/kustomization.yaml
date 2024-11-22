@@ -4,6 +4,7 @@ resources:
 - ../../infra
 - ../../ack-system
 - ../../database
+- ../../external-dns
 - ../../external-secrets
 - ../../gitops-dashboard
 - ../../gemini
