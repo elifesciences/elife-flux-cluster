@@ -47,3 +47,56 @@ spec:
     consolidationPolicy: WhenEmptyOrUnderutilized
     budgets:
     - nodes: "1"
+
+---
+apiVersion: karpenter.sh/v1
+kind: NodePool
+metadata:
+  name: data-hub-services-saving-plan
+spec:
+  template:
+    metadata:
+      labels:
+        Cluster: "${cluster_name}"
+        Project: "${team_name}"
+        elifesciences.org/project: "${team_name}"
+        type: karpenter
+        data-hub-workload: "services"
+    spec:
+      expireAfter: 720h # 30 * 24h = 720h
+      nodeClassRef:
+        group: karpenter.k8s.aws
+        kind: EC2NodeClass
+        name: data-hub
+      taints:
+        - key: project
+          value: "${team_name}"
+          effect: NoSchedule
+        - key: workload
+          value: "services"
+          effect: NoSchedule
+      requirements:
+        - key: kubernetes.io/os
+          operator: In
+          values: ["linux"]
+        - key: karpenter.sh/capacity-type
+          operator: In
+          values: ["on-demand"]
+        - key: karpenter.k8s.aws/instance-category
+          operator: In
+          values: ["t"]
+        - key: karpenter.k8s.aws/instance-hypervisor
+          operator: In
+          values: ["nitro"]
+        - key: "kubernetes.io/arch"
+          operator: In
+          values: ["arm64"]
+  limits:
+    cpu: 2
+  weight: 50
+  disruption:
+    consolidateAfter: "0s"
+    consolidationPolicy: WhenEmptyOrUnderutilized
+    budgets:
+    - nodes: "1"
+
