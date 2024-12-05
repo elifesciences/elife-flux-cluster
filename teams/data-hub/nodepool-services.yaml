@@ -90,7 +90,7 @@ spec:
           values: ["nitro"]
         - key: "kubernetes.io/arch"
           operator: In
-          values: ["arm64"]
+          values: ["amd64"]
   limits:
     cpu: 2
   weight: 50
@@ -99,4 +99,3 @@ spec:
     consolidationPolicy: WhenEmptyOrUnderutilized
     budgets:
     - nodes: "1"
-
