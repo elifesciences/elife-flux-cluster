@@ -59,3 +59,17 @@ spec:
       keda_autoscaler_namespace_fix: 'epp--biophysics-colab'
       import_controller_hostname: biophysics-colab--epp-controller.elifesciences.org
       import_controller_temporal_namespace: 'epp--biophysics-colab'
+  patches:
+    - target:
+        kind: Ingress
+        name: epp-import-controller
+      patch: |
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          name: epp-import-controller
+          annotations:
+            nginx.ingress.kubernetes.io/auth-type: basic
+            nginx.ingress.kubernetes.io/auth-secret: epp-import-controller-http-basic-auth
+            nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
+          
