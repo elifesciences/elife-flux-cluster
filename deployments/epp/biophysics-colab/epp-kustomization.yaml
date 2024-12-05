@@ -58,3 +58,4 @@ spec:
       temporal_worker_import_docmaps_replicas: "0"
       keda_autoscaler_namespace_fix: 'epp--biophysics-colab'
       import_controller_hostname: biophysics-colab--epp-controller.elifesciences.org
+      import_controller_temporal_namespace: 'epp--biophysics-colab'
