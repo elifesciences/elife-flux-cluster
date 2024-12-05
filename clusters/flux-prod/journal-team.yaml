@@ -16,10 +16,10 @@ spec:
   - name: policies
   postBuild:
     substitute:
-      cluster_name: flux-prod
-      cluster_domain: flux-prod.elifesciences.org
-      cluster_oidc_arn: "arn:aws:iam::512686554592:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/0108D0073AFB87B6669E378F0A9CFB76"
-      cluster_oidc_url: "oidc.eks.us-east-1.amazonaws.com/id/0108D0073AFB87B6669E378F0A9CFB76"
+      cluster_name: ${cluster_name}
+      cluster_domain: ${cluster_domain}
+      cluster_oidc_arn: ${cluster_oidc_arn}
+      cluster_oidc_url: ${cluster_oidc_url}
       aws_account_id: "\"512686554592\""
       aws_region: us-east-1
       aws_backup_s3_bucket: "elife-flux-prod-backups"
