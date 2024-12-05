@@ -33,3 +33,8 @@ spec:
         name: not-important
         annotations:
           elifesciences.org/default-project: ${team_name}
+  postBuild:
+    substitute:
+      cluster_name: ${cluster_name}
+      cluster_oidc_arn: ${cluster_oidc_arn}
+      cluster_oidc_url: ${cluster_oidc_url}

@@ -16,5 +16,7 @@ spec:
   - name: policies
   postBuild:
     substitute:
-      cluster_name: flux-prod
+      cluster_name: ${cluster_name}
+      cluster_oidc_arn: ${cluster_oidc_arn}
+      cluster_oidc_url: ${cluster_oidc_url}
       team_name: sciety
