@@ -26,7 +26,7 @@ spec:
   - name: ghcr.io/elifesciences/enhanced-preprints-encoda
     newTag: master-c2702dd0-20241029.1831 # {"$imagepolicy": "epp--biophysics-colab:epp-encoda-api:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-import-controller
-    newTag: master-511b9ef8-20241205.1948 # {"$imagepolicy": "epp--biophysics-colab:epp-import-controller:tag"}
+    newTag: master-3f6ed297-20241206.2111 # {"$imagepolicy": "epp--biophysics-colab:epp-import-controller:tag"}
   postBuild:
     substitute:
       site_name: biophysics-colab
