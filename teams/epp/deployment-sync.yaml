@@ -1,0 +1,47 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: epp-team-deployment
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  ref:
+    branch: main
+  secretRef:
+    name: epp-team-deployment
+  url: ssh://git@github.com/elifesciences/epp-team-deployment
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: epp-team-deployment
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./manifests
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: epp-team-deployment
+  patches:
+  # Auto assign any pods to the team nodepool
+  - target:
+      kind: Namespace
+    patch: |-
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: not-important
+        annotations:
+          elifesciences.org/default-project: epp
+  postBuild:
+    substitute:
+      cluster_name: "${cluster_name}"
+      cluster_domain: "${cluster_domain}"
+      cluster_oidc_arn: "${cluster_oidc_arn}"
+      cluster_oidc_url: "${cluster_oidc_url}"
+      aws_account_id: "${aws_account_id}"
+      aws_region: "${aws_region}"
+      aws_backup_s3_bucket: "${aws_backup_s3_bucket}"
+      aws_backup_service_account_role_arn: "${aws_backup_service_account_role_arn}"
