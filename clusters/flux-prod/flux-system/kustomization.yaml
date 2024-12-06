@@ -5,6 +5,12 @@ resources:
 - gotk-sync.yaml
 patches:
 - target:
+    name: flux-system
+    kind: Kustomization
+    namespace: flux-system
+  path: patches/cluster-variable-substitutions.yaml
+
+- target:
     kind: Deployment
     namespace: flux-system
   patch: |-
