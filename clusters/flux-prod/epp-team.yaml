@@ -16,5 +16,10 @@ spec:
   - name: policies
   postBuild:
     substitute:
-      cluster_name: flux-prod
+      cluster_name: ${cluster_name}
+      cluster_domain: ${cluster_domain}
+      cluster_oidc_arn: ${cluster_oidc_arn}
+      cluster_oidc_url: ${cluster_oidc_url}
+      aws_account_id: "512686554592"
+      aws_region: us-east-1
       team_name: epp
