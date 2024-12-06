@@ -1561,7 +1561,7 @@ kubernetesPipelines:
       - name: TMPDIR
         value: /tmp
       - name: PYTHONPATH
-        value: /home/airflow/.local/lib/python3.8/site-packages
+        value: /home/airflow/.local/lib/python3.9/site-packages
     volumeMounts:
       - name: gcloud-secret-volume
         mountPath: /dag_secret_files/gcloud/
