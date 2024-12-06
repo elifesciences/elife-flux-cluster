@@ -4,3 +4,4 @@ resources:
 - storageclass.yaml
 - nodeclass.yaml
 - nodepool.yaml
+- deployment-sync.yaml
