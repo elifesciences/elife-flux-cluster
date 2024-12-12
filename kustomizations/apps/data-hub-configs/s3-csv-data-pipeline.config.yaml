@@ -101,6 +101,24 @@ s3Csv:
     recordProcessingSteps:
       - html_unescape
 
+  - dataPipelineId: datascience_person_roles_current
+    bucketName: elife-ejp-ftp
+    objectKeyPattern:
+      - ejp_query_tool_query_id_DataScience:_Person_Roles_*_eLife.csv
+    headerLineIndex: 3
+    dataValuesStartLineIndex: 4
+    datasetName: "{ENV}"
+    tableName: datascience_person_roles_current
+    tableWriteAppend: False
+    stateFile:
+      bucketName: "{ENV}-elife-data-pipeline"
+      objectName: "airflow-config/s3-csv/{ENV}-state/datascience_person_roles_current.json"
+    inSheetRecordMetadata:
+      - metadataSchemaFieldName: date_generated_info
+        metadataLineIndex: 1
+    recordProcessingSteps:
+      - html_unescape
+
   - dataPipelineId: 779_datascience_reviewer_info_all_001
     bucketName: elife-ejp-ftp
     objectKeyPattern:
