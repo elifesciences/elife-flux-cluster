@@ -70,7 +70,7 @@ spec:
           full: 0 0 * * 6
   pmm:
     enabled: false
-    image: percona/pmm-client:2.43.2
+    image: percona/pmm-client:2.44.0
     # Not sure why percona keep making values mandatory when they're not enabled
     secret: NOTUSED
     serverHost: NOTUSED
