@@ -25,9 +25,9 @@ spec:
         resources:
           requests:
             cpu: 312m
-            memory: 1500Mi
+            memory: 1976Mi
           limits:
-            memory: 1500Mi
+            memory: 1976Mi
         persistentVolume:
           storageClass: ebs-gp3
     persistentVolume:
