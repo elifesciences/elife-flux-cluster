@@ -1,5 +1,5 @@
-KubeVersion = 1.27
-NextKubeVersion = 1.28
+KubeVersion = 1.30
+NextKubeVersion = 1.31
 RenderChart = echo "> Rendering $(1)..." && yq '.spec.values' $(1) | helm template --kube-version=$(KubeVersion)  -f - $(shell yq '.metadata.name' $(1)) --repo $(shell yq '.spec.chart.repository' $(1)) $(shell yq '.spec.chart.name' $(1)) > /dev/null && echo ">> OK"
 DryRunApply = echo "> Dry-run applying $(1)..." && kubectl apply -f $(1) --validate=true --dry-run=client > /dev/null && echo ">> OK"
 DryRunApplyChart = echo "> Dry-run applying $(1)..." && yq '.spec.values' $(1) | helm template --kube-version=$(KubeVersion)  -f - $(shell yq '.metadata.name' $(1)) --repo $(shell yq '.spec.chart.repository' $(1)) $(shell yq '.spec.chart.name' $(1)) | kubectl apply -f - --validate=true --dry-run=client  > /dev/null && echo ">> OK"

@@ -12,7 +12,7 @@ branch=${1:-master}
 echo "Building KinD cluster using '$branch' branch"
 
 kind delete cluster --name "$name"
-kind create cluster --name "$name" --image=kindest/node:v1.28.9
+kind create cluster --name "$name" --image=kindest/node:v1.30.6
 
 # Install Flux with toleration to run controllers on the real node
 kubectl create ns flux
