@@ -17,7 +17,6 @@
 2m helmrelease ready keda keda
 2m helmrelease ready keda keda-add-ons-http
 2m helmrelease ready metrics-server metrics-server
-2m helmrelease ready spegel spegel
 2m helmrelease ready grafana grafana
 2m helmrelease ready vector vector
 2m helmrelease ready infra ingress-nginx
