@@ -16,7 +16,7 @@ resources:
 - ../../metrics-server
 - ../../monitoring
 - ../../nidhogg
-- ../../spegel
+# - ../../spegel
 - ../../template-controller
 - ../../temporal
 - ../../vector
