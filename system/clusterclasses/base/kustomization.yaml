@@ -15,7 +15,7 @@ resources:
 - ../../kubecost
 - ../../metrics-server
 - ../../monitoring
-- ../../nidhogg
+# - ../../nidhogg
 # - ../../spegel
 - ../../template-controller
 - ../../temporal
