@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spacy-keyword-extraction-api--prod
+  labels:
+    app: spacy-keyword-extraction-api--prod
+  namespace: peerscout
+spec:
+  selector:
+    matchLabels:
+      app: spacy-keyword-extraction-api--prod
+  template:
+    metadata:
+      labels:
+        app: spacy-keyword-extraction-api--prod
+    spec:
+      containers:
+      - name: spacy-keyword-extraction-api
+        image: ghcr.io/elifesciences/spacy-keyword-extraction-api:0.0.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8000
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 5
+          timeoutSeconds: 120
+          periodSeconds: 60
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 5
+          timeoutSeconds: 120
+          periodSeconds: 60
+        resources:
+          requests:
+            cpu: 100m
+            memory: 2.6Gi
+          limits:
+            cpu: 500m
+            memory: 3Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spacy-keyword-extraction-api--prod
+  namespace: peerscout
+spec:
+  selector:
+    app: spacy-keyword-extraction-api--prod
+  ports:
+  - port: 8000
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spacy-keyword-extraction-api--prod
+  namespace: peerscout
+  labels:
+    app: spacy-keyword-extraction-api--prod
+spec:
+  rules:
+    - host: spacy-keyword-extraction-api.elifesciences.org
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: spacy-keyword-extraction-api--prod
+                port:
+                  number: 8000
