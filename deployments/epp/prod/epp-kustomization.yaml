@@ -26,7 +26,7 @@ spec:
     - name: ghcr.io/elifesciences/enhanced-preprints-encoda
       newTag: master-2ab2bf37-20241217.0833-approved # {"$imagepolicy": "epp--prod:epp-encoda-api-approved:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-import-controller
-      newTag: master-7d52e958-20241218.1817-approved # {"$imagepolicy": "epp--prod:epp-import-controller-approved:tag"}
+      newTag: master-144fb3b0-20241218.2054-approved # {"$imagepolicy": "epp--prod:epp-import-controller-approved:tag"}
   postBuild:
     substitute:
       site_name: elife
