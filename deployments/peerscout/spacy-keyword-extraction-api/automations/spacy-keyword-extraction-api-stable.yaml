@@ -1,0 +1,21 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: spacy-keyword-extraction-api-stable
+  namespace: peerscout
+spec:
+  interval: 5m
+  image: ghcr.io/elifesciences/spacy-keyword-extraction-api
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: spacy-keyword-extraction-api-stable
+  namespace: peerscout
+spec:
+  imageRepositoryRef:
+    name: spacy-keyword-extraction-api-stable
+    namespace: peerscout
+  policy:
+    semver:
+      range: '*'
