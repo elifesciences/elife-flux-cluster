@@ -69,4 +69,4 @@ spec:
       epp_image_server_cpu_requests: 600m
       epp_server_cpu_requests: 150m
       import_controller_hostname: prod--epp-controller.elifesciences.org
-      import_controller_temporal_namespace: 'epp--staging,epp--biophysics-colab'
+      import_controller_temporal_namespace: 'epp--prod,epp--staging,epp--biophysics-colab'
