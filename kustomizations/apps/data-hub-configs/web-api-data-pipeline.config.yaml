@@ -136,7 +136,7 @@ webApi:
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
       objectName: 'airflow-config/generic-web-api/{ENV}-civi-mailing-processing-state.json'
-    urlSourceType:
+    requestBuilder:
       name: 'civi'
       sourceTypeSpecificValues:
         fieldsToReturn:
@@ -188,7 +188,7 @@ webApi:
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
       objectName: 'airflow-config/generic-web-api/{ENV}-civi-contact-processing-state.json'
-    urlSourceType:
+    requestBuilder:
       name: 'civi'
       sourceTypeSpecificValues:
         fieldsToReturn:
@@ -236,7 +236,7 @@ webApi:
     dataset: '{ENV}'
     table: civi_mailing_recipient_raw
     tableWriteAppend: False
-    urlSourceType:
+    requestBuilder:
       name: 'civi'
       sourceTypeSpecificValues:
         fieldsToReturn:
@@ -394,7 +394,7 @@ webApi:
     retry:
       maxRetryCount: 0
       retryOnResponseStatusList: []
-    urlSourceType:
+    requestBuilder:
       name: 'crossref_metadata_api'
     headers:
       'User-Agent': 'eLife-Data-Hub-Bot/53.0 (https://github.com/elifesciences/data-hub-core-airflow-dags; mailto:h.ciplak@elifesciences.org)'
@@ -465,7 +465,7 @@ webApi:
             JOIN UNNEST(results) AS meca_path_metadata
             WHERE imported_timestamp >= '2024-11-29'
         keyFieldNameFromInclude: 'biorxiv_versioned_doi'
-    urlSourceType:
+    requestBuilder:
       name: 'single_source_value'
     dataUrl:
       urlExcludingConfigurableParameters: https://api.biorxiv.org/meca_index_v2/elife/{biorxiv_versioned_doi}
@@ -481,7 +481,7 @@ webApi:
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
       objectName: 'airflow-config/generic-web-api/{ENV}-biorxiv-api-state.json'
-    urlSourceType:
+    requestBuilder:
       name: 'biorxiv_medrxiv_api'
     dataUrl:
       urlExcludingConfigurableParameters: https://api.biorxiv.org/details/biorxiv
@@ -507,7 +507,7 @@ webApi:
     stateFile:
       bucketName: '{ENV}-elife-data-pipeline'
       objectName: 'airflow-config/generic-web-api/{ENV}-medrxiv-api-state.json'
-    urlSourceType:
+    requestBuilder:
       name: 'biorxiv_medrxiv_api'
     dataUrl:
       urlExcludingConfigurableParameters: https://api.medrxiv.org/details/medrxiv
@@ -597,7 +597,7 @@ webApi:
             SELECT response.paper_id
             FROM `elife-data-pipeline.{ENV}.semantic_scholar_specter_v1_embeddings_web_api_response` AS response
         keyFieldNameFromInclude: 'paper_id'
-    urlSourceType:
+    requestBuilder:
       name: 's2_title_abstract_embeddings_api'
     dataUrl:
       urlExcludingConfigurableParameters: 'https://model-apis.semanticscholar.org/specter/v1/invoke'
@@ -733,7 +733,7 @@ webApi:
       parametersFromFile:
         - parameterName: api_key
           filePathEnvName: OPENALEX_API_KEY_FILE_PATH
-    urlSourceType:
+    requestBuilder:
       # Note: We currently need to use `crossref_metadata_api` for the cursor parameter to work
       # It is also currently required for the `filter` parameter support
       name: 'crossref_metadata_api'
