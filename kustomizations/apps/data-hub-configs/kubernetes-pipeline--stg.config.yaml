@@ -1608,6 +1608,51 @@ kubernetesPipelines:
         memory: 500Mi
         cpu: 100m
 
+  - dataPipelineId: 'Web_API_keywords_from_manuscript_abstract'
+    airflow:
+      dagParameters:
+        schedule: '10 */2 * * *'  # At minute 10 past every 2nd hour
+        max_active_runs: 1
+        tags:
+          - 'Kubernetes'
+          - 'DocMaps'
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    imagePullPolicy: Always
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=keywords_from_manuscript_abstract'
+    env:
+      - name: DEPLOYMENT_ENV
+        value: '{ENV}'
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /dag_secret_files/gcloud/credentials.json
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+    volumeMounts:
+      - name: gcloud-secret-volume
+        mountPath: /dag_secret_files/gcloud/
+        readOnly: true
+      - name: data-hub-config-volume
+        mountPath: /dag_config_files/
+        readOnly: true
+    volumes:
+      - name: gcloud-secret-volume
+        secret:
+          secretName: gcloud
+      - name: data-hub-config-volume
+        configMap:
+          name: data-hub-configs
+    resources:
+      limits:
+        memory: 600Mi
+        cpu: 1000m
+      requests:
+        memory: 500Mi
+        cpu: 100m
+
   - dataPipelineId: 'Data_Science_PeerScout_Build_Reviewing_Editor_Profiles_Kubernetes'
     airflow:
       dagParameters:
