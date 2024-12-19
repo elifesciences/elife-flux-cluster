@@ -3966,8 +3966,8 @@ data:
 
         },
         "timezone": "utc",
-        "title": "Kubernetes / Views / Nodes",
-        "uid": "k8s_views_nodes",
+        "title": "Kubernetes / Views / Nodes (VictoriaMetrics)",
+        "uid": "k8s_views_nodes_victoriametrics",
         "version": 29,
         "weekStart": ""
     }
