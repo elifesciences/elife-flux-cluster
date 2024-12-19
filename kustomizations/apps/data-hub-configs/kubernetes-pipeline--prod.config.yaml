@@ -1600,7 +1600,7 @@ kubernetesPipelines:
         memory: 500Mi
         cpu: 100m
 
-  - dataPipelineId: 'Web_API_keywords_from_manuscript_abstract'
+  - dataPipelineId: 'Web_API_keywords_from_manuscript_abstract_Kubernetes'
     airflow:
       dagParameters:
         schedule: '10 */2 * * *'  # At minute 10 past every 2nd hour
