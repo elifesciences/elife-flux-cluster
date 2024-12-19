@@ -9,7 +9,9 @@ Dashboards
 
 - [Kubernetes Dashboard](https://k8s-dashboard.flux-prod.elifesciences.org)
 - [Grafana Dashboards](https://grafana.flux-prod.elifesciences.org/dashboards)
+- [Grafana Alerts](https://grafana.flux-prod.elifesciences.org/alerting/list)
 - [Alertmanager](https://alertmanager.flux-prod.elifesciences.org)
+- [VMAlert](https://vmalert.flux-prod.elifesciences.org/vmalert/groups?search=)
 - [AWS console for the `512686554592` account](https://512686554592.signin.aws.amazon.com/)
 
 The __#cluster-alerts__ slack channel receives alerts from:
@@ -44,7 +46,7 @@ Adding Helm Charts
     -   Setup an [`ImagePolicy`](https://fluxcd.io/docs/components/image/imagepolicies/) to choose what the latest tag is
     -   Setup an [`ImageUpdateAutomation`](https://fluxcd.io/docs/components/image/imageupdateautomations/) to describe which `GitRepository` object you want flux to update, and which directory
     -   Add a [policy marker](https://fluxcd.io/docs/guides/image-update/#configure-image-update-for-custom-resources) to tell Flux how to update the yaml files
-  
+
 Managing persistence
 --------------------
 
