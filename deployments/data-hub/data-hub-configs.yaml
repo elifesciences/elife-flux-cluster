@@ -14,7 +14,7 @@ spec:
   postBuild:
     substitute:
       data_hub_core_dags_stable_image_repo: docker.io/elifesciences/data-hub-core-dags # {"$imagepolicy": "data-hub:data-hub-core-dags-stable:name"}
-      data_hub_core_dags_stable_image_tag: 0.0.8 # {"$imagepolicy": "data-hub:data-hub-core-dags-stable:tag"}
+      data_hub_core_dags_stable_image_tag: 0.0.9 # {"$imagepolicy": "data-hub:data-hub-core-dags-stable:tag"}
       data_hub_data_science_dags_stable_image_repo: docker.io/elifesciences/data-science-dags # {"$imagepolicy": "data-hub:data-hub-data-science-dags-stable:name"}
       data_hub_data_science_dags_stable_image_tag: 0.0.17 # {"$imagepolicy": "data-hub:data-hub-data-science-dags-stable:tag"}
       data_hub_peerscout_dags_stable_image_repo: docker.io/elifesciences/peerscout-dags # {"$imagepolicy": "data-hub:data-hub-peerscout-dags-stable:name"}
