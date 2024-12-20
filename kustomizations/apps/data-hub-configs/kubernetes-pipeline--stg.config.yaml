@@ -1615,7 +1615,6 @@ kubernetesPipelines:
         max_active_runs: 1
         tags:
           - 'Kubernetes'
-          - 'DocMaps'
           - 'Web API'
           - 'SpaCy'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
