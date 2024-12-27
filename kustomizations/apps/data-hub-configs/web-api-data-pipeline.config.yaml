@@ -835,7 +835,7 @@ webApi:
               TO_HEX(MD5(paper.abstractText)) AS abstract_md5,
               CONCAT(paper.pmid, '/', TO_HEX(MD5(paper.abstractText))) AS change_id,
               paper.abstractText AS text
-            FROM `elife-data-pipeline.prod.data_science_disambiguated_editor_papers` AS disambiguated_editor_papers
+            FROM `elife-data-pipeline.{ENV}.data_science_disambiguated_editor_papers` AS disambiguated_editor_papers
             JOIN UNNEST(disambiguated_editor_papers.disambiguated_pubmed_ids) AS pubmed_id
             JOIN `elife-data-pipeline.{ENV}.data_science_external_manuscript_summary` AS paper
               ON paper.pmid = pubmed_id
