@@ -787,17 +787,19 @@ webApi:
         - best_oa_location
         - related_works
 
-  - dataPipelineId: keywords_from_manuscript_abstract
+  - dataPipelineId: keywords_from_manuscript_abstract_batch
     dataset: '{ENV}'
-    table: keywords_from_manuscript_abstract
+    table: keywords_from_manuscript_abstract_batch
     source:
       include:
         bigQuery:
           projectName: 'elife-data-pipeline'
           sqlQuery: |-
             SELECT
-              version_id,
-              TO_HEX(MD5(abstract)) AS abstract_md5,
+              STRUCT(
+                version_id,
+                TO_HEX(MD5(abstract)) AS abstract_md5
+              ) AS meta,
               CONCAT(version_id, '/', TO_HEX(MD5(abstract))) AS change_id,
               abstract AS text
             FROM `elife-data-pipeline.{ENV}.mv_manuscript_version`
@@ -807,32 +809,31 @@ webApi:
           ignoreNotFound: true
           projectName: 'elife-data-pipeline'
           sqlQuery:
-            SELECT CONCAT(version_id, '/', abstract_md5) AS change_id
-            FROM `elife-data-pipeline.{ENV}.keywords_from_manuscript_abstract`
+            SELECT CONCAT(extract_keyword_result.meta.version_id, '/', extract_keyword_result.meta.abstract_md5) AS change_id
+            FROM `elife-data-pipeline.{ENV}.keywords_from_manuscript_abstract_batch` AS response
+            JOIN UNNEST(response.data) AS extract_keyword_result
         keyFieldNameFromInclude: 'change_id'
     requestBuilder:
       name: 'spacy_keyword_extraction'
     dataUrl:
-      # Note: we currently require there to be a `text` value that will be url encoded by the `spacy_keyword_extraction` request builder
-      urlExcludingConfigurableParameters: https://spacy-keyword-extraction-api.elifesciences.org/v1/extract-keywords?text={text}
+      urlExcludingConfigurableParameters: https://spacy-keyword-extraction-api.elifesciences.org/v1/batch-extract-keywords
     response:
       provenanceEnabled: True
-      sourceValueFieldsToReturn:
-        - version_id
-        - abstract_md5
     batchSize: 100
 
-  - dataPipelineId: keywords_from_disambiguated_editor_papers_abstract
+  - dataPipelineId: keywords_from_disambiguated_editor_papers_abstract_batch
     dataset: '{ENV}'
-    table: keywords_from_disambiguated_editor_papers_abstract
+    table: keywords_from_disambiguated_editor_papers_abstract_batch
     source:
       include:
         bigQuery:
           projectName: 'elife-data-pipeline'
           sqlQuery: |-
             SELECT
-              paper.pmid,
-              TO_HEX(MD5(paper.abstractText)) AS abstract_md5,
+              STRUCT(
+                paper.pmid,
+                TO_HEX(MD5(paper.abstractText)) AS abstract_md5,
+              ) AS meta,
               CONCAT(paper.pmid, '/', TO_HEX(MD5(paper.abstractText))) AS change_id,
               paper.abstractText AS text
             FROM `elife-data-pipeline.{ENV}.data_science_disambiguated_editor_papers` AS disambiguated_editor_papers
@@ -845,17 +846,14 @@ webApi:
           ignoreNotFound: true
           projectName: 'elife-data-pipeline'
           sqlQuery:
-            SELECT CONCAT(pmid, '/', abstract_md5) AS change_id
-            FROM `elife-data-pipeline.{ENV}.keywords_from_disambiguated_editor_papers_abstract`
+            SELECT CONCAT(extract_keyword_result.meta.pmid, '/', extract_keyword_result.meta.abstract_md5) AS change_id
+            FROM `elife-data-pipeline.{ENV}.keywords_from_disambiguated_editor_papers_abstract_batch` AS response
+            JOIN UNNEST(response.data) AS extract_keyword_result
         keyFieldNameFromInclude: 'change_id'
     requestBuilder:
       name: 'spacy_keyword_extraction'
     dataUrl:
-      # Note: we currently require there to be a `text` value that will be url encoded by the `spacy_keyword_extraction` request builder
-      urlExcludingConfigurableParameters: https://spacy-keyword-extraction-api.elifesciences.org/v1/extract-keywords?text={text}
+      urlExcludingConfigurableParameters: https://spacy-keyword-extraction-api.elifesciences.org/v1/batch-extract-keywords
     response:
       provenanceEnabled: True
-      sourceValueFieldsToReturn:
-        - pmid
-        - abstract_md5
     batchSize: 100
