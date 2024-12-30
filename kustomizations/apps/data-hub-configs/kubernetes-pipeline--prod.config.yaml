@@ -1600,7 +1600,7 @@ kubernetesPipelines:
         memory: 500Mi
         cpu: 100m
 
-  - dataPipelineId: 'Web_API_keywords_from_manuscript_abstract_Kubernetes'
+  - dataPipelineId: 'Web_API_keywords_from_manuscript_abstract_batch_Kubernetes'
     airflow:
       dagParameters:
         schedule: '10 */2 * * *'  # At minute 10 past every 2nd hour
@@ -1615,7 +1615,7 @@ kubernetesPipelines:
       - 'python'
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
-      - '--data-pipeline-id=keywords_from_manuscript_abstract'
+      - '--data-pipeline-id=keywords_from_manuscript_abstract_batch'
     env:
       - name: DEPLOYMENT_ENV
         value: '{ENV}'
@@ -1645,7 +1645,7 @@ kubernetesPipelines:
         memory: 500Mi
         cpu: 100m
 
-  - dataPipelineId: 'Web_API_keywords_from_disambiguated_editor_papers_abstract'
+  - dataPipelineId: 'Web_API_keywords_from_disambiguated_editor_papers_abstract_batch_Kubernetes'
     airflow:
       dagParameters:
         schedule: '10 */2 * * *'  # At minute 10 past every 2nd hour
@@ -1660,7 +1660,7 @@ kubernetesPipelines:
       - 'python'
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
-      - '--data-pipeline-id=keywords_from_disambiguated_editor_papers_abstract'
+      - '--data-pipeline-id=keywords_from_disambiguated_editor_papers_abstract_batch'
     env:
       - name: DEPLOYMENT_ENV
         value: '{ENV}'
