@@ -832,7 +832,7 @@ webApi:
             SELECT
               STRUCT(
                 paper.pmid,
-                TO_HEX(MD5(paper.abstractText)) AS abstract_md5,
+                TO_HEX(MD5(paper.abstractText)) AS abstract_md5
               ) AS meta,
               CONCAT(paper.pmid, '/', TO_HEX(MD5(paper.abstractText))) AS change_id,
               paper.abstractText AS text
