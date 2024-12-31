@@ -6,6 +6,7 @@ metadata:
     app: spacy-keyword-extraction-api--prod
   namespace: peerscout
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: spacy-keyword-extraction-api--prod
