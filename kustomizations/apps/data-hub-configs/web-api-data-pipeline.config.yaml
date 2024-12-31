@@ -814,7 +814,7 @@ webApi:
             JOIN UNNEST(response.data) AS extract_keyword_result
         keyFieldNameFromInclude: 'change_id'
     requestBuilder:
-      name: 'spacy_keyword_extraction'
+      name: 'spacy_batch_keyword_extraction_api'
     dataUrl:
       urlExcludingConfigurableParameters: https://spacy-keyword-extraction-api.elifesciences.org/v1/batch-extract-keywords
     response:
@@ -851,7 +851,7 @@ webApi:
             JOIN UNNEST(response.data) AS extract_keyword_result
         keyFieldNameFromInclude: 'change_id'
     requestBuilder:
-      name: 'spacy_keyword_extraction'
+      name: 'spacy_batch_keyword_extraction_api'
     dataUrl:
       urlExcludingConfigurableParameters: https://spacy-keyword-extraction-api.elifesciences.org/v1/batch-extract-keywords
     response:
