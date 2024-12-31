@@ -63,6 +63,10 @@ metadata:
   namespace: peerscout
   labels:
     app: spacy-keyword-extraction-api--prod
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
 spec:
   rules:
     - host: spacy-keyword-extraction-api.elifesciences.org
