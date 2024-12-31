@@ -6,6 +6,7 @@ metadata:
     app: spacy-keyword-extraction-api--prod
   namespace: peerscout
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: spacy-keyword-extraction-api--prod
@@ -41,7 +42,7 @@ spec:
             cpu: 100m
             memory: 2.6Gi
           limits:
-            cpu: 500m
+            cpu: 1500m
             memory: 3Gi
 ---
 apiVersion: v1
