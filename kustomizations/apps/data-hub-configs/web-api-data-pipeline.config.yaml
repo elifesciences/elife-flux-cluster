@@ -815,11 +815,12 @@ webApi:
         keyFieldNameFromInclude: 'change_id'
     requestBuilder:
       name: 'spacy_batch_keyword_extraction_api'
+      maxSourceValuesPerRequest: 20
     dataUrl:
       urlExcludingConfigurableParameters: https://spacy-keyword-extraction-api.elifesciences.org/v1/batch-extract-keywords
     response:
       provenanceEnabled: True
-    batchSize: 100
+    batchSize: 25
 
   - dataPipelineId: keywords_from_disambiguated_editor_papers_abstract_batch
     dataset: '{ENV}'
@@ -852,8 +853,9 @@ webApi:
         keyFieldNameFromInclude: 'change_id'
     requestBuilder:
       name: 'spacy_batch_keyword_extraction_api'
+      maxSourceValuesPerRequest: 20
     dataUrl:
       urlExcludingConfigurableParameters: https://spacy-keyword-extraction-api.elifesciences.org/v1/batch-extract-keywords
     response:
       provenanceEnabled: True
-    batchSize: 100
+    batchSize: 25
