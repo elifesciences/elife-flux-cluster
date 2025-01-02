@@ -812,6 +812,7 @@ webApi:
             SELECT CONCAT(extract_keyword_result.meta.version_id, '/', extract_keyword_result.meta.abstract_md5) AS change_id
             FROM `elife-data-pipeline.{ENV}.keywords_from_manuscript_abstract_batch` AS response
             JOIN UNNEST(response.data) AS extract_keyword_result
+            WHERE response.meta.spacy_version != '2.2.4'
         keyFieldNameFromInclude: 'change_id'
     timeout: 120
     requestBuilder:
@@ -851,6 +852,7 @@ webApi:
             SELECT CONCAT(extract_keyword_result.meta.pmid, '/', extract_keyword_result.meta.abstract_md5) AS change_id
             FROM `elife-data-pipeline.{ENV}.keywords_from_disambiguated_editor_papers_abstract_batch` AS response
             JOIN UNNEST(response.data) AS extract_keyword_result
+            WHERE response.meta.spacy_version != '2.2.4'
         keyFieldNameFromInclude: 'change_id'
     timeout: 120
     requestBuilder:
