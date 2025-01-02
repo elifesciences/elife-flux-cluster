@@ -30,6 +30,7 @@ spec:
   values:
     controller:
       config:
+        annotations-risk-level: Critical
         use-forwarded-headers: "true"
         use-proxy-protocol: "true"
         use-http2: "true"
