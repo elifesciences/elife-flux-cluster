@@ -813,6 +813,7 @@ webApi:
             FROM `elife-data-pipeline.{ENV}.keywords_from_manuscript_abstract_batch` AS response
             JOIN UNNEST(response.data) AS extract_keyword_result
         keyFieldNameFromInclude: 'change_id'
+    timeout: 120
     requestBuilder:
       name: 'spacy_batch_keyword_extraction_api'
       maxSourceValuesPerRequest: 20
@@ -851,6 +852,7 @@ webApi:
             FROM `elife-data-pipeline.{ENV}.keywords_from_disambiguated_editor_papers_abstract_batch` AS response
             JOIN UNNEST(response.data) AS extract_keyword_result
         keyFieldNameFromInclude: 'change_id'
+    timeout: 120
     requestBuilder:
       name: 'spacy_batch_keyword_extraction_api'
       maxSourceValuesPerRequest: 20
