@@ -1,5 +1,8 @@
 {
-  "extends": ["config:base", ":prHourlyLimitNone"],
+  "extends": [
+    "config:recommended",
+    ":prHourlyLimitNone"
+  ],
   "kubernetes": {
     "fileMatch": [
       "^system/monitoring/kube-web-view/deployment\\.yaml$",
@@ -10,21 +13,37 @@
     "scottaubrey"
   ],
   "flux": {
-    "fileMatch": ["deployments/.+\\.yaml$", "system/.+\\.yaml$", "clusters/.+\\.yaml$", "kustomizations/.+\\.yaml$", "policies/.+\\.yaml$", "nodes/.+\\.yaml$", "teams/.+\\.yaml$"]
+    "fileMatch": [
+      "deployments/.+\\.yaml$",
+      "system/.+\\.yaml$",
+      "clusters/.+\\.yaml$",
+      "kustomizations/.+\\.yaml$",
+      "policies/.+\\.yaml$",
+      "nodes/.+\\.yaml$",
+      "teams/.+\\.yaml$"
+    ]
   },
   "packageRules": [
     {
-      "matchDepNames": ["descheduler"],
+      "matchDepNames": [
+        "descheduler"
+      ],
       "enabled": false
     },
     {
-      "matchDepNames": ["airflow"],
+      "matchDepNames": [
+        "airflow"
+      ],
       "additionalBranchPrefix": "{{packageFile}}-",
       "commitMessage": "{{{commitMessagePrefix}}} {{{commitMessageAction}}} {{{commitMessageTopic}}} {{{packageFile}}} {{{commitMessageExtra}}} {{{commitMessageSuffix}}}"
     },
     {
-      "matchFileNames": [".tool-versions"],
-      "matchDepNames": ["kubectl"],
+      "matchFileNames": [
+        ".tool-versions"
+      ],
+      "matchDepNames": [
+        "kubectl"
+      ],
       "enabled": false
     }
   ]
