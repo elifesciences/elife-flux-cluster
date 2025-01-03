@@ -29,6 +29,7 @@ spec:
 
   values:
     controller:
+      enableAnnotationValidations: false
       config:
         annotations-risk-level: Critical
         use-forwarded-headers: "true"
