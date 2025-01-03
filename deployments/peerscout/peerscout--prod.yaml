@@ -23,7 +23,7 @@ spec:
     replicaCount: 2
     image:
       repository: docker.io/elifesciences/data-science-dags_peerscout-api # {"$imagepolicy": "peerscout:peerscout-stable:name"}
-      tag: "0.0.17" # {"$imagepolicy": "peerscout:peerscout-stable:tag"}
+      tag: "0.0.18" # {"$imagepolicy": "peerscout:peerscout-stable:tag"}
     env:
       DATA_SCIENCE_STATE_PATH: s3://prod-elife-data-pipeline/airflow-config/data-science/state
       GOOGLE_APPLICATION_CREDENTIALS: /root/.gcp/credentials.json
