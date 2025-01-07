@@ -132,9 +132,6 @@ spec:
         # At every 20th minute :
       - name: EJP_XML_SCHEDULE_INTERVAL
         value: "*/20 * * * *"
-        # At minute 10 past every 2nd hour :
-      - name: EXTRACT_KEYWORDS_SCHEDULE_INTERVAL
-        value: "10 */2 * * *"
       - name: SURVEYMONKEY_DATA_PIPELINE_SCHEDULE_INTERVAL
         value: "@monthly"
       - name: CIVICRM_EMAIL_REPORT_DATA_PIPELINE_SCHEDULE_INTERVAL
