@@ -118,8 +118,6 @@ spec:
       # queue (airflow executor)
       - name: DATA_SCIENCE_PEERSCOUT_RECOMMEND_QUEUE
         value: "kubernetes"
-      - name: EXTRACT_KEYWORDS_QUEUE
-        value: "kubernetes"
       # scheduler interval (hours are in UTC timezone)
       - name: ELIFE_ARTICLE_XML_PIPELINE_SCHEDULE_INTERVAL
         value: "0 3 * * *" # At 03:00, every day
