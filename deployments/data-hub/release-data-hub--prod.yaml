@@ -101,8 +101,6 @@ spec:
         value: /home/airflow/civi_key/civi_site_key.txt
       - name: EJP_XML_CONFIG_FILE_PATH
         value: /dag_config_files/ejp-xml-data-pipeline.config.yaml
-      - name: EXTRACT_KEYWORDS_FILE_PATH
-        value: /dag_config_files/keyword-extraction-data-pipeline.config.yaml
       - name: SEMANTIC_SCHOLAR_CONFIG_FILE_PATH
         value: /dag_config_files/semantic-scholar.config.yaml
       - name: SEMANTIC_SCHOLAR_RECOMMENDATION_CONFIG_FILE_PATH
@@ -119,8 +117,6 @@ spec:
         value: /dag_config_files/ga-data-pipeline.config.yaml
       # queue (airflow executor)
       - name: DATA_SCIENCE_PEERSCOUT_RECOMMEND_QUEUE
-        value: "kubernetes"
-      - name: EXTRACT_KEYWORDS_QUEUE
         value: "kubernetes"
       # scheduler interval (hours are in UTC timezone)
       - name: ELIFE_ARTICLE_XML_PIPELINE_SCHEDULE_INTERVAL
@@ -160,9 +156,6 @@ spec:
         # At every 20th minute :
       - name: EJP_XML_SCHEDULE_INTERVAL
         value: "*/20 * * * *"
-        # At minute 10 past every 2nd hour :
-      - name: EXTRACT_KEYWORDS_SCHEDULE_INTERVAL
-        value: "10 */2 * * *"
       - name: SURVEYMONKEY_DATA_PIPELINE_SCHEDULE_INTERVAL
         value: "@monthly"
       - name: CIVICRM_EMAIL_REPORT_DATA_PIPELINE_SCHEDULE_INTERVAL
