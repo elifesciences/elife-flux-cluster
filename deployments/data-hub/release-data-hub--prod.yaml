@@ -101,8 +101,6 @@ spec:
         value: /home/airflow/civi_key/civi_site_key.txt
       - name: EJP_XML_CONFIG_FILE_PATH
         value: /dag_config_files/ejp-xml-data-pipeline.config.yaml
-      - name: EXTRACT_KEYWORDS_FILE_PATH
-        value: /dag_config_files/keyword-extraction-data-pipeline.config.yaml
       - name: SEMANTIC_SCHOLAR_CONFIG_FILE_PATH
         value: /dag_config_files/semantic-scholar.config.yaml
       - name: SEMANTIC_SCHOLAR_RECOMMENDATION_CONFIG_FILE_PATH
