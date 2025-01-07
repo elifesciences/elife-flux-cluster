@@ -28,7 +28,6 @@ spec:
       GOOGLE_APPLICATION_CREDENTIALS: /root/.gcp/credentials.json
       DEPLOYMENT_ENV: staging
       PEERSCOUT_API_TARGET_DATASET: staging
-      SPACY_LANGUAGE_MODEL_NAME: "en_core_web_lg"
       SPACY_KEYWORD_EXTRACTION_API_URL: https://spacy-keyword-extraction-api.elifesciences.org/v1/batch-extract-keywords
     volumeMounts:
     - name: aws-credentials-sealed-secret-volume
