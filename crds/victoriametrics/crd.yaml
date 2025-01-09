@@ -5,16 +5,6 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.16.5
   name: vlogs.operator.victoriametrics.com
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        service:
-          name: webhook-service
-          namespace: system
-          path: /convert
-      conversionReviewVersions:
-      - v1
   group: operator.victoriametrics.com
   names:
     kind: VLogs
@@ -962,7 +952,7 @@ spec:
             description: VLogsStatus defines the observed state of VLogs
             properties:
               availableReplicas:
-                description: deprecated
+                description: deprecated and will be removed at v0.52.0
                 format: int32
                 type: integer
               conditions:
@@ -1038,18 +1028,17 @@ spec:
                 description: Reason defines human readadble error reason
                 type: string
               replicas:
-                description: deprecated
+                description: deprecated and will be removed at v0.52.0
                 format: int32
                 type: integer
               unavailableReplicas:
-                description: deprecated
+                description: deprecated and will be removed at v0.52.0
                 format: int32
                 type: integer
               updateStatus:
                 description: UpdateStatus defines a status for update rollout
                 type: string
               updatedReplicas:
-                description: deprecated
                 format: int32
                 type: integer
             type: object
@@ -1066,16 +1055,6 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.16.5
   name: vmagents.operator.victoriametrics.com
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        service:
-          name: webhook-service
-          namespace: vm
-          path: /convert
-      conversionReviewVersions:
-      - v1
   group: operator.victoriametrics.com
   names:
     kind: VMAgent
@@ -5619,7 +5598,7 @@ spec:
             description: VMAgentStatus defines the observed state of VMAgent
             properties:
               availableReplicas:
-                description: Deprecated
+                description: deprecated and will be removed at v0.52.0
                 format: int32
                 type: integer
               conditions:
@@ -5707,14 +5686,14 @@ spec:
                 format: int32
                 type: integer
               unavailableReplicas:
-                description: Deprecated
+                description: deprecated and will be removed at v0.52.0
                 format: int32
                 type: integer
               updateStatus:
                 description: UpdateStatus defines a status for update rollout
                 type: string
               updatedReplicas:
-                description: Deprecated
+                description: deprecated and will be removed at v0.52.0
                 format: int32
                 type: integer
             type: object
@@ -5735,16 +5714,6 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.16.5
   name: vmalertmanagerconfigs.operator.victoriametrics.com
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        service:
-          name: webhook-service
-          namespace: vm
-          path: /convert
-      conversionReviewVersions:
-      - v1
   group: operator.victoriametrics.com
   names:
     kind: VMAlertmanagerConfig
@@ -9722,16 +9691,6 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.16.5
   name: vmalertmanagers.operator.victoriametrics.com
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        service:
-          name: webhook-service
-          namespace: vm
-          path: /convert
-      conversionReviewVersions:
-      - v1
   group: operator.victoriametrics.com
   names:
     kind: VMAlertmanager
@@ -12173,16 +12132,6 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.16.5
   name: vmalerts.operator.victoriametrics.com
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        service:
-          name: webhook-service
-          namespace: vm
-          path: /convert
-      conversionReviewVersions:
-      - v1
   group: operator.victoriametrics.com
   names:
     kind: VMAlert
@@ -14121,16 +14070,6 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.16.5
   name: vmauths.operator.victoriametrics.com
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        service:
-          name: webhook-service
-          namespace: system
-          path: /convert
-      conversionReviewVersions:
-      - v1
   group: operator.victoriametrics.com
   names:
     kind: VMAuth
@@ -15179,6 +15118,14 @@ spec:
                       DropSrcPathPrefixParts is the number of `/`-delimited request path prefix parts to drop before proxying the request to backend.
                       See [here](https://docs.victoriametrics.com/vmauth#dropping-request-path-prefix) for more details.
                     type: integer
+                  dump_request_on_errors:
+                    description: |-
+                      DumpRequestOnErrors instructs vmauth to return detailed request params to the client
+                      if routing rules don't allow to forward request to the backends.
+                      Useful for debugging `src_hosts` and `src_headers` based routing rules
+
+                      available since v1.107.0 vmauth version
+                    type: boolean
                   headers:
                     description: |-
                       Headers represent additional http headers, that vmauth uses
@@ -15772,16 +15719,6 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.16.5
   name: vmclusters.operator.victoriametrics.com
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        service:
-          name: webhook-service
-          namespace: vm
-          path: /convert
-      conversionReviewVersions:
-      - v1
   group: operator.victoriametrics.com
   names:
     kind: VMCluster
@@ -19873,6 +19810,10 @@ spec:
           status:
             description: VMClusterStatus defines the observed state of VMCluster
             properties:
+              clusterStatus:
+                description: LegacyStatus is deprecated and will be removed at v0.52.0
+                  version
+                type: string
               conditions:
                 description: 'Known .status.conditions.type are: "Available", "Progressing",
                   and "Degraded"'
@@ -23393,16 +23334,6 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.16.5
   name: vmrules.operator.victoriametrics.com
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        service:
-          name: webhook-service
-          namespace: vm
-          path: /convert
-      conversionReviewVersions:
-      - v1
   group: operator.victoriametrics.com
   names:
     kind: VMRule
@@ -24043,6 +23974,11 @@ spec:
                     datacenter:
                       description: Consul Datacenter name, if not provided it will
                         use the local Consul Agent Datacenter.
+                      type: string
+                    filter:
+                      description: |-
+                        Filter defines filter for /v1/catalog/services requests
+                        See https://developer.hashicorp.com/consul/api-docs/features/filtering
                       type: string
                     followRedirects:
                       description: |-
@@ -28881,16 +28817,6 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.16.5
   name: vmsingles.operator.victoriametrics.com
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        service:
-          name: webhook-service
-          namespace: vm
-          path: /convert
-      conversionReviewVersions:
-      - v1
   group: operator.victoriametrics.com
   names:
     kind: VMSingle
@@ -30574,8 +30500,7 @@ spec:
             description: VMSingleStatus defines the observed state of VMSingle
             properties:
               availableReplicas:
-                description: AvailableReplicas Total number of available pods (ready
-                  for at least minReadySeconds) targeted by this VMSingle.
+                description: deprecated and will be removed at v0.52.0
                 format: int32
                 type: integer
               conditions:
@@ -30651,21 +30576,22 @@ spec:
                 description: Reason defines human readadble error reason
                 type: string
               replicas:
-                description: ReplicaCount Total number of non-terminated pods targeted
-                  by this VMSingle.
+                description: deprecated and will be removed at v0.52.0
                 format: int32
                 type: integer
+              singleStatus:
+                description: LegacyStatus is deprecated and will be removed at v0.52.0
+                  version
+                type: string
               unavailableReplicas:
-                description: UnavailableReplicas Total number of unavailable pods
-                  targeted by this VMSingle.
+                description: deprecated and will be removed at v0.52.0
                 format: int32
                 type: integer
               updateStatus:
                 description: UpdateStatus defines a status for update rollout
                 type: string
               updatedReplicas:
-                description: UpdatedReplicas Total number of non-terminated pods targeted
-                  by this VMSingle.
+                description: deprecated and will be removed at v0.52.0
                 format: int32
                 type: integer
             type: object
@@ -31734,16 +31660,6 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.16.5
   name: vmusers.operator.victoriametrics.com
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        service:
-          name: webhook-service
-          namespace: vm
-          path: /convert
-      conversionReviewVersions:
-      - v1
   group: operator.victoriametrics.com
   names:
     kind: VMUser
@@ -31811,6 +31727,14 @@ spec:
                   DropSrcPathPrefixParts is the number of `/`-delimited request path prefix parts to drop before proxying the request to backend.
                   See [here](https://docs.victoriametrics.com/vmauth#dropping-request-path-prefix) for more details.
                 type: integer
+              dump_request_on_errors:
+                description: |-
+                  DumpRequestOnErrors instructs vmauth to return detailed request params to the client
+                  if routing rules don't allow to forward request to the backends.
+                  Useful for debugging `src_hosts` and `src_headers` based routing rules
+
+                  available since v1.107.0 vmauth version
+                type: boolean
               generatePassword:
                 description: |-
                   GeneratePassword instructs operator to generate password for user
