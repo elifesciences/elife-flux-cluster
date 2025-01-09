@@ -36,15 +36,18 @@ patches:
                   - key: karpenter.sh/nodepool
                     operator: DoesNotExist
 - target:
+    version: v1
+    group: apps
     kind: Deployment
     namespace: flux-system
+    name: source-controller
   patch: |-
     - op: replace
       path: /spec/template/spec/containers/0/resources
       value:
         requests:
           cpu: 50m
-          memory: 150Mi
+          memory: 200Mi
 - target:
     version: v1
     group: apps
@@ -56,8 +59,34 @@ patches:
       path: /spec/template/spec/containers/0/resources
       value:
         requests:
-          cpu: 300m
-          memory: 300Mi
+          cpu: 500m
+          memory: 400Mi
+- target:
+    version: v1
+    group: apps
+    kind: Deployment
+    namespace: flux-system
+    name: helm-controller
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/resources
+      value:
+        requests:
+          cpu: 100m
+          memory: 200Mi
+- target:
+    version: v1
+    group: apps
+    kind: Deployment
+    namespace: flux-system
+    name: image-automation-controller
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/resources
+      value:
+        requests:
+          cpu: 100m
+          memory: 150Mi
 - target:
     version: v1
     group: apps
@@ -69,5 +98,18 @@ patches:
       path: /spec/template/spec/containers/0/resources
       value:
         requests:
-          cpu: 35m
+          cpu: 50m
           memory: 200Mi
+- target:
+    version: v1
+    group: apps
+    kind: Deployment
+    namespace: flux-system
+    name: notification-controller
+  patch: |-
+    - op: replace
+      path: /spec/template/spec/containers/0/resources
+      value:
+        requests:
+          cpu: 10m
+          memory: 30Mi
