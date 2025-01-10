@@ -46,7 +46,7 @@ spec:
         - name: EPP_BUCKET_NAME
           value: "${epp_bucket:='epp'}"
         - name: EPP_BUCKET_PREFIX
-          value: "${epp_bucket_prefix:='automation/}"
+          value: "${epp_bucket_prefix:='automation/'}"
         ports:
         - containerPort: 3000
         readinessProbe:
