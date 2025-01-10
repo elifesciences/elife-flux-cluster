@@ -1655,7 +1655,7 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
           - 'Web API'
-          - 'SpaCy'
+          - 'Sciety'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     imagePullPolicy: Always
     arguments:
