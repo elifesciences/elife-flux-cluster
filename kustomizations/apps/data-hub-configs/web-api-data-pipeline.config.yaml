@@ -863,3 +863,33 @@ webApi:
     response:
       provenanceEnabled: True
     batchSize: 25
+
+  - dataPipelineId: vistaly_update_card_metrics
+    description: Update KPI metrics in Vistaly
+    dataset: '{ENV}'
+    table: vistaly_update_card_metrics
+    source:
+      include:
+        bigQuery:
+          projectName: 'elife-data-pipeline'
+          sqlQuery: |-
+            SELECT
+              '9NMk-VrqEg6Hr8AXkT6xu' AS card_id,
+              CURRENT_TIMESTAMP() AS timestamp,
+              COUNT(DISTINCT event.group_id) AS value
+            FROM `elife-data-pipeline.prod.mv_sciety_event` AS event
+            WHERE NOT event.is_deleted
+              AND event.normalized_event_name IN ('EvaluationRecorded', 'EvaluationPublicationRecorded')
+              AND event.published_at_timestamp >= TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 90 DAY)
+    headers:
+      parametersFromFile:
+        - parameterName: Authorization
+          filePathEnvName: VISTALY_API_AUTHORIZATION_FILE_PATH
+    requestBuilder:
+      name: 'vistaly_update_card_metrics_api'
+      maxSourceValuesPerRequest: 10
+    dataUrl:
+      urlExcludingConfigurableParameters: https://api.vistaly.com/v1/cards/{card_id}/metrics
+    response:
+      provenanceEnabled: True
+    batchSize: 1
