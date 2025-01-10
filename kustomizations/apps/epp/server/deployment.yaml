@@ -43,6 +43,10 @@ spec:
           value: "${s3_bucket}"
         - name: ELIFE_METRICS_URL
           value: "${epp_server_metrics_url:=''}"
+        - name: EPP_BUCKET_NAME
+          value: "${epp_bucket:='epp'}"
+        - name: EPP_BUCKET_PREFIX
+          value: "${epp_bucket_prefix:='automation/}"
         ports:
         - containerPort: 3000
         readinessProbe:
