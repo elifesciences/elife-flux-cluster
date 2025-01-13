@@ -582,6 +582,8 @@ spec:
       resources:
         requests:
           ephemeral-storage: "50Mi"
+          memory: 650Mi
+          cpu: 400m
     dbMigrations:
       tolerations:
       - key: workload
