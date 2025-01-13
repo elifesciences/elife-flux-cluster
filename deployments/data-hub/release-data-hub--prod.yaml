@@ -511,7 +511,7 @@ spec:
       resources:
         requests:
           memory: 1733Mi
-          cpu: 1200m
+          cpu: 1800m
           ephemeral-storage: "50Mi"
         limits:
           memory: 1733Mi
