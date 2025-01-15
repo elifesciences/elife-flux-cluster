@@ -42,7 +42,13 @@ spec:
       - name: "daily-backup"
         enabled: true
         schedule: "0 0 * * *"
-        keep: 3
+        keep: 30
+        type: logical
+        storageName: epp-prod-backups
+      - name: "monthly-backup"
+        enabled: true
+        schedule: "0 1 1 * *"
+        keep: 12
         type: logical
         storageName: epp-prod-backups
     replsets:
