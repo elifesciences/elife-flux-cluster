@@ -92,7 +92,7 @@ spec:
           operator: In
           values: ["amd64"]
   limits:
-    cpu: 8
+    cpu: 12
   weight: 50
   disruption:
     consolidateAfter: "0s"
