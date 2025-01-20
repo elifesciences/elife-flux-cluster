@@ -8,7 +8,6 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -58,7 +57,6 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -118,7 +116,6 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -168,7 +165,6 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -228,7 +224,6 @@ kubernetesPipelines:
         tags:
           - 'Kubernetes'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -283,7 +278,6 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -335,7 +329,6 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -387,7 +380,6 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -439,7 +431,6 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -492,7 +483,6 @@ kubernetesPipelines:
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -544,7 +534,6 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -604,7 +593,6 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -666,7 +654,6 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -728,7 +715,6 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -790,7 +776,6 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -850,7 +835,6 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -903,7 +887,6 @@ kubernetesPipelines:
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -956,7 +939,6 @@ kubernetesPipelines:
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1009,7 +991,6 @@ kubernetesPipelines:
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1062,7 +1043,6 @@ kubernetesPipelines:
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1114,7 +1094,6 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1166,7 +1145,6 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1219,7 +1197,6 @@ kubernetesPipelines:
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1272,7 +1249,6 @@ kubernetesPipelines:
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1325,7 +1301,6 @@ kubernetesPipelines:
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1378,7 +1353,6 @@ kubernetesPipelines:
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1431,7 +1405,6 @@ kubernetesPipelines:
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1490,7 +1463,6 @@ kubernetesPipelines:
           runAsUser: 0  # 0 is the root user ID
           runAsGroup: 0  # 0 is the root group ID
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1567,7 +1539,6 @@ kubernetesPipelines:
           - 'Web API'
           - 'SpaCy'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1612,7 +1583,6 @@ kubernetesPipelines:
           - 'Web API'
           - 'SpaCy'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1657,7 +1627,6 @@ kubernetesPipelines:
           - 'Web API'
           - 'Sciety'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1709,7 +1678,6 @@ kubernetesPipelines:
           - 'Data Science'
           - 'PeerScout'
     image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1753,7 +1721,6 @@ kubernetesPipelines:
           - 'Data Science'
           - 'PeerScout'
     image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1797,7 +1764,6 @@ kubernetesPipelines:
           - 'Data Science'
           - 'PeerScout'
     image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1841,7 +1807,6 @@ kubernetesPipelines:
           - 'Data Science'
           - 'PeerScout'
     image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1885,7 +1850,6 @@ kubernetesPipelines:
           - 'Data Science'
           - 'PeerScout'
     image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
@@ -1928,7 +1892,6 @@ kubernetesPipelines:
           - 'Kubernetes'
           - 'XML'
     image: '${data_hub_ejp_xml_pipeline_unstable_image_repo}:${data_hub_ejp_xml_pipeline_unstable_image_tag}'
-    imagePullPolicy: Always
     arguments:
       - 'python'
       - '-m'
