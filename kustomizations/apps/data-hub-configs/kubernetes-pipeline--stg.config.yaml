@@ -32,6 +32,13 @@ defaultConfig:
     - name: data-hub-config-volume
       configMap:
         name: data-hub-configs
+  resources:
+    limits:
+      memory: 600Mi
+      cpu: 1000m
+    requests:
+      memory: 500Mi
+      cpu: 100m
 
 kubernetesPipelines:
 
@@ -69,50 +76,23 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: "0 13 * * *" # At 13:00, every day
-        max_active_runs: 1
-        tags:
-          - 'Kubernetes'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
       - 'data_pipeline.opensearch.cli'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
       - name: BIGQUERY_TO_OPENSEARCH_CONFIG_FILE_PATH
         value: /dag_config_files/bigquery-to-opensearch--stg.yaml
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: OPENSEARCH_USERNAME_FILE_PATH
         value: /dag_secret_files/opensearch/username
       - name: OPENSEARCH_PASSWORD_FILE_PATH
         value: /dag_secret_files/opensearch/password
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
       - name: opensearch-secret-volume
         mountPath: /dag_secret_files/opensearch/
         readOnly: true
     volumes:
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: opensearch-secret-volume
         secret:
           secretName: opensearch-staging-admin-password
@@ -128,43 +108,14 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '0 6 * * *'  # At 06:00, every day
-        max_active_runs: 1
-        tags:
-          - 'Kubernetes'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
       - 'data_pipeline.europepmc.cli_europepmc'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
       - name: EUROPEPMC_CONFIG_FILE_PATH
         value: /dag_config_files/europepmc.config.yaml
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
     resources:
       limits:
         memory: 1Gi
@@ -177,50 +128,23 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '40 * * * *' # 40 past the hour, every day
-        max_active_runs: 1
-        tags:
-          - 'Kubernetes'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
       - 'data_pipeline.europepmc.cli_europepmc_labslink'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
       - name: EUROPEPMC_LABSLINK_CONFIG_FILE_PATH
         value: /dag_config_files/europepmc-labslink--test.config.yaml
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: EUROPEPMC_LABSLINK_FTP_PASSWORD_FILE_PATH
         value: /dag_secret_files/europepmc_labslink_ftp_credentials/password
       - name: EUROPEPMC_LABSLINK_FTP_DIRECTORY_NAME_FILE_PATH
         value: /dag_secret_files/europepmc_labslink_ftp_credentials/directory_name
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
       - name: europepmc-labslink-ftp-credentials-volume
         mountPath: /dag_secret_files/europepmc_labslink_ftp_credentials/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: europepmc-labslink-ftp-credentials-volume
         secret:
           secretName: europepmc-labslink-ftp-credentials--stg
@@ -236,47 +160,18 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '@hourly'
-        max_active_runs: 1
-        tags:
-          - 'Kubernetes'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
       - 'data_pipeline.bigquery_views.cli'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: MATERIALIZE_BIGQUERY_VIEWS_CONFIG_PATH
         value: "s3://staging-elife-data-pipeline/airflow-config/bigquery-views"
       - name: MATERIALIZE_BIGQUERY_VIEWS_GCP_PROJECT
         value: "elife-data-pipeline"
       - name: MATERIALIZE_BIGQUERY_VIEWS_DATASET
         value: staging
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
     resources:
       limits:
         memory: 1Gi
@@ -289,9 +184,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -300,49 +193,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_observer_api_publication_dates'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_elife_people_api_people_staff_profile_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -351,49 +209,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_people_api_people_staff_profile'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_elife_profiles_api_people_orcid_profile_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -402,49 +225,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_profiles_api_people_orcid_profile'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_hypothesis_annotations_for_elife_journal_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -453,49 +241,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=hypothesis_annotations_for_elife_journal'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_hypothesis_annotations_for_public_reviews_Kubernetes'
     airflow:
       dagParameters:
         schedule: '@hourly'
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -505,49 +258,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=hypothesis_annotations_for_public_reviews'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_toggl_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -556,57 +274,24 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=toggl'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
       - name: TOGGL_API_TOKEN_FILE_PATH
         value: /dag_secret_files/toggl/toggl_api_token.txt
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
       - name: toggl-secret-volume
         mountPath: /dag_secret_files/toggl
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: toggl-secret-volume
         secret:
           secretName: toggl
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_civi_mailing_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -615,12 +300,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=civi_mailing'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
       - name: CIVICRM_API_KEY_FILE_PATH
@@ -628,46 +307,19 @@ kubernetesPipelines:
       - name: CIVICRM_SITE_KEY_FILE_PATH
         value: /dag_secret_files/civi_key/civi_site_key.txt
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
       - name: civi-secret-volume
         mountPath: /dag_secret_files/civi_key
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: civi-secret-volume
         secret:
           secretName: civi-key
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_civi_contacts_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -676,12 +328,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=civi_contacts'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
       - name: CIVICRM_API_KEY_FILE_PATH
@@ -689,46 +335,19 @@ kubernetesPipelines:
       - name: CIVICRM_SITE_KEY_FILE_PATH
         value: /dag_secret_files/civi_key/civi_site_key.txt
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
       - name: civi-secret-volume
         mountPath: /dag_secret_files/civi_key
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: civi-secret-volume
         secret:
           secretName: civi-key
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_civi_mailing_recipient_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -737,12 +356,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=civi_mailing_recipient'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
       - name: CIVICRM_API_KEY_FILE_PATH
@@ -750,46 +363,19 @@ kubernetesPipelines:
       - name: CIVICRM_SITE_KEY_FILE_PATH
         value: /dag_secret_files/civi_key/civi_site_key.txt
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
       - name: civi-secret-volume
         mountPath: /dag_secret_files/civi_key
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: civi-secret-volume
         secret:
           secretName: civi-key
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_twitter_api_v1_user_details_for_sciety_user_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -798,57 +384,24 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=twitter_api_v1_user_details_for_sciety_user'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
       - name: TWITTER_API_AUTHORIZATION_FILE_PATH
         value: /dag_secret_files/twitter_api/twitter_api_authorization.txt
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
       - name: twitter-api-secret-volume
         mountPath: /dag_secret_files/twitter_api/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: twitter-api-secret-volume
         secret:
           secretName: twitter-api
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_crossref_metadata_api_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -857,49 +410,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=crossref_metadata_api'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_biorxiv_medrxiv_meca_path_metadata_v2_Kubernetes'
     airflow:
       dagParameters:
         schedule: '@hourly'
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -909,49 +427,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=biorxiv_medrxiv_meca_path_metadata_v2'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_biorxiv_medrxiv_meca_path_metadata_latest_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -961,49 +444,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=biorxiv_medrxiv_meca_path_metadata_latest'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_biorxiv_api_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -1013,49 +461,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=biorxiv_api'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_medrxiv_api_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -1065,49 +478,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=medrxiv_api'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_europepmc_sciety_evaluated_via_labslink_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -1116,49 +494,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=europepmc_sciety_evaluated_via_labslink'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_web_s2_embeddings_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -1167,49 +510,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=web_s2_embeddings'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_elife_collections_list_Kubernetes'
     airflow:
       dagParameters:
         schedule: '15 2 * * *'  # At 02:15 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -1219,49 +527,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_collections_list'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_elife_collections_detail_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -1271,49 +544,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_collections_detail'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_elife_podcast_list_Kubernetes'
     airflow:
       dagParameters:
         schedule: '15 2 * * *'  # At 02:15 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -1323,49 +561,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_podcast_list'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_elife_podcast_episodes_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -1375,49 +578,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_podcast_episodes'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_updated_reviewed_preprint_vor_Kubernetes'
     airflow:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -1427,49 +595,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=updated_reviewed_preprint_vor'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_openalex_works_metadata_for_preprints_Kubernetes'
     airflow:
       dagParameters:
         schedule: null  # Currently manually run
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Sciety'
           - 'Web API'
       taskParameters:
@@ -1485,12 +618,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=openalex_works_metadata_for_preprints'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
       - name: OPENALEX_API_KEY_FILE_PATH
         value: /dag_secret_files/openalex-api/openalex_api_key
       - name: WEB_API_CONFIG_FILE_PATH
@@ -1500,34 +627,16 @@ kubernetesPipelines:
       - name: PYTHONPATH
         value: /home/airflow/.local/lib/python3.9/site-packages
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
       - name: openalex-api-secret-volume
         mountPath: /dag_secret_files/openalex-api
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
         readOnly: true
       - name: large-temp-volume
         mountPath: /tmp
         readOnly: false
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: openalex-api-secret-volume
         secret:
           secretName: openalex-api
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: large-temp-volume
         ephemeral:
           volumeClaimTemplate:
@@ -1537,21 +646,12 @@ kubernetesPipelines:
               resources:
                 requests:
                   storage: 100Gi
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_keywords_from_manuscript_abstract_batch_Kubernetes'
     airflow:
       dagParameters:
         schedule: '10 */2 * * *'  # At minute 10 past every 2nd hour
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Web API'
           - 'SpaCy'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -1561,41 +661,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=keywords_from_manuscript_abstract_batch'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_keywords_from_disambiguated_editor_papers_abstract_batch_Kubernetes'
     airflow:
       dagParameters:
         schedule: '10 */2 * * *'  # At minute 10 past every 2nd hour
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Web API'
           - 'SpaCy'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -1605,41 +678,14 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=keywords_from_disambiguated_editor_papers_abstract_batch'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_vistaly_update_card_metrics_Kubernetes'
     airflow:
       dagParameters:
         schedule: '0 6 * * *'  # Daily (at 6am in the morning)
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Web API'
           - 'Sciety'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -1649,48 +695,23 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=vistaly_update_card_metrics'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
       - name: VISTALY_API_AUTHORIZATION_FILE_PATH
         value: /dag_secret_files/vistaly-api/vistaly_api_authorization
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: vistaly-api-secret-volume
         mountPath: /dag_secret_files/vistaly-api
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
     volumes:
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: vistaly-api-secret-volume
         secret:
           secretName: vistaly-api
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Data_Science_PeerScout_Build_Reviewing_Editor_Profiles_Kubernetes'
     airflow:
       dagParameters:
         schedule: '0 2 * * *'  # At 02:00 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
     image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
@@ -1698,27 +719,6 @@ kubernetesPipelines:
       - 'python'
       - '-m'
       - 'data_science_pipeline.cli.peerscout_build_reviewing_editor_profiles'
-    env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
     resources:
       limits:
         memory: 2Gi
@@ -1731,9 +731,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '0 2 * * *'  # At 02:00 am
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
     image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
@@ -1741,27 +739,6 @@ kubernetesPipelines:
       - 'python'
       - '-m'
       - 'data_science_pipeline.cli.peerscout_build_senior_editor_profiles'
-    env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
     resources:
       limits:
         memory: 2Gi
@@ -1774,9 +751,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '@hourly'
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
     image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
@@ -1784,27 +759,6 @@ kubernetesPipelines:
       - 'python'
       - '-m'
       - 'data_science_pipeline.cli.peerscout_get_editor_pubmed_papers'
-    env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
     resources:
       limits:
         memory: 2Gi
@@ -1817,9 +771,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '40 */3 * * *'  # At minute 40 past every 3rd hour
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
     image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
@@ -1827,27 +779,6 @@ kubernetesPipelines:
       - 'python'
       - '-m'
       - 'data_science_pipeline.cli.peerscout_recommend_reviewing_editors'
-    env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
     resources:
       limits:
         memory: 4Gi
@@ -1860,9 +791,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '40 */3 * * *'  # At minute 40 past every 3rd hour
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
     image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
@@ -1870,27 +799,6 @@ kubernetesPipelines:
       - 'python'
       - '-m'
       - 'data_science_pipeline.cli.peerscout_recommend_senior_editors'
-    env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
     resources:
       limits:
         memory: 2Gi
@@ -1903,9 +811,7 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '*/20 * * * *'  # At every 20th minute 
-        max_active_runs: 1
         tags:
-          - 'Kubernetes'
           - 'XML'
     image: '${data_hub_ejp_xml_pipeline_unstable_image_repo}:${data_hub_ejp_xml_pipeline_unstable_image_tag}'
     arguments:
@@ -1913,36 +819,10 @@ kubernetesPipelines:
       - '-m'
       - 'ejp_xml_pipeline.cli'
     env:
-      - name: DEPLOYMENT_ENV
-        value: '{ENV}'
       - name: EJP_XML_CONFIG_FILE_PATH
         value: /dag_config_files/ejp-xml-data-pipeline.config.yaml
       - name: INITIAL_S3_XML_FILE_LAST_MODIFIED_DATE
         value: '2012-01-01 00:00:00'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
-      - name: AWS_CONFIG_FILE
-        value: /dag_secret_files/aws/credentials
-    volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
-      - name: aws-secret-volume
-        mountPath: /dag_secret_files/aws
-        readOnly: true
-      - name: data-hub-config-volume
-        mountPath: /dag_config_files/
-        readOnly: true
-    volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
     resources:
       limits:
         memory: 1Gi
