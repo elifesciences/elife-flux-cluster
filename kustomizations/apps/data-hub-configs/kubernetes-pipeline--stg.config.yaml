@@ -99,9 +99,6 @@ kubernetesPipelines:
         mountPath: /dag_secret_files/opensearch/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -136,9 +133,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -177,9 +171,6 @@ kubernetesPipelines:
         mountPath: /dag_secret_files/europepmc_labslink_ftp_credentials/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -218,9 +209,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -254,9 +242,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -283,9 +268,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -312,9 +294,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -341,9 +320,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -371,9 +347,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -405,9 +378,6 @@ kubernetesPipelines:
         mountPath: /dag_secret_files/toggl
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -444,9 +414,6 @@ kubernetesPipelines:
         mountPath: /dag_secret_files/civi_key
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -483,9 +450,6 @@ kubernetesPipelines:
         mountPath: /dag_secret_files/civi_key
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -522,9 +486,6 @@ kubernetesPipelines:
         mountPath: /dag_secret_files/civi_key
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -559,9 +520,6 @@ kubernetesPipelines:
         mountPath: /dag_secret_files/twitter_api/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -591,9 +549,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -621,9 +576,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -651,9 +603,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -681,9 +630,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -711,9 +657,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -740,9 +683,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -769,9 +709,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -799,9 +736,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -829,9 +763,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -859,9 +790,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -889,9 +817,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -919,9 +844,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -967,9 +889,6 @@ kubernetesPipelines:
         mountPath: /tmp
         readOnly: false
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: openalex-api-secret-volume
         secret:
           secretName: openalex-api
@@ -1091,9 +1010,6 @@ kubernetesPipelines:
     env:
     volumeMounts:
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
     resources:
       limits:
         memory: 2Gi
@@ -1119,9 +1035,6 @@ kubernetesPipelines:
     env:
     volumeMounts:
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
     resources:
       limits:
         memory: 2Gi
@@ -1147,9 +1060,6 @@ kubernetesPipelines:
     env:
     volumeMounts:
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
     resources:
       limits:
         memory: 2Gi
@@ -1175,9 +1085,6 @@ kubernetesPipelines:
     env:
     volumeMounts:
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
     resources:
       limits:
         memory: 4Gi
@@ -1203,9 +1110,6 @@ kubernetesPipelines:
     env:
     volumeMounts:
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
     resources:
       limits:
         memory: 2Gi
@@ -1237,9 +1141,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: aws-secret-volume
-        secret:
-          secretName: credentials
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
