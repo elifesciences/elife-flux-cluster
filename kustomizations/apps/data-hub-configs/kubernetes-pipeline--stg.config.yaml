@@ -96,9 +96,6 @@ kubernetesPipelines:
         mountPath: /dag_secret_files/opensearch/
         readOnly: true
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: opensearch-secret-volume
         secret:
           secretName: opensearch-staging-admin-password
@@ -127,9 +124,6 @@ kubernetesPipelines:
         value: /dag_config_files/europepmc.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
     resources:
       limits:
         memory: 1Gi
@@ -162,9 +156,6 @@ kubernetesPipelines:
         mountPath: /dag_secret_files/europepmc_labslink_ftp_credentials/
         readOnly: true
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: europepmc-labslink-ftp-credentials-volume
         secret:
           secretName: europepmc-labslink-ftp-credentials--stg
@@ -197,9 +188,6 @@ kubernetesPipelines:
         value: staging
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
     resources:
       limits:
         memory: 1Gi
@@ -227,9 +215,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_elife_people_api_people_staff_profile_Kubernetes'
     airflow:
@@ -250,9 +235,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_elife_profiles_api_people_orcid_profile_Kubernetes'
     airflow:
@@ -273,9 +255,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_hypothesis_annotations_for_elife_journal_Kubernetes'
     airflow:
@@ -296,9 +275,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_hypothesis_annotations_for_public_reviews_Kubernetes'
     airflow:
@@ -320,9 +296,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_toggl_Kubernetes'
     airflow:
@@ -348,9 +321,6 @@ kubernetesPipelines:
         mountPath: /dag_secret_files/toggl
         readOnly: true
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: toggl-secret-volume
         secret:
           secretName: toggl
@@ -381,9 +351,6 @@ kubernetesPipelines:
         mountPath: /dag_secret_files/civi_key
         readOnly: true
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: civi-secret-volume
         secret:
           secretName: civi-key
@@ -414,9 +381,6 @@ kubernetesPipelines:
         mountPath: /dag_secret_files/civi_key
         readOnly: true
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: civi-secret-volume
         secret:
           secretName: civi-key
@@ -447,9 +411,6 @@ kubernetesPipelines:
         mountPath: /dag_secret_files/civi_key
         readOnly: true
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: civi-secret-volume
         secret:
           secretName: civi-key
@@ -478,9 +439,6 @@ kubernetesPipelines:
         mountPath: /dag_secret_files/twitter_api/
         readOnly: true
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: twitter-api-secret-volume
         secret:
           secretName: twitter-api
@@ -504,9 +462,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_biorxiv_medrxiv_meca_path_metadata_v2_Kubernetes'
     airflow:
@@ -528,9 +483,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_biorxiv_medrxiv_meca_path_metadata_latest_Kubernetes'
     airflow:
@@ -552,9 +504,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_biorxiv_api_Kubernetes'
     airflow:
@@ -576,9 +525,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_medrxiv_api_Kubernetes'
     airflow:
@@ -600,9 +546,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_europepmc_sciety_evaluated_via_labslink_Kubernetes'
     airflow:
@@ -623,9 +566,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_web_s2_embeddings_Kubernetes'
     airflow:
@@ -646,9 +586,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_elife_collections_list_Kubernetes'
     airflow:
@@ -670,9 +607,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_elife_collections_detail_Kubernetes'
     airflow:
@@ -694,9 +628,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_elife_podcast_list_Kubernetes'
     airflow:
@@ -718,9 +649,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_elife_podcast_episodes_Kubernetes'
     airflow:
@@ -742,9 +670,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_updated_reviewed_preprint_vor_Kubernetes'
     airflow:
@@ -766,9 +691,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_openalex_works_metadata_for_preprints_Kubernetes'
     airflow:
@@ -811,9 +733,6 @@ kubernetesPipelines:
       - name: openalex-api-secret-volume
         secret:
           secretName: openalex-api
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
       - name: large-temp-volume
         ephemeral:
           volumeClaimTemplate:
@@ -844,9 +763,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_keywords_from_disambiguated_editor_papers_abstract_batch_Kubernetes'
     airflow:
@@ -868,9 +784,6 @@ kubernetesPipelines:
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Web_API_vistaly_update_card_metrics_Kubernetes'
     airflow:
@@ -899,9 +812,6 @@ kubernetesPipelines:
       - name: vistaly-api-secret-volume
         secret:
           secretName: vistaly-api
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
 
   - dataPipelineId: 'Data_Science_PeerScout_Build_Reviewing_Editor_Profiles_Kubernetes'
     airflow:
@@ -1048,9 +958,6 @@ kubernetesPipelines:
         value: '2012-01-01 00:00:00'
     volumeMounts:
     volumes:
-      - name: data-hub-config-volume
-        configMap:
-          name: data-hub-configs
     resources:
       limits:
         memory: 1Gi
