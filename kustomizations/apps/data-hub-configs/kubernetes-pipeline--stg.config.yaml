@@ -76,8 +76,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: "0 13 * * *" # At 13:00, every day
-        tags:
-          - 'Kubernetes'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
@@ -110,8 +108,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '0 6 * * *'  # At 06:00, every day
-        tags:
-          - 'Kubernetes'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
@@ -132,8 +128,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '40 * * * *' # 40 past the hour, every day
-        tags:
-          - 'Kubernetes'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
@@ -166,8 +160,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '@hourly'
-        tags:
-          - 'Kubernetes'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
@@ -193,7 +185,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -210,7 +201,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -227,7 +217,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -244,7 +233,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -261,7 +249,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '@hourly'
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -279,7 +266,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -306,7 +292,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -335,7 +320,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -364,7 +348,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -393,7 +376,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -420,7 +402,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -437,7 +418,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '@hourly'
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -455,7 +435,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -473,7 +452,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -491,7 +469,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -509,7 +486,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -526,7 +502,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
@@ -543,7 +518,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '15 2 * * *'  # At 02:15 am
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -561,7 +535,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -579,7 +552,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '15 2 * * *'  # At 02:15 am
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -597,7 +569,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -615,7 +586,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '25 2 * * *'  # At 02:25 am
         tags:
-          - 'Kubernetes'
           - 'DocMaps'
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -633,7 +603,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: null  # Currently manually run
         tags:
-          - 'Kubernetes'
           - 'Sciety'
           - 'Web API'
       taskParameters:
@@ -683,7 +652,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '10 */2 * * *'  # At minute 10 past every 2nd hour
         tags:
-          - 'Kubernetes'
           - 'Web API'
           - 'SpaCy'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -701,7 +669,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '10 */2 * * *'  # At minute 10 past every 2nd hour
         tags:
-          - 'Kubernetes'
           - 'Web API'
           - 'SpaCy'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -719,7 +686,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '0 6 * * *'  # Daily (at 6am in the morning)
         tags:
-          - 'Kubernetes'
           - 'Web API'
           - 'Sciety'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -746,7 +712,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '0 2 * * *'  # At 02:00 am
         tags:
-          - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
     image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
@@ -767,7 +732,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '0 2 * * *'  # At 02:00 am
         tags:
-          - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
     image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
@@ -788,7 +752,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '@hourly'
         tags:
-          - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
     image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
@@ -809,7 +772,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '40 */3 * * *'  # At minute 40 past every 3rd hour
         tags:
-          - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
     image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
@@ -830,7 +792,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '40 */3 * * *'  # At minute 40 past every 3rd hour
         tags:
-          - 'Kubernetes'
           - 'Data Science'
           - 'PeerScout'
     image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
@@ -851,7 +812,6 @@ kubernetesPipelines:
       dagParameters:
         schedule: '*/20 * * * *'  # At every 20th minute 
         tags:
-          - 'Kubernetes'
           - 'XML'
     image: '${data_hub_ejp_xml_pipeline_unstable_image_repo}:${data_hub_ejp_xml_pipeline_unstable_image_tag}'
     arguments:
