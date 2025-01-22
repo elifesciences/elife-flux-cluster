@@ -87,8 +87,6 @@ kubernetesPipelines:
     env:
       - name: BIGQUERY_TO_OPENSEARCH_CONFIG_FILE_PATH
         value: /dag_config_files/bigquery-to-opensearch--stg.yaml
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: OPENSEARCH_USERNAME_FILE_PATH
         value: /dag_secret_files/opensearch/username
       - name: OPENSEARCH_PASSWORD_FILE_PATH
@@ -144,8 +142,6 @@ kubernetesPipelines:
     env:
       - name: EUROPEPMC_CONFIG_FILE_PATH
         value: /dag_config_files/europepmc.config.yaml
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
     volumeMounts:
@@ -191,8 +187,6 @@ kubernetesPipelines:
     env:
       - name: EUROPEPMC_LABSLINK_CONFIG_FILE_PATH
         value: /dag_config_files/europepmc-labslink--test.config.yaml
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: EUROPEPMC_LABSLINK_FTP_PASSWORD_FILE_PATH
@@ -246,8 +240,6 @@ kubernetesPipelines:
       - '-m'
       - 'data_pipeline.bigquery_views.cli'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: MATERIALIZE_BIGQUERY_VIEWS_CONFIG_PATH
@@ -299,8 +291,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_observer_api_publication_dates'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -341,8 +331,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_people_api_people_staff_profile'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -383,8 +371,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_profiles_api_people_orcid_profile'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -425,8 +411,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=hypothesis_annotations_for_elife_journal'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -468,8 +452,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=hypothesis_annotations_for_public_reviews'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -510,8 +492,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=toggl'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -560,8 +540,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=civi_mailing'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -612,8 +590,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=civi_contacts'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -664,8 +640,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=civi_mailing_recipient'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -716,8 +690,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=twitter_api_v1_user_details_for_sciety_user'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -766,8 +738,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=crossref_metadata_api'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -809,8 +779,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=biorxiv_medrxiv_meca_path_metadata_v2'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -852,8 +820,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=biorxiv_medrxiv_meca_path_metadata_latest'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -895,8 +861,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=biorxiv_api'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -938,8 +902,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=medrxiv_api'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -980,8 +942,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=europepmc_sciety_evaluated_via_labslink'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -1022,8 +982,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=web_s2_embeddings'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -1065,8 +1023,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_collections_list'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -1108,8 +1064,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_collections_detail'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -1151,8 +1105,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_podcast_list'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -1194,8 +1146,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_podcast_episodes'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -1237,8 +1187,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=updated_reviewed_preprint_vor'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: WEB_API_CONFIG_FILE_PATH
@@ -1286,8 +1234,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=openalex_works_metadata_for_preprints'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
       - name: OPENALEX_API_KEY_FILE_PATH
@@ -1353,8 +1299,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=keywords_from_manuscript_abstract_batch'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
@@ -1388,8 +1332,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=keywords_from_disambiguated_editor_papers_abstract_batch'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
@@ -1423,8 +1365,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=vistaly_update_card_metrics'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
       - name: VISTALY_API_AUTHORIZATION_FILE_PATH
@@ -1464,8 +1404,6 @@ kubernetesPipelines:
       - '-m'
       - 'data_science_pipeline.cli.peerscout_build_reviewing_editor_profiles'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
     volumeMounts:
@@ -1505,8 +1443,6 @@ kubernetesPipelines:
       - '-m'
       - 'data_science_pipeline.cli.peerscout_build_senior_editor_profiles'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
     volumeMounts:
@@ -1546,8 +1482,6 @@ kubernetesPipelines:
       - '-m'
       - 'data_science_pipeline.cli.peerscout_get_editor_pubmed_papers'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
     volumeMounts:
@@ -1587,8 +1521,6 @@ kubernetesPipelines:
       - '-m'
       - 'data_science_pipeline.cli.peerscout_recommend_reviewing_editors'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
     volumeMounts:
@@ -1628,8 +1560,6 @@ kubernetesPipelines:
       - '-m'
       - 'data_science_pipeline.cli.peerscout_recommend_senior_editors'
     env:
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
     volumeMounts:
@@ -1672,8 +1602,6 @@ kubernetesPipelines:
         value: /dag_config_files/ejp-xml-data-pipeline.config.yaml
       - name: INITIAL_S3_XML_FILE_LAST_MODIFIED_DATE
         value: '2012-01-01 00:00:00'
-      - name: GOOGLE_APPLICATION_CREDENTIALS
-        value: /dag_secret_files/gcloud/credentials.json
       - name: AWS_CONFIG_FILE
         value: /dag_secret_files/aws/credentials
     volumeMounts:
