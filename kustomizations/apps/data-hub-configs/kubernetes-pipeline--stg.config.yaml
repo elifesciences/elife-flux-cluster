@@ -50,8 +50,8 @@ kubernetesPipelines:
       - name: GITHUB_API_AUTHORIZATION_FILE_PATH
         value: /dag_secret_files/github_api/github_api_authorization.txt
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
+      - name: github-api-secret-volume
+        mountPath: /dag_secret_files/github_api/
         readOnly: true
     volumes:
       - name: github-api-secret-volume
