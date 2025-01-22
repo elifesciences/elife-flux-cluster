@@ -92,9 +92,6 @@ kubernetesPipelines:
       - name: OPENSEARCH_PASSWORD_FILE_PATH
         value: /dag_secret_files/opensearch/password
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -141,9 +138,6 @@ kubernetesPipelines:
       - name: EUROPEPMC_CONFIG_FILE_PATH
         value: /dag_config_files/europepmc.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -188,9 +182,6 @@ kubernetesPipelines:
       - name: EUROPEPMC_LABSLINK_FTP_DIRECTORY_NAME_FILE_PATH
         value: /dag_secret_files/europepmc_labslink_ftp_credentials/directory_name
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -241,9 +232,6 @@ kubernetesPipelines:
       - name: MATERIALIZE_BIGQUERY_VIEWS_DATASET
         value: staging
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -286,9 +274,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -324,9 +309,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -362,9 +344,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -400,9 +379,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -439,9 +415,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -479,9 +452,6 @@ kubernetesPipelines:
       - name: TOGGL_API_TOKEN_FILE_PATH
         value: /dag_secret_files/toggl/toggl_api_token.txt
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -527,9 +497,6 @@ kubernetesPipelines:
       - name: CIVICRM_SITE_KEY_FILE_PATH
         value: /dag_secret_files/civi_key/civi_site_key.txt
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -575,9 +542,6 @@ kubernetesPipelines:
       - name: CIVICRM_SITE_KEY_FILE_PATH
         value: /dag_secret_files/civi_key/civi_site_key.txt
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -623,9 +587,6 @@ kubernetesPipelines:
       - name: CIVICRM_SITE_KEY_FILE_PATH
         value: /dag_secret_files/civi_key/civi_site_key.txt
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -669,9 +630,6 @@ kubernetesPipelines:
       - name: TWITTER_API_AUTHORIZATION_FILE_PATH
         value: /dag_secret_files/twitter_api/twitter_api_authorization.txt
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -713,9 +671,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -752,9 +707,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -791,9 +743,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -830,9 +779,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -869,9 +815,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -907,9 +850,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -945,9 +885,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -984,9 +921,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -1023,9 +957,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -1062,9 +993,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -1101,9 +1029,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -1140,9 +1065,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -1191,9 +1113,6 @@ kubernetesPipelines:
       - name: PYTHONPATH
         value: /home/airflow/.local/lib/python3.9/site-packages
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -1248,9 +1167,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: data-hub-config-volume
         mountPath: /dag_config_files/
         readOnly: true
@@ -1281,9 +1197,6 @@ kubernetesPipelines:
       - name: WEB_API_CONFIG_FILE_PATH
         value: /dag_config_files/web-api-data-pipeline.config.yaml
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: data-hub-config-volume
         mountPath: /dag_config_files/
         readOnly: true
@@ -1316,9 +1229,6 @@ kubernetesPipelines:
       - name: VISTALY_API_AUTHORIZATION_FILE_PATH
         value: /dag_secret_files/vistaly-api/vistaly_api_authorization
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: vistaly-api-secret-volume
         mountPath: /dag_secret_files/vistaly-api
       - name: data-hub-config-volume
@@ -1351,9 +1261,6 @@ kubernetesPipelines:
       - 'data_science_pipeline.cli.peerscout_build_reviewing_editor_profiles'
     env:
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -1388,9 +1295,6 @@ kubernetesPipelines:
       - 'data_science_pipeline.cli.peerscout_build_senior_editor_profiles'
     env:
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -1425,9 +1329,6 @@ kubernetesPipelines:
       - 'data_science_pipeline.cli.peerscout_get_editor_pubmed_papers'
     env:
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -1462,9 +1363,6 @@ kubernetesPipelines:
       - 'data_science_pipeline.cli.peerscout_recommend_reviewing_editors'
     env:
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -1499,9 +1397,6 @@ kubernetesPipelines:
       - 'data_science_pipeline.cli.peerscout_recommend_senior_editors'
     env:
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
@@ -1539,9 +1434,6 @@ kubernetesPipelines:
       - name: INITIAL_S3_XML_FILE_LAST_MODIFIED_DATE
         value: '2012-01-01 00:00:00'
     volumeMounts:
-      - name: gcloud-secret-volume
-        mountPath: /dag_secret_files/gcloud/
-        readOnly: true
       - name: aws-secret-volume
         mountPath: /dag_secret_files/aws
         readOnly: true
