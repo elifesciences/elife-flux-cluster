@@ -32,6 +32,13 @@ defaultConfig:
     - name: data-hub-config-volume
       configMap:
         name: data-hub-configs
+  resources:
+    limits:
+      memory: 600Mi
+      cpu: 1000m
+    requests:
+      memory: 500Mi
+      cpu: 100m
 
 kubernetesPipelines:
 
@@ -328,13 +335,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_elife_people_api_people_staff_profile_Kubernetes'
     airflow:
@@ -379,13 +379,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_elife_profiles_api_people_orcid_profile_Kubernetes'
     airflow:
@@ -430,13 +423,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_hypothesis_annotations_for_elife_journal_Kubernetes'
     airflow:
@@ -481,13 +467,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_hypothesis_annotations_for_public_reviews_Kubernetes'
     airflow:
@@ -533,13 +512,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_toggl_Kubernetes'
     airflow:
@@ -592,13 +564,6 @@ kubernetesPipelines:
       - name: toggl-secret-volume
         secret:
           secretName: toggl
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_civi_mailing_Kubernetes'
     airflow:
@@ -653,13 +618,6 @@ kubernetesPipelines:
       - name: civi-secret-volume
         secret:
           secretName: civi-key
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_civi_contacts_Kubernetes'
     airflow:
@@ -714,13 +672,6 @@ kubernetesPipelines:
       - name: civi-secret-volume
         secret:
           secretName: civi-key
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_civi_mailing_recipient_Kubernetes'
     airflow:
@@ -775,13 +726,6 @@ kubernetesPipelines:
       - name: civi-secret-volume
         secret:
           secretName: civi-key
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_twitter_api_v1_user_details_for_sciety_user_Kubernetes'
     airflow:
@@ -834,13 +778,6 @@ kubernetesPipelines:
       - name: twitter-api-secret-volume
         secret:
           secretName: twitter-api
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_crossref_metadata_api_Kubernetes'
     airflow:
@@ -885,13 +822,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_biorxiv_medrxiv_meca_path_metadata_v2_Kubernetes'
     airflow:
@@ -937,13 +867,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_biorxiv_medrxiv_meca_path_metadata_latest_Kubernetes'
     airflow:
@@ -989,13 +912,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_biorxiv_api_Kubernetes'
     airflow:
@@ -1041,13 +957,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_medrxiv_api_Kubernetes'
     airflow:
@@ -1093,13 +1002,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_europepmc_sciety_evaluated_via_labslink_Kubernetes'
     airflow:
@@ -1144,13 +1046,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_web_s2_embeddings_Kubernetes'
     airflow:
@@ -1195,13 +1090,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_elife_collections_list_Kubernetes'
     airflow:
@@ -1247,13 +1135,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_elife_collections_detail_Kubernetes'
     airflow:
@@ -1299,13 +1180,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_elife_podcast_list_Kubernetes'
     airflow:
@@ -1351,13 +1225,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_elife_podcast_episodes_Kubernetes'
     airflow:
@@ -1403,13 +1270,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_updated_reviewed_preprint_vor_Kubernetes'
     airflow:
@@ -1455,13 +1315,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_openalex_works_metadata_for_preprints_Kubernetes'
     airflow:
@@ -1537,13 +1390,6 @@ kubernetesPipelines:
               resources:
                 requests:
                   storage: 100Gi
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_keywords_from_manuscript_abstract_batch_Kubernetes'
     airflow:
@@ -1581,13 +1427,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_keywords_from_disambiguated_editor_papers_abstract_batch_Kubernetes'
     airflow:
@@ -1625,13 +1464,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Web_API_vistaly_update_card_metrics_Kubernetes'
     airflow:
@@ -1676,13 +1508,6 @@ kubernetesPipelines:
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
-    resources:
-      limits:
-        memory: 600Mi
-        cpu: 1000m
-      requests:
-        memory: 500Mi
-        cpu: 100m
 
   - dataPipelineId: 'Data_Science_PeerScout_Build_Reviewing_Editor_Profiles_Kubernetes'
     airflow:
