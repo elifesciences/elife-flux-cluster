@@ -102,9 +102,6 @@ kubernetesPipelines:
         mountPath: /dag_secret_files/opensearch/
         readOnly: true
     volumes:
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: aws-secret-volume
         secret:
           secretName: credentials
@@ -148,9 +145,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -195,9 +189,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -242,9 +233,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -284,9 +272,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -319,9 +304,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -354,9 +336,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -389,9 +368,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -425,9 +401,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -465,9 +438,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -510,9 +480,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -555,9 +522,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -600,9 +564,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -643,9 +604,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -681,9 +639,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -717,9 +672,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -753,9 +705,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -789,9 +738,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -825,9 +771,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -860,9 +803,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -895,9 +835,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -931,9 +868,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -967,9 +901,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -1003,9 +934,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -1039,9 +967,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -1075,9 +1000,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -1129,9 +1051,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: openalex-api-secret-volume
         secret:
           secretName: openalex-api
@@ -1171,9 +1090,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -1201,9 +1117,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
@@ -1235,9 +1148,6 @@ kubernetesPipelines:
         mountPath: /dag_config_files/
         readOnly: true
     volumes:
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: vistaly-api-secret-volume
         secret:
           secretName: vistaly-api
@@ -1268,9 +1178,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
     resources:
       limits:
         memory: 2Gi
@@ -1302,9 +1209,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
     resources:
       limits:
         memory: 2Gi
@@ -1336,9 +1240,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
     resources:
       limits:
         memory: 2Gi
@@ -1370,9 +1271,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
     resources:
       limits:
         memory: 4Gi
@@ -1404,9 +1302,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
     resources:
       limits:
         memory: 2Gi
@@ -1444,9 +1339,6 @@ kubernetesPipelines:
       - name: aws-secret-volume
         secret:
           secretName: credentials
-      - name: gcloud-secret-volume
-        secret:
-          secretName: gcloud
       - name: data-hub-config-volume
         configMap:
           name: data-hub-configs
