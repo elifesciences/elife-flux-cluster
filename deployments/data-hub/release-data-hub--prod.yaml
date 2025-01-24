@@ -95,10 +95,6 @@ spec:
         value: "s3://prod-elife-data-pipeline/airflow-config/bigquery-views"
       - name: TOGGL_API_TOKEN_FILE_PATH
         value: /home/airflow/toggl/toggl_api_token.txt
-      - name: CIVICRM_API_KEY_FILE_PATH
-        value: /home/airflow/civi_key/civi_api_key.txt
-      - name: CIVICRM_SITE_KEY_FILE_PATH
-        value: /home/airflow/civi_key/civi_site_key.txt
       - name: EJP_XML_CONFIG_FILE_PATH
         value: /dag_config_files/ejp-xml-data-pipeline.config.yaml
       - name: SEMANTIC_SCHOLAR_CONFIG_FILE_PATH
@@ -109,8 +105,6 @@ spec:
         value: /dag_config_files/bigquery-to-opensearch--prod.yaml
       - name: SURVEYMONKEY_DATA_CONFIG_FILE_PATH
         value: /dag_config_files/surveymonkey-data-pipeline.config.yaml
-      - name: CIVICRM_EMAIL_DATA_CONFIG_FILE_PATH
-        value: /dag_config_files/civicrm-email-report-data-pipeline.config.yaml
       - name: TWITTER_ADS_API_CONFIG_FILE_PATH
         value: /dag_config_files/twitter-ads-api.config.yaml
       - name: GOOGLE_ANALYTICS_CONFIG_FILE_PATH
@@ -158,8 +152,6 @@ spec:
         value: "*/20 * * * *"
       - name: SURVEYMONKEY_DATA_PIPELINE_SCHEDULE_INTERVAL
         value: "@monthly"
-      - name: CIVICRM_EMAIL_REPORT_DATA_PIPELINE_SCHEDULE_INTERVAL
-        value: "@daily"
       - name: TWITTER_ADS_API_PIPELINE_SCHEDULE_INTERVAL
         value: "0 3 * * *" # At 03:00, every day
       # general:
@@ -272,9 +264,6 @@ spec:
         - name: toggl-secret-volume
           mountPath: /home/airflow/toggl
           readOnly: true
-        - name: civi-secret-volume
-          mountPath: /home/airflow/civi_key
-          readOnly: true
         - name: monitoring-urls-volume
           mountPath: /dag_secret_files/monitoring_urls/
           readOnly: true
@@ -327,9 +316,6 @@ spec:
         - name: toggl-secret-volume
           secret:
             secretName: toggl
-        - name: civi-secret-volume
-          secret:
-            secretName: civi-key
         - name: monitoring-urls-volume
           secret:
             secretName: monitoring-urls--prod
@@ -390,9 +376,6 @@ spec:
       - name: toggl-secret-volume
         mountPath: /home/airflow/toggl
         readOnly: true
-      - name: civi-secret-volume
-        mountPath: /home/airflow/civi_key
-        readOnly: true
       - name: monitoring-urls-volume
         mountPath: /dag_secret_files/monitoring_urls/
         readOnly: true
@@ -445,9 +428,6 @@ spec:
       - name: toggl-secret-volume
         secret:
           secretName: toggl
-      - name: civi-secret-volume
-        secret:
-          secretName: civi-key
       - name: monitoring-urls-volume
         secret:
           secretName: monitoring-urls--prod
