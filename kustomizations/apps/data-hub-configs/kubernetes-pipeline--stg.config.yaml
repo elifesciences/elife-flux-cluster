@@ -1,2 +1,2 @@
 importFilesFrom:
-  - kubernetes-pipeline/other-pipelines--stg.config.yaml
+  - kubernetes-pipeline-other-pipelines--stg.config.yaml
