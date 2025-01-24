@@ -1,0 +1,748 @@
+defaultConfig:
+  airflow:
+    dagParameters:
+      schedule: null
+      max_active_runs: 1
+      tags:
+        - 'Kubernetes'
+  env:
+    - name: DEPLOYMENT_ENV
+      value: '{ENV}'
+    - name: GOOGLE_APPLICATION_CREDENTIALS
+      value: /dag_secret_files/gcloud/credentials.json
+    - name: AWS_CONFIG_FILE
+      value: /dag_secret_files/aws/credentials
+  volumeMounts:
+    - name: gcloud-secret-volume
+      mountPath: /dag_secret_files/gcloud/
+      readOnly: true
+    - name: aws-secret-volume
+      mountPath: /dag_secret_files/aws
+      readOnly: true
+    - name: data-hub-config-volume
+      mountPath: /dag_config_files/
+      readOnly: true
+  volumes:
+    - name: aws-secret-volume
+      secret:
+        secretName: credentials
+    - name: gcloud-secret-volume
+      secret:
+        secretName: gcloud
+    - name: data-hub-config-volume
+      configMap:
+        name: data-hub-configs
+  resources:
+    limits:
+      memory: 600Mi
+      cpu: 1000m
+    requests:
+      memory: 500Mi
+      cpu: 100m
+
+kubernetesPipelines:
+
+  - dataPipelineId: 'Elife_Article_Xml_Pipeline_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '0 3 * * *'  # At 03:00, every day
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.elife_article_xml.cli'
+    env:
+      - name: ELIFE_ARTICLE_XML_CONFIG_FILE_PATH
+        value: /dag_config_files/elife-article-xml.config.yaml
+      - name: GITHUB_API_AUTHORIZATION_FILE_PATH
+        value: /dag_secret_files/github_api/github_api_authorization.txt
+    volumeMounts:
+      - name: github-api-secret-volume
+        mountPath: /dag_secret_files/github_api/
+        readOnly: true
+    volumes:
+      - name: github-api-secret-volume
+        secret:
+          secretName: github-api
+    resources:
+      limits:
+        memory: 1Gi
+        cpu: 1000m
+      requests:
+        memory: 1Gi
+        cpu: 100m
+
+  - dataPipelineId: 'BigQuery_To_OpenSearch_Pipeline_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: "0 13 * * *" # At 13:00, every day
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.opensearch.cli'
+    env:
+      - name: BIGQUERY_TO_OPENSEARCH_CONFIG_FILE_PATH
+        value: /dag_config_files/bigquery-to-opensearch--stg.yaml
+      - name: OPENSEARCH_USERNAME_FILE_PATH
+        value: /dag_secret_files/opensearch/username
+      - name: OPENSEARCH_PASSWORD_FILE_PATH
+        value: /dag_secret_files/opensearch/password
+    volumeMounts:
+      - name: opensearch-secret-volume
+        mountPath: /dag_secret_files/opensearch/
+        readOnly: true
+    volumes:
+      - name: opensearch-secret-volume
+        secret:
+          secretName: opensearch-staging-admin-password
+    resources:
+      limits:
+        memory: 1Gi
+        cpu: 1000m
+      requests:
+        memory: 1Gi
+        cpu: 100m
+
+  - dataPipelineId: 'EuropePmc_Pipeline_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '0 6 * * *'  # At 06:00, every day
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.europepmc.cli_europepmc'
+    env:
+      - name: EUROPEPMC_CONFIG_FILE_PATH
+        value: /dag_config_files/europepmc.config.yaml
+    resources:
+      limits:
+        memory: 1Gi
+        cpu: 1000m
+      requests:
+        memory: 1Gi
+        cpu: 100m
+
+  - dataPipelineId: 'EuropePmc_Labslink_Pipeline_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '40 * * * *' # 40 past the hour, every day
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.europepmc.cli_europepmc_labslink'
+    env:
+      - name: EUROPEPMC_LABSLINK_CONFIG_FILE_PATH
+        value: /dag_config_files/europepmc-labslink--test.config.yaml
+      - name: EUROPEPMC_LABSLINK_FTP_PASSWORD_FILE_PATH
+        value: /dag_secret_files/europepmc_labslink_ftp_credentials/password
+      - name: EUROPEPMC_LABSLINK_FTP_DIRECTORY_NAME_FILE_PATH
+        value: /dag_secret_files/europepmc_labslink_ftp_credentials/directory_name
+    volumeMounts:
+      - name: europepmc-labslink-ftp-credentials-volume
+        mountPath: /dag_secret_files/europepmc_labslink_ftp_credentials/
+        readOnly: true
+    volumes:
+      - name: europepmc-labslink-ftp-credentials-volume
+        secret:
+          secretName: europepmc-labslink-ftp-credentials--stg
+    resources:
+      limits:
+        memory: 1Gi
+        cpu: 1000m
+      requests:
+        memory: 1Gi
+        cpu: 100m
+
+  - dataPipelineId: 'Materialize_BigQuery_Views_Pipeline_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '@hourly'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.bigquery_views.cli'
+    env:
+      - name: MATERIALIZE_BIGQUERY_VIEWS_CONFIG_PATH
+        value: "s3://staging-elife-data-pipeline/airflow-config/bigquery-views"
+      - name: MATERIALIZE_BIGQUERY_VIEWS_GCP_PROJECT
+        value: "elife-data-pipeline"
+      - name: MATERIALIZE_BIGQUERY_VIEWS_DATASET
+        value: staging
+    resources:
+      limits:
+        memory: 1Gi
+        cpu: 1000m
+      requests:
+        memory: 1Gi
+        cpu: 100m
+
+  - dataPipelineId: 'Web_API_elife_observer_api_publication_dates_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=elife_observer_api_publication_dates'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_elife_people_api_people_staff_profile_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=elife_people_api_people_staff_profile'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_elife_profiles_api_people_orcid_profile_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=elife_profiles_api_people_orcid_profile'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_hypothesis_annotations_for_elife_journal_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=hypothesis_annotations_for_elife_journal'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_hypothesis_annotations_for_public_reviews_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '@hourly'
+        tags:
+          - 'DocMaps'
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=hypothesis_annotations_for_public_reviews'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_toggl_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=toggl'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+      - name: TOGGL_API_TOKEN_FILE_PATH
+        value: /dag_secret_files/toggl/toggl_api_token.txt
+    volumeMounts:
+      - name: toggl-secret-volume
+        mountPath: /dag_secret_files/toggl
+        readOnly: true
+    volumes:
+      - name: toggl-secret-volume
+        secret:
+          secretName: toggl
+
+  - dataPipelineId: 'Web_API_twitter_api_v1_user_details_for_sciety_user_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=twitter_api_v1_user_details_for_sciety_user'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+      - name: TWITTER_API_AUTHORIZATION_FILE_PATH
+        value: /dag_secret_files/twitter_api/twitter_api_authorization.txt
+    volumeMounts:
+      - name: twitter-api-secret-volume
+        mountPath: /dag_secret_files/twitter_api/
+        readOnly: true
+    volumes:
+      - name: twitter-api-secret-volume
+        secret:
+          secretName: twitter-api
+
+  - dataPipelineId: 'Web_API_crossref_metadata_api_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=crossref_metadata_api'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_biorxiv_medrxiv_meca_path_metadata_v2_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '@hourly'
+        tags:
+          - 'DocMaps'
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=biorxiv_medrxiv_meca_path_metadata_v2'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_biorxiv_medrxiv_meca_path_metadata_latest_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'DocMaps'
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=biorxiv_medrxiv_meca_path_metadata_latest'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_biorxiv_api_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'DocMaps'
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=biorxiv_api'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_medrxiv_api_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'DocMaps'
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=medrxiv_api'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_europepmc_sciety_evaluated_via_labslink_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=europepmc_sciety_evaluated_via_labslink'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_web_s2_embeddings_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=web_s2_embeddings'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_elife_collections_list_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '15 2 * * *'  # At 02:15 am
+        tags:
+          - 'DocMaps'
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=elife_collections_list'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_elife_collections_detail_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'DocMaps'
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=elife_collections_detail'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_elife_podcast_list_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '15 2 * * *'  # At 02:15 am
+        tags:
+          - 'DocMaps'
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=elife_podcast_list'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_elife_podcast_episodes_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'DocMaps'
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=elife_podcast_episodes'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_updated_reviewed_preprint_vor_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'DocMaps'
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=updated_reviewed_preprint_vor'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_openalex_works_metadata_for_preprints_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: null  # Currently manually run
+        tags:
+          - 'Sciety'
+          - 'Web API'
+      taskParameters:
+        annotations:
+          karpenter.sh/do-not-disrupt: "true"
+        security_context:
+          runAsUser: 0  # 0 is the root user ID
+          runAsGroup: 0  # 0 is the root group ID
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=openalex_works_metadata_for_preprints'
+    env:
+      - name: OPENALEX_API_KEY_FILE_PATH
+        value: /dag_secret_files/openalex-api/openalex_api_key
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+      - name: TMPDIR
+        value: /tmp
+      - name: PYTHONPATH
+        value: /home/airflow/.local/lib/python3.9/site-packages
+    volumeMounts:
+      - name: openalex-api-secret-volume
+        mountPath: /dag_secret_files/openalex-api
+        readOnly: true
+      - name: large-temp-volume
+        mountPath: /tmp
+        readOnly: false
+    volumes:
+      - name: openalex-api-secret-volume
+        secret:
+          secretName: openalex-api
+      - name: large-temp-volume
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "data-hub-gp3"
+              resources:
+                requests:
+                  storage: 100Gi
+
+  - dataPipelineId: 'Web_API_keywords_from_manuscript_abstract_batch_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '10 */2 * * *'  # At minute 10 past every 2nd hour
+        tags:
+          - 'Web API'
+          - 'SpaCy'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=keywords_from_manuscript_abstract_batch'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_keywords_from_disambiguated_editor_papers_abstract_batch_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '10 */2 * * *'  # At minute 10 past every 2nd hour
+        tags:
+          - 'Web API'
+          - 'SpaCy'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=keywords_from_disambiguated_editor_papers_abstract_batch'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+
+  - dataPipelineId: 'Web_API_vistaly_update_card_metrics_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '0 6 * * *'  # Daily (at 6am in the morning)
+        tags:
+          - 'Web API'
+          - 'Sciety'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=vistaly_update_card_metrics'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+      - name: VISTALY_API_AUTHORIZATION_FILE_PATH
+        value: /dag_secret_files/vistaly-api/vistaly_api_authorization
+    volumeMounts:
+      - name: vistaly-api-secret-volume
+        mountPath: /dag_secret_files/vistaly-api
+    volumes:
+      - name: vistaly-api-secret-volume
+        secret:
+          secretName: vistaly-api
+
+  - dataPipelineId: 'Data_Science_PeerScout_Build_Reviewing_Editor_Profiles_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '0 2 * * *'  # At 02:00 am
+        tags:
+          - 'Data Science'
+          - 'PeerScout'
+    image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_science_pipeline.cli.peerscout_build_reviewing_editor_profiles'
+    resources:
+      limits:
+        memory: 2Gi
+        cpu: 1000m
+      requests:
+        memory: 2Gi
+        cpu: 100m
+
+  - dataPipelineId: 'Data_Science_PeerScout_Build_Senior_Editor_Profiles_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '0 2 * * *'  # At 02:00 am
+        tags:
+          - 'Data Science'
+          - 'PeerScout'
+    image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_science_pipeline.cli.peerscout_build_senior_editor_profiles'
+    resources:
+      limits:
+        memory: 2Gi
+        cpu: 1000m
+      requests:
+        memory: 2Gi
+        cpu: 100m
+
+  - dataPipelineId: 'Data_Science_PeerScout_Get_Editor_Pubmed_Papers_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '@hourly'
+        tags:
+          - 'Data Science'
+          - 'PeerScout'
+    image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_science_pipeline.cli.peerscout_get_editor_pubmed_papers'
+    resources:
+      limits:
+        memory: 2Gi
+        cpu: 1000m
+      requests:
+        memory: 2Gi
+        cpu: 100m
+
+  - dataPipelineId: 'Data_Science_PeerScout_Recommend_Reviewing_Editors_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '40 */3 * * *'  # At minute 40 past every 3rd hour
+        tags:
+          - 'Data Science'
+          - 'PeerScout'
+    image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_science_pipeline.cli.peerscout_recommend_reviewing_editors'
+    resources:
+      limits:
+        memory: 4Gi
+        cpu: 1000m
+      requests:
+        memory: 4Gi
+        cpu: 100m
+
+  - dataPipelineId: 'Data_Science_PeerScout_Recommend_Senior_Editors_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '40 */3 * * *'  # At minute 40 past every 3rd hour
+        tags:
+          - 'Data Science'
+          - 'PeerScout'
+    image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_science_pipeline.cli.peerscout_recommend_senior_editors'
+    resources:
+      limits:
+        memory: 2Gi
+        cpu: 1000m
+      requests:
+        memory: 2Gi
+        cpu: 100m
+
+  - dataPipelineId: 'S3_XML_Data_Pipeline_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '*/20 * * * *'  # At every 20th minute 
+        tags:
+          - 'XML'
+    image: '${data_hub_ejp_xml_pipeline_unstable_image_repo}:${data_hub_ejp_xml_pipeline_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'ejp_xml_pipeline.cli'
+    env:
+      - name: EJP_XML_CONFIG_FILE_PATH
+        value: /dag_config_files/ejp-xml-data-pipeline.config.yaml
+      - name: INITIAL_S3_XML_FILE_LAST_MODIFIED_DATE
+        value: '2012-01-01 00:00:00'
+    resources:
+      limits:
+        memory: 1Gi
+        cpu: 1000m
+      requests:
+        memory: 1Gi
+        cpu: 100m
