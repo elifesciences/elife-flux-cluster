@@ -7,7 +7,7 @@ defaultConfig:
         - 'Kubernetes'
   env:
     - name: DEPLOYMENT_ENV
-      value: '{ENV}'
+      value: staging
     - name: GOOGLE_APPLICATION_CREDENTIALS
       value: /dag_secret_files/gcloud/credentials.json
     - name: AWS_CONFIG_FILE
