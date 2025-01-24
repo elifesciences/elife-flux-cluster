@@ -7,7 +7,6 @@ configMapGenerator:
   files:
   - bigquery-to-opensearch--prod.yaml
   - bigquery-to-opensearch--stg.yaml
-  - civicrm-email-report-data-pipeline.config.yaml
   - crossref-event-data-pipeline.config.yaml
   - ejp-xml-data-pipeline.config.yaml
   - ejp-xml-data-pipeline--test.config.yaml
