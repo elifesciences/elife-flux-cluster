@@ -287,6 +287,90 @@ kubernetesPipelines:
         secret:
           secretName: toggl
 
+  - dataPipelineId: 'Web_API_civi_mailing_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=civi_mailing'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+      - name: CIVICRM_API_KEY_FILE_PATH
+        value: /dag_secret_files/civi_key/civi_api_key.txt
+      - name: CIVICRM_SITE_KEY_FILE_PATH
+        value: /dag_secret_files/civi_key/civi_site_key.txt
+    volumeMounts:
+      - name: civi-secret-volume
+        mountPath: /dag_secret_files/civi_key
+        readOnly: true
+    volumes:
+      - name: civi-secret-volume
+        secret:
+          secretName: civi-key
+
+  - dataPipelineId: 'Web_API_civi_contacts_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=civi_contacts'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+      - name: CIVICRM_API_KEY_FILE_PATH
+        value: /dag_secret_files/civi_key/civi_api_key.txt
+      - name: CIVICRM_SITE_KEY_FILE_PATH
+        value: /dag_secret_files/civi_key/civi_site_key.txt
+    volumeMounts:
+      - name: civi-secret-volume
+        mountPath: /dag_secret_files/civi_key
+        readOnly: true
+    volumes:
+      - name: civi-secret-volume
+        secret:
+          secretName: civi-key
+
+  - dataPipelineId: 'Web_API_civi_mailing_recipient_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '25 2 * * *'  # At 02:25 am
+        tags:
+          - 'Web API'
+    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_pipeline.generic_web_api.cli'
+      - '--data-pipeline-id=civi_mailing_recipient'
+    env:
+      - name: WEB_API_CONFIG_FILE_PATH
+        value: /dag_config_files/web-api-data-pipeline.config.yaml
+      - name: CIVICRM_API_KEY_FILE_PATH
+        value: /dag_secret_files/civi_key/civi_api_key.txt
+      - name: CIVICRM_SITE_KEY_FILE_PATH
+        value: /dag_secret_files/civi_key/civi_site_key.txt
+    volumeMounts:
+      - name: civi-secret-volume
+        mountPath: /dag_secret_files/civi_key
+        readOnly: true
+    volumes:
+      - name: civi-secret-volume
+        secret:
+          secretName: civi-key
+
   - dataPipelineId: 'Web_API_twitter_api_v1_user_details_for_sciety_user_Kubernetes'
     airflow:
       dagParameters:
