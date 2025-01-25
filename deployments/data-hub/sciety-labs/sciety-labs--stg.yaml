@@ -49,7 +49,7 @@ spec:
           requests:
             cpu: 250m
             memory: 1024Mi
-            ephemeral-storage: 500Mi
+            ephemeral-storage: 5000Mi
         env:
         - name: SCIETY_LABS_COOKIEBOT_IDENTIFIER
           value: "56f22051-f915-4cf1-9552-7d8f64d81152"
