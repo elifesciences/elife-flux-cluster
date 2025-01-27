@@ -34,10 +34,10 @@ defaultConfig:
         name: data-hub-configs
   resources:
     limits:
-      memory: 600Mi
+      memory: 1Gi
       cpu: 1000m
     requests:
-      memory: 500Mi
+      memory: 1Gi
       cpu: 100m
 
 kubernetesPipelines:
@@ -64,13 +64,6 @@ kubernetesPipelines:
       - name: github-api-secret-volume
         secret:
           secretName: github-api
-    resources:
-      limits:
-        memory: 1Gi
-        cpu: 1000m
-      requests:
-        memory: 1Gi
-        cpu: 100m
 
   - dataPipelineId: 'BigQuery_To_OpenSearch_Pipeline_Kubernetes'
     airflow:
@@ -96,13 +89,6 @@ kubernetesPipelines:
       - name: opensearch-secret-volume
         secret:
           secretName: opensearch-staging-admin-password
-    resources:
-      limits:
-        memory: 1Gi
-        cpu: 1000m
-      requests:
-        memory: 1Gi
-        cpu: 100m
 
   - dataPipelineId: 'EuropePmc_Pipeline_Kubernetes'
     airflow:
@@ -116,13 +102,6 @@ kubernetesPipelines:
     env:
       - name: EUROPEPMC_CONFIG_FILE_PATH
         value: /dag_config_files/europepmc.config.yaml
-    resources:
-      limits:
-        memory: 1Gi
-        cpu: 1000m
-      requests:
-        memory: 1Gi
-        cpu: 100m
 
   - dataPipelineId: 'EuropePmc_Labslink_Pipeline_Kubernetes'
     airflow:
@@ -148,13 +127,6 @@ kubernetesPipelines:
       - name: europepmc-labslink-ftp-credentials-volume
         secret:
           secretName: europepmc-labslink-ftp-credentials--stg
-    resources:
-      limits:
-        memory: 1Gi
-        cpu: 1000m
-      requests:
-        memory: 1Gi
-        cpu: 100m
 
   - dataPipelineId: 'Materialize_BigQuery_Views_Pipeline_Kubernetes'
     airflow:
@@ -172,10 +144,3 @@ kubernetesPipelines:
         value: "elife-data-pipeline"
       - name: MATERIALIZE_BIGQUERY_VIEWS_DATASET
         value: staging
-    resources:
-      limits:
-        memory: 1Gi
-        cpu: 1000m
-      requests:
-        memory: 1Gi
-        cpu: 100m
