@@ -179,27 +179,3 @@ kubernetesPipelines:
       requests:
         memory: 1Gi
         cpu: 100m
-
-  - dataPipelineId: 'S3_XML_Data_Pipeline_Kubernetes'
-    airflow:
-      dagParameters:
-        schedule: '*/20 * * * *'  # At every 20th minute 
-        tags:
-          - 'XML'
-    image: '${data_hub_ejp_xml_pipeline_unstable_image_repo}:${data_hub_ejp_xml_pipeline_unstable_image_tag}'
-    arguments:
-      - 'python'
-      - '-m'
-      - 'ejp_xml_pipeline.cli'
-    env:
-      - name: EJP_XML_CONFIG_FILE_PATH
-        value: /dag_config_files/ejp-xml-data-pipeline.config.yaml
-      - name: INITIAL_S3_XML_FILE_LAST_MODIFIED_DATE
-        value: '2012-01-01 00:00:00'
-    resources:
-      limits:
-        memory: 1Gi
-        cpu: 1000m
-      requests:
-        memory: 1Gi
-        cpu: 100m
