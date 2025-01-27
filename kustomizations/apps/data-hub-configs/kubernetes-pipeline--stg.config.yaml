@@ -1,3 +1,4 @@
 importFilesFrom:
+  - kubernetes-pipeline-data-science-pipelines--stg.config.yaml
   - kubernetes-pipeline-other-pipelines--stg.config.yaml
   - kubernetes-pipeline-web-api-pipelines--stg.config.yaml
