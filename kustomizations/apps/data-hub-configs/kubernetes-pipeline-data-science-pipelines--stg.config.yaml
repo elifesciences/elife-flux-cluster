@@ -7,6 +7,7 @@ defaultConfig:
         - 'Kubernetes'
         - 'Data Science'
         - 'PeerScout'
+  image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
   env:
     - name: DEPLOYMENT_ENV
       value: staging
@@ -42,7 +43,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '0 2 * * *'  # At 02:00 am
-    image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
@@ -52,7 +52,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '0 2 * * *'  # At 02:00 am
-    image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
@@ -62,7 +61,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '@hourly'
-    image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
@@ -72,7 +70,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '40 */3 * * *'  # At minute 40 past every 3rd hour
-    image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
@@ -89,7 +86,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '40 */3 * * *'  # At minute 40 past every 3rd hour
-    image: '${data_hub_data_science_dags_unstable_image_repo}:${data_hub_data_science_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
