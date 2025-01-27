@@ -89,7 +89,7 @@ spec:
               requests:
                 storage: 20Gi
         sidecars:
-        - image: "percona/mongodb_exporter:0.40.0"
+        - image: "percona/mongodb_exporter:0.43.1"
           name: mongodb-exporter
           args:
           - "--mongodb.uri=mongodb://127.0.0.1:27017"
