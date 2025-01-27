@@ -1,0 +1,92 @@
+defaultConfig:
+  airflow:
+    dagParameters:
+      schedule: null
+      max_active_runs: 1
+      tags:
+        - 'Kubernetes'
+        - 'Data Science'
+        - 'PeerScout'
+  image: '${data_hub_data_science_dags_stable_image_repo}:${data_hub_data_science_dags_stable_image_tag}'
+  env:
+    - name: DEPLOYMENT_ENV
+      value: prod
+    - name: GOOGLE_APPLICATION_CREDENTIALS
+      value: /dag_secret_files/gcloud/credentials.json
+    - name: AWS_CONFIG_FILE
+      value: /dag_secret_files/aws/credentials
+  volumeMounts:
+    - name: gcloud-secret-volume
+      mountPath: /dag_secret_files/gcloud/
+      readOnly: true
+    - name: aws-secret-volume
+      mountPath: /dag_secret_files/aws
+      readOnly: true
+  volumes:
+    - name: aws-secret-volume
+      secret:
+        secretName: credentials
+    - name: gcloud-secret-volume
+      secret:
+        secretName: gcloud
+  resources:
+    limits:
+      memory: 2Gi
+      cpu: 1000m
+    requests:
+      memory: 2Gi
+      cpu: 100m
+
+kubernetesPipelines:
+
+  - dataPipelineId: 'Data_Science_PeerScout_Build_Reviewing_Editor_Profiles_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '0 2 * * *'  # At 02:00 am
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_science_pipeline.cli.peerscout_build_reviewing_editor_profiles'
+
+  - dataPipelineId: 'Data_Science_PeerScout_Build_Senior_Editor_Profiles_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '0 2 * * *'  # At 02:00 am
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_science_pipeline.cli.peerscout_build_senior_editor_profiles'
+
+  - dataPipelineId: 'Data_Science_PeerScout_Get_Editor_Pubmed_Papers_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '@hourly'
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_science_pipeline.cli.peerscout_get_editor_pubmed_papers'
+
+  - dataPipelineId: 'Data_Science_PeerScout_Recommend_Reviewing_Editors_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '40 */3 * * *'  # At minute 40 past every 3rd hour
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_science_pipeline.cli.peerscout_recommend_reviewing_editors'
+    resources:
+      limits:
+        memory: 4Gi
+        cpu: 1000m
+      requests:
+        memory: 4Gi
+        cpu: 100m
+
+  - dataPipelineId: 'Data_Science_PeerScout_Recommend_Senior_Editors_Kubernetes'
+    airflow:
+      dagParameters:
+        schedule: '40 */3 * * *'  # At minute 40 past every 3rd hour
+    arguments:
+      - 'python'
+      - '-m'
+      - 'data_science_pipeline.cli.peerscout_recommend_senior_editors'
