@@ -46,8 +46,6 @@ defaultConfig:
 kubernetesPipelines:
 
   - dataPipelineId: 'Web_API_elife_observer_api_publication_dates_Kubernetes'
-    airflow:
-      dagParameters:
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
@@ -56,8 +54,6 @@ kubernetesPipelines:
       - '--data-pipeline-id=elife_observer_api_publication_dates'
 
   - dataPipelineId: 'Web_API_elife_people_api_people_staff_profile_Kubernetes'
-    airflow:
-      dagParameters:
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
@@ -66,8 +62,6 @@ kubernetesPipelines:
       - '--data-pipeline-id=elife_people_api_people_staff_profile'
 
   - dataPipelineId: 'Web_API_elife_profiles_api_people_orcid_profile_Kubernetes'
-    airflow:
-      dagParameters:
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
@@ -76,8 +70,6 @@ kubernetesPipelines:
       - '--data-pipeline-id=elife_profiles_api_people_orcid_profile'
 
   - dataPipelineId: 'Web_API_hypothesis_annotations_for_elife_journal_Kubernetes'
-    airflow:
-      dagParameters:
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
@@ -100,8 +92,6 @@ kubernetesPipelines:
       - '--data-pipeline-id=hypothesis_annotations_for_public_reviews'
 
   - dataPipelineId: 'Web_API_toggl_Kubernetes'
-    airflow:
-      dagParameters:
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
@@ -121,8 +111,6 @@ kubernetesPipelines:
           secretName: toggl
 
   - dataPipelineId: 'Web_API_twitter_api_v1_user_details_for_sciety_user_Kubernetes'
-    airflow:
-      dagParameters:
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
@@ -142,8 +130,6 @@ kubernetesPipelines:
           secretName: twitter-api
 
   - dataPipelineId: 'Web_API_crossref_metadata_api_Kubernetes'
-    airflow:
-      dagParameters:
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
@@ -205,8 +191,6 @@ kubernetesPipelines:
       - '--data-pipeline-id=medrxiv_api'
 
   - dataPipelineId: 'Web_API_europepmc_sciety_evaluated_via_labslink_Kubernetes'
-    airflow:
-      dagParameters:
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
@@ -215,8 +199,6 @@ kubernetesPipelines:
       - '--data-pipeline-id=europepmc_sciety_evaluated_via_labslink'
 
   - dataPipelineId: 'Web_API_web_s2_embeddings_Kubernetes'
-    airflow:
-      dagParameters:
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
