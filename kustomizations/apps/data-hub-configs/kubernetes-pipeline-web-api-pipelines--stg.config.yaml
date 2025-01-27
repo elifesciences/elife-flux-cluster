@@ -1,7 +1,7 @@
 defaultConfig:
   airflow:
     dagParameters:
-      schedule: null
+      schedule: '25 2 * * *'  # At 02:25 am
       max_active_runs: 1
       tags:
         - 'Kubernetes'
@@ -45,7 +45,6 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_elife_observer_api_publication_dates_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -61,7 +60,6 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_elife_people_api_people_staff_profile_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -77,7 +75,6 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_elife_profiles_api_people_orcid_profile_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -93,7 +90,6 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_hypothesis_annotations_for_elife_journal_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -126,7 +122,6 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_toggl_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -152,7 +147,6 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_twitter_api_v1_user_details_for_sciety_user_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -178,7 +172,6 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_crossref_metadata_api_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -211,7 +204,6 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_biorxiv_medrxiv_meca_path_metadata_latest_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'DocMaps'
           - 'Web API'
@@ -228,7 +220,6 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_biorxiv_api_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'DocMaps'
           - 'Web API'
@@ -245,7 +236,6 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_medrxiv_api_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'DocMaps'
           - 'Web API'
@@ -262,7 +252,6 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_europepmc_sciety_evaluated_via_labslink_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -278,7 +267,6 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_web_s2_embeddings_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
@@ -311,7 +299,6 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_elife_collections_detail_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'DocMaps'
           - 'Web API'
@@ -345,7 +332,6 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_elife_podcast_episodes_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'DocMaps'
           - 'Web API'
@@ -362,7 +348,6 @@ kubernetesPipelines:
   - dataPipelineId: 'Web_API_updated_reviewed_preprint_vor_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'DocMaps'
           - 'Web API'
