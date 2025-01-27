@@ -1,10 +1,11 @@
 defaultConfig:
   airflow:
     dagParameters:
-      schedule: null
+      schedule: '25 2 * * *'  # At 02:25 am
       max_active_runs: 1
       tags:
         - 'Kubernetes'
+        - 'Web API'
   env:
     - name: DEPLOYMENT_ENV
       value: staging
@@ -12,6 +13,8 @@ defaultConfig:
       value: /dag_secret_files/gcloud/credentials.json
     - name: AWS_CONFIG_FILE
       value: /dag_secret_files/aws/credentials
+    - name: WEB_API_CONFIG_FILE_PATH
+      value: /dag_config_files/web-api-data-pipeline.config.yaml
   volumeMounts:
     - name: gcloud-secret-volume
       mountPath: /dag_secret_files/gcloud/
@@ -43,68 +46,36 @@ defaultConfig:
 kubernetesPipelines:
 
   - dataPipelineId: 'Web_API_elife_observer_api_publication_dates_Kubernetes'
-    airflow:
-      dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
-        tags:
-          - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_observer_api_publication_dates'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_elife_people_api_people_staff_profile_Kubernetes'
-    airflow:
-      dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
-        tags:
-          - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_people_api_people_staff_profile'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_elife_profiles_api_people_orcid_profile_Kubernetes'
-    airflow:
-      dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
-        tags:
-          - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_profiles_api_people_orcid_profile'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_hypothesis_annotations_for_elife_journal_Kubernetes'
-    airflow:
-      dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
-        tags:
-          - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=hypothesis_annotations_for_elife_journal'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_hypothesis_annotations_for_public_reviews_Kubernetes'
     airflow:
@@ -119,16 +90,8 @@ kubernetesPipelines:
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=hypothesis_annotations_for_public_reviews'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_toggl_Kubernetes'
-    airflow:
-      dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
-        tags:
-          - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
@@ -136,8 +99,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=toggl'
     env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
       - name: TOGGL_API_TOKEN_FILE_PATH
         value: /dag_secret_files/toggl/toggl_api_token.txt
     volumeMounts:
@@ -150,11 +111,6 @@ kubernetesPipelines:
           secretName: toggl
 
   - dataPipelineId: 'Web_API_twitter_api_v1_user_details_for_sciety_user_Kubernetes'
-    airflow:
-      dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
-        tags:
-          - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
@@ -162,8 +118,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=twitter_api_v1_user_details_for_sciety_user'
     env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
       - name: TWITTER_API_AUTHORIZATION_FILE_PATH
         value: /dag_secret_files/twitter_api/twitter_api_authorization.txt
     volumeMounts:
@@ -176,20 +130,12 @@ kubernetesPipelines:
           secretName: twitter-api
 
   - dataPipelineId: 'Web_API_crossref_metadata_api_Kubernetes'
-    airflow:
-      dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
-        tags:
-          - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=crossref_metadata_api'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_biorxiv_medrxiv_meca_path_metadata_v2_Kubernetes'
     airflow:
@@ -204,14 +150,10 @@ kubernetesPipelines:
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=biorxiv_medrxiv_meca_path_metadata_v2'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_biorxiv_medrxiv_meca_path_metadata_latest_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'DocMaps'
           - 'Web API'
@@ -221,14 +163,10 @@ kubernetesPipelines:
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=biorxiv_medrxiv_meca_path_metadata_latest'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_biorxiv_api_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'DocMaps'
           - 'Web API'
@@ -238,14 +176,10 @@ kubernetesPipelines:
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=biorxiv_api'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_medrxiv_api_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'DocMaps'
           - 'Web API'
@@ -255,41 +189,22 @@ kubernetesPipelines:
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=medrxiv_api'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_europepmc_sciety_evaluated_via_labslink_Kubernetes'
-    airflow:
-      dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
-        tags:
-          - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=europepmc_sciety_evaluated_via_labslink'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_web_s2_embeddings_Kubernetes'
-    airflow:
-      dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
-        tags:
-          - 'Web API'
     image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=web_s2_embeddings'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_elife_collections_list_Kubernetes'
     airflow:
@@ -304,14 +219,10 @@ kubernetesPipelines:
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_collections_list'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_elife_collections_detail_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'DocMaps'
           - 'Web API'
@@ -321,9 +232,6 @@ kubernetesPipelines:
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_collections_detail'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_elife_podcast_list_Kubernetes'
     airflow:
@@ -338,14 +246,10 @@ kubernetesPipelines:
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_podcast_list'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_elife_podcast_episodes_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'DocMaps'
           - 'Web API'
@@ -355,14 +259,10 @@ kubernetesPipelines:
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=elife_podcast_episodes'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_updated_reviewed_preprint_vor_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '25 2 * * *'  # At 02:25 am
         tags:
           - 'DocMaps'
           - 'Web API'
@@ -372,9 +272,6 @@ kubernetesPipelines:
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=updated_reviewed_preprint_vor'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_openalex_works_metadata_for_preprints_Kubernetes'
     airflow:
@@ -398,8 +295,6 @@ kubernetesPipelines:
     env:
       - name: OPENALEX_API_KEY_FILE_PATH
         value: /dag_secret_files/openalex-api/openalex_api_key
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
       - name: TMPDIR
         value: /tmp
       - name: PYTHONPATH
@@ -438,9 +333,6 @@ kubernetesPipelines:
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=keywords_from_manuscript_abstract_batch'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_keywords_from_disambiguated_editor_papers_abstract_batch_Kubernetes'
     airflow:
@@ -455,9 +347,6 @@ kubernetesPipelines:
       - '-m'
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=keywords_from_disambiguated_editor_papers_abstract_batch'
-    env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
 
   - dataPipelineId: 'Web_API_vistaly_update_card_metrics_Kubernetes'
     airflow:
@@ -473,8 +362,6 @@ kubernetesPipelines:
       - 'data_pipeline.generic_web_api.cli'
       - '--data-pipeline-id=vistaly_update_card_metrics'
     env:
-      - name: WEB_API_CONFIG_FILE_PATH
-        value: /dag_config_files/web-api-data-pipeline.config.yaml
       - name: VISTALY_API_AUTHORIZATION_FILE_PATH
         value: /dag_secret_files/vistaly-api/vistaly_api_authorization
     volumeMounts:
