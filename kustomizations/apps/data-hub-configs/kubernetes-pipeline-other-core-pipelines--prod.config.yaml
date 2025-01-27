@@ -111,7 +111,7 @@ kubernetesPipelines:
       - 'data_pipeline.europepmc.cli_europepmc_labslink'
     env:
       - name: EUROPEPMC_LABSLINK_CONFIG_FILE_PATH
-        value: /dag_config_files/europepmc-labslink--test.config.yaml
+        value: /dag_config_files/europepmc-labslink--prod.config.yaml
       - name: EUROPEPMC_LABSLINK_FTP_PASSWORD_FILE_PATH
         value: /dag_secret_files/europepmc_labslink_ftp_credentials/password
       - name: EUROPEPMC_LABSLINK_FTP_DIRECTORY_NAME_FILE_PATH
