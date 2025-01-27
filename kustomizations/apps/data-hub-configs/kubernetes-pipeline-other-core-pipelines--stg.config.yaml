@@ -5,6 +5,7 @@ defaultConfig:
       max_active_runs: 1
       tags:
         - 'Kubernetes'
+  image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
   env:
     - name: DEPLOYMENT_ENV
       value: staging
@@ -46,7 +47,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '0 3 * * *'  # At 03:00, every day
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
@@ -69,7 +69,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: "0 13 * * *" # At 13:00, every day
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
@@ -94,7 +93,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '0 6 * * *'  # At 06:00, every day
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
@@ -107,7 +105,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '40 * * * *' # 40 past the hour, every day
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
@@ -132,7 +129,6 @@ kubernetesPipelines:
     airflow:
       dagParameters:
         schedule: '@hourly'
-    image: '${data_hub_core_dags_unstable_image_repo}:${data_hub_core_dags_unstable_image_tag}'
     arguments:
       - 'python'
       - '-m'
