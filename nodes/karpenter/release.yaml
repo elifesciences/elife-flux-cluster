@@ -44,5 +44,5 @@ spec:
     postInstallHook:
       image:
         repository: bitnami/kubectl
-        tag: "1.30"
+        tag: "1.32"
         digest: sha256:13210e634b6368173205e8559d7c9216cce13795f28f93c39b1bb8784cac8074
