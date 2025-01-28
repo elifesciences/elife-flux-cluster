@@ -21,4 +21,4 @@ spec:
   tls:
   - hosts:
     - reviewer.elifesciences.org
-    secretName: podinfo-tls
+    secretName: reviewer-tls
