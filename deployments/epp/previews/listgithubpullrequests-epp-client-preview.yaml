@@ -5,7 +5,7 @@ metadata:
   name: epp-client-preview
   namespace: epp--previews
 spec:
-  interval: 1m
+  interval: 2m
   owner: elifesciences
   repo: enhanced-preprints-client
   state: open
