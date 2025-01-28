@@ -5,6 +5,8 @@ metadata:
   namespace: podinfo
   labels:
     app: podinfo
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
 spec:
   rules:
     - host: "${hostname}"
@@ -17,3 +19,7 @@ spec:
                 name: podinfo-scaler
                 port:
                   number: ${keda_port:=8080}
+  tls:
+  - hosts:
+    - "${hostname}"
+    secretName: podinfo-tls
