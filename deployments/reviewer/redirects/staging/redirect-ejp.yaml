@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/configuration-snippet: 'return 302 https://elife-rp.msubmit.net/;'
+    cert-manager.io/cluster-issuer: letsencrypt
   name: reviewer--staging-ejp-redirect
   namespace: reviewer
 spec:
@@ -17,3 +18,7 @@ spec:
             name: http-svc
             port:
               number: 80
+  tls:
+  - hosts:
+    - "${hostname}"
+    secretName: podinfo-tls
