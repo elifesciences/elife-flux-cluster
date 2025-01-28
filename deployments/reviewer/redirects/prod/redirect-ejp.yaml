@@ -20,5 +20,5 @@ spec:
               number: 80
   tls:
   - hosts:
-    - "${hostname}"
+    - reviewer.elifesciences.org
     secretName: podinfo-tls

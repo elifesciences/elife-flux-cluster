@@ -20,5 +20,5 @@ spec:
               number: 80
   tls:
   - hosts:
-    - "${hostname}"
+    - libero-reviewer--staging.elifesciences.org
     secretName: podinfo-tls
