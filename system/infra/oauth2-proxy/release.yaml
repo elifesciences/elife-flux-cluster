@@ -39,6 +39,12 @@ spec:
       enabled: "true"
       hosts:
         - "${oauth2_proxy_hostname}"
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+      tls:
+      - secretName: oauth2-proxy-tls
+        hosts:
+          - "${oauth2_proxy_hostname}"
     replicaCount: 2
     resources:
       requests:
