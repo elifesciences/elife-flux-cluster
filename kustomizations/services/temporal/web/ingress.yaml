@@ -6,6 +6,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/auth-signin: https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri
     nginx.ingress.kubernetes.io/auth-url: https://oauth-proxy.elifesciences.org/oauth2/auth
+    cert-manager.io/cluster-issuer: letsencrypt
 spec:
   rules:
       - host: ${temporal_web_hostname}
@@ -18,3 +19,7 @@ spec:
                   name: temporal-web
                   port:
                     number: 8080
+  tls:
+  - hosts:
+    - "${temporal_web_hostname}"
+    secretName: temporal-tls
