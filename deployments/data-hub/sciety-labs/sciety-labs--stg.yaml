@@ -125,6 +125,7 @@ metadata:
   labels:
     app: sciety-labs--stg
   annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       location /robots.txt {return 200 "User-agent: *\nDisallow: /\n";}
 spec:
@@ -139,3 +140,7 @@ spec:
                 name: sciety-labs--stg
                 port:
                   number: 8000
+  tls:
+  - hosts:
+    - sciety-labs--stg.elifesciences.org
+    secretName:  sciety-labs-stg-tls
