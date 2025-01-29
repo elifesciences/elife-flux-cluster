@@ -45,3 +45,12 @@ spec:
               - get
               - list
               - watch
+          - op: "add"
+            path: "/rules/-"
+            value:
+              resources:
+              - namespace
+              verbs:
+              - get
+              - list
+              - watch
