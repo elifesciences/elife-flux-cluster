@@ -57,7 +57,7 @@ spec:
         cert-manager.io/cluster-issuer: "letsencrypt"
       tls:
       - hosts:
-        - peerscout--test.elifesciences.org
+        - peerscout.elifesciences.org
         secretName:  peerscout-stg-tls
     resources:
       requests:
