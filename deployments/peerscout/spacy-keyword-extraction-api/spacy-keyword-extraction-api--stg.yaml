@@ -79,4 +79,4 @@ spec:
   tls:
   - hosts:
     - spacy-keyword-extraction-api--stg.elifesciences.org
-    secretName:  pacy-keyword-extraction-api-stg-tls
+    secretName: spacy-keyword-extraction-api-stg-tls
