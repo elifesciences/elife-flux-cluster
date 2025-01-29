@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: data-hub-api
-        image: ghcr.io/elifesciences/data-hub-api:1.1.31 # {"$imagepolicy": "data-hub:data-hub-api-stable"}
+        image: ghcr.io/elifesciences/data-hub-api:1.1.32 # {"$imagepolicy": "data-hub:data-hub-api-stable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
@@ -87,9 +87,9 @@ spec:
                 port:
                   number: 8000
   tls:
-  - hosts:
-    - data-hub-api.elifesciences.org
-    secretName: data-hub-api-prod-tls
+    - hosts:
+        - data-hub-api.elifesciences.org
+      secretName: data-hub-api-prod-tls
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -116,10 +116,9 @@ spec:
                 port:
                   number: 8000
   tls:
-  - hosts:
-    - data-hub-api.elifesciences.org
-    secretName: data-hub-api-prod-tls
-
+    - hosts:
+        - data-hub-api.elifesciences.org
+      secretName: data-hub-api-prod-tls
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -146,6 +145,6 @@ spec:
                 port:
                   number: 8000
   tls:
-  - hosts:
-    - data-hub-api.elifesciences.org
-    secretName: data-hub-api-prod-tls
+    - hosts:
+        - data-hub-api.elifesciences.org
+      secretName: data-hub-api-prod-tls
