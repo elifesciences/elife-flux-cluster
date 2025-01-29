@@ -48,8 +48,10 @@ spec:
           - op: "add"
             path: "/rules/-"
             value:
+              apiGroups:
+              - ""
               resources:
-              - namespace
+              - namespaces
               verbs:
               - get
               - list
