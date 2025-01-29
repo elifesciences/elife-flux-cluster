@@ -67,6 +67,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
   rules:
     - host: spacy-keyword-extraction-api.elifesciences.org
@@ -79,3 +80,7 @@ spec:
                 name: spacy-keyword-extraction-api--prod
                 port:
                   number: 8000
+  tls:
+  - hosts:
+    - spacy-keyword-extraction-api.elifesciences.org
+    secretName: spacy-keyword-extraction-api-prod-tls
