@@ -62,6 +62,8 @@ metadata:
   namespace: peerscout
   labels:
     app: spacy-keyword-extraction-api--stg
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
   rules:
     - host: spacy-keyword-extraction-api--stg.elifesciences.org
@@ -74,3 +76,7 @@ spec:
                 name: spacy-keyword-extraction-api--stg
                 port:
                   number: 8000
+  tls:
+  - hosts:
+    - spacy-keyword-extraction-api--stg.elifesciences.org
+    secretName:  pacy-keyword-extraction-api-stg-tls
