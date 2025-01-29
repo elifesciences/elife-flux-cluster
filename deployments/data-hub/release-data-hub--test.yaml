@@ -32,7 +32,7 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt"
         tls:
           enabled: true
-          secretName: "data-hub-airflow-tls"
+          secretName: "data-hub-airflow-test-tls"
       flower:
         host: data-hub--test.elifesciences.org
         path: "/flower"
@@ -42,7 +42,7 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt"
         tls:
           enabled: true
-          secretName: "data-hub-airflow-tls"
+          secretName: "data-hub-airflow-test-tls"
     airflow:
       # remove multi-user settings
       usersUpdate: false

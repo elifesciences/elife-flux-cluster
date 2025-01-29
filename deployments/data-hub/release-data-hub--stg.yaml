@@ -36,7 +36,7 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt"
         tls:
           enabled: true
-          secretName: "data-hub-airflow-tls"
+          secretName: "data-hub-airflow-stg-tls"
       flower:
         host: data-hub--flux--staging.elifesciences.org
         path: "/flower"
@@ -46,7 +46,7 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt"
         tls:
           enabled: true
-          secretName: "data-hub-airflow-tls"
+          secretName: "data-hub-airflow-stg-tls"
     airflow:
       # Utilise KubernetesExecutor alongside Celery Executor
       # See https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/executor/kubernetes.html (but we're using the community chart)
