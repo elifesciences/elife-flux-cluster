@@ -128,7 +128,7 @@ kubernetesPipelines:
   - dataPipelineId: 'Materialize_BigQuery_Views_Pipeline_Kubernetes'
     airflow:
       dagParameters:
-        schedule: '@hourly'
+        schedule: '15,45 3-22 * * 1-5' # At minute 15 and 45 past every hour from 3 through 22 on every day-of-week from Monday through Friday.
     arguments:
       - 'python'
       - '-m'
