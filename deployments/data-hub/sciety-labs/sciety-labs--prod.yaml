@@ -126,6 +126,7 @@ metadata:
   labels:
     app: sciety-labs--prod
   annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       if ($http_x_forwarded_host != 'labs.sciety.org') {
         rewrite ^ https://labs.sciety.org$request_uri? permanent;
@@ -153,3 +154,8 @@ spec:
                 name: sciety-labs--prod
                 port:
                   number: 8000
+  tls:
+  - hosts:
+    - sciety-labs.elifesciences.org
+    - sciety-discovery.elifesciences.org
+    secretName:  sciety-labs-prod-tls
