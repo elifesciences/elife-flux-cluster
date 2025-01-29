@@ -6,4 +6,5 @@ metadata:
   namespace: template-controller
 spec:
   interval: 5m
-  url: http://kluctl.github.io/charts
+  type: oci
+  url: oci://ghcr.io/kluctl/charts
