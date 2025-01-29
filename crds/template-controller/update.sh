@@ -10,11 +10,4 @@ fi
 
 cd $(dirname $0)
 
-curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_githubcomments.yaml
-curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_gitlabcomments.yaml
-curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_gitprojectors.yaml
-curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_listgithubpullrequests.yaml
-curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_listgitlabmergerequests.yaml
-curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_objecthandlers.yaml
-curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_objecttemplates.yaml
-curl -sO https://raw.githubusercontent.com/kluctl/charts/template-controller-$1/charts/template-controller/crds/templates.kluctl.io_texttemplates.yaml
+curl -sO https://raw.githubusercontent.com/kluctl/template-controller/refs/tags/v$1/deploy/crds/bundle.yaml
