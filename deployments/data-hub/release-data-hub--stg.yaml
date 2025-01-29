@@ -33,12 +33,20 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
           nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+          cert-manager.io/cluster-issuer: "letsencrypt"
+        tls:
+          enabled: true
+          secretName: "data-hub-airflow-stg-tls"
       flower:
         host: data-hub--flux--staging.elifesciences.org
         path: "/flower"
         annotations:
           nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
           nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+          cert-manager.io/cluster-issuer: "letsencrypt"
+        tls:
+          enabled: true
+          secretName: "data-hub-airflow-stg-tls"
     airflow:
       # Utilise KubernetesExecutor alongside Celery Executor
       # See https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/executor/kubernetes.html (but we're using the community chart)
@@ -129,9 +137,9 @@ spec:
         value: "0 7 * * 1-5"
       - name: CROSS_REF_IMPORT_SCHEDULE_INTERVAL
         value: "@daily"
-        # At minute 20 past every hour from 5 through 19 on every day-of-week from Monday through Friday.
+        # At minute 0, 20, and 40 past every hour from 3 through 22 on every day-of-week from Monday through Friday.
       - name: GOOGLE_SPREADSHEET_SCHEDULE_INTERVAL
-        value: "20 4-19/1 * * 1-5"
+        value: "0,20,40 3-22 * * 1-5"
       - name: SEMANTIC_SCHOLAR_PIPELINE_SCHEDULE_INTERVAL
         value: "0 10 * * *" # At 10:00, every day
       - name: SEMANTIC_SCHOLAR_RECOMMENDATION_PIPELINE_SCHEDULE_INTERVAL
