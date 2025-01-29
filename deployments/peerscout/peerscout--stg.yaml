@@ -53,6 +53,11 @@ spec:
         nginx.ingress.kubernetes.io/auth-type: basic
         nginx.ingress.kubernetes.io/auth-secret: peerscout-http-basic-auth--stg
         nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - peerscout'
+        cert-manager.io/cluster-issuer: "letsencrypt"
+      tls:
+      - hosts:
+        - peerscout--test.elifesciences.org
+        secretName:  peerscout-stg-tls
     resources:
       requests:
         cpu: 100m
