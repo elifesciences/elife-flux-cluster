@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: template-controller
-      version: 0.9.1
+      version: 0.9.3
       sourceRef:
         kind: HelmRepository
         name: kluctl
@@ -41,15 +41,6 @@ spec:
               - image.toolkit.fluxcd.io
               resources:
               - imagepolicies
-              verbs:
-              - get
-              - list
-              - watch
-          - op: "add"
-            path: "/rules/-"
-            value:
-              resources:
-              - namespace
               verbs:
               - get
               - list
