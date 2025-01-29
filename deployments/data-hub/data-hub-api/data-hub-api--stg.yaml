@@ -74,6 +74,8 @@ metadata:
   namespace: data-hub
   labels:
     app: data-hub-api--stg
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
   rules:
     - host: data-hub-api--stg.elifesciences.org
@@ -86,6 +88,10 @@ spec:
                 name: data-hub-api--stg
                 port:
                   number: 8000
+  tls:
+  - hosts:
+    - data-hub-api.elifesciences.org
+    secretName: data-hub-api-prod-tls
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
