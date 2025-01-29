@@ -58,7 +58,7 @@ spec:
       tls:
       - hosts:
         - peerscout.elifesciences.org
-        secretName:  peerscout-stg-tls
+        secretName:  peerscout-prod-tls
     resources:
       requests:
         cpu: 100m
