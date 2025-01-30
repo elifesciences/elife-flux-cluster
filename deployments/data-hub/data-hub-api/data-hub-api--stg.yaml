@@ -90,8 +90,8 @@ spec:
                   number: 8000
   tls:
     - hosts:
-        - data-hub-api.elifesciences.org
-      secretName: data-hub-api-prod-tls
+        - data-hub-api--stg.elifesciences.org
+      secretName: data-hub-api-stg-tls
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
