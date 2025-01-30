@@ -35,3 +35,5 @@ spec:
             value: "true"
           - name: CACHE_SERVER_DERIVATIVE
             value: FilesystemCache
+          - name: ENDPOINT_HEALTH_DEPENDENCY_CHECK
+            value: "true"
