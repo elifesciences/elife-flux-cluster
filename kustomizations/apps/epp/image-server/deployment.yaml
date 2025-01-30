@@ -45,3 +45,9 @@ spec:
           httpGet:
             path: /health
             port: 8182
+          failureThreshold: 2
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8182
+          failureThreshold: 5
