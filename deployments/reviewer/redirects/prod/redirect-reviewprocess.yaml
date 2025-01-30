@@ -35,4 +35,4 @@ spec:
   tls:
   - hosts:
     - reviewer.elifesciences.org
-    secretName: reviewer-tls
+    secretName: reviewer-prod-tls

@@ -21,4 +21,4 @@ spec:
   tls:
   - hosts:
     - libero-reviewer--staging.elifesciences.org
-    secretName: reviewer-tls
+    secretName: reviewer-staging-tls
