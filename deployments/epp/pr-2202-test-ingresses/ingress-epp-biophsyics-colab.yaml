@@ -4,6 +4,7 @@ metadata:
   name: epp-biophsyics-colab
   namespace: epp--preview-2202
   annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       more_set_input_headers "x-epp-tenant-id: biophysics-colab";
 spec:
@@ -18,3 +19,7 @@ spec:
             name: epp-client
             port:
               number: 3000
+  tls:
+  - hosts:
+    - pr-2202--epp-biophysics-colab.elifesciences.org
+    secretName: epp-biophysics-tls
