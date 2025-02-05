@@ -28,6 +28,8 @@ spec:
       oauth2_proxy_auth_url: "https://localhost:8080/oauth2/auth"
       oauth2_proxy_auth_signin: "https://localhost:8080/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
 
+      aws_cert_manager_service_account_role_arn: "nothing-real"
+
   patches:
   # in a small cluster like kind or minikube the load balancer won't get an external IP.
   # Therefore, we need to disable waiting
