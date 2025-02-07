@@ -50,6 +50,23 @@ spec:
       kind: DBInstance
       name: ${instance_name}
 ---
+apiVersion: services.k8s.aws/v1alpha1
+kind: FieldExport
+metadata:
+  name: ${instance_name}-dbname
+  namespace: database
+spec:
+  to:
+    name: ${instance_name}-connection-values
+    kind: secret
+    key: dbname
+  from:
+    path: ".spec.dbName"
+    resource:
+      group: rds.services.k8s.aws
+      kind: DBInstance
+      name: ${instance_name}
+---
 apiVersion: v1
 kind: Secret
 metadata:
