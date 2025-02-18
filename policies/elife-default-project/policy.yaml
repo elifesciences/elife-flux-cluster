@@ -146,9 +146,7 @@ spec:
       any:
       - resources:
           kinds:
-          - documentdb.services.k8s.aws/v1alpha1/DBCluster
           - rds.services.k8s.aws/v1alpha1/DBCluster
-          - documentdb.services.k8s.aws/v1alpha1/DBInstance
           - rds.services.k8s.aws/v1alpha1/DBInstance
     context:
     - name: default_namespace_project
