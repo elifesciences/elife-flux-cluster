@@ -15,6 +15,7 @@ cd $(dirname $0)
 ./template-controller/update.sh $(cat ../system/template-controller/release.yaml  | yq .spec.chart.spec.version)
 ./victoriametrics/update.sh $(cat ../system/victoriametrics/release.yaml  | yq .spec.chart.spec.version)
 
+./ack-controllers/common/update.sh $(cat ../system/ack-system/s3-release.yaml  | yq .spec.chart.spec.version)
 ./ack-controllers/documentdb-controller/update.sh $(cat ../system/ack-system/documentdb-release.yaml  | yq .spec.chart.spec.version)
 ./ack-controllers/elasticache-controller/update.sh $(cat ../system/ack-system/elasticache-release.yaml  | yq .spec.chart.spec.version)
 ./ack-controllers/iam-controller/update.sh $(cat ../system/ack-system/iam-release.yaml  | yq .spec.chart.spec.version)
