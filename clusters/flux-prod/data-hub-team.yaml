@@ -23,3 +23,7 @@ spec:
       aws_account_id: "512686554592"
       aws_region: us-east-1
       team_name: data-hub
+      aws_backup_s3_bucket: "elife-flux-prod-backups"
+
+      # service account arns
+      aws_backup_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-backups-cluster-role
