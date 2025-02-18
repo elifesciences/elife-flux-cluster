@@ -1,5 +1,0 @@
-importFilesFrom:
-  - kubernetes-pipeline-data-science-pipelines--prod.config.yaml
-  - kubernetes-pipeline-ejp-xml-pipelines--prod.config.yaml
-  - kubernetes-pipeline-other-core-pipelines--prod.config.yaml
-  - kubernetes-pipeline-web-api-pipelines--prod.config.yaml
