@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: spacy-keyword-extraction-api
-        image: ghcr.io/elifesciences/spacy-keyword-extraction-api_unstable:main-7828e2db-20250218.0955 # {"$imagepolicy": "peerscout:spacy-keyword-extraction-api-unstable"}
+        image: ghcr.io/elifesciences/spacy-keyword-extraction-api_unstable:main-c9c1f935-20250220.1000 # {"$imagepolicy": "peerscout:spacy-keyword-extraction-api-unstable"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: http
