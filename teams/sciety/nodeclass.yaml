@@ -6,6 +6,18 @@ metadata:
 spec:
   amiSelectorTerms:
   - alias: al2@latest
+  userData: |
+    #!/bin/bash
+    set -ex
+
+    # Spegel necessary config
+    mkdir -p /etc/containerd/config.d
+    cat > /etc/containerd/config.d/spegel.toml << EOL
+    [plugins."io.containerd.grpc.v1.cri".registry]
+        config_path = "/etc/containerd/certs.d"
+    [plugins."io.containerd.grpc.v1.cri".containerd]
+        discard_unpacked_layers = false
+    EOL
   role: "elife-${cluster_name}-karpenter--KarpenterNodeRole"
   associatePublicIPAddress: true
   subnetSelectorTerms:
