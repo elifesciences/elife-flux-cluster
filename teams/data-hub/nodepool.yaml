@@ -36,6 +36,9 @@ spec:
         - key: "kubernetes.io/arch"
           operator: In
           values: ["amd64"]
+      startupTaints:
+        - key: nidhogg.uswitch.com/spegel.spegel
+          effect: NoSchedule
   limits:
     cpu: 1000
   disruption:
