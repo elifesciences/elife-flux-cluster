@@ -19,7 +19,3 @@ spec:
       requests:
         cpu: 5m
         memory: 20Mi
-    tolerations:
-      - key: nidhogg.uswitch.com/spegel.spegel
-        operator: "Exists"
-        effect: NoSchedule
