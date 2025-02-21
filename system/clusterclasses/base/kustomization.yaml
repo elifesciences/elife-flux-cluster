@@ -12,7 +12,6 @@ resources:
 - ../../keda
 - ../../kong-system
 - ../../kube-web-view
-- ../../kubecost
 - ../../metrics-server
 - ../../monitoring
 - ../../template-controller
