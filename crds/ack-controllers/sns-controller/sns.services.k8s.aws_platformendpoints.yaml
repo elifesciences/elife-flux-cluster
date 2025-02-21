@@ -44,6 +44,9 @@ spec:
               enabled:
                 type: string
               platformApplicationARN:
+                description: |-
+                  PlatformApplicationArn returned from CreatePlatformApplication is used to
+                  create a an endpoint.
                 type: string
               token:
                 type: string
