@@ -39,7 +39,7 @@ spec:
                 storageClassName: csi-ebs-st1
                 resources:
                   requests:
-                    storage: 500Gi
+                    storage: 600Gi
           resources:
             requests:
               cpu: 1200m
