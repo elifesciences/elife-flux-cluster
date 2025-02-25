@@ -34,7 +34,7 @@ spec:
       metadata:
         name: not-important
         annotations:
-          elifesciences.org/default-project: epp
+          elifesciences.org/default-project: ${team_name}
   postBuild:
     substitute:
       cluster_name: "${cluster_name}"
