@@ -10,7 +10,7 @@ spec:
     kind: GitRepository
     name: flux-system
   path: ./deployments
-  prune: true
+  prune: false
   dependsOn:
     - name: system
   postBuild:
