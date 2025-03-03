@@ -24,7 +24,7 @@ spec:
   - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
     newTag: master-29c91bd9-20250128.1354 # {"$imagepolicy": "epp--biophysics-colab:epp-biorxiv-xslt-api:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-encoda
-    newTag: master-fc8686f5-20250212.1010 # {"$imagepolicy": "epp--biophysics-colab:epp-encoda-api:tag"}
+    newTag: master-29971997-20250303.1747 # {"$imagepolicy": "epp--biophysics-colab:epp-encoda-api:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-import-controller
     newTag: master-144fb3b0-20241218.2054 # {"$imagepolicy": "epp--biophysics-colab:epp-import-controller:tag"}
   postBuild:
