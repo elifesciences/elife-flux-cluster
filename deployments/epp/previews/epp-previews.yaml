@@ -54,6 +54,8 @@ spec:
             kind: Namespace
             metadata:
               name: "epp--preview-{{ matrix.pr.number }}"
+              labels:
+                toolkit.fluxcd.io/tenant: epp
               annotations:
                 elifesciences.org/default-project: epp
 
