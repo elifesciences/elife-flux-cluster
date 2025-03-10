@@ -17,6 +17,8 @@ kind: Kustomization
 metadata:
   name: epp-team-deployment
   namespace: flux-system
+  labels:
+    toolkit.fluxcd.io/tenant: ${team_name}
 spec:
   interval: 10m0s
   path: ./manifests
