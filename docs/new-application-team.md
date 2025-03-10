@@ -21,6 +21,8 @@ Application teams are empowered to deploy, run, and maintain their own software 
     kind: Namespace
     metadata:
     name: application-team-1
+    labels:
+        toolkit.fluxcd.io/tenant: application-team-1
     annotations:
         elifesciences.org/default-project: application-team-1
     ```
