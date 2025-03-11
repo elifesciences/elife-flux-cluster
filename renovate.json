@@ -45,6 +45,12 @@
         "kubectl"
       ],
       "enabled": false
+    },
+    {
+      "matchFileNames": [
+        ".tool-versions"
+      ],
+      "automerge": true
     }
   ]
 }
