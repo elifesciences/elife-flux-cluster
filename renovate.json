@@ -23,6 +23,7 @@
       "teams/.+\\.yaml$"
     ]
   },
+  
   "packageRules": [
     {
       "matchDepNames": [
@@ -50,7 +51,8 @@
       "matchFileNames": [
         ".tool-versions"
       ],
-      "automerge": true
+      "automerge": true,
+      "platformAutomerge": true
     }
   ]
 }
