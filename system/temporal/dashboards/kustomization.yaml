@@ -5,6 +5,7 @@ configMapGenerator:
 - files:
   - temporal-dashboard-sdk.json
   - temporal-dashboard-server.json
+  - temporal-core-sdks-otel.json
   name: temporal-dashboards
 patches:
 - patch: |
