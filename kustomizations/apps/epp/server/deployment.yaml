@@ -17,7 +17,7 @@ spec:
         image: ghcr.io/elifesciences/enhanced-preprints-server:latest
         resources:
           requests:
-            memory: ${epp_server_memory_requests:='250Mi'}
+            memory: ${epp_server_memory_requests:='780Mi'}
             cpu: ${epp_server_cpu_requests:='100m'}
             ephemeral-storage: ${epp_server_ephemeral_storage_requests:='50Mi'}
         env:
