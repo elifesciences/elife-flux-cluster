@@ -76,7 +76,7 @@ spec:
         resources:
           requests:
             cpu: "50m"
-            memory: "1.2Gi"
+            memory: "2Gi"
             ephemeral-storage: 50M
           limits:
             cpu: null
