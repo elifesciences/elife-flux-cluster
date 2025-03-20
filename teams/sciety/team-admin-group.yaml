@@ -1,0 +1,8 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: sciety-team-admin
+rules:
+- apiGroups: ["external-secrets.io"]
+  resources: ["externalsecret"]
+  verbs: ["*"]

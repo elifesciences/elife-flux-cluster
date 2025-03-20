@@ -5,3 +5,4 @@ resources:
 - nodeclass.yaml
 - nodepool.yaml
 - deployment-sync.yaml
+- team-admin-group.yaml
