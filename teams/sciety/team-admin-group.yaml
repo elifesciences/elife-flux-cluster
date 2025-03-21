@@ -5,7 +5,7 @@ metadata:
   name: sciety-team-admin
 rules:
 - apiGroups: ["external-secrets.io"]
-  resources: ["externalsecret"]
+  resources: ["externalsecrets"]
   verbs: ["*"]
   namespace: ["sciety", "journal--test", "journal--prod"]
 ---
