@@ -57,6 +57,12 @@ spec:
               A wrapper type for the topic's Amazon Resource Name (ARN). To retrieve a
               topic's attributes, use GetTopicAttributes.
             properties:
+              applicationFailureFeedbackRoleARN:
+                type: string
+              applicationSuccessFeedbackRoleARN:
+                type: string
+              applicationSuccessFeedbackSampleRate:
+                type: string
               contentBasedDeduplication:
                 type: string
               dataProtectionPolicy:
@@ -74,6 +80,18 @@ spec:
               displayName:
                 type: string
               fifoTopic:
+                type: string
+              firehoseFailureFeedbackRoleARN:
+                type: string
+              firehoseSuccessFeedbackRoleARN:
+                type: string
+              firehoseSuccessFeedbackSampleRate:
+                type: string
+              httpFailureFeedbackRoleARN:
+                type: string
+              httpSuccessFeedbackRoleARN:
+                type: string
+              httpSuccessFeedbackSampleRate:
                 type: string
               kmsMasterKeyID:
                 type: string
@@ -94,6 +112,12 @@ spec:
                         type: string
                     type: object
                 type: object
+              lambdaFailureFeedbackRoleARN:
+                type: string
+              lambdaSuccessFeedbackRoleARN:
+                type: string
+              lambdaSuccessFeedbackSampleRate:
+                type: string
               name:
                 description: |-
                   The name of the topic you want to create.
@@ -127,6 +151,12 @@ spec:
                     type: object
                 type: object
               signatureVersion:
+                type: string
+              sqsFailureFeedbackRoleARN:
+                type: string
+              sqsSuccessFeedbackRoleARN:
+                type: string
+              sqsSuccessFeedbackSampleRate:
                 type: string
               tags:
                 description: |-
