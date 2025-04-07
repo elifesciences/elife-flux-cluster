@@ -47,6 +47,7 @@ spec:
             limits: {}
           extraArgs:
             "inmemoryDataFlushInterval": "15s"
+            "dedup.minScrapeInterval": "15s"
         vmselect:
           storage:
             volumeClaimTemplate:
@@ -58,6 +59,8 @@ spec:
               cpu: 500m
               memory: 400Mi
             limits: {}
+          extraArgs:
+            "dedup.minScrapeInterval": "15s"
         vminsert:
           extraArgs:
             maxLabelsPerTimeseries: "55"
