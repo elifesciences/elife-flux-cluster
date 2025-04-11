@@ -468,3 +468,18 @@ spec:
           cpu: 40m
           memory: 100Mi
         limits: {}
+  kubelet:
+    vmScrape:
+      spec:
+        metricRelabelConfigs:
+        # Defaults from https://github.com/VictoriaMetrics/helm-charts/blob/786077e7a334975e980789720c23212937c3f65a/charts/victoria-metrics-k8s-stack/values.yaml#L1026C1-L1032C147
+        - action: labeldrop
+          regex: (uid)
+        - action: labeldrop
+          regex: (id|name)
+        - action: drop
+          source_labels: [__name__]
+          regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
+
+        - action: labeldrop
+          regex: (kubernetes_io_os)
