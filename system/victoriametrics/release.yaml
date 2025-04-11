@@ -481,7 +481,6 @@ spec:
             source_labels: [__name__]
             regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
 
-          - action: labeldrop
-            regex: (kubernetes_io_os)
+          # Drop this label as it can result in almost duplicate metrics, with and without this as it is added/removed in quick successsion
           - action: labeldrop
             regex: (node_kubernetes_io_exclude_from_external_load_balancers)
