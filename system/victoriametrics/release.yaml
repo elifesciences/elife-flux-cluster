@@ -483,3 +483,5 @@ spec:
 
           - action: labeldrop
             regex: (kubernetes_io_os)
+          - action: labeldrop
+            regex: (node_kubernetes_io_exclude_from_external_load_balancers)
