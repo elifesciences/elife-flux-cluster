@@ -42344,10 +42344,6 @@ spec:
                       - type
                       type: object
                       x-kubernetes-validations:
-                      - message: cross namespace references are not supported for
-                          networkRef of type namespacedRef
-                        rule: 'self.type == ''namespacedRef'' && has(self.namespacedRef)
-                          ? !has(self.namespacedRef.namespace) : true'
                       - message: when type is namespacedRef, namespacedRef must be
                           set
                         rule: 'self.type == ''namespacedRef'' ? has(self.namespacedRef)
