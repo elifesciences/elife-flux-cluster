@@ -16,4 +16,4 @@ spec:
       interval: 1m
   values:
     image:
-      tag: "1.5"
+      tag: "1.4.2"
