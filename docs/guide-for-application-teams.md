@@ -61,7 +61,7 @@ Provide a secret to an application
 ### Via AWS Secrets Manager
 
 1. Store the secret in [AWS Secrets Manager](https://us-east-1.console.aws.amazon.com/secretsmanager/listsecrets?region=us-east-1) under a team-based prefix such as `sciety-team/*`.
-1. Create an [`ExternalSecret`](https://external-secrets.io/latest/api/spec/#external-secrets.io/v1beta1.ExternalSecret) manifest to pull the secret into the cluster, in the form of a Kubernetes [`Secret`](https://kubernetes.io/docs/concepts/configuration/secret/) managed by the platform.
+1. Create an [`ExternalSecret`](https://external-secrets.io/latest/api/spec/#external-secrets.io/v1.ExternalSecret) manifest to pull the secret into the cluster, in the form of a Kubernetes [`Secret`](https://kubernetes.io/docs/concepts/configuration/secret/) managed by the platform.
 
 Kubernetes resources can use the secret:
 
@@ -96,7 +96,7 @@ spec:
     - sg-0a04b1c8433227e63
   dbSubnetGroupName: elife-flux-prod-ack-rds-controller-all-dbs
 ---
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: demo-database
