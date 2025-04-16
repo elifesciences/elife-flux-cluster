@@ -3,6 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: kong
+  namespace: kong-system
 spec:
   interval: 5m0s
   url: https://charts.konghq.com
