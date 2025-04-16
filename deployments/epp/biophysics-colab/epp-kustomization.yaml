@@ -18,15 +18,15 @@ spec:
   - name: ghcr.io/elifesciences/epp-image-server
     newTag: master-69f03e05-20250409.1850 # {"$imagepolicy": "epp--biophysics-colab:epp-image-server:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-client
-    newTag: master-27aadfce-20250403.2115 # {"$imagepolicy": "epp--biophysics-colab:epp-client:tag"}
+    newTag: master-a2c90294-20250415.1135 # {"$imagepolicy": "epp--biophysics-colab:epp-client:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
-    newTag: master-c9e316ea-20250413.1401 # {"$imagepolicy": "epp--biophysics-colab:epp-import:tag"}
+    newTag: master-752e160b-20250416.0550 # {"$imagepolicy": "epp--biophysics-colab:epp-import:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
     newTag: master-29c91bd9-20250128.1354 # {"$imagepolicy": "epp--biophysics-colab:epp-biorxiv-xslt-api:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-encoda
     newTag: master-a6ee1aec-20250402.1411 # {"$imagepolicy": "epp--biophysics-colab:epp-encoda-api:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-import-controller
-    newTag: master-5013ecc8-20250414.1533 # {"$imagepolicy": "epp--biophysics-colab:epp-import-controller:tag"}
+    newTag: master-94e5c1e5-20250415.1654 # {"$imagepolicy": "epp--biophysics-colab:epp-import-controller:tag"}
   postBuild:
     substitute:
       site_name: biophysics-colab
