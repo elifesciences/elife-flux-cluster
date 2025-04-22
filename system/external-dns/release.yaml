@@ -37,3 +37,6 @@ spec:
     policy: sync
     provider:
       name: aws
+
+    extraArgs:
+    - --dns01-recursive-nameservers-only
