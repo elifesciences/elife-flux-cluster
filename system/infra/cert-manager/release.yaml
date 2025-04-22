@@ -46,3 +46,5 @@ spec:
         requests:
           cpu: 10m
           memory: 100Mi
+    extraArgs:
+    - --dns01-recursive-nameservers-only
