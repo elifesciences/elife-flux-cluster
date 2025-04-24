@@ -22,8 +22,12 @@ spec:
       targetPath: alertmanager.config.global.slack_api_url
     - kind: Secret
       name: alerts-urls
+      valuesKey: the-greenhouse-url
+      targetPath: alertmanager.config.receivers[1].slack_configs[0].api_url
+    - kind: Secret
+      name: alerts-urls
       valuesKey: healthchecks-io-url
-      targetPath: alertmanager.config.receivers[1].webhook_configs[0].url
+      targetPath: alertmanager.config.receivers[2].webhook_configs[0].url
   values:
     fullnameOverride: victoriametrics
     vmsingle:
