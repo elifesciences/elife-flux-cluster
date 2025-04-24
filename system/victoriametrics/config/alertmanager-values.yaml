@@ -25,6 +25,9 @@ alertmanager:
         - matchers:
             - "alertname = InfoInhibitor"
           receiver: "null"
+        - matchers:
+            - "exported_namespace = sciety"
+          receiver: "slack-the-greenhouse"
     inhibit_rules:
       - target_matchers:
           - severity=~"warning|info"
