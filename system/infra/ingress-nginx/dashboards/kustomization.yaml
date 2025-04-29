@@ -4,6 +4,7 @@ configMapGenerator:
 - name: ingress-dashboards
   files:
   - kubernetes-nginx-ingress-via-prometheus.json
+  - request-handling-performance.json
   - nginx.json
 patches:
 - patch: |
