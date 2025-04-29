@@ -9,3 +9,4 @@ resources:
 - sqs-release.yaml
 - sns-release.yaml
 - iam-release.yaml
+- route53-release.yaml
