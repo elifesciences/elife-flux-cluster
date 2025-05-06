@@ -47,7 +47,7 @@ spec:
           resources:
             requests:
               cpu: 650m
-              memory: 13Gi
+              memory: 14Gi
             limits: {}
           extraArgs:
             "inmemoryDataFlushInterval": "15s"
@@ -61,7 +61,7 @@ spec:
           resources:
             requests:
               cpu: 500m
-              memory: 400Mi
+              memory: 600Mi
             limits: {}
           extraArgs:
             "dedup.minScrapeInterval": "30s"
