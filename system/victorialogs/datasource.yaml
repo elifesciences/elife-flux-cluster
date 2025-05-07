@@ -12,3 +12,4 @@ data:
         type: victoriametrics-logs-datasource
         access: proxy
         url: "http://victorialogs-victoria-logs-single-server.victorialogs:9428/"
+        timeout: 60s
