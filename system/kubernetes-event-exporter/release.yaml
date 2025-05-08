@@ -11,5 +11,5 @@ spec:
       chart: kubernetes-event-exporter
       interval: 5m
       sourceRef:
-        kind: GitRepository
+        kind: HelmRepository
         name: bitnami-charts
