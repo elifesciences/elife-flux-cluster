@@ -16,3 +16,5 @@ spec:
       version: "3.5.3"
   values:
     resourcesPreset: none
+    config:
+      logFormat: json
