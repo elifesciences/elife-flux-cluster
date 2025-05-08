@@ -47,7 +47,7 @@ spec:
           resources:
             requests:
               cpu: 650m
-              memory: 14Gi
+              memory: 13Gi
             limits: {}
           extraArgs:
             "inmemoryDataFlushInterval": "15s"
@@ -60,7 +60,7 @@ spec:
 
           resources:
             requests:
-              cpu: 500m
+              cpu: 150m
               memory: 600Mi
             limits: {}
           extraArgs:
@@ -70,7 +70,7 @@ spec:
             maxLabelsPerTimeseries: "55"
           resources:
             requests:
-              cpu: 500m
+              cpu: 250m
               memory: 530Mi
             limits: {}
       ingress:
