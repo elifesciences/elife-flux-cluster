@@ -74,7 +74,7 @@
                "tableColumn": "",
                "targets": [
                   {
-                     "expr": "max(opensearch_cluster_status{exported_cluster=\"$cluster\"})",
+                     "expr": "max(opensearch_cluster_status{namespace=\"$namespace\", exported_cluster=\"$cluster\"})",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "",
@@ -154,21 +154,21 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "(opensearch_cluster_status{exported_cluster=\"$cluster\"} == 0) + 1",
+                     "expr": "(opensearch_cluster_status{namespace=\"$namespace\", exported_cluster=\"$cluster\"} == 0) + 1",
                      "format": "time_series",
                      "intervalFactor": 10,
                      "legendFormat": "GREEN",
                      "refId": "A"
                   },
                   {
-                     "expr": "(opensearch_cluster_status{exported_cluster=\"$cluster\"} == 1)",
+                     "expr": "(opensearch_cluster_status{namespace=\"$namespace\", exported_cluster=\"$cluster\"} == 1)",
                      "format": "time_series",
                      "intervalFactor": 10,
                      "legendFormat": "YELLOW",
                      "refId": "B"
                   },
                   {
-                     "expr": "(opensearch_cluster_status{exported_cluster=\"$cluster\"} == 2) - 1",
+                     "expr": "(opensearch_cluster_status{namespace=\"$namespace\", exported_cluster=\"$cluster\"} == 2) - 1",
                      "format": "time_series",
                      "intervalFactor": 10,
                      "legendFormat": "RED",
@@ -268,7 +268,7 @@
                "tableColumn": "",
                "targets": [
                   {
-                     "expr": "max(opensearch_cluster_nodes_number{exported_cluster=\"$cluster\"})",
+                     "expr": "max(opensearch_cluster_nodes_number{namespace=\"$namespace\", exported_cluster=\"$cluster\"})",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "",
@@ -345,7 +345,7 @@
                "tableColumn": "",
                "targets": [
                   {
-                     "expr": "max(opensearch_cluster_datanodes_number{exported_cluster=\"$cluster\"})",
+                     "expr": "max(opensearch_cluster_datanodes_number{namespace=\"$namespace\", exported_cluster=\"$cluster\"})",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "",
@@ -422,7 +422,7 @@
                "tableColumn": "",
                "targets": [
                   {
-                     "expr": "max(opensearch_cluster_pending_tasks_number{exported_cluster=\"$cluster\"})",
+                     "expr": "max(opensearch_cluster_pending_tasks_number{namespace=\"$namespace\", exported_cluster=\"$cluster\"})",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "",
@@ -495,7 +495,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "max(opensearch_cluster_shards_number{exported_cluster=\"$cluster\",type=\"$shard_type\"})",
+                     "expr": "max(opensearch_cluster_shards_number{namespace=\"$namespace\", exported_cluster=\"$cluster\",type=\"$shard_type\"})",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "",
@@ -591,7 +591,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "max(opensearch_threadpool_tasks_number{exported_cluster=\"$cluster\",name=\"$pool_name\"})",
+                     "expr": "max(opensearch_threadpool_tasks_number{namespace=\"$namespace\", exported_cluster=\"$cluster\",name=\"$pool_name\"})",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "",
@@ -688,7 +688,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "opensearch_os_cpu_percent{exported_cluster=\"$cluster\", node=~\"$node\"}",
+                     "expr": "opensearch_os_cpu_percent{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -771,7 +771,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "opensearch_os_mem_used_bytes{exported_cluster=\"$cluster\", node=~\"$node\"}",
+                     "expr": "opensearch_os_mem_used_bytes{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -854,7 +854,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "1 - opensearch_fs_path_available_bytes{exported_cluster=\"$cluster\",node=~\"$node\"} / opensearch_fs_path_total_bytes{exported_cluster=\"$cluster\",node=~\"$node\"}",
+                     "expr": "1 - opensearch_fs_path_available_bytes{namespace=\"$namespace\", exported_cluster=\"$cluster\",node=~\"$node\"} / opensearch_fs_path_total_bytes{namespace=\"$namespace\", exported_cluster=\"$cluster\",node=~\"$node\"}",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}} - {{path}}",
@@ -966,7 +966,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "rate(opensearch_indices_indexing_index_count{exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
+                     "expr": "rate(opensearch_indices_indexing_index_count{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -1049,7 +1049,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "rate(opensearch_indices_indexing_index_time_seconds{exported_cluster=\"$cluster\", node=~\"$node\"}[$interval]) / rate(opensearch_indices_indexing_index_count{exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
+                     "expr": "rate(opensearch_indices_indexing_index_time_seconds{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}[$interval]) / rate(opensearch_indices_indexing_index_count{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -1132,7 +1132,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "rate(opensearch_indices_search_query_count{exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
+                     "expr": "rate(opensearch_indices_search_query_count{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -1215,7 +1215,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "rate(opensearch_indices_search_query_time_seconds{exported_cluster=\"$cluster\", node=~\"$node\"}[$interval]) / rate(opensearch_indices_search_query_count{exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
+                     "expr": "rate(opensearch_indices_search_query_time_seconds{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}[$interval]) / rate(opensearch_indices_search_query_count{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -1298,7 +1298,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "opensearch_indices_doc_number{exported_cluster=\"$cluster\", node=~\"$node\"}",
+                     "expr": "opensearch_indices_doc_number{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -1381,7 +1381,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "rate(opensearch_indices_doc_deleted_number{exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
+                     "expr": "rate(opensearch_indices_doc_deleted_number{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -1464,7 +1464,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "rate(opensearch_indices_merges_total_docs_count{exported_cluster=\"$cluster\",node=~\"$node\"}[$interval])",
+                     "expr": "rate(opensearch_indices_merges_total_docs_count{namespace=\"$namespace\", exported_cluster=\"$cluster\",node=~\"$node\"}[$interval])",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -1561,7 +1561,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "opensearch_indices_fielddata_memory_size_bytes{exported_cluster=\"$cluster\", node=~\"$node\"}",
+                     "expr": "opensearch_indices_fielddata_memory_size_bytes{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -1644,7 +1644,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "rate(opensearch_indices_fielddata_evictions_count{exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
+                     "expr": "rate(opensearch_indices_fielddata_evictions_count{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -1727,7 +1727,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "opensearch_indices_querycache_cache_size_bytes{exported_cluster=\"$cluster\", node=~\"$node\"}",
+                     "expr": "opensearch_indices_querycache_cache_size_bytes{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -1810,7 +1810,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "rate(opensearch_indices_querycache_evictions_count{exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
+                     "expr": "rate(opensearch_indices_querycache_evictions_count{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -1893,7 +1893,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "rate(opensearch_indices_querycache_hit_count{exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
+                     "expr": "rate(opensearch_indices_querycache_hit_count{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -1976,7 +1976,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "rate(opensearch_indices_querycache_miss_number{exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
+                     "expr": "rate(opensearch_indices_querycache_miss_number{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -2073,7 +2073,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "rate(opensearch_indices_indexing_throttle_time_seconds{exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
+                     "expr": "rate(opensearch_indices_indexing_throttle_time_seconds{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -2156,7 +2156,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "rate(opensearch_indices_merges_total_throttled_time_seconds{exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
+                     "expr": "rate(opensearch_indices_merges_total_throttled_time_seconds{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}}",
@@ -2253,7 +2253,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "opensearch_jvm_mem_heap_used_bytes{exported_cluster=\"$cluster\", node=~\"$node\"}",
+                     "expr": "opensearch_jvm_mem_heap_used_bytes{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}} - heap used",
@@ -2336,7 +2336,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "rate(opensearch_jvm_gc_collection_count{exported_cluster=\"$cluster\",node=~\"$node\"}[$interval])",
+                     "expr": "rate(opensearch_jvm_gc_collection_count{namespace=\"$namespace\", exported_cluster=\"$cluster\",node=~\"$node\"}[$interval])",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}} - {{gc}}",
@@ -2419,7 +2419,7 @@
                "steppedLine": false,
                "targets": [
                   {
-                     "expr": "rate(opensearch_jvm_gc_collection_time_seconds{exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
+                     "expr": "rate(opensearch_jvm_gc_collection_time_seconds{namespace=\"$namespace\", exported_cluster=\"$cluster\", node=~\"$node\"}[$interval])",
                      "format": "time_series",
                      "intervalFactor": 2,
                      "legendFormat": "{{node}} - {{gc}}",
@@ -2549,9 +2549,21 @@
             "datasource": "$datasource",
             "hide": 0,
             "includeAll": false,
+            "label": "Cluster Namespace",
+            "name": "namespace",
+            "query": "label_values(opensearch_cluster_status, namespace)",
+            "refresh": 1,
+            "regex": "",
+            "sort": 1,
+            "type": "query"
+         },
+         {
+            "datasource": "$datasource",
+            "hide": 0,
+            "includeAll": false,
             "label": "Cluster",
             "name": "cluster",
-            "query": "label_values(opensearch_cluster_status, exported_cluster)",
+            "query": "label_values(opensearch_cluster_status{namespace=\"$namespace\"}, exported_cluster)",
             "refresh": 1,
             "regex": "",
             "sort": 1,
@@ -2563,7 +2575,7 @@
             "includeAll": true,
             "label": "Node",
             "name": "node",
-            "query": "label_values(opensearch_jvm_uptime_seconds{exported_cluster=\"$cluster\"}, node)",
+            "query": "label_values(opensearch_jvm_uptime_seconds{namespace=\"$namespace\", exported_cluster=\"$cluster\"}, node)",
             "refresh": 1,
             "regex": "",
             "sort": 1,
