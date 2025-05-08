@@ -14,3 +14,5 @@ spec:
         kind: HelmRepository
         name: bitnami-charts
       version: "3.5.3"
+  values:
+    resourcesPreset: none
