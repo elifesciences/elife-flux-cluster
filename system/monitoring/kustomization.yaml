@@ -6,4 +6,3 @@ resources:
 - monitoring-flux.yaml
 - alertrules-misc.yaml
 - alerts
-- dashboards
