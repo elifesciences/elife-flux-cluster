@@ -1,0 +1,18 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kubernetes-event-exporter
+  namespace: kubernetes-event-exporter
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: kubernetes-event-exporter
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+      version: "3.5.3"
+  values:
+    resourcesPreset: none

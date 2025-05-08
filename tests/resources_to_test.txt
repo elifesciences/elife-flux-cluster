@@ -14,6 +14,7 @@
 2m helmrelease ready template-controller template-controller
 2m helmrelease ready victoriametrics victoriametrics
 2m helmrelease ready infra sealed-secrets
+2m helmrelease ready kubernetes-event-exporter kubernetes-event-exporter
 2m helmrelease ready keda keda
 2m helmrelease ready keda keda-add-ons-http
 2m helmrelease ready metrics-server metrics-server
