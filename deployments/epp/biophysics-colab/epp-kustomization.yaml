@@ -46,7 +46,7 @@ spec:
       image_server_s3_bucket: biophysics-colab-elife-epp-data
       image_server_prefix: automation/
       image_server_role_arn: arn:aws:iam::512686554592:role/epp-biophysics-colab-image-server
-      epp_server_role_arn: arn:aws:iam::512686554592:role/epp-staging-epp-server
+      epp_server_role_arn: arn:aws:iam::512686554592:role/epp-biophysics-colab-epp-server
       show_previews: ""
       epp_server: http://epp-server:3000
       import_role_arn: arn:aws:iam::512686554592:role/epp-biophysics-colab-import
