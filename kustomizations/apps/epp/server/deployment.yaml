@@ -51,6 +51,6 @@ spec:
           httpGet:
             path: /api/preprints
             port: 3000
-          initialDelaySeconds: 30
+          initialDelaySeconds: 5
           periodSeconds: 3
           timeoutSeconds: 5
