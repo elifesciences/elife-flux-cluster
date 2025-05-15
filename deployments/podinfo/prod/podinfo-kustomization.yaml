@@ -14,7 +14,7 @@ spec:
   targetNamespace: podinfo--prod
   images:
   - name: docker.io/stefanprodan/podinfo
-    newTag: 6.8.0 # {"$imagepolicy": "podinfo--prod:podinfo-stable:tag"}
+    newTag: 6.9.0 # {"$imagepolicy": "podinfo--prod:podinfo-stable:tag"}
   postBuild:
     substitute:
       hostname: podinfo.elifesciences.org
