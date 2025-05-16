@@ -28,7 +28,16 @@ spec:
     sharding:
       enabled: false
     backup:
-      enabled: false
+      enabled: true
+      image:
+        tag: 2.4.1-multi
+      storages:
+        epp-prod-backups:
+          type: s3
+          s3:
+            bucket: "${aws_backup_s3_bucket}"
+            region: "${aws_region}"
+            prefix: "epp/biophysics-colab"
     replsets:
       rs0:
         name: replicaset
