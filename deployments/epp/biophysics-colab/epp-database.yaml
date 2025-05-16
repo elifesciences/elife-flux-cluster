@@ -32,7 +32,7 @@ spec:
       image:
         tag: 2.4.1-multi
       storages:
-        epp-prod-backups:
+        epp-biophysics-colab-backups:
           type: s3
           s3:
             bucket: "${aws_backup_s3_bucket}"
