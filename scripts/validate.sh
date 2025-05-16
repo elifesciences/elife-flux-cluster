@@ -58,6 +58,7 @@ export import_controller_hostname="test"
 export ts="test"
 export env="test"
 export hostname="test"
+export cluster_name="test"
 
 # Settings for various tool calls
 #
