@@ -44,13 +44,13 @@ spec:
         schedule: "0 0 * * *"
         keep: 30
         type: logical
-        storageName: epp-prod-backups
+        storageName: epp-biophysics-colab-backups
       - name: "monthly-backup"
         enabled: true
         schedule: "0 1 1 * *"
         keep: 12
         type: logical
-        storageName: epp-prod-backups
+        storageName: epp-biophysics-colab-backups
     replsets:
       rs0:
         name: replicaset
