@@ -38,6 +38,19 @@ spec:
             bucket: "${aws_backup_s3_bucket}"
             region: "${aws_region}"
             prefix: "epp/biophysics-colab"
+      tasks:
+      - name: "daily-backup"
+        enabled: true
+        schedule: "0 0 * * *"
+        keep: 30
+        type: logical
+        storageName: epp-prod-backups
+      - name: "monthly-backup"
+        enabled: true
+        schedule: "0 1 1 * *"
+        keep: 12
+        type: logical
+        storageName: epp-prod-backups
     replsets:
       rs0:
         name: replicaset
