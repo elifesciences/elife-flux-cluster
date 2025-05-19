@@ -108,8 +108,11 @@ find . -type f -name $kustomize_config -not -path "./clusters/*" -print0 | while
 
     cat $tmp_dir/kustomize_output | kubeconform $kubeconform_config > $tmp_dir/kubeconform_output 2> $tmp_dir/kubeconform_error
     if [[ ${PIPESTATUS[1]} != 0 ]]; then
-      echo "## INFO ${file/%$kustomize_config} failed kubeconform:"
+      echo "## INFO ${file/%$kustomize_config} failed kubeconform"
+      echo "## DEBUG ${file/%$kustomize_config} kubeconform_error:"
       cat "$tmp_dir/kubeconform_error"
+      echo "## DEBUG ${file/%$kustomize_config} kubeconform_output:"
+      cat "$tmp_dir/kubeconform_output"
       echo "## INFO trying with envsubst"
       cat $tmp_dir/kustomize_output | flux envsubst --strict > $tmp_dir/envsubst_output 2> $tmp_dir/envsubst_error
       if [[ ${PIPESTATUS[1]} != 0 ]]; then
