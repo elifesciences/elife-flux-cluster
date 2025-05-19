@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: victoriametrics
-      version: "0.47.1"
+      version: "0.48.1"
   interval: 1h0m0s
   valuesFrom:
     - kind: ConfigMap
