@@ -75,11 +75,11 @@ echo "# INFO - Validating yaml files are valid YAML"
 # done
 # echo ""
 
-echo "# INFO - Validating clusters is conforming to flux schema"
+echo "# INFO - Validating clusters is conforming to flux schema (excluding patches)"
 echo "## INFO - Downloading Flux OpenAPI schemas"
 mkdir -p /tmp/flux-crd-schemas/master-standalone-strict
 curl -sL https://github.com/fluxcd/flux2/releases/latest/download/crd-schemas.tar.gz | tar zxf - -C /tmp/flux-crd-schemas/master-standalone-strict
-find ./clusters -type f -name '*.yaml' -print0 | while IFS= read -r -d $'\0' file;
+find ./clusters -type f -name '*.yaml' -not -path "./clusters/**/patches/*" -print0 | while IFS= read -r -d $'\0' file;
   do
     echo "## INFO - Validating cluster file ${file}"
     conform_output=$(kubeconform $kubeconform_config ${file})
@@ -101,25 +101,27 @@ find . -type f -name $kustomize_config -not -path "./clusters/*" -print0 | while
     if [[ $? != 0 ]]; then
       echo "## ERROR ${file/%$kustomize_config} failed kustomize build"
       cat $tmp_dir/kustomize_error
+      cat $tmp_dir/kustomize_output
       rm -Rf $tmp_dir
-      # echo $tmp_dir
       exit 1
     fi
 
     cat $tmp_dir/kustomize_output | kubeconform $kubeconform_config > $tmp_dir/kubeconform_output 2> $tmp_dir/kubeconform_error
     if [[ ${PIPESTATUS[1]} != 0 ]]; then
       echo "## INFO ${file/%$kustomize_config} failed kubeconform"
-      echo "## DEBUG ${file/%$kustomize_config} kubeconform_error:"
-      cat "$tmp_dir/kubeconform_error"
-      echo "## DEBUG ${file/%$kustomize_config} kubeconform_output:"
-      cat "$tmp_dir/kubeconform_output"
+      if [[ $ACTIONS_STEP_DEBUG == "true" ]]; then
+        echo "## DEBUG ${file/%$kustomize_config} kubeconform_error:"
+        cat "$tmp_dir/kubeconform_error"
+        echo "## DEBUG ${file/%$kustomize_config} kubeconform_output:"
+        cat "$tmp_dir/kubeconform_output"
+      fi
       echo "## INFO trying with envsubst"
       cat $tmp_dir/kustomize_output | flux envsubst --strict > $tmp_dir/envsubst_output 2> $tmp_dir/envsubst_error
       if [[ ${PIPESTATUS[1]} != 0 ]]; then
         echo "## ERROR ${file/%$kustomize_config} failed envsubst"
         cat $tmp_dir/envsubst_error
+        cat $tmp_dir/envsubst_output
         rm -Rf $tmp_dir
-        # echo $tmp_dir
         exit 1
       fi
 
@@ -129,7 +131,6 @@ find . -type f -name $kustomize_config -not -path "./clusters/*" -print0 | while
         cat $tmp_dir/kubeconform_error
         cat $tmp_dir/kubeconform_output
         rm -Rf $tmp_dir
-        # echo $tmp_dir
         exit 1
       fi
     fi
