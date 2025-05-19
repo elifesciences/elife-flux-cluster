@@ -5,6 +5,6 @@ kubie       0.23.0
 kind        0.28.0
 kustomize   5.6.0
 yq          4.45.4
-kubeconform 0.6.4
+kubeconform 0.7.0
 awscli      2.27.17
 helm        3.17.3
