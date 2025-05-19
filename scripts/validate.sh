@@ -61,7 +61,7 @@ export hostname="test"
 
 # Settings for various tool calls
 #
-kubeconform_config="-strict -ignore-missing-schemas -schema-location default -schema-location /tmp/flux-crd-schemas -verbose -skip Canary,HelmRelease"
+kubeconform_config="-strict -ignore-missing-schemas -schema-location /tmp/crd-schemas/flux/master-standalone-strict/ -schema-location /tmp/crd-schemas/kubernetes-json-schema/master-standalone-strict/ -verbose -skip Canary,HelmRelease"
 # mirror kustomize-controller build options
 kustomize_flags="--load-restrictor=LoadRestrictionsNone"
 kustomize_config="kustomization.yaml"
@@ -75,10 +75,17 @@ echo "# INFO - Validating yaml files are valid YAML"
 # done
 # echo ""
 
+echo "# INFO - Downloading Flux OpenAPI schemas"
+rm -Rf /tmp/crd-schemas
+mkdir -p /tmp/crd-schemas/flux/master-standalone-strict
+curl -sL https://github.com/fluxcd/flux2/releases/latest/download/crd-schemas.tar.gz | tar zxf - -C /tmp/crd-schemas/flux/master-standalone-strict
+
+echo "# INFO - Checking out kubernetes OpenAPI schemas from yannh/kubernetes-json-schema"
+git -C /tmp/crd-schemas/ clone --depth 1  --filter=blob:none  --no-checkout https://github.com/yannh/kubernetes-json-schema
+git -C /tmp/crd-schemas/kubernetes-json-schema sparse-checkout set master-standalone-strict
+git -C /tmp/crd-schemas/kubernetes-json-schema checkout
+
 echo "# INFO - Validating clusters is conforming to flux schema (excluding patches)"
-echo "## INFO - Downloading Flux OpenAPI schemas"
-mkdir -p /tmp/flux-crd-schemas/master-standalone-strict
-curl -sL https://github.com/fluxcd/flux2/releases/latest/download/crd-schemas.tar.gz | tar zxf - -C /tmp/flux-crd-schemas/master-standalone-strict
 find ./clusters -type f -name '*.yaml' -not -path "./clusters/**/patches/*" -print0 | while IFS= read -r -d $'\0' file;
   do
     echo "## INFO - Validating cluster file ${file}"
