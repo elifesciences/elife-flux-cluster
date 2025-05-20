@@ -22,15 +22,10 @@ spec:
       interval: 1m
 
   values:
-    image:
-      repository: percona/percona-server-mongodb
-      tag: 7.0.8-5-multi
     sharding:
       enabled: false
     backup:
       enabled: true
-      image:
-        tag: 2.4.1-multi
       storages:
         epp-prod-backups:
           type: s3
