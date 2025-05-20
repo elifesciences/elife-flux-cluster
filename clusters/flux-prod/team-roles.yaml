@@ -7,3 +7,6 @@ rules:
 - apiGroups: ["external-secrets.io"]
   resources: ["externalsecrets"]
   verbs: ["*"]
+- apiGroups: ["helm.toolkit.fluxcd.io"]
+  resources: ["helmreleases"]
+  verbs: ["*"]
