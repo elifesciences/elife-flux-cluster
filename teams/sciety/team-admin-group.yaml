@@ -40,3 +40,17 @@ subjects:
 - apiGroup: rbac.authorization.k8s.io
   kind: Group
   name: sciety-team-admin
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: sciety-team-admin
+  namespace: flux-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: team-admin
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: sciety-team-admin
