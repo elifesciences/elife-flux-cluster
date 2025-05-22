@@ -37,6 +37,7 @@ spec:
       aws_ack_sqs_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-sqs-controller-cluster-role
       aws_ack_sns_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-sns-controller-cluster-role
       aws_ack_iam_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-iam-controller-cluster-role
+      aws_ack_cloudfront_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-cloudfront-controller-cluster-role
       aws_external_dns_service_account_role_arn: arn:aws:iam::512686554592:role/kubernetes-aws--flux-prod--external-dns
       aws_cert_manager_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-cert-manager
 
