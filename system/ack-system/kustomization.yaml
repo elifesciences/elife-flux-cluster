@@ -10,3 +10,4 @@ resources:
 - sns-release.yaml
 - iam-release.yaml
 - route53-release.yaml
+- cloudfront-release.yaml
