@@ -7,9 +7,17 @@ metadata:
 spec:
   selector:
     matchExpressions:
+    - key: app.kubernetes.io/component
+      operator: In
+      values:
+        - import
     - key: app.kubernetes.io/name
       operator: In
       values:
-        - import-worker-epp
+        - worker-epp
+    - key: epp.elifesciences.org/task_queue
+      operator: In
+      values:
+        - epp
   podMetricsEndpoints:
   - targetPort: 9464
