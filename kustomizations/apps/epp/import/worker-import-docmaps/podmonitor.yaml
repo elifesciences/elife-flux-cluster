@@ -15,7 +15,7 @@ spec:
       operator: In
       values:
         - worker
-    - key: epp.elifesciences.org/task_queue
+    - key: epp.elifesciences.org/task-queue
       operator: In
       values:
         - docmaps
