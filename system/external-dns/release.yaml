@@ -37,3 +37,4 @@ spec:
     policy: sync
     provider:
       name: aws
+    logLevel: debug
