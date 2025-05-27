@@ -14,7 +14,7 @@ spec:
     - key: app.kubernetes.io/name
       operator: In
       values:
-        - worker-epp
+        - worker
     - key: epp.elifesciences.org/task_queue
       operator: In
       values:
