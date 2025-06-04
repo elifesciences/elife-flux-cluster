@@ -1,0 +1,37 @@
+---
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
+metadata:
+  name: cluster-services-al2023
+spec:
+  amiSelectorTerms:
+  - alias: al2023@latest
+  userData: |
+    ---
+    apiVersion: node.eks.aws/v1alpha1
+    kind: NodeConfig
+    spec:
+      containerd:
+        config: |
+          [plugins."io.containerd.grpc.v1.cri".containerd]
+              discard_unpacked_layers = false
+
+  role: "elife-${cluster_name}-karpenter--KarpenterNodeRole"
+  associatePublicIPAddress: true
+  subnetSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: "kubernetes-aws--${cluster_name}"
+  securityGroupSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: "kubernetes-aws--${cluster_name}"
+  tags:
+    Cluster: "${cluster_name}"
+    Project: "${cluster_name}"
+  blockDeviceMappings:
+    - deviceName: /dev/xvda
+      ebs:
+        volumeSize: 20Gi
+        volumeType: gp3
+        iops: 3000
+        deleteOnTermination: true
+        throughput: 125
