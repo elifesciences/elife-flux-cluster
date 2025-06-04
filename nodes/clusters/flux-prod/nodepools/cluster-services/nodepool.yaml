@@ -15,7 +15,7 @@ spec:
       nodeClassRef:
         group: karpenter.k8s.aws
         kind: EC2NodeClass
-        name: cluster-services
+        name: cluster-services-al2023
       requirements:
         - key: kubernetes.io/os
           operator: In
