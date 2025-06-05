@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
 - storageclass.yaml
 - al2023nodeclass.yaml
-- nodeclass.yaml
 - nodepool.yaml
 - nodepool-services.yaml
 - deployment-sync.yaml

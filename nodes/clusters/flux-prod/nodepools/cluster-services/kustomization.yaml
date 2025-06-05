@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: karpenter
 resources:
 - al2023nodeclass.yaml
-- nodeclass.yaml
 - nodepool.yaml
