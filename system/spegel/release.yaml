@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: spegel
-      version: "0.2.0"
+      version: "0.3.0"
       interval: 5m
       sourceRef:
         kind: HelmRepository
@@ -23,3 +23,7 @@ spec:
       requests:
         cpu: 5m
         memory: 20Mi
+    grafanaDashboard:
+      enabled: true
+    serviceMonitor:
+      enabled: true
