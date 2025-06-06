@@ -65,7 +65,7 @@ spec:
       biorxiv_xslt_api_replicas: "3"
       is_automated: automated
       image_server_prefix: automation/
-      epp_server_metrics_url: https://prod--gateway.elifesciences.org
+      epp_server_metrics_url: https://api.prod.elifesciences.org
       epp_image_server_memory_requests: 6Gi
       epp_image_server_cpu_requests: 600m
       epp_server_cpu_requests: 150m
