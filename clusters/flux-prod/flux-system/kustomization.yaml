@@ -34,8 +34,9 @@ patches:
                 nodeSelectorTerms:
                 - matchExpressions:
                   - key: karpenter.sh/nodepool
-                    operator: Equal
-                    value: core
+                    operator: In
+                    values:
+                    - core
 - target:
     version: v1
     group: apps
