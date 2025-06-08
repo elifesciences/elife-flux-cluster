@@ -59,8 +59,8 @@ patches:
       path: /spec/template/spec/containers/0/resources
       value:
         requests:
-          cpu: 500m
-          memory: 400Mi
+          cpu: 1
+          memory: 600Mi
 - target:
     version: v1
     group: apps
@@ -99,7 +99,7 @@ patches:
       value:
         requests:
           cpu: 50m
-          memory: 200Mi
+          memory: 1200Mi
 - target:
     version: v1
     group: apps
