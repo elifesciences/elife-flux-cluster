@@ -34,9 +34,6 @@ spec:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
           - matchExpressions:
-            - key: karpenter.sh/nodepool
-              operator: DoesNotExist
-          - matchExpressions:
             - key: type
               operator: NotIn
               values: ["karpenter", "kwok"] # Don't place this on cluster-controlled nodes
