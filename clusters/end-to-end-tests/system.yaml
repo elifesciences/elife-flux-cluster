@@ -199,4 +199,4 @@ spec:
             value: "true"
             effect: "NoSchedule"
           nodeSelector:
-            kubernetes.io/hostname: elife-flux-test-control-plane
+            kubernetes.io/hostname: elife-flux-cluster-control-plane
