@@ -18,7 +18,7 @@ spec:
       persistentVolume:
         enabled: true
         storageClassName: ebs-gp3
-        size: 60Gi
+        size: 80Gi
       ingress:
         enabled: true
         annotations:
