@@ -11,5 +11,4 @@ fi
 
 cd $(dirname $0)
 
-echo https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/tags/external-dns-helm-chart-$1/charts/external-dns/crds/dnsendpoints.externaldns.k8s.io.yaml
 curl -sL https://raw.githubusercontent.com/kubernetes-sigs/external-dns/refs/tags/external-dns-helm-chart-$1/charts/external-dns/crds/dnsendpoints.externaldns.k8s.io.yaml  > dnsendpoints.externaldns.k8s.io.yaml
