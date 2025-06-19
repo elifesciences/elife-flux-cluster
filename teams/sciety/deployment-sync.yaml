@@ -40,3 +40,9 @@ spec:
       cluster_name: ${cluster_name}
       cluster_oidc_arn: ${cluster_oidc_arn}
       cluster_oidc_url: ${cluster_oidc_url}
+      aws_account_id: "\"${aws_account_id}\""
+      aws_region: "${aws_region}"
+      aws_backup_s3_bucket: "${aws_backup_s3_bucket}"
+
+      # service account arns
+      aws_backup_service_account_role_arn: "${aws_backup_service_account_role_arn}"
