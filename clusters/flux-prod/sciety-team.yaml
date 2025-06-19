@@ -20,3 +20,10 @@ spec:
       cluster_oidc_arn: ${cluster_oidc_arn}
       cluster_oidc_url: ${cluster_oidc_url}
       team_name: sciety
+
+      aws_account_id: "512686554592"
+      aws_region: us-east-1
+      aws_backup_s3_bucket: "elife-flux-prod-backups"
+
+      # service account arns
+      aws_backup_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-backups-cluster-role
