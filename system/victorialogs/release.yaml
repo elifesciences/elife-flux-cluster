@@ -15,6 +15,10 @@ spec:
   values:
     server:
       retentionPeriod: 30d
+      resources:
+        requests:
+          cpu: 171m
+          memory: 1420Mi
       persistentVolume:
         enabled: true
         storageClassName: ebs-gp3
