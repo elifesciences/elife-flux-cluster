@@ -46,8 +46,8 @@ spec:
                     storage: 1Ti
           resources:
             requests:
-              cpu: 650m
-              memory: 13Gi
+              cpu: 1100m
+              memory: 15Gi
             limits: {}
           extraArgs:
             "inmemoryDataFlushInterval": "15s"
@@ -60,8 +60,8 @@ spec:
 
           resources:
             requests:
-              cpu: 150m
-              memory: 600Mi
+              cpu: 2300m
+              memory: 400Mi
             limits: {}
           extraArgs:
             "dedup.minScrapeInterval": "30s"
@@ -70,8 +70,8 @@ spec:
             maxLabelsPerTimeseries: "55"
           resources:
             requests:
-              cpu: 250m
-              memory: 530Mi
+              cpu: 400m
+              memory: 1Gi
             limits: {}
       ingress:
         select:
@@ -95,8 +95,8 @@ spec:
           "promscrape.suppressScrapeErrorsDelay": "30s"
         resources:
           requests:
-            cpu: 800m
-            memory: 1Gi
+            cpu: 1.2m
+            memory: 700Mi
           limits: {}
       ingress:
         enabled: true
