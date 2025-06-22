@@ -19,11 +19,7 @@ spec:
       interval: 1m
 
   values:
-    pause: true
-    unsafeFlags:
-      tls: true
-    tls:
-      enabled: true
+    pause: false
     backup:
       enabled: true
       storages:
