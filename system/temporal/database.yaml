@@ -20,6 +20,10 @@ spec:
 
   values:
     pause: true
+    unsafeFlags:
+      tls: true
+    tls:
+      enabled: false
     backup:
       enabled: true
       storages:
