@@ -19,6 +19,7 @@ spec:
       interval: 1m
 
   values:
+    pause: true
     backup:
       enabled: true
       storages:
