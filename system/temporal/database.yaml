@@ -38,7 +38,7 @@ spec:
       nodeSelector:
         kubernetes.io/arch: amd64
       # request certs with cert-manager, not helm charts
-      certManager: true
+      # certManager: true
       resources:
         requests:
           memory: 1.2Gi
