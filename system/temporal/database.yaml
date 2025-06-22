@@ -23,7 +23,7 @@ spec:
     unsafeFlags:
       tls: true
     tls:
-      enabled: false
+      enabled: true
     backup:
       enabled: true
       storages:
