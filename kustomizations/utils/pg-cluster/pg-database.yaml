@@ -6,7 +6,7 @@ metadata:
   namespace: database
 spec:
   crVersion: ${operator_version:-2.6.0}
-  image: percona/percona-postgresql-operator:${operator_version:-2.6.0}-ppg${postgres_version}-postgres${image_suffix:-""}
+  image: percona/percona-postgresql-operator:${operator_version:-2.6.0}-ppg${postgres_version}-postgres${image_suffix:-}
   postgresVersion: ${postgres_version}
   port: 5432
   instances:
