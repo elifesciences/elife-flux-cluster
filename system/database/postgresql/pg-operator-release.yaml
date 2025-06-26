@@ -22,6 +22,9 @@ spec:
 
   values:
     watchAllNamespaces: true
+    serviceAccount:
+      annotations:
+        eks.amazonaws.com/role-arn: "${aws_backup_service_account_role_arn}"
 
     resources:
       limits: {}
