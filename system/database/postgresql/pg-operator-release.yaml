@@ -22,10 +22,6 @@ spec:
 
   values:
     watchAllNamespaces: true
-    serviceAccount:
-      annotations:
-        eks.amazonaws.com/role-arn: "${aws_backup_service_account_role_arn}"
-
     resources:
       limits: {}
       requests:
@@ -33,3 +29,14 @@ spec:
         memory: 15Mi
     nodeSelector:
       kubernetes.io/arch: amd64
+
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              version: v1
+              kind: ServiceAccount
+            patch: |
+              - op: add
+                path: /metadata/annotations/eks.amazonaws.com~1role-arn
+                value: "${aws_backup_service_account_role_arn}"
