@@ -4,3 +4,4 @@ resources:
 - pg-operator-release.yaml
 - cnpg-source.yaml
 - cnpg-release.yaml
+- image-catalogs
