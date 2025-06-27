@@ -28,6 +28,10 @@ spec:
               operator: In
               values:
               - amd64
+    resources:
+      requests:
+        cpu: ${instance_cpu:-100m}
+        memory: ${instance_memory:-1Gi}
   metadata:
     annotations:
       eks.amazonaws.com/role-arn: "${aws_backup_service_account_role_arn}"
