@@ -39,7 +39,7 @@ spec:
     pgbackrest:
       global:
         repo1-path: /${project}/${cluster_name}
-        repo1-retention-full: "14"
+        repo1-retention-full: "30"
         repo1-retention-full-type: time
         repo1-s3-key-type: web-id
       image: percona/percona-postgresql-operator:${operator_version:-2.6.0}-ppg${postgres_version}-pgbackrest
