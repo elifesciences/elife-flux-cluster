@@ -9,6 +9,9 @@ metadata:
     app_env: prod
 
 spec:
+  tls:
+    allowInvalidCertificates: true
+  pause: true
   interval: 1m
   releaseName: epp-database
   chart:
