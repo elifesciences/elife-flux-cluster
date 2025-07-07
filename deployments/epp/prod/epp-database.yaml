@@ -26,6 +26,7 @@ spec:
       tls: true
     tls:
       mode: disabled
+    pause: true
     sharding:
       enabled: false
     backup:
