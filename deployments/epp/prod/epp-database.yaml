@@ -22,7 +22,6 @@ spec:
       interval: 1m
 
   values:
-    pause: true
     sharding:
       enabled: false
     backup:
