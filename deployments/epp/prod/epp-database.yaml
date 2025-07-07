@@ -25,7 +25,8 @@ spec:
     unsafeFlags:
       tls: true
     tls:
-      mode: disabled
+      # mode: disabled
+      mode: preferTLS
     pause: true
     sharding:
       enabled: false
