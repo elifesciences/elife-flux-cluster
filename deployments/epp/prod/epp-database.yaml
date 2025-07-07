@@ -9,10 +9,6 @@ metadata:
     app_env: prod
 
 spec:
-  unsafeFlags:
-    tls: true
-  tls:
-    mode: disabled
   interval: 1m
   releaseName: epp-database
   chart:
@@ -26,6 +22,10 @@ spec:
       interval: 1m
 
   values:
+    unsafeFlags:
+      tls: true
+    tls:
+      mode: disabled
     sharding:
       enabled: false
     backup:
