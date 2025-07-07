@@ -22,12 +22,6 @@ spec:
       interval: 1m
 
   values:
-    unsafeFlags:
-      tls: true
-    tls:
-      # mode: disabled
-      mode: preferTLS
-    pause: true
     sharding:
       enabled: false
     backup:
