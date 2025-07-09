@@ -1,0 +1,11 @@
+---
+apiVersion: storage.k8s.io/v1beta1
+kind: VolumeAttributesClass
+metadata:
+  name: ebs-gp3
+driverName: ebs.csi.aws.com
+parameters:
+  type: gp3
+  iops: "3000"
+  throughput: "125"
+  tagSpecification_1: "Project=${cluster_name}"
