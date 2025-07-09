@@ -21,8 +21,8 @@ spec:
           memory: 1420Mi
       persistentVolume:
         enabled: true
-        storageClassName: ebs-gp3
-        size: 100Gi
+        storageClassName: ebs-st1
+        size: 125Gi
       ingress:
         enabled: true
         annotations:
