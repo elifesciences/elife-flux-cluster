@@ -37,6 +37,7 @@ spec:
       spec:
         retentionPeriod: "3" # months
         vmstorage:
+          replicaCount: 3
           storage:
             volumeClaimTemplate:
               spec:
