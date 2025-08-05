@@ -15,6 +15,9 @@ spec:
         name: bitnami-charts
       version: "3.5.3"
   values:
+    global:
+      security:
+        allowInsecureImages: true
     image:
       repository: bitnamilegacy/kubernetes-event-exporter
       tag: 1.7.0-debian-12-r43
