@@ -14,10 +14,12 @@ spec:
         kind: HelmRepository
         name: dragonfly-operator
   values:
+    # doesn't work in helm chart v1.1.11, but...
     serviceMonitor:
-      enabled: true
+      enabled: false
     grafanaDashboard:
-      enabled: true
+      enabled: false
     manager:
+      # this will start working in main, and likely after a new helm chart > v1.1.11
       extraArgs:
       - --metrics-bind-address=0.0.0.0:8080
