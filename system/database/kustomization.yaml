@@ -8,3 +8,4 @@ resources:
 - mysql
 - postgresql
 - opensearch
+- dragonfly

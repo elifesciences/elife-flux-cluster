@@ -1,0 +1,20 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: dragonfly-operator
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: dragonfly-operator
+      version: v1.1.11
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: dragonfly-operator
+  values:
+    serviceMonitor:
+      enabled: true
+    grafanaDashboard:
+      enabled: true
