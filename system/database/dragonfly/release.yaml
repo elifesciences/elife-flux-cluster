@@ -18,3 +18,5 @@ spec:
       enabled: true
     grafanaDashboard:
       enabled: true
+    extraArgs:
+      -metrics-bind-address=0.0.0.0:8080
