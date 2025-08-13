@@ -7,4 +7,4 @@ kustomize   5.7.1
 yq          4.47.1
 kubeconform 0.7.0
 awscli      2.28.8
-helm        3.18.4
+helm        3.18.5
