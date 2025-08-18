@@ -21,7 +21,7 @@ jobs:
           run: echo "Nothing"
           post: mise implode -y
       - name: Install tools
-        uses: jdx/mise-action@v2
+        uses: jdx/mise-action@v3
       - name: Create a test cluster and deploy this branch
         run: ./tests/run_cluster_in_kind.sh ${GITHUB_REF#refs/heads/}
       - name: Test resources come up
