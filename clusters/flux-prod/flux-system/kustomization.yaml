@@ -101,8 +101,8 @@ patches:
         requests:
           cpu: 50m
           memory: 1Gi
-    - op: add
-      path: /spec/template/spec/containers/0/args/-
+    - op: replace
+      path: /spec/template/spec/containers/0/args/2
       value: --log-level="debug"
 - target:
     version: v1
