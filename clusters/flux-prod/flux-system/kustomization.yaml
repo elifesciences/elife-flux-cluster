@@ -101,6 +101,9 @@ patches:
         requests:
           cpu: 50m
           memory: 1Gi
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: --log-level="debug"
 - target:
     version: v1
     group: apps
