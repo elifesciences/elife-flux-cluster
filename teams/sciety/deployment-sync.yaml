@@ -10,7 +10,7 @@ spec:
     branch: main
   secretRef:
     name: sciety-team-deployment
-  url: https://github.com/sciety/sciety-team-deployment.git
+  url: ssh://git@github.com:sciety/sciety-team-deployment.git
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
