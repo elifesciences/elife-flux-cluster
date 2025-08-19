@@ -4,5 +4,6 @@ namespace: temporal
 resources:
 - namespace.yaml
 - database.yaml
+- database-serviceaccount.yaml
 - temporal-kustomization.yaml
 - dashboards

@@ -22,12 +22,11 @@ spec:
     pause: false
     backup:
       enabled: true
+      serviceAccountName: temporal-database
       storages:
         temporal-prod-backups:
           type: s3
           s3:
-            annotations:
-              eks.amazonaws.com/role-arn: "${aws_backup_service_account_role_arn}"
             bucket: "${aws_backup_s3_bucket}/temporal/prod"
             region: "${aws_region}"
       schedule:
