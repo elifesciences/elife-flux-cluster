@@ -30,13 +30,13 @@ spec:
             bucket: "${aws_backup_s3_bucket}/temporal/prod"
             region: "${aws_region}"
       schedule:
-        - name: "daily-backup"
-          schedule: "0 0 * * *"
-          storageName: temporal-prod-backups
-          retention:
-            count: 30
-            type: count
-            deleteFromStorage: true
+        # - name: "daily-backup"
+        #   schedule: "0 0 * * *"
+        #   storageName: temporal-prod-backups
+        #   retention:
+        #     count: 30
+        #     type: count
+        #     deleteFromStorage: true
     pxc:
       nodeSelector:
         kubernetes.io/arch: amd64
