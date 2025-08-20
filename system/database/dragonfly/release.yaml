@@ -8,18 +8,16 @@ spec:
   chart:
     spec:
       chart: dragonfly-operator
-      version: v1.1.11
+      version: v1.2.0
       interval: 5m
       sourceRef:
         kind: HelmRepository
         name: dragonfly-operator
   values:
-    # doesn't work in helm chart v1.1.11, but...
     serviceMonitor:
-      enabled: false
+      enabled: true
     grafanaDashboard:
-      enabled: false
+      enabled: true
     manager:
-      # this will start working in main, and likely after a new helm chart > v1.1.11
       extraArgs:
       - --metrics-bind-address=0.0.0.0:8080
