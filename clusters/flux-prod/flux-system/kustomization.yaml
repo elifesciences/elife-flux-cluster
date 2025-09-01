@@ -100,10 +100,7 @@ patches:
       value:
         requests:
           cpu: 50m
-          memory: 900Mi
-    - op: replace
-      path: /spec/template/spec/containers/0/args/2
-      value: --log-level="debug"
+          memory: 800Mi
 - target:
     version: v1
     group: apps
