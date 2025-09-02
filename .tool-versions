@@ -6,5 +6,5 @@ kind        0.30.0
 kustomize   5.7.1
 yq          4.47.1
 kubeconform 0.7.0
-awscli      2.28.21
+awscli      2.28.22
 helm        3.18.6
