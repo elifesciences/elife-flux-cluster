@@ -14,7 +14,7 @@ spec:
   targetNamespace: epp--prod
   images:
     - name: ghcr.io/elifesciences/enhanced-preprints-server
-      newTag: master-2c6845f2-20250905.0859-approved # {"$imagepolicy": "epp--prod:epp-server-approved:tag"}
+      newTag: master-5ffa47ef-20250905.1246-approved # {"$imagepolicy": "epp--prod:epp-server-approved:tag"}
     - name: ghcr.io/elifesciences/epp-image-server
       newTag: master-d8da0c51-20250813.0247 # {"$imagepolicy": "epp--prod:epp-image-server:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-client
