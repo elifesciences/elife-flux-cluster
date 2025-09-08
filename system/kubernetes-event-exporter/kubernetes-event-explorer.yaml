@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: temporal
+  namespace: temporal
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kustomizations/services/kubernetes-event-exporter
+  prune: true
+  targetNamespace: temporal
+  images:
+    - name: ghcr.io/resmoio/kubernetes-event-exporter
+      newTag: v1.7
