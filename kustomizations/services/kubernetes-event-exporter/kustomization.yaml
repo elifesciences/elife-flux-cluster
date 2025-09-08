@@ -5,3 +5,8 @@ resources:
 - roles.yaml
 - config.yaml
 - deployment.yaml
+
+configMapGenerator:
+- name: event-exporter-config
+  files:
+  - config/config.yaml

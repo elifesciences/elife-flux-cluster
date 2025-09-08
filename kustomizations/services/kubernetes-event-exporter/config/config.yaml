@@ -1,0 +1,13 @@
+logLevel: debug
+logFormat: json
+metricsNamePrefix: event_exporter_
+route:
+  routes:
+    - match:
+        - receiver: "dump"
+receivers:
+  - name: "dump"
+    stdout: {}
+kubeQPS: 100
+kubeBurst: 500
+maxEventAgeSeconds: 60
