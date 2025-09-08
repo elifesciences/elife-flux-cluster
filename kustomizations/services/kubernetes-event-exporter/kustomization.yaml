@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: kubernetes-event-exporter
 resources:
 - roles.yaml
-- config.yaml
 - deployment.yaml
 
 configMapGenerator:
