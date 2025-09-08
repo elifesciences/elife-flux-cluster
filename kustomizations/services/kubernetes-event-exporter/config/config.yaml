@@ -1,4 +1,4 @@
-logLevel: debug
+logLevel: info
 logFormat: json
 metricsNamePrefix: event_exporter_
 route:
