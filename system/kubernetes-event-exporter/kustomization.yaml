@@ -3,6 +3,4 @@ kind: Kustomization
 namespace: kubernetes-event-exporter
 resources:
 - namespace.yaml
-# - source.yaml
-# - release.yaml
 - kubernetes-event-exporter.yaml
