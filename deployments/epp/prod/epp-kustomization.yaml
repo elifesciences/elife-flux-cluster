@@ -72,6 +72,3 @@ spec:
       epp_server_memory_requests: 1Gi
       import_controller_hostname: prod--epp-controller.elifesciences.org
       import_controller_temporal_namespace: 'epp--prod,epp--staging,epp--biophysics-colab'
-
-      temporal_worker_epp_memory_requests: 1Gi
-      temporal_worker_epp_memory_limits: 1.2Gi
