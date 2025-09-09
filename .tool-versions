@@ -4,7 +4,7 @@ stern       1.26.0
 kubie       0.23.0
 kind        0.30.0
 kustomize   5.7.1
-yq          4.47.1
+yq          4.47.2
 kubeconform 0.7.0
 awscli      2.28.25
 helm        3.18.6
