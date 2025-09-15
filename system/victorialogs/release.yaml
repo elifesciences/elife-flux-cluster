@@ -22,7 +22,7 @@ spec:
       persistentVolume:
         enabled: true
         storageClassName: ebs-st1
-        size: 125Gi
+        size: 150Gi
       ingress:
         enabled: true
         annotations:
