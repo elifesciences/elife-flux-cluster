@@ -13,4 +13,5 @@ cd $(dirname $0)
 
 curl -sO https://raw.githubusercontent.com/aws/karpenter-provider-aws/$1/pkg/apis/crds/karpenter.k8s.aws_ec2nodeclasses.yaml
 curl -sO https://raw.githubusercontent.com/aws/karpenter-provider-aws/$1/pkg/apis/crds/karpenter.sh_nodeclaims.yaml
+curl -sO https://raw.githubusercontent.com/aws/karpenter-provider-aws/$1/pkg/apis/crds/karpenter.sh_nodeoverlays.yaml
 curl -sO https://raw.githubusercontent.com/aws/karpenter-provider-aws/$1/pkg/apis/crds/karpenter.sh_nodepools.yaml
