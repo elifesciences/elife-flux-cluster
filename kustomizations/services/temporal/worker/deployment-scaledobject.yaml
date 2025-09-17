@@ -2,10 +2,6 @@ apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: temporal-worker
-  annotations:
-    "helm.sh/hook": post-install,post-upgrade
-    "helm.sh/hook-delete-policy": before-hook-creation
-    "helm.sh/resource-policy": keep
 spec:
   scaleTargetRef:
     name: temporal-worker
