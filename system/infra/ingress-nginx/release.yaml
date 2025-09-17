@@ -58,6 +58,6 @@ spec:
         requests:
           cpu: 80m
           memory: 250Mi
-      replicaCount: 2
+      replicaCount: 5 # Matches the number of AZ
       watchIngressWithoutClass: true
       allowSnippetAnnotations: true
