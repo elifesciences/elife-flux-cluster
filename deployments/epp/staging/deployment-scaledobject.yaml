@@ -1,10 +1,10 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: temporal-worker
+  name: epp-import-worker-epp
 spec:
   scaleTargetRef:
-    name: temporal-worker
+    name: epp-import-worker-epp
     namespace: epp--staging
   minReplicaCount: 1
   maxReplicaCount: 10
