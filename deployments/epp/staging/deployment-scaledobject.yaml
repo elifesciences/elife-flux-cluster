@@ -5,6 +5,7 @@ metadata:
 spec:
   scaleTargetRef:
     name: temporal-worker
+    namespace: epp--staging
   minReplicaCount: 1
   maxReplicaCount: 10
   advanced:
@@ -25,7 +26,7 @@ spec:
   triggers:
     - type: temporal
       metadata:
-        namespace: default
+        namespace: epp--staging
         taskQueue: epp
         targetQueueSize: "1"
         endpoint: 7233
