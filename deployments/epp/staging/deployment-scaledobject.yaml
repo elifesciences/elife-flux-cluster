@@ -28,5 +28,5 @@ spec:
       metadata:
         namespace: epp--staging
         taskQueue: epp
-        targetQueueSize: "1"
+        targetQueueSize: "10"
         endpoint: 7233
