@@ -2,6 +2,7 @@ apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: epp-import-worker-epp
+  namespace: epp--staging
 spec:
   scaleTargetRef:
     name: epp-import-worker-epp
