@@ -29,4 +29,4 @@ spec:
         namespace: epp--staging
         taskQueue: epp
         targetQueueSize: "10"
-        endpoint: 7233
+        endpoint: temporal-frontend.temporal.svc.cluster.local:7233
