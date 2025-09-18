@@ -6,7 +6,6 @@ metadata:
 spec:
   scaleTargetRef:
     name: epp-import-worker-epp
-    namespace: epp--staging
   minReplicaCount: 1
   maxReplicaCount: 10
   advanced:
