@@ -73,3 +73,9 @@ spec:
       target:
         kind: Deployment
         name: epp-import-worker-epp
+    - patch: |-
+        - op: remove
+          path: /spec/replicas
+      target:
+        kind: Deployment
+        name: epp-import-worker-docmaps
