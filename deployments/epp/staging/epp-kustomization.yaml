@@ -70,6 +70,6 @@ spec:
     - patch: |-
         - op: remove
           path: /spec/replicas
-  target:
+      target:
         kind: Deployment
         name: epp-import-worker-epp
