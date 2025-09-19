@@ -7,7 +7,7 @@ spec:
   scaleTargetRef:
     name: epp-import-worker-epp
   minReplicaCount: 0
-  maxReplicaCount: 10
+  maxReplicaCount: 1
   advanced:
     horizontalPodAutoscalerConfig:
       behavior:

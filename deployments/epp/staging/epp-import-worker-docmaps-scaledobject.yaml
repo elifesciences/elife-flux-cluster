@@ -7,7 +7,7 @@ spec:
   scaleTargetRef:
     name: epp-import-worker-docmaps
   minReplicaCount: 0
-  maxReplicaCount: 10
+  maxReplicaCount: 4
   advanced:
     horizontalPodAutoscalerConfig:
       behavior:
