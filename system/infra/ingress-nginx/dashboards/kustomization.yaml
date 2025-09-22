@@ -6,6 +6,7 @@ configMapGenerator:
   - kubernetes-nginx-ingress-via-prometheus.json
   - ingress-nginx-request-handling-performance.json
   - ingress-nginx-overview.json
+  - ingress-traffic-inspection.json
   options:
     labels:
       grafana_dashboard: "1"
