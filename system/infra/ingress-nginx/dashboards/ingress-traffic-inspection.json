@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 5,
+  "id": 41,
   "links": [],
   "panels": [
     {
@@ -147,7 +147,32 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "User Agent"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 782
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "JA4 Fingerprint"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 341
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 12,
@@ -166,7 +191,8 @@
           ],
           "show": false
         },
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": []
       },
       "pluginVersion": "12.1.1",
       "targets": [
@@ -176,12 +202,12 @@
             "uid": "P022A0A8F82CACB18"
           },
           "editorMode": "code",
-          "expr": "kubernetes.pod_namespace:infra AND kubernetes.pod_labels.app.kubernetes.io/name:=\"ingress-nginx\" | unpack_json | httpRequest.xJA4Fingerprint:* | top 10 by (httpRequest.xJA4Fingerprint) hits as Requests | rename httpRequest.xJA4Fingerprint as \"JA4 Fingerprint\" | sort by (Requests DESC) ",
+          "expr": "kubernetes.pod_namespace:infra AND kubernetes.pod_labels.app.kubernetes.io/name:=\"ingress-nginx\" | unpack_json | httpRequest.xJA4Fingerprint:* | top 10 by (httpRequest.xJA4Fingerprint, httpRequest.userAgent) hits as Requests | rename httpRequest.xJA4Fingerprint as \"JA4 Fingerprint\", httpRequest.userAgent as \"User Agent\" | sort by (Requests DESC) ",
           "queryType": "instant",
           "refId": "A"
         }
       ],
-      "title": "Top 10 JA4 Fingerprints",
+      "title": "Top 10 JA4 Fingerprints and UserAgents",
       "transformations": [
         {
           "id": "extractFields",
@@ -192,14 +218,22 @@
         {
           "id": "organize",
           "options": {
+            "excludeByName": {},
             "includeByName": {
               "JA4 Fingerprint": true,
-              "Requests": true
+              "Requests": true,
+              "User Agent": true
             },
             "indexByName": {
               "JA4 Fingerprint": 0,
-              "Requests": 1
-            }
+              "Line": 4,
+              "Requests": 2,
+              "Time": 3,
+              "User Agent": 1,
+              "labels": 5,
+              "level": 6
+            },
+            "renameByName": {}
           }
         }
       ],
