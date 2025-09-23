@@ -4,9 +4,53 @@ metadata:
   name: flux-system
   namespace: flux-system
 spec:
-  postBuild:
-    substitute:
-      cluster_name: flux-prod
-      cluster_domain: flux-prod.elifesciences.org
-      cluster_oidc_arn: "arn:aws:iam::512686554592:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/0108D0073AFB87B6669E378F0A9CFB76"
-      cluster_oidc_url: "oidc.eks.us-east-1.amazonaws.com/id/0108D0073AFB87B6669E378F0A9CFB76"
+  patches:
+    - target:
+        group: kustomize.toolkit.fluxcd.io
+        version: v1
+        kind: Kustomization
+      patch: |
+        apiVersion: kustomize.toolkit.fluxcd.io/v1
+        kind: Kustomization
+        metadata:
+          name: not-used
+        spec:
+          postBuild:
+            substitute:
+              # AWS Config
+              aws_region: us-east-1
+              aws_account_id: "512686554592"
+
+              # Cluster config
+              cluster_name: flux-prod
+              cluster_domain: flux-prod.elifesciences.org
+              cluster_oidc_arn: "arn:aws:iam::512686554592:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/0108D0073AFB87B6669E378F0A9CFB76"
+              cluster_oidc_url: "oidc.eks.us-east-1.amazonaws.com/id/0108D0073AFB87B6669E378F0A9CFB76"
+
+              # Karpenter config
+              aws_karpenter_interruption_queue: elife-flux-prod-karpenter
+
+              # S3 Backup config
+              aws_backup_s3_bucket: "elife-flux-prod-backups"
+
+              # oauth2-proxy config
+              oauth2_proxy_hostname: "oauth-proxy.elifesciences.org"
+              oauth2_proxy_signout_url: "https://oauth-proxy.elifesciences.org/oauth2/sign_out"
+              oauth2_proxy_auth_url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
+              oauth2_proxy_auth_signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+
+              # Service Accounts
+              aws_backup_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-backups-cluster-role
+              aws_s3_csi_service_account_role_arn: arn:aws:iam::512686554592:role/kubernetes-aws--flux-prod--eks_addon_aws_s3_csi_driver
+              aws_karpenter_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-karpenter-cluster-role
+              aws_keda_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-keda-cluster-role
+              aws_external_secrets_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-external-secrets
+              aws_ack_rds_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-rds-controller-cluster-role
+              aws_ack_route53_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-route53-controller-cluster-role
+              aws_ack_s3_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-s3-controller-cluster-role
+              aws_ack_sqs_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-sqs-controller-cluster-role
+              aws_ack_sns_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-sns-controller-cluster-role
+              aws_ack_iam_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-iam-controller-cluster-role
+              aws_ack_cloudfront_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-ack-cloudfront-controller-cluster-role
+              aws_external_dns_service_account_role_arn: arn:aws:iam::512686554592:role/kubernetes-aws--flux-prod--external-dns
+              aws_cert_manager_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-cert-manager
