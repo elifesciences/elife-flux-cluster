@@ -48,3 +48,4 @@ spec:
 
       # service account arns
       aws_backup_service_account_role_arn: "${aws_backup_service_account_role_arn}"
+      aws_s3_csi_service_account_role_arn: "${aws_s3_csi_service_account_role_arn}"
