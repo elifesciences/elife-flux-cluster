@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 63,
+  "id": 73,
   "links": [],
   "panels": [
     {
@@ -156,7 +156,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 782
+                "value": 708
               }
             ]
           },
@@ -168,7 +168,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 341
+                "value": 325
               }
             ]
           },
@@ -180,7 +180,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 590
+                "value": 346
               }
             ]
           }
@@ -256,7 +256,9 @@
   ],
   "preload": false,
   "schemaVersion": 41,
-  "tags": [],
+  "tags": [
+    "ingress-nginx"
+  ],
   "templating": {
     "list": [
       {
