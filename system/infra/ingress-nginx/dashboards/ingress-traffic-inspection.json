@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 51,
+  "id": 63,
   "links": [],
   "panels": [
     {
@@ -263,8 +263,12 @@
         "allValue": "*",
         "allowCustomValue": false,
         "current": {
-          "text": "data-ai-bot-phoenix--prod-6006",
-          "value": "data-ai-bot-phoenix--prod-6006"
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "victoriametrics-logs-datasource",
