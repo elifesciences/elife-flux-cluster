@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 41,
+  "id": 45,
   "links": [],
   "panels": [
     {
@@ -171,6 +171,18 @@
                 "value": 341
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Ingress"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 265
+              }
+            ]
           }
         ]
       },
@@ -202,7 +214,7 @@
             "uid": "P022A0A8F82CACB18"
           },
           "editorMode": "code",
-          "expr": "kubernetes.pod_namespace:infra AND kubernetes.pod_labels.app.kubernetes.io/name:=\"ingress-nginx\" | unpack_json | httpRequest.xJA4Fingerprint:* | top 10 by (httpRequest.xJA4Fingerprint, httpRequest.userAgent) hits as Requests | rename httpRequest.xJA4Fingerprint as \"JA4 Fingerprint\", httpRequest.userAgent as \"User Agent\" | sort by (Requests DESC) ",
+          "expr": "kubernetes.pod_namespace:infra AND kubernetes.pod_labels.app.kubernetes.io/name:=\"ingress-nginx\" | unpack_json | httpRequest.xJA4Fingerprint:* | top 10 by (proxyUpstreamName, httpRequest.xJA4Fingerprint, httpRequest.userAgent) hits as Requests | rename httpRequest.xJA4Fingerprint as \"JA4 Fingerprint\", httpRequest.userAgent as \"User Agent\", proxyUpstreamName as \"Ingress\" | sort by (Requests DESC) ",
           "queryType": "instant",
           "refId": "A"
         }
@@ -220,18 +232,20 @@
           "options": {
             "excludeByName": {},
             "includeByName": {
+              "Ingress": true,
               "JA4 Fingerprint": true,
               "Requests": true,
               "User Agent": true
             },
             "indexByName": {
-              "JA4 Fingerprint": 0,
-              "Line": 4,
-              "Requests": 2,
-              "Time": 3,
-              "User Agent": 1,
-              "labels": 5,
-              "level": 6
+              "Ingress": 0,
+              "JA4 Fingerprint": 1,
+              "Line": 5,
+              "Requests": 3,
+              "Time": 4,
+              "User Agent": 2,
+              "labels": 6,
+              "level": 7
             },
             "renameByName": {}
           }
