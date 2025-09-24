@@ -41,11 +41,11 @@ spec:
       mongodb_secret_name: epp-database-psmdb-db-secrets
       mongodb_secret_user_key: MONGODB_DATABASE_ADMIN_USER
       mongodb_secret_pass_key: MONGODB_DATABASE_ADMIN_PASSWORD
-      client_replicas: "3"
-      server_replicas: "3"
+      client_replicas: "5"
+      server_replicas: "5"
       google_tag_manager_id: "GTM-WVM8KG"
       cookie_bot_id: 0a5c50d8-fcf9-47b1-8f4f-1eaadb13941b
-      image_server_replicas: "3"
+      image_server_replicas: "5"
       s3_bucket: prod-elife-epp-data
       image_server_source_static: S3Source
       image_server_s3_bucket: prod-elife-epp-data

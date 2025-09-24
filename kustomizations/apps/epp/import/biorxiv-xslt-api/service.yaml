@@ -6,3 +6,4 @@ metadata:
 spec:
   ports:
   - port: 80
+  trafficDistribution: PreferClose
