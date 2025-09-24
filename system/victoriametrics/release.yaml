@@ -65,7 +65,7 @@ spec:
 
           resources:
             requests:
-              cpu: 2300m
+              cpu: 230m
               memory: 400Mi
             limits: {}
           extraArgs:
@@ -104,7 +104,7 @@ spec:
           "promscrape.suppressScrapeErrorsDelay": "30s"
         resources:
           requests:
-            cpu: 1.2m
+            cpu: 1
             memory: 700Mi
           limits: {}
       ingress:
