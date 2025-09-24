@@ -258,7 +258,36 @@
   "schemaVersion": 41,
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": "*",
+        "current": {
+          "text": "data-ai-bot-phoenix--prod-6006",
+          "value": "data-ai-bot-phoenix--prod-6006"
+        },
+        "datasource": {
+          "type": "victoriametrics-logs-datasource",
+          "uid": "P022A0A8F82CACB18"
+        },
+        "definition": "kubernetes.pod_namespace:infra AND kubernetes.pod_labels.app.kubernetes.io/name:=\"ingress-nginx\" | unpack_json | proxyUpstreamName:* | uniq by (proxyUpstreamName)",
+        "description": "",
+        "includeAll": true,
+        "label": "Upstream",
+        "multi": true,
+        "name": "upstream",
+        "options": [],
+        "query": {
+          "field": "proxyUpstreamName",
+          "limit": 25,
+          "query": "kubernetes.pod_namespace:infra AND kubernetes.pod_labels.app.kubernetes.io/name:=\"ingress-nginx\" | unpack_json | proxyUpstreamName:* | uniq by (proxyUpstreamName)",
+          "refId": "VictoriaLogsVariableQueryEditor-VariableQuery",
+          "type": "fieldValue"
+        },
+        "refresh": 2,
+        "regex": "",
+        "type": "query"
+      }
+    ]
   },
   "time": {
     "from": "now-1h",
