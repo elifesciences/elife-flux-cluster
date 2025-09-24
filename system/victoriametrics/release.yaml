@@ -47,8 +47,8 @@ spec:
                     storage: 1.5Ti
           resources:
             requests:
-              cpu: 1100m
-              memory: 15Gi
+              cpu: 600m
+              memory: 18Gi
             limits: {}
           extraArgs:
             "inmemoryDataFlushInterval": "15s"
