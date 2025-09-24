@@ -54,6 +54,10 @@ spec:
             "inmemoryDataFlushInterval": "15s"
             "dedup.minScrapeInterval": "30s"
         vmselect:
+          serviceSpec:
+            spec:
+              trafficDistribution: PreferClose
+          replicaCount: 5
           storage:
             volumeClaimTemplate:
               spec:
@@ -67,6 +71,10 @@ spec:
           extraArgs:
             "dedup.minScrapeInterval": "30s"
         vminsert:
+          serviceSpec:
+            spec:
+              trafficDistribution: PreferClose
+          replicaCount: 5
           extraArgs:
             maxLabelsPerTimeseries: "55"
           resources:
