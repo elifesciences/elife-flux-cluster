@@ -180,7 +180,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 265
+                "value": 590
               }
             ]
           }
@@ -283,7 +283,7 @@
         "options": [],
         "query": {
           "field": "proxyUpstreamName",
-          "limit": 25,
+          "limit": 0,
           "query": "kubernetes.pod_namespace:infra AND kubernetes.pod_labels.app.kubernetes.io/name:=\"ingress-nginx\" | unpack_json | proxyUpstreamName:* | uniq by (proxyUpstreamName)",
           "refId": "VictoriaLogsVariableQueryEditor-VariableQuery",
           "type": "fieldValue"
