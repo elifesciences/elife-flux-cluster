@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 73,
+  "id": 40,
   "links": [],
   "panels": [
     {
@@ -239,11 +239,11 @@
             },
             "indexByName": {
               "Ingress": 0,
-              "JA4 Fingerprint": 1,
+              "JA4 Fingerprint": 2,
               "Line": 5,
-              "Requests": 3,
+              "Requests": 1,
               "Time": 4,
-              "User Agent": 2,
+              "User Agent": 3,
               "labels": 6,
               "level": 7
             },
