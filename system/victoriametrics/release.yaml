@@ -37,14 +37,14 @@ spec:
       spec:
         retentionPeriod: "3" # months
         vmstorage:
-          replicaCount: 3
+          replicaCount: 5
           storage:
             volumeClaimTemplate:
               spec:
                 storageClassName: csi-ebs-st1
                 resources:
                   requests:
-                    storage: 1.5Ti
+                    storage: 1Ti
           resources:
             requests:
               cpu: 600m
