@@ -109,7 +109,7 @@
             "uid": "P022A0A8F82CACB18"
           },
           "editorMode": "code",
-          "expr": "kubernetes.pod_namespace:infra AND kubernetes.pod_labels.app.kubernetes.io/name:=\"ingress-nginx\" | unpack_json | httpRequest.xJA4Fingerprint:* | proxyUpstreamName:${upstream} | stats count(*) as Requests ",
+          "expr": "kubernetes.pod_namespace:infra AND kubernetes.pod_labels.app.kubernetes.io/name:=\"ingress-nginx\" and ${upstream} | unpack_json | httpRequest.xJA4Fingerprint:* | proxyUpstreamName:${upstream} | stats count(*) as Requests ",
           "queryType": "statsRange",
           "refId": "A",
           "step": ""
@@ -214,7 +214,7 @@
             "uid": "P022A0A8F82CACB18"
           },
           "editorMode": "code",
-          "expr": "kubernetes.pod_namespace:infra AND kubernetes.pod_labels.app.kubernetes.io/name:=\"ingress-nginx\" | unpack_json | httpRequest.xJA4Fingerprint:* | proxyUpstreamName:${upstream} | top 10 by (proxyUpstreamName, httpRequest.xJA4Fingerprint, httpRequest.userAgent) hits as Requests | rename httpRequest.xJA4Fingerprint as \"JA4 Fingerprint\", httpRequest.userAgent as \"User Agent\", proxyUpstreamName as \"Ingress\" | sort by (Requests DESC) ",
+          "expr": "kubernetes.pod_namespace:infra AND kubernetes.pod_labels.app.kubernetes.io/name:=\"ingress-nginx\" and ${upstream} | unpack_json | httpRequest.xJA4Fingerprint:* | proxyUpstreamName:${upstream} | top 10 by (proxyUpstreamName, httpRequest.xJA4Fingerprint, httpRequest.userAgent) hits as Requests | rename httpRequest.xJA4Fingerprint as \"JA4 Fingerprint\", httpRequest.userAgent as \"User Agent\", proxyUpstreamName as \"Ingress\" | sort by (Requests DESC) ",
           "queryType": "instant",
           "refId": "A"
         }
