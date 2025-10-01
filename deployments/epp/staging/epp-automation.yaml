@@ -15,21 +15,20 @@ spec:
         name: Fluxbot
         email: flux@elifesciences.org
       messageTemplate: |
-        release({{ .AutomationObject }}): Automatic release
+        deploy({{ .AutomationObject }}): Automatic deploy
 
         Files:
-        {{ range $filename, $_ := .Updated.Files -}}
+        {{ range $filename, $_ := .Changed.FileChanges -}}
         - {{ $filename }}
         {{ end -}}
 
         Objects:
-        {{ range $resource, $_ := .Updated.Objects -}}
-        - {{ $resource.Kind }} {{ $resource.Name }}
+        {{ range $resource, $changes := .Changed.Objects -}}
+        - {{ $resource.Kind }} {{ $resource.Namespace }}/{{ $resource.Name }}
+          Changes:
+        {{- range $_, $change := $changes }}
+          - {{ $change.Setter }}: {{ $change.OldValue }} -> {{ $change.NewValue }}
         {{ end -}}
-
-        Images:
-        {{ range .Updated.Images -}}
-        - {{.}}
         {{ end -}}
   update:
     strategy: Setters
