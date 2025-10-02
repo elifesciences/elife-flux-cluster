@@ -53,6 +53,9 @@ spec:
         eks.amazonaws.com/role-arn: ${aws_kubecost_service_account_role_arn}
 
     networkCosts:
+      config:
+        services:
+          amazon-web-services: true
       tolerations:
       - effect: NoSchedule
         operator: Exists
