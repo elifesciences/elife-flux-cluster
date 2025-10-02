@@ -44,6 +44,11 @@ spec:
       annotations:
         eks.amazonaws.com/role-arn: ${aws_kubecost_service_account_role_arn}
 
+    networkCosts:
+      tolerations:
+      - effect: NoSchedule
+        operator: Exists
+
     kubecostProductConfigs:
       clusterProfile: production
       projectID: ${aws_account_id}
