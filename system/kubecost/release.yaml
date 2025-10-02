@@ -32,6 +32,7 @@ spec:
       aggregatorDbStorage:
         storageClass: ebs-gp3
     finops-agent:
+      resourcesPreset: medium
       persistence:
         storageClass: ebs-gp3
     ingress:
