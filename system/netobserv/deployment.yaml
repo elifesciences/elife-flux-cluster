@@ -8,11 +8,7 @@ spec:
     advanced:
       env:
         TEST_CONSOLE: "true"
-  loki:
-    mode: Monolithic
-    monolithic:
-      url: 'http://my-netobserv-loki.netobserv.svc:3100/'
   prometheus:
     querier:
       manual:
-        url: http://my-netobserv-prometheus-server.netobserv.svc/
+        url: http://vmselect-victoriametrics.victoriametrics:8481/proxy/select/0/prometheus/
