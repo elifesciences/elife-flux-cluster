@@ -17,7 +17,7 @@ spec:
       expandLists: true
   templates:
   - object:
-      apiVersion: image.toolkit.fluxcd.io/v1beta2
+      apiVersion: image.toolkit.fluxcd.io/v1
       kind: ImagePolicy
       metadata:
         name: epp-client-preview-{{ matrix.pr.number }}
@@ -44,7 +44,7 @@ spec:
         - name: client-image
           object:
             ref:
-              apiVersion: image.toolkit.fluxcd.io/v1beta2
+              apiVersion: image.toolkit.fluxcd.io/v1
               kind: ImagePolicy
               name: epp-client-preview-{{ matrix.pr.number }}
             jsonPath: status.latestImage
