@@ -29,10 +29,11 @@ spec:
     aggregator:
       persistentConfigsStorage:
         storageClass: ebs-gp3
-        storageRequest: 1Gi
       aggregatorDbStorage:
         storageClass: ebs-gp3
-        storageRequest: 128Gi
+    finops-agent:
+      persistence:
+        storageClass: ebs-gp3
     ingress:
       enabled: true
       annotations:
