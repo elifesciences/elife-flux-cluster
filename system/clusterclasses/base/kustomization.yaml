@@ -12,7 +12,7 @@ resources:
 - ../../keda
 - ../../kong-system
 - ../../kube-web-view
-- ../../kubecost
+# - ../../kubecost
 - ../../kubernetes-event-exporter
 - ../../metrics-server
 - ../../monitoring
