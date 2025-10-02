@@ -16,6 +16,7 @@ resources:
 - ../../kubernetes-event-exporter
 - ../../metrics-server
 - ../../monitoring
+- ../../netobserv
 - ../../nidhogg
 - ../../spegel
 - ../../template-controller
