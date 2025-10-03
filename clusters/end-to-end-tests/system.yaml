@@ -44,6 +44,7 @@ spec:
           disableWait: true
         values:
           controller:
+            replicaCount: 2
             tolerations:
             - key: "realnode"
               operator: "Equal"
