@@ -21,6 +21,9 @@ spec:
     addZone: true
   loki:
     enable: true
+    mode: Monolithic
+    monolithic:
+      url: 'http://netobserv-operator-loki.netobserv.svc:3100/'
   prometheus:
     querier:
       manual:
