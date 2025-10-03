@@ -27,4 +27,4 @@ spec:
   prometheus:
     querier:
       manual:
-        url: 'http://vmselect-victoriametrics.victoriametrics:8481/'
+        url: 'http://vmselect-victoriametrics.victoriametrics:8481/proxy/select/0/prometheus/'
