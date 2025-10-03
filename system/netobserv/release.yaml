@@ -22,3 +22,5 @@ spec:
   values:
     standaloneConsole:
       enable: true
+    install:
+      loki: true
