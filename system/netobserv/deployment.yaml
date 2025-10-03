@@ -20,7 +20,7 @@ spec:
   processor:
     addZone: true
   loki:
-    enable: false
+    enable: true
   prometheus:
     querier:
       manual:
