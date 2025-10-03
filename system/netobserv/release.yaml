@@ -24,3 +24,9 @@ spec:
       enable: true
     install:
       loki: true
+    loki-stack:
+      loki:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 1Gi
