@@ -12,6 +12,7 @@ metadata:
     kubernetes.io/os: linux
     kubernetes.io/role: agent
     node-role.kubernetes.io/agent: ""
+    topology.kubernetes.io/zone: fake-zone-a
     type: kwok
     Project: end-to-end-tests
   name: kwok-node-0

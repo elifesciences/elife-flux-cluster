@@ -13,6 +13,7 @@ metadata:
     kubernetes.io/os: linux
     kubernetes.io/role: agent
     node-role.kubernetes.io/agent: ""
+    topology.kubernetes.io/zone: fake-zone-b
     type: kwok
     Project: end-to-end-tests
   name: kwok-node-1
@@ -57,6 +58,7 @@ metadata:
     kubernetes.io/os: linux
     kubernetes.io/role: agent
     node-role.kubernetes.io/agent: ""
+    topology.kubernetes.io/zone: fake-zone-c
     type: kwok
   name: kwok-node-2
 spec:
@@ -100,6 +102,7 @@ metadata:
     kubernetes.io/os: linux
     kubernetes.io/role: agent
     node-role.kubernetes.io/agent: ""
+    topology.kubernetes.io/zone: fake-zone-d
     type: kwok
   name: kwok-node-3
 spec:
@@ -143,6 +146,7 @@ metadata:
     kubernetes.io/os: linux
     kubernetes.io/role: agent
     node-role.kubernetes.io/agent: ""
+    topology.kubernetes.io/zone: fake-zone-e
     type: kwok
   name: kwok-node-4
 spec:
