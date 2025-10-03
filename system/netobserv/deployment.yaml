@@ -8,7 +8,20 @@ spec:
     advanced:
       env:
         TEST_CONSOLE: "true"
+  agent:
+    type: eBPF
+    ebpf:
+      metrics:
+        server:
+          port: 9400
+          tls:
+            insecureSkipVerify: true
+      sampling: 50
+  processor:
+    addZone: true
+  loki:
+    enable: false
   prometheus:
     querier:
       manual:
-        url: http://vmselect-victoriametrics.victoriametrics:8481/proxy/select/0/prometheus/
+        url: 'http://vmselect-victoriametrics.victoriametrics:8481/'
