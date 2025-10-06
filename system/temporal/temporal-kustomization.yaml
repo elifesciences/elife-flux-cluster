@@ -15,11 +15,11 @@ spec:
   targetNamespace: temporal
   images:
     - name: temporalio/server
-      newTag: 1.28.1
+      newTag: 1.29.0
     - name: temporalio/ui
       newTag: 2.40.1
     - name: temporalio/admin-tools
-      newTag: 1.28.0-tctl-1.18.2-cli-1.3.0
+      newTag: 1.29.0-tctl-1
   postBuild:
     substitute:
       temporal_web_hostname: temporal.elifesciences.org
