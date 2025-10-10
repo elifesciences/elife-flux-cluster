@@ -20,9 +20,6 @@ spec:
       interruptionQueue: ${aws_karpenter_interruption_queue}
       featureGates:
         spotToSpotConsolidation: true
-        # Fix for chart 1.8.0
-        StaticCapacity: null
-        staticCapacity: false
     serviceAccount:
       annotations:
         eks.amazonaws.com/role-arn: ${aws_karpenter_service_account_role_arn}
