@@ -8,10 +8,10 @@ spec:
   - "name": "opensearch.rules"
     "rules":
     - "expr": |
-        rate(opensearch_threadpool_threads_count{name="bulk", type="rejected"}[2m])
+        rate(opensearch_threadpool_threads_count{name="bulk", type="rejected"}[2m]) or on() vector(0)
       "record": "bulk:rejected_requests:rate2m"
     - "expr": |
-        rate(opensearch_threadpool_threads_count{name="bulk", type="completed"}[2m])
+        rate(opensearch_threadpool_threads_count{name="bulk", type="completed"}[2m]) or on() vector(0)
       "record": "bulk:completed_requests:rate2m"
     - "expr": |
         sum by (cluster, instance, node) (bulk:rejected_requests:rate2m) / on (cluster, instance, node) (bulk:completed_requests:rate2m)
