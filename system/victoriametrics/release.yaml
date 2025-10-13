@@ -496,6 +496,8 @@ spec:
             source_labels: [__name__]
             regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
 
-          # Drop this label as it can result in almost duplicate metrics, with and without this as it is added/removed in quick successsion
+          # Drop these label as it can result in almost duplicate metrics, with and without this as it is added/removed in quick successsion or after daemonset start
           - action: labeldrop
             regex: (node_kubernetes_io_exclude_from_external_load_balancers)
+          - action: labeldrop
+            regex: (topology_ebs_csi_aws_com_zone)
