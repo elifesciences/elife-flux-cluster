@@ -25,16 +25,13 @@ spec:
           values: ["spot"]
         - key: karpenter.k8s.aws/instance-category
           operator: In
-          values: ["m", "c", "r", "t"]
+          values: ["m", "c", "r"]
         - key: karpenter.k8s.aws/instance-hypervisor
           operator: In
           values: ["nitro"]
         - key: "kubernetes.io/arch"
           operator: In
           values: ["amd64", "arm64"]
-        - key: karpenter.k8s.aws/instance-family
-          operator: NotIn
-          values: ["t3", "t3a"]
       startupTaints:
         - key: nidhogg.uswitch.com/spegel.spegel
           effect: NoSchedule
