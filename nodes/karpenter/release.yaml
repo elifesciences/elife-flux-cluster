@@ -27,8 +27,8 @@ spec:
     controller:
       resources:
         requests:
-          cpu: 500m
-          memory: 500Mi
+          cpu: 1300m
+          memory: 800Mi
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
