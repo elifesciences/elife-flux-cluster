@@ -90,7 +90,7 @@ spec:
         - key: nidhogg.uswitch.com/spegel.spegel
           effect: NoSchedule
   limits:
-    cpu: 18
+    cpu: 14
   weight: 50
   disruption:
     consolidateAfter: "0s"
