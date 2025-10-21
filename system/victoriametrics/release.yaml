@@ -504,8 +504,13 @@ spec:
   postRenderers:
     - kustomize:
         patches:
-        # This patch is to stop alerts on epp import workers that are allowed to scale to 0, but ScrapePoolHasNoTargets alerts on 0 targets
+        # This patch is to stop alerts on epp import workers that are allowed to scale to 0,
+        # but ScrapePoolHasNoTargets alerts on 0 targets
+        # it is dependant on the order of the list, so we first test so that we will fail deploy if it moves/changes
         - patch: |
+            - op: test
+              path: /spec/groups/0/rules/2/expr
+              value: "sum(vm_promscrape_scrape_pool_targets) without(status,instance,pod) == 0"
             - op: replace
               path: /spec/groups/0/rules/2/expr
               value: sum(vm_promscrape_scrape_pool_targets{scrape_job!~".*epp--.*-import-worker-.*"}) without(status,instance,pod) == 0
