@@ -1,0 +1,32 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: epp-import-worker-docmaps
+  namespace: epp--biophysics-colab
+spec:
+  scaleTargetRef:
+    name: epp-import-worker-docmaps
+  minReplicaCount: 1
+  maxReplicaCount: 4
+  advanced:
+    horizontalPodAutoscalerConfig:
+      behavior:
+        scaleUp:
+          stabilizationWindowSeconds: 30
+          policies:
+          - type: Pods
+            value: 1
+            periodSeconds: 60
+        scaleDown:
+          stabilizationWindowSeconds: 60
+          policies:
+          - type: Pods
+            value: 1
+            periodSeconds: 60
+  triggers:
+    - type: temporal
+      metadata:
+        namespace: epp--biophysics-colab
+        taskQueue: import-docmaps
+        targetQueueSize: "10"
+        endpoint: temporal-frontend.temporal.svc.cluster.local:7233
