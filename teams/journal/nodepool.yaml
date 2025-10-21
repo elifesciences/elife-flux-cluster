@@ -140,7 +140,7 @@ spec:
         - key: nidhogg.uswitch.com/spegel.spegel
           effect: NoSchedule
   limits:
-    cpu: 18
+    cpu: 1000
   disruption:
     consolidateAfter: "0s"
     consolidationPolicy: WhenEmptyOrUnderutilized
