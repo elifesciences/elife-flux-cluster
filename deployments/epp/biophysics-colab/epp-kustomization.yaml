@@ -83,13 +83,3 @@ spec:
         path: /metadata/annotations/nginx.ingress.kubernetes.io~1auth-signin
       - op: remove
         path: /metadata/annotations/nginx.ingress.kubernetes.io~1auth-url
-  # Remove this podmonitor
-  - target:
-      kind: PodMonitor
-      name: epp-import-worker-docmaps
-    patch: |
-      apiVersion: monitoring.coreos.com/v1
-      kind: PodMonitor
-      metadata:
-        name: epp-import-worker-docmaps
-      $patch: delete
