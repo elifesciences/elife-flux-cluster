@@ -501,3 +501,11 @@ spec:
             regex: (node_kubernetes_io_exclude_from_external_load_balancers)
           - action: labeldrop
             regex: (topology_ebs_csi_aws_com_zone)
+  postRenderers:
+    - kustomize:
+        patches:
+        # This patch is to stop alerts on epp import workers that are allowed to scale to 0, but ScrapePoolHasNoTargets alerts on 0 targets
+        - patch: |
+            - op: replace
+              path: /spec/groups/0/rules/2/expr
+              value: sum(vm_promscrape_scrape_pool_targets{scrape_job!~".*epp--.*-import-worker-.*"}) without(status,instance,pod) == 0
