@@ -66,16 +66,3 @@ spec:
       keda_autoscaler_namespace_fix: 'epp--staging'
       epp_server_metrics_url: https://api.prod.elifesciences.org
       import_controller_hostname: staging--epp-controller.elifesciences.org
-  patches:
-  - patch: |-
-      - op: remove
-        path: /spec/replicas
-    target:
-      kind: Deployment
-      name: epp-import-worker-epp
-  - patch: |-
-      - op: remove
-        path: /spec/replicas
-    target:
-      kind: Deployment
-      name: epp-import-worker-docmaps
