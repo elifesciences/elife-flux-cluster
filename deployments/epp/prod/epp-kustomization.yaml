@@ -58,9 +58,9 @@ spec:
       temporal_server: temporal-frontend.temporal:7233
       temporal_namespace: epp--prod
       # High priority, but mostly used for importing the docmap index
-      temporal_worker_epp_replicas: "1"
+      # temporal_worker_epp_replicas: "1"
       # The queue doing most of the importing
-      temporal_worker_import_docmaps_replicas: "2"
+      # temporal_worker_import_docmaps_replicas: "2"
       keda_autoscaler_namespace_fix: 'epp--prod'
       biorxiv_xslt_api_replicas: "3"
       is_automated: automated
