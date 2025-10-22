@@ -22,8 +22,6 @@ spec:
       interval: 1m
 
   values:
-    image:
-      tag: 7.0.14-8-multi
     # unsafeFlags:
     #   tls: true
     # tls:
@@ -38,8 +36,6 @@ spec:
         size: 3
         nodeSelector:
           kubernetes.io/arch: amd64
-        image:
-
         annotations:
           "cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes": "bin"
           prometheus.io/scrape: 'true'
