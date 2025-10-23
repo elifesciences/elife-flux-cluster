@@ -17,8 +17,8 @@ spec:
       retentionPeriod: 30d
       resources:
         requests:
-          cpu: 171m
-          memory: 1420Mi
+          cpu: 300m
+          memory: 2Gi
       persistentVolume:
         enabled: true
         storageClassName: ebs-st1
