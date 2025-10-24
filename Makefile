@@ -1,10 +1,3 @@
-KubeVersion = 1.30
-NextKubeVersion = 1.31
-RenderChart = echo "> Rendering $(1)..." && yq '.spec.values' $(1) | helm template --kube-version=$(KubeVersion)  -f - $(shell yq '.metadata.name' $(1)) --repo $(shell yq '.spec.chart.repository' $(1)) $(shell yq '.spec.chart.name' $(1)) > /dev/null && echo ">> OK"
-DryRunApply = echo "> Dry-run applying $(1)..." && kubectl apply -f $(1) --validate=true --dry-run=client > /dev/null && echo ">> OK"
-DryRunApplyChart = echo "> Dry-run applying $(1)..." && yq '.spec.values' $(1) | helm template --kube-version=$(KubeVersion)  -f - $(shell yq '.metadata.name' $(1)) --repo $(shell yq '.spec.chart.repository' $(1)) $(shell yq '.spec.chart.name' $(1)) | kubectl apply -f - --validate=true --dry-run=client  > /dev/null && echo ">> OK"
-
-
 # targets operating on local files
 validate:
 	scripts/validate.sh
@@ -48,12 +41,6 @@ logs-autoscaler:
 watch-helm-releases:
 	watch helm list -A
 
-
-# targets that help during an upgrade
-detect-needed-api-upgrades:
-	pluto detect-helm -o wide --ignore-deprecations -r || true
-	kubedd --target-kubernetes-version=$(NextKubeVersion) --source-kubernetes-version=$(KubeVersion) -d clusters,deployments,kustomizations,system || true
-	kubedd --target-kubernetes-version=$(NextKubeVersion)  || true
 
 watch-nodes:
 	watch -w -n0.5 'kubectl get nodes -o custom-columns=NAME:.metadata.name,STATUS:.status.conditions[-1].type,CREATED:.metadata.creationTimestamp,PROVIDERID:.spec.providerID,PROJECT:.metadata.labels.elifesciences\\.org/project,NODEPOOL:.metadata.labels.karpenter\\.sh/nodepool,CAPACITYTYPE:.metadata.labels.karpenter\\.sh/capacity-type,INSTANCETYPE:.metadata.labels.beta\\.kubernetes\\.io/instance-type,ZONE:.metadata.labels.topology\\.kubernetes\\.io/zone | sort -k6b,6'
