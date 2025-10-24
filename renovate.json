@@ -3,15 +3,14 @@
     "config:recommended",
     ":prHourlyLimitNone"
   ],
+  "timezone": "Europe/London",
   "kubernetes": {
     "fileMatch": [
       "^system/monitoring/kube-web-view/deployment\\.yaml$",
       "kustomizations/.+\\.yaml$"
     ]
   },
-  "assignees": [
-    "scottaubrey"
-  ],
+  "assigneesFromCodeOwners": true,
   "flux": {
     "fileMatch": [
       "deployments/.+\\.yaml$",
@@ -31,13 +30,6 @@
         "descheduler"
       ],
       "enabled": false
-    },
-    {
-      "matchDepNames": [
-        "airflow"
-      ],
-      "additionalBranchPrefix": "{{packageFile}}-",
-      "commitMessage": "{{{commitMessagePrefix}}} {{{commitMessageAction}}} {{{commitMessageTopic}}} {{{packageFile}}} {{{commitMessageExtra}}} {{{commitMessageSuffix}}}"
     },
     {
       "matchFileNames": [
