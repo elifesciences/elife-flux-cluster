@@ -1,0 +1,20 @@
+[tools]
+"ubi:awslabs/eks-node-viewer" = "0.7.4"
+"ubi:kubecolor/kubecolor" = "0.5.2"
+kubectl = "prefix:1.33"
+flux2 = "2.7.2"
+stern = "1.26.0"
+kubie = "0.23.0"
+kind = "0.30.0"
+kustomize = "5.7.1"
+yq = "4.48.1"
+kubeconform = "0.7.0"
+awscli = "2.31.21"
+helm = "3.19.0"
+
+
+[tasks.watch-nodes]
+run = "eks-node-viewer --extra-labels=eks-node-viewer/node-age,eks-node-viewer/node-ephemeral-storage-usage,elifesciences.org/project,karpenter.sh/nodepool,topology.kubernetes.io/zone --node-sort=karpenter.sh/nodepool=dsc --resources=cpu,memory"
+
+[tasks.watch-pods-non-running]
+run = "watch -c -w -n0.5 \"kubecolor --force-colors get pod -A -o wide | grep --color=always -v 'Running\\|Completed'\""

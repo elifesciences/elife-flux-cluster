@@ -27,13 +27,13 @@
   "packageRules": [
     {
       "matchDepNames": [
-        "descheduler"
+        "podinfo"
       ],
       "enabled": false
     },
     {
       "matchFileNames": [
-        ".tool-versions"
+        "mise.toml"
       ],
       "matchDepNames": [
         "kubectl"
@@ -42,7 +42,7 @@
     },
     {
       "matchFileNames": [
-        ".tool-versions"
+        "mise.toml"
       ],
       "automerge": true
     }
