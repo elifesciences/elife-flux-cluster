@@ -26,7 +26,7 @@ spec:
         - name: NEXT_PUBLIC_FILES_API_PATH
           value: ${files_api_path}
         - name: IIIF_SERVER
-          value: ${private_iiif_server:='http://epp-image-server:8182/iiif'}
+          value: ${private_iiif_server:='http://epp-image-server:8182/iiif/2'}
         - name: NEXT_PUBLIC_GTM_ID
           value: ${google_tag_manager_id:=''}
         - name: NEXT_PUBLIC_COOKIEBOT_ID
