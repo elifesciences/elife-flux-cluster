@@ -34,7 +34,7 @@ spec:
       app_hostname: prod--epp.elifesciences.org
       data_hub_api: https://data-hub-api.elifesciences.org/enhanced-preprints/docmaps/v2/by-publisher/elife/get-by-manuscript-id?manuscript_id=
       journal_api_hostname: prod--epp-api.elifesciences.org
-      iiif_server: https://prod--epp.elifesciences.org/iiif
+      iiif_server: https://prod--epp.elifesciences.org/iiif/2
       files_api_path: https://prod--epp.elifesciences.org/api/files
       image_server_source_base_url: https://github.com/elifesciences/enhanced-preprints-data/raw/master/data/
       mongodb_hostname: epp-database-psmdb-db-replicaset

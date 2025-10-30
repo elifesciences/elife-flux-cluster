@@ -82,9 +82,9 @@ spec:
                   app_env: epp--preview-{{ matrix.pr.number }}
                   app_hostname: pr-{{ matrix.pr.number }}--epp.elifesciences.org
                   epp_server: http://epp-server.epp--staging:3000
-                  iiif_server: https://staging--epp.elifesciences.org/iiif
+                  iiif_server: https://staging--epp.elifesciences.org/iiif/2
                   files_api_path: https://staging--epp.elifesciences.org/api/files
-                  private_iiif_server: http://epp-image-server.epp--staging:8182/iiif
+                  private_iiif_server: http://epp-image-server.epp--staging:8182/iiif/2
                   client_replicas: "1"
                   is_automated: "yeah"
                   show_previews: all
