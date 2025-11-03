@@ -1,6 +1,6 @@
 [tools]
 "ubi:awslabs/eks-node-viewer" = "0.7.4"
-"ubi:kubecolor/kubecolor" = "0.5.2"
+"ubi:kubecolor/kubecolor" = "0.5.3"
 kubectl = "prefix:1.34"
 flux2 = "2.7.3"
 stern = "1.26.0"
