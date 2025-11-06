@@ -17,7 +17,7 @@ spec:
   install:
     remediation:
       retries: 5
-  timeout: 10m
+  timeout: 20m
   values:
     role: Agent
     podMonitor:
