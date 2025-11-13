@@ -9,6 +9,7 @@ fi
 
 cd $(dirname $0)
 
+# https://github.com/aws-controllers-k8s/cloudfront-controller/tree/main/config/crd/bases
 curl -sO https://raw.githubusercontent.com/aws-controllers-k8s/cloudfront-controller/refs/tags/v$1/config/crd/bases/cloudfront.services.k8s.aws_cachepolicies.yaml
 curl -sO https://raw.githubusercontent.com/aws-controllers-k8s/cloudfront-controller/refs/tags/v$1/config/crd/bases/cloudfront.services.k8s.aws_distributions.yaml
 curl -sO https://raw.githubusercontent.com/aws-controllers-k8s/cloudfront-controller/refs/tags/v$1/config/crd/bases/cloudfront.services.k8s.aws_functions.yaml
