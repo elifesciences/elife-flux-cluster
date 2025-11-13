@@ -9,7 +9,7 @@ fi
 
 cd $(dirname $0)
 
-
+# Adopted from https://github.com/aws-controllers-k8s/sns-controller/tree/main/config/crd/bases
 curl -sO https://raw.githubusercontent.com/aws-controllers-k8s/sns-controller/refs/tags/v$1/config/crd/bases/sns.services.k8s.aws_platformapplications.yaml
 curl -sO https://raw.githubusercontent.com/aws-controllers-k8s/sns-controller/refs/tags/v$1/config/crd/bases/sns.services.k8s.aws_platformendpoints.yaml
 curl -sO https://raw.githubusercontent.com/aws-controllers-k8s/sns-controller/refs/tags/v$1/config/crd/bases/sns.services.k8s.aws_subscriptions.yaml
