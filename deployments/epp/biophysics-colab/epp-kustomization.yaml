@@ -14,19 +14,19 @@ spec:
   targetNamespace: epp--biophysics-colab
   images:
   - name: ghcr.io/elifesciences/enhanced-preprints-server
-    newTag: master-cad6d4b8-20251114.0341 # {"$imagepolicy": "epp--biophysics-colab:epp-server-approved:tag"}
+    newTag: master-cad6d4b8-20251114.0341-approved # {"$imagepolicy": "epp--biophysics-colab:epp-server-approved:tag"}
   - name: ghcr.io/elifesciences/epp-image-server
     newTag: master-d16ac178-20251114.1140 # {"$imagepolicy": "epp--biophysics-colab:epp-image-server:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-client
-    newTag: master-476bb1a7-20251114.1459 # {"$imagepolicy": "epp--biophysics-colab:epp-client-approved:tag"}
+    newTag: master-d647cfa0-20251114.1429-approved # {"$imagepolicy": "epp--biophysics-colab:epp-client-approved:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
-    newTag: master-9ab04b22-20251114.1153 # {"$imagepolicy": "epp--biophysics-colab:epp-import-approved:tag"}
+    newTag: master-9ab04b22-20251114.1153-approved # {"$imagepolicy": "epp--biophysics-colab:epp-import-approved:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
-    newTag: master-c834d975-20251029.1442 # {"$imagepolicy": "epp--biophysics-colab:epp-biorxiv-xslt-api-approved:tag"}
+    newTag: master-c834d975-20251029.1442-approved # {"$imagepolicy": "epp--biophysics-colab:epp-biorxiv-xslt-api-approved:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-encoda
-    newTag: master-bfdad6ad-20250901.1948 # {"$imagepolicy": "epp--biophysics-colab:epp-encoda-api-approved:tag"}
+    newTag: master-bfdad6ad-20250901.1948-approved # {"$imagepolicy": "epp--biophysics-colab:epp-encoda-api-approved:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-import-controller
-    newTag: master-324e84d4-20251025.0923 # {"$imagepolicy": "epp--biophysics-colab:epp-import-controller-approved:tag"}
+    newTag: master-c4abd040-20251025.0655-approved # {"$imagepolicy": "epp--biophysics-colab:epp-import-controller-approved:tag"}
   postBuild:
     substitute:
       site_name: biophysics-colab
