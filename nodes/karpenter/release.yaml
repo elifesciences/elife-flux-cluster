@@ -27,7 +27,7 @@ spec:
     controller:
       resources:
         requests:
-          cpu: 1300m
+          cpu: 1500m
           memory: 800Mi
     affinity:
       nodeAffinity:
