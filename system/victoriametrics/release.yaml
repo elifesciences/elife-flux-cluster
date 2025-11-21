@@ -47,8 +47,8 @@ spec:
                     storage: 1Ti
           resources:
             requests:
-              cpu: 600m
-              memory: 10Gi
+              cpu: 300m
+              memory: 12Gi
             limits: {}
           extraArgs:
             "inmemoryDataFlushInterval": "15s"
@@ -65,8 +65,8 @@ spec:
 
           resources:
             requests:
-              cpu: 230m
-              memory: 660Mi
+              cpu: 150m
+              memory: 450Mi
             limits: {}
           extraArgs:
             "dedup.minScrapeInterval": "30s"
@@ -79,8 +79,8 @@ spec:
             maxLabelsPerTimeseries: "55"
           resources:
             requests:
-              cpu: 400m
-              memory: 800Mi
+              cpu: 150m
+              memory: 700Mi
             limits: {}
       ingress:
         select:
@@ -125,7 +125,7 @@ spec:
           'external.url': https://vmalert.${cluster_domain}
         resources:
           requests:
-            cpu: 100m
+            cpu: 50m
             memory: 100Mi
           limits: {}
       ingress:
