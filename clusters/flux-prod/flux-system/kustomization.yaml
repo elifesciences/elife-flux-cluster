@@ -60,7 +60,7 @@ patches:
       path: /spec/template/spec/containers/0/resources
       value:
         requests:
-          cpu: 1
+          cpu: 700m
           memory: 600Mi
 - target:
     version: v1
