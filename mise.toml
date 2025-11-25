@@ -10,7 +10,7 @@ kustomize = "5.8.0"
 yq = "4.49.2"
 kubeconform = "0.7.0"
 awscli = "2.32.4"
-helm = "4.0.0"
+helm = "4.0.1"
 
 
 [tasks.watch-nodes]
