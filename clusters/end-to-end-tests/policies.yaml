@@ -15,3 +15,47 @@ spec:
     substitute:
       cluster_name: end-to-end-tests
       cluster_domain: end-to-end-tests.internal
+  patches:
+  - target:
+      kind: HelmRelease
+      name: kyverno
+    patch: |-
+      apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: kyverno
+      spec:
+        values:
+          global:
+            nodeSelector:
+              kubernetes.io/hostname: elife-flux-test-control-plane
+          admissionController:
+            tolerations:
+              - key: "realnode"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
+          backgroundController:
+            tolerations:
+              - key: "realnode"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
+          cleanupController:
+            tolerations:
+              - key: "realnode"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
+          reportsController:
+            tolerations:
+              - key: "realnode"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
+          migration:
+            tolerations:
+              - key: "realnode"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
