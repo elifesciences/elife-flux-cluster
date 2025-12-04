@@ -37,7 +37,15 @@ spec:
       spec:
         retentionPeriod: "3" # months
         vmstorage:
-          replicaCount: 5
+          replicaCount: 2
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: topology.kubernetes.io/zone
+                    operator: In
+                    values: ["us-east-1c"]
           storage:
             volumeClaimTemplate:
               spec:
@@ -57,7 +65,15 @@ spec:
           serviceSpec:
             spec:
               trafficDistribution: PreferClose
-          replicaCount: 5
+          replicaCount: 2
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: topology.kubernetes.io/zone
+                    operator: In
+                    values: ["us-east-1c"]
           storage:
             volumeClaimTemplate:
               spec:
@@ -74,7 +90,15 @@ spec:
           serviceSpec:
             spec:
               trafficDistribution: PreferClose
-          replicaCount: 5
+          replicaCount: 2
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: topology.kubernetes.io/zone
+                    operator: In
+                    values: ["us-east-1c"]
           extraArgs:
             maxLabelsPerTimeseries: "55"
           resources:
