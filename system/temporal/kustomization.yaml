@@ -7,4 +7,4 @@ resources:
   - database-serviceaccount.yaml
   - temporal-kustomization.yaml
   - dashboards
-  - alerts
+  - alerts.yaml
