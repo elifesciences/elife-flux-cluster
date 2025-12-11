@@ -21,6 +21,18 @@ spec:
       retries: 5
 
   values:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: topology.kubernetes.io/zone
+              operator: In
+              # Try to reduce operator chat by deploying to the same AZ as the controlplane, see https://github.com/elifesciences/issues/issues/9445
+              values:
+              - us-east-1c
+              - us-east-1d
+
     logStructured: true
     logLevel: "DEBUG"
     watchAllNamespaces: true
