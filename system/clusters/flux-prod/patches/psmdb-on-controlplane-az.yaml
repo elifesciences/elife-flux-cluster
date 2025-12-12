@@ -1,0 +1,20 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: psmdb-operator
+  namespace: db-operator-system
+
+spec:
+  values:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: topology.kubernetes.io/zone
+              operator: In
+              # Try to reduce operator chat by deploying to the same AZ as the controlplane, see https://github.com/elifesciences/issues/issues/9445
+              values:
+              - us-east-1c
+              - us-east-1d
