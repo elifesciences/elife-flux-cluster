@@ -84,6 +84,9 @@ spec:
       exposeSuperusers: true
       port: 5432
       replicas: 3
+      expose:
+        annotations:
+          service.kubernetes.io/topology-mode: Auto
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
