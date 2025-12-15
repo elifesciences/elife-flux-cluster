@@ -83,8 +83,10 @@ spec:
                   app_hostname: pr-{{ matrix.pr.number }}--epp.elifesciences.org
                   epp_server: http://epp-server.epp--staging:3000
                   iiif_server: https://staging--epp.elifesciences.org/iiif
-                  files_api_path: https://staging--epp.elifesciences.org/api/files
                   private_iiif_server: http://epp-image-server.epp--staging:8182/iiif
+                  iiif_url: http://cantaloupe.journal--test:8080/epp
+                  iiif_public_url: https://continuumtest--cdn-iiif.elifesciences.org/epp
+                  files_api_path: https://staging--epp.elifesciences.org/api/files
                   client_replicas: "1"
                   is_automated: "yeah"
                   show_previews: all
