@@ -17,22 +17,4 @@ spec:
               # Try to reduce operator chat by deploying to the same AZ as the controlplane, see https://github.com/elifesciences/issues/issues/9445
               values:
               - us-east-1c
-
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              version: v1
-              kind: Deployment
-              name: psmdb-operator
-            patch: |
-              - op: add
-                path: /spec/template/spec/containers/0/env/-
-                value:
-                  name: KUBERNETES_SERVICE_HOST
-                  value: "10.0.11.193" # This is the CP IP in us-east-1c
-              - op: add
-                path: /spec/template/spec/containers/0/env/-
-                value:
-                  name: KUBERNETES_SERVICE_PORT
-                  value: "443"
+              - us-east-1d
