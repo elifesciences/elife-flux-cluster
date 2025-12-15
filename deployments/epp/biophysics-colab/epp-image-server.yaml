@@ -12,7 +12,6 @@ spec:
   path: ./kustomizations/apps/epp/image-server
   prune: true
   targetNamespace: epp--biophysics-colab
-  images:
   postBuild:
     substitute:
       app_hostname: biophysics-colab--epp.elifesciences.org
