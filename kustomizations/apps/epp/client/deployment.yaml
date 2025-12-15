@@ -29,6 +29,10 @@ spec:
           value: ${files_api_path}
         - name: IIIF_SERVER
           value: ${private_iiif_server:='http://epp-image-server:8182/iiif'}
+        - name: IIIF_URL
+          value: ${iiif_url:=''}
+        - name: NEXT_PUBLIC_IIIF_URL
+          value: ${iiif_public_url:=''}
         - name: NEXT_PUBLIC_GTM_ID
           value: ${google_tag_manager_id:=''}
         - name: NEXT_PUBLIC_COOKIEBOT_ID
