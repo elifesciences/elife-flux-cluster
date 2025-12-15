@@ -24,13 +24,6 @@ spec:
             name: epp-server
             port:
               number: 3000
-      - pathType: Prefix
-        path: "/iiif"
-        backend:
-          service:
-            name: epp-image-server
-            port:
-              number: 8182
   - host: ${journal_api_hostname}
     http:
       paths:
