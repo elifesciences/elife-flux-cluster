@@ -10,4 +10,5 @@ fi
 cd $(dirname $0)
 
 
+# Adopted from https://github.com/aws-controllers-k8s/s3-controller/tree/main/config/crd/bases
 curl -sO https://raw.githubusercontent.com/aws-controllers-k8s/s3-controller/refs/tags/v$1/config/crd/bases/s3.services.k8s.aws_buckets.yaml

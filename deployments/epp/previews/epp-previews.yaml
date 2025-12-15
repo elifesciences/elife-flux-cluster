@@ -47,7 +47,7 @@ spec:
               apiVersion: image.toolkit.fluxcd.io/v1
               kind: ImagePolicy
               name: epp-client-preview-{{ matrix.pr.number }}
-            jsonPath: status.latestImage
+            jsonPath: status.latestRef
         templates:
         - object:
             apiVersion: v1
@@ -76,7 +76,7 @@ spec:
               targetNamespace: epp--preview-{{ matrix.pr.number }}
               images:
                 - name: ghcr.io/elifesciences/enhanced-preprints-client
-                  newTag: "{% raw %}{{ matrix['client-image'].split(':')[1] }}{% endraw %}"
+                  newTag: "{% raw %}{{ matrix['client-image'].tag }}{% endraw %}"
               postBuild:
                 substitute:
                   app_env: epp--preview-{{ matrix.pr.number }}
@@ -133,7 +133,7 @@ spec:
                     ## Preview environment images deployed!
 
                     The preview environment has been updated:
-                    client image tag: {% raw %}{{ matrix['client-image'].split(':')[1] }}{% endraw %}
+                    client image tag: {% raw %}{{ matrix['client-image'].tag }}{% endraw %}
 
                     Client URL: https://pr-{{ matrix.pr.number }}--epp.elifesciences.org
 

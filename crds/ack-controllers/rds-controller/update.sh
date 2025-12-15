@@ -10,6 +10,7 @@ fi
 cd $(dirname $0)
 
 
+# Adopted from https://github.com/aws-controllers-k8s/rds-controller/tree/main/config/crd/bases
 curl -sO https://raw.githubusercontent.com/aws-controllers-k8s/rds-controller/refs/tags/v$1/config/crd/bases/rds.services.k8s.aws_dbclusterendpoints.yaml
 curl -sO https://raw.githubusercontent.com/aws-controllers-k8s/rds-controller/refs/tags/v$1/config/crd/bases/rds.services.k8s.aws_dbclusterparametergroups.yaml
 curl -sO https://raw.githubusercontent.com/aws-controllers-k8s/rds-controller/refs/tags/v$1/config/crd/bases/rds.services.k8s.aws_dbclusters.yaml

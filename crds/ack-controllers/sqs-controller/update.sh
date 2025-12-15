@@ -9,4 +9,5 @@ fi
 
 cd $(dirname $0)
 
+# Adopted from https://github.com/aws-controllers-k8s/sqs-controller/tree/main/config/crd/bases
 curl -sO https://raw.githubusercontent.com/aws-controllers-k8s/sqs-controller/refs/tags/v$1/config/crd/bases/sqs.services.k8s.aws_queues.yaml

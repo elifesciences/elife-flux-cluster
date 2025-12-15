@@ -10,7 +10,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: victoriametrics
-      version: "0.62.1"
+      version: "0.65.1"
   interval: 1h0m0s
   valuesFrom:
     - kind: ConfigMap
@@ -37,7 +37,15 @@ spec:
       spec:
         retentionPeriod: "3" # months
         vmstorage:
-          replicaCount: 5
+          replicaCount: 2
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: topology.kubernetes.io/zone
+                    operator: In
+                    values: ["us-east-1c"]
           storage:
             volumeClaimTemplate:
               spec:
@@ -47,8 +55,8 @@ spec:
                     storage: 1Ti
           resources:
             requests:
-              cpu: 600m
-              memory: 10Gi
+              cpu: 300m
+              memory: 12Gi
             limits: {}
           extraArgs:
             "inmemoryDataFlushInterval": "15s"
@@ -57,7 +65,15 @@ spec:
           serviceSpec:
             spec:
               trafficDistribution: PreferClose
-          replicaCount: 5
+          replicaCount: 2
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: topology.kubernetes.io/zone
+                    operator: In
+                    values: ["us-east-1c"]
           storage:
             volumeClaimTemplate:
               spec:
@@ -65,8 +81,8 @@ spec:
 
           resources:
             requests:
-              cpu: 230m
-              memory: 660Mi
+              cpu: 150m
+              memory: 450Mi
             limits: {}
           extraArgs:
             "dedup.minScrapeInterval": "30s"
@@ -74,13 +90,21 @@ spec:
           serviceSpec:
             spec:
               trafficDistribution: PreferClose
-          replicaCount: 5
+          replicaCount: 2
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: topology.kubernetes.io/zone
+                    operator: In
+                    values: ["us-east-1c"]
           extraArgs:
             maxLabelsPerTimeseries: "55"
           resources:
             requests:
-              cpu: 400m
-              memory: 800Mi
+              cpu: 150m
+              memory: 700Mi
             limits: {}
       ingress:
         select:
@@ -125,7 +149,7 @@ spec:
           'external.url': https://vmalert.${cluster_domain}
         resources:
           requests:
-            cpu: 100m
+            cpu: 50m
             memory: 100Mi
           limits: {}
       ingress:

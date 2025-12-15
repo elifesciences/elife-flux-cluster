@@ -4,27 +4,28 @@
 # 2m kustomizations.kustomize.toolkit.fluxcd.io ready flux-system deployments
 
 # Test all system resources have "deployed"
-2m helmrelease ready db-operator-system psmdb-operator
-2m helmrelease ready db-operator-system pg-operator
-2m helmrelease ready db-operator-system pxc-operator
-2m helmrelease ready gitops-dashboard gitops-dashboard
 2m helmrelease ready ack-system rds
+2m helmrelease ready db-operator-system opensearch-operator
+2m helmrelease ready db-operator-system pg-operator
+2m helmrelease ready db-operator-system psmdb-operator
+2m helmrelease ready db-operator-system pxc-operator
 2m helmrelease ready external-dns external-dns
 2m helmrelease ready external-secrets external-secrets
-2m helmrelease ready template-controller template-controller
-2m helmrelease ready victoriametrics victoriametrics
+2m helmrelease ready gitops-dashboard gitops-dashboard
+2m helmrelease ready grafana grafana
+2m helmrelease ready infra cert-manager
+2m helmrelease ready infra ingress-nginx
+2m helmrelease ready infra oauth2-proxy
 2m helmrelease ready infra sealed-secrets
 2m helmrelease ready keda keda
 2m helmrelease ready keda keda-add-ons-http
+2m helmrelease ready kyverno kyverno
 2m helmrelease ready metrics-server metrics-server
-2m helmrelease ready spegel spegel
 2m helmrelease ready nidhogg nidhogg
-2m helmrelease ready grafana grafana
+2m helmrelease ready spegel spegel
+2m helmrelease ready template-controller template-controller
 2m helmrelease ready vector vector
-2m helmrelease ready infra ingress-nginx
-2m helmrelease ready infra oauth2-proxy
-2m helmrelease ready infra cert-manager
-2m helmrelease ready db-operator-system opensearch-operator
+2m helmrelease ready victoriametrics victoriametrics
 
 2m kustomizations.kustomize.toolkit.fluxcd.io ready monitoring monitoring-flux
 2m kustomizations.kustomize.toolkit.fluxcd.io ready kubernetes-event-exporter kubernetes-event-exporter

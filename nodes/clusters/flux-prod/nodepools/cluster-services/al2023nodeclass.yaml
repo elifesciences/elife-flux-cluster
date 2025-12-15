@@ -4,6 +4,8 @@ kind: EC2NodeClass
 metadata:
   name: cluster-services-al2023
 spec:
+  kubelet:
+    maxPods: 110
   amiSelectorTerms:
   - alias: al2023@latest
   userData: |

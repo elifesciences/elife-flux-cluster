@@ -1,0 +1,15 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: temporal-tls.rules
+  namespace: temporal
+spec:
+  groups:
+    - name: cert-manager
+      rules:
+        - alert: NewCertificateAuthorityIssued
+          expr: (certmanager_certificate_not_before_timestamp_seconds{exported_namespace="temporal",name="temporal-database-pxc-ca-cert"}-time())/3600/24 > -7
+          for: 5m
+          annotations:
+            message: A certificate authority has been issued. Check if this makes sense. CA's should live for three years. https://github.com/elifesciences/issues/issues/9457
