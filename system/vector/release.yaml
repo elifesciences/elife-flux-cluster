@@ -106,8 +106,7 @@ spec:
           inputs:
             - nginx_json_parse
           condition: |
-            starts_with(string(.httpRequest.requestUrl) ?? "", "sciety-labs.elifesciences.org") ||
-            starts_with(string(.httpRequest.requestUrl) ?? "", "sciety-discovery.elifesciences.org")
+            starts_with(string(.httpRequest.requestUrl) ?? "", "labs.sciety.org")
         # filter all nginx logs for just the Data Hub API request URLs
         filter_nginx_data_hub_api:
           type: filter
