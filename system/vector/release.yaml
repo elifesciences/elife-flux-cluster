@@ -27,19 +27,19 @@ spec:
         cpu: 10m
         memory: 50Mi
     extraVolumes:
-    - name: gcp-data-hub-project-log-shipping
-      secret:
-        secretName: gcp-data-hub-project-log-shipping
+      - name: gcp-data-hub-project-log-shipping
+        secret:
+          secretName: gcp-data-hub-project-log-shipping
     extraVolumeMounts:
-    - name: gcp-data-hub-project-log-shipping
-      mountPath: /etc/gcp-data-hub-project-log-shipping
-      readOnly: true
+      - name: gcp-data-hub-project-log-shipping
+        mountPath: /etc/gcp-data-hub-project-log-shipping
+        readOnly: true
     env:
       - name: VECTOR_LOG
         value: info
     tolerations:
-    - effect: NoSchedule
-      operator: Exists
+      - effect: NoSchedule
+        operator: Exists
     customConfig:
       data_dir: /vector-data-dir
       api:
@@ -144,10 +144,10 @@ spec:
             codec: native_json
         victorialogs:
           inputs:
-          - filter_node_labels
+            - filter_node_labels
           type: elasticsearch
           endpoints:
-          - "http://victorialogs-victoria-logs-single-server.victorialogs:9428/insert/elasticsearch/"
+            - "http://victorialogs-victoria-logs-single-server.victorialogs:9428/insert/elasticsearch/"
           mode: "bulk"
           api_version: "v8"
           healthcheck:
