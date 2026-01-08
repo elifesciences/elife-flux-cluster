@@ -2,7 +2,7 @@ apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageUpdateAutomation
 metadata:
   name: podinfo
-  namespace: podinfo--prod
+  namespace: podinfo
 spec:
   interval: 20m
   sourceRef:
@@ -32,4 +32,4 @@ spec:
         {{ end -}}
   update:
     strategy: Setters
-    path: ./deployments/podinfo/prod
+    path: ./deployments/podinfo

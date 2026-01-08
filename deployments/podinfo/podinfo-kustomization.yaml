@@ -2,7 +2,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: podinfo--prod
-  namespace: podinfo--prod
+  namespace: podinfo
 spec:
   interval: 1m0s
   sourceRef:
@@ -11,10 +11,10 @@ spec:
     namespace: flux-system
   path: ./kustomizations/apps/podinfo
   prune: true
-  targetNamespace: podinfo--prod
+  targetNamespace: podinfo
   images:
   - name: docker.io/stefanprodan/podinfo
-    newTag: 6.9.4 # {"$imagepolicy": "podinfo--prod:podinfo-stable:tag"}
+    newTag: 6.9.4 # {"$imagepolicy": "podinfo:podinfo-stable:tag"}
   postBuild:
     substitute:
       hostname: podinfo.${cluster_domain}
