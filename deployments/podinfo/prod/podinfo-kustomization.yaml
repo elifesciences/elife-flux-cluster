@@ -17,4 +17,4 @@ spec:
     newTag: 6.9.4 # {"$imagepolicy": "podinfo--prod:podinfo-stable:tag"}
   postBuild:
     substitute:
-      hostname: podinfo.elifesciences.org
+      hostname: podinfo.${cluster_domain}
