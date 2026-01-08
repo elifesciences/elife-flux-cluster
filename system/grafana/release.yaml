@@ -41,9 +41,9 @@ spec:
         signout_redirect_url: "${oauth2_proxy_signout_url}"
       auth.proxy:
         enabled: true
-        header_name: X-Email
+        header_name: X-Auth-Request-Email
         header_property: email
-        headers: Name:X-User
+        headers: Name:X-Auth-Request-User
         enable_login_token: false
       users:
         allow_sign_up: false
