@@ -15,7 +15,7 @@ spec:
     service: epp-encoda-api
     port: 3000
   replicas:
-    min: 1
+    min: 0
     max: 10
   scaledownPeriod: 300
   targetPendingRequests: 5
