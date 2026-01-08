@@ -7,6 +7,9 @@ metadata:
     app: podinfo
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header X-Auth-Request-User $upstream_http_x_auth_request_user;
+      proxy_set_header X-Auth-Request-Email $upstream_http_x_auth_request_email;
 spec:
   rules:
     - host: "${hostname}"
