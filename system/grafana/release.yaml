@@ -56,10 +56,8 @@ spec:
         nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
         nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
         nginx.ingress.kubernetes.io/configuration-snippet: |
-          auth_request_set $user   $upstream_http_x_auth_request_user;
-          auth_request_set $email  $upstream_http_x_auth_request_email;
-          proxy_set_header X-User  $user;
-          proxy_set_header X-Email $email;
+          proxy_set_header X-Auth-Request-User $upstream_http_x_auth_request_user;
+          proxy_set_header X-Auth-Request-User $upstream_http_x_auth_request_email;
       hosts:
       - grafana.${cluster_domain}
       tls:
