@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    nginx.ingress.kubernetes.io/configuration-snippet: 'return 302 https://elife-rp.msubmit.net/html/elife-rp_author_instructions.html#process;'
+    nginx.ingress.kubernetes.io/configuration-snippet: 'return 301 https://elife-rp.msubmit.net/html/elife-rp_author_instructions.html#process;'
     cert-manager.io/cluster-issuer: letsencrypt
   name: reviewer--prod-authorguide-redirect
   namespace: reviewer
