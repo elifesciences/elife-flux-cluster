@@ -20,14 +20,14 @@ spec:
     ingress:
       enabled: true
       hosts:
-      - host: gitops-dashboard--${cluster_domain}
-        paths:
-        - path: /
-          pathType: ImplementationSpecific
+        - host: gitops-dashboard--${cluster_domain}
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
       tls:
-      - secretName: gitops-dashboard-tls
-        hosts:
-        - gitops-dashboard--${cluster_domain}
+        - secretName: gitops-dashboard-tls
+          hosts:
+            - gitops-dashboard--${cluster_domain}
       annotations:
         nginx.ingress.kubernetes.io/auth-url: "https://oauth-proxy.elifesciences.org/oauth2/auth"
         nginx.ingress.kubernetes.io/auth-signin: "https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
@@ -37,7 +37,7 @@ spec:
       createClusterRole: true
       createSecret: false
     additionalArgs:
-    - --insecure-no-authentication-user=gitops-test-user
+      - --insecure-no-authentication-user=gitops-test-user
     resources:
       requests:
         cpu: 22m
