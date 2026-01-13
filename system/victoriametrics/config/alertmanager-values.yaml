@@ -31,6 +31,12 @@ alertmanager:
         - matchers:
             - "exported_namespace = data-hub"
           receiver: "slack-the-grove-data"
+        - matchers:
+            - "namespace = sciety"
+          receiver: "slack-the-greenhouse"
+        - matchers:
+            - "namespace = data-hub"
+          receiver: "slack-the-grove-data"
     inhibit_rules:
       - target_matchers:
           - severity=~"warning|info"
