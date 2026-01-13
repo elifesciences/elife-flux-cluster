@@ -51,15 +51,10 @@ spec:
         auto_assign_org_role: Admin
     ingress:
       enabled: true
+      ingressClassName: traefik
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt"
-        nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
-        nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
-        nginx.ingress.kubernetes.io/configuration-snippet: |
-          auth_request_set $user   $upstream_http_x_auth_request_user;
-          auth_request_set $email  $upstream_http_x_auth_request_email;
-          proxy_set_header X-Auth-Request-User $user;
-          proxy_set_header X-Auth-Request-Email $email;
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
       hosts:
         - grafana.${cluster_domain}
       tls:
