@@ -29,6 +29,10 @@ spec:
         format: json
     deployment:
       replicas: 10
+    resources:
+      requests:
+        cpu: 25m
+        memory: 100Mi
     ingressClass:
       name: traefik
       enabled: true
