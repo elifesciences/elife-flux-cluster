@@ -66,9 +66,6 @@ spec:
             "inmemoryDataFlushInterval": "15s"
             "dedup.minScrapeInterval": "30s"
         vmselect:
-          serviceSpec:
-            spec:
-              trafficDistribution: PreferClose
           replicaCount: 2
           affinity:
             nodeAffinity:
@@ -78,6 +75,9 @@ spec:
                   - key: topology.kubernetes.io/zone
                     operator: In
                     values: ["us-east-1c"]
+          serviceSpec:
+            spec:
+              trafficDistribution: PreferClose
           storage:
             volumeClaimTemplate:
               spec:
@@ -91,9 +91,6 @@ spec:
           extraArgs:
             "dedup.minScrapeInterval": "30s"
         vminsert:
-          serviceSpec:
-            spec:
-              trafficDistribution: PreferClose
           replicaCount: 2
           affinity:
             nodeAffinity:
@@ -103,6 +100,9 @@ spec:
                   - key: topology.kubernetes.io/zone
                     operator: In
                     values: ["us-east-1c"]
+          serviceSpec:
+            spec:
+              trafficDistribution: PreferClose
           extraArgs:
             maxLabelsPerTimeseries: "55"
           resources:
@@ -113,16 +113,16 @@ spec:
       ingress:
         select:
           enabled: true
+          ingressClassName: traefik
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt"
+            traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
           hosts:
             - victoriametrics.${cluster_domain}
           tls:
             - secretName: victoriametrics-select-tls
               hosts:
                 - victoriametrics.${cluster_domain}
-          annotations:
-            cert-manager.io/cluster-issuer: "letsencrypt"
-            nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
-            nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
     vmagent:
       spec:
         externalLabels:
@@ -137,10 +137,10 @@ spec:
           limits: {}
       ingress:
         enabled: true
+        ingressClassName: traefik
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt"
-          nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
-          nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
         hosts:
           - vmagent.${cluster_domain}
         tls:
@@ -158,10 +158,10 @@ spec:
           limits: {}
       ingress:
         enabled: true
+        ingressClassName: traefik
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt"
-          nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
-          nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
         hosts:
           - vmalert.${cluster_domain}
         tls:
@@ -189,16 +189,16 @@ spec:
           limits: {}
       ingress:
         enabled: true
+        ingressClassName: traefik
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt"
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
         hosts:
           - alertmanager.${cluster_domain}
         tls:
           - secretName: alertmanager-tls
             hosts:
               - alertmanager.${cluster_domain}
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt"
-          nginx.ingress.kubernetes.io/auth-url: "${oauth2_proxy_auth_url}"
-          nginx.ingress.kubernetes.io/auth-signin: "${oauth2_proxy_auth_signin}"
     defaultRules:
       rules:
         KubeMemoryOvercommit:
