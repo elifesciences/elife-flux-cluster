@@ -15,27 +15,27 @@ alertmanager:
           receiver: slack-monitoring
           continue: true
         - matchers:
-            - "alertname = Watchdog"
+            - alertname="Watchdog"
           group_interval: 1m
           repeat_interval: 1m
           receiver: "healthchecks.io"
         - matchers:
-            - "alertname = Watchdog"
+            - alertname="Watchdog"
           receiver: "Watchdog"
         - matchers:
-            - "alertname = InfoInhibitor"
+            - alertname="InfoInhibitor"
           receiver: "null"
         - matchers:
-            - "exported_namespace = sciety"
+            - exported_namespace="sciety"
           receiver: "slack-the-greenhouse"
         - matchers:
-            - "exported_namespace = data-hub"
+            - exported_namespace="data-hub"
           receiver: "slack-the-grove-data"
         - matchers:
-            - "namespace = sciety"
+            - namespace="sciety"
           receiver: "slack-the-greenhouse"
         - matchers:
-            - "namespace = data-hub"
+            - namespace="data-hub"
           receiver: "slack-the-grove-data"
     inhibit_rules:
       - target_matchers:
