@@ -20,6 +20,7 @@ spec:
               # AWS Config
               aws_region: us-east-1
               aws_account_id: "512686554592"
+              aws_vpc_id: "vpc-78a2071d"
 
               # Cluster config
               cluster_name: flux-prod
@@ -55,3 +56,4 @@ spec:
               aws_external_dns_service_account_role_arn: arn:aws:iam::512686554592:role/kubernetes-aws--flux-prod--external-dns
               aws_cert_manager_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-cert-manager
               aws_kubecost_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-kubecost-cluster-role
+              aws_load_balancer_controller_service_account_role_arn: arn:aws:iam::512686554592:role/elife-flux-prod-aws-load-balancer-controller-cluster-role

@@ -6,3 +6,4 @@ resources:
 - volumesnapshotclasses
 - secret-store
 - ../base
+- ../../aws-load-balancer-controller
