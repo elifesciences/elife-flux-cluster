@@ -34,7 +34,7 @@ spec:
         enabled: true
         searchNamespace: ALL
     plugins:
-    - victoriametrics-logs-datasource
+      - victoriametrics-logs-datasource
     grafana.ini:
       auth:
         oauth_auto_login: true
@@ -61,11 +61,11 @@ spec:
           proxy_set_header X-Auth-Request-User $user;
           proxy_set_header X-Auth-Request-Email $email;
       hosts:
-      - grafana.${cluster_domain}
-      tls:
-      - secretName: grafana-tls
-        hosts:
         - grafana.${cluster_domain}
+      tls:
+        - secretName: grafana-tls
+          hosts:
+            - grafana.${cluster_domain}
     resources:
       requests:
         cpu: 20m
