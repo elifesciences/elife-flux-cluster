@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: deny-robots
+  namespace: traefik
+spec:
+  plugin:
+    inlineResponse:
+      matchers:
+        - path:
+            abs: /robots.txt
+          statusCode: 200
+          response:
+            raw: |
+              User-agent: *
+              Disallow: /

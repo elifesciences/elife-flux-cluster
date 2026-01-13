@@ -21,6 +21,7 @@ resources:
 - ../../spegel
 - ../../template-controller
 - ../../temporal
+- ../../traefik
 - ../../vector
 - ../../victoriametrics
 - ../../victorialogs

@@ -1,0 +1,96 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: traefik
+spec:
+  chart:
+    spec:
+      chart: traefik
+      sourceRef:
+        kind: HelmRepository
+        name: traefik
+      version: 38.0.2
+  interval: 1h0m0s
+  install:
+    crds: Skip
+    remediation:
+      retries: 3
+  upgrade:
+    crds: Skip
+    remediation:
+      retries: 3
+  values:
+    logs:
+      general:
+        format: json
+      access:
+        enabled: true
+        format: json
+    deployment:
+      replicas: 10
+    ingressClass:
+      name: traefik
+      enabled: true
+      isDefaultClass: false
+    providers:
+      kubernetesCRD:
+        enabled: true
+        allowCrossNamespace: true
+      kubernetesIngress:
+        ingressClass: traefik
+        enabled: true
+        allowEmptyServices: true
+        allowExternalNameServices: true
+    ingressRoute:
+      dashboard:
+        enabled: true #only on traefik entrypoint
+    service:
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-type: "external"
+        service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+        service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "false"
+        service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+        service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    ports:
+      web:
+        middlewares:
+          - traefik-compress@kubernetescrd
+        proxyProtocol:
+          trustedIPs:
+            - "10.0.0.0/16"
+        forwardedHeaders:
+          trustedIPs:
+            - "10.0.0.0/16"
+      websecure:
+        middlewares:
+          - traefik-compress@kubernetescrd
+        proxyProtocol:
+          trustedIPs:
+            - "10.0.0.0/16"
+        forwardedHeaders:
+          trustedIPs:
+            - "10.0.0.0/16"
+    metrics:
+      prometheus:
+        service:
+          enabled: true
+        serviceMonitor:
+          enabled: true
+        prometheusRule:
+          enabled: true
+          rules:
+            - alert: TraefikDown
+              expr: up{job="traefik"} == 0
+              for: 5m
+              labels:
+                context: traefik
+                severity: warning
+              annotations:
+                summary: "Traefik Down"
+                description: "{{ $labels.pod }} on {{ $labels.nodename }} is down"
+    experimental:
+      plugins:
+        inlineResponse:
+          moduleName: github.com/tuxgal/traefik_inline_response
+          version: v0.1.2

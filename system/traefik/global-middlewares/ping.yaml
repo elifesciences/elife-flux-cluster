@@ -1,0 +1,15 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: ping
+  namespace: traefik
+spec:
+  plugin:
+    inlineResponse:
+      matchers:
+        - path:
+            abs: /ping
+          statusCode: 200
+          response:
+            raw: pong
