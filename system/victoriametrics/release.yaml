@@ -28,6 +28,10 @@ spec:
       name: alerts-urls
       valuesKey: healthchecks-io-url
       targetPath: alertmanager.config.receivers[2].webhook_configs[0].url
+    - kind: Secret
+      name: alerts-urls
+      valuesKey: the-grove-data-url
+      targetPath: alertmanager.config.receivers[3].slack_configs[0].api_url
   values:
     fullnameOverride: victoriametrics
     vmsingle:
