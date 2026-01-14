@@ -33,6 +33,18 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
+  name: elife-oauth-force-403
+  namespace: traefik
+spec:
+  errors:
+    status:
+      - "401"
+    statusRewrites:
+      "401": 403
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
   name: elife-oauth
   namespace: traefik
 spec:
@@ -40,3 +52,4 @@ spec:
     middlewares:
       - name: elife-oauth-signin
       - name: elife-oauth-auth
+      - name: elife-oauth-force-403
