@@ -75,3 +75,4 @@ spec:
       epp_server_memory_requests: 1Gi
       import_controller_hostname: prod--epp-controller.elifesciences.org
       import_controller_temporal_namespace: 'epp--prod,epp--staging,epp--biophysics-colab'
+      import_controller_ingress_class_name: traefik
