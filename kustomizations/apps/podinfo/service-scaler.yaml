@@ -2,6 +2,10 @@ kind: Service
 apiVersion: v1
 metadata:
   name: podinfo-scaler
+  annotations:
+    traefik.ingress.kubernetes.io/service.nativelb: "true"
 spec:
   type: ExternalName
   externalName: ${keda_proxy:-'keda-add-ons-http-interceptor-proxy.keda.svc.cluster.local'}
+  ports:
+    - port: 8080
