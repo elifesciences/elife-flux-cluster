@@ -6,7 +6,7 @@ metadata:
   namespace: traefik
 spec:
   forwardAuth:
-    address: "https://${oauth2_proxy_hostname}/oauth2/auth"
+    address: "http://infra-oauth2-proxy.infra/oauth2/auth"
     trustForwardHeader: true
     authResponseHeaders:
       - "X-Auth-Request-User"
