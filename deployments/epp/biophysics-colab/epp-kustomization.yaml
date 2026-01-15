@@ -76,6 +76,7 @@ spec:
           nginx.ingress.kubernetes.io/auth-type: basic
           nginx.ingress.kubernetes.io/auth-secret: epp-import-controller-http-basic-auth
           nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
+          traefik.ingress.kubernetes.io/router.middlewares: epp--biophysics-colab-epp-import-controller-basic-auth@kubernetescrd
   - target:
       kind: Ingress
       name: epp-import-controller
@@ -86,3 +87,14 @@ spec:
         path: /metadata/annotations/nginx.ingress.kubernetes.io~1auth-url
       - op: remove
         path: /metadata/annotations/traefik.ingress.kubernetes.io~1router.middlewares
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: epp-import-controller-basic-auth
+  namespace: epp--biophysics-colab
+spec:
+  basicAuth:
+    secret: epp-import-controller-traefik-http-basic-auth
+    realm: "Authentication Required"
+    removeHeader: true
