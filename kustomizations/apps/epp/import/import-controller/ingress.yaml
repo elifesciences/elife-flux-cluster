@@ -9,7 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/auth-url: https://oauth-proxy.elifesciences.org/oauth2/auth
     cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
-  ingressClassName: ${import_controller_ingress_class_name:-""}
+  ingressClassName: ${import_controller_ingress_class_name:-null}
   rules:
       - host: ${import_controller_hostname}
         http:
