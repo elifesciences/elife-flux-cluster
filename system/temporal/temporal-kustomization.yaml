@@ -34,3 +34,32 @@ spec:
       s3_archive_aws_region: us-east-1
       s3_archive_history_uri: "s3://elife-temporal-prod-data"
       s3_archive_visibility_uri: "s3://elife-temporal-prod-data"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: temporal-web-nginx
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
+    nginx.ingress.kubernetes.io/auth-signin: https://oauth-proxy.elifesciences.org/oauth2/start?rd=https%3A%2F%2F$host$request_uri
+    nginx.ingress.kubernetes.io/auth-url: https://oauth-proxy.elifesciences.org/oauth2/auth
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+spec:
+  rules:
+      - host: temporal-test.elifesciences.org
+        http:
+          paths:
+            - path: /
+              pathType: Prefix
+              backend:
+                service:
+                  name: temporal-web
+                  port:
+                    number: 8080
+  tls:
+  - hosts:
+    - "temporal-test.elifesciences.org"
+    secretName: temporal-test.elifesciences.org-tls
