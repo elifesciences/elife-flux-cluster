@@ -74,18 +74,7 @@ spec:
       metadata:
         name: epp-import-controller
         annotations:
-          nginx.ingress.kubernetes.io/auth-type: basic
-          nginx.ingress.kubernetes.io/auth-secret: epp-import-controller-http-basic-auth
-          nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
           traefik.ingress.kubernetes.io/router.middlewares: epp-biophysics-colab-epp-import-controller-basic-auth@kubernetescrd
-  - target:
-      kind: Ingress
-      name: epp-import-controller
-    patch: |
-      - op: remove
-        path: /metadata/annotations/nginx.ingress.kubernetes.io~1auth-signin
-      - op: remove
-        path: /metadata/annotations/nginx.ingress.kubernetes.io~1auth-url
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
