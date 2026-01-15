@@ -33,6 +33,18 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
+  name: elife-oauth-protect-from-401
+  namespace: traefik
+spec:
+  plugin:
+    traefikerrorreplace:
+      matchStatus:
+        - 401
+      replaceStatus: 403
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
   name: elife-oauth
   namespace: traefik
 spec:
@@ -40,3 +52,4 @@ spec:
     middlewares:
       - name: elife-oauth-signin
       - name: elife-oauth-auth
+      - name: elife-oauth-protect-from-401
