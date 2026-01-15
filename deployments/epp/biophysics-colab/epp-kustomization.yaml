@@ -85,8 +85,6 @@ spec:
         path: /metadata/annotations/nginx.ingress.kubernetes.io~1auth-signin
       - op: remove
         path: /metadata/annotations/nginx.ingress.kubernetes.io~1auth-url
-      - op: remove
-        path: /metadata/annotations/traefik.ingress.kubernetes.io~1router.middlewares
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
