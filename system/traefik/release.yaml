@@ -98,3 +98,6 @@ spec:
         inlineResponse:
           moduleName: github.com/tuxgal/traefik_inline_response
           version: v0.1.2
+        traefikerrorreplace:
+          moduleName: github.com/PseudoResonance/traefikerrorreplace
+          version: v1.0.1
