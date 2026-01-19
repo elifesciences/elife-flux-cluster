@@ -32,6 +32,10 @@ spec:
       name: alerts-urls
       valuesKey: the-grove-data-url
       targetPath: alertmanager.config.receivers[3].slack_configs[0].api_url
+    - kind: Secret
+      name: alerts-urls
+      valuesKey: data-hub-notifications-url
+      targetPath: alertmanager.config.receivers[4].slack_configs[0].api_url
   values:
     fullnameOverride: victoriametrics
     vmsingle:
