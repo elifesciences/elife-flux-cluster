@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: epp-image-server
   namespace: epp
+  annotations:
+    external-dns.alpha.kubernetes.io/controller: "disabled"
 spec:
   rules:
   - host: ${app_hostname}
@@ -25,8 +27,6 @@ kind: Ingress
 metadata:
   name: epp-image-server--traefik
   namespace: epp
-  annotations:
-    external-dns.alpha.kubernetes.io/controller: "disabled"
 spec:
   ingressClassName: traefik
   rules:
