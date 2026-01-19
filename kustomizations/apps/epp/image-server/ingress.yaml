@@ -19,3 +19,28 @@ spec:
   - hosts:
     - ${app_hostname}
     secretName: epp-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: epp-image-server--traefik
+  namespace: epp
+  annotations:
+    external-dns.alpha.kubernetes.io/controller: "disabled"
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: ${app_hostname}
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/iiif"
+        backend:
+          service:
+            name: epp-image-server
+            port:
+              number: 8182
+  tls:
+  - hosts:
+    - ${app_hostname}
+    secretName: epp-tls
