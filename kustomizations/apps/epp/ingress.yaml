@@ -5,6 +5,7 @@ metadata:
   namespace: epp
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
+    external-dns.alpha.kubernetes.io/controller: "disabled"
 spec:
   rules:
   - host: ${app_hostname}
@@ -47,7 +48,6 @@ metadata:
   namespace: epp
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
-    external-dns.alpha.kubernetes.io/controller: "disabled"
 spec:
   ingressClassName: traefik
   rules:
