@@ -27,6 +27,22 @@ spec:
       access:
         enabled: true
         format: json
+        fields:
+          headers:
+            defaultmode: drop
+            names:
+              # Specific custom headers
+              x-ja4fingerprint: keep
+              X-Forwarded-For: keep
+              X-Original-Forwarded-For: keep
+              X-Forwarded-Host: keep
+
+              # Standard headers
+              User-Agent: keep
+              Referer: keep
+
+              # Useful for tracking
+              X-Request-ID: keep
     deployment:
       replicas: 10
     resources:
