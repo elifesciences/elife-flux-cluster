@@ -28,21 +28,27 @@ alertmanager:
         - matchers:
             - exported_namespace="sciety"
           receiver: "slack-the-greenhouse"
+          continue: true
         - matchers:
             - exported_namespace="data-hub"
           receiver: "slack-the-grove-data"
+          continue: true
         - matchers:
             - namespace="sciety"
           receiver: "slack-the-greenhouse"
+          continue: true
         - matchers:
             - namespace="data-hub"
           receiver: "slack-the-grove-data"
+          continue: true
         - matchers:
             - namespace="data-hub"
           receiver: "slack-data-hub-notifications"
+          continue: true
         - matchers:
             - exported_namespace="data-hub"
           receiver: "slack-data-hub-notifications"
+          continue: true
     inhibit_rules:
       - target_matchers:
           - severity=~"warning|info"
