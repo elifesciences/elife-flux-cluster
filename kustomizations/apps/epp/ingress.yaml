@@ -39,3 +39,46 @@ spec:
     - ${app_hostname}
     - ${journal_api_hostname}
     secretName: epp-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: epp-traefik
+  namespace: epp
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    external-dns.alpha.kubernetes.io/controller: "disabled"
+spec:
+  rules:
+  - host: ${app_hostname}
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: epp-client
+            port:
+              number: 3000
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          service:
+            name: epp-server
+            port:
+              number: 3000
+  - host: ${journal_api_hostname}
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          service:
+            name: epp-client
+            port:
+              number: 3000
+  tls:
+  - hosts:
+    - ${app_hostname}
+    - ${journal_api_hostname}
+    secretName: epp-tls
