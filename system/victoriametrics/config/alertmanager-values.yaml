@@ -30,16 +30,8 @@ alertmanager:
           receiver: "slack-the-greenhouse"
           continue: true
         - matchers:
-            - exported_namespace="data-hub"
-          receiver: "slack-the-grove-data"
-          continue: true
-        - matchers:
             - namespace="sciety"
           receiver: "slack-the-greenhouse"
-          continue: true
-        - matchers:
-            - namespace="data-hub"
-          receiver: "slack-the-grove-data"
           continue: true
         - matchers:
             - namespace="data-hub"
