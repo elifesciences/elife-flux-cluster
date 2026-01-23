@@ -74,8 +74,11 @@ spec:
         service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
     ports:
       web:
-        middlewares:
-          - traefik-compress@kubernetescrd
+        http:
+          encodedCharacters:
+            allowEncodedSlash: true
+          middlewares:
+            - traefik-compress@kubernetescrd
         proxyProtocol:
           trustedIPs:
             - "10.0.0.0/16"
@@ -86,8 +89,8 @@ spec:
         http:
           encodedCharacters:
             allowEncodedSlash: true
-        middlewares:
-          - traefik-compress@kubernetescrd
+          middlewares:
+            - traefik-compress@kubernetescrd
         proxyProtocol:
           trustedIPs:
             - "10.0.0.0/16"
