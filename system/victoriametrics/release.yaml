@@ -63,8 +63,8 @@ spec:
                     storage: 1Ti
           resources:
             requests:
-              cpu: 300m
-              memory: 12Gi
+              cpu: 850m
+              memory: 14Gi
             limits: {}
           extraArgs:
             "inmemoryDataFlushInterval": "15s"
@@ -112,7 +112,7 @@ spec:
           resources:
             requests:
               cpu: 150m
-              memory: 700Mi
+              memory: 1200Mi
             limits: {}
       ingress:
         select:
