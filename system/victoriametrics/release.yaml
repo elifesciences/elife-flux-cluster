@@ -95,7 +95,7 @@ spec:
           extraArgs:
             "dedup.minScrapeInterval": "30s"
             "search.cacheTimestampOffset": "10m"
-            "search.maxQueryDuration=60s": "60s"
+            "search.maxQueryDuration": "60s"
         vminsert:
           replicaCount: 2
           affinity:
