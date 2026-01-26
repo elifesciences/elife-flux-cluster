@@ -63,8 +63,8 @@ spec:
                     storage: 1Ti
           resources:
             requests:
-              cpu: 850m
-              memory: 14Gi
+              cpu: 2
+              memory: 16Gi
             limits: {}
           extraArgs:
             "inmemoryDataFlushInterval": "15s"
@@ -89,11 +89,13 @@ spec:
 
           resources:
             requests:
-              cpu: 150m
-              memory: 450Mi
+              cpu: 1
+              memory: 4Gi
             limits: {}
           extraArgs:
             "dedup.minScrapeInterval": "30s"
+            "search.cacheTimestampOffset": "10m"
+            "search.maxQueryDuration=60s": "60s"
         vminsert:
           replicaCount: 2
           affinity:
