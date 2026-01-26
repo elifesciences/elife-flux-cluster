@@ -7,7 +7,7 @@ metadata:
   labels:
     app: echo-debug
 spec:
-  selector:          # ADDED: Required in apps/v1
+  selector:
     matchLabels:
       app: echo-debug
   template:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: echo
-        image: ealen/echo-server  # A lightweight echo server
+        image: ealen/echo-server
         ports:
         - containerPort: 80
 ---
