@@ -4,3 +4,4 @@ resources:
 - source.yaml
 - release.yaml
 - dashboards
+- test-echo-server.yaml
