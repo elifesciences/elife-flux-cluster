@@ -124,3 +124,6 @@ spec:
         traefikerrorreplace:
           moduleName: github.com/PseudoResonance/traefikerrorreplace
           version: v1.0.1
+        htransformation:
+          moduleName: "github.com/tomMoulard/htransformation"
+          version: "v0.3.3"
