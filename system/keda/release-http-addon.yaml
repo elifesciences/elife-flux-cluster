@@ -26,7 +26,7 @@ spec:
           cpu: 10m
           memory: 15Mi
       replicas:
-        waitTimeout: 60s
+        waitTimeout: 90s
 
     operator:
       resources:
