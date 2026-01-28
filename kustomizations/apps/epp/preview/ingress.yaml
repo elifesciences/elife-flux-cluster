@@ -6,6 +6,7 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
+  ingressClassName: traefik
   rules:
   - host: ${app_hostname}
     http:
