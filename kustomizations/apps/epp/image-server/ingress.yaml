@@ -6,6 +6,7 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/controller: "disabled"
 spec:
+  ingressClassName: traefik
   rules:
   - host: ${app_hostname}
     http:
