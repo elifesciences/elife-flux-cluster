@@ -71,6 +71,9 @@ spec:
         nginx_logs:
           type: kubernetes_logs
           extra_label_selector: app.kubernetes.io/name==ingress-nginx
+        traefik_logs:
+          type: kubernetes_logs
+          extra_label_selector: app.kubernetes.io/name==traefik
       transforms:
         filter_node_labels:
           type: remap
@@ -100,6 +103,16 @@ spec:
               abort
             }
             . = json
+        traefik_json_parse:
+          type: remap
+          inputs:
+            - traefik_logs
+          source: |
+            json, err = parse_json(.message)
+            if err != null {
+              abort
+            }
+            . = json
         # filter all nginx logs for just the sciety labs request URLs
         filter_nginx_sciety_labs:
           type: filter
@@ -114,6 +127,20 @@ spec:
             - nginx_json_parse
           condition: |
             starts_with(string(.httpRequest.requestUrl) ?? "", "data-hub-api.elifesciences.org")
+        # filter all traefik logs for just the sciety labs request URLs
+        filter_traefik_sciety_labs:
+          type: filter
+          inputs:
+            - traefik_json_parse
+          condition: |
+            starts_with(string(.RequestAddr) ?? "", "labs.sciety.org")
+        # filter all traefik logs for just the Data Hub API request URLs
+        filter_traefik_data_hub_api:
+          type: filter
+          inputs:
+            - traefik_json_parse
+          condition: |
+            starts_with(string(.RequestAddr) ?? "", "data-hub-api.elifesciences.org")
       sinks:
         prom_exporter:
           type: prometheus_exporter
@@ -138,6 +165,28 @@ spec:
           bucket: elife-cluster-logs
           credentials_path: /etc/gcp-data-hub-project-log-shipping/credentials.json
           key_prefix: ${cluster_name}/data-hub-api/dt=%F/
+          filename_extension: jsonl
+          encoding:
+            codec: native_json
+        # Ship just sciety labs filtered traefik logs to GCP
+        sciety_labs_gcp:
+          type: gcp_cloud_storage
+          inputs:
+            - filter_traefik_sciety_labs
+          bucket: elife-cluster-logs
+          credentials_path: /etc/gcp-data-hub-project-log-shipping/credentials.json
+          key_prefix: ${cluster_name}/sciety-labs2/dt=%F/
+          filename_extension: jsonl
+          encoding:
+            codec: native_json
+        # Ship just Data Hub API filtered traefik logs to GCP
+        data_hub_api_gcp:
+          type: gcp_cloud_storage
+          inputs:
+            - filter_traefik_data_hub_api
+          bucket: elife-cluster-logs
+          credentials_path: /etc/gcp-data-hub-project-log-shipping/credentials.json
+          key_prefix: ${cluster_name}/data-hub-api2/dt=%F/
           filename_extension: jsonl
           encoding:
             codec: native_json
