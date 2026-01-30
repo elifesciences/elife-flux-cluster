@@ -103,21 +103,60 @@ spec:
               abort
             }
             . = json
-        traefik_json_parse:
+        traefik_json_parse_to_nginx_log_format:
           type: remap
           inputs:
             - traefik_logs
           source: |
-            json, err = parse_json(.message)
-            if err != null {
-              abort
+            # 1. Parse the incoming message
+            raw, err = parse_json(.message)
+            if err != null { abort }
+
+            # 2. Build the httpRequest object
+            http = {}
+            http.requestMethod = raw.RequestMethod
+            # Combine Host and Path to recreate the Nginx requestUrl
+            host = to_string(raw.RequestHost) ?? ""
+            path = to_string(raw.RequestPath) ?? ""
+            http.requestUrl = host + path
+
+            http.status = to_int(raw.DownstreamStatus) ?? 0
+            http.requestSize = to_string(raw.RequestContentSize) ?? "0"
+            http.responseSize = to_string(raw.DownstreamContentSize) ?? "0"
+            http.userAgent = raw."request_User-Agent"
+            http.remoteIp = raw.ClientHost
+            http.referer = raw."request_Referer"
+            http.protocol = raw.RequestProtocol
+            http.xForwardedFor = raw."request_X-Forwarded-For" || ""
+            http.xForwardedHost = raw."request_X-Forwarded-Host" || ""
+            http.xOriginalForwardedFor = raw."request_X-Original-Forwarded-For" || ""
+            http.xJA4Fingerprint = raw."request_x-ja4fingerprint" || ""
+
+            if exists(raw.Duration) {
+              dur = to_float(raw.Duration) ?? 0.0
+              http.latency = to_string(dur / 1000000000.0) + " s"
             }
-            . = json
+
+            # 3. Build the final structure at the root level
+            output = {}
+            output.httpRequest = http
+            output.requestID = raw."request_X-Request-ID"
+            output.proxyUpstreamName = raw.ServiceName
+            output.proxyAlternativeUpstreamName = ""
+            output.proxyProtocolAddr = raw.ClientHost
+            output.proxyProtocolPort = raw.ClientPort
+            output.upstreamAddr = raw.ServiceAddr
+            output.upstreamStatus = to_string(raw.OriginStatus) ?? ""
+            output.timestamp = raw.StartUTC
+
+            # 4. Replace the event
+            . = output
         # filter all nginx logs for just the sciety labs request URLs
         filter_nginx_sciety_labs:
           type: filter
           inputs:
             - nginx_json_parse
+            - traefik_json_parse_to_nginx_log_format
           condition: |
             starts_with(string(.httpRequest.requestUrl) ?? "", "labs.sciety.org")
         # filter all nginx logs for just the Data Hub API request URLs
@@ -125,22 +164,9 @@ spec:
           type: filter
           inputs:
             - nginx_json_parse
+            - traefik_json_parse_to_nginx_log_format
           condition: |
             starts_with(string(.httpRequest.requestUrl) ?? "", "data-hub-api.elifesciences.org")
-        # filter all traefik logs for just the sciety labs request URLs
-        filter_traefik_sciety_labs:
-          type: filter
-          inputs:
-            - traefik_json_parse
-          condition: |
-            starts_with(string(.RequestAddr) ?? "", "labs.sciety.org")
-        # filter all traefik logs for just the Data Hub API request URLs
-        filter_traefik_data_hub_api:
-          type: filter
-          inputs:
-            - traefik_json_parse
-          condition: |
-            starts_with(string(.RequestAddr) ?? "", "data-hub-api.elifesciences.org")
       sinks:
         prom_exporter:
           type: prometheus_exporter
@@ -165,28 +191,6 @@ spec:
           bucket: elife-cluster-logs
           credentials_path: /etc/gcp-data-hub-project-log-shipping/credentials.json
           key_prefix: ${cluster_name}/data-hub-api/dt=%F/
-          filename_extension: jsonl
-          encoding:
-            codec: native_json
-        # Ship just sciety labs filtered traefik logs to GCP
-        sciety_labs_gcp:
-          type: gcp_cloud_storage
-          inputs:
-            - filter_traefik_sciety_labs
-          bucket: elife-cluster-logs
-          credentials_path: /etc/gcp-data-hub-project-log-shipping/credentials.json
-          key_prefix: ${cluster_name}/sciety-labs2/dt=%F/
-          filename_extension: jsonl
-          encoding:
-            codec: native_json
-        # Ship just Data Hub API filtered traefik logs to GCP
-        data_hub_api_gcp:
-          type: gcp_cloud_storage
-          inputs:
-            - filter_traefik_data_hub_api
-          bucket: elife-cluster-logs
-          credentials_path: /etc/gcp-data-hub-project-log-shipping/credentials.json
-          key_prefix: ${cluster_name}/data-hub-api2/dt=%F/
           filename_extension: jsonl
           encoding:
             codec: native_json
