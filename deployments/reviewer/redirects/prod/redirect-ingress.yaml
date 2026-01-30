@@ -53,7 +53,7 @@ metadata:
   name: reviewer-redirect
   namespace: reviewer
 spec:
-  ngressClassName: traefik
+  ingressClassName: traefik
   rules:
   - host: reviewer.elifesciences.org
     http:
