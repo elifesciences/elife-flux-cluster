@@ -1,0 +1,71 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-reviewprocess
+  namespace: reviewer
+spec:
+  redirectRegex:
+    regex: ".*reviewer\\.elifesciences\\.org/reviewer-guide/(review-process|reviewing-policies|writing-the-review).*"
+    replacement: https://elife-rp.msubmit.net/cgi-bin/main.plex?form_type=display_rev_instructions#process
+    permanent: true
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-authorguide
+  namespace: reviewer
+spec:
+  redirectRegex:
+    regex: ".*reviewer\\.elifesciences\\.org/author-guide.*"
+    replacement: https://elife-rp.msubmit.net/html/elife-rp_author_instructions.html#process
+    permanent: true
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-contact-form
+  namespace: reviewer
+spec:
+  redirectRegex:
+    regex: ".*reviewer\\.elifesciences\\.org/contact-us/contact-elife.*"
+    replacement: https://elife-rp.msubmit.net/html/eLife-rp_contact.html
+    permanent: true
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-ejp
+  namespace: reviewer
+spec:
+  redirectRegex:
+    regex: ".*"
+    replacement: https://elife-rp.msubmit.net/;
+    permanent: true
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/controller: "disabled"
+    cert-manager.io/cluster-issuer: letsencrypt
+    traefik.ingress.kubernetes.io/router.middlewares: reviewer-redirect-to-reviewprocess@kubernetescrd,reviewer-redirect-to-authorguide@kubernetescrd,reviewer-redirect-to-contact-form@kubernetescrd,reviewer-redirect-to-ejp@kubernetescrd
+  name: reviewer-redirect
+  namespace: reviewer
+spec:
+  ngressClassName: traefik
+  rules:
+  - host: reviewer.elifesciences.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: http-svc
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - reviewer.elifesciences.org
+    secretName: reviewer-prod-tls
