@@ -62,10 +62,22 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: http-svc
+            name: dummy-http-svc
             port:
               number: 80
   tls:
   - hosts:
     - reviewer.elifesciences.org
     secretName: reviewer-prod-tls
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dummy-http-svc
+  namespace: reviewer
+spec:
+  type: ExternalName
+  externalName: elife-rp.msubmit.net
+  ports:
+  - protocol: TCP
+    port: 80
