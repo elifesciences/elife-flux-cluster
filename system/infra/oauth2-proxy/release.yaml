@@ -39,6 +39,7 @@ spec:
       redirect-url: https://${oauth2_proxy_hostname}/oauth2/callback
     ingress:
       enabled: "true"
+      className: traefik
       hosts:
         - "${oauth2_proxy_hostname}"
       annotations:
