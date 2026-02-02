@@ -88,6 +88,7 @@ spec:
           trustedIPs:
             - "10.0.0.0/16"
         forwardedHeaders:
+          insecure: true
           trustedIPs:
             - "10.0.0.0/16"
       websecure:
@@ -100,6 +101,7 @@ spec:
           trustedIPs:
             - "10.0.0.0/16"
         forwardedHeaders:
+          insecure: true
           trustedIPs:
             - "10.0.0.0/16"
     metrics:
