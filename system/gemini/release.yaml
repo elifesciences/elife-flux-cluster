@@ -18,7 +18,7 @@ spec:
     resources:
       limits: null
       requests:
-        cpu: 13m
-        memory: 20Mi
+        cpu: 60m
+        memory: 40Mi
     additionalPodAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
