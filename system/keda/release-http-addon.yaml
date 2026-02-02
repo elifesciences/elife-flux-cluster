@@ -44,5 +44,5 @@ spec:
       resources:
         limits: null
         requests:
-          cpu: 10m
-          memory: 15Mi
+          cpu: 40m
+          memory: 30Mi
