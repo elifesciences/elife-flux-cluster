@@ -47,7 +47,7 @@ spec:
       replicas: 10
     resources:
       requests:
-        cpu: 80m
+        cpu: 200m
         memory: 250Mi
     ingressClass:
       name: traefik
