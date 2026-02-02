@@ -43,7 +43,6 @@ spec:
       hosts:
         - "${oauth2_proxy_hostname}"
       annotations:
-        external-dns.alpha.kubernetes.io/controller: "disabled"
         cert-manager.io/cluster-issuer: letsencrypt
       tls:
       - secretName: oauth2-proxy-tls
