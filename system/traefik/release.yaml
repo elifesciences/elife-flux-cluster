@@ -90,6 +90,7 @@ spec:
         forwardedHeaders:
           trustedIPs:
             - "10.0.0.0/16"
+            - "88.97.165.112/32"
       websecure:
         http:
           encodedCharacters:
