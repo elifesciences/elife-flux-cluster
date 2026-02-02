@@ -35,12 +35,12 @@ spec:
     resources:
       requests:
         cpu: 10m
-        memory: 30Mi
+        memory: 80Mi
     webhook:
       resources:
         requests:
           cpu: 10m
-          memory: 12Mi
+          memory: 40Mi
     cainjector:
       resources:
         requests:
