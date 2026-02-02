@@ -232,8 +232,8 @@ spec:
         disable_prometheus_converter: false
       resources:
         requests:
-          cpu: 10m
-          memory: 40Mi
+          cpu: 20m
+          memory: 200Mi
         limits: {}
     kube-state-metrics:
       resources:
