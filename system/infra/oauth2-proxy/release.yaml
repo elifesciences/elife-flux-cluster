@@ -42,6 +42,7 @@ spec:
       hosts:
         - "${oauth2_proxy_hostname}"
       annotations:
+        external-dns.alpha.kubernetes.io/controller: "disabled"
         cert-manager.io/cluster-issuer: letsencrypt
       tls:
       - secretName: oauth2-proxy-tls
@@ -57,7 +58,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    external-dns.alpha.kubernetes.io/controller: "disabled"
     cert-manager.io/cluster-issuer: letsencrypt
   labels:
     app: oauth2-proxy
