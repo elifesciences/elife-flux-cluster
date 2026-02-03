@@ -14,7 +14,7 @@ spec:
   targetNamespace: podinfo
   images:
   - name: docker.io/stefanprodan/podinfo
-    newTag: 6.10.0 # {"$imagepolicy": "podinfo:podinfo-stable:tag"}
+    newTag: 6.10.1 # {"$imagepolicy": "podinfo:podinfo-stable:tag"}
   postBuild:
     substitute:
       hostname: podinfo.${cluster_domain}
