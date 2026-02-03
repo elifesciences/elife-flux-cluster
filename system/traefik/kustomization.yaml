@@ -11,6 +11,7 @@ resources:
 - global-middlewares/mitigate-cve-2025-64459.yaml
 - global-middlewares/deny-robots.yaml
 - global-middlewares/ping.yaml
+- global-middlewares/force-x-forwarded-proto-https.yaml
 
 configMapGenerator:
 - name: traefik-dashboards
