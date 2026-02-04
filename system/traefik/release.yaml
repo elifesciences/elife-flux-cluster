@@ -97,7 +97,6 @@ spec:
             allowEncodedSlash: true
           middlewares:
             - traefik-compress@kubernetescrd
-            - traefik-force-x-forwarded-proto-https@kubernetescrd
         proxyProtocol:
           trustedIPs:
             - "10.0.0.0/16"
