@@ -68,9 +68,6 @@ spec:
           type: host_metrics
         internal_metrics:
           type: internal_metrics
-        nginx_logs:
-          type: kubernetes_logs
-          extra_label_selector: app.kubernetes.io/name==ingress-nginx
         traefik_logs:
           type: kubernetes_logs
           extra_label_selector: app.kubernetes.io/name==traefik
@@ -93,16 +90,6 @@ spec:
               ]
               .kubernetes.node_labels = filter(object!(.kubernetes.node_labels)) -> |key, value| { includes(allowed_labels, key) }
             }
-        nginx_json_parse:
-          type: remap
-          inputs:
-            - nginx_logs
-          source: |
-            json, err = parse_json(.message)
-            if err != null {
-              abort
-            }
-            . = json
         traefik_json_parse_to_nginx_log_format:
           type: remap
           inputs:
@@ -155,7 +142,6 @@ spec:
         filter_nginx_sciety_labs:
           type: filter
           inputs:
-            - nginx_json_parse
             - traefik_json_parse_to_nginx_log_format
           condition: |
             starts_with(string(.httpRequest.requestUrl) ?? "", "labs.sciety.org")
@@ -163,7 +149,6 @@ spec:
         filter_nginx_data_hub_api:
           type: filter
           inputs:
-            - nginx_json_parse
             - traefik_json_parse_to_nginx_log_format
           condition: |
             starts_with(string(.httpRequest.requestUrl) ?? "", "data-hub-api.elifesciences.org")

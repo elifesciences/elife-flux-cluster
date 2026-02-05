@@ -53,40 +53,6 @@ spec:
             effect: "NoSchedule"
           nodeSelector:
             kubernetes.io/hostname: elife-flux-test-control-plane
-  # in a small cluster like kind or minikube the load balancer won't get an external IP.
-  # Therefore, we need to disable waiting
-  - patch: |-
-      apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      metadata:
-        name: ingress-nginx
-        namespace: infra
-      spec:
-        install:
-          disableWait: true
-        values:
-          controller:
-            replicaCount: 2
-            tolerations:
-            - key: "realnode"
-              operator: "Equal"
-              value: "true"
-              effect: "NoSchedule"
-            nodeSelector:
-              kubernetes.io/hostname: elife-flux-cluster-control-plane
-            admissionWebhooks:
-              patch:
-                tolerations:
-                - key: "realnode"
-                  operator: "Equal"
-                  value: "true"
-                  effect: "NoSchedule"
-                nodeSelector:
-                  kubernetes.io/hostname: elife-flux-cluster-control-plane
-
-    target:
-      kind: HelmRelease
-      name: ingress-nginx
   - patch: |-
       apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease

@@ -6,9 +6,6 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.middlewares: traefik-elife-oauth@kubernetescrd
     cert-manager.io/cluster-issuer: letsencrypt
-    nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
 spec:
   ingressClassName: traefik
   rules:

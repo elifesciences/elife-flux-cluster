@@ -18,9 +18,6 @@ reconcile:
 logs-flux:
 	kubectl logs -f -n flux deployment/flux
 
-logs-nginx:
-	kubectl logs -f -n infra deployment/infra-ingress-nginx-controller
-
 logs-certmanager:
 	kubectl logs -f -n infra deployment/infra-cert-manager
 

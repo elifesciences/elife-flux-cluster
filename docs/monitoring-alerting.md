@@ -22,8 +22,6 @@ This document only covers the VictoriaMetrics Operator. It is designed to be com
 
 -   add the `grafana_dashboard: "1` label
 
--   see `system/monitoring/dashboards/grafana-dashboard-nginx-main.yaml` for an example
-
 -   in the future maybe switch to something like
     [grafana-operator](https://github.com/integr8ly/grafana-operator)
 

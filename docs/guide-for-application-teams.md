@@ -122,7 +122,7 @@ To extract and provide non-secret connection details to the application we sugge
 Services available on the Cluster
 =================================
 
-- __nginx-ingress__ ([docs](https://kubernetes.github.io/ingress-nginx/))
+- __traefik__ ([docs](https://kubernetes.github.io/traefik))
   - provides SSL termination
   - `host` entries ending in `.elifesciences.org` will be added to our zone by ExternalDNS
 - __cert-manager with letsencrypt__ ([docs/letsencrypt](docs/letsencrypt.md))

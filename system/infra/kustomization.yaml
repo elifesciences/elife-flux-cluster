@@ -5,6 +5,5 @@ resources:
 - namespace.yaml
 - cert-manager
 - external-secrets
-- ingress-nginx
 - oauth2-proxy
 - sealed-secrets
