@@ -4,7 +4,6 @@ kind: Deployment
 metadata:
   name: temporal-history
 spec:
-  replicas: 1
   template:
     spec:
       serviceAccountName: temporal
