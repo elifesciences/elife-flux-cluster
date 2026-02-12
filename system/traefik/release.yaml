@@ -45,8 +45,8 @@ spec:
               X-Request-ID: keep
     resources:
       requests:
-        cpu: 200m
-        memory: 250Mi
+        cpu: 230m
+        memory: 320Mi
     ingressClass:
       name: traefik
       enabled: true
