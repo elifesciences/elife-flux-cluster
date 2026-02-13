@@ -9,7 +9,7 @@ spec:
     name: secret-store
     kind: ClusterSecretStore
   target:
-    name: epp-import-controller-traefik-http-basic-auth
+    name: epp-import-controller-api-traefik-http-basic-auth
     creationPolicy: Owner
     template:
       engineVersion: v2
@@ -18,3 +18,39 @@ spec:
   dataFrom:
   - extract:
       key: epp/import-controller-api/basic-auth--prod
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: epp-import-controller-api
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    traefik.ingress.kubernetes.io/router.middlewares: epp-prod-epp-import-controller-api-basic-auth@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+      - host: prod--epp-controller-api.elifesciences.org
+        http:
+          paths:
+            - path: /
+              pathType: Prefix
+              backend:
+                service:
+                  name: epp-import-controller
+                  port:
+                    number: 5000
+  tls:
+  - hosts:
+    - prod--epp-controller-api.elifesciences.org
+    secretName: prod--epp-controller-api.elifesciences.org-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: epp-import-controller-api-basic-auth
+  namespace: epp--prod
+spec:
+  basicAuth:
+    secret: epp-import-controller-api-traefik-http-basic-auth
+    realm: "Authentication Required"
+    removeHeader: true
