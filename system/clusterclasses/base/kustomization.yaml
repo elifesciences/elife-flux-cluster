@@ -18,6 +18,7 @@ resources:
 - ../../monitoring
 # - ../../netobserv
 - ../../nidhogg
+- ../../reloader
 - ../../spegel
 - ../../template-controller
 - ../../temporal
