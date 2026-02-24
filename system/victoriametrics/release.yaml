@@ -135,7 +135,7 @@ spec:
           cluster: ${cluster_name}
         extraArgs:
           "promscrape.kubernetesSDCheckInterval": "5s"
-          "promscrape.suppressScrapeErrorsDelay": "30s"
+          "promscrape.suppressScrapeErrorsDelay": "60s"
         resources:
           requests:
             cpu: 1
