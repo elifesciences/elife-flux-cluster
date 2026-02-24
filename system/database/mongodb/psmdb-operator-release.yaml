@@ -32,4 +32,4 @@ spec:
       limits: {}
       requests:
         cpu: 100m
-        memory: 50Mi
+        memory: 300Mi

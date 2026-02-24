@@ -26,7 +26,7 @@ spec:
         limits: {}
         requests:
           cpu: 25m
-          memory: 150Mi
+          memory: 300Mi
     kubeRbacProxy:
       resources:
         limits: {}

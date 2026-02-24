@@ -25,8 +25,8 @@ spec:
     resources:
       limits: {}
       requests:
-        cpu: 30m
-        memory: 15Mi
+        cpu: 90m
+        memory: 300Mi
     nodeSelector:
       kubernetes.io/arch: amd64
     logLevel: "DEBUG"
