@@ -37,6 +37,13 @@ spec:
         #     count: 30
         #     type: count
         #     deleteFromStorage: true
+        # - name: "monthly-backup"
+        #   schedule: "0 1 1 * *"
+        #   storageName: temporal-prod-backups
+        #   retention:
+        #     count: 12
+        #     type: count
+        #     deleteFromStorage: true
     pxc:
       nodeSelector:
         kubernetes.io/arch: amd64
