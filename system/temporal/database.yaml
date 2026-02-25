@@ -76,3 +76,20 @@ spec:
         requests:
           memory: 15Mi
           cpu: 10m
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: temporal-backup
+  namespace: temporal
+spec:
+  refreshInterval: 1h
+  target:
+    name: temporal-backup
+    creationPolicy: Owner
+  secretStoreRef:
+    name: secret-store
+    kind: ClusterSecretStore
+  dataFrom:
+  - extract:
+      key: clusters/flux-prod/backup-credentials/temporal
