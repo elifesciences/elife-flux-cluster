@@ -24,26 +24,27 @@ spec:
       enabled: true
       serviceAccountName: temporal-database
       storages:
-        temporal-prod-backups:
+        temporal-backups:
           type: s3
           s3:
-            bucket: "${aws_backup_s3_bucket}/temporal/prod"
+            bucket: "${aws_backup_s3_bucket}/temporal/database"
             region: "${aws_region}"
+            credentialsSecret: temporal-backup # See ExternalSecret below
       schedule:
-        # - name: "daily-backup"
-        #   schedule: "0 0 * * *"
-        #   storageName: temporal-prod-backups
-        #   retention:
-        #     count: 30
-        #     type: count
-        #     deleteFromStorage: true
-        # - name: "monthly-backup"
-        #   schedule: "0 1 1 * *"
-        #   storageName: temporal-prod-backups
-        #   retention:
-        #     count: 12
-        #     type: count
-        #     deleteFromStorage: true
+        - name: "daily-backup"
+          schedule: "0 0 * * *"
+          storageName: temporal-backups
+          retention:
+            count: 30
+            type: count
+            deleteFromStorage: true
+        - name: "monthly-backup"
+          schedule: "0 1 1 * *"
+          storageName: temporal-backups
+          retention:
+            count: 12
+            type: count
+            deleteFromStorage: true
     pxc:
       nodeSelector:
         kubernetes.io/arch: amd64
