@@ -17,7 +17,7 @@ spec:
     - name: temporalio/server
       newTag: 1.29.3
     - name: temporalio/ui
-      newTag: 2.46.0
+      newTag: 2.47.0
     - name: temporalio/admin-tools
       newTag: 1.29.1-tctl-1
   postBuild:
