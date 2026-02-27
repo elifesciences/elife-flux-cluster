@@ -168,4 +168,3 @@ Services available on the Cluster
     - IAM (Roles, groups and policies)
     - Route53 (for non-ingress-related DNS needs)
     - SNS and SQS (`Topic` and `Queue`) for message sending services
-    - CloudFront
