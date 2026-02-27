@@ -125,17 +125,38 @@ Services available on the Cluster
 - __traefik__ ([docs](https://kubernetes.github.io/traefik))
   - provides SSL termination
   - `host` entries ending in `.elifesciences.org` will be added to our zone by ExternalDNS
+  - Uses Middleware to affect traffic behaviour, for example working with [oauth-proxy](docs/oauth-proxy.md) to authenticate staff
 - __cert-manager with letsencrypt__ ([docs/letsencrypt](docs/letsencrypt.md))
   - obtain letsencrypt SSL certs via ingress definitions
 - __VictoriaMetrics Operator__ ([docs/monitoring-alerting](docs/monitoring-alerting.md))
-- __oauth2-proxy__  ([docs/oauth-proxy](docs/oauth-proxy.md))
-  - limit access to elifesciences github org
+  - Can be used to export metrics from your application and alert or report on them via Grafana. 
+- __Grafana__
+  - Used to query and visualise metrics and log data in VictoriaMetrics and VictoriaLogs storage. 
 - __ExternalSecrets Operator__
   - pulls in secrets from storage easily accessible to the application teams
 - __SealedSecrets__ ([docs/sealed-secrets.md](docs/sealed-secrets.md))
-  - encrypt secrets for safe storage in this repo
-- __VictoriaLogs__
-  - Stores logs for services in cluster, is queriable from Grafana as a data source.
+  - encrypt secrets for safe storage in this repo. Prefer ExternalSecret
 - __Percona Server for MongoDB operator__
   - Used to run a MongoDB cluster, with support for automated backup, recovery and upgrades.
   - Deployed in "cluster-wide" mode. Each namespace can deploy a database, for example using a [Helm chart](https://github.com/percona/percona-helm-charts/blob/main/charts/psmdb-db/README.md).
+- __Percona Server for MySQL operator__
+  - Used to run a MySQL using multi-master replication with Galera/XtraDB, with support for automated backup, recovery and upgrades.
+  - Deployed in "cluster-wide" mode. Each namespace can deploy a database, for example using a [Helm chart](https://github.com/percona/percona-helm-charts/blob/main/charts/pxc-db/README.md).
+- __Percona Server for PostgreSQL operator__
+  - Used to run a PostgreSQL using replication, with support for automated backup, recovery and upgrades.
+  - Deployed in "cluster-wide" mode. Each namespace can deploy a database, for example using a [Helm chart](https://github.com/percona/percona-helm-charts/blob/main/charts/pg-db/README.md).
+- __Opensearch operator__
+  - Used to run an OpenSearch cluster, with support for automated backup, recovery and upgrades.
+  - Deployed in "cluster-wide" mode. Each namespace can deploy a database, for example see this [manifest](https://github.com/opensearch-project/opensearch-k8s-operator/blob/main/charts/opensearch-cluster/README.md).
+- __DragonflyDB operator__
+  - Used to run an DragonflyDB (redis-compatible) instance or cluster.
+  - Deployed in "cluster-wide" mode. Each namespace can deploy a database, for example see this [manifest](https://github.com/dragonflydb/dragonfly-operator/blob/main/config/samples/pvc.yaml)
+- __Temporal__
+  - Can be used alongside client SDKs to create durable workflows. See Temporal documentation.
+- __Template controller__
+  - Create kubernetes objects from other inputs. Also projects Github-related objects into the cluster to use as inputs / outputs, such as `ListGithubPullRequests` and `GithubComments`
+  - Most useful for creating ephemral environments from `ListGithubPullRequests` objects, and reporting back via `GithubComments`.
+  - Can also be used to transform secrets or configmaps from one format to another.
+- __KEDA__ and __KEDA HTTP Add on__
+  - Scale deployments based on metrics. Can be used to monitor metrics in VictoriaMetrics.
+  - Using the HTTP addon, you can scale deployments based on number of incoming requests (even down to zero).
