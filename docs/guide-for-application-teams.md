@@ -160,3 +160,12 @@ Services available on the Cluster
 - __KEDA__ and __KEDA HTTP Add on__
   - Scale deployments based on metrics. Can be used to monitor metrics in VictoriaMetrics.
   - Using the HTTP addon and `HTTPScaledObject`, you can scale deployments based on number of incoming requests (even down to zero).
+- __ACK - AWS controllers for Kubernetes__
+  - Used to provision AWS infrastructure using Kubernetes objects
+  - Services include:
+    - S3 (`Bucket`)
+    - RDS (`DBInstance` and `DBCluster`)
+    - IAM (Roles, groups and policies)
+    - Route53 (for non-ingress-related DNS needs)
+    - SNS and SQS (`Topic` and `Queue`) for message sending services
+    - CloudFront
