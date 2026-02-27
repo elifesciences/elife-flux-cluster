@@ -159,4 +159,4 @@ Services available on the Cluster
   - Can also be used to transform secrets or configmaps from one format to another.
 - __KEDA__ and __KEDA HTTP Add on__
   - Scale deployments based on metrics. Can be used to monitor metrics in VictoriaMetrics.
-  - Using the HTTP addon, you can scale deployments based on number of incoming requests (even down to zero).
+  - Using the HTTP addon and `HTTPScaledObject`, you can scale deployments based on number of incoming requests (even down to zero).
