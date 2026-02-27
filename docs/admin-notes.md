@@ -33,4 +33,3 @@ If `helm lint` is happy but operator is complaining:
 
 - [Sniffing Packets](https://github.com/eldadru/ksniff)  dump directly into wireshark or a local file
 - [RBAC Overview](https://github.com/jasonrichardsmith/rbac-view)  filterable table of all permissions and who uses them
-- [Deprecatand and Removed APIs](https://github.com/devtron-labs/silver-surfer/releases)  run `kubedd --target-kubernetes-version={NewVersion}` before cluster upgrades

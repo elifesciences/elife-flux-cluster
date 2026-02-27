@@ -1,5 +1,7 @@
 # Uprade EKS and worker nodes
 
+NOTE: The clusters now use managed node groups and karpenter for all nodes. Most of the instructions here are no longer relevant, but are kept for posterity.
+
 AWS EKS doesn't update the cluster automatically.
 
 __Subscribe to the Amazon Linux AMI [Security Bulletin](https://alas.aws.amazon.com/alas2.html)__

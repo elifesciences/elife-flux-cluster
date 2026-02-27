@@ -2,6 +2,8 @@
 SealedSecrets
 =============
 
+NOTE: the preferred way to get secrets into the cluster is via ExternalSecretsOperator
+
 The cluster has a [sealed-secrets](https://github.com/bitnami-labs/sealed-secrets) controller.
 
 - `SealedSecrets` are encrypted and safe to store in git
