@@ -22,7 +22,7 @@ spec:
     resources:
       requests:
         cpu: 5m
-        memory: 20Mi
+        memory: 50Mi
     grafanaDashboard:
       enabled: true
     serviceMonitor:
