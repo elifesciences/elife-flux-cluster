@@ -25,7 +25,7 @@ spec:
     resources:
       requests:
         cpu: 10m
-        memory: 50Mi
+        memory: 55Mi
     extraVolumes:
       - name: gcp-data-hub-project-log-shipping
         secret:
