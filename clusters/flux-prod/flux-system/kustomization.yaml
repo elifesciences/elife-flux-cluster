@@ -100,7 +100,7 @@ patches:
       value:
         requests:
           cpu: 50m
-          memory: 750Mi
+          memory: 700Mi
 - target:
     version: v1
     group: apps
