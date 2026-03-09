@@ -33,3 +33,6 @@ spec:
         requests:
           cpu: 25m
           memory: 15Mi
+      # kube-rbac-proxy is deprecated. You should probably check if this is even still used by opensearch-operator and remove if not
+      image:
+        repository: registry.k8s.io/kubebuilder/kube-rbac-proxy
