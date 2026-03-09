@@ -22,6 +22,3 @@ spec:
       requests:
         cpu: 10m
         memory: 300Mi
-    # kube-rbac-proxy is deprecated. You should probably check if this is even still used by kong-gateway-operator and remove if not
-    kubeRBACProxy:
-      image: registry.k8s.io/kubebuilder/kube-rbac-proxy
