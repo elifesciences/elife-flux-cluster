@@ -13,3 +13,12 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: stakater
+  values:
+    reloader:
+      deployment:
+        resources:
+          limits:
+            memory: "150Mi"
+          requests:
+            cpu: "40m"
+            memory: "128Mi"
