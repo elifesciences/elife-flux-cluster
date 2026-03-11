@@ -5,7 +5,6 @@ metadata:
   name: vector
 spec:
   interval: 1m
-  timeout: 15m
   releaseName: vector
   chart:
     spec:
@@ -18,7 +17,7 @@ spec:
   install:
     remediation:
       retries: 5
-  timeout: 20m
+  timeout: 30m
   values:
     role: Agent
     podMonitor:
