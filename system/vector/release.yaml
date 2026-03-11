@@ -5,6 +5,7 @@ metadata:
   name: vector
 spec:
   interval: 1m
+  timeout: 15m
   releaseName: vector
   chart:
     spec:
