@@ -23,13 +23,13 @@ spec:
   values:
     manager:
       resources:
-        limits: {}
+        limits: null
         requests:
           cpu: 25m
           memory: 300Mi
     kubeRbacProxy:
       resources:
-        limits: {}
+        limits: null
         requests:
           cpu: 25m
           memory: 15Mi
