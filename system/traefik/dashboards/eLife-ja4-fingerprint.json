@@ -131,6 +131,6 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "New dashboard",
+  "title": "Traefik - Inspect traffic spikes",
   "version": 0
 }
