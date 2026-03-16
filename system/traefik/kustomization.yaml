@@ -17,6 +17,7 @@ configMapGenerator:
 - name: traefik-dashboards
   files:
     - dashboards/Traefik-Official-Standalone-Dashboard.json
+    - eLife-ja4-fingerprint.json
   options:
     labels:
       grafana_dashboard: "1"
