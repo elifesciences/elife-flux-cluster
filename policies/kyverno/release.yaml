@@ -41,7 +41,7 @@ spec:
           limits: null
           requests:
             cpu: 10m
-            memory: 950Mi
+            memory: 500Mi
       replicas: 2
       <<: *global
       topologySpreadConstraints:
