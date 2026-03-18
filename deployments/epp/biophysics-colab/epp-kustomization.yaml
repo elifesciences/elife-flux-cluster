@@ -18,7 +18,7 @@ spec:
   - name: ghcr.io/elifesciences/epp-image-server
     newTag: master-69e6fe18-20260317.1331 # {"$imagepolicy": "epp--biophysics-colab:epp-image-server:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-client
-    newTag: master-378b7ede-20260217.1201-approved # {"$imagepolicy": "epp--biophysics-colab:epp-client-approved:tag"}
+    newTag: master-d90e0323-20260316.0756-approved # {"$imagepolicy": "epp--biophysics-colab:epp-client-approved:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-import-worker
     newTag: master-797ed898-20260317.1156-approved # {"$imagepolicy": "epp--biophysics-colab:epp-import-approved:tag"}
   - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
