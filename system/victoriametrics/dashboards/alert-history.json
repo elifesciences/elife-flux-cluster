@@ -18,6 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 37,
   "links": [],
   "panels": [
     {
@@ -112,7 +113,7 @@
           "expr": "ALERTS{alertstate=\"firing\", alertname!~\"InfoInhibitor|Watchdog\"}",
           "instant": true,
           "key": "Q-610ee0a4-daed-4c9f-9351-1667666251ee-0",
-          "legendFormat": "{{alertname}}",
+          "legendFormat": "{{namespace}}-{{alertname}}",
           "range": true,
           "refId": "A"
         }
@@ -294,5 +295,6 @@
   "timepicker": {},
   "timezone": "browser",
   "title": "Alertmanager history",
-  "version": 0
+  "uid": "6cd094a1-46c3-4ba1-a46c-74413f7422e1",
+  "version": 1
 }
