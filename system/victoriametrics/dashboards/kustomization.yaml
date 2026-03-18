@@ -16,6 +16,7 @@ configMapGenerator:
   - persistentvolumesusage.json
   - pod-total.json
   - workload-total.json
+  - alert-history.json
   options:
     labels:
       grafana_dashboard: "1"
