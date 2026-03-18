@@ -26,14 +26,6 @@ alertmanager:
             - alertname="InfoInhibitor"
           receiver: "null"
         - matchers:
-            - exported_namespace="sciety"
-          receiver: "slack-the-greenhouse"
-          continue: true
-        - matchers:
-            - namespace="sciety"
-          receiver: "slack-the-greenhouse"
-          continue: true
-        - matchers:
             - namespace="data-hub"
           receiver: "slack-data-hub-notifications"
           continue: true
