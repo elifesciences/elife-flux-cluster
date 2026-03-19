@@ -157,6 +157,12 @@ spec:
       spec:
         extraArgs:
           'external.url': https://vmalert.${cluster_domain}
+        ruleSelector:
+          matchExpressions:
+            # Avoid conflict with vmalert deployed for victorialogs
+            - key: alert-type
+              operator: NotIn
+              values: ["victorialogs"]
         resources:
           requests:
             cpu: 50m

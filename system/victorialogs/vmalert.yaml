@@ -18,5 +18,5 @@ spec:
     limits: {}
   ruleSelector:
     matchLabels:
-      alert-type: vlogs
+      alert-type: victorialogs
   ruleNamespaceSelector: {}
