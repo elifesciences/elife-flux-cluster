@@ -16,5 +16,7 @@ spec:
       cpu: 20m
       memory: 50Mi
     limits: {}
-  ruleSelector: {}         # picks up VMRules with matching label
+  ruleSelector:
+    matchLabels:
+      alert-type: vlogs
   ruleNamespaceSelector: {}
