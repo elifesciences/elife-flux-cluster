@@ -2,7 +2,7 @@ apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMAlert
 metadata:
   name: vlogs-alert
-  namespace: victoriametrics
+  namespace: victorialogs
 spec:
   datasource:
     url: "http://victorialogs-victoria-logs-single-server.victorialogs:9428"
