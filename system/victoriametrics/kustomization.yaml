@@ -5,6 +5,7 @@ resources:
 - namespace.yaml
 - source.yaml
 - release.yaml
+- vmalert.yaml
 - secrets
 - dashboards
 

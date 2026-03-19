@@ -1,0 +1,20 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAlert
+metadata:
+  name: vlogs-alert
+  namespace: victoriametrics
+spec:
+  datasource:
+    url: "http://victorialogs-victoria-logs-single-server.victorialogs:9428"
+  notifiers:
+    - url: "http://vmalertmanager-victoriametrics.victoriametrics:9093"
+  evaluationInterval: "1m"
+  extraArgs:
+    'external.url': https://vmalert.${cluster_domain}
+  resources:
+    requests:
+      cpu: 20m
+      memory: 50Mi
+    limits: {}
+  ruleSelector: {}         # picks up VMRules with matching label
+  ruleNamespaceSelector: {}
