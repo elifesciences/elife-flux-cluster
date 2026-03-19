@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 37,
+  "id": 21,
   "links": [],
   "panels": [
     {
@@ -80,7 +80,32 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "epp--prod-CPUThrottlingHigh"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": true,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 11,
@@ -204,6 +229,18 @@
                 "value": 424
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "karpenter_k8s_aws_ec2nodeclass"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 181
+              }
+            ]
           }
         ]
       },
@@ -262,9 +299,35 @@
               "container": false,
               "endpoint": true,
               "instance": true,
-              "pod": true,
+              "karpenter_k8s_aws_ec2nodeclass": true,
+              "karpenter_k8s_aws_instance_capability_flex": true,
+              "karpenter_k8s_aws_instance_category": true,
+              "karpenter_k8s_aws_instance_cpu": true,
+              "karpenter_k8s_aws_instance_cpu_manufacturer": true,
+              "karpenter_k8s_aws_instance_cpu_sustained_clock_speed_mhz": true,
+              "karpenter_k8s_aws_instance_ebs_bandwidth": true,
+              "karpenter_k8s_aws_instance_encryption_in_transit_supported": true,
+              "karpenter_k8s_aws_instance_family": true,
+              "karpenter_k8s_aws_instance_generation": true,
+              "karpenter_k8s_aws_instance_hypervisor": true,
+              "karpenter_k8s_aws_instance_memory": true,
+              "karpenter_k8s_aws_instance_network_bandwidth": true,
+              "karpenter_k8s_aws_instance_size": true,
+              "karpenter_k8s_aws_instance_tenancy": true,
+              "karpenter_sh_capacity_type": true,
+              "karpenter_sh_do_not_sync_taints": true,
+              "karpenter_sh_initialized": true,
+              "karpenter_sh_nodepool": true,
+              "karpenter_sh_registered": true,
+              "kubernetes_io_arch": true,
+              "kubernetes_io_hostname": true,
+              "kubernetes_io_os": true,
+              "pod": false,
               "prometheus": true,
-              "service": true
+              "service": true,
+              "topology_k8s_aws_zone_id": true,
+              "topology_kubernetes_io_region": true,
+              "topology_kubernetes_io_zone": true
             },
             "includeByName": {},
             "indexByName": {
