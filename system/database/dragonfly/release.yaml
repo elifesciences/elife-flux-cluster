@@ -13,6 +13,10 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: dragonfly-operator
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   values:
     serviceMonitor:
       enabled: true
