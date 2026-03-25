@@ -23,6 +23,8 @@ spec:
         enabled: true
         storageClassName: ebs-st1
         size: 200Gi
+      serviceMonitor:
+        enabled: true
       ingress:
         enabled: true
         ingressClassName: traefik
