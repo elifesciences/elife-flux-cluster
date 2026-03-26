@@ -26,6 +26,8 @@ spec:
         # uncomment the following line to unhide secret data
         # see also https://kube-web-view.readthedocs.io/en/latest/security.html
         # - "--show-secrets"
+        # Which resources should be shown in the sidebar?
+        - --sidebar-resource-types=Flux Sources=gitrepositories,helmrepositories,ocirepositories;Flux Deployments=kustomizations,helmreleases;Flux Automations=imagerepositories,imagepolicies,imageupdateautomations;Controllers=deployments,cronjobs;Pod Management=ingresses,services,pods,secrets,externalsecrets;Gateway=gateways,httproutes,services
         ports:
         - containerPort: 8080
         readinessProbe:

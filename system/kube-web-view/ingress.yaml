@@ -11,17 +11,17 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-  - host: "k8s-dashboard.${cluster_domain}"
-    http:
-      paths:
-      - path: /
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: kube-web-view
-            port:
-              number: 80
+    - host: "k8s-dashboard.${cluster_domain}"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kube-web-view
+                port:
+                  number: 80
   tls:
     - secretName: kube-web-view-tls
       hosts:
-      - "k8s-dashboard.${cluster_domain}"
+        - "k8s-dashboard.${cluster_domain}"
