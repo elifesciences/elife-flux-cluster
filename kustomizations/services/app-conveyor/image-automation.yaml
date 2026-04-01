@@ -1,0 +1,19 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: app-conveyor
+spec:
+  interval: 5m
+  image: ghcr.io/elifesciences/app-conveyor
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: app-conveyor
+spec:
+  imageRepositoryRef:
+    name: app-conveyor
+  policy:
+    semver:
+      range: '>=0.0.0'

@@ -27,6 +27,7 @@
 2m helmrelease ready vector vector
 2m helmrelease ready victoriametrics victoriametrics
 
+2m kustomizations.kustomize.toolkit.fluxcd.io ready app-conveyor app-conveyor
 2m kustomizations.kustomize.toolkit.fluxcd.io ready monitoring monitoring-flux
 2m kustomizations.kustomize.toolkit.fluxcd.io ready kubernetes-event-exporter kubernetes-event-exporter
 

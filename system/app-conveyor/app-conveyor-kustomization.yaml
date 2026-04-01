@@ -1,0 +1,25 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: app-conveyor
+  namespace: app-conveyor
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./kustomizations/services/app-conveyor
+  prune: true
+  targetNamespace: app-conveyor
+  dependsOn:
+    - name: system
+      namespace: flux-system
+  images:
+    - name: ghcr.io/elifesciences/app-conveyor
+      newTag: 0.00000000.000000 # {"$imagepolicy": "app-conveyor:app-conveyor:tag"}
+  postBuild:
+    substitute:
+      hostname: app-conveyor.${cluster_domain}
+      secret_name: app-conveyor-github
