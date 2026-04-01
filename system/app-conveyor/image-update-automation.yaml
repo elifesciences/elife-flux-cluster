@@ -1,0 +1,36 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageUpdateAutomation
+metadata:
+  name: app-conveyor
+  namespace: app-conveyor
+spec:
+  interval: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    commit:
+      author:
+        name: Fluxbot
+        email: flux@elifesciences.org
+      messageTemplate: |
+        deploy({{ .AutomationObject }}): Automatic deploy
+
+        Files:
+        {{ range $filename, $_ := .Changed.FileChanges -}}
+        - {{ $filename }}
+        {{ end -}}
+
+        Objects:
+        {{ range $resource, $changes := .Changed.Objects -}}
+        - {{ $resource.Kind }} {{ $resource.Namespace }}/{{ $resource.Name }}
+          Changes:
+        {{- range $_, $change := $changes }}
+          - {{ $change.Setter }}: {{ $change.OldValue }} -> {{ $change.NewValue }}
+        {{ end -}}
+        {{ end -}}
+  update:
+    strategy: Setters
+    path: ./system/app-conveyor

@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: app-conveyor
+resources:
+  - namespace.yaml
+  - rbac.yaml
+  - external-secret.yaml
+  - image-update-automation.yaml
+  - app-conveyor-kustomization.yaml

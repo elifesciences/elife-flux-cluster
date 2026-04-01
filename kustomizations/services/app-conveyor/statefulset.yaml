@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: app-conveyor
+spec:
+  replicas: 1
+  serviceName: app-conveyor
+  selector:
+    matchLabels:
+      app: app-conveyor
+  template:
+    metadata:
+      labels:
+        app: app-conveyor
+    spec:
+      serviceAccountName: app-conveyor
+      containers:
+        - name: app-conveyor
+          image: ghcr.io/elifesciences/app-conveyor
+          ports:
+            - containerPort: 3000
+          env:
+            - name: CONFIG_PATH
+              value: /config/conveyor.yaml
+            - name: DB_PATH
+              value: /data/conveyor.db
+          envFrom:
+            - secretRef:
+                name: ${secret_name}
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: config
+          configMap:
+            name: app-conveyor-config
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ReadWriteOnce]
+        resources:
+          requests:
+            storage: 1Gi
