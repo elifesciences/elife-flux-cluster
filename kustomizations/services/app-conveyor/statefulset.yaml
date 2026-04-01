@@ -50,6 +50,7 @@ spec:
         name: data
       spec:
         accessModes: [ReadWriteOnce]
+        storageClassName: csi-ebs-gp3
         resources:
           requests:
             storage: 1Gi
