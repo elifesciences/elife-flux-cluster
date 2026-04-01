@@ -34,3 +34,9 @@ data:
             name: app-conveyor
             automation: app-conveyor
             namespace: app-conveyor
+
+          - id: live
+            type: k8s-deploy
+            kind: StatefulSet
+            name: app-conveyor
+            namespace: app-conveyor

@@ -10,7 +10,7 @@ metadata:
   name: app-conveyor
 rules:
   - apiGroups: ["apps"]
-    resources: ["deployments"]
+    resources: ["deployments", "statefulsets"]
     verbs: ["get"]
   - apiGroups: ["image.toolkit.fluxcd.io"]
     resources: ["imagepolicies", "imageupdateautomations"]
