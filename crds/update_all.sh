@@ -2,6 +2,8 @@
 
 cd $(dirname $0)
 
+./app-conveyor/update.sh $(cat ../system/app-conveyor/app-conveyor-kustomization.yaml | yq '.spec.images[] | select(.name == "ghcr.io/elifesciences/app-conveyor") | .newTag' | sed 's/.*-g\([a-f0-9]*\)-.*/\1/')
+
 ./cert-manager/update.sh $(cat ../system/infra/cert-manager/release.yaml | yq .spec.chart.spec.version)
 ./external-secrets/update.sh v$(cat ../system/external-secrets/external-secrets/release.yaml | yq .spec.chart.spec.version)
 ./external-dns/update.sh $(cat ../system/external-dns/release.yaml | yq .spec.chart.spec.version)
