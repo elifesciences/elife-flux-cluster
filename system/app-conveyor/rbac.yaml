@@ -9,6 +9,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: app-conveyor
 rules:
+  - apiGroups: ["app-conveyor.elifesciences.org"]
+    resources: ["pipelines"]
+    verbs: ["get", "list", "watch"]
   - apiGroups: ["apps"]
     resources: ["deployments", "statefulsets"]
     verbs: ["get"]

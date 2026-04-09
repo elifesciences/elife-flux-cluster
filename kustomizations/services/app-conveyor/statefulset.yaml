@@ -21,6 +21,8 @@ spec:
           ports:
             - containerPort: 3000
           env:
+            - name: WATCH_NAMESPACE
+              value: "*"
             - name: CONFIG_PATH
               value: /config/conveyor.yaml
             - name: DB_PATH
