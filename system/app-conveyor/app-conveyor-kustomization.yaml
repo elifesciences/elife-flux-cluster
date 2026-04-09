@@ -17,7 +17,7 @@ spec:
       namespace: flux-system
   images:
     - name: ghcr.io/elifesciences/app-conveyor
-      newTag: 20260409062728.0.0-gddecc64-24175930223-1 # {"$imagepolicy": "app-conveyor:app-conveyor:tag"}
+      newTag: 20260409071325.0.0-gc90b7aa-24177539294-1 # {"$imagepolicy": "app-conveyor:app-conveyor:tag"}
   postBuild:
     substitute:
       hostname: app-conveyor.${cluster_domain}
