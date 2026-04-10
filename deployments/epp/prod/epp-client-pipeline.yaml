@@ -1,0 +1,51 @@
+---
+apiVersion: app-conveyor.elifesciences.org/v1alpha1
+kind: Pipeline
+metadata:
+  name: epp--prod-epp-client
+  namespace: epp--prod
+spec:
+  name: Enhanced Preprints Client (prod)
+  pollIntervalMs: 60000
+  steps:
+    - id: src
+      type: git
+      repo: elifesciences/enhanced-preprints-client
+      branch: master
+
+    - id: ci
+      type: gha
+      repo: elifesciences/enhanced-preprints-client
+      workflow: ci.yaml
+
+    - id: reg
+      type: ghcr
+      image: ghcr.io/elifesciences/enhanced-preprints-client
+
+    - id: pr
+      type: gh-pr
+      repo: elifesciences/enhanced-preprints-e2e
+      author: renovate[bot]
+      label: "e2e PR Merged"
+
+    - id: reg-approved
+      type: ghcr
+      image: ghcr.io/elifesciences/enhanced-preprints-client
+      tagPattern: "-approved$"
+      label: "Image Approved"
+
+    - id: auto
+      type: flux-image
+      policy: epp-client-approved
+      namespace: epp--prod
+
+    - id: sync
+      type: flux-kustomize
+      name: epp--prod
+      automation: epp-automation
+      namespace: epp--prod
+
+    - id: live
+      type: k8s-deploy
+      name: epp-client
+      namespace: epp--prod
