@@ -31,7 +31,6 @@ spec:
     - id: sync
       type: flux-kustomize
       name: epp--staging
-      automation: epp-automation
       namespace: epp--staging
 
     - id: live

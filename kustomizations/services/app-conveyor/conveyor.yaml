@@ -26,7 +26,6 @@ pipelines:
       - id: sync
         type: flux-kustomize
         name: app-conveyor
-        automation: app-conveyor
         namespace: app-conveyor
 
       - id: live

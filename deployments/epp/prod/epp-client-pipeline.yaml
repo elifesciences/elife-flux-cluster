@@ -43,7 +43,6 @@ spec:
     - id: sync
       type: flux-kustomize
       name: epp--prod
-      automation: epp-automation
       namespace: epp--prod
 
     - id: live
