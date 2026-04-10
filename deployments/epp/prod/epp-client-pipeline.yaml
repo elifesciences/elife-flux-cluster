@@ -37,6 +37,7 @@ spec:
     - id: auto
       type: flux-image
       policy: epp-client-approved
+      automation: epp-automation
       namespace: epp--prod
 
     - id: sync

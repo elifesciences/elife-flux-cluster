@@ -25,6 +25,7 @@ spec:
     - id: auto
       type: flux-image
       policy: epp-client
+      automation: epp-automation
       namespace: epp--staging
 
     - id: sync
