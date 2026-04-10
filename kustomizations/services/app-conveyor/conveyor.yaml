@@ -20,7 +20,7 @@ pipelines:
       - id: auto
         type: flux-image
         policy: app-conveyor
-        automation: epp-automation
+        automation: app-conveyor
         namespace: app-conveyor
 
       - id: sync
