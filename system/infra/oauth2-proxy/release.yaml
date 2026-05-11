@@ -31,12 +31,8 @@ spec:
     extraArgs:
       provider: github
       github-org: elifesciences
-      whitelist-domain:
-        - .elifesciences.org
-        - .sciencebeam.org
-      cookie-domain:
-        - .elifesciences.org
-        - .sciencebeam.org
+      whitelist-domain: .elifesciences.org
+      cookie-domain: .elifesciences.org
       scope: "user:email,read:org"
       set-xauthrequest: true
       reverse-proxy: true
