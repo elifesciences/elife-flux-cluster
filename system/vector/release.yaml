@@ -34,9 +34,7 @@ spec:
       - name: gcp-data-hub-project-log-shipping
         mountPath: /etc/gcp-data-hub-project-log-shipping
         readOnly: true
-    env:
-      - name: VECTOR_LOG
-        value: info
+    logLevel: info
     tolerations:
       - effect: NoSchedule
         operator: Exists
