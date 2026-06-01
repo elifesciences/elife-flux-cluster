@@ -19,6 +19,11 @@ kubectl create ns flux
 # make sure flux components get installed, with additional components
 flux install --components-extra="image-reflector-controller,image-automation-controller" --toleration-keys=realnode
 
+# Use less strict Helm v3-style readiness checks instead of kstatus
+kubectl patch deployment helm-controller -n flux-system --type='json' \
+  -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--feature-gates=UseHelm3Defaults=true"}]'
+kubectl rollout status deployment/helm-controller -n flux-system
+
 # Add label to allow cluster-services workloads to select this node
 kubectl label node "$name-control-plane" Project="end-to-end-tests"
 # taint the current node to not schedule workloads by default
