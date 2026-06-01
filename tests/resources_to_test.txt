@@ -26,9 +26,11 @@
 2m helmrelease ready infra sealed-secrets
 2m helmrelease ready keda keda
 2m helmrelease ready keda keda-add-ons-http
+2m helmrelease ready kube-system prometheus-operator-crds
 2m helmrelease ready kyverno kyverno
 2m helmrelease ready metrics-server metrics-server
 2m helmrelease ready nidhogg nidhogg
+2m helmrelease ready reloader reloader
 2m helmrelease ready spegel spegel
 2m helmrelease ready traefik traefik
 2m helmrelease ready template-controller template-controller
