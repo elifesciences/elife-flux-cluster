@@ -5,6 +5,12 @@
 
 # Test all system resources have "deployed"
 2m helmrelease ready ack-system rds
+2m helmrelease ready ack-system cloudfront
+2m helmrelease ready ack-system iam
+2m helmrelease ready ack-system route53
+2m helmrelease ready ack-system s3
+2m helmrelease ready ack-system sns
+2m helmrelease ready ack-system sqs
 2m helmrelease ready db-operator-system opensearch-operator
 2m helmrelease ready db-operator-system pg-operator
 2m helmrelease ready db-operator-system psmdb-operator
