@@ -15,6 +15,8 @@
 2m helmrelease ready db-operator-system pg-operator
 2m helmrelease ready db-operator-system psmdb-operator
 2m helmrelease ready db-operator-system pxc-operator
+2m helmrelease ready db-operator-system dragonfly-operator
+2m helmrelease ready gemini gemini
 2m helmrelease ready external-dns external-dns
 2m helmrelease ready external-secrets external-secrets
 2m helmrelease ready gitops-dashboard gitops-dashboard
