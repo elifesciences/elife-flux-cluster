@@ -163,6 +163,7 @@ spec:
             - key: alert-type
               operator: NotIn
               values: ["victorialogs"]
+        ruleNamespaceSelector: {}
         resources:
           requests:
             cpu: 50m
