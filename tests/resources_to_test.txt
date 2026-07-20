@@ -30,7 +30,6 @@
 2m helmrelease ready kyverno kyverno
 2m helmrelease ready metrics-server metrics-server
 2m helmrelease ready reloader reloader
-2m helmrelease ready spegel spegel
 2m helmrelease ready traefik traefik
 2m helmrelease ready template-controller template-controller
 2m helmrelease ready vector vector

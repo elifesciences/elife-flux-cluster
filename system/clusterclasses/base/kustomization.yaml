@@ -16,7 +16,6 @@ resources:
 - ../../metrics-server
 - ../../monitoring
 - ../../reloader
-- ../../spegel
 - ../../template-controller
 - ../../temporal
 - ../../traefik
