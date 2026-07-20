@@ -4,3 +4,4 @@ resources:
 - ../../kyverno
 - ../../topologyspreadconstraints
 - ../../elife-default-project
+- ../../image-pull-secrets
