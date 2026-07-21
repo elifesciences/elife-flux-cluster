@@ -80,6 +80,11 @@ spec:
         name: vector
         namespace: logging
       spec:
+        install:
+          # vector's gcp_cloud_storage sinks fetch a real Google OAuth token at
+          # startup, so the pod can never become healthy with fake CI credentials.
+          # Don't wait for rollout; we only assert the release installs.
+          disableWait: true
         values:
           tolerations:
           - key: "realnode"
