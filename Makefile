@@ -5,7 +5,7 @@ validate:
 test: validate
 
 end2end:
-	./tests/run_cluster_in_kind.sh master
+	./tests/run_cluster_in_kind.sh $$(git branch --show-current)
 	./tests/run_tests.sh
 
 
