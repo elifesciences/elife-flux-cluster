@@ -51,12 +51,6 @@ jobs:
         if: failure()
         run: |
           kubectl describe helmreleases.helm.toolkit.fluxcd.io --all-namespaces
-      - name: Debug external secrets
-        if: failure()
-        run: |
-          kubectl get externalsecrets,clustersecretstores -A
-          kubectl describe externalsecrets -A
-          kubectl -n external-secrets logs deploy/external-secrets
       - name: Debug source-controller logs
         if: failure()
         run: |
