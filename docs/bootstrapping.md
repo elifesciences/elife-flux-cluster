@@ -11,7 +11,7 @@ get-started for github](https://fluxcd.io/docs/installation/#github-and-github-e
 
         aws eks update-kubeconfig --name kubernetes-aws--flux-prod
 
-2.  Create/locate a [personal access token](https://github.com/settings/tokens), Install flux with all controllers on the cluster linked to this repo
+2.  Create/locate a [personal access token](https://fluxcd.io/flux/installation/bootstrap/github/#github-pat), Install flux with all controllers on the cluster linked to this repo
 
         export GITHUB_TOKEN=<your-token>
 
