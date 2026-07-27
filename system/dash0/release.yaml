@@ -23,6 +23,8 @@ spec:
             memory: 128Mi
           limits:
             memory: 500Mi
+        daemonSetTolerations:
+          - operator: Exists
       dash0Export:
         enabled: true
         endpoint: ingress.eu-west-1.aws.dash0.com:4317
