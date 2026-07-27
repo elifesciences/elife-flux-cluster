@@ -15,7 +15,6 @@ spec:
         kind: HelmRepository
         name: dash0-operator
   values:
-    enabled: true
     operator:
       clusterName: ${cluster_name}
       collectors:
@@ -31,7 +30,8 @@ spec:
         secretRef:
           name: dash0-credentials
           key: token
-          autoMonitorNamespaces:
+      autoMonitorNamespaces:
+        enabled: true
       monitoringTemplate:
         spec:
           instrumentWorkloads:
