@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
 - ../../infra
 - ../../ack-system
+- ../../dash0
 - ../../database
 - ../../external-dns
 - ../../external-secrets
