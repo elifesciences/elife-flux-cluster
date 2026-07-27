@@ -6,3 +6,11 @@ metadata:
 spec:
   synchronizePrometheusRules: true
   synchronizePersesDashboards: false
+  instrumentWorkloads:
+    mode: none
+  logCollection:
+    enabled: false
+  eventCollection:
+    enabled: true
+  prometheusScraping:
+    enabled: true
