@@ -15,6 +15,7 @@ spec:
         kind: HelmRepository
         name: dash0-operator
   values:
+    enabled: true
     operator:
       clusterName: ${cluster_name}
       collectors:
@@ -30,3 +31,16 @@ spec:
         secretRef:
           name: dash0-credentials
           key: token
+          autoMonitorNamespaces:
+      monitoringTemplate:
+        spec:
+          instrumentWorkloads:
+            mode: none
+          logCollection:
+            enabled: false
+          eventCollection:
+            enabled: true
+          prometheusScraping:
+            enabled: false
+          synchronizePersesDashboards: false
+          synchronizePrometheusRules: false
