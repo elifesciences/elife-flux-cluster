@@ -17,6 +17,12 @@ spec:
   values:
     operator:
       clusterName: ${cluster_name}
+      collectors:
+        daemonSetCollectorContainerResources:
+          requests:
+            memory: 256Mi
+          limits:
+            memory: 500Mi
       dash0Export:
         enabled: true
         endpoint: ingress.eu-west-1.aws.dash0.com:4317
