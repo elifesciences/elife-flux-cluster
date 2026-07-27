@@ -1,7 +1,7 @@
 apiVersion: operator.dash0.com/v1beta1
 kind: Dash0Monitoring
-namespace: flux-system
 metadata:
+  namespace: flux-system
   name: dash0-flux-integration
 spec:
   synchronizePrometheusRules: true
