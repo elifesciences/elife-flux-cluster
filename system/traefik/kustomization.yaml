@@ -6,6 +6,7 @@ resources:
 - source.yaml
 - release.yaml
 - dash0-monitoring.yaml
+- dash0-reds-dashboard.yaml
 - global-middlewares/compress.yaml
 - global-middlewares/elife-oauth.yaml
 - global-middlewares/redirect-www-to-non-www.yaml
