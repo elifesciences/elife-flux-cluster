@@ -17,6 +17,7 @@ spec:
   values:
     operator:
       clusterName: ${cluster_name}
+      prometheusCrdSupportEnabled: true
       collectors:
         daemonSetCollectorContainerResources:
           requests:
