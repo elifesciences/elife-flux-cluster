@@ -35,6 +35,8 @@ spec:
           key: token
       autoMonitorNamespaces:
         enabled: true
+      selfMonitoring:
+        enabled: true
       monitoringTemplate:
         spec:
           instrumentWorkloads:
