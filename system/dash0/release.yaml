@@ -61,9 +61,6 @@ spec:
                 # --- Entire families not used in any alert ---
                 - 'IsMatch(name, "^otelcol_")'       # collector self-monitoring
                 - 'IsMatch(name, "^mongodb_")'       # mongo metrics
-                # temporal has prefixed metrics but also ones without prefix
-                - 'IsMatch(name, "^temporal_")'
-                - 'IsMatch(name, "^(activity_|approximate_backlog_|client_latency|task_schedule_|schedule_to_start|workflow_task_|history_workflow_|complete_workflow_)")'
 
                 # kubeletstats per-container usage. Highest-volume family we collect
                 # (11 metrics x every container, every 30s). The per-pod rollups below

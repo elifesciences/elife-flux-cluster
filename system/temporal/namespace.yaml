@@ -5,5 +5,6 @@ metadata:
   name: temporal
   labels:
     name: temporal
+    dash0.com/enable: "false"
   annotations:
     elifesciences.org/default-project: ${cluster_name}
