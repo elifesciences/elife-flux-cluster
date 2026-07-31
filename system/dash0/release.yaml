@@ -80,7 +80,7 @@ spec:
                 - 'IsMatch(name, "^k8s\\.pod\\.") and not IsMatch(name, "^k8s\\.pod\\.(cpu|memory)_limit_utilization$")'
 
                 # traefik_*: keep requests, latency bucket, and TLS cert expiry
-                - 'IsMatch(name, "^traefik_") and not IsMatch(name, "^traefik_(service_requests_total|service_request_duration_seconds_bucket|tls_certs_not_after)$")'
+                - 'IsMatch(name, "^traefik_") and not IsMatch(name, "^traefik_(service_requests_total|service_request_duration_seconds|tls_certs_not_after)$")'
 
                 # gotk_*: keep resource_info for flux reconcile alert
                 - 'IsMatch(name, "^gotk_") and not IsMatch(name, "gotk_resource_info")'
