@@ -66,7 +66,7 @@ spec:
                 # kubeletstats per-container usage. Highest-volume family we collect
                 # (11 metrics x every container, every 30s). The per-pod rollups below
                 # cover the same ground for alerting purposes at a fraction of the cost.
-                - 'IsMatch(name, "^container\\.")'
+                - 'IsMatch(name, "^container")'
                 - 'IsMatch(name, "^k8s\\.(hpa|replicaset|resource_quota|cronjob|job)\\.")'
 
                 # --- Partial families: keep only what alerts need ---
