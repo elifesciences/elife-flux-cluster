@@ -81,6 +81,9 @@ spec:
                 # traefik_*: keep requests, latency bucket, and TLS cert expiry
                 - 'IsMatch(name, "^traefik_") and not IsMatch(name, "^traefik_(service_requests_total|service_request_duration_seconds_bucket|tls_certs_not_after)$")'
 
+                # gotk_*: keep resource_info for flux reconcile alert
+                - 'IsMatch(name, "^gotk_") and not IsMatch(name, "gotk_resource_info")'
+
                 # k8s.container.*: keep restarts and status reason (crash loops + OOMKilled).
                 # Note this also drops k8s.container.status.state, which is redundant
                 - 'IsMatch(name, "^k8s\\.container\\.") and not IsMatch(name, "^k8s\\.container\\.(restarts|status\\.reason)$")'
