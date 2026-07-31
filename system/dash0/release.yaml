@@ -61,6 +61,7 @@ spec:
                 # --- Entire families not used in any alert ---
                 - 'IsMatch(name, "^otelcol_")'       # collector self-monitoring
                 - 'IsMatch(name, "^temporal_")'      # temporal metrics
+                - 'IsMatch(name, "^mongodb_")'       # mongo metrics
 
                 # kubeletstats per-container usage. Highest-volume family we collect
                 # (11 metrics x every container, every 30s). The per-pod rollups below
