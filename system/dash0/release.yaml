@@ -110,5 +110,9 @@ spec:
                 # Keep the four reasons we alert on. Their zero-valued datapoints are
                 # retained, so alerts still resolve on an explicit 0 rather than
                 # waiting for the series to go stale.
-                - 'metric.name == "k8s.container.status.reason" and not IsMatch(attributes["k8s.container.status.reason"], "^(CrashLoopBackOff|OOMKilled|ImagePullBackOff|CreateContainerConfigError)$")'
+                - >-
+                  metric.name == "k8s.container.status.reason" and
+                  (attributes["k8s.container.status.reason"] == nil or
+                  not IsMatch(attributes["k8s.container.status.reason"],
+                    "^(CrashLoopBackOff|OOMKilled|ImagePullBackOff|CreateContainerConfigError)$"))
 
