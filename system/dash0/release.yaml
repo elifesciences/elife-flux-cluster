@@ -42,8 +42,8 @@ spec:
           logCollection:
             enabled: false
           eventCollection:
-            enabled: true
-          prometheusScraping:
             enabled: false
+          prometheusScraping:
+            enabled: true
           synchronizePersesDashboards: false
           synchronizePrometheusRules: false

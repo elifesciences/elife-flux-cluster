@@ -23,4 +23,3 @@ resources:
 - ../../vector
 - ../../victoriametrics
 - ../../victorialogs
-- ../../flux-alerting/dash0-monitoring.yaml

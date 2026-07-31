@@ -38,17 +38,6 @@ patches:
                     values: ["karpenter", "kwok"] # Don't place this on cluster-controlled nodes
 
 - target:
-    kind: Namespace
-    name: flux-system
-  patch: |-
-    apiVersion: apps/v1
-    kind: Namespace
-    metadata:
-      name: flux-system
-      labels:
-        dash0.com/enable: "false"
-
-- target:
     version: v1
     group: apps
     kind: Deployment

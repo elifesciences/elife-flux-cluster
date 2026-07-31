@@ -140,15 +140,6 @@ spec:
               annotations:
                 summary: "Traefik Down"
                 description: "{{ $labels.pod }} on {{ $labels.nodename }} is down"
-    tracing:
-      serviceName: traefik
-      sampleRate: 1.0
-      otlp:
-        enabled: true
-        grpc:
-          enabled: true
-          endpoint: "dash0-operator-opentelemetry-collector-service.dash0.svc.cluster.local:4317"
-          insecure: true
     experimental:
       plugins:
         inlineResponse:
