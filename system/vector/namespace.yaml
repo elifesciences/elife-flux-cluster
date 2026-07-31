@@ -3,5 +3,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: vector
+  labels:
+    dash0.com/enable: "false"
   annotations:
     elifesciences.org/default-project: ${cluster_name}
