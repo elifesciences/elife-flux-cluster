@@ -52,18 +52,33 @@ spec:
           # PromQL and the Dash0 UI expose them with underscores (k8s_container_restarts).
           metrics:
             metric:
+              # Whole namespaces are excluded via the dash0.com/enable=false label on
+              # the namespace itself (see system/{vector,victorialogs,victoriametrics}),
+              # which also stops the collector scraping those pods in the first place.
+              #
               # --- Entire families not used in any alert ---
               - 'IsMatch(name, "^otelcol_")'       # collector self-monitoring
-              - 'IsMatch(name, "^container\\.")'    # cadvisor (superseded by k8s.* equivalents)
-              - 'IsMatch(name, "^k8s\\.pod\\.")'    # pod-level resource metrics (unused)
+              # kubeletstats per-container usage. Highest-volume family we collect
+              # (11 metrics x every container, every 30s). The per-pod rollups below
+              # cover the same ground for alerting purposes at a fraction of the cost.
+              - 'IsMatch(name, "^container\\.")'
               - 'IsMatch(name, "^k8s\\.(hpa|replicaset|resource_quota|cronjob|job)\\.")'
 
               # --- Partial families: keep only what alerts need ---
 
+              # k8s.pod.*: keep the limit-utilization ratios only. These are the one
+              # source of workload CPU/memory saturation data we retain -- kubeletstats
+              # computes them against the pod's configured limits, so they need no
+              # denominator metric, and they cost one datapoint per pod per 30s each.
+              # Without them we can only see that a container was already OOMKilled
+              # (k8s.container.status.reason), never that one is approaching its limit.
+              - 'IsMatch(name, "^k8s\\.pod\\.") and not IsMatch(name, "^k8s\\.pod\\.(cpu|memory)_limit_utilization$")'
+
               # traefik_*: keep requests, latency bucket, and TLS cert expiry
               - 'IsMatch(name, "^traefik_") and not IsMatch(name, "^traefik_(service_requests_total|service_request_duration_seconds_bucket|tls_certs_not_after)$")'
 
-              # k8s.container.*: keep restarts and status reason (crash loops + OOMKilled)
+              # k8s.container.*: keep restarts and status reason (crash loops + OOMKilled).
+              # Note this also drops k8s.container.status.state, which is redundant
               - 'IsMatch(name, "^k8s\\.container\\.") and not IsMatch(name, "^k8s\\.container\\.(restarts|status\\.reason)$")'
 
               # k8s.volume.*: keep available and capacity (PVC disk alert)
@@ -73,4 +88,17 @@ spec:
               - 'IsMatch(name, "^k8s\\.daemonset\\.") and not IsMatch(name, "^k8s\\.daemonset\\.(desired_scheduled_nodes|ready_nodes)$")'
               - 'IsMatch(name, "^k8s\\.deployment\\.") and not IsMatch(name, "^k8s\\.deployment\\.(available|desired)$")'
               - 'IsMatch(name, "^k8s\\.statefulset\\.") and not IsMatch(name, "^k8s\\.statefulset\\.(desired_pods|ready_pods)$")'
+
+            datapoint:
+              # k8s.container.status.reason is our single most expensive metric
+              # (52K datapoints / 6K series / cardinality score 14 across ~450
+              # containers). The k8scluster receiver reports *all nine* possible
+              # reasons for every container on every 30s interval so that no series
+              # is ever missing, and only the currently-applicable one is non-zero
+              # -- so 8 of every 9 datapoints carry no information.
+              #
+              # Keep the four reasons we alert on. Their zero-valued datapoints are
+              # retained, so alerts still resolve on an explicit 0 rather than
+              # waiting for the series to go stale.
+              - 'metric.name == "k8s.container.status.reason" and not IsMatch(attributes["k8s.container.status.reason"], "^(CrashLoopBackOff|OOMKilled|ImagePullBackOff|CreateContainerConfigError)$")'
 
