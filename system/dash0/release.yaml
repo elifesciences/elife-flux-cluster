@@ -85,7 +85,7 @@ spec:
                 - 'IsMatch(name, "^traefik_") and not IsMatch(name, "^traefik_(service_requests_total|service_request_duration_seconds|tls_certs_not_after)$")'
 
                 # gotk_*: keep resource_info for flux reconcile alert
-                - 'IsMatch(name, "^gotk_") and not IsMatch(name, "gotk_resource_info")'
+                - 'IsMatch(name, "^gotk_") and not IsMatch(name, "^gotk_resource_info$")'
 
                 # k8s.container.*: keep restarts and status reason (crash loops + OOMKilled).
                 # Note this also drops k8s.container.status.state, which is redundant
