@@ -5,6 +5,7 @@ metadata:
   name: dash0-operator
   namespace: dash0
 spec:
+  suspend: true
   interval: 5m
   chart:
     spec:
