@@ -29,6 +29,10 @@ spec:
         requests:
           cpu: 1300m
           memory: 800Mi
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: ScheduleAnyway
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
