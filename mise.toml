@@ -11,7 +11,7 @@ yq = "4.53.3"
 kubeconform = "0.8.0"
 awscli = "2.36.20"
 helm = "4.2.3"
-pluto = "5.24.1"
+pluto = "5.24.3"
 
 
 [tasks.watch-nodes]
