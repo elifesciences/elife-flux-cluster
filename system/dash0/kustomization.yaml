@@ -5,3 +5,4 @@ resources:
 - namespace.yaml
 - source.yaml
 - secret.yaml
+- release.yaml
