@@ -35,9 +35,8 @@ spec:
         name: replicaset
         size: 3
         nodeSelector:
-          topology.kubernetes.io/zone: us-east-1c
-        nodeSelector:
           kubernetes.io/arch: amd64
+          topology.kubernetes.io/zone: us-east-1c
         annotations:
           "cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes": "bin"
           prometheus.io/scrape: 'true'
