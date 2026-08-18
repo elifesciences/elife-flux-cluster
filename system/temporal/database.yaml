@@ -48,6 +48,7 @@ spec:
     pxc:
       nodeSelector:
         kubernetes.io/arch: amd64
+        topology.kubernetes.io/zone: us-east-1c
       # request certs with cert-manager, not helm charts
       certManager: true
       resources:
