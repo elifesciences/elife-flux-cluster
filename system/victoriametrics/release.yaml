@@ -243,6 +243,8 @@ spec:
           memory: 200Mi
         limits: {}
     kube-state-metrics:
+      image:
+        tag: v2.19.1
       resources:
         requests:
           cpu: 20m
