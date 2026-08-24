@@ -18,6 +18,7 @@ metadata:
   name: data-hub-team-deployment
   namespace: flux-system
 spec:
+  suspend: true
   interval: 10m0s
   path: ./manifests
   prune: true
