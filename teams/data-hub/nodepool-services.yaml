@@ -40,6 +40,9 @@ spec:
         - key: "kubernetes.io/arch"
           operator: In
           values: ["amd64"]
+        - key: topology.kubernetes.io/zone
+          operator: In
+          values: ["us-east-1c"]
   limits:
     cpu: 1000
   weight: 25
@@ -92,6 +95,9 @@ spec:
         - key: "kubernetes.io/arch"
           operator: In
           values: ["amd64"]
+        - key: topology.kubernetes.io/zone
+          operator: In
+          values: ["us-east-1c"]
   limits:
     cpu: 4
   weight: 50
@@ -143,6 +149,9 @@ spec:
         - key: "kubernetes.io/arch"
           operator: In
           values: ["amd64"]
+        - key: topology.kubernetes.io/zone
+          operator: In
+          values: ["us-east-1c"]
   limits:
     cpu: 1000
   disruption:
