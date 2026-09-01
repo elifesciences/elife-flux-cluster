@@ -3,6 +3,7 @@
     "config:recommended",
     ":prHourlyLimitNone"
   ],
+  "prConcurrentLimit": 0,
   "timezone": "Europe/London",
   "kubernetes": {
     "fileMatch": [
