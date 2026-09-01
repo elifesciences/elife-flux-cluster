@@ -30,6 +30,18 @@ spec:
       enabled: false
     backup:
       enabled: false
+    logcollector:
+      logrotate:
+        configuration: |
+          /data/db/logs/mongod.full.log {
+              size 200M
+              rotate 4
+              compress
+              delaycompress
+              missingok
+              notifempty
+          }
+        schedule: "*/15 * * * *"
     replsets:
       rs0:
         name: replicaset
