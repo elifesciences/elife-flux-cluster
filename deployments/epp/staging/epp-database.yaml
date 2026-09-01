@@ -28,6 +28,8 @@ spec:
     #   mode: disabled
     sharding:
       enabled: false
+    logcollector:
+      enabled: false
     backup:
       enabled: false
     replsets:

@@ -24,6 +24,8 @@ spec:
   values:
     sharding:
       enabled: false
+    logcollector:
+      enabled: false
     backup:
       enabled: true
       storages:
