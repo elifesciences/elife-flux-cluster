@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: dash0-operator
-      version: 0.150.0
+      version: 0.154.0
       interval: 5m
       sourceRef:
         kind: HelmRepository
