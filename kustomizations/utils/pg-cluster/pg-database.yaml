@@ -28,10 +28,6 @@ spec:
               operator: In
               values:
               - amd64
-            - key: topology.kubernetes.io/zone
-              operator: In
-              values:
-              - us-east-1c
     resources:
       requests:
         cpu: ${instance_cpu:-100m}
@@ -59,10 +55,6 @@ spec:
                   operator: In
                   values:
                   - amd64
-                - key: topology.kubernetes.io/zone
-                  operator: In
-                  values:
-                  - us-east-1c
           podAntiAffinity:
             preferredDuringSchedulingIgnoredDuringExecution:
             - podAffinityTerm:
@@ -104,10 +96,6 @@ spec:
                 operator: In
                 values:
                 - amd64
-              - key: topology.kubernetes.io/zone
-                operator: In
-                values:
-                - us-east-1c
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - podAffinityTerm:
