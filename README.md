@@ -109,5 +109,4 @@ Administration
 - [Upgrading infrastructure services](docs/infra-updates.md)
 - [Adding a new application team](docs/new-application-team.md)
 - [Bootstrapping the cluster](docs/bootstrapping.md)
-- [Upgrading EKS/Worker Nodesl](docs/upgrading-eks.md)
 - [Debugging/Common Fixes](docs/admin-notes.md)
