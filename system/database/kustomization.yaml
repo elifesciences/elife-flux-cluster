@@ -6,6 +6,5 @@ resources:
 - psmdb-operator-source.yaml
 - mongodb
 - mysql
-- postgresql
 - opensearch
 - dragonfly

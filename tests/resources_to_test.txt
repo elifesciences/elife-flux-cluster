@@ -12,7 +12,6 @@
 2m helmrelease ready ack-system sns
 2m helmrelease ready ack-system sqs
 2m helmrelease ready db-operator-system opensearch-operator
-2m helmrelease ready db-operator-system pg-operator
 2m helmrelease ready db-operator-system psmdb-operator
 2m helmrelease ready db-operator-system pxc-operator
 2m helmrelease ready db-operator-system dragonfly-operator
