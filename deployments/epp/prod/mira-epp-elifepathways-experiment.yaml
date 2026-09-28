@@ -27,6 +27,13 @@ spec:
                 name: epp-client
                 port:
                   number: 3000
+          - path: /robots.txt
+            pathType: Exact
+            backend:
+              service:
+                name: epp-client
+                port:
+                  number: 3000
   tls:
     - hosts:
         - epp.elifepathways.org
