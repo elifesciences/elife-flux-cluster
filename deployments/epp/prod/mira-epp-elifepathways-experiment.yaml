@@ -20,7 +20,7 @@ spec:
                 name: epp-client
                 port:
                   number: 3000
-          - path: /_next/static
+          - path: /reviewed-preprints/_next/static
             pathType: Prefix
             backend:
               service:
