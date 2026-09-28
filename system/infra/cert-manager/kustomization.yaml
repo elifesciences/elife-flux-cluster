@@ -4,3 +4,4 @@ resources:
 - source.yaml
 - release.yaml
 - letsencrypt.yaml
+- letsencrypt-http01.yaml
