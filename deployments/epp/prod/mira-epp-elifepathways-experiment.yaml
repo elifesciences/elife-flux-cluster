@@ -27,7 +27,7 @@ spec:
                 name: epp-client
                 port:
                   number: 3000
-          - path: /reviewed-preprints/_next/image
+          - path: /_next/image
             pathType: Prefix
             backend:
               service:
