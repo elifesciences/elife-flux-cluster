@@ -134,7 +134,6 @@ See `docs/new-application-team.md` for the complete checklist. Summary:
    - `storageclass.yaml` — team-specific StorageClass for cost tracking (e.g., `myteam-gp3`)
    - `volumesnapshotclass.yaml` — VolumeSnapshotClass
    - `deployment-sync.yaml` — GitRepository + Flux Kustomization pointing at the team's external deployment repo
-   - `team-admin-group.yaml` — Kubernetes Group for RBAC
 3. Create `clusters/flux-prod/myteam-team.yaml` — a cluster-level Flux Kustomization that depends on `nodes` and `policies`.
 4. The team creates a Namespace in their own deployment repo with the annotation:
    ```yaml
