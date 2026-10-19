@@ -11,3 +11,8 @@ resources:
 - flux-health.yaml
 - platform-integrations.yaml
 - notification-channel.yaml
+- synthetic-checks.yaml
+patches:
+- path: synthetic-checks-defaults.yaml
+  target:
+    kind: Dash0SyntheticCheck

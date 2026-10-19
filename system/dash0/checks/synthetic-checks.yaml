@@ -1,0 +1,360 @@
+---
+# Uptime checks migrated from Pingdom, run from Dash0's public locations.
+# Locations, retries, notifications and request defaults shared by all checks are
+# set once in synthetic-checks-defaults.yaml.
+#
+# --- elifesciences.org (via CDN) ---
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SyntheticCheck
+metadata:
+  name: elife-home-page
+  namespace: dash0-checks
+spec:
+  display:
+    name: eLife Home Page
+  enabled: true
+  schedule:
+    interval: 15m
+  plugin:
+    kind: http
+    spec:
+      request:
+        method: get
+        url: https://elifesciences.org/
+      assertions:
+        criticalAssertions:
+          - kind: status_code
+            spec:
+              operator: is
+              value: "200"
+        degradedAssertions: []
+---
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SyntheticCheck
+metadata:
+  name: elife-submit-your-research
+  namespace: dash0-checks
+spec:
+  display:
+    name: eLife Submit Your Research Page
+  enabled: true
+  schedule:
+    interval: 15m
+  plugin:
+    kind: http
+    spec:
+      request:
+        method: get
+        url: https://elifesciences.org/about/submit-your-research
+      assertions:
+        criticalAssertions:
+          - kind: status_code
+            spec:
+              operator: is
+              value: "200"
+        degradedAssertions: []
+---
+# The CDN currently answers reviewed preprint pages with a "Client Challenge" page (HTTP 200)
+# for non-browser clients, so a status assertion alone passes even when the content is missing.
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SyntheticCheck
+metadata:
+  name: elife-reviewed-preprint
+  namespace: dash0-checks
+spec:
+  display:
+    name: A Reviewed Preprint
+  enabled: true
+  schedule:
+    interval: 15m
+  plugin:
+    kind: http
+    spec:
+      request:
+        method: get
+        url: https://elifesciences.org/reviewed-preprints/90192
+      assertions:
+        criticalAssertions:
+          - kind: status_code
+            spec:
+              operator: is
+              value: "200"
+        degradedAssertions: []
+---
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SyntheticCheck
+metadata:
+  name: elife-reviewed-preprint-reviews
+  namespace: dash0-checks
+spec:
+  display:
+    name: A Reviewed Preprint (Reviews Tab)
+  enabled: true
+  schedule:
+    interval: 15m
+  plugin:
+    kind: http
+    spec:
+      request:
+        method: get
+        url: https://elifesciences.org/reviewed-preprints/90192/reviews
+      assertions:
+        criticalAssertions:
+          - kind: status_code
+            spec:
+              operator: is
+              value: "200"
+        degradedAssertions: []
+---
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SyntheticCheck
+metadata:
+  name: journal-article
+  namespace: dash0-checks
+spec:
+  display:
+    name: Journal article 85111
+  enabled: true
+  schedule:
+    interval: 1m
+  plugin:
+    kind: http
+    spec:
+      request:
+        method: get
+        url: https://elifesciences.org/articles/85111
+      assertions:
+        criticalAssertions:
+          - kind: status_code
+            spec:
+              operator: is
+              value: "200"
+        degradedAssertions: []
+---
+# --- Origins (bypassing the CDN) ---
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SyntheticCheck
+metadata:
+  name: epp-landing-page
+  namespace: dash0-checks
+spec:
+  display:
+    name: EPP (No CDN) Landing page
+  enabled: true
+  schedule:
+    interval: 1m
+  plugin:
+    kind: http
+    spec:
+      request:
+        method: get
+        url: https://prod--epp.elifesciences.org/
+      assertions:
+        criticalAssertions:
+          - kind: status_code
+            spec:
+              operator: is
+              value: "200"
+        degradedAssertions: []
+---
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SyntheticCheck
+metadata:
+  name: epp-reviewed-preprint
+  namespace: dash0-checks
+spec:
+  display:
+    name: EPP (No CDN) A Reviewed Preprint
+  enabled: true
+  schedule:
+    interval: 1m
+  plugin:
+    kind: http
+    spec:
+      request:
+        method: get
+        url: https://prod--epp.elifesciences.org/reviewed-preprints/90192
+      assertions:
+        criticalAssertions:
+          - kind: status_code
+            spec:
+              operator: is
+              value: "200"
+        degradedAssertions: []
+---
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SyntheticCheck
+metadata:
+  name: epp-reviewed-preprint-reviews
+  namespace: dash0-checks
+spec:
+  display:
+    name: EPP (No CDN) A Reviewed Preprint (Reviews Tab)
+  enabled: true
+  schedule:
+    interval: 1m
+  plugin:
+    kind: http
+    spec:
+      request:
+        method: get
+        url: https://prod--epp.elifesciences.org/reviewed-preprints/90192/reviews
+      assertions:
+        criticalAssertions:
+          - kind: status_code
+            spec:
+              operator: is
+              value: "200"
+        degradedAssertions: []
+---
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SyntheticCheck
+metadata:
+  name: epp-status
+  namespace: dash0-checks
+spec:
+  display:
+    name: EPP Status Page
+  enabled: true
+  schedule:
+    interval: 1m
+  plugin:
+    kind: http
+    spec:
+      request:
+        method: get
+        url: https://prod--epp.elifesciences.org/status
+      assertions:
+        criticalAssertions:
+          - kind: status_code
+            spec:
+              operator: is
+              value: "200"
+        degradedAssertions: []
+---
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SyntheticCheck
+metadata:
+  name: journal-status
+  namespace: dash0-checks
+spec:
+  display:
+    name: Journal Status Page
+  enabled: true
+  schedule:
+    interval: 1m
+  plugin:
+    kind: http
+    spec:
+      request:
+        method: get
+        url: http://prod--journal.elifesciences.org/status
+      assertions:
+        criticalAssertions:
+          - kind: status_code
+            spec:
+              operator: is
+              value: "200"
+        degradedAssertions: []
+---
+# --- APIs ---
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SyntheticCheck
+metadata:
+  name: docmaps-api
+  namespace: dash0-checks
+spec:
+  display:
+    name: DocMaps API main page
+  enabled: true
+  schedule:
+    interval: 1m
+  plugin:
+    kind: http
+    spec:
+      request:
+        method: get
+        url: https://data-hub-api.elifesciences.org/
+      assertions:
+        criticalAssertions:
+          - kind: status_code
+            spec:
+              operator: is
+              value: "200"
+        degradedAssertions: []
+---
+# --- Other sites ---
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SyntheticCheck
+metadata:
+  name: sciety-ping
+  namespace: dash0-checks
+spec:
+  display:
+    name: Sciety (prod) ping
+  enabled: true
+  schedule:
+    interval: 1m
+  plugin:
+    kind: http
+    spec:
+      request:
+        method: get
+        url: https://sciety.org/ping
+      assertions:
+        criticalAssertions:
+          - kind: status_code
+            spec:
+              operator: is
+              value: "200"
+        degradedAssertions: []
+---
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SyntheticCheck
+metadata:
+  name: sciety-labs-related-articles
+  namespace: dash0-checks
+spec:
+  display:
+    name: "Sciety Labs API: Related Articles for DOI"
+  enabled: true
+  schedule:
+    interval: 5m
+  plugin:
+    kind: http
+    spec:
+      request:
+        method: get
+        url: https://labs.sciety.org/api/like/s2/recommendations/v1/papers/forpaper/DOI:10.1101%2F2022.02.23.481615?fields=externalIds&limit=3&_evaluated_only=false&_published_within_last_n_days=60
+      assertions:
+        criticalAssertions:
+          - kind: status_code
+            spec:
+              operator: is
+              value: "200"
+        degradedAssertions: []
+---
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SyntheticCheck
+metadata:
+  name: ijm
+  namespace: dash0-checks
+spec:
+  display:
+    name: IJM
+  enabled: true
+  schedule:
+    interval: 1m
+  plugin:
+    kind: http
+    spec:
+      request:
+        method: get
+        url: https://microsimulation.pub/
+      assertions:
+        criticalAssertions:
+          - kind: status_code
+            spec:
+              operator: is
+              value: "200"
+        degradedAssertions: []

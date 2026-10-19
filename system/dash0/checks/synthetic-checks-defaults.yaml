@@ -1,0 +1,34 @@
+---
+# Defaults merged into every Dash0SyntheticCheck (see kustomization.yaml).
+# Values set here win over the same field in an individual check.
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SyntheticCheck
+metadata:
+  name: all
+spec:
+  schedule:
+    # One location per run, as Pingdom did; a single flaky location is absorbed by retries.
+    strategy: random_location
+    locations:
+      - uk-london
+      - de-frankfurt
+      - us-north-virginia
+      - us-oregon
+  retries:
+    kind: fixed
+    spec:
+      attempts: 2
+      delay: 10s
+  # Routed by the alerts Dash0NotificationChannel filter rather than per check.
+  notifications:
+    channels: []
+  plugin:
+    spec:
+      request:
+        headers: []
+        queryParameters: []
+        redirects: follow
+        tls:
+          allowInsecure: false
+        tracing:
+          addTracingHeaders: false
