@@ -28,8 +28,8 @@ spec:
           - operator: Exists
       dash0Export:
         enabled: true
-        endpoint: ingress.eu-west-1.aws.dash0.com:4317
-        apiEndpoint: https://api.eu-west-1.aws.dash0.com
+        endpoint: ingress.us-east-1.aws.dash0.com:4317
+        apiEndpoint: https://api.us-east-1.aws.dash0.com
         secretRef:
           name: dash0-credentials
           key: token
