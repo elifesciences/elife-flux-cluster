@@ -42,7 +42,7 @@ spec:
           instrumentWorkloads:
             mode: none
           logCollection:
-            enabled: false
+            enabled: true
           eventCollection:
             enabled: false
           prometheusScraping:
@@ -61,4 +61,14 @@ spec:
                 # --- Entire families not used in any alert ---
                 - 'IsMatch(name, "^otelcol_")'       # collector self-monitoring
                 - 'IsMatch(name, "^mongodb_")'       # mongo metrics
+            logs:
+              log_records:
+                # Logs are opt-in per workload via the dash0.com/log-level pod label,
+                # whose value is the minimum severity to ship (trace|debug|info|warn|error).
+                # Records without a parsed severity (UNSPECIFIED) are always kept.
+                - 'resource.attributes["k8s.pod.label.dash0.com/log-level"] == nil'
+                - 'resource.attributes["k8s.pod.label.dash0.com/log-level"] == "debug" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_DEBUG'
+                - 'resource.attributes["k8s.pod.label.dash0.com/log-level"] == "info" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_INFO'
+                - 'resource.attributes["k8s.pod.label.dash0.com/log-level"] == "warn" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_WARN'
+                - 'resource.attributes["k8s.pod.label.dash0.com/log-level"] == "error" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_ERROR'
 

@@ -7,7 +7,7 @@
   - filter out costly metrics not used for checks or spelunking with `monitoringTemplate.spec.filter`
   - any remaining superfluous metrics are excluded using spam filters (dash0 clickops)
 - enable logging across all namespaces by default
-  - use filter to only ship logs if workloads have a log level label
+  - logs are opt-in per workload via the `dash0.com/log-level` pod label; its value is the minimum severity shipped
 - do not use tracing (for now)
   - we can achieve required checks and RED observability using metrics
   - revisit when there is demand for something only traces can solve
