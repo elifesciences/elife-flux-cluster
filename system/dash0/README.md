@@ -71,3 +71,13 @@ Dashboards are managed via clickops.
 
 - alert using e.g. `k8s.pod.phase` and `k8s.pod.container.restarts`
 - get reason via events shipped as logs
+
+## read-only Access for Agents
+
+There is a token with ro-access set up in the dash0 org. Configure it as follows:
+
+```
+dash0 config profiles create agent-ro --api-url https://api.us-east-1.aws.dash0.com --auth-token xxxxx
+dash0 config profiles select agent-ro
+```
+
