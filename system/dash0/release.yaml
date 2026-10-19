@@ -59,7 +59,6 @@ spec:
                 # which also stops the collector scraping those pods in the first place.
                 #
                 # --- Entire families not used in any alert ---
-                - 'IsMatch(name, "^otelcol_")'       # collector self-monitoring
                 - 'IsMatch(name, "^mongodb_")'       # mongo metrics
             logs:
               log_records:
