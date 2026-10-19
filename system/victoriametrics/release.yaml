@@ -139,7 +139,12 @@ spec:
             - key: alert-type
               operator: NotIn
               values: ["victorialogs"]
-        ruleNamespaceSelector: {}
+        ruleNamespaceSelector:
+          matchExpressions:
+            # Dash0 checks (system/dash0/checks) use OTel metric names that don't exist here
+            - key: kubernetes.io/metadata.name
+              operator: NotIn
+              values: ["dash0-checks"]
         resources:
           requests:
             cpu: 50m
