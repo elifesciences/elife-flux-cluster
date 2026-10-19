@@ -1,0 +1,22 @@
+---
+# Alerts are checks reaching critical; degraded checks are not notified
+# Routing by filter applies to every check rule, so rules do not need a channel annotation.
+apiVersion: operator.dash0.com/v1beta1
+kind: Dash0NotificationChannel
+metadata:
+  name: alerts
+  namespace: dash0-checks
+spec:
+  display:
+    name: Alerts
+  type: slack_bot
+  slackBotConfig:
+    teamId: T025LBBQS
+    channel: "#test-dash0"
+  frequency: 6h
+  routing:
+    assets: []
+    filters:
+      - - key: dash0.failed_check.max_status
+          operator: is
+          value: critical

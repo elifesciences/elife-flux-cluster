@@ -7,3 +7,4 @@ resources:
 - alerting-health.yaml
 - cluster-survival.yaml
 - resource-saturation.yaml
+- notification-channel.yaml
