@@ -29,7 +29,7 @@ Dashboards are managed via clickops.
 ### Areas to alert on
 
 - cluster survival
-  - alerting pipeline broken (watchdog)
+  - alerting pipeline broken (collectors not shipping or exporting, checks not evaluating)
   - Node not ready or has otherwise become unresponsive
   - daemon set unhappy
   - Pods failing to schedule

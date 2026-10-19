@@ -1,0 +1,92 @@
+---
+# Health of the alerting pipeline itself: collectors -> Dash0 ingestion -> check evaluation.
+# If any of these fire, other checks may be silently blind.
+#
+# Collector topology (dash0-operator):
+#   - agent daemonset: kubelet_stats, prometheus, host_metrics, file_log receivers (one pod per node)
+#   - cluster-metrics deployment: k8s_cluster, k8s_events receivers (singleton)
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: alerting-health
+  namespace: dash0-checks
+spec:
+  groups:
+    - name: alerting-health
+      rules:
+        # --- Check evaluation ---
+        - alert: ChecksNotEvaluating
+          expr: absent(dash0_check_evaluation_outcome)
+          for: 15m
+          annotations:
+            summary: No Dash0 check evaluation outcomes are being recorded
+            description: >-
+              Dash0 emits dash0.check.evaluation.outcome for every evaluated check.
+              Absence means checks are not synchronised from PrometheusRules or not evaluated.
+              Note this cannot detect Dash0 evaluation being down entirely, since this check would not run either.
+
+        # --- Collectors shipping ---
+        - alert: ClusterMetricsCollectorNotShipping
+          expr: absent(k8s_node_condition_ready)
+          for: 10m
+          annotations:
+            summary: No k8s cluster metrics received from the cluster-metrics collector
+            description: >-
+              k8s.node.condition_ready comes from the k8s_cluster receiver in the
+              dash0-operator-cluster-metrics-collector-deployment. Node, pod and workload state checks are blind.
+
+        - alert: NodeCollectorNotShipping
+          expr: >-
+            (k8s_node_condition_ready == 1)
+            unless on (k8s_node_name)
+            otelcol_process_uptime_seconds_total{k8s_daemonset_name="dash0-operator-opentelemetry-collector-agent-daemonset"}
+          for: 15m
+          annotations:
+            summary: Ready node {{ $labels.k8s_node_name }} has no agent collector shipping telemetry
+            description: >-
+              The node is Ready but no dash0 agent daemonset collector on it is reporting.
+              Container metrics, scraped metrics and logs from this node are missing.
+
+        - alert: CollectorReceiverStalled
+          expr: >-
+            sum by (receiver) (rate(otelcol_receiver_accepted_metric_points_total{receiver=~"k8s_cluster|kubelet_stats|prometheus"}[10m])) == 0
+            or
+            sum by (receiver) (rate(otelcol_receiver_accepted_log_records_total{receiver=~"k8s_events|file_log"}[10m])) == 0
+          for: 15m
+          annotations:
+            summary: Collector receiver {{ $labels.receiver }} is running but accepting no data
+
+        # --- Collectors exporting to Dash0 ---
+        - alert: CollectorExportFailing
+          expr: >-
+            sum by (k8s_pod_name, exporter) (
+              rate(otelcol_exporter_send_failed_metric_points_total[10m])
+              or rate(otelcol_exporter_send_failed_log_records_total[10m])
+              or rate(otelcol_exporter_enqueue_failed_metric_points_total[10m])
+              or rate(otelcol_exporter_enqueue_failed_log_records_total[10m])
+            ) > 0
+          for: 15m
+          annotations:
+            summary: Collector {{ $labels.k8s_pod_name }} is failing to export telemetry to Dash0
+            description: >-
+              send_failed means Dash0 ingestion rejected or did not accept data after retries;
+              enqueue_failed means the sending queue was full and data was dropped.
+
+        - alert: CollectorExportQueueFilling
+          expr: >-
+            max by (k8s_pod_name, exporter) (otelcol_exporter_queue_size / otelcol_exporter_queue_capacity) > 0.8
+          for: 15m
+          annotations:
+            summary: Collector {{ $labels.k8s_pod_name }} export queue above 80% capacity
+            description: Export to Dash0 is not keeping up; data will be dropped once the queue is full.
+
+        - alert: CollectorRefusingData
+          expr: >-
+            sum by (k8s_pod_name, receiver) (
+              rate(otelcol_receiver_refused_metric_points_total[10m])
+              or rate(otelcol_receiver_refused_log_records_total[10m])
+            ) > 0
+          for: 15m
+          annotations:
+            summary: Collector {{ $labels.k8s_pod_name }} receiver {{ $labels.receiver }} is refusing data
+            description: Usually the memory limiter applying backpressure; the collector likely needs more memory.

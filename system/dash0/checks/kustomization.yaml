@@ -4,4 +4,4 @@ namespace: dash0-checks
 resources:
 - namespace.yaml
 - monitoring.yaml
-- watchdog.yaml
+- alerting-health.yaml
