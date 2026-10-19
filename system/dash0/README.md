@@ -21,7 +21,10 @@ To be an alert the condition must be:
 - resolvable by human action
 - indicate current or imminent degradation of user facing service
 
-Checks and alerts are managed as IaC. Dashboards are managed via clickops.
+Checks and alerts are managed as IaC with `PrometheusRule` resources.
+Until we switch off VictoriaMetrics these live in their own namespace so that dash0 can be configured to ignore existing VictoriaMetrics rules and vice versa.
+
+Dashboards are managed via clickops.
 
 ### Areas to alert on
 
