@@ -1,0 +1,22 @@
+---
+# Separate Flux Kustomization so that values shared across checks are defined once.
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: dash0-checks
+  namespace: dash0
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./system/dash0/checks
+  prune: true
+  postBuild:
+    substitute:
+      cluster_name: ${cluster_name}
+      # Namespaces of services everything depends on: kyverno (admission webhook),
+      # traefik (ingress), karpenter (nodes), keda (autoscaling, HTTP interceptor),
+      # flux (deploys), external-secrets (secret sync), external-dns (DNS records).
+      core_namespaces: kyverno|traefik|karpenter|keda|flux-system|external-secrets|external-dns

@@ -5,4 +5,4 @@ resources:
 - namespace.yaml
 - source.yaml
 - secret.yaml
-- checks
+- checks-kustomization.yaml

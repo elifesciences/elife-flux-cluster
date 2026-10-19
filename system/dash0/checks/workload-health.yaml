@@ -16,7 +16,7 @@ spec:
           expr: >-
             (
               max by (k8s_namespace_name, k8s_deployment_name) (
-                k8s_deployment_desired{k8s_namespace_name!~"kyverno|traefik|karpenter|keda|flux-system|external-secrets|external-dns"}
+                k8s_deployment_desired{k8s_namespace_name!~"${core_namespaces}"}
               ) > 0
               and
               max by (k8s_namespace_name, k8s_deployment_name) (k8s_deployment_available) == 0
@@ -46,7 +46,7 @@ spec:
                   (
                     (
                       max by (k8s_namespace_name, k8s_deployment_name) (
-                        k8s_deployment_desired{k8s_namespace_name!~"kyverno|traefik|karpenter|keda|flux-system|external-secrets|external-dns"}
+                        k8s_deployment_desired{k8s_namespace_name!~"${core_namespaces}"}
                       )
                       -
                       max by (k8s_namespace_name, k8s_deployment_name) (k8s_deployment_available)
