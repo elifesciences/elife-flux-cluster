@@ -33,7 +33,7 @@ Dashboards are managed via clickops.
   - Node not ready or has otherwise become unresponsive
   - daemon set unhappy
   - Pods failing to schedule
-  - bottleneck services e.g. kyverno, traefik unhealthy
+  - core services e.g. kyverno, traefik unhealthy
 - workloads
   - service has no targets or StatefulSet/Deployment with 0 replicas
   - frequent OOM kills
