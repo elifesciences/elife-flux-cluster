@@ -52,11 +52,11 @@ spec:
         # --- Core services ---
         # Everything depends on these: kyverno (admission webhook), traefik (ingress),
         # karpenter (nodes), keda (autoscaling, HTTP interceptor), flux (deploys),
-        # external-secrets (secret sync).
+        # external-secrets (secret sync), external-dns (DNS records).
         - alert: CoreServiceDown
           expr: >-
             max by (k8s_namespace_name, k8s_deployment_name) (
-              k8s_deployment_available{k8s_namespace_name=~"kyverno|traefik|karpenter|keda|flux-system|external-secrets"}
+              k8s_deployment_available{k8s_namespace_name=~"kyverno|traefik|karpenter|keda|flux-system|external-secrets|external-dns"}
             ) == 0
           for: 3m
           annotations:
@@ -65,11 +65,11 @@ spec:
         - alert: CoreServiceDegraded
           expr: >-
             max by (k8s_namespace_name, k8s_deployment_name) (
-              k8s_deployment_desired{k8s_namespace_name=~"kyverno|traefik|karpenter|keda|flux-system|external-secrets"}
+              k8s_deployment_desired{k8s_namespace_name=~"kyverno|traefik|karpenter|keda|flux-system|external-secrets|external-dns"}
             )
             -
             max by (k8s_namespace_name, k8s_deployment_name) (
-              k8s_deployment_available{k8s_namespace_name=~"kyverno|traefik|karpenter|keda|flux-system|external-secrets"}
+              k8s_deployment_available{k8s_namespace_name=~"kyverno|traefik|karpenter|keda|flux-system|external-secrets|external-dns"}
             )
             > 0
           for: 15m

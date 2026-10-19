@@ -9,4 +9,5 @@ resources:
 - resource-saturation.yaml
 - workload-health.yaml
 - flux-health.yaml
+- platform-integrations.yaml
 - notification-channel.yaml

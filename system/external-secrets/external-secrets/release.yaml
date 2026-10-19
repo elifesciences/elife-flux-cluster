@@ -30,6 +30,9 @@ spec:
         cpu: 10m
         memory: 41Mi
 
+    serviceMonitor:
+      enabled: true
+
     webhook:
       create: false
     certController:

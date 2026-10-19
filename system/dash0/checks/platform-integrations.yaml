@@ -1,0 +1,72 @@
+---
+# Integrations between the cluster and external systems:
+#   - cert-manager: TLS certificates from Let's Encrypt
+#   - external-dns: DNS records in Route53
+#   - external-secrets: secrets from AWS Secrets Manager
+#
+# Failures here leave existing certificates, records and secrets in place, so they only
+# become user facing when a certificate runs out. Everything else is review only.
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: platform-integrations
+  namespace: dash0-checks
+spec:
+  groups:
+    - name: platform-integrations
+      rules:
+        # --- Certificates ---
+        - alert: CertificateExpiring
+          # Let's Encrypt certificates last 90 days and cert-manager renews them with 30 days
+          # left, so below that renewal has been failing for a while.
+          expr: >-
+            min by (exported_namespace, name) (
+              (certmanager_certificate_expiration_timestamp_seconds - time()) / 86400
+            ) < $__threshold
+          annotations:
+            summary: Certificate {{ $labels.exported_namespace }}/{{ $labels.name }} expires in {{ $value }} days
+            description: >-
+              Renewal is failing. Check the Certificate, its CertificateRequest and Order/Challenge
+              resources, and that the issuer is ready.
+            dash0-threshold-degraded: "21"
+            dash0-threshold-critical: "7"
+
+        - alert: CertificateNotReady
+          expr: >-
+            max by (exported_namespace, name) (
+              certmanager_certificate_ready_status{condition="True"}
+            ) < $__threshold
+          for: 1h
+          annotations:
+            summary: Certificate {{ $labels.exported_namespace }}/{{ $labels.name }} is not ready
+            description: >-
+              Usually a failed issuance (ACME challenge not reachable, DNS not yet propagated)
+              or a certificate referencing a missing issuer.
+            dash0-threshold-degraded: "1"
+
+        # --- DNS ---
+        - alert: ExternalDnsNotSyncing
+          # external-dns syncs every minute; the timestamp only advances on a successful sync.
+          expr: >-
+            (time() - max(external_dns_controller_last_sync_timestamp_seconds)) / 60
+            > $__threshold
+          annotations:
+            summary: external-dns has not synced DNS records for {{ $value }} minutes
+            description: >-
+              New or changed hostnames are not registered in Route53. Check the external-dns logs
+              for AWS permission or rate limit errors.
+            dash0-threshold-degraded: "15"
+
+        # --- Secrets ---
+        - alert: ExternalSecretNotSynced
+          expr: >-
+            max by (exported_namespace, name) (
+              externalsecret_status_condition{condition="Ready", status="False"}
+            ) > $__threshold
+          for: 15m
+          annotations:
+            summary: ExternalSecret {{ $labels.exported_namespace }}/{{ $labels.name }} is failing to sync
+            description: >-
+              The Kubernetes Secret keeps its last synced value. Usually the key is missing in AWS
+              Secrets Manager or the ClusterSecretStore cannot authenticate.
+            dash0-threshold-degraded: "0"
