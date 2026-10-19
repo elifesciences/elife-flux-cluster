@@ -1,0 +1,88 @@
+---
+# Health of individual workloads (Deployments, StatefulSets and their containers).
+#
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: workload-health
+  namespace: dash0-checks
+spec:
+  groups:
+    - name: workload-health
+      rules:
+        # --- Availability ---
+        - alert: WorkloadUnavailable
+          # Scale up from zero (KEDA) briefly has 1 desired and 0 available replicas.
+          expr: >-
+            (
+              max by (k8s_namespace_name, k8s_deployment_name) (
+                k8s_deployment_desired{k8s_namespace_name!~"kyverno|traefik|karpenter|keda|flux-system|external-secrets"}
+              ) > 0
+              and
+              max by (k8s_namespace_name, k8s_deployment_name) (k8s_deployment_available) == 0
+            )
+            or
+            (
+              max by (k8s_namespace_name, k8s_statefulset_name) (k8s_statefulset_desired_pods) > 0
+              and
+              max by (k8s_namespace_name, k8s_statefulset_name) (k8s_statefulset_ready_pods) == 0
+            )
+          for: 10m
+          annotations:
+            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_deployment_name }}{{ $labels.k8s_statefulset_name }} has no available replicas"
+            description: >-
+              Every replica is down, so whatever it serves is down. Check the pods for
+              crash loops, failed scheduling or image pulls.
+
+        # --- Replica mismatches ---
+        - alert: ReplicasMismatch
+          # Value is the number of minutes in the last 2 hours with replicas missing, so the
+          # thresholds read as durations. Short mismatches during rollouts and autoscaling
+          # stay below them.
+          expr: >-
+            max by (k8s_namespace_name, k8s_deployment_name, k8s_statefulset_name) (
+              count_over_time(
+                (
+                  (
+                    (
+                      max by (k8s_namespace_name, k8s_deployment_name) (
+                        k8s_deployment_desired{k8s_namespace_name!~"kyverno|traefik|karpenter|keda|flux-system|external-secrets"}
+                      )
+                      -
+                      max by (k8s_namespace_name, k8s_deployment_name) (k8s_deployment_available)
+                    )
+                    or
+                    (
+                      max by (k8s_namespace_name, k8s_statefulset_name) (k8s_statefulset_desired_pods)
+                      -
+                      max by (k8s_namespace_name, k8s_statefulset_name) (k8s_statefulset_ready_pods)
+                    )
+                  ) > 0
+                )
+              [2h:1m])
+            ) >= $__threshold
+          annotations:
+            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_deployment_name }}{{ $labels.k8s_statefulset_name }} has been missing replicas for {{ $value }} of the last 120 minutes"
+            description: >-
+              Running with reduced capacity or redundancy. Usually a stuck rollout, a pod
+              that cannot be scheduled, or a crash looping replica.
+            dash0-threshold-degraded: "15"
+            dash0-threshold-critical: "120"
+
+        # --- Restarts ---
+        - alert: ContainerRestarting
+          # A 6 hour window also catches containers that run a while between crashes and so
+          # never stay in CrashLoopBackOff, typically repeated OOM kills under load. A crash
+          # loop reaches the critical threshold within the first hour.
+          expr: >-
+            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name) (
+              increase(k8s_container_restarts[6h])
+            ) >= $__threshold
+          annotations:
+            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} container {{ $labels.k8s_container_name }} restarted {{ $value }} times in the last 6 hours"
+            description: >-
+              Investigate with the k8s events shipped as logs. They do not name the termination
+              reason (e.g. OOMKilled); the pod's last container state does. For OOM kills, check
+              memory usage against the limit before raising it.
+            dash0-threshold-degraded: "1"
+            dash0-threshold-critical: "6"
