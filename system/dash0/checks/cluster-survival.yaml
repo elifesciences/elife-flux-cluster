@@ -1,0 +1,91 @@
+---
+# Cluster-wide failures that threaten every workload
+#
+# Note: kube-system is not monitored by dash0 (aws-node, kube-proxy, coredns, ebs-csi are invisible here).
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: cluster-survival
+  namespace: dash0-checks
+spec:
+  groups:
+    - name: cluster-survival
+      rules:
+        # --- Nodes ---
+        - alert: NodeNotReady
+          # 1 = Ready, 0 = NotReady, -1 = Unknown (kubelet stopped reporting)
+          expr: k8s_node_condition_ready != 1
+          for: 10m
+          annotations:
+            summary: Node {{ $labels.k8s_node_name }} has not been Ready for 10 minutes
+            description: >-
+              New Karpenter nodes become Ready within a couple of minutes, so this is a node
+              that is unhealthy or stuck terminating. Pods on it are not being served.
+
+              Playbook: dump node describe, then find nodeclaim and delete it (if it has no nodeclaim it is a core node and you need to terminate the ec2 instance)
+
+        # --- DaemonSets ---
+        - alert: DaemonSetPodsNotReady
+          expr: >-
+            max by (k8s_namespace_name, k8s_daemonset_name) (
+              k8s_daemonset_desired_scheduled_nodes - k8s_daemonset_ready_nodes
+            ) > 0
+          for: 30m
+          annotations:
+            summary: DaemonSet {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_daemonset_name }} has {{ $value }} nodes without a ready pod
+            description: >-
+              Short gaps are normal while Karpenter adds nodes or during a rollout.
+              A sustained gap usually means the pod does not fit on some nodes (resources, taints) or is crash looping.
+
+        # --- Scheduling ---
+        - alert: PodStuckPending
+          # k8s.pod.phase: 1 = Pending, 2 = Running, 3 = Succeeded, 4 = Failed, 5 = Unknown
+          expr: max by (k8s_namespace_name, k8s_pod_name) (k8s_pod_phase) == 1
+          for: 15m
+          annotations:
+            summary: Pod {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} has been Pending for 15 minutes
+            description: >-
+              Either it cannot be scheduled (no node fits, Karpenter cannot provision, affinity/taints)
+              or its containers cannot start (image pull, volume attach). Check FailedScheduling or
+              FailedMount k8s events for the reason.
+
+        # --- Core services ---
+        # Everything depends on these: kyverno (admission webhook), traefik (ingress),
+        # karpenter (nodes), keda (autoscaling, HTTP interceptor), flux (deploys),
+        # external-secrets (secret sync).
+        - alert: CoreServiceDown
+          expr: >-
+            max by (k8s_namespace_name, k8s_deployment_name) (
+              k8s_deployment_available{k8s_namespace_name=~"kyverno|traefik|karpenter|keda|flux-system|external-secrets"}
+            ) == 0
+          for: 3m
+          annotations:
+            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_deployment_name }} has no available replicas"
+
+        - alert: CoreServiceDegraded
+          expr: >-
+            max by (k8s_namespace_name, k8s_deployment_name) (
+              k8s_deployment_desired{k8s_namespace_name=~"kyverno|traefik|karpenter|keda|flux-system|external-secrets"}
+            )
+            -
+            max by (k8s_namespace_name, k8s_deployment_name) (
+              k8s_deployment_available{k8s_namespace_name=~"kyverno|traefik|karpenter|keda|flux-system|external-secrets"}
+            )
+            > 0
+          for: 15m
+          annotations:
+            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_deployment_name }} is missing {{ $value }} replicas"
+
+        - alert: IngressHighErrorRate
+          # Baseline is ~1.5% (mostly 502s from individual backends), peaking ~4% over a day.
+          expr: >-
+            sum(rate(traefik_entrypoint_requests_total{code=~"5.."}[10m]))
+            /
+            sum(rate(traefik_entrypoint_requests_total[10m]))
+            * 100 > 10
+          for: 10m
+          annotations:
+            summary: "{{ $value }}% of all ingress requests are failing with 5xx"
+            description: >-
+              Cluster-wide, so this is traefik itself or many backends failing at once.
+              Break down traefik_service_requests_total by service to find out which.

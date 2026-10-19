@@ -6,3 +6,4 @@ resources:
 - monitoring.yaml
 - alerting-health.yaml
 - cluster-survival.yaml
+- resource-saturation.yaml

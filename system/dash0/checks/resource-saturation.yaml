@@ -1,0 +1,109 @@
+---
+# Resource saturation on node, container and PVC level.
+#
+# Expressions are scaled to percent so thresholds read naturally.
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: resource-saturation
+  namespace: dash0-checks
+spec:
+  groups:
+    - name: resource-saturation
+      rules:
+        # --- Node ---
+        - alert: NodeCpuSaturated
+          # CPU is compressible: workloads slow down but nothing is killed. Review only.
+          expr: >-
+            (1 - avg by (k8s_node_name) (system_cpu_utilization_ratio{cpu_mode="idle"})) * 100
+            > $__threshold
+          for: 1h
+          annotations:
+            summary: Node {{ $labels.k8s_node_name }} CPU at {{ $value }}% for an hour
+            dash0-threshold-degraded: "90"
+
+        - alert: NodeMemorySaturated
+          expr: >-
+            max by (k8s_node_name) (system_memory_utilization_ratio{system_memory_state="used"}) * 100
+            > $__threshold
+          for: 15m
+          annotations:
+            summary: Node {{ $labels.k8s_node_name }} memory at {{ $value }}%
+            description: Near full, the kubelet evicts pods and the kernel OOM kills containers.
+            dash0-threshold-degraded: "90"
+
+        - alert: NodeDiskSaturated
+          # kubelet image GC starts at 85% and hard eviction at 90% (nodefs.available < 10%).
+          expr: >-
+            max by (k8s_node_name) (1 - k8s_node_filesystem_available_bytes / k8s_node_filesystem_capacity_bytes) * 100
+            > $__threshold
+          for: 15m
+          annotations:
+            summary: Node {{ $labels.k8s_node_name }} disk at {{ $value }}%
+            description: >-
+              kubelet is evicting pods due to Node disk being too full
+            dash0-threshold-degraded: "90"
+
+        # --- Container ---
+        - alert: ContainerCpuNearLimit
+          # Containers at their CPU limit are throttled. Review only.
+          expr: >-
+            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name) (container_cpu_usage)
+            /
+            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name) (k8s_container_cpu_limit)
+            * 100 > $__threshold
+          for: 1h
+          annotations:
+            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} container {{ $labels.k8s_container_name }} CPU at {{ $value }}% of limit"
+            dash0-threshold-degraded: "90"
+
+        - alert: ContainerMemoryNearLimit
+          # Some workloads (e.g. JVMs like opensearch) sit at ~90% by design. Review only;
+          # actual OOM kills are covered by workload checks.
+          expr: >-
+            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name) (container_memory_working_set_bytes)
+            /
+            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name) (k8s_container_memory_limit_bytes)
+            * 100 > $__threshold
+          for: 1h
+          annotations:
+            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} container {{ $labels.k8s_container_name }} memory at {{ $value }}% of limit"
+            dash0-threshold-degraded: "95"
+
+        # --- PVC ---
+        - alert: PvcDiskSaturated
+          expr: >-
+            max by (k8s_namespace_name, k8s_persistentvolumeclaim_name) (
+              1 - k8s_volume_available_bytes{k8s_volume_type="persistentVolumeClaim"}
+                / k8s_volume_capacity_bytes{k8s_volume_type="persistentVolumeClaim"}
+            ) * 100 > $__threshold
+          for: 15m
+          annotations:
+            summary: PVC {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_persistentvolumeclaim_name }} at {{ $value }}%
+            description: Expand the PVC (the storage classes allow volume expansion) or free up space.
+            dash0-threshold-degraded: "80"
+            dash0-threshold-critical: "90"
+
+        - alert: PvcDiskFillingUp
+          # Catches growth before the static thresholds above do. A 24h lookback smooths
+          # short bursts (e.g. compaction, index merges) out of the 48h projection.
+          expr: >-
+            max by (k8s_namespace_name, k8s_persistentvolumeclaim_name) (
+              predict_linear(k8s_volume_available_bytes{k8s_volume_type="persistentVolumeClaim"}[24h], 48 * 3600)
+            ) < 0
+          for: 1h
+          annotations:
+            summary: PVC {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_persistentvolumeclaim_name }} predicted to be full within 48 hours
+
+        - alert: PvcInodesSaturated
+          # Despite the _ratio suffix, inodes and inodes_free are counts.
+          expr: >-
+            max by (k8s_namespace_name, k8s_persistentvolumeclaim_name) (
+              1 - k8s_volume_inodes_free_ratio{k8s_volume_type="persistentVolumeClaim"}
+                / k8s_volume_inodes_ratio{k8s_volume_type="persistentVolumeClaim"}
+            ) * 100 > $__threshold
+          for: 15m
+          annotations:
+            summary: PVC {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_persistentvolumeclaim_name }} inodes at {{ $value }}%
+            dash0-threshold-degraded: "80"
+            dash0-threshold-critical: "90"

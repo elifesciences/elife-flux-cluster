@@ -21,7 +21,16 @@ To be an alert the condition must be:
 - resolvable by human action
 - indicate current or imminent degradation of user facing service
 
+The distinction between alerts and checks in encoded using dash0 severity.
+
+- **critical** = alert, notified via notification channels filtered on `dash0.failed_check.max_status = critical`
+- **degraded** = check, reviewed daily in the Failed Checks view
+
+Rules without thresholds report critical, so they are alerts.
+Use `dash0-threshold-degraded` for review-only checks, and add `dash0-threshold-critical` when the same signal becomes an alert at a higher level.
+
 Checks and alerts are managed as IaC with `PrometheusRule` resources.
+
 Until we switch off VictoriaMetrics these live in their own namespace so that dash0 can be configured to ignore existing VictoriaMetrics rules and vice versa.
 
 Dashboards are managed via clickops.
