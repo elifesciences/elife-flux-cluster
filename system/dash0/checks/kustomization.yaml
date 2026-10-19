@@ -8,4 +8,5 @@ resources:
 - cluster-survival.yaml
 - resource-saturation.yaml
 - workload-health.yaml
+- flux-health.yaml
 - notification-channel.yaml
