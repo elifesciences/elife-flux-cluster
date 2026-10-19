@@ -44,7 +44,7 @@ spec:
           logCollection:
             enabled: true
           eventCollection:
-            enabled: false
+            enabled: true
           prometheusScraping:
             enabled: true
           synchronizePersesDashboards: false
@@ -66,6 +66,7 @@ spec:
                 # Logs are opt-in per workload via the dash0.com/log-level pod label,
                 # whose value is the minimum severity to ship (trace|debug|info|warn|error).
                 # Records without a parsed severity (UNSPECIFIED) are always kept.
+                # k8s events (eventCollection) use a separate pipeline and are not affected.
                 - 'resource.attributes["k8s.pod.label.dash0.com/log-level"] == nil'
                 - 'resource.attributes["k8s.pod.label.dash0.com/log-level"] == "debug" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_DEBUG'
                 - 'resource.attributes["k8s.pod.label.dash0.com/log-level"] == "info" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_INFO'
