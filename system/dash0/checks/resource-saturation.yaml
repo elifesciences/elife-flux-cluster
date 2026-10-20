@@ -142,6 +142,32 @@ spec:
     - name: resource-saturation-long-window
       interval: 10m
       rules:
+        - alert: NodeDiskFillingUp
+          # Catches growth before NodeDiskSaturated does. Projects free space to the kubelet's
+          # eviction threshold (10% free) rather than to zero. New nodes fill their disk with
+          # image pulls in their first hours, so only nodes that are already fairly full count.
+          # Value is the current free percentage. Review only: NodeEvictingPods alerts once the
+          # kubelet acts on it.
+          expr: >-
+            (
+              min by (k8s_node_name) (k8s_node_filesystem_available_bytes / k8s_node_filesystem_capacity_bytes) * 100
+              < $__threshold
+            )
+            and
+            (
+              max by (k8s_node_name) (
+                predict_linear(k8s_node_filesystem_available_bytes[6h], 24 * 3600) / k8s_node_filesystem_capacity_bytes
+              ) < 0.1
+            )
+          for: 1h
+          annotations:
+            summary: Node {{ $labels.k8s_node_name }} disk is {{ $value }}% free and predicted to reach the eviction threshold within 24 hours
+            description: >-
+              Once free disk drops below 10% the kubelet evicts pods. Find the pods using the most
+              ephemeral-storage on the node, set ephemeral-storage requests on them, or give the
+              node pool a larger root volume.
+            dash0-threshold-degraded: "40"
+
         - alert: PvcDiskFillingUp
           # Catches growth before the static thresholds above do. A 24h lookback smooths
           # short bursts (e.g. compaction, index merges) out of the 48h projection.
