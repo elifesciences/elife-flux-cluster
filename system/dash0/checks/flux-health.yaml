@@ -14,6 +14,7 @@ metadata:
 spec:
   groups:
     - name: flux-health
+      interval: 10m
       rules:
         - alert: FluxReconciliationFailing
           # Covers every Flux kind (Kustomization, HelmRelease, sources, image automation).

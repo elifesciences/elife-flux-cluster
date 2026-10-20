@@ -36,7 +36,6 @@ Until we switch off VictoriaMetrics these live in their own namespace so that da
 Dashboards are mostly managed via clickops.
 As an experiment, some are managed as IaC with `PersesDashboard` resources in `dashboards/` (e.g. `sciety-red.yaml`).
 They live in their own `dash0-dashboards` namespace, the only one with `synchronizePersesDashboards` enabled, and show as read-only in Dash0.
-Use `$var` rather than `${var}` for dashboard variables in queries, so that Flux postBuild substitution leaves them alone.
 
 ### Areas to alert on
 
@@ -74,6 +73,16 @@ Use `$var` rather than `${var}` for dashboard variables in queries, so that Flux
 
 - alert using e.g. `k8s.pod.phase` and `k8s.pod.container.restarts`
 - get reason via events shipped as logs
+
+## Notes
+
+- Dash0 rejects check rules whose evaluation interval is too short for the query's time window:
+  - windows over 1h10m need an interval of at least 5m
+  - windows over 8h10m need an interval of at least 10m
+
+  The interval is set per `PrometheusRule` group, so long-window rules live in their own `*-long-window` group, keeping the 1m default for the rest.
+- Use `$var` rather than `${var}` for dashboard variables in `PersesDashboard` queries, so that Flux postBuild substitution leaves them alone.
+- Dash0 matches regexes unanchored, so anchor selectors with `^` explicitly.
 
 ## read-only Access for Agents
 

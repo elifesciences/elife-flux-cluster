@@ -3,9 +3,6 @@
 #
 # exported_service is "{namespace}-{service}-{port}@kubernetes"; label_replace strips the
 # namespace prefix and port to give a short "service" label for the legend.
-# Dash0 matches regexes unanchored, so selectors anchor with ^ explicitly.
-#
-# Query variables use $var, not ${var}, so Flux postBuild substitution leaves them alone.
 apiVersion: perses.dev/v1alpha2
 kind: PersesDashboard
 metadata:

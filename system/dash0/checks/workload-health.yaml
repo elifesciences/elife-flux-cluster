@@ -34,6 +34,9 @@ spec:
               Every replica is down, so whatever it serves is down. Check the pods for
               crash loops, failed scheduling or image pulls.
 
+    - name: workload-health-long-window
+      interval: 5m
+      rules:
         # --- Replica mismatches ---
         - alert: ReplicasMismatch
           # Value is the number of minutes in the last 2 hours with replicas missing, so the
