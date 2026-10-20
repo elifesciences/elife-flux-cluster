@@ -46,6 +46,46 @@ spec:
               kubelet is evicting pods due to Node disk being too full
             dash0-threshold-degraded: "90"
 
+        - alert: NodeEvictingPods
+          # Eviction frees disk (or memory) right away, so usage on an evicting node oscillates
+          # around the eviction threshold and never stays high long enough for the checks above.
+          # Counting the kubelet's Evicted events catches that. Karpenter also emits Evicted
+          # events when consolidating nodes; those are excluded via the reporting controller.
+          #
+          # The event body names the resource the node is low on. It cannot be extracted with
+          # label_replace, so each resource is matched on the body and labelled separately;
+          # "other" catches anything unmatched so no eviction goes uncounted.
+          # Pod names and the node pool cannot be put in the summary: a series per pod would
+          # be an issue per pod, and node labels are not shipped.
+          expr: >-
+            (
+              label_replace(
+                sum by (k8s_node_name) (
+                  increase({otel_metric_name="dash0.logs", k8s_event_reason="Evicted", k8s_event_reporting_controller="kubelet", otel_log_body=~"ephemeral-storage|DiskPressure"}[1h])
+                ), "resource", "disk", "", "")
+              or
+              label_replace(
+                sum by (k8s_node_name) (
+                  increase({otel_metric_name="dash0.logs", k8s_event_reason="Evicted", k8s_event_reporting_controller="kubelet", otel_log_body=~"memory|MemoryPressure"}[1h])
+                ), "resource", "memory", "", "")
+              or
+              label_replace(
+                sum by (k8s_node_name) (
+                  increase({otel_metric_name="dash0.logs", k8s_event_reason="Evicted", k8s_event_reporting_controller="kubelet", otel_log_body!~"ephemeral-storage|DiskPressure|memory|MemoryPressure"}[1h])
+                ), "resource", "other", "", "")
+            ) >= $__threshold
+          annotations:
+            summary: Node {{ $labels.k8s_node_name }} evicted {{ $value }} pods in the last hour (low on {{ $labels.resource }})
+            description: >-
+              The evicted pods and their usage are in the logs: filter on
+              k8s.event.reason = Evicted and k8s.node.name = {{ $labels.k8s_node_name }}.
+              For disk, the kubelet evicts the largest ephemeral-storage consumers first, and pods
+              without ephemeral-storage requests get scheduled onto nodes that are already full.
+              Set requests on the heavy consumers or give the node pool a larger root volume.
+              For memory, check the pods' memory requests against their usage.
+            dash0-threshold-degraded: "1"
+            dash0-threshold-critical: "5"
+
         # --- Container ---
         - alert: ContainerCpuNearLimit
           # Containers at their CPU limit are throttled. Review only.

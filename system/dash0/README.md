@@ -44,6 +44,7 @@ They live in their own `dash0-dashboards` namespace, the only one with `synchron
   - Node not ready or has otherwise become unresponsive
   - daemon set unhappy
   - Pods failing to schedule
+  - kubelet repeatedly evicting pods (node out of disk or memory)
   - core services e.g. kyverno, traefik unhealthy
 - workloads
   - service has no targets or StatefulSet/Deployment with 0 replicas
@@ -58,6 +59,7 @@ They live in their own `dash0-dashboards` namespace, the only one with `synchron
 - replica mismatches
 - crash loops
 - resource starvation (CPU, Memory, Disk)
+- pod evictions
 
 ## Reasons beyond checks to ship metrics
 
