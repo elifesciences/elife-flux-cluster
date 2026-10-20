@@ -33,7 +33,10 @@ Checks and alerts are managed as IaC with `PrometheusRule` resources.
 
 Until we switch off VictoriaMetrics these live in their own namespace so that dash0 can be configured to ignore existing VictoriaMetrics rules and vice versa.
 
-Dashboards are managed via clickops.
+Dashboards are mostly managed via clickops.
+As an experiment, some are managed as IaC with `PersesDashboard` resources in `dashboards/` (e.g. `sciety-red.yaml`).
+They live in their own `dash0-dashboards` namespace, the only one with `synchronizePersesDashboards` enabled, and show as read-only in Dash0.
+Use `$var` rather than `${var}` for dashboard variables in queries, so that Flux postBuild substitution leaves them alone.
 
 ### Areas to alert on
 

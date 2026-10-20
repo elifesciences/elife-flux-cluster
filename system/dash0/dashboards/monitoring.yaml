@@ -1,0 +1,20 @@
+---
+# Only PersesDashboards in this namespace are synchronised to Dash0 (as read-only dashboards).
+# Everything else is disabled: nothing runs here, and the monitoringTemplate in
+# ../release.yaml keeps synchronizePersesDashboards off for all other namespaces.
+apiVersion: operator.dash0.com/v1beta1
+kind: Dash0Monitoring
+metadata:
+  name: dash0-monitoring-resource
+  namespace: dash0-dashboards
+spec:
+  instrumentWorkloads:
+    mode: none
+  logCollection:
+    enabled: false
+  eventCollection:
+    enabled: false
+  prometheusScraping:
+    enabled: false
+  synchronizePersesDashboards: true
+  synchronizePrometheusRules: false
