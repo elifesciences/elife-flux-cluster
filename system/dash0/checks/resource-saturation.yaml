@@ -14,9 +14,11 @@ spec:
         # --- Node ---
         - alert: NodeCpuSaturated
           # CPU is compressible: workloads slow down but nothing is killed. Review only.
+          # iowait is idle CPU waiting on disk, so it is excluded along with idle.
           expr: >-
-            (1 - avg by (k8s_node_name) (system_cpu_utilization_ratio{cpu_mode="idle"})) * 100
-            > $__threshold
+            sum by (k8s_node_name) (
+              avg by (k8s_node_name, cpu_mode) (system_cpu_utilization_ratio{cpu_mode!~"idle|wait"})
+            ) * 100 > $__threshold
           for: 1h
           annotations:
             summary: Node {{ $labels.k8s_node_name }} CPU at {{ $value }}% for an hour
