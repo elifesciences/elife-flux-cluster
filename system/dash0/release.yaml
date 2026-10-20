@@ -26,6 +26,11 @@ spec:
             memory: 500Mi
         daemonSetTolerations:
           - operator: Exists
+        filelogOffsetSyncStorageVolume:
+          name: filelogreceiver-offsets
+          hostPath:
+            path: /data/dash0-operator/offset-storage
+            type: DirectoryOrCreate
       dash0Export:
         enabled: true
         endpoint: ingress.us-east-1.aws.dash0.com:4317
