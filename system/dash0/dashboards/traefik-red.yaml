@@ -1,0 +1,374 @@
+---
+# RED (Rate, Errors, Duration) for any HTTP service routed by Traefik.
+#
+# The "service" variable is a Dash0 filter on exported_service, which is
+# "{namespace}-{service}-{port}@kubernetes"; it expands to a complete label matcher,
+# and matches every service when nothing is selected. label_replace strips the
+# "@kubernetes" provider suffix to give a shorter "service" label for the legend.
+apiVersion: perses.dev/v1alpha2
+kind: PersesDashboard
+metadata:
+  name: traefik-red
+spec:
+  config:
+    display:
+      name: Traefik - RED
+      description: >-
+        Request rate, errors and duration of any HTTP service, measured at the Traefik ingress.
+    duration: 6h
+    variables:
+      - kind: Dash0FilterVariable
+        spec:
+          name: service
+          display:
+            name: Service
+            description: Traefik service ({namespace}-{service}-{port}@kubernetes). Empty means all.
+            hidden: false
+          attributeKey: exported_service
+          operator: is_any
+          values: []
+    panels:
+      # --- Overview (whole environment, over the selected time range) ---
+      overview-rate:
+        kind: Panel
+        spec:
+          display:
+            name: Request rate
+            description: Mean requests per second across the selected services in the selected time range.
+          plugin:
+            kind: StatChart
+            spec:
+              calculation: last-number
+              format:
+                unit: /s
+                decimalPlaces: 2
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum(rate(traefik_service_requests_total{exported_service!="", $service}[$__range]))
+                    seriesNameFormat: Requests
+      overview-errors:
+        kind: Panel
+        spec:
+          display:
+            name: 5xx error ratio
+            description: Share of responses with a 5xx status in the selected time range.
+          plugin:
+            kind: StatChart
+            spec:
+              calculation: last-number
+              format:
+                unit: percent-decimal
+                decimalPlaces: 2
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum(rate(traefik_service_requests_total{exported_service!="", code=~"5..", $service}[$__range]))
+                      /
+                      sum(rate(traefik_service_requests_total{exported_service!="", $service}[$__range]))
+                    seriesNameFormat: 5xx
+      overview-p95:
+        kind: Panel
+        spec:
+          display:
+            name: p95 latency
+            description: >-
+              95th percentile request duration in the selected time range. Traefik's buckets are
+              coarse (0.1s, 0.3s, 1.2s, 5s), so this is interpolated between them.
+          plugin:
+            kind: StatChart
+            spec:
+              calculation: last-number
+              format:
+                unit: seconds
+                decimalPlaces: 2
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      histogram_quantile(0.95, sum by (le) (rate(traefik_service_request_duration_seconds_bucket{exported_service!="", $service}[$__range])))
+                    seriesNameFormat: p95
+
+      # --- Rate ---
+      rate-by-service:
+        kind: Panel
+        spec:
+          display:
+            name: Requests by service
+          plugin:
+            kind: TimeSeriesChart
+            spec:
+              legend:
+                mode: list
+                position: bottom
+                showLegend: true
+              visual:
+                display: line
+                lineWidth: 1
+                areaOpacity: 0
+                connectNulls: true
+                palette:
+                  mode: categorical
+                stack: none
+              yAxis:
+                show: true
+                min: 0
+                format:
+                  unit: /s
+                  decimalPlaces: 2
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      label_replace(
+                        sum by (exported_service) (rate(traefik_service_requests_total{exported_service!="", $service}[5m])),
+                        "service", "$1", "exported_service", "^(.+)@kubernetes(crd)?$"
+                      )
+                    seriesNameFormat: "{{service}}"
+      rate-by-status-class:
+        kind: Panel
+        spec:
+          display:
+            name: Responses by status class
+          plugin:
+            kind: TimeSeriesChart
+            spec:
+              legend:
+                mode: list
+                position: bottom
+                showLegend: true
+              visual:
+                display: bar
+                palette:
+                  mode: categorical
+                stack: all
+              yAxis:
+                show: true
+                min: 0
+                format:
+                  unit: /s
+                  decimalPlaces: 2
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum by (class) (
+                        label_replace(
+                          rate(traefik_service_requests_total{exported_service!="", $service}[5m]),
+                          "class", "$1", "code", "^(.).."
+                        )
+                      )
+                    seriesNameFormat: "{{class}}xx"
+
+      # --- Errors ---
+      errors-ratio-by-service:
+        kind: Panel
+        spec:
+          display:
+            name: 5xx error ratio by service
+          plugin:
+            kind: TimeSeriesChart
+            spec:
+              legend:
+                mode: list
+                position: bottom
+                showLegend: true
+              visual:
+                display: line
+                lineWidth: 1
+                areaOpacity: 0
+                connectNulls: true
+                palette:
+                  mode: categorical
+                stack: none
+              yAxis:
+                show: true
+                min: 0
+                format:
+                  unit: percent-decimal
+                  decimalPlaces: 1
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      label_replace(
+                        sum by (exported_service) (rate(traefik_service_requests_total{exported_service!="", code=~"5..", $service}[5m]))
+                        /
+                        sum by (exported_service) (rate(traefik_service_requests_total{exported_service!="", $service}[5m])),
+                        "service", "$1", "exported_service", "^(.+)@kubernetes(crd)?$"
+                      )
+                    seriesNameFormat: "{{service}}"
+      errors-by-code:
+        kind: Panel
+        spec:
+          display:
+            name: Error responses by status code
+            description: 4xx and 5xx responses. 499 means the client gave up before the service answered.
+          plugin:
+            kind: TimeSeriesChart
+            spec:
+              legend:
+                mode: list
+                position: bottom
+                showLegend: true
+              visual:
+                display: bar
+                palette:
+                  mode: categorical
+                stack: all
+              yAxis:
+                show: true
+                min: 0
+                format:
+                  unit: /s
+                  decimalPlaces: 2
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum by (code) (rate(traefik_service_requests_total{exported_service!="", code=~"[45]..", $service}[5m])) > 0
+                    seriesNameFormat: "{{code}}"
+
+      # --- Duration ---
+      duration-p95-by-service:
+        kind: Panel
+        spec:
+          display:
+            name: p95 latency by service
+            description: >-
+              Traefik's buckets are coarse (0.1s, 0.3s, 1.2s, 5s), so percentiles are interpolated
+              between them; compare with the mean.
+          plugin:
+            kind: TimeSeriesChart
+            spec:
+              legend:
+                mode: list
+                position: bottom
+                showLegend: true
+              visual:
+                display: line
+                lineWidth: 1
+                areaOpacity: 0
+                connectNulls: true
+                palette:
+                  mode: categorical
+                stack: none
+              yAxis:
+                show: true
+                min: 0
+                format:
+                  unit: seconds
+                  decimalPlaces: 2
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      label_replace(
+                        histogram_quantile(0.95, sum by (exported_service, le) (rate(traefik_service_request_duration_seconds_bucket{exported_service!="", $service}[5m]))),
+                        "service", "$1", "exported_service", "^(.+)@kubernetes(crd)?$"
+                      )
+                    seriesNameFormat: "{{service}}"
+      duration-mean-by-service:
+        kind: Panel
+        spec:
+          display:
+            name: Mean latency by service
+          plugin:
+            kind: TimeSeriesChart
+            spec:
+              legend:
+                mode: list
+                position: bottom
+                showLegend: true
+              visual:
+                display: line
+                lineWidth: 1
+                areaOpacity: 0
+                connectNulls: true
+                palette:
+                  mode: categorical
+                stack: none
+              yAxis:
+                show: true
+                min: 0
+                format:
+                  unit: seconds
+                  decimalPlaces: 2
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      label_replace(
+                        sum by (exported_service) (rate(traefik_service_request_duration_seconds_sum{exported_service!="", $service}[5m]))
+                        /
+                        sum by (exported_service) (rate(traefik_service_request_duration_seconds_count{exported_service!="", $service}[5m])),
+                        "service", "$1", "exported_service", "^(.+)@kubernetes(crd)?$"
+                      )
+                    seriesNameFormat: "{{service}}"
+    layouts:
+      - kind: Grid
+        spec:
+          display:
+            title: Overview
+            collapse:
+              open: true
+          items:
+            - {x: 0, y: 0, width: 8, height: 4, content: {$ref: "#/spec/panels/overview-rate"}}
+            - {x: 8, y: 0, width: 8, height: 4, content: {$ref: "#/spec/panels/overview-errors"}}
+            - {x: 16, y: 0, width: 8, height: 4, content: {$ref: "#/spec/panels/overview-p95"}}
+      - kind: Grid
+        spec:
+          display:
+            title: Rate
+            collapse:
+              open: true
+          items:
+            - {x: 0, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/rate-by-service"}}
+            - {x: 12, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/rate-by-status-class"}}
+      - kind: Grid
+        spec:
+          display:
+            title: Errors
+            collapse:
+              open: true
+          items:
+            - {x: 0, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/errors-ratio-by-service"}}
+            - {x: 12, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/errors-by-code"}}
+      - kind: Grid
+        spec:
+          display:
+            title: Duration
+            collapse:
+              open: true
+          items:
+            - {x: 0, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/duration-p95-by-service"}}
+            - {x: 12, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/duration-mean-by-service"}}
