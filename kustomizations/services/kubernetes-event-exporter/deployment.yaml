@@ -26,6 +26,10 @@ spec:
           imagePullPolicy: IfNotPresent
           args:
             - -conf=/data/config.yaml
+          resources:
+            requests:
+              cpu: 75m
+              memory: 350Mi
           volumeMounts:
             - mountPath: /data
               name: cfg
