@@ -5,7 +5,7 @@
 - enable metrics across all namespaces by default
   - disable namespaces using `dash0.com/enable: "false"` label on namespace
   - filter out costly metrics not used for checks or spelunking with `monitoringTemplate.spec.filter`
-  - any remaining superfluous metrics are excluded using spam filters (dash0 clickops)
+  - any remaining superfluous metrics are excluded using `Dash0SpamFilter` resources in `checks/` (e.g. collector self-monitoring, which bypasses the collector pipeline)
 - enable logging across all namespaces by default
   - logs are opt-in per workload via the `dash0.com/log-level` pod label; its value is the minimum severity shipped
 - do not use tracing (for now)

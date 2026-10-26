@@ -1,0 +1,17 @@
+---
+# Collectors send their own metrics straight to Dash0 via OTLP (selfMonitoring), bypassing
+# the collector pipeline, so operator.filter in ../release.yaml cannot drop them.
+# Drop them on ingestion instead, keeping only what the alerting-health checks use
+# (process uptime, receiver accepted/refused, exporter queue and send/enqueue failures).
+# Dash0 matches regexes unanchored, hence the explicit ^.
+apiVersion: operator.dash0.com/v1alpha1
+kind: Dash0SpamFilter
+metadata:
+  name: collector-self-monitoring
+spec:
+  contexts:
+    - metric
+  filter:
+    - key: otel.metric.name
+      operator: matches
+      value: '^(otelcol[.]|otelcol_(processor|scraper|fileconsumer)_|otelcol_process_(cpu|memory|runtime)|otelcol_(exporter_sent|exporter_in_flight|receiver_failed)_)'

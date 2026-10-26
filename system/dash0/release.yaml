@@ -72,12 +72,7 @@ spec:
             - 'IsMatch(name, "^mongodb_")'       # mongo metrics
             # Go runtime and controller internals of every scraped target (flux, cert-manager, ...)
             - 'IsMatch(name, "^(go|process|controller_runtime|workqueue|rest_client|gotk|opentelemetry_allocator)_")'
-            # Collector self-monitoring, keeping only what the alerting-health checks use
-            # (process uptime, receiver accepted/refused, exporter queue and send/enqueue failures)
-            - 'IsMatch(name, "^otelcol[.]")'
-            - 'IsMatch(name, "^otelcol_(processor|scraper|fileconsumer)_")'
-            - 'IsMatch(name, "^otelcol_process_(cpu|memory|runtime)")'
-            - 'IsMatch(name, "^otelcol_(exporter_sent|exporter_in_flight|receiver_failed)_")'
+            # Collector self-monitoring (otelcol*) bypasses this pipeline, see the spam filter in checks/
             # Container usage details, checks only use container.cpu.usage and container.memory.working_set
             - 'IsMatch(name, "^container[.](memory[.](rss|usage|page_faults|major_page_faults|available)|filesystem[.]|cpu[.]time)$")'
             - 'IsMatch(name, "^k8s[.]pod[.]network[.]")'
