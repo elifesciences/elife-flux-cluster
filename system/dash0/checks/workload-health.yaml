@@ -30,7 +30,8 @@ spec:
           for: 10m
           annotations:
             # Only one of the two name labels is set; printing a missing label renders "<no value>".
-            summary: "{{ if $labels.k8s_deployment_name }}Deployment {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_deployment_name }}{{ else }}StatefulSet {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_statefulset_name }}{{ end }} has no available replicas"
+            # Dash0 rejects summary templates over 255 characters.
+            summary: "{{ $labels.k8s_namespace_name }}/{{ with $labels.k8s_deployment_name }}{{ . }}{{ else }}{{ $labels.k8s_statefulset_name }}{{ end }} has no available replicas"
             description: >-
               Every replica is down, so whatever it serves is down. Check the pods for
               crash loops, failed scheduling or image pulls.
@@ -66,7 +67,7 @@ spec:
               [2h:1m])
             ) >= $__threshold
           annotations:
-            summary: "{{ if $labels.k8s_deployment_name }}Deployment {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_deployment_name }}{{ else }}StatefulSet {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_statefulset_name }}{{ end }} has been missing replicas for at least {{ $__threshold }} of the last 120 minutes"
+            summary: "{{ $labels.k8s_namespace_name }}/{{ with $labels.k8s_deployment_name }}{{ . }}{{ else }}{{ $labels.k8s_statefulset_name }}{{ end }} has been missing replicas for at least {{ $__threshold }} of the last 120 minutes"
             description: >-
               Running with reduced capacity or redundancy. Usually a stuck rollout, a pod
               that cannot be scheduled, or a crash looping replica.
