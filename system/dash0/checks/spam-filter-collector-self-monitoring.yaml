@@ -9,8 +9,9 @@ kind: Dash0SpamFilter
 metadata:
   name: collector-self-monitoring
 spec:
+  # The API rejects "metric" (despite the operator docs); metrics are filtered per datapoint.
   contexts:
-    - metric
+    - datapoint
   filter:
     - key: otel.metric.name
       operator: matches
