@@ -38,6 +38,24 @@ spec:
         secretRef:
           name: dash0-credentials
           key: token
+      transform:
+        error_mode: ignore
+        metric_statements:
+          # Traefik labels its metrics by method, protocol, code and TLS details, multiplying
+          # series per exported_service. Sum datapoints down to what the dashboards and checks
+          # use. This runs per scraped Traefik pod, so the pod remains a dimension: dropping it
+          # would interleave the cumulative counters of different pods in one series.
+          # The scrape target labels (endpoint, namespace, pod, container, service) are kept;
+          # they are constant per pod.
+          - context: metric
+            statements:
+              - >-
+                aggregate_on_attributes("sum", ["exported_service", "entrypoint", "code", "endpoint", "namespace", "pod", "container", "service"])
+                where IsMatch(metric.name, "^traefik_(service|entrypoint)_requests(_total)?$")
+              - >-
+                aggregate_on_attributes("sum", ["exported_service", "entrypoint", "endpoint", "namespace", "pod", "container", "service"])
+                where IsMatch(metric.name, "^traefik_(service|entrypoint)_")
+                and not IsMatch(metric.name, "^traefik_(service|entrypoint)_requests(_total)?$")
       autoMonitorNamespaces:
         enabled: true
       selfMonitoring:
