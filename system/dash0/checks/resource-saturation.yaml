@@ -21,7 +21,7 @@ spec:
             ) * 100 > $__threshold
           for: 1h
           annotations:
-            summary: Node {{ $labels.k8s_node_name }} CPU at {{ $value }}% for an hour
+            summary: Node {{ $labels.k8s_node_name }} CPU above {{ $__threshold }}% for an hour
             dash0-threshold-degraded: "90"
 
         - alert: NodeMemorySaturated
@@ -30,7 +30,7 @@ spec:
             > $__threshold
           for: 15m
           annotations:
-            summary: Node {{ $labels.k8s_node_name }} memory at {{ $value }}%
+            summary: Node {{ $labels.k8s_node_name }} memory above {{ $__threshold }}%
             description: Near full, the kubelet evicts pods and the kernel OOM kills containers.
             dash0-threshold-degraded: "90"
 
@@ -41,7 +41,7 @@ spec:
             > $__threshold
           for: 15m
           annotations:
-            summary: Node {{ $labels.k8s_node_name }} disk at {{ $value }}%
+            summary: Node {{ $labels.k8s_node_name }} disk above {{ $__threshold }}%
             description: >-
               kubelet is evicting pods due to Node disk being too full
             dash0-threshold-degraded: "90"
@@ -75,7 +75,7 @@ spec:
                 ), "resource", "other", "", "")
             ) >= $__threshold
           annotations:
-            summary: Node {{ $labels.k8s_node_name }} evicted {{ $value }} pods in the last hour (low on {{ $labels.resource }})
+            summary: Node {{ $labels.k8s_node_name }} evicted at least {{ $__threshold }} pods in an hour (low on {{ $labels.resource }})
             description: >-
               The evicted pods and their usage are in the logs: filter on
               k8s.event.reason = Evicted and k8s.node.name = {{ $labels.k8s_node_name }}.
@@ -96,7 +96,7 @@ spec:
             * 100 > $__threshold
           for: 1h
           annotations:
-            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} container {{ $labels.k8s_container_name }} CPU at {{ $value }}% of limit"
+            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} container {{ $labels.k8s_container_name }} CPU above {{ $__threshold }}% of limit"
             dash0-threshold-degraded: "90"
 
         - alert: ContainerMemoryNearLimit
@@ -109,7 +109,7 @@ spec:
             * 100 > $__threshold
           for: 1h
           annotations:
-            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} container {{ $labels.k8s_container_name }} memory at {{ $value }}% of limit"
+            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} container {{ $labels.k8s_container_name }} memory above {{ $__threshold }}% of limit"
             dash0-threshold-degraded: "95"
 
         # --- PVC ---
@@ -121,7 +121,7 @@ spec:
             ) * 100 > $__threshold
           for: 15m
           annotations:
-            summary: PVC {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_persistentvolumeclaim_name }} at {{ $value }}%
+            summary: PVC {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_persistentvolumeclaim_name }} above {{ $__threshold }}%
             description: Expand the PVC (the storage classes allow volume expansion) or free up space.
             dash0-threshold-degraded: "80"
             dash0-threshold-critical: "90"
@@ -135,7 +135,7 @@ spec:
             ) * 100 > $__threshold
           for: 15m
           annotations:
-            summary: PVC {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_persistentvolumeclaim_name }} inodes at {{ $value }}%
+            summary: PVC {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_persistentvolumeclaim_name }} inodes above {{ $__threshold }}%
             dash0-threshold-degraded: "80"
             dash0-threshold-critical: "90"
 
@@ -161,7 +161,7 @@ spec:
             )
           for: 1h
           annotations:
-            summary: Node {{ $labels.k8s_node_name }} disk is {{ $value }}% free and predicted to reach the eviction threshold within 24 hours
+            summary: Node {{ $labels.k8s_node_name }} disk is less than {{ $__threshold }}% free and predicted to reach the eviction threshold within 24 hours
             description: >-
               Once free disk drops below 10% the kubelet evicts pods. Find the pods using the most
               ephemeral-storage on the node, set ephemeral-storage requests on them, or give the

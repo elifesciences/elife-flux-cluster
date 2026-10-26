@@ -57,7 +57,7 @@ spec:
               )
             )
           annotations:
-            summary: "{{ $labels.k8s_object_kind }} {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_object_name }} is failing to reconcile ({{ $value }} warnings in 24h)"
+            summary: "{{ $labels.k8s_object_kind }} {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_object_name }} is failing to reconcile"
             description: >-
               Check the Warning events for this object in the logs, or
               `flux get all -A --status-selector ready=false`.

@@ -24,7 +24,7 @@ spec:
               (certmanager_certificate_expiration_timestamp_seconds - time()) / 86400
             ) < $__threshold
           annotations:
-            summary: Certificate {{ $labels.exported_namespace }}/{{ $labels.name }} expires in {{ $value }} days
+            summary: Certificate {{ $labels.exported_namespace }}/{{ $labels.name }} expires in less than {{ $__threshold }} days
             description: >-
               Renewal is failing. Check the Certificate, its CertificateRequest and Order/Challenge
               resources, and that the issuer is ready.
@@ -51,7 +51,7 @@ spec:
             (time() - max(external_dns_controller_last_sync_timestamp_seconds)) / 60
             > $__threshold
           annotations:
-            summary: external-dns has not synced DNS records for {{ $value }} minutes
+            summary: external-dns has not synced DNS records for more than {{ $__threshold }} minutes
             description: >-
               New or changed hostnames are not registered in Route53. Check the external-dns logs
               for AWS permission or rate limit errors.

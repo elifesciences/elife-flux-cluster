@@ -65,7 +65,7 @@ spec:
               [2h:1m])
             ) >= $__threshold
           annotations:
-            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_deployment_name }}{{ $labels.k8s_statefulset_name }} has been missing replicas for {{ $value }} of the last 120 minutes"
+            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_deployment_name }}{{ $labels.k8s_statefulset_name }} has been missing replicas for at least {{ $__threshold }} of the last 120 minutes"
             description: >-
               Running with reduced capacity or redundancy. Usually a stuck rollout, a pod
               that cannot be scheduled, or a crash looping replica.
@@ -82,7 +82,7 @@ spec:
               increase(k8s_container_restarts[6h])
             ) >= $__threshold
           annotations:
-            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} container {{ $labels.k8s_container_name }} restarted {{ $value }} times in the last 6 hours"
+            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} container {{ $labels.k8s_container_name }} restarted at least {{ $__threshold }} times in the last 6 hours"
             description: >-
               Investigate with the k8s events shipped as logs. They do not name the termination
               reason (e.g. OOMKilled); the pod's last container state does. For OOM kills, check

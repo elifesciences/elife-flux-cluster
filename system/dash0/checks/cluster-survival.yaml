@@ -32,7 +32,7 @@ spec:
             ) > 0
           for: 30m
           annotations:
-            summary: DaemonSet {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_daemonset_name }} has {{ $value }} nodes without a ready pod
+            summary: DaemonSet {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_daemonset_name }} has nodes without a ready pod
             description: >-
               Short gaps are normal while Karpenter adds nodes or during a rollout.
               A sustained gap usually means the pod does not fit on some nodes (resources, taints) or is crash looping.
@@ -72,7 +72,7 @@ spec:
             > 0
           for: 15m
           annotations:
-            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_deployment_name }} is missing {{ $value }} replicas"
+            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_deployment_name }} is missing replicas"
 
         - alert: IngressHighErrorRate
           # Baseline is ~1.5% (mostly 502s from individual backends), peaking ~4% over a day.
@@ -83,7 +83,7 @@ spec:
             * 100 > 10
           for: 10m
           annotations:
-            summary: "{{ $value }}% of all ingress requests are failing with 5xx"
+            summary: More than 10% of all ingress requests are failing with 5xx
             description: >-
               Cluster-wide, so this is traefik itself or many backends failing at once.
               Break down traefik_service_requests_total by service to find out which.
