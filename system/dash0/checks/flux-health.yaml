@@ -30,27 +30,27 @@ spec:
           # superseded by a later healthy event. Value is the number of warnings in the last 24h.
           expr: >-
             (
-              sum by (k8s_namespace_name, k8s_object_kind, k8s_object_name) (
+              sum by (k8s_namespace_name, k8s_object_kind, k8s_object_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
                 increase({otel_metric_name="dash0.logs", k8s_object_api_version=~".*fluxcd.io/.*", otel_log_severity_range="WARN"}[24h])
               ) >= $__threshold
             )
             and
             (
               max_over_time((timestamp(
-                sum by (k8s_namespace_name, k8s_object_kind, k8s_object_name) (
+                sum by (k8s_namespace_name, k8s_object_kind, k8s_object_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
                   increase({otel_metric_name="dash0.logs", k8s_object_api_version=~".*fluxcd.io/.*", otel_log_severity_range="WARN"}[1m])
                 ) > 0
               ))[24h:1m])
               unless
               (
                 max_over_time((timestamp(
-                  sum by (k8s_namespace_name, k8s_object_kind, k8s_object_name) (
+                  sum by (k8s_namespace_name, k8s_object_kind, k8s_object_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
                     increase({otel_metric_name="dash0.logs", k8s_object_api_version=~".*fluxcd.io/.*", k8s_event_reason=~"ReconciliationSucceeded|Succeeded|ArtifactUpToDate|NewArtifact|GitOperationSucceeded|InstallSucceeded|UpgradeSucceeded|TestSucceeded"}[1m])
                   ) > 0
                 ))[24h:1m])
                 >=
                 max_over_time((timestamp(
-                  sum by (k8s_namespace_name, k8s_object_kind, k8s_object_name) (
+                  sum by (k8s_namespace_name, k8s_object_kind, k8s_object_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
                     increase({otel_metric_name="dash0.logs", k8s_object_api_version=~".*fluxcd.io/.*", otel_log_severity_range="WARN"}[1m])
                   ) > 0
                 ))[24h:1m])

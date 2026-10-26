@@ -27,7 +27,7 @@ spec:
         # --- DaemonSets ---
         - alert: DaemonSetPodsNotReady
           expr: >-
-            max by (k8s_namespace_name, k8s_daemonset_name) (
+            max by (k8s_namespace_name, k8s_daemonset_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
               k8s_daemonset_desired_scheduled_nodes - k8s_daemonset_ready_nodes
             ) > 0
           for: 30m
@@ -40,7 +40,7 @@ spec:
         # --- Scheduling ---
         - alert: PodStuckPending
           # k8s.pod.phase: 1 = Pending, 2 = Running, 3 = Succeeded, 4 = Failed, 5 = Unknown
-          expr: max by (k8s_namespace_name, k8s_pod_name) (k8s_pod_phase) == 1
+          expr: max by (k8s_namespace_name, k8s_pod_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_pod_phase) == 1
           for: 15m
           annotations:
             summary: Pod {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} has been Pending for 15 minutes
@@ -53,7 +53,7 @@ spec:
         # core_namespaces is defined in ../checks-kustomization.yaml.
         - alert: CoreServiceDown
           expr: >-
-            max by (k8s_namespace_name, k8s_deployment_name) (
+            max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
               k8s_deployment_available{k8s_namespace_name=~"${core_namespaces}"}
             ) == 0
           for: 3m
@@ -62,11 +62,11 @@ spec:
 
         - alert: CoreServiceDegraded
           expr: >-
-            max by (k8s_namespace_name, k8s_deployment_name) (
+            max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
               k8s_deployment_desired{k8s_namespace_name=~"${core_namespaces}"}
             )
             -
-            max by (k8s_namespace_name, k8s_deployment_name) (
+            max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
               k8s_deployment_available{k8s_namespace_name=~"${core_namespaces}"}
             )
             > 0

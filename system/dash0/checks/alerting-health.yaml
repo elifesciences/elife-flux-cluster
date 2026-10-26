@@ -59,7 +59,7 @@ spec:
         # --- Collectors exporting to Dash0 ---
         - alert: CollectorExportFailing
           expr: >-
-            sum by (k8s_pod_name, exporter) (
+            sum by (k8s_pod_name, exporter, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
               rate(otelcol_exporter_send_failed_metric_points_total[10m])
               or rate(otelcol_exporter_send_failed_log_records_total[10m])
               or rate(otelcol_exporter_enqueue_failed_metric_points_total[10m])
@@ -74,7 +74,7 @@ spec:
 
         - alert: CollectorExportQueueFilling
           expr: >-
-            max by (k8s_pod_name, exporter) (otelcol_exporter_queue_size / otelcol_exporter_queue_capacity) > 0.8
+            max by (k8s_pod_name, exporter, dash0_resource_id, dash0_resource_name, dash0_resource_type) (otelcol_exporter_queue_size / otelcol_exporter_queue_capacity) > 0.8
           for: 15m
           annotations:
             summary: Collector {{ $labels.k8s_pod_name }} export queue above 80% capacity
@@ -82,7 +82,7 @@ spec:
 
         - alert: CollectorRefusingData
           expr: >-
-            sum by (k8s_pod_name, receiver) (
+            sum by (k8s_pod_name, receiver, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
               rate(otelcol_receiver_refused_metric_points_total[10m])
               or rate(otelcol_receiver_refused_log_records_total[10m])
             ) > 0

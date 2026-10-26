@@ -15,17 +15,17 @@ spec:
           # Scale up from zero (KEDA) briefly has 1 desired and 0 available replicas.
           expr: >-
             (
-              max by (k8s_namespace_name, k8s_deployment_name) (
+              max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
                 k8s_deployment_desired{k8s_namespace_name!~"${core_namespaces}"}
               ) > 0
               and
-              max by (k8s_namespace_name, k8s_deployment_name) (k8s_deployment_available) == 0
+              max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_deployment_available) == 0
             )
             or
             (
-              max by (k8s_namespace_name, k8s_statefulset_name) (k8s_statefulset_desired_pods) > 0
+              max by (k8s_namespace_name, k8s_statefulset_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_statefulset_desired_pods) > 0
               and
-              max by (k8s_namespace_name, k8s_statefulset_name) (k8s_statefulset_ready_pods) == 0
+              max by (k8s_namespace_name, k8s_statefulset_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_statefulset_ready_pods) == 0
             )
           for: 10m
           annotations:
@@ -44,22 +44,22 @@ spec:
           # thresholds read as durations. Short mismatches during rollouts and autoscaling
           # stay below them.
           expr: >-
-            max by (k8s_namespace_name, k8s_deployment_name, k8s_statefulset_name) (
+            max by (k8s_namespace_name, k8s_deployment_name, k8s_statefulset_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
               count_over_time(
                 (
                   (
                     (
-                      max by (k8s_namespace_name, k8s_deployment_name) (
+                      max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
                         k8s_deployment_desired{k8s_namespace_name!~"${core_namespaces}"}
                       )
                       -
-                      max by (k8s_namespace_name, k8s_deployment_name) (k8s_deployment_available)
+                      max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_deployment_available)
                     )
                     or
                     (
-                      max by (k8s_namespace_name, k8s_statefulset_name) (k8s_statefulset_desired_pods)
+                      max by (k8s_namespace_name, k8s_statefulset_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_statefulset_desired_pods)
                       -
-                      max by (k8s_namespace_name, k8s_statefulset_name) (k8s_statefulset_ready_pods)
+                      max by (k8s_namespace_name, k8s_statefulset_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_statefulset_ready_pods)
                     )
                   ) > 0
                 )
@@ -79,7 +79,7 @@ spec:
           # never stay in CrashLoopBackOff, typically repeated OOM kills under load. A crash
           # loop reaches the critical threshold within the first hour.
           expr: >-
-            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name) (
+            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
               increase(k8s_container_restarts[6h])
             ) >= $__threshold
           annotations:

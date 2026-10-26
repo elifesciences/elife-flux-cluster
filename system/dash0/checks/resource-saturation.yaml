@@ -16,8 +16,8 @@ spec:
           # CPU is compressible: workloads slow down but nothing is killed. Review only.
           # iowait is idle CPU waiting on disk, so it is excluded along with idle.
           expr: >-
-            sum by (k8s_node_name) (
-              avg by (k8s_node_name, cpu_mode) (system_cpu_utilization_ratio{cpu_mode!~"idle|wait"})
+            sum by (k8s_node_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
+              avg by (k8s_node_name, cpu_mode, dash0_resource_id, dash0_resource_name, dash0_resource_type) (system_cpu_utilization_ratio{cpu_mode!~"idle|wait"})
             ) * 100 > $__threshold
           for: 1h
           annotations:
@@ -26,7 +26,7 @@ spec:
 
         - alert: NodeMemorySaturated
           expr: >-
-            max by (k8s_node_name) (system_memory_utilization_ratio{system_memory_state="used"}) * 100
+            max by (k8s_node_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (system_memory_utilization_ratio{system_memory_state="used"}) * 100
             > $__threshold
           for: 15m
           annotations:
@@ -37,7 +37,7 @@ spec:
         - alert: NodeDiskSaturated
           # kubelet image GC starts at 85% and hard eviction at 90% (nodefs.available < 10%).
           expr: >-
-            max by (k8s_node_name) (1 - k8s_node_filesystem_available_bytes / k8s_node_filesystem_capacity_bytes) * 100
+            max by (k8s_node_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (1 - k8s_node_filesystem_available_bytes / k8s_node_filesystem_capacity_bytes) * 100
             > $__threshold
           for: 15m
           annotations:
@@ -57,22 +57,33 @@ spec:
           # "other" catches anything unmatched so no eviction goes uncounted.
           # Pod names and the node pool cannot be put in the summary: a series per pod would
           # be an issue per pod, and node labels are not shipped.
+          #
+          # The event counts belong to the evicted pods' resources, so the node's resource labels
+          # are joined in from k8s_node_condition_ready to make the node the affected resource.
+          # Nodes are often gone before the 1h window ends, so their labels are looked up over
+          # the same window; topk guards against a node name reused by a new node.
           expr: >-
             (
-              label_replace(
-                sum by (k8s_node_name) (
-                  increase({otel_metric_name="dash0.logs", k8s_event_reason="Evicted", k8s_event_reporting_controller="kubelet", otel_log_body=~"ephemeral-storage|DiskPressure"}[1h])
-                ), "resource", "disk", "", "")
-              or
-              label_replace(
-                sum by (k8s_node_name) (
-                  increase({otel_metric_name="dash0.logs", k8s_event_reason="Evicted", k8s_event_reporting_controller="kubelet", otel_log_body=~"memory|MemoryPressure"}[1h])
-                ), "resource", "memory", "", "")
-              or
-              label_replace(
-                sum by (k8s_node_name) (
-                  increase({otel_metric_name="dash0.logs", k8s_event_reason="Evicted", k8s_event_reporting_controller="kubelet", otel_log_body!~"ephemeral-storage|DiskPressure|memory|MemoryPressure"}[1h])
-                ), "resource", "other", "", "")
+              (
+                label_replace(
+                  sum by (k8s_node_name) (
+                    increase({otel_metric_name="dash0.logs", k8s_event_reason="Evicted", k8s_event_reporting_controller="kubelet", otel_log_body=~"ephemeral-storage|DiskPressure"}[1h])
+                  ), "resource", "disk", "", "")
+                or
+                label_replace(
+                  sum by (k8s_node_name) (
+                    increase({otel_metric_name="dash0.logs", k8s_event_reason="Evicted", k8s_event_reporting_controller="kubelet", otel_log_body=~"memory|MemoryPressure"}[1h])
+                  ), "resource", "memory", "", "")
+                or
+                label_replace(
+                  sum by (k8s_node_name) (
+                    increase({otel_metric_name="dash0.logs", k8s_event_reason="Evicted", k8s_event_reporting_controller="kubelet", otel_log_body!~"ephemeral-storage|DiskPressure|memory|MemoryPressure"}[1h])
+                  ), "resource", "other", "", "")
+              )
+              + on (k8s_node_name) group_left (dash0_resource_id, dash0_resource_name, dash0_resource_type)
+              (0 * topk by (k8s_node_name) (1,
+                max by (k8s_node_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (last_over_time(k8s_node_condition_ready[1h]))
+              ))
             ) >= $__threshold
           annotations:
             summary: Node {{ $labels.k8s_node_name }} evicted at least {{ $__threshold }} pods in an hour (low on {{ $labels.resource }})
@@ -90,9 +101,9 @@ spec:
         - alert: ContainerCpuNearLimit
           # Containers at their CPU limit are throttled. Review only.
           expr: >-
-            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name) (container_cpu_usage)
+            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (container_cpu_usage)
             /
-            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name) (k8s_container_cpu_limit)
+            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_container_cpu_limit)
             * 100 > $__threshold
           for: 1h
           annotations:
@@ -103,9 +114,9 @@ spec:
           # Some workloads (e.g. JVMs like opensearch) sit at ~90% by design. Review only;
           # actual OOM kills are covered by workload checks.
           expr: >-
-            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name) (container_memory_working_set_bytes)
+            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (container_memory_working_set_bytes)
             /
-            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name) (k8s_container_memory_limit_bytes)
+            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_container_memory_limit_bytes)
             * 100 > $__threshold
           for: 1h
           annotations:
@@ -150,12 +161,12 @@ spec:
           # kubelet acts on it.
           expr: >-
             (
-              min by (k8s_node_name) (k8s_node_filesystem_available_bytes / k8s_node_filesystem_capacity_bytes) * 100
+              min by (k8s_node_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_node_filesystem_available_bytes / k8s_node_filesystem_capacity_bytes) * 100
               < $__threshold
             )
             and
             (
-              max by (k8s_node_name) (
+              max by (k8s_node_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
                 predict_linear(k8s_node_filesystem_available_bytes[6h], 24 * 3600) / k8s_node_filesystem_capacity_bytes
               ) < 0.1
             )
