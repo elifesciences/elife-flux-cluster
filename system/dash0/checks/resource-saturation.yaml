@@ -46,6 +46,33 @@ spec:
               kubelet is evicting pods due to Node disk being too full
             dash0-threshold-degraded: "90"
 
+        - alert: NodeDiskFullOutsidePods
+          # Catches nodes heading for eviction before NodeEvictingPods does. On evicting nodes
+          # pods' own ephemeral storage is well under 1GiB, while container images take most of
+          # the root volume. Images in use by running pods cannot be garbage collected, so the
+          # disk is too small for the images scheduled onto it. Value is the percentage of the
+          # disk used by anything other than pods. Review only: NodeEvictingPods alerts once the
+          # kubelet acts on it.
+          expr: >-
+            (
+              max by (k8s_node_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
+                1 - k8s_node_filesystem_available_bytes / k8s_node_filesystem_capacity_bytes
+              )
+              - on (k8s_node_name) group_left ()
+              (
+                sum by (k8s_node_name) (k8s_pod_filesystem_usage_bytes)
+                / on (k8s_node_name) max by (k8s_node_name) (k8s_node_filesystem_capacity_bytes)
+              )
+            ) * 100 > $__threshold
+          for: 30m
+          annotations:
+            summary: Node {{ $labels.k8s_node_name }} disk is more than {{ $__threshold }}% full with data outside pods, mostly container images
+            description: >-
+              The kubelet evicts pods once the disk is 90% full, and pods' own ephemeral storage
+              is not what fills it. Give the node pool's EC2NodeClass a larger root volume
+              (blockDeviceMappings volumeSize) or shrink the images of the workloads it runs.
+            dash0-threshold-degraded: "80"
+
         - alert: NodeEvictingPods
           # Eviction frees disk (or memory) right away, so usage on an evicting node oscillates
           # around the eviction threshold and never stays high long enough for the checks above.
@@ -153,32 +180,6 @@ spec:
     - name: resource-saturation-long-window
       interval: 10m
       rules:
-        - alert: NodeDiskFillingUp
-          # Catches growth before NodeDiskSaturated does. Projects free space to the kubelet's
-          # eviction threshold (10% free) rather than to zero. New nodes fill their disk with
-          # image pulls in their first hours, so only nodes that are already fairly full count.
-          # Value is the current free percentage. Review only: NodeEvictingPods alerts once the
-          # kubelet acts on it.
-          expr: >-
-            (
-              min by (k8s_node_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_node_filesystem_available_bytes / k8s_node_filesystem_capacity_bytes) * 100
-              < $__threshold
-            )
-            and
-            (
-              max by (k8s_node_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
-                predict_linear(k8s_node_filesystem_available_bytes[6h], 24 * 3600) / k8s_node_filesystem_capacity_bytes
-              ) < 0.1
-            )
-          for: 1h
-          annotations:
-            summary: Node {{ $labels.k8s_node_name }} disk is less than {{ $__threshold }}% free and predicted to reach the eviction threshold within 24 hours
-            description: >-
-              Once free disk drops below 10% the kubelet evicts pods. Find the pods using the most
-              ephemeral-storage on the node, set ephemeral-storage requests on them, or give the
-              node pool a larger root volume.
-            dash0-threshold-degraded: "40"
-
         - alert: PvcDiskFillingUp
           # Catches growth before the static thresholds above do. A 24h lookback smooths
           # short bursts (e.g. compaction, index merges) out of the 48h projection.
