@@ -83,6 +83,28 @@ spec:
                 #
                 # --- Entire families not used in any alert ---
                 - 'IsMatch(name, "^mongodb_")'       # mongo metrics
+                # Go runtime and controller internals of every scraped target (flux, cert-manager, ...)
+                - 'IsMatch(name, "^(go|process|controller_runtime|workqueue|rest_client|gotk|opentelemetry_allocator)_")'
+                # Collector self-monitoring, keeping only what the alerting-health checks use
+                # (process uptime, receiver accepted/refused, exporter queue and send/enqueue failures)
+                - 'IsMatch(name, "^otelcol[.]")'
+                - 'IsMatch(name, "^otelcol_(processor|scraper|fileconsumer)_")'
+                - 'IsMatch(name, "^otelcol_process_(cpu|memory|runtime)")'
+                - 'IsMatch(name, "^otelcol_(exporter_sent|exporter_in_flight|receiver_failed)_")'
+                # Container usage details, checks only use container.cpu.usage and container.memory.working_set
+                - 'IsMatch(name, "^container[.](memory[.](rss|usage|page_faults|major_page_faults|available)|filesystem[.]|cpu[.]time)$")'
+                - 'IsMatch(name, "^k8s[.]pod[.]network[.]")'
+                - 'IsMatch(name, "^k8s[.]replicaset[.]")'
+                - 'name == "k8s.container.ready"'
+                - 'name == "k8s.volume.inodes.used"'
+                # Traefik: dashboards and checks only use service requests/duration/response bytes
+                # and entrypoint requests
+                - 'IsMatch(name, "^traefik_(tls_certs_not_after|service_requests_(bytes|tls)_total|entrypoint_(request_duration_seconds|requests_(bytes|tls)_total|responses_bytes_total))$")'
+              datapoint:
+                # Checks only look at PVCs, the bulk are emptyDir, configMap and secret volumes
+                - 'IsMatch(metric.name, "^k8s[.]volume[.]") and resource.attributes["k8s.volume.type"] != "persistentVolumeClaim"'
+                # One series per possible reason/state per container, almost all 0
+                - 'IsMatch(metric.name, "^k8s[.]container[.]status[.]") and value_int == 0 and value_double == 0'
             logs:
               log_records:
                 # Logs are opt-in per workload via the dash0.com/log-level pod label,
