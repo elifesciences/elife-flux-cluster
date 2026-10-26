@@ -56,6 +56,26 @@ spec:
           annotations:
             summary: Collector receiver {{ $labels.receiver }} is running but accepting no data
 
+        # --- Scrape targets other checks depend on ---
+        # Checks on scraped metrics return nothing when the target stops being scraped,
+        # so they go quiet instead of firing. One series per source, labelled by source.
+        - alert: MetricSourceMissing
+          expr: >-
+            label_replace(absent(certmanager_certificate_expiration_timestamp_seconds), "source", "cert-manager", "", "")
+            or
+            label_replace(absent(external_dns_controller_last_sync_timestamp_seconds), "source", "external-dns", "", "")
+            or
+            label_replace(absent(externalsecret_status_condition), "source", "external-secrets", "", "")
+            or
+            label_replace(absent(traefik_entrypoint_requests_total), "source", "traefik", "", "")
+          for: 15m
+          annotations:
+            summary: No metrics received from {{ $labels.source }}
+            description: >-
+              Checks built on {{ $labels.source }} metrics (platform-integrations, IngressHighErrorRate)
+              are blind. Check that its pods are running and its metrics endpoint is still being
+              scraped (ServiceMonitor/PodMonitor or prometheus.io annotations).
+
         # --- Collectors exporting to Dash0 ---
         - alert: CollectorExportFailing
           expr: >-
