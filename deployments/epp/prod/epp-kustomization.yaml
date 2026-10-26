@@ -76,3 +76,12 @@ spec:
       import_controller_hostname: prod--epp-controller.elifesciences.org
       import_controller_temporal_namespace: 'epp--prod,epp--staging,epp--biophysics-colab'
       import_controller_ingress_class_name: traefik
+  patches:
+  # Opt in to shipping logs to dash0 (see system/dash0/README.md)
+  - target:
+      kind: Deployment
+      name: epp-(server|client)
+    patch: |
+      - op: add
+        path: /spec/template/metadata/labels/dash0.com~1log-level
+        value: info
