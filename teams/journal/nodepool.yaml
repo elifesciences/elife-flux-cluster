@@ -40,7 +40,7 @@ spec:
     cpu: 1000
   weight: 25
   disruption:
-    consolidateAfter: "0s"
+    consolidateAfter: "10m"
     consolidationPolicy: WhenEmptyOrUnderutilized
     budgets:
     - nodes: "1"
@@ -87,7 +87,7 @@ spec:
     cpu: 20
   weight: 50
   disruption:
-    consolidateAfter: "0s"
+    consolidateAfter: "10m"
     consolidationPolicy: WhenEmptyOrUnderutilized
     budgets:
     - nodes: "1"
@@ -133,7 +133,7 @@ spec:
   limits:
     cpu: 1000
   disruption:
-    consolidateAfter: "0s"
+    consolidateAfter: "10m"
     consolidationPolicy: WhenEmptyOrUnderutilized
     budgets:
     - nodes: "1"

@@ -35,7 +35,7 @@ spec:
   limits:
     cpu: 1000
   disruption:
-    consolidateAfter: "0s"
+    consolidateAfter: "10m"
     consolidationPolicy: WhenEmptyOrUnderutilized
     budgets:
     - nodes: "1"
