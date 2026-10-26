@@ -6,4 +6,4 @@ resources:
 - source.yaml
 - secret.yaml
 - checks-kustomization.yaml
-- dashboards
+- dashboards-kustomization.yaml

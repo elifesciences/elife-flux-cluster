@@ -1,0 +1,19 @@
+---
+# Separate Flux Kustomization so that the Dash0Monitoring resource, whose CRD is installed
+# by the dash0-operator chart, doesn't fail the dry-run of the parent on a fresh cluster.
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: dash0-dashboards
+  namespace: dash0
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./system/dash0/dashboards
+  prune: true
+  postBuild:
+    substitute:
+      cluster_name: ${cluster_name}
