@@ -128,6 +128,7 @@ spec:
           enabled: true
         serviceMonitor:
           enabled: true
+          interval: 60s
         prometheusRule:
           enabled: true
           rules:
