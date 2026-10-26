@@ -73,6 +73,34 @@ spec:
               (blockDeviceMappings volumeSize) or shrink the images of the workloads it runs.
             dash0-threshold-degraded: "80"
 
+        - alert: PodStorageBeyondRequest
+          # Under disk pressure the kubelet evicts pods by their ephemeral-storage usage above
+          # request, and the scheduler only reserves requested storage, so large unrequested
+          # usage both causes and suffers evictions. Pods without a request count as requesting 0.
+          # Value is the usage above request as a percentage of the node's disk. Review only.
+          expr: >-
+            (
+              max by (k8s_namespace_name, k8s_pod_name, k8s_node_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
+                k8s_pod_filesystem_usage_bytes
+              )
+              - on (k8s_namespace_name, k8s_pod_name) group_left ()
+              (
+                sum by (k8s_namespace_name, k8s_pod_name) (k8s_container_ephemeralstorage_request_bytes)
+                or on (k8s_namespace_name, k8s_pod_name)
+                0 * max by (k8s_namespace_name, k8s_pod_name) (k8s_pod_filesystem_usage_bytes)
+              )
+            )
+            / on (k8s_node_name) group_left ()
+            max by (k8s_node_name) (k8s_node_filesystem_capacity_bytes)
+            * 100 > $__threshold
+          for: 15m
+          annotations:
+            summary: Pod {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} uses more than {{ $__threshold }}% of node {{ $labels.k8s_node_name }}'s disk beyond its ephemeral-storage request
+            description: >-
+              Set an ephemeral-storage request on the pod's containers that covers its usage, so the
+              scheduler reserves the space and the kubelet does not evict it first.
+            dash0-threshold-degraded: "5"
+
         - alert: NodeEvictingPods
           # Eviction frees disk (or memory) right away, so usage on an evicting node oscillates
           # around the eviction threshold and never stays high long enough for the checks above.
