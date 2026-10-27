@@ -49,14 +49,14 @@ Dashboards are managed via both clickops and IaC. For IaC we use `PersesDashboar
 - workloads
   - service has no targets or StatefulSet/Deployment with 0 replicas
   - frequent OOM kills
-  - long running replica mismatches
+  - replica mismatches lasting 20 minutes
   - long running crash loops
 
 ### Checks reviewed daily (not alerting) to prevent degradation
 
 - certificate expiry
 - Flux Reconciliation failure
-- replica mismatches
+- pods restarted by frequent Karpenter consolidation
 - crash loops
 - resource starvation (CPU, Memory, Disk)
 - pod evictions

@@ -36,43 +36,54 @@ spec:
               Every replica is down, so whatever it serves is down. Check the pods for
               crash loops, failed scheduling or image pulls.
 
-    - name: workload-health-long-window
-      interval: 5m
-      rules:
         # --- Replica mismatches ---
-        - alert: ReplicasMismatch
-          # Value is the number of minutes in the last 2 hours with replicas missing, so the
-          # thresholds read as durations. Short mismatches during rollouts and autoscaling
-          # stay below them.
+        - alert: ReplicasMissing
+          # Only gaps that last are reported. Rescheduled pods (Karpenter consolidation, spot
+          # interruptions) leave gaps of a few minutes each, which never last 20 minutes;
+          # KarpenterConsolidationChurn reports those by their cause instead.
           expr: >-
-            max by (k8s_namespace_name, k8s_deployment_name, k8s_statefulset_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
-              count_over_time(
-                (
-                  (
-                    (
-                      max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
-                        k8s_deployment_desired{k8s_namespace_name!~"${core_namespaces}"}
-                      )
-                      -
-                      max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_deployment_available)
-                    )
-                    or
-                    (
-                      max by (k8s_namespace_name, k8s_statefulset_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_statefulset_desired_pods)
-                      -
-                      max by (k8s_namespace_name, k8s_statefulset_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_statefulset_ready_pods)
-                    )
-                  ) > 0
-                )
-              [2h:1m])
-            ) >= $__threshold
+            (
+              max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
+                k8s_deployment_desired{k8s_namespace_name!~"${core_namespaces}"}
+              )
+              -
+              max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_deployment_available)
+            ) > 0
+            or
+            (
+              max by (k8s_namespace_name, k8s_statefulset_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_statefulset_desired_pods)
+              -
+              max by (k8s_namespace_name, k8s_statefulset_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_statefulset_ready_pods)
+            ) > 0
+          for: 20m
           annotations:
-            summary: "{{ $labels.k8s_namespace_name }}/{{ with $labels.k8s_deployment_name }}{{ . }}{{ else }}{{ $labels.k8s_statefulset_name }}{{ end }} has been repeatedly missing replicas in the last 2 hours"
+            summary: "{{ $labels.k8s_namespace_name }}/{{ with $labels.k8s_deployment_name }}{{ . }}{{ else }}{{ $labels.k8s_statefulset_name }}{{ end }} is missing replicas"
             description: >-
               Running with reduced capacity or redundancy. Usually a stuck rollout, a pod
               that cannot be scheduled, or a crash looping replica.
-            dash0-threshold-degraded: "15"
-            dash0-threshold-critical: "120"
+
+    - name: workload-health-long-window
+      interval: 5m
+      rules:
+        # --- Rescheduling ---
+        - alert: KarpenterConsolidationChurn
+          # Each pod Karpenter moves off an underutilized node is a replica down until its
+          # replacement is ready, so frequent consolidation shows up as many short replica
+          # gaps. Counted per namespace: the eviction events belong to pods, which cannot be
+          # mapped to their Deployment or StatefulSet in PromQL.
+          expr: >-
+            sum by (k8s_namespace_name) (
+              increase({otel_metric_name="dash0.logs", k8s_event_reason="Evicted", k8s_event_reporting_controller="karpenter", otel_log_body="Evicted pod: Underutilized"}[6h])
+            ) >= $__threshold
+          annotations:
+            summary: Karpenter consolidation keeps evicting pods in {{ $labels.k8s_namespace_name }}
+            description: >-
+              The node pool keeps replacing nodes for small savings, restarting pods each time.
+              Review the pool's disruption settings (consolidateAfter, a budget that limits
+              Underutilized consolidation to a time window) and that the affected workloads
+              have PodDisruptionBudgets. The evicted pods are in the logs: filter on
+              k8s.event.reason = Evicted and k8s.event.reporting_controller = karpenter.
+            dash0-threshold-degraded: "20"
 
         # --- Restarts ---
         - alert: ContainerRestarting
