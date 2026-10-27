@@ -29,6 +29,8 @@ The distinction between alerts and checks in encoded using dash0 severity.
 Rules without thresholds report critical, so they are alerts.
 Use `dash0-threshold-degraded` for review-only checks, and add `dash0-threshold-critical` when the same signal becomes an alert at a higher level.
 
+Rules with both thresholds must not use `{{ $__threshold }}` in their summary: Dash0 renders resolved issues with the critical threshold, so a resolved degraded issue reads as critical. The status shows the severity and `dash0.check.observed_value` the value.
+
 Checks and alerts are managed as IaC with `PrometheusRule` resources.
 
 Until we switch off VictoriaMetrics these live in their own namespace so that dash0 can be configured to ignore existing VictoriaMetrics rules and vice versa.

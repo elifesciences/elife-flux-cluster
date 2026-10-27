@@ -24,7 +24,7 @@ spec:
               (certmanager_certificate_expiration_timestamp_seconds - time()) / 86400
             ) < $__threshold
           annotations:
-            summary: Certificate {{ $labels.exported_namespace }}/{{ $labels.name }} expires in less than {{ $__threshold }} days
+            summary: Certificate {{ $labels.exported_namespace }}/{{ $labels.name }} is close to expiry and has not been renewed
             description: >-
               Renewal is failing. Check the Certificate, its CertificateRequest and Order/Challenge
               resources, and that the issuer is ready.

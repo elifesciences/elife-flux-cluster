@@ -141,7 +141,7 @@ spec:
               ))
             ) >= $__threshold
           annotations:
-            summary: Node {{ $labels.k8s_node_name }} evicted at least {{ $__threshold }} pods in an hour (low on {{ $labels.resource }})
+            summary: Node {{ $labels.k8s_node_name }} is evicting pods (low on {{ $labels.resource }})
             description: >-
               The evicted pods and their usage are in the logs: filter on
               k8s.event.reason = Evicted and k8s.node.name = {{ $labels.k8s_node_name }}.
@@ -187,7 +187,7 @@ spec:
             ) * 100 > $__threshold
           for: 15m
           annotations:
-            summary: PVC {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_persistentvolumeclaim_name }} above {{ $__threshold }}%
+            summary: PVC {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_persistentvolumeclaim_name }} is filling up
             description: Expand the PVC (the storage classes allow volume expansion) or free up space.
             dash0-threshold-degraded: "80"
             dash0-threshold-critical: "90"
@@ -201,7 +201,7 @@ spec:
             ) * 100 > $__threshold
           for: 15m
           annotations:
-            summary: PVC {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_persistentvolumeclaim_name }} inodes above {{ $__threshold }}%
+            summary: PVC {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_persistentvolumeclaim_name }} is running out of inodes
             dash0-threshold-degraded: "80"
             dash0-threshold-critical: "90"
 
