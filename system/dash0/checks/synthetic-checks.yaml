@@ -116,7 +116,7 @@ spec:
     name: Journal article 85111
   enabled: true
   schedule:
-    interval: 1m
+    interval: 15m
   plugin:
     kind: http
     spec:
@@ -142,7 +142,7 @@ spec:
     name: EPP (No CDN) Landing page
   enabled: true
   schedule:
-    interval: 1m
+    interval: 15m
   plugin:
     kind: http
     spec:
@@ -167,7 +167,7 @@ spec:
     name: EPP (No CDN) A Reviewed Preprint
   enabled: true
   schedule:
-    interval: 1m
+    interval: 15m
   plugin:
     kind: http
     spec:
@@ -192,7 +192,7 @@ spec:
     name: EPP (No CDN) A Reviewed Preprint (Reviews Tab)
   enabled: true
   schedule:
-    interval: 1m
+    interval: 15m
   plugin:
     kind: http
     spec:
@@ -217,7 +217,7 @@ spec:
     name: EPP Status Page
   enabled: true
   schedule:
-    interval: 1m
+    interval: 15m
   plugin:
     kind: http
     spec:
@@ -242,7 +242,7 @@ spec:
     name: Journal Status Page
   enabled: true
   schedule:
-    interval: 1m
+    interval: 15m
   plugin:
     kind: http
     spec:
@@ -268,7 +268,7 @@ spec:
     name: DocMaps API main page
   enabled: true
   schedule:
-    interval: 1m
+    interval: 15m
   plugin:
     kind: http
     spec:
@@ -294,7 +294,7 @@ spec:
     name: Sciety (prod) ping
   enabled: true
   schedule:
-    interval: 1m
+    interval: 15m
   plugin:
     kind: http
     spec:
