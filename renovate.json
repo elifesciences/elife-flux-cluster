@@ -8,6 +8,7 @@
   "kubernetes": {
     "fileMatch": [
       "^system/monitoring/kube-web-view/deployment\\.yaml$",
+      "^system/flux-metrics/deployment\\.yaml$",
       "kustomizations/.+\\.yaml$"
     ]
   },

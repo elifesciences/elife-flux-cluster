@@ -68,11 +68,13 @@ spec:
             label_replace(absent(externalsecret_status_condition), "source", "external-secrets", "", "")
             or
             label_replace(absent(traefik_entrypoint_requests_total), "source", "traefik", "", "")
+            or
+            label_replace(absent(gotk_resource_info), "source", "flux-metrics", "", "")
           for: 15m
           annotations:
             summary: No metrics received from {{ $labels.source }}
             description: >-
-              Checks built on {{ $labels.source }} metrics (platform-integrations, IngressHighErrorRate)
+              Checks built on {{ $labels.source }} metrics (platform-integrations, IngressHighErrorRate, flux-health)
               are blind. Check that its pods are running and its metrics endpoint is still being
               scraped (ServiceMonitor/PodMonitor or prometheus.io annotations).
 

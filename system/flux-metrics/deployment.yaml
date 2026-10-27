@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-state-metrics
+  labels:
+    application: kube-state-metrics
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate # avoid two pods reporting the same series during rollout
+  selector:
+    matchLabels:
+      application: kube-state-metrics
+  template:
+    metadata:
+      labels:
+        application: kube-state-metrics
+      annotations:
+        # scraped by the dash0 collectors
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: /metrics
+    spec:
+      serviceAccountName: kube-state-metrics
+      containers:
+      - name: kube-state-metrics
+        # see https://github.com/kubernetes/kube-state-metrics/releases
+        image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1
+        args:
+        - --port=8080
+        - --telemetry-port=8081
+        # only the Flux metrics from config.yaml, dash0's k8s_cluster receiver covers the rest
+        - --custom-resource-state-only=true
+        - --custom-resource-state-config-file=/etc/kube-state-metrics/config.yaml
+        ports:
+        - name: metrics
+          containerPort: 8080
+        - name: telemetry
+          containerPort: 8081
+        livenessProbe:
+          httpGet:
+            path: /livez
+            port: 8080
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8081
+        resources:
+          requests:
+            cpu: 10m
+            memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: [ALL]
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 65534
+        volumeMounts:
+        - name: config
+          mountPath: /etc/kube-state-metrics
+          readOnly: true
+      volumes:
+      - name: config
+        configMap:
+          name: kube-state-metrics-config

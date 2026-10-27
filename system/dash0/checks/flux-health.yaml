@@ -2,10 +2,10 @@
 # Flux reconciliation failures. Review only: a failing reconciliation blocks deploys
 # but does not by itself degrade a running service.
 #
-# Flux has no per-object Ready metric (gotk_reconcile_condition was removed in Flux 2.1),
-# so this uses the k8s events Flux emits on each object, counted via the dash0.logs metric
-# Dash0 derives from logs. An object is failing when its last Warning event is more recent
-# than its last healthy event. The event body has the error.
+# Flux has no per-object Ready metric (gotk_reconcile_condition was removed in Flux 2.1).
+# FluxResourceNotReady uses gotk_resource_info from kube-state-metrics in system/flux-metrics.
+# FluxReconciliationFailing is the earlier event based check, kept until the two have been
+# compared in the Failed Checks view.
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -16,6 +16,27 @@ spec:
     - name: flux-health
       interval: 10m
       rules:
+        - alert: FluxResourceNotReady
+          # Objects that were Ready=False and never Ready=True in the last 30m.
+          # A failing object passes through Ready=Unknown on every reconcile (for the length
+          # of a health check timeout, on a Kustomization), which would reset a `for:`.
+          # Objects without a Ready condition (OCI HelmRepositories) never match.
+          # Suspended objects are left out; spec.suspend is empty unless set.
+          expr: >-
+            max by (customresource_kind, exported_namespace, name, reason) (
+              max_over_time(gotk_resource_info{ready="False", suspended!="true"}[30m])
+            ) >= $__threshold
+            unless on (customresource_kind, exported_namespace, name)
+            max by (customresource_kind, exported_namespace, name) (
+              max_over_time(gotk_resource_info{ready="True"}[30m])
+            )
+          annotations:
+            summary: "{{ $labels.customresource_kind }} {{ $labels.exported_namespace }}/{{ $labels.name }} is not ready: {{ $labels.reason }}"
+            description: >-
+              Check the Warning events for this object in the logs, or
+              `flux get all -A --status-selector ready=false`.
+            dash0-threshold-degraded: "1"
+
         - alert: FluxReconciliationFailing
           # Covers every Flux kind (Kustomization, HelmRelease, sources, image automation).
           #

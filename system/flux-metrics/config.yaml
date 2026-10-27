@@ -1,0 +1,51 @@
+# Exposes gotk_resource_info, one series per Flux object, as described in
+# https://fluxcd.io/flux/monitoring/metrics/
+# kube-state-metrics adds customresource_group, customresource_version and customresource_kind.
+#
+# Labels are kept to what the flux-health check uses: every distinct label value is a new
+# series. The Ready message is left out for that reason, it is in the k8s events.
+kind: CustomResourceStateMetrics
+spec:
+  resources:
+  - groupVersionKind: {group: kustomize.toolkit.fluxcd.io, version: v1, kind: Kustomization}
+    metricNamePrefix: gotk
+    metrics: &metrics
+    - name: resource_info
+      help: The current state of a Flux resource.
+      each:
+        type: Info
+        info:
+          labelsFromPath:
+            name: [metadata, name]
+      labelsFromPath:
+        exported_namespace: [metadata, namespace]
+        ready: [status, conditions, "[type=Ready]", status]
+        reason: [status, conditions, "[type=Ready]", reason]
+        suspended: [spec, suspend]
+  - groupVersionKind: {group: helm.toolkit.fluxcd.io, version: v2, kind: HelmRelease}
+    metricNamePrefix: gotk
+    metrics: *metrics
+  - groupVersionKind: {group: source.toolkit.fluxcd.io, version: v1, kind: Bucket}
+    metricNamePrefix: gotk
+    metrics: *metrics
+  - groupVersionKind: {group: source.toolkit.fluxcd.io, version: v1, kind: GitRepository}
+    metricNamePrefix: gotk
+    metrics: *metrics
+  - groupVersionKind: {group: source.toolkit.fluxcd.io, version: v1, kind: HelmChart}
+    metricNamePrefix: gotk
+    metrics: *metrics
+  - groupVersionKind: {group: source.toolkit.fluxcd.io, version: v1, kind: HelmRepository}
+    metricNamePrefix: gotk
+    metrics: *metrics
+  - groupVersionKind: {group: source.toolkit.fluxcd.io, version: v1, kind: OCIRepository}
+    metricNamePrefix: gotk
+    metrics: *metrics
+  - groupVersionKind: {group: image.toolkit.fluxcd.io, version: v1, kind: ImagePolicy}
+    metricNamePrefix: gotk
+    metrics: *metrics
+  - groupVersionKind: {group: image.toolkit.fluxcd.io, version: v1, kind: ImageRepository}
+    metricNamePrefix: gotk
+    metrics: *metrics
+  - groupVersionKind: {group: image.toolkit.fluxcd.io, version: v1, kind: ImageUpdateAutomation}
+    metricNamePrefix: gotk
+    metrics: *metrics

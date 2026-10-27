@@ -71,7 +71,9 @@ spec:
             # --- Entire families not used in any alert ---
             - 'IsMatch(name, "^mongodb_")'       # mongo metrics
             # Go runtime and controller internals of every scraped target (flux, cert-manager, ...)
-            - 'IsMatch(name, "^(go|process|controller_runtime|workqueue|rest_client|gotk|opentelemetry_allocator)_")'
+            - 'IsMatch(name, "^(go|process|controller_runtime|workqueue|rest_client|opentelemetry_allocator)_")'
+            # Flux controller internals; gotk_resource_info comes from system/flux-metrics
+            - 'IsMatch(name, "^gotk_") and name != "gotk_resource_info"'
             # Collector self-monitoring (otelcol*) bypasses this pipeline, see the spam filter in checks/
             # Container usage details, checks only use container.cpu.usage and container.memory.working_set
             - 'IsMatch(name, "^container[.](memory[.](rss|usage|page_faults|major_page_faults|available)|filesystem[.].*|cpu[.]time)$")'

@@ -7,6 +7,7 @@ resources:
 - ../../database
 - ../../external-dns
 - ../../external-secrets
+- ../../flux-metrics
 - ../../gitops-dashboard
 - ../../gemini
 - ../../grafana
