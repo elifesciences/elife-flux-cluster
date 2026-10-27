@@ -135,31 +135,6 @@ spec:
 apiVersion: operator.dash0.com/v1alpha1
 kind: Dash0SyntheticCheck
 metadata:
-  name: epp-landing-page
-  namespace: dash0-checks
-spec:
-  display:
-    name: EPP (No CDN) Landing page
-  enabled: true
-  schedule:
-    interval: 15m
-  plugin:
-    kind: http
-    spec:
-      request:
-        method: get
-        url: https://prod--epp.elifesciences.org/
-      assertions:
-        criticalAssertions:
-          - kind: status_code
-            spec:
-              operator: is
-              value: "200"
-        degradedAssertions: []
----
-apiVersion: operator.dash0.com/v1alpha1
-kind: Dash0SyntheticCheck
-metadata:
   name: epp-reviewed-preprint
   namespace: dash0-checks
 spec:
@@ -174,56 +149,6 @@ spec:
       request:
         method: get
         url: https://prod--epp.elifesciences.org/reviewed-preprints/90192
-      assertions:
-        criticalAssertions:
-          - kind: status_code
-            spec:
-              operator: is
-              value: "200"
-        degradedAssertions: []
----
-apiVersion: operator.dash0.com/v1alpha1
-kind: Dash0SyntheticCheck
-metadata:
-  name: epp-reviewed-preprint-reviews
-  namespace: dash0-checks
-spec:
-  display:
-    name: EPP (No CDN) A Reviewed Preprint (Reviews Tab)
-  enabled: true
-  schedule:
-    interval: 15m
-  plugin:
-    kind: http
-    spec:
-      request:
-        method: get
-        url: https://prod--epp.elifesciences.org/reviewed-preprints/90192/reviews
-      assertions:
-        criticalAssertions:
-          - kind: status_code
-            spec:
-              operator: is
-              value: "200"
-        degradedAssertions: []
----
-apiVersion: operator.dash0.com/v1alpha1
-kind: Dash0SyntheticCheck
-metadata:
-  name: epp-status
-  namespace: dash0-checks
-spec:
-  display:
-    name: EPP Status Page
-  enabled: true
-  schedule:
-    interval: 15m
-  plugin:
-    kind: http
-    spec:
-      request:
-        method: get
-        url: https://prod--epp.elifesciences.org/status
       assertions:
         criticalAssertions:
           - kind: status_code
