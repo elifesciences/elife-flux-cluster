@@ -25,7 +25,7 @@ spec:
       containers:
       - name: kube-state-metrics
         # see https://github.com/kubernetes/kube-state-metrics/releases
-        image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1
+        image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.20.0
         args:
         - --port=8080
         - --telemetry-port=8081
