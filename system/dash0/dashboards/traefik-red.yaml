@@ -5,6 +5,10 @@
 # "{namespace}-{service}-{port}@kubernetes"; it expands to a complete label matcher,
 # and matches every service when nothing is selected. label_replace strips the
 # "@kubernetes" provider suffix to give a shorter "service" label for the legend.
+#
+# Per-service ratio panels only show services averaging at least "min_rate" req/s in the
+# last hour (default 0.1). Below that a single request moves the ratio by several percent,
+# which is just noise.
 apiVersion: perses.dev/v1alpha2
 kind: PersesDashboard
 metadata:
@@ -27,6 +31,36 @@ spec:
           attributeKey: exported_service
           operator: is_any
           values: []
+      - kind: ListVariable
+        spec:
+          name: min_rate
+          display:
+            name: Min. request rate
+            description: >-
+              Per-service ratio panels hide services averaging fewer requests per second than
+              this over the last hour, as their ratios are dominated by single requests.
+            hidden: false
+          allowAllValue: false
+          allowMultiple: false
+          defaultValues:
+            - "0.1"
+          sort: none
+          plugin:
+            kind: StaticListVariable
+            spec:
+              values:
+                - id: "0"
+                  label: No cutoff
+                  value: "0"
+                - id: "0.01"
+                  label: 0.01 req/s
+                  value: "0.01"
+                - id: "0.1"
+                  label: 0.1 req/s
+                  value: "0.1"
+                - id: "1"
+                  label: 1 req/s
+                  value: "1"
     panels:
       # --- Overview (whole environment, over the selected time range) ---
       overview-rate:
@@ -75,20 +109,20 @@ spec:
                       /
                       sum(rate(traefik_service_requests_total{exported_service!="", $service}[$__range]))
                     seriesNameFormat: 5xx
-      overview-p95:
+      overview-slow:
         kind: Panel
         spec:
           display:
-            name: p95 latency
+            name: Slower than 1.2s
             description: >-
-              95th percentile request duration in the selected time range. Traefik's buckets are
-              coarse (0.1s, 0.3s, 1.2s, 5s), so this is interpolated between them.
+              Share of requests that took longer than 1.2s in the selected time range. Read straight
+              from a histogram bucket boundary, so it is exact rather than interpolated.
           plugin:
             kind: StatChart
             spec:
               calculation: last-number
               format:
-                unit: seconds
+                unit: percent-decimal
                 decimalPlaces: 2
           queries:
             - kind: TimeSeriesQuery
@@ -97,8 +131,11 @@ spec:
                   kind: PrometheusTimeSeriesQuery
                   spec:
                     query: >-
-                      histogram_quantile(0.95, sum by (le) (rate(traefik_service_request_duration_seconds_bucket{exported_service!="", $service}[$__range])))
-                    seriesNameFormat: p95
+                      1 -
+                      sum(rate(traefik_service_request_duration_seconds_bucket{exported_service!="", le="1.2", $service}[$__range]))
+                      /
+                      sum(rate(traefik_service_request_duration_seconds_bucket{exported_service!="", le="+Inf", $service}[$__range]))
+                    seriesNameFormat: "> 1.2s"
 
       # --- Rate ---
       rate-by-service:
@@ -214,7 +251,9 @@ spec:
                       label_replace(
                         sum by (exported_service) (rate(traefik_service_requests_total{exported_service!="", code=~"5..", $service}[5m]))
                         /
-                        sum by (exported_service) (rate(traefik_service_requests_total{exported_service!="", $service}[5m])),
+                        sum by (exported_service) (rate(traefik_service_requests_total{exported_service!="", $service}[5m]))
+                        and on (exported_service)
+                        sum by (exported_service) (rate(traefik_service_requests_total{exported_service!="", $service}[1h])) >= $min_rate,
                         "service", "$1", "exported_service", "^(.+)@kubernetes(crd)?$"
                       )
                     seriesNameFormat: "{{service}}"
@@ -253,14 +292,13 @@ spec:
                     seriesNameFormat: "{{code}}"
 
       # --- Duration ---
-      duration-p95-by-service:
+      # Traefik's buckets are coarse (0.1s, 0.3s, 1.2s, 5s), so interpolated percentiles mislead.
+      # Instead show the share of requests above a bucket boundary, which is exact.
+      duration-slow-300ms-by-service:
         kind: Panel
         spec:
           display:
-            name: p95 latency by service
-            description: >-
-              Traefik's buckets are coarse (0.1s, 0.3s, 1.2s, 5s), so percentiles are interpolated
-              between them; compare with the mean.
+            name: Share of requests slower than 300ms by service
           plugin:
             kind: TimeSeriesChart
             spec:
@@ -280,8 +318,8 @@ spec:
                 show: true
                 min: 0
                 format:
-                  unit: seconds
-                  decimalPlaces: 2
+                  unit: percent-decimal
+                  decimalPlaces: 1
           queries:
             - kind: TimeSeriesQuery
               spec:
@@ -290,15 +328,20 @@ spec:
                   spec:
                     query: >-
                       label_replace(
-                        histogram_quantile(0.95, sum by (exported_service, le) (rate(traefik_service_request_duration_seconds_bucket{exported_service!="", $service}[5m]))),
+                        1 -
+                        sum by (exported_service) (rate(traefik_service_request_duration_seconds_bucket{exported_service!="", le="0.3", $service}[5m]))
+                        /
+                        sum by (exported_service) (rate(traefik_service_request_duration_seconds_bucket{exported_service!="", le="+Inf", $service}[5m]))
+                        and on (exported_service)
+                        sum by (exported_service) (rate(traefik_service_requests_total{exported_service!="", $service}[1h])) >= $min_rate,
                         "service", "$1", "exported_service", "^(.+)@kubernetes(crd)?$"
                       )
                     seriesNameFormat: "{{service}}"
-      duration-mean-by-service:
+      duration-slow-1200ms-by-service:
         kind: Panel
         spec:
           display:
-            name: Mean latency by service
+            name: Share of requests slower than 1.2s by service
           plugin:
             kind: TimeSeriesChart
             spec:
@@ -318,8 +361,8 @@ spec:
                 show: true
                 min: 0
                 format:
-                  unit: seconds
-                  decimalPlaces: 2
+                  unit: percent-decimal
+                  decimalPlaces: 1
           queries:
             - kind: TimeSeriesQuery
               spec:
@@ -328,9 +371,12 @@ spec:
                   spec:
                     query: >-
                       label_replace(
-                        sum by (exported_service) (rate(traefik_service_request_duration_seconds_sum{exported_service!="", $service}[5m]))
+                        1 -
+                        sum by (exported_service) (rate(traefik_service_request_duration_seconds_bucket{exported_service!="", le="1.2", $service}[5m]))
                         /
-                        sum by (exported_service) (rate(traefik_service_request_duration_seconds_count{exported_service!="", $service}[5m])),
+                        sum by (exported_service) (rate(traefik_service_request_duration_seconds_bucket{exported_service!="", le="+Inf", $service}[5m]))
+                        and on (exported_service)
+                        sum by (exported_service) (rate(traefik_service_requests_total{exported_service!="", $service}[1h])) >= $min_rate,
                         "service", "$1", "exported_service", "^(.+)@kubernetes(crd)?$"
                       )
                     seriesNameFormat: "{{service}}"
@@ -344,7 +390,7 @@ spec:
           items:
             - {x: 0, y: 0, width: 8, height: 4, content: {$ref: "#/spec/panels/overview-rate"}}
             - {x: 8, y: 0, width: 8, height: 4, content: {$ref: "#/spec/panels/overview-errors"}}
-            - {x: 16, y: 0, width: 8, height: 4, content: {$ref: "#/spec/panels/overview-p95"}}
+            - {x: 16, y: 0, width: 8, height: 4, content: {$ref: "#/spec/panels/overview-slow"}}
       - kind: Grid
         spec:
           display:
@@ -370,5 +416,5 @@ spec:
             collapse:
               open: true
           items:
-            - {x: 0, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/duration-p95-by-service"}}
-            - {x: 12, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/duration-mean-by-service"}}
+            - {x: 0, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/duration-slow-300ms-by-service"}}
+            - {x: 12, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/duration-slow-1200ms-by-service"}}
