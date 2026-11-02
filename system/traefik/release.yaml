@@ -156,7 +156,6 @@ spec:
       replicas: 10
       podLabels:
         app.kubernetes.io/component: traefik
-        dash0.com/log-level: info
       initContainers:
         - name: check-plugins
           image: alpine:latest
