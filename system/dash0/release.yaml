@@ -120,10 +120,15 @@ spec:
                 # Logs are opt-in per workload via the dash0.com/log-level pod label,
                 # whose value is the minimum severity to ship (trace|debug|info|warn|error).
                 # Records without a parsed severity (UNSPECIFIED) are always kept.
-                # k8s events (eventCollection) use a separate pipeline and are not affected.
-                - 'resource.attributes["k8s.pod.label.dash0.com/log-level"] == nil'
-                - 'resource.attributes["k8s.pod.label.dash0.com/log-level"] == "debug" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_DEBUG'
-                - 'resource.attributes["k8s.pod.label.dash0.com/log-level"] == "info" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_INFO'
-                - 'resource.attributes["k8s.pod.label.dash0.com/log-level"] == "warn" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_WARN'
-                - 'resource.attributes["k8s.pod.label.dash0.com/log-level"] == "error" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_ERROR'
+                #
+                # k8s events (eventCollection) pass through this same filter.
+                # To avoid applying the log level filter to k8s events (that are shipped as logs)
+                # we check if k8s.event.name is nil.
+                - 'attributes["k8s.event.name"] == nil and resource.attributes["k8s.pod.label.dash0.com/log-level"] == nil'
+                - 'attributes["k8s.event.name"] == nil and resource.attributes["k8s.pod.label.dash0.com/log-level"] == "debug" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_DEBUG'
+                - 'attributes["k8s.event.name"] == nil and resource.attributes["k8s.pod.label.dash0.com/log-level"] == "info" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_INFO'
+                - 'attributes["k8s.event.name"] == nil and resource.attributes["k8s.pod.label.dash0.com/log-level"] == "warn" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_WARN'
+                - 'attributes["k8s.event.name"] == nil and resource.attributes["k8s.pod.label.dash0.com/log-level"] == "error" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_ERROR'
+                # Limit namespace k8s events to severity > WARN, all cluster scoped events are shipped regardless of level
+                - 'attributes["k8s.event.name"] != nil and severity_number < SEVERITY_NUMBER_WARN and resource.attributes["k8s.namespace.name"] != nil and resource.attributes["k8s.namespace.name"] != ""'
 
