@@ -66,7 +66,7 @@ RED/YELLOW, disk watermarks, JVM heap, bulk rejections, CPU. Dash0 has none.
   Dash0 has no per-team routing.
 - These checks only have a degraded threshold, so they never notify:
   `CertificateNotReady`, `ExternalSecretNotSynced`, `ExternalDnsNotSyncing`,
-  `FluxReconciliationFailing`, `NodeCpuSaturated`, `NodeMemorySaturated`, `NodeDiskSaturated`,
+  `FluxResourceNotReady`, `NodeCpuSaturated`, `NodeMemorySaturated`, `NodeDiskSaturated`,
   `NodeDiskFullOutsidePods`, `PodStorageBeyondRequest`, `ContainerCpuNearLimit`,
   `ContainerMemoryNearLimit`. External integrations therefore only alert once a certificate
   is within 7 days of expiry.

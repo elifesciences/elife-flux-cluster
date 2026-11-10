@@ -2,10 +2,9 @@
 # Flux reconciliation failures. Review only: a failing reconciliation blocks deploys
 # but does not by itself degrade a running service.
 #
-# Flux has no per-object Ready metric (gotk_reconcile_condition was removed in Flux 2.1).
-# FluxResourceNotReady uses gotk_resource_info from kube-state-metrics in system/flux-metrics.
-# FluxReconciliationFailing is the earlier event based check, kept until the two have been
-# compared in the Failed Checks view.
+# Flux itself exports no per-object Ready metric (gotk_reconcile_condition was removed in
+# Flux 2.1), so gotk_resource_info comes from kube-state-metrics in system/flux-metrics.
+#
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -32,53 +31,6 @@ spec:
             )
           annotations:
             summary: "{{ $labels.customresource_kind }} {{ $labels.exported_namespace }}/{{ $labels.name }} is not ready: {{ $labels.reason }}"
-            description: >-
-              Check the Warning events for this object in the logs, or
-              `flux get all -A --status-selector ready=false`.
-            dash0-threshold-degraded: "1"
-
-        - alert: FluxReconciliationFailing
-          # Covers every Flux kind (Kustomization, HelmRelease, sources, image automation).
-          #
-          # Healthy reasons are listed explicitly: DependencyNotReady and Progressing are
-          # Info events that interleave with failures. Kustomizations, sources and image
-          # automation emit a healthy event on every reconcile, so transient warnings clear
-          # within one interval. HelmReleases only emit events on install, upgrade or failure,
-          # so a HelmRelease that exhausted its retries stays failing until it ages out of
-          # the 24h lookback.
-          #
-          # The expression keeps objects with warnings whose last warning time is not
-          # superseded by a later healthy event. Value is the number of warnings in the last 24h.
-          expr: >-
-            (
-              sum by (k8s_namespace_name, k8s_object_kind, k8s_object_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
-                increase({otel_metric_name="dash0.logs", k8s_object_api_version=~".*fluxcd.io/.*", otel_log_severity_range="WARN"}[24h])
-              ) >= $__threshold
-            )
-            and
-            (
-              max_over_time((timestamp(
-                sum by (k8s_namespace_name, k8s_object_kind, k8s_object_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
-                  increase({otel_metric_name="dash0.logs", k8s_object_api_version=~".*fluxcd.io/.*", otel_log_severity_range="WARN"}[1m])
-                ) > 0
-              ))[24h:1m])
-              unless
-              (
-                max_over_time((timestamp(
-                  sum by (k8s_namespace_name, k8s_object_kind, k8s_object_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
-                    increase({otel_metric_name="dash0.logs", k8s_object_api_version=~".*fluxcd.io/.*", k8s_event_reason=~"ReconciliationSucceeded|Succeeded|ArtifactUpToDate|NewArtifact|GitOperationSucceeded|InstallSucceeded|UpgradeSucceeded|TestSucceeded"}[1m])
-                  ) > 0
-                ))[24h:1m])
-                >=
-                max_over_time((timestamp(
-                  sum by (k8s_namespace_name, k8s_object_kind, k8s_object_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
-                    increase({otel_metric_name="dash0.logs", k8s_object_api_version=~".*fluxcd.io/.*", otel_log_severity_range="WARN"}[1m])
-                  ) > 0
-                ))[24h:1m])
-              )
-            )
-          annotations:
-            summary: "{{ $labels.k8s_object_kind }} {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_object_name }} is failing to reconcile"
             description: >-
               Check the Warning events for this object in the logs, or
               `flux get all -A --status-selector ready=false`.
