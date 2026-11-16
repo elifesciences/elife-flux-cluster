@@ -82,7 +82,7 @@ spec:
             - 'IsMatch(name, "^k8s[.]pod[.](cpu[.]time|memory[.](usage|rss|page_faults|major_page_faults|available)|filesystem[.](capacity|available))$")'
             - 'IsMatch(name, "^k8s[.]pod[.].*_utilization$")'
             - 'IsMatch(name, "^k8s[.]pod[.]network[.]")'
-            - 'IsMatch(name, "^k8s[.](replicaset)[.]")'
+            - 'IsMatch(name, "^k8s[.](replicaset|job)[.]")'
             - 'name == "k8s.container.ready"'
             - 'name == "k8s.container.status.state"'
             - 'name == "k8s.volume.inodes.used"'
@@ -131,3 +131,4 @@ spec:
                 - 'attributes["k8s.event.name"] == nil and resource.attributes["k8s.pod.label.dash0.com/log-level"] == "error" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_ERROR'
                 # Limit namespace k8s events to severity > WARN, all cluster scoped events are shipped regardless of level
                 - 'attributes["k8s.event.name"] != nil and severity_number < SEVERITY_NUMBER_WARN and resource.attributes["k8s.namespace.name"] != nil and resource.attributes["k8s.namespace.name"] != ""'
+
