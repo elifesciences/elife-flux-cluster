@@ -129,6 +129,10 @@ spec:
                 - 'attributes["k8s.event.name"] == nil and resource.attributes["k8s.pod.label.dash0.com/log-level"] == "info" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_INFO'
                 - 'attributes["k8s.event.name"] == nil and resource.attributes["k8s.pod.label.dash0.com/log-level"] == "warn" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_WARN'
                 - 'attributes["k8s.event.name"] == nil and resource.attributes["k8s.pod.label.dash0.com/log-level"] == "error" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_ERROR'
-                # Limit namespace k8s events to severity > WARN, all cluster scoped events are shipped regardless of level
-                - 'attributes["k8s.event.name"] != nil and severity_number < SEVERITY_NUMBER_WARN and resource.attributes["k8s.namespace.name"] != nil and resource.attributes["k8s.namespace.name"] != ""'
+                # Limit namespace k8s events to severity > WARN, all cluster scoped events are shipped regardless of level.
+                # Karpenter's Evicted events are INFO but feed the KarpenterConsolidationChurn check, so keep them.
+                - >-
+                  attributes["k8s.event.name"] != nil and severity_number < SEVERITY_NUMBER_WARN
+                  and resource.attributes["k8s.namespace.name"] != nil and resource.attributes["k8s.namespace.name"] != ""
+                  and not (attributes["k8s.event.reason"] == "Evicted" and attributes["k8s.event.reporting_controller"] == "karpenter")
 
