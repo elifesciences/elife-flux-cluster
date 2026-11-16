@@ -12,7 +12,7 @@ spec:
   type: slack_bot
   slackBotConfig:
     teamId: T025LBBQS
-    channel: "#test-dash0"
+    channel: "#cluster-alerts"
   frequency: 6h
   routing:
     assets: []
