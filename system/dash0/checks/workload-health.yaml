@@ -67,11 +67,22 @@ spec:
           # k8s.pod.phase: 1 = Pending, 2 = Running, 3 = Succeeded, 4 = Failed, 5 = Unknown
           # Failed is terminal: the pod stays Failed until it is deleted (e.g. by the Job's
           # history limit or ttlSecondsAfterFinished), so this reports for as long as it exists.
+          # A Job retries failed pods up to its backoffLimit, so a failed pod only counts once
+          # no other pod of the same Job is pending, running or has succeeded. Pods outside
+          # a Job have no k8s_job_name and are never excluded.
+          # The Job waits up to 6 minutes (exponential backoff, capped) before creating the
+          # next pod. The 10 minute `for` covers that wait, so a retry still to come does
+          # not report.
           expr: >-
-            count by (k8s_namespace_name, k8s_pod_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
-              k8s_pod_phase == 4
+            (
+              count by (k8s_namespace_name, k8s_job_name, k8s_pod_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
+                k8s_pod_phase == 4
+              )
+              unless on (k8s_namespace_name, k8s_job_name) (
+                k8s_pod_phase{k8s_job_name!=""} < 4
+              )
             ) >= $__threshold
-          for: 5m
+          for: 10m
           annotations:
             summary: "Pod {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} has failed"
             description: >-
