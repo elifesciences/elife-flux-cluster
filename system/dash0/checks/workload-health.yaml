@@ -62,6 +62,25 @@ spec:
               Running with reduced capacity or redundancy. Usually a stuck rollout, a pod
               that cannot be scheduled, or a crash looping replica.
 
+        # --- Failed pods ---
+        - alert: PodFailed
+          # k8s.pod.phase: 1 = Pending, 2 = Running, 3 = Succeeded, 4 = Failed, 5 = Unknown
+          # Failed is terminal: the pod stays Failed until it is deleted (e.g. by the Job's
+          # history limit or ttlSecondsAfterFinished), so this reports for as long as it exists.
+          expr: >-
+            count by (k8s_namespace_name, k8s_pod_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
+              k8s_pod_phase == 4
+            ) >= $__threshold
+          for: 5m
+          annotations:
+            summary: "Pod {{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} has failed"
+            description: >-
+              A container exited with an error and will not be restarted (restartPolicy Never
+              or OnFailure, typically a Job), or the kubelet evicted the pod. Check the pod's
+              status reason and the k8s events shipped as logs for why.
+              Delete the failed pod to clear the check.
+            dash0-threshold-degraded: "1"
+
     - name: workload-health-long-window
       interval: 5m
       rules:
