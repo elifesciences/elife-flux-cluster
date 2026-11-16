@@ -44,6 +44,24 @@ spec:
               or a certificate referencing a missing issuer.
             dash0-threshold-degraded: "1"
 
+        - alert: CertManagerHittingRateLimits
+          # The ACME server answers 429 once an account or domain exceeds a rate limit (e.g.
+          # Let's Encrypt's certificates per domain per week, or failed validations per hour).
+          # The status="429" series only exists once a 429 has happened. Dash0's increase()
+          # counts that first sample, so the first rate limited request is reported.
+          expr: >-
+            sum by (host, action) (
+              increase(certmanager_http_acme_client_request_count_total{status="429"}[1h])
+            ) >= $__threshold
+          annotations:
+            summary: cert-manager is being rate limited by {{ $labels.host }} ({{ $labels.action }})
+            description: >-
+              Issuance and renewal are blocked until the limit resets, which can take up to a
+              week. Look for a Certificate that keeps being reissued or an ACME challenge that
+              keeps failing (CertificateNotReady), and check the cert-manager logs for which
+              limit was hit.
+            dash0-threshold-degraded: "1"
+
         # --- DNS ---
         - alert: ExternalDnsNotSyncing
           # external-dns syncs every minute; the timestamp only advances on a successful sync.
