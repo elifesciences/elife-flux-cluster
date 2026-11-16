@@ -206,13 +206,40 @@ spec:
                   kind: PrometheusTimeSeriesQuery
                   spec:
                     query: >-
-                      sum by (class) (
-                        label_replace(
-                          rate(traefik_service_requests_total{exported_service!="", $service}[5m]),
-                          "class", "$1", "code", "^(.).."
-                        )
-                      )
-                    seriesNameFormat: "{{class}}xx"
+                      sum(rate(traefik_service_requests_total{exported_service!="", $service, code=~"1.."}[5m]))
+                    seriesNameFormat: "1xx"
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum(rate(traefik_service_requests_total{exported_service!="", $service, code=~"2.."}[5m]))
+                    seriesNameFormat: "2xx"
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum(rate(traefik_service_requests_total{exported_service!="", $service, code=~"3.."}[5m]))
+                    seriesNameFormat: "3xx"
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum(rate(traefik_service_requests_total{exported_service!="", $service, code=~"4.."}[5m]))
+                    seriesNameFormat: "4xx"
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum(rate(traefik_service_requests_total{exported_service!="", $service, code=~"5.."}[5m]))
+                    seriesNameFormat: "5xx"
 
       # --- Errors ---
       errors-ratio-by-service:
