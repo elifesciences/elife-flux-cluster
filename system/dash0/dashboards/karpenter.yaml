@@ -10,9 +10,12 @@
 # - Karpenter's k8s events, shipped as logs and queried through the dash0.logs metric. They
 #   are the only per pool record of past disruptions. Node pool comes from the NodeClaim name
 #   ({nodepool}-{5 random characters}), as the events carry no nodepool attribute.
+#   Dash0 range queries cannot group by otel_log_body, so each reason is its own query.
 #
 # Rolling 24h windows smooth out batch workloads, so before and after a settings change can
-# be compared day by day.
+# be compared day by day. The default range is 3 days: grouping pod evictions by namespace
+# reads one series per evicted pod, which Dash0 only manages at hourly steps for up to about
+# 3 days.
 apiVersion: perses.dev/v1alpha2
 kind: PersesDashboard
 metadata:
@@ -24,7 +27,7 @@ spec:
       description: >-
         Node pool cost and unused capacity against the node and pod churn consolidation causes,
         to tune Karpenter disruption settings.
-    duration: 7d
+    duration: 3d
     variables: []
     panels:
       guide:
@@ -386,6 +389,8 @@ spec:
             description: >-
               Underutilized evicts running pods to pack them onto fewer or cheaper nodes. Empty
               removes nodes without pods, which costs only a launch when capacity is needed again.
+              Drifted replaces nodes whose NodePool or EC2NodeClass changed (e.g. a new AMI),
+              Expired those older than expireAfter.
           plugin:
             kind: TimeSeriesChart
             spec: *count-pools
@@ -396,14 +401,48 @@ spec:
                   kind: PrometheusTimeSeriesQuery
                   spec:
                     query: >-
-                      sum by (nodepool, reason) (
+                      sum by (nodepool) (
                         label_replace(
-                          label_replace(
-                            sum by (k8s_object_name, otel_log_body) (increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="DisruptionTerminating", k8s_object_kind="NodeClaim"}[1d])),
-                            "nodepool", "$1", "k8s_object_name", "^(.+)-[a-z0-9]{5}$"),
-                          "reason", "$1", "otel_log_body", "^Disrupting NodeClaim: (.+)$")
+                          sum by (k8s_object_name) (increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="DisruptionTerminating", k8s_object_kind="NodeClaim", otel_log_body="Disrupting NodeClaim: Underutilized"}[1d])),
+                          "nodepool", "$1", "k8s_object_name", "^(.+)-[a-z0-9]{5}$")
                       ) > 0
-                    seriesNameFormat: "{{nodepool}} {{reason}}"
+                    seriesNameFormat: "{{nodepool}} Underutilized"
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum by (nodepool) (
+                        label_replace(
+                          sum by (k8s_object_name) (increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="DisruptionTerminating", k8s_object_kind="NodeClaim", otel_log_body="Disrupting NodeClaim: Empty"}[1d])),
+                          "nodepool", "$1", "k8s_object_name", "^(.+)-[a-z0-9]{5}$")
+                      ) > 0
+                    seriesNameFormat: "{{nodepool}} Empty"
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum by (nodepool) (
+                        label_replace(
+                          sum by (k8s_object_name) (increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="DisruptionTerminating", k8s_object_kind="NodeClaim", otel_log_body="Disrupting NodeClaim: Drifted"}[1d])),
+                          "nodepool", "$1", "k8s_object_name", "^(.+)-[a-z0-9]{5}$")
+                      ) > 0
+                    seriesNameFormat: "{{nodepool}} Drifted"
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum by (nodepool) (
+                        label_replace(
+                          sum by (k8s_object_name) (increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="DisruptionTerminating", k8s_object_kind="NodeClaim", otel_log_body="Disrupting NodeClaim: Expired"}[1d])),
+                          "nodepool", "$1", "k8s_object_name", "^(.+)-[a-z0-9]{5}$")
+                      ) > 0
+                    seriesNameFormat: "{{nodepool}} Expired"
       launches-by-nodepool:
         kind: Panel
         spec:
@@ -474,7 +513,8 @@ spec:
             name: Pods evicted by consolidation by namespace (last 24h)
             description: >-
               Each eviction is a replica down until its replacement is ready. Workloads without a
-              PodDisruptionBudget can lose all replicas at once.
+              PodDisruptionBudget can lose all replicas at once. Reads one series per evicted pod,
+              so it is limited to hourly points and fails for time ranges over about 3 days.
           plugin:
             kind: TimeSeriesChart
             spec: *count-pools
@@ -487,6 +527,8 @@ spec:
                     query: >-
                       sum by (k8s_namespace_name) (increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="Evicted", otel_log_body="Evicted pod: Underutilized"}[1d])) > 0
                     seriesNameFormat: "{{k8s_namespace_name}}"
+                    # Finer steps time out, see the description.
+                    minStep: 1h
       evictions-by-cause:
         kind: Panel
         spec:
@@ -505,12 +547,40 @@ spec:
                   kind: PrometheusTimeSeriesQuery
                   spec:
                     query: >-
-                      sum by (cause) (
-                        label_replace(
-                          sum by (otel_log_body) (increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="Evicted"}[1d])),
-                          "cause", "$1", "otel_log_body", "^Evicted pod: (.+)$")
-                      ) > 0
-                    seriesNameFormat: "{{cause}}"
+                      sum(increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="Evicted", otel_log_body="Evicted pod: Underutilized"}[1d])) > 0
+                    seriesNameFormat: "Underutilized"
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum(increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="Evicted", otel_log_body="Evicted pod: Empty"}[1d])) > 0
+                    seriesNameFormat: "Empty"
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum(increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="Evicted", otel_log_body="Evicted pod: Drifted"}[1d])) > 0
+                    seriesNameFormat: "Drifted"
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum(increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="Evicted", otel_log_body="Evicted pod: Expired"}[1d])) > 0
+                    seriesNameFormat: "Expired"
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum(increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="Evicted", otel_log_body="Evicted pod: Forceful Termination"}[1d])) > 0
+                    seriesNameFormat: "Forceful Termination"
     layouts:
       - kind: Grid
         spec:
