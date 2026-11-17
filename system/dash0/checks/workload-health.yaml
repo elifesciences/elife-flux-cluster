@@ -16,7 +16,7 @@ spec:
           expr: >-
             (
               max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
-                k8s_deployment_desired{k8s_namespace_name!~"${core_namespaces}"}
+                k8s_deployment_desired{k8s_namespace_name!~"^(${core_namespaces})$"}
               ) > 0
               and
               max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_deployment_available) == 0
@@ -44,7 +44,7 @@ spec:
           expr: >-
             (
               max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
-                k8s_deployment_desired{k8s_namespace_name!~"${core_namespaces}"}
+                k8s_deployment_desired{k8s_namespace_name!~"^(${core_namespaces})$"}
               )
               -
               max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (k8s_deployment_available)

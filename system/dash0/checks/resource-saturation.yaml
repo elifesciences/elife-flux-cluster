@@ -17,7 +17,7 @@ spec:
           # iowait is idle CPU waiting on disk, so it is excluded along with idle.
           expr: >-
             sum by (k8s_node_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
-              avg by (k8s_node_name, cpu_mode, dash0_resource_id, dash0_resource_name, dash0_resource_type) (system_cpu_utilization_ratio{cpu_mode!~"idle|wait"})
+              avg by (k8s_node_name, cpu_mode, dash0_resource_id, dash0_resource_name, dash0_resource_type) (system_cpu_utilization_ratio{cpu_mode!~"^(idle|wait)$"})
             ) * 100 > $__threshold
           for: 1h
           annotations:

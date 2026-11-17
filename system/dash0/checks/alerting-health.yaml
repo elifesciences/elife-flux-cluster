@@ -47,7 +47,7 @@ spec:
           expr: >-
             sum by (receiver) (rate(otelcol_receiver_accepted_metric_points_total{receiver="kubelet_stats"}[10m])) == 0
             or
-            sum by (receiver) (rate(otelcol_receiver_accepted_log_records_total{receiver=~"k8s_events|file_log"}[10m])) == 0
+            sum by (receiver) (rate(otelcol_receiver_accepted_log_records_total{receiver=~"^(k8s_events|file_log)$"}[10m])) == 0
           for: 15m
           annotations:
             summary: Collector receiver {{ $labels.receiver }} is running but accepting no data

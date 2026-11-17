@@ -54,7 +54,7 @@ spec:
         - alert: CoreServiceDown
           expr: >-
             max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
-              k8s_deployment_available{k8s_namespace_name=~"${core_namespaces}"}
+              k8s_deployment_available{k8s_namespace_name=~"^(${core_namespaces})$"}
             ) == 0
           for: 3m
           annotations:
@@ -63,11 +63,11 @@ spec:
         - alert: CoreServiceDegraded
           expr: >-
             max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
-              k8s_deployment_desired{k8s_namespace_name=~"${core_namespaces}"}
+              k8s_deployment_desired{k8s_namespace_name=~"^(${core_namespaces})$"}
             )
             -
             max by (k8s_namespace_name, k8s_deployment_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
-              k8s_deployment_available{k8s_namespace_name=~"${core_namespaces}"}
+              k8s_deployment_available{k8s_namespace_name=~"^(${core_namespaces})$"}
             )
             > 0
           for: 15m
@@ -77,7 +77,7 @@ spec:
         - alert: IngressHighErrorRate
           # Baseline is ~1.5% (mostly 502s from individual backends), peaking ~4% over a day.
           expr: >-
-            sum(rate(traefik_entrypoint_requests_total{code=~"5.."}[10m]))
+            sum(rate(traefik_entrypoint_requests_total{code=~"^5..$"}[10m]))
             /
             sum(rate(traefik_entrypoint_requests_total[10m]))
             * 100 > 10
