@@ -37,6 +37,13 @@ spec:
             cpu: 200m
             memory: 500Mi
       collectors:
+        k8s_attributes:
+          # One k8s_attributes processor (and set of informers) shared by all pipelines instead
+          # of one per pipeline. Enables an alpha collector feature gate.
+          shareProcessorBetweenPipelines: true
+          # Stops watching ReplicaSets. We lose k8s.deployment.uid, and k8s.deployment.name may be
+          # wrong in some edge cases.
+          disableReplicasetInformer: true
         daemonSetCollectorContainerResources:
           requests:
             cpu: 30m
