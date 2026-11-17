@@ -6,3 +6,4 @@ resources:
 - monitoring.yaml
 - sciety-red.yaml
 - traefik-red.yaml
+- karpenter.yaml

@@ -24,6 +24,10 @@ spec:
       annotations:
         eks.amazonaws.com/role-arn: ${aws_karpenter_service_account_role_arn}
 
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "8080"
+      prometheus.io/path: /metrics
     controller:
       resources:
         requests:

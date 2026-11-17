@@ -1,0 +1,567 @@
+---
+# Karpenter: what each node pool costs, how much of it is unused, and how often consolidation
+# replaces nodes (and with them, pods) to reduce that. Used to tune the pools' disruption
+# settings (consolidateAfter, consolidationPolicy, budgets) so we keep the savings that matter
+# without churning nodes for marginal ones.
+#
+# Two sources:
+# - Karpenter's own metrics (karpenter_*), scraped from the controller. Allow-listed in
+#   ../release.yaml; only the leader reports them.
+# - Karpenter's k8s events, shipped as logs and queried through the dash0.logs metric. They
+#   are the only per pool record of past disruptions. Node pool comes from the NodeClaim name
+#   ({nodepool}-{5 random characters}), as the events carry no nodepool attribute.
+#
+# Rolling 24h windows smooth out batch workloads, so before and after a settings change can
+# be compared day by day.
+apiVersion: perses.dev/v1alpha2
+kind: PersesDashboard
+metadata:
+  name: karpenter
+spec:
+  config:
+    display:
+      name: Karpenter - Cost vs. Churn
+      description: >-
+        Node pool cost and unused capacity against the node and pod churn consolidation causes,
+        to tune Karpenter disruption settings.
+    duration: 7d
+    variables: []
+    panels:
+      guide:
+        kind: Panel
+        spec:
+          display:
+            name: How to read this dashboard
+          plugin:
+            kind: Markdown
+            spec:
+              text: |-
+                Consolidation pays off when it removes **unused capacity that costs money**. Compare
+                the *Unrequested capacity cost* of a pool with how often it consolidates nodes
+                (*Consolidations per node per day*) and how many pods that evicts.
+
+                | Pattern | Meaning | Knob in the NodePool |
+                |---|---|---|
+                | Many consolidations, low unrequested cost | Churn for marginal savings | Raise `disruption.consolidateAfter` (e.g. `1h`); add a budget `{nodes: "0", reasons: [Underutilized], schedule, duration}` so Underutilized only runs in a quiet window |
+                | Many *replace* decisions in a spot pool | Spot-to-spot swaps for cents | Remove the `spotToSpotConsolidation` feature gate (nodes/karpenter/release.yaml) or raise `consolidateAfter` |
+                | Many *Empty* removals, many launches | Nodes freed by batch jobs, re-created by the next run | Raise `consolidateAfter` above the gap between job runs |
+                | High unrequested cost, few consolidations | Savings left on the table: blocked by PDBs, `karpenter.sh/do-not-disrupt` or budgets | Check *ConsolidationRejected*/*DisruptionBlocked* events |
+                | Savings plan pool consolidating | The cost estimate is the list price, prepaid capacity saves nothing | `consolidationPolicy: WhenEmpty` |
+
+                Spot interruptions are involuntary churn no setting avoids; they are the baseline to
+                compare consolidation churn with. Each consolidation decision's estimated saving is in
+                the logs: filter on `k8s.event.reason = ConsolidationCandidate`.
+
+      # --- Cost and unused capacity (Karpenter metrics) ---
+      cost-now:
+        kind: Panel
+        spec:
+          display:
+            name: Estimated cost
+            description: >-
+              Hourly cost of all node pools, from Karpenter's price data (spot or on-demand list
+              price). Not a billing figure: savings plans and discounts are not applied.
+          plugin:
+            kind: StatChart
+            spec:
+              calculation: last-number
+              format:
+                unit: currency-usd
+                decimalPlaces: 2
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum(max by (nodepool) (karpenter_nodepools_cost_total))
+                    seriesNameFormat: $/h
+      unrequested-cost-now:
+        kind: Panel
+        spec:
+          display:
+            name: Unrequested capacity cost
+            description: >-
+              Share of the hourly cost spent on capacity no pod requests, by the scarcer of CPU and
+              memory per pool. The most further consolidation could save.
+          plugin:
+            kind: StatChart
+            spec:
+              calculation: last-number
+              format:
+                unit: currency-usd
+                decimalPlaces: 2
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum(
+                        max by (nodepool) (karpenter_nodepools_cost_total)
+                        * on (nodepool)
+                        clamp_min(1 - max by (nodepool) (
+                          label_replace(
+                            sum by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_total_pod_requests{resource_type="cpu"}))
+                            / sum by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_allocatable{resource_type="cpu"})),
+                            "resource", "cpu", "", "")
+                          or
+                          label_replace(
+                            sum by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_total_pod_requests{resource_type="memory"}))
+                            / sum by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_allocatable{resource_type="memory"})),
+                            "resource", "memory", "", "")
+                        ), 0)
+                      )
+                    seriesNameFormat: $/h
+      nodes-consolidated-total:
+        kind: Panel
+        spec:
+          display:
+            name: Nodes consolidated
+            description: >-
+              Nodes Karpenter removed or replaced as underutilized in the selected time range.
+              Each evicts all pods on the node.
+          plugin:
+            kind: StatChart
+            spec:
+              calculation: last-number
+              format:
+                unit: decimal
+                decimalPlaces: 0
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum(increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="DisruptionTerminating", k8s_object_kind="NodeClaim", otel_log_body="Disrupting NodeClaim: Underutilized"}[$__range]))
+                    seriesNameFormat: Underutilized
+      pods-evicted-total:
+        kind: Panel
+        spec:
+          display:
+            name: Pods evicted by consolidation
+            description: Pods evicted from underutilized nodes in the selected time range.
+          plugin:
+            kind: StatChart
+            spec:
+              calculation: last-number
+              format:
+                unit: decimal
+                decimalPlaces: 0
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum(increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="Evicted", otel_log_body="Evicted pod: Underutilized"}[$__range]))
+                    seriesNameFormat: Evicted
+      spot-interruptions-total:
+        kind: Panel
+        spec:
+          display:
+            name: Spot interruptions
+            description: >-
+              Nodes AWS reclaimed in the selected time range. Involuntary churn, the baseline to
+              compare consolidation with.
+          plugin:
+            kind: StatChart
+            spec:
+              calculation: last-number
+              format:
+                unit: decimal
+                decimalPlaces: 0
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum(increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="SpotInterrupted", k8s_object_kind="NodeClaim"}[$__range]))
+                    seriesNameFormat: Interrupted
+      cost-by-nodepool:
+        kind: Panel
+        spec:
+          display:
+            name: Estimated cost by node pool
+            description: >-
+              Hourly cost from Karpenter's price data. Savings plan pools show the list price
+              although the capacity is prepaid.
+          plugin:
+            kind: TimeSeriesChart
+            spec: &stacked-pools
+              legend:
+                mode: list
+                position: bottom
+                showLegend: true
+              visual:
+                display: line
+                lineWidth: 1
+                areaOpacity: 0.3
+                connectNulls: true
+                palette:
+                  mode: categorical
+                stack: all
+              yAxis:
+                show: true
+                min: 0
+                format:
+                  unit: currency-usd
+                  decimalPlaces: 2
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      max by (nodepool) (karpenter_nodepools_cost_total)
+                    seriesNameFormat: "{{nodepool}}"
+      unrequested-cost-by-nodepool:
+        kind: Panel
+        spec:
+          display:
+            name: Unrequested capacity cost by node pool
+            description: >-
+              Hourly cost of capacity no pod requests, by the scarcer of CPU and memory. The most
+              further consolidation of the pool could save. Compare with its consolidations per
+              node per day below.
+          plugin:
+            kind: TimeSeriesChart
+            spec: *stacked-pools
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      max by (nodepool) (karpenter_nodepools_cost_total)
+                      * on (nodepool)
+                      clamp_min(1 - max by (nodepool) (
+                        label_replace(
+                          sum by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_total_pod_requests{resource_type="cpu"}))
+                          / sum by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_allocatable{resource_type="cpu"})),
+                          "resource", "cpu", "", "")
+                        or
+                        label_replace(
+                          sum by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_total_pod_requests{resource_type="memory"}))
+                          / sum by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_allocatable{resource_type="memory"})),
+                          "resource", "memory", "", "")
+                      ), 0)
+                    seriesNameFormat: "{{nodepool}}"
+      cpu-requested-by-nodepool:
+        kind: Panel
+        spec:
+          display:
+            name: CPU requested of allocatable by node pool
+            description: Pod CPU requests (DaemonSets included) as a share of the pool's allocatable CPU.
+          plugin:
+            kind: TimeSeriesChart
+            spec: &ratio-pools
+              legend:
+                mode: list
+                position: bottom
+                showLegend: true
+              visual:
+                display: line
+                lineWidth: 1
+                areaOpacity: 0
+                connectNulls: true
+                palette:
+                  mode: categorical
+                stack: none
+              yAxis:
+                show: true
+                min: 0
+                format:
+                  unit: percent-decimal
+                  decimalPlaces: 0
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_total_pod_requests{resource_type="cpu"}))
+                      / sum by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_allocatable{resource_type="cpu"}))
+                    seriesNameFormat: "{{nodepool}}"
+      memory-requested-by-nodepool:
+        kind: Panel
+        spec:
+          display:
+            name: Memory requested of allocatable by node pool
+            description: Pod memory requests (DaemonSets included) as a share of the pool's allocatable memory.
+          plugin:
+            kind: TimeSeriesChart
+            spec: *ratio-pools
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_total_pod_requests{resource_type="memory"}))
+                      / sum by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_allocatable{resource_type="memory"}))
+                    seriesNameFormat: "{{nodepool}}"
+
+      # --- Node churn ---
+      consolidations-per-node:
+        kind: Panel
+        spec:
+          display:
+            name: Consolidations per node per day by node pool
+            description: >-
+              Nodes consolidated as underutilized in the last 24h, divided by the pool's current
+              node count. 1 means on average every node of the pool is replaced daily.
+          plugin:
+            kind: TimeSeriesChart
+            spec: &count-pools
+              legend:
+                mode: list
+                position: bottom
+                showLegend: true
+              visual:
+                display: line
+                lineWidth: 1
+                areaOpacity: 0
+                connectNulls: true
+                palette:
+                  mode: categorical
+                stack: none
+              yAxis:
+                show: true
+                min: 0
+                format:
+                  unit: decimal
+                  decimalPlaces: 1
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum by (nodepool) (
+                        label_replace(
+                          sum by (k8s_object_name) (increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="DisruptionTerminating", k8s_object_kind="NodeClaim", otel_log_body="Disrupting NodeClaim: Underutilized"}[1d])),
+                          "nodepool", "$1", "k8s_object_name", "^(.+)-[a-z0-9]{5}$")
+                      )
+                      / on (nodepool)
+                      count by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_allocatable{resource_type="cpu"}))
+                    seriesNameFormat: "{{nodepool}}"
+      decisions-by-nodepool:
+        kind: Panel
+        spec:
+          display:
+            name: Consolidation decisions by node pool (last 24h)
+            description: >-
+              delete removes a node, the clear saving. replace swaps a node for a cheaper one,
+              in spot pools often a spot-to-spot swap for cents.
+          plugin:
+            kind: TimeSeriesChart
+            spec: *count-pools
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum by (nodepool, decision, reason) (increase(karpenter_voluntary_disruption_decisions_by_nodepool_total[1d])) > 0
+                    seriesNameFormat: "{{nodepool}} {{decision}} ({{reason}})"
+      disruptions-by-nodepool:
+        kind: Panel
+        spec:
+          display:
+            name: Nodes disrupted by node pool and reason (last 24h)
+            description: >-
+              Underutilized evicts running pods to pack them onto fewer or cheaper nodes. Empty
+              removes nodes without pods, which costs only a launch when capacity is needed again.
+          plugin:
+            kind: TimeSeriesChart
+            spec: *count-pools
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum by (nodepool, reason) (
+                        label_replace(
+                          label_replace(
+                            sum by (k8s_object_name, otel_log_body) (increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="DisruptionTerminating", k8s_object_kind="NodeClaim"}[1d])),
+                            "nodepool", "$1", "k8s_object_name", "^(.+)-[a-z0-9]{5}$"),
+                          "reason", "$1", "otel_log_body", "^Disrupting NodeClaim: (.+)$")
+                      ) > 0
+                    seriesNameFormat: "{{nodepool}} {{reason}}"
+      launches-by-nodepool:
+        kind: Panel
+        spec:
+          display:
+            name: Nodes launched by node pool (last 24h)
+          plugin:
+            kind: TimeSeriesChart
+            spec: *count-pools
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum by (nodepool) (
+                        label_replace(
+                          sum by (k8s_object_name) (increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="Launched", k8s_object_kind="NodeClaim"}[1d])),
+                          "nodepool", "$1", "k8s_object_name", "^(.+)-[a-z0-9]{5}$")
+                      ) > 0
+                    seriesNameFormat: "{{nodepool}}"
+      spot-interruptions-by-nodepool:
+        kind: Panel
+        spec:
+          display:
+            name: Spot interruptions by node pool (last 24h)
+            description: Involuntary churn no disruption setting avoids.
+          plugin:
+            kind: TimeSeriesChart
+            spec: *count-pools
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum by (nodepool) (
+                        label_replace(
+                          sum by (k8s_object_name) (increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="SpotInterrupted", k8s_object_kind="NodeClaim"}[1d])),
+                          "nodepool", "$1", "k8s_object_name", "^(.+)-[a-z0-9]{5}$")
+                      ) > 0
+                    seriesNameFormat: "{{nodepool}}"
+      node-age-by-nodepool:
+        kind: Panel
+        spec:
+          display:
+            name: Mean node age by node pool (hours)
+            description: Mean age of the pool's current nodes. Short lives with steady load point to churn.
+          plugin:
+            kind: TimeSeriesChart
+            spec: *count-pools
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      avg by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_current_lifetime_seconds)) / 3600
+                    seriesNameFormat: "{{nodepool}}"
+
+      # --- Workload impact ---
+      evictions-by-namespace:
+        kind: Panel
+        spec:
+          display:
+            name: Pods evicted by consolidation by namespace (last 24h)
+            description: >-
+              Each eviction is a replica down until its replacement is ready. Workloads without a
+              PodDisruptionBudget can lose all replicas at once.
+          plugin:
+            kind: TimeSeriesChart
+            spec: *count-pools
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum by (k8s_namespace_name) (increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="Evicted", otel_log_body="Evicted pod: Underutilized"}[1d])) > 0
+                    seriesNameFormat: "{{k8s_namespace_name}}"
+      evictions-by-cause:
+        kind: Panel
+        spec:
+          display:
+            name: Pods evicted by cause (last 24h)
+            description: >-
+              Underutilized is consolidation. Forceful Termination is a node that had to go
+              regardless, mostly spot interruptions.
+          plugin:
+            kind: TimeSeriesChart
+            spec: *count-pools
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: >-
+                      sum by (cause) (
+                        label_replace(
+                          sum by (otel_log_body) (increase({otel_metric_name="dash0.logs", k8s_event_reporting_controller="karpenter", k8s_event_reason="Evicted"}[1d])),
+                          "cause", "$1", "otel_log_body", "^Evicted pod: (.+)$")
+                      ) > 0
+                    seriesNameFormat: "{{cause}}"
+    layouts:
+      - kind: Grid
+        spec:
+          display:
+            title: Guide
+            collapse:
+              open: true
+          items:
+            - {x: 0, y: 0, width: 24, height: 9, content: {$ref: "#/spec/panels/guide"}}
+      - kind: Grid
+        spec:
+          display:
+            title: Overview
+            collapse:
+              open: true
+          items:
+            - {x: 0, y: 0, width: 5, height: 4, content: {$ref: "#/spec/panels/cost-now"}}
+            - {x: 5, y: 0, width: 5, height: 4, content: {$ref: "#/spec/panels/unrequested-cost-now"}}
+            - {x: 10, y: 0, width: 5, height: 4, content: {$ref: "#/spec/panels/nodes-consolidated-total"}}
+            - {x: 15, y: 0, width: 5, height: 4, content: {$ref: "#/spec/panels/pods-evicted-total"}}
+            - {x: 20, y: 0, width: 4, height: 4, content: {$ref: "#/spec/panels/spot-interruptions-total"}}
+      - kind: Grid
+        spec:
+          display:
+            title: Cost and unused capacity
+            collapse:
+              open: true
+          items:
+            - {x: 0, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/cost-by-nodepool"}}
+            - {x: 12, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/unrequested-cost-by-nodepool"}}
+            - {x: 0, y: 8, width: 12, height: 8, content: {$ref: "#/spec/panels/cpu-requested-by-nodepool"}}
+            - {x: 12, y: 8, width: 12, height: 8, content: {$ref: "#/spec/panels/memory-requested-by-nodepool"}}
+      - kind: Grid
+        spec:
+          display:
+            title: Node churn
+            collapse:
+              open: true
+          items:
+            - {x: 0, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/consolidations-per-node"}}
+            - {x: 12, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/decisions-by-nodepool"}}
+            - {x: 0, y: 8, width: 12, height: 8, content: {$ref: "#/spec/panels/disruptions-by-nodepool"}}
+            - {x: 12, y: 8, width: 12, height: 8, content: {$ref: "#/spec/panels/launches-by-nodepool"}}
+            - {x: 0, y: 16, width: 12, height: 8, content: {$ref: "#/spec/panels/spot-interruptions-by-nodepool"}}
+            - {x: 12, y: 16, width: 12, height: 8, content: {$ref: "#/spec/panels/node-age-by-nodepool"}}
+      - kind: Grid
+        spec:
+          display:
+            title: Workload impact
+            collapse:
+              open: true
+          items:
+            - {x: 0, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/evictions-by-namespace"}}
+            - {x: 12, y: 0, width: 12, height: 8, content: {$ref: "#/spec/panels/evictions-by-cause"}}

@@ -125,9 +125,20 @@ spec:
             # Traefik: dashboards and checks only use service requests/duration/response bytes
             # and entrypoint requests
             - 'IsMatch(name, "^traefik_(tls_certs_not_after|service_requests_(bytes|tls)_total|entrypoint_(request_duration_seconds|requests_(bytes|tls)_total|responses_bytes_total))$")'
+            # Karpenter: only what dashboards/karpenter.yaml uses. Prometheus normalisation may strip
+            # the _total and _seconds suffixes, so both spellings are allowed.
+            - >-
+              IsMatch(name, "^karpenter_")
+              and not IsMatch(name, "^karpenter_(nodepools_cost(_total)?|nodes_allocatable|nodes_total_pod_requests|nodes_current_lifetime(_seconds)?|voluntary_disruption_decisions_by_nodepool(_total)?)$")
+            # Client, SDK and leader election internals of controllers (karpenter, ...)
+            - 'IsMatch(name, "^(client_go|aws_sdk_go|operator|leader_election|certwatcher|promhttp)_")'
           datapoint:
             # Checks only look at PVCs, the bulk are emptyDir, configMap and secret volumes
             - 'IsMatch(metric.name, "^k8s[.]volume[.]") and resource.attributes["k8s.volume.type"] != "persistentVolumeClaim"'
+            # Karpenter reports every resource type per node, the dashboard only uses CPU and memory
+            - >-
+              IsMatch(metric.name, "^karpenter_nodes_(allocatable|total_pod_requests)$")
+              and attributes["resource_type"] != "cpu" and attributes["resource_type"] != "memory"
             # One series per possible reason per container, almost all 0
             - 'metric.name == "k8s.container.status.reason" and value_int == 0 and value_double == 0'
             # Most containers never restart.
@@ -164,7 +175,7 @@ spec:
                 - 'attributes["k8s.event.name"] == nil and resource.attributes["k8s.pod.label.dash0.com/log-level"] == "warn" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_WARN'
                 - 'attributes["k8s.event.name"] == nil and resource.attributes["k8s.pod.label.dash0.com/log-level"] == "error" and severity_number > SEVERITY_NUMBER_UNSPECIFIED and severity_number < SEVERITY_NUMBER_ERROR'
                 # Limit namespace k8s events to severity > WARN, all cluster scoped events are shipped regardless of level.
-                # Karpenter's Evicted events are INFO but feed the KarpenterConsolidationChurn check, so keep them.
+                # Karpenter's Evicted events are INFO but feed the Karpenter dashboard, so keep them.
                 - >-
                   attributes["k8s.event.name"] != nil and severity_number < SEVERITY_NUMBER_WARN
                   and resource.attributes["k8s.namespace.name"] != nil and resource.attributes["k8s.namespace.name"] != ""
