@@ -18,10 +18,35 @@ spec:
     operator:
       clusterName: ${cluster_name}
       prometheusCrdSupportEnabled: true
+      managerContainerResources:
+        requests:
+          cpu: 50m
+          memory: 256Mi
+          ephemeral-storage: 500Mi
+        limits:
+          cpu: 500m
+          memory: 384Mi
+          ephemeral-storage: 500Mi
+        gomemlimit: 307MiB
+      targetAllocator:
+        containerResources:
+          requests:
+            cpu: 25m
+            memory: 160Mi
+          limits:
+            cpu: 200m
+            memory: 500Mi
       collectors:
         daemonSetCollectorContainerResources:
           requests:
-            memory: 128Mi
+            cpu: 30m
+            memory: 160Mi
+          limits:
+            memory: 500Mi
+        deploymentCollectorContainerResources:
+          requests:
+            cpu: 50m
+            memory: 320Mi
           limits:
             memory: 500Mi
         daemonSetTolerations:
