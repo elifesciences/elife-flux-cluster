@@ -67,7 +67,7 @@ spec:
             or
             label_replace(absent(traefik_entrypoint_requests_total), "source", "traefik", "", "")
             or
-            label_replace(absent(gotk_resource_info), "source", "flux-metrics", "", "")
+            label_replace(absent(gotk_resource_info), "source", "kube-state-metrics", "", "")
           for: 15m
           annotations:
             summary: No metrics received from {{ $labels.source }}

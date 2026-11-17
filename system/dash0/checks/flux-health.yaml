@@ -3,7 +3,7 @@
 # but does not by itself degrade a running service.
 #
 # Flux itself exports no per-object Ready metric (gotk_reconcile_condition was removed in
-# Flux 2.1), so gotk_resource_info comes from kube-state-metrics in system/flux-metrics.
+# Flux 2.1), so gotk_resource_info comes from system/dash0/kube-state-metrics.
 #
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule

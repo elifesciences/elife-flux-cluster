@@ -7,3 +7,4 @@ resources:
 - secret.yaml
 - checks-kustomization.yaml
 - dashboards-kustomization.yaml
+- kube-state-metrics
