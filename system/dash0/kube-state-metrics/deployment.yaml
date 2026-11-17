@@ -29,8 +29,12 @@ spec:
         args:
         - --port=8080
         - --telemetry-port=8081
-        # only the Flux metrics from config.yaml, dash0's k8s_cluster receiver covers the rest
-        - --custom-resource-state-only=true
+        # Only what dash0's k8s_cluster receiver lacks: the Flux metrics from config.yaml and a
+        # container's last termination (reason and time, for ContainerOomKilled).
+        # The allowlist also applies to the custom resource metrics in config.yaml.
+        # Custom resources from config.yaml are enabled in addition to --resources.
+        - --resources=pods
+        - --metric-allowlist=^gotk_resource_info$,^kube_pod_container_status_last_terminated_(reason|timestamp)$
         - --custom-resource-state-config-file=/etc/kube-state-metrics/config.yaml
         ports:
         - name: metrics
