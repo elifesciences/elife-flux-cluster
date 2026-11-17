@@ -323,8 +323,9 @@ spec:
           display:
             name: Consolidations per node per day by node pool
             description: >-
-              Nodes consolidated as underutilized in the last 24h, divided by the pool's current
-              node count. 1 means on average every node of the pool is replaced daily.
+              Nodes consolidated as underutilized in the last 24h, divided by the pool's average
+              node count over the same 24h. 1 means on average every node of the pool is replaced
+              daily.
           plugin:
             kind: TimeSeriesChart
             spec: &count-pools
@@ -359,7 +360,7 @@ spec:
                           "nodepool", "$1", "k8s_object_name", "^(.+)-[a-z0-9]{5}$")
                       )
                       / on (nodepool)
-                      count by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_allocatable{resource_type="cpu"}))
+                      avg_over_time((count by (nodepool) (max by (nodepool, node_name) (karpenter_nodes_allocatable{resource_type="cpu"})))[1d:10m])
                     seriesNameFormat: "{{nodepool}}"
       decisions-by-nodepool:
         kind: Panel
