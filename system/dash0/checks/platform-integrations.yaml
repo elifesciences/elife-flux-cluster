@@ -62,6 +62,18 @@ spec:
               limit was hit.
             dash0-threshold-degraded: "1"
 
+        - alert: CertManagerHittingRateLimitsTest
+          expr: >-
+            sum by (host, action) (
+              increase(certmanager_http_acme_client_request_count_total{status="200"}[1h])
+            ) >= $__threshold
+          annotations:
+            summary: "[TEST] cert-manager made successful ACME requests to {{ $labels.host }} ({{ $labels.action }})"
+            description: >-
+              Test copy of CertManagerHittingRateLimits using status="200". Not an actual problem;
+              delete this check once it has been seen to fire.
+            dash0-threshold-degraded: "1"
+
         # --- DNS ---
         - alert: ExternalDnsNotSyncing
           # external-dns syncs every minute; the timestamp only advances on a successful sync.
