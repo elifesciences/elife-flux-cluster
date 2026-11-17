@@ -58,6 +58,10 @@ spec:
             memory: 500Mi
         daemonSetTolerations:
           - operator: Exists
+        # Without a priority the agent can't preempt, so on a node that filled up before the
+        # agent was placed (e.g. a 2 vCPU core node with karpenter on it) it stays Pending.
+        # system-node-critical lets the scheduler evict lower priority pods to make room.
+        daemonSetPriorityClassName: system-node-critical
         filelogOffsetSyncStorageVolume:
           name: filelogreceiver-offsets
           hostPath:
