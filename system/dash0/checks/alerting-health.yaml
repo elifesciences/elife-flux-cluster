@@ -16,25 +16,21 @@ spec:
       rules:
         # --- Check evaluation ---
         - alert: ChecksNotEvaluating
-          expr: absent(dash0_check_evaluation_outcome)
+          # Split by type: synthetic checks emit the same metric and would otherwise
+          # mask check rules no longer being evaluated.
+          expr: >-
+            label_replace(absent(dash0_check_evaluation_outcome{dash0_check_type="check_rule"}), "check_type", "check_rule", "", "")
+            or
+            label_replace(absent(dash0_check_evaluation_outcome{dash0_check_type="synthetic.http"}), "check_type", "synthetic.http", "", "")
           for: 15m
           annotations:
-            summary: No Dash0 check evaluation outcomes are being recorded
+            summary: No Dash0 evaluation outcomes recorded for {{ $labels.check_type }} checks
             description: >-
-              Dash0 emits dash0.check.evaluation.outcome for every evaluated check.
-              Absence means checks are not synchronised from PrometheusRules or not evaluated.
+              Dash0 emits dash0.check.evaluation.outcome for evaluated checks.
+              Absence means checks are not synchronised (PrometheusRules / synthetic checks) or not evaluated.
               Note this cannot detect Dash0 evaluation being down entirely, since this check would not run either.
 
         # --- Collectors shipping ---
-        - alert: ClusterMetricsCollectorNotShipping
-          expr: absent(k8s_node_condition_ready)
-          for: 10m
-          annotations:
-            summary: No k8s cluster metrics received from the cluster-metrics collector
-            description: >-
-              k8s.node.condition_ready comes from the k8s_cluster receiver in the
-              dash0-operator-cluster-metrics-collector-deployment. Node, pod and workload state checks are blind.
-
         - alert: NodeCollectorNotShipping
           expr: >-
             (k8s_node_condition_ready == 1)
@@ -49,7 +45,7 @@ spec:
 
         - alert: CollectorReceiverStalled
           expr: >-
-            sum by (receiver) (rate(otelcol_receiver_accepted_metric_points_total{receiver=~"k8s_cluster|kubelet_stats|prometheus"}[10m])) == 0
+            sum by (receiver) (rate(otelcol_receiver_accepted_metric_points_total{receiver="kubelet_stats"}[10m])) == 0
             or
             sum by (receiver) (rate(otelcol_receiver_accepted_log_records_total{receiver=~"k8s_events|file_log"}[10m])) == 0
           for: 15m
@@ -61,6 +57,8 @@ spec:
         # so they go quiet instead of firing. One series per source, labelled by source.
         - alert: MetricSourceMissing
           expr: >-
+            label_replace(absent(k8s_node_condition_ready), "source", "k8s-cluster", "", "")
+            or
             label_replace(absent(certmanager_certificate_expiration_timestamp_seconds), "source", "cert-manager", "", "")
             or
             label_replace(absent(external_dns_controller_last_sync_timestamp_seconds), "source", "external-dns", "", "")
@@ -74,9 +72,10 @@ spec:
           annotations:
             summary: No metrics received from {{ $labels.source }}
             description: >-
-              Checks built on {{ $labels.source }} metrics (platform-integrations, IngressHighErrorRate, flux-health)
-              are blind. Check that its pods are running and its metrics endpoint is still being
-              scraped (ServiceMonitor/PodMonitor or prometheus.io annotations).
+              Checks built on {{ $labels.source }} metrics (node/pod/workload state, platform-integrations,
+              IngressHighErrorRate, flux-health) are blind. For k8s-cluster, check the k8s_cluster receiver in
+              dash0-operator-cluster-metrics-collector-deployment. Otherwise check that its pods are running and
+              its metrics endpoint is still being scraped (ServiceMonitor/PodMonitor or prometheus.io annotations).
 
         # --- Collectors exporting to Dash0 ---
         - alert: CollectorExportFailing
@@ -92,15 +91,8 @@ spec:
             summary: Collector {{ $labels.k8s_pod_name }} is failing to export telemetry to Dash0
             description: >-
               send_failed means Dash0 ingestion rejected or did not accept data after retries;
-              enqueue_failed means the sending queue was full and data was dropped.
-
-        - alert: CollectorExportQueueFilling
-          expr: >-
-            max by (k8s_pod_name, exporter, dash0_resource_id, dash0_resource_name, dash0_resource_type) (otelcol_exporter_queue_size / otelcol_exporter_queue_capacity) > 0.8
-          for: 15m
-          annotations:
-            summary: Collector {{ $labels.k8s_pod_name }} export queue above 80% capacity
-            description: Export to Dash0 is not keeping up; data will be dropped once the queue is full.
+              enqueue_failed means the sending queue was full and data was dropped
+              (covers the queue filling up, so there is no separate queue-capacity check).
 
         - alert: CollectorRefusingData
           expr: >-
