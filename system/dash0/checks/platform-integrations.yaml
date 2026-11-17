@@ -47,10 +47,8 @@ spec:
         - alert: CertManagerHittingRateLimits
           # The ACME server answers 429 once an account or domain exceeds a rate limit (e.g.
           # Let's Encrypt's certificates per domain per week, or failed validations per hour).
-          # The status="429" series only exists once a 429 has happened. Dash0's increase()
-          # counts that first sample, so the first rate limited request is reported.
           expr: >-
-            sum by (host, action) (
+            max by (host, action) (
               increase(certmanager_http_acme_client_request_count_total{status="429"}[1h])
             ) >= $__threshold
           annotations:
@@ -64,7 +62,7 @@ spec:
 
         - alert: CertManagerHittingRateLimitsTest
           expr: >-
-            sum by (host, action) (
+            max by (host, action) (
               increase(certmanager_http_acme_client_request_count_total{status="200"}[1h])
             ) >= $__threshold
           annotations:
