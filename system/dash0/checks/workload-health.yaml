@@ -120,15 +120,20 @@ spec:
           # A 6 hour window also catches containers that run a while between crashes and so
           # never stay in CrashLoopBackOff, typically repeated OOM kills under load. A crash
           # loop reaches the critical threshold within the first hour.
+          # A single restart is common (node issues, one-off OOM) and is not reported.
           expr: >-
-            max by (k8s_namespace_name, k8s_pod_name, k8s_container_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
-              increase(k8s_container_restarts[6h])
+            (
+              max by (k8s_namespace_name, k8s_pod_name, k8s_container_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
+                max_over_time(k8s_container_restarts[6h])
+              )
+              -
+              min by (k8s_namespace_name, k8s_pod_name, k8s_container_name, dash0_resource_id, dash0_resource_name, dash0_resource_type) (
+                min_over_time(k8s_container_restarts[6h])
+              )
             ) >= $__threshold
           annotations:
-            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} container {{ $labels.k8s_container_name }} has been restarting in the last 6 hours"
+            summary: "{{ $labels.k8s_namespace_name }}/{{ $labels.k8s_pod_name }} container {{ $labels.k8s_container_name }} has been restarted more than once in the last 6 hours"
             description: >-
-              Investigate with the k8s events shipped as logs. They do not name the termination
-              reason (e.g. OOMKilled); the pod's last container state does. For OOM kills, check
-              memory usage against the limit before raising it.
-            dash0-threshold-degraded: "1"
+              Restarts can have a variety of reasons e.g. OOMkills, startup errors.
+            dash0-threshold-degraded: "3"
             dash0-threshold-critical: "6"
