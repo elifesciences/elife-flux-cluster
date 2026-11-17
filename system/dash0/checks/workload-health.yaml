@@ -98,7 +98,8 @@ spec:
           # From system/dash0/kube-state-metrics: a container's last termination keeps its
           # reason and time until it terminates again, so a kill is never missed between
           # scrapes. k8s.container.status.reason only shows OOMKilled until the restart.
-          # The scrape's own namespace and pod labels push KSM's to exported_*.
+          # KSM's namespace, pod and container labels name the killed container; they take
+          # precedence over the scrape's own namespace and pod labels.
           # Containers that are not restarted (restartPolicy Never) leave a failed pod, see
           # PodFailed. Kills in pods that are deleted since no longer show.
           # Joined with k8s_container_restarts (only shipped once a container has restarted)
@@ -109,15 +110,15 @@ spec:
               (
                 max by (k8s_namespace_name, k8s_pod_name, k8s_container_name) (
                   label_replace(label_replace(label_replace(
-                    max by (exported_namespace, exported_pod, container) (
+                    max by (namespace, pod, container) (
                       kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}
                     )
-                    and on (exported_namespace, exported_pod, container)
-                    max by (exported_namespace, exported_pod, container) (
+                    and on (namespace, pod, container)
+                    max by (namespace, pod, container) (
                       kube_pod_container_status_last_terminated_timestamp
                     ) > time() - 3600,
-                  "k8s_namespace_name", "$1", "exported_namespace", "(.*)"),
-                  "k8s_pod_name", "$1", "exported_pod", "(.*)"),
+                  "k8s_namespace_name", "$1", "namespace", "(.*)"),
+                  "k8s_pod_name", "$1", "pod", "(.*)"),
                   "k8s_container_name", "$1", "container", "(.*)")
                 )
                 * on (k8s_namespace_name, k8s_pod_name, k8s_container_name) group_left (dash0_resource_id, dash0_resource_name, dash0_resource_type)
@@ -132,15 +133,15 @@ spec:
               or on (k8s_namespace_name, k8s_pod_name, k8s_container_name)
               max by (k8s_namespace_name, k8s_pod_name, k8s_container_name) (
                 label_replace(label_replace(label_replace(
-                  max by (exported_namespace, exported_pod, container) (
+                  max by (namespace, pod, container) (
                     kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}
                   )
-                  and on (exported_namespace, exported_pod, container)
-                  max by (exported_namespace, exported_pod, container) (
+                  and on (namespace, pod, container)
+                  max by (namespace, pod, container) (
                     kube_pod_container_status_last_terminated_timestamp
                   ) > time() - 3600,
-                "k8s_namespace_name", "$1", "exported_namespace", "(.*)"),
-                "k8s_pod_name", "$1", "exported_pod", "(.*)"),
+                "k8s_namespace_name", "$1", "namespace", "(.*)"),
+                "k8s_pod_name", "$1", "pod", "(.*)"),
                 "k8s_container_name", "$1", "container", "(.*)")
               )
             ) >= $__threshold
