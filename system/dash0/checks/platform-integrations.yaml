@@ -22,11 +22,16 @@ spec:
           # cert-manager reports an expiry of 0 until a Certificate is first issued; skip those
           # (CertificateNotReady covers issuance that never succeeds). The `for` absorbs brief
           # blips while a Certificate is being (re)created.
+          # The namespace is copied to k8s_namespace_name after aggregating so Dash0 shows it
+          # as the affected resource (see FluxResourceNotReady in flux-health.yaml).
           expr: >-
-            min by (exported_namespace, name) (
-              (
-                (certmanager_certificate_expiration_timestamp_seconds > 0) - time()
-              ) / 86400
+            label_replace(
+              min by (exported_namespace, name) (
+                (
+                  (certmanager_certificate_expiration_timestamp_seconds > 0) - time()
+                ) / 86400
+              ),
+              "k8s_namespace_name", "$1", "exported_namespace", "(.*)"
             ) < $__threshold
           for: 15m
           annotations:

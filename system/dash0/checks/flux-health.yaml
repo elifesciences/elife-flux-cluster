@@ -21,9 +21,18 @@ spec:
           # of a health check timeout, on a Kustomization), which would reset a `for:`.
           # Objects without a Ready condition (OCI HelmRepositories) never match.
           # Suspended objects are left out; spec.suspend is empty unless set.
+          # Dash0 derives the affected resource from OTel attributes on the result, so the
+          # object's namespace (exported_namespace) is copied to k8s_namespace_name; without
+          # it the affected resource shows as "unknown". The copy happens after aggregating:
+          # the raw series carry KSM's own resource attributes (k8s.namespace.name is
+          # dash0-kube-state-metrics), and a k8s_namespace_name set on them is dropped by a
+          # later `by (k8s_namespace_name)`.
           expr: >-
-            max by (customresource_kind, exported_namespace, name, reason) (
-              max_over_time(gotk_resource_info{ready="False", suspended!="true"}[30m])
+            label_replace(
+              max by (customresource_kind, exported_namespace, name, reason) (
+                max_over_time(gotk_resource_info{ready="False", suspended!="true"}[30m])
+              ),
+              "k8s_namespace_name", "$1", "exported_namespace", "(.*)"
             ) >= $__threshold
             unless on (customresource_kind, exported_namespace, name)
             max by (customresource_kind, exported_namespace, name) (
