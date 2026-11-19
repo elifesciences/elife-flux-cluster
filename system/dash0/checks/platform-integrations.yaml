@@ -19,10 +19,16 @@ spec:
         - alert: CertificateExpiring
           # Let's Encrypt certificates last 90 days and cert-manager renews them with 30 days
           # left, so below that renewal has been failing for a while.
+          # cert-manager reports an expiry of 0 until a Certificate is first issued; skip those
+          # (CertificateNotReady covers issuance that never succeeds). The `for` absorbs brief
+          # blips while a Certificate is being (re)created.
           expr: >-
             min by (exported_namespace, name) (
-              (certmanager_certificate_expiration_timestamp_seconds - time()) / 86400
+              (
+                (certmanager_certificate_expiration_timestamp_seconds > 0) - time()
+              ) / 86400
             ) < $__threshold
+          for: 15m
           annotations:
             summary: Certificate {{ $labels.exported_namespace }}/{{ $labels.name }} is close to expiry and has not been renewed
             description: >-
