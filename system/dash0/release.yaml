@@ -62,11 +62,10 @@ spec:
         # agent was placed (e.g. a 2 vCPU core node with karpenter on it) it stays Pending.
         # system-node-critical lets the scheduler evict lower priority pods to make room.
         daemonSetPriorityClassName: system-node-critical
-        filelogOffsetSyncStorageVolume:
-          name: filelogreceiver-offsets
-          hostPath:
-            path: /data/dash0-operator/offset-storage
-            type: DirectoryOrCreate
+        # Store filelog offsets in a hostPath on each node (the upstream default since 0.162.0).
+        # Forced rather than "auto" so a failed admission dry run can never silently fall back to
+        # the shared ConfigMap, which caused high Regional-Bytes traffic (#4399).
+        filelogOffsetStorageMode: hostPath
       dash0Export:
         enabled: true
         endpoint: ingress.us-east-1.aws.dash0.com:4317
