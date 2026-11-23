@@ -7,3 +7,4 @@ resources:
 - sciety-red.yaml
 - traefik-red.yaml
 - karpenter.yaml
+- daily.yaml
