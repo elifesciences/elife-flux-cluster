@@ -8,7 +8,7 @@ metadata:
   namespace: dash0-checks
 spec:
   display:
-    name: Alerts
+    name: Flux Prod Alerts
   type: slack_bot
   slackBotConfig:
     teamId: T025LBBQS
