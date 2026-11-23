@@ -20,3 +20,6 @@ spec:
       - - key: dash0.failed_check.max_status
           operator: is
           value: critical
+      - - key: dash0.dataset
+          operator: is
+          value: default
