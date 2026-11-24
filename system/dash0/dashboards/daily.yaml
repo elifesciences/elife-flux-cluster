@@ -1,465 +1,400 @@
-apiVersion: perses.dev/v1alpha1
+apiVersion: perses.dev/v1alpha2
 kind: PersesDashboard
 metadata:
-  labels:
-    dash0.com/dataset: default
-    dash0.com/id: dcb0be4b-938a-4b36-90b9-add6fc4d2c83
   name: daily
 spec:
-  display:
-    description: ""
-    name: Daily
-  duration: 30m
-  layouts:
-    - kind: Grid
-      spec:
-        display:
-          collapse:
-            open: true
-          title: Overview
-        items:
-          - content:
-              $ref: "#/spec/panels/0dde1e42-d384-439f-99df-395e2b2a956c"
-            height: 4
-            width: 9
-            x: 15
-            "y": 0
-          - content:
-              $ref: "#/spec/panels/55bd7bda-54c0-4f47-9f83-bd15a3cc459b"
-            height: 4
-            width: 5
-            x: 5
-            "y": 0
-          - content:
-              $ref: "#/spec/panels/09cfca3d-ec71-470a-80a9-bd0ed28ca74b"
-            height: 4
-            width: 5
-            x: 10
-            "y": 0
-          - content:
-              $ref: "#/spec/panels/c3cf4c71-6b1d-422a-afe9-d2d74965a2f3"
-            height: 4
-            width: 5
-            x: 0
-            "y": 0
-          - content:
-              $ref: "#/spec/panels/09c371fc-92f4-44b7-a7d4-2c318a7352ab"
-            height: 9
-            width: 24
-            x: 0
-            "y": 4
-          - content:
-              $ref: "#/spec/panels/traefik-response-traffic"
-            height: 11
-            width: 15
-            x: 0
-            "y": 13
-          - content:
-              $ref: "#/spec/panels/91469202-93a0-4765-b37d-01ace3f8eda9"
-            height: 11
-            width: 9
-            x: 15
-            "y": 13
-  panels:
-    09c371fc-92f4-44b7-a7d4-2c318a7352ab:
-      kind: Panel
-      spec:
-        display:
-          description: Actual fees per time bucket, stacked by signal, using the price constants of this dashboard. The legend sum is the total for the selected time range.
-          name: Fees over selected time range (USD)
-        links: []
-        plugin:
-          kind: TimeSeriesChart
-          spec:
-            dash0Extensions:
+  config:
+    display:
+      name: Daily
+    duration: 30m
+    layouts:
+      - kind: Grid
+        spec:
+          display:
+            collapse:
+              open: true
+            title: Overview
+          items:
+            - content:
+                $ref: "#/spec/panels/0dde1e42-d384-439f-99df-395e2b2a956c"
+              height: 4
+              width: 9
+              x: 15
+              "y": 0
+            - content:
+                $ref: "#/spec/panels/55bd7bda-54c0-4f47-9f83-bd15a3cc459b"
+              height: 4
+              width: 5
+              x: 5
+              "y": 0
+            - content:
+                $ref: "#/spec/panels/09cfca3d-ec71-470a-80a9-bd0ed28ca74b"
+              height: 4
+              width: 5
+              x: 10
+              "y": 0
+            - content:
+                $ref: "#/spec/panels/c3cf4c71-6b1d-422a-afe9-d2d74965a2f3"
+              height: 4
+              width: 5
+              x: 0
+              "y": 0
+            - content:
+                $ref: "#/spec/panels/09c371fc-92f4-44b7-a7d4-2c318a7352ab"
+              height: 9
+              width: 24
+              x: 0
+              "y": 4
+            - content:
+                $ref: "#/spec/panels/traefik-response-traffic"
+              height: 11
+              width: 15
+              x: 0
+              "y": 13
+            - content:
+                $ref: "#/spec/panels/91469202-93a0-4765-b37d-01ace3f8eda9"
+              height: 11
+              width: 9
+              x: 15
+              "y": 13
+    panels:
+      09c371fc-92f4-44b7-a7d4-2c318a7352ab:
+        kind: Panel
+        spec:
+          display:
+            description: Actual fees per time bucket, stacked by signal, using the price constants of this dashboard. The legend sum is the total for the selected time range.
+            name: Fees over selected time range (USD)
+          plugin:
+            kind: TimeSeriesChart
+            spec:
+              dash0Extensions:
+                yAxis:
+                  scale: linear
+              legend:
+                mode: list
+                position: bottom
+                showLegend: true
+              visual:
+                areaOpacity: 0
+                connectNulls: false
+                display: bar
+                lineWidth: 1
+                palette:
+                  mode: auto
+                pointRadius: 2.5
+                stack: all
               yAxis:
-                scale: linear
-            legend:
-              mode: list
-              position: bottom
-              showLegend: true
-              sort: {}
-            querySettings: []
-            thresholds: {}
-            visual:
-              areaOpacity: 0
-              connectNulls: false
-              display: bar
-              lineWidth: 1
-              palette:
-                mode: auto
-              pointRadius: 2.5
-              stack: all
-            yAxis:
+                format:
+                  decimalPlaces: 2
+                  enforceMinimumFractionDigits: false
+                  shortValues: true
+                  signDisplay: auto
+                  unit: decimal
+                show: true
+                showOnlyMaxScale: false
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: sum(increase({otel_metric_name="dash0.metrics.datapoints", otel_metric_name!~"dash0.*"}[$__interval])) / 1e6 * $price_per_1m_metric_points
+                    seriesNameFormat: Metric data points
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: sum(increase({otel_metric_name="dash0.logs"}[$__interval])) / 1e6 * $price_per_1m_logs_spans
+                    seriesNameFormat: Logs
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: (sum(increase({otel_metric_name="dash0.spans"}[$__interval])) + (sum(increase({otel_metric_name="dash0.span.events"}[$__interval])) or vector(0))) / 1e6 * $price_per_1m_logs_spans
+                    seriesNameFormat: Spans & span events
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: (sum(increase({otel_metric_name="dash0.web.events"}[$__interval])) or vector(0)) / 1e6 * $price_per_1m_logs_spans
+                    seriesNameFormat: Web events
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: sum(increase({otel_metric_name="dash0.synthetic_check.runs"}[$__interval])) / 1e3 * $price_per_1k_synthetic_api_check_runs
+                    seriesNameFormat: Synthetic API check runs
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: (sum(increase({otel_metric_name="dash0.profiles"}[$__interval])) or vector(0)) / 1e6 * $price_per_1m_profiles
+                    seriesNameFormat: Profile samples
+      09cfca3d-ec71-470a-80a9-bd0ed28ca74b:
+        kind: Panel
+        spec:
+          display:
+            description: Projected 30-day fee, extrapolated from usage over the Baseline window selected at the top of the dashboard.
+            name: Metrics fee estimate (USD / 30d)
+          plugin:
+            kind: StatChart
+            spec:
+              calculation: last-number
               format:
                 decimalPlaces: 2
-                enforceMinimumFractionDigits: false
-                shortValues: true
-                signDisplay: auto
                 unit: decimal
-              show: true
-              showOnlyMaxScale: false
-        queries:
-          - kind: TimeSeriesQuery
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: (clamp_min((sum(increase(dash0_metrics_datapoints_total{otel_metric_name!~"^dash0.*"}[$baseline]))/$baseline*(30*24*60*60))/1e6* $price_per_1m_metric_points,0) OR vector (0.001))
+                    seriesNameFormat: Fees
+      0dde1e42-d384-439f-99df-395e2b2a956c:
+        kind: Panel
+        spec:
+          display:
+            description: Projected 30-day fee, extrapolated from usage over the Baseline window selected at the top of the dashboard.
+            name: Total fee estimate (USD / 30d)
+          plugin:
+            kind: StatChart
             spec:
-              plugin:
-                kind: PrometheusTimeSeriesQuery
-                spec:
-                  hidden: false
-                  id: 72e978d8-3c65-407a-b0e1-d48a8e0ae67a
-                  query: sum(increase({otel_metric_name="dash0.metrics.datapoints", otel_metric_name!~"dash0.*"}[$__interval])) / 1e6 * $price_per_1m_metric_points
-                  seriesNameFormat: Metric data points
-          - kind: TimeSeriesQuery
-            spec:
-              plugin:
-                kind: PrometheusTimeSeriesQuery
-                spec:
-                  hidden: false
-                  id: bc152faa-c5ab-4f33-ad48-97573322721a
-                  query: sum(increase({otel_metric_name="dash0.logs"}[$__interval])) / 1e6 * $price_per_1m_logs_spans
-                  seriesNameFormat: Logs
-          - kind: TimeSeriesQuery
-            spec:
-              plugin:
-                kind: PrometheusTimeSeriesQuery
-                spec:
-                  hidden: false
-                  id: a31a173f-acac-4c6a-8e4d-34b5d9f95de3
-                  query: (sum(increase({otel_metric_name="dash0.spans"}[$__interval])) + (sum(increase({otel_metric_name="dash0.span.events"}[$__interval])) or vector(0))) / 1e6 * $price_per_1m_logs_spans
-                  seriesNameFormat: Spans & span events
-          - kind: TimeSeriesQuery
-            spec:
-              plugin:
-                kind: PrometheusTimeSeriesQuery
-                spec:
-                  hidden: false
-                  id: c800c758-af0c-488c-951d-45e89c3e892f
-                  query: (sum(increase({otel_metric_name="dash0.web.events"}[$__interval])) or vector(0)) / 1e6 * $price_per_1m_logs_spans
-                  seriesNameFormat: Web events
-          - kind: TimeSeriesQuery
-            spec:
-              plugin:
-                kind: PrometheusTimeSeriesQuery
-                spec:
-                  hidden: false
-                  id: a43ec72f-a192-410d-aba4-24669df3fbf8
-                  query: sum(increase({otel_metric_name="dash0.synthetic_check.runs"}[$__interval])) / 1e3 * $price_per_1k_synthetic_api_check_runs
-                  seriesNameFormat: Synthetic API check runs
-          - kind: TimeSeriesQuery
-            spec:
-              plugin:
-                kind: PrometheusTimeSeriesQuery
-                spec:
-                  hidden: false
-                  id: 2721f86f-cbff-4515-8af5-5aa9be3b7a74
-                  query: (sum(increase({otel_metric_name="dash0.profiles"}[$__interval])) or vector(0)) / 1e6 * $price_per_1m_profiles
-                  seriesNameFormat: Profile samples
-    09cfca3d-ec71-470a-80a9-bd0ed28ca74b:
-      kind: Panel
-      spec:
-        display:
-          description: Projected 30-day fee, extrapolated from usage over the Baseline window selected at the top of the dashboard.
-          name: Metrics fee estimate (USD / 30d)
-        links: []
-        plugin:
-          kind: StatChart
-          spec:
-            calculation: last-number
-            format:
-              decimalPlaces: 2
-              unit: decimal
-        queries:
-          - kind: TimeSeriesQuery
-            spec:
-              plugin:
-                kind: PrometheusTimeSeriesQuery
-                spec:
-                  hidden: false
-                  id: 7f9dab69-1883-4b82-8ba5-05df624756fe
-                  query: (clamp_min((sum(increase(dash0_metrics_datapoints_total{otel_metric_name!~"^dash0.*"}[$baseline]))/$baseline*(30*24*60*60))/1e6* $price_per_1m_metric_points,0) OR vector (0.001))
-                  seriesNameFormat: Fees
-    0dde1e42-d384-439f-99df-395e2b2a956c:
-      kind: Panel
-      spec:
-        display:
-          description: Projected 30-day fee, extrapolated from usage over the Baseline window selected at the top of the dashboard.
-          name: Total fee estimate (USD / 30d)
-        links: []
-        plugin:
-          kind: StatChart
-          spec:
-            calculation: last-number
-            format:
-              decimalPlaces: 2
-              unit: decimal
-        queries:
-          - kind: TimeSeriesQuery
-            spec:
-              plugin:
-                kind: PrometheusTimeSeriesQuery
-                spec:
-                  hidden: false
-                  id: 1375ed6b-515c-419c-9545-56ff23fa51d8
-                  query: |-
-                    (clamp_min(((sum(increase(dash0_spans_total[$baseline])) OR vector(0)) + (sum(increase(dash0_span_events_total[$baseline])) OR vector(0)))/$baseline*(30*24*60*60)/1e6* $price_per_1m_logs_spans,0) OR vector (0)) +
-                    (clamp_min((sum(increase(dash0_metrics_datapoints_total{otel_metric_name!~"^dash0.*"}[$baseline]))/$baseline*(30*24*60*60))/1e6* $price_per_1m_metric_points,0) OR vector (0)) +
-                    (clamp_min((sum(increase(dash0_logs_total[$baseline]))/$baseline*(30*24*60*60))/1e6* $price_per_1m_logs_spans,0) OR vector (0)) +
-                    (clamp_min((sum(increase(dash0_web_events_total[$baseline]))/$baseline*(30*24*60*60))/1e6* $price_per_1m_logs_spans,0) OR vector (0)) +
-                    (clamp_min((sum(increase(dash0_synthetic_check_runs_total[$baseline]))/$baseline*(30*24*60*60))/1e3* $price_per_1k_synthetic_api_check_runs,0) OR vector (0)) +
-                    (clamp_min((sum(increase(dash0_profiles_total[$baseline]))/$baseline*(30*24*60*60))/1e6* $price_per_1m_profiles,0) OR vector (0)) +
-                    (clamp_min((sum(sum_over_time(dash0_usage_agent0_credits_total[$baseline]))/$baseline*(30*24*60*60))* $price_per_credit_agent0,0) OR vector (0)) +
-                    (clamp_min(sum(sum_over_time(dash0_cost_signal_control_edge_logs[$baseline]))/$baseline*(30*24*60*60),0) OR vector (0)) +
-                    (clamp_min(sum(sum_over_time(dash0_cost_signal_control_edge_metrics[$baseline]))/$baseline*(30*24*60*60),0) OR vector (0)) +
-                    (clamp_min(sum(sum_over_time(dash0_cost_signal_control_edge_traces[$baseline]))/$baseline*(30*24*60*60),0) OR vector (0)) +
-                    (clamp_min(sum(sum_over_time(dash0_cost_signal_control_managed_logs[$baseline]))/$baseline*(30*24*60*60),0) OR vector (0)) +
-                    (clamp_min(sum(sum_over_time(dash0_cost_signal_control_managed_metrics[$baseline]))/$baseline*(30*24*60*60),0) OR vector (0)) +
-                    (clamp_min(sum(sum_over_time(dash0_cost_signal_control_managed_traces[$baseline]))/$baseline*(30*24*60*60),0) OR vector (0)) +
-                    (clamp_min(sum(sum_over_time(dash0_cost_signal_control_managed_web_events[$baseline]))/$baseline*(30*24*60*60),0) OR vector (0))
-                  seriesNameFormat: Estimated total fees
-    55bd7bda-54c0-4f47-9f83-bd15a3cc459b:
-      kind: Panel
-      spec:
-        display:
-          description: Projected 30-day fee, extrapolated from usage over the Baseline window selected at the top of the dashboard.
-          name: Logging fee estimate (USD / 30d)
-        links: []
-        plugin:
-          kind: StatChart
-          spec:
-            calculation: last-number
-            format:
-              decimalPlaces: 2
-              unit: decimal
-        queries:
-          - kind: TimeSeriesQuery
-            spec:
-              plugin:
-                kind: PrometheusTimeSeriesQuery
-                spec:
-                  hidden: false
-                  id: f3ef056b-95b6-4ebd-b223-1fa26a02714b
-                  query: (clamp_min((sum(increase(dash0_logs_total[$baseline]))/$baseline*(30*24*60*60))/1e6* $price_per_1m_logs_spans,0) OR vector (0.001))
-                  seriesNameFormat: Fees
-    91469202-93a0-4765-b37d-01ace3f8eda9:
-      kind: Panel
-      spec:
-        display:
-          description: ""
-          name: Traefik response traffic by service
-        links: []
-        plugin:
-          kind: Dash0TreeMapChart
-          spec:
-            calculation: last-number
-            format:
-              enforceMinimumFractionDigits: false
-              shortValues: true
-              signDisplay: auto
-              unit: bytes
-            querySettings: []
-            thresholds: {}
-            visual:
-              areaOpacity: 0
-              connectNulls: false
-              display: bar
-              lineWidth: 1
-              palette:
-                mode: auto
-              pointRadius: 2.5
-              stack: none
-        queries:
-          - kind: TimeSeriesQuery
-            spec:
-              plugin:
-                kind: PrometheusTimeSeriesQuery
-                spec:
-                  hidden: false
-                  id: f6046fbb-da00-4bfc-99fe-b1b49d7edc2e
-                  minStep: 2m
-                  minStepSize: 2m
-                  query: |2-
-                    
-                        sum by (exported_service) (
-                          increase({otel_metric_name="traefik_service_responses_bytes_total"}[$__range] @ end())
-                        )
-                  seriesNameFormat: "{{exported_service}}"
-    c3cf4c71-6b1d-422a-afe9-d2d74965a2f3:
-      kind: Panel
-      spec:
-        display:
-          description: Projected 30-day fee, extrapolated from usage over the Baseline window selected at the top of the dashboard.
-          name: Synthetic monitoring fee estimate (USD / 30d)
-        links: []
-        plugin:
-          kind: StatChart
-          spec:
-            calculation: last-number
-            format:
-              decimalPlaces: 2
-              unit: decimal
-        queries:
-          - kind: TimeSeriesQuery
-            spec:
-              plugin:
-                kind: PrometheusTimeSeriesQuery
-                spec:
-                  hidden: false
-                  id: 7b43c206-d764-4a1c-955b-e994965ae09c
-                  query: (clamp_min((sum(increase(dash0_synthetic_check_runs_total[$baseline]))/$baseline*(30*24*60*60))/1e3* $price_per_1k_synthetic_api_check_runs,0) OR vector (0.001))
-                  seriesNameFormat: Fees
-    traefik-response-traffic:
-      kind: Panel
-      spec:
-        display:
-          description: Bytes/s returned by Traefik backend services. The top 5 are picked by total traffic over the selected time range; all remaining services are summed into "other".
-          name: Traefik response traffic by service (top 5 + other)
-        links: []
-        plugin:
-          kind: TimeSeriesChart
-          spec:
-            dash0Extensions:
-              yAxis:
-                scale: linear
-            legend:
-              mode: list
-              position: bottom
-              showLegend: false
-            querySettings: []
-            thresholds: {}
-            visual:
-              areaOpacity: 0
-              connectNulls: false
-              display: bar
-              lineWidth: 1
-              palette:
-                mode: auto
-              pointRadius: 2.5
-              stack: all
-            yAxis:
+              calculation: last-number
               format:
                 decimalPlaces: 2
+                unit: decimal
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: |-
+                      (clamp_min(((sum(increase(dash0_spans_total[$baseline])) OR vector(0)) + (sum(increase(dash0_span_events_total[$baseline])) OR vector(0)))/$baseline*(30*24*60*60)/1e6* $price_per_1m_logs_spans,0) OR vector (0)) +
+                      (clamp_min((sum(increase(dash0_metrics_datapoints_total{otel_metric_name!~"^dash0.*"}[$baseline]))/$baseline*(30*24*60*60))/1e6* $price_per_1m_metric_points,0) OR vector (0)) +
+                      (clamp_min((sum(increase(dash0_logs_total[$baseline]))/$baseline*(30*24*60*60))/1e6* $price_per_1m_logs_spans,0) OR vector (0)) +
+                      (clamp_min((sum(increase(dash0_web_events_total[$baseline]))/$baseline*(30*24*60*60))/1e6* $price_per_1m_logs_spans,0) OR vector (0)) +
+                      (clamp_min((sum(increase(dash0_synthetic_check_runs_total[$baseline]))/$baseline*(30*24*60*60))/1e3* $price_per_1k_synthetic_api_check_runs,0) OR vector (0)) +
+                      (clamp_min((sum(increase(dash0_profiles_total[$baseline]))/$baseline*(30*24*60*60))/1e6* $price_per_1m_profiles,0) OR vector (0)) +
+                      (clamp_min((sum(sum_over_time(dash0_usage_agent0_credits_total[$baseline]))/$baseline*(30*24*60*60))* $price_per_credit_agent0,0) OR vector (0)) +
+                      (clamp_min(sum(sum_over_time(dash0_cost_signal_control_edge_logs[$baseline]))/$baseline*(30*24*60*60),0) OR vector (0)) +
+                      (clamp_min(sum(sum_over_time(dash0_cost_signal_control_edge_metrics[$baseline]))/$baseline*(30*24*60*60),0) OR vector (0)) +
+                      (clamp_min(sum(sum_over_time(dash0_cost_signal_control_edge_traces[$baseline]))/$baseline*(30*24*60*60),0) OR vector (0)) +
+                      (clamp_min(sum(sum_over_time(dash0_cost_signal_control_managed_logs[$baseline]))/$baseline*(30*24*60*60),0) OR vector (0)) +
+                      (clamp_min(sum(sum_over_time(dash0_cost_signal_control_managed_metrics[$baseline]))/$baseline*(30*24*60*60),0) OR vector (0)) +
+                      (clamp_min(sum(sum_over_time(dash0_cost_signal_control_managed_traces[$baseline]))/$baseline*(30*24*60*60),0) OR vector (0)) +
+                      (clamp_min(sum(sum_over_time(dash0_cost_signal_control_managed_web_events[$baseline]))/$baseline*(30*24*60*60),0) OR vector (0))
+                    seriesNameFormat: Estimated total fees
+      55bd7bda-54c0-4f47-9f83-bd15a3cc459b:
+        kind: Panel
+        spec:
+          display:
+            description: Projected 30-day fee, extrapolated from usage over the Baseline window selected at the top of the dashboard.
+            name: Logging fee estimate (USD / 30d)
+          plugin:
+            kind: StatChart
+            spec:
+              calculation: last-number
+              format:
+                decimalPlaces: 2
+                unit: decimal
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: (clamp_min((sum(increase(dash0_logs_total[$baseline]))/$baseline*(30*24*60*60))/1e6* $price_per_1m_logs_spans,0) OR vector (0.001))
+                    seriesNameFormat: Fees
+      91469202-93a0-4765-b37d-01ace3f8eda9:
+        kind: Panel
+        spec:
+          display:
+            name: Traefik response traffic by service
+          plugin:
+            kind: Dash0TreeMapChart
+            spec:
+              calculation: last-number
+              format:
                 enforceMinimumFractionDigits: false
                 shortValues: true
                 signDisplay: auto
-                unit: bytes/s
-              show: true
-              showOnlyMaxScale: false
-        queries:
-          - kind: TimeSeriesQuery
-            spec:
-              plugin:
-                kind: PrometheusTimeSeriesQuery
-                spec:
-                  hidden: false
-                  id: f6046fbb-da00-4bfc-99fe-b1b49d7edc2e
-                  minStep: 2m
-                  minStepSize: 2m
-                  query: |2-
+                unit: bytes
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    minStep: 2m
+                    query: |-
                       sum by (exported_service) (
-                        rate({otel_metric_name="traefik_service_responses_bytes_total"}[$__rate_interval])
+                        increase({otel_metric_name="traefik_service_responses_bytes_total"}[$__range] @ end())
                       )
-                    and on (exported_service)
-                      topk(
-                        5,
-                        sum by (exported_service) (
-                          increase({otel_metric_name="traefik_service_responses_bytes_total"}[$__range] @ end())
-                        )
-                      )
-                  seriesNameFormat: "{{exported_service}}"
-          - kind: TimeSeriesQuery
+                    seriesNameFormat: "{{exported_service}}"
+      c3cf4c71-6b1d-422a-afe9-d2d74965a2f3:
+        kind: Panel
+        spec:
+          display:
+            description: Projected 30-day fee, extrapolated from usage over the Baseline window selected at the top of the dashboard.
+            name: Synthetic monitoring fee estimate (USD / 30d)
+          plugin:
+            kind: StatChart
             spec:
-              plugin:
-                kind: PrometheusTimeSeriesQuery
-                spec:
-                  hidden: false
-                  id: e6cf0122-78f0-4ef2-a336-62749bf9ab34
-                  query: |-
-                    sum(
+              calculation: last-number
+              format:
+                decimalPlaces: 2
+                unit: decimal
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: (clamp_min((sum(increase(dash0_synthetic_check_runs_total[$baseline]))/$baseline*(30*24*60*60))/1e3* $price_per_1k_synthetic_api_check_runs,0) OR vector (0.001))
+                    seriesNameFormat: Fees
+      traefik-response-traffic:
+        kind: Panel
+        spec:
+          display:
+            description: Bytes/s returned by Traefik backend services. The top 5 are picked by total traffic over the selected time range; all remaining services are summed into "other".
+            name: Traefik response traffic by service (top 5 + other)
+          plugin:
+            kind: TimeSeriesChart
+            spec:
+              dash0Extensions:
+                yAxis:
+                  scale: linear
+              legend:
+                mode: list
+                position: bottom
+                showLegend: false
+              visual:
+                areaOpacity: 0
+                connectNulls: false
+                display: bar
+                lineWidth: 1
+                palette:
+                  mode: auto
+                pointRadius: 2.5
+                stack: all
+              yAxis:
+                format:
+                  decimalPlaces: 2
+                  enforceMinimumFractionDigits: false
+                  shortValues: true
+                  signDisplay: auto
+                  unit: bytes/s
+                show: true
+                showOnlyMaxScale: false
+          queries:
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    minStep: 2m
+                    query: |2-
                         sum by (exported_service) (
                           rate({otel_metric_name="traefik_service_responses_bytes_total"}[$__rate_interval])
                         )
-                      unless on (exported_service)
+                      and on (exported_service)
                         topk(
                           5,
                           sum by (exported_service) (
                             increase({otel_metric_name="traefik_service_responses_bytes_total"}[$__range] @ end())
                           )
                         )
-                    )
-                  seriesNameFormat: other
-  variables:
-    - kind: TextVariable
-      spec:
-        constant: true
-        display:
-          description: ""
-          hidden: true
-          name: Price 1M Logs/Spans/Span events/Web events
-        name: price_per_1m_logs_spans
-        value: "0.60"
-    - kind: TextVariable
-      spec:
-        constant: true
-        display:
-          description: ""
-          hidden: true
-          name: Price 1M Metric Data Points
-        name: price_per_1m_metric_points
-        value: "0.20"
-    - kind: TextVariable
-      spec:
-        constant: true
-        display:
-          description: ""
-          hidden: true
-          name: Price 1K Synthetic API Check Runs
-        name: price_per_1k_synthetic_api_check_runs
-        value: "0.20"
-    - kind: TextVariable
-      spec:
-        constant: true
-        display:
-          description: ""
-          hidden: true
-          name: Price 1M Profile Samples
-        name: price_per_1m_profiles
-        value: "0.60"
-    - kind: TextVariable
-      spec:
-        constant: true
-        display:
-          description: ""
-          hidden: true
-          name: Price per Agent0 Credit
-        name: price_per_credit_agent0
-        value: "0.60"
-    - kind: ListVariable
-      spec:
-        allowAllValue: false
-        allowMultiple: false
-        capturingRegexp: ""
-        defaultValues:
-          - 24h
-        display:
-          description: ""
-          hidden: false
-          name: Baseline
-        name: baseline
-        plugin:
-          kind: StaticListVariable
-          spec:
-            values:
-              - label: 5m
-                value: 5m
-              - label: 10min
-                value: 10m
-              - label: 1h
-                value: 1h
-              - label: 12h
-                value: 12h
-              - label: 24h
-                value: 24h
-              - label: 3d
-                value: 3d
-        sort: none
-
+                    seriesNameFormat: "{{exported_service}}"
+            - kind: TimeSeriesQuery
+              spec:
+                plugin:
+                  kind: PrometheusTimeSeriesQuery
+                  spec:
+                    query: |-
+                      sum(
+                          sum by (exported_service) (
+                            rate({otel_metric_name="traefik_service_responses_bytes_total"}[$__rate_interval])
+                          )
+                        unless on (exported_service)
+                          topk(
+                            5,
+                            sum by (exported_service) (
+                              increase({otel_metric_name="traefik_service_responses_bytes_total"}[$__range] @ end())
+                            )
+                          )
+                      )
+                    seriesNameFormat: other
+    variables:
+      - kind: TextVariable
+        spec:
+          constant: true
+          display:
+            hidden: true
+            name: Price 1M Logs/Spans/Span events/Web events
+          name: price_per_1m_logs_spans
+          value: "0.60"
+      - kind: TextVariable
+        spec:
+          constant: true
+          display:
+            hidden: true
+            name: Price 1M Metric Data Points
+          name: price_per_1m_metric_points
+          value: "0.20"
+      - kind: TextVariable
+        spec:
+          constant: true
+          display:
+            hidden: true
+            name: Price 1K Synthetic API Check Runs
+          name: price_per_1k_synthetic_api_check_runs
+          value: "0.20"
+      - kind: TextVariable
+        spec:
+          constant: true
+          display:
+            hidden: true
+            name: Price 1M Profile Samples
+          name: price_per_1m_profiles
+          value: "0.60"
+      - kind: TextVariable
+        spec:
+          constant: true
+          display:
+            hidden: true
+            name: Price per Agent0 Credit
+          name: price_per_credit_agent0
+          value: "0.60"
+      - kind: ListVariable
+        spec:
+          allowAllValue: false
+          allowMultiple: false
+          defaultValues:
+            - 24h
+          display:
+            name: Baseline
+          name: baseline
+          plugin:
+            kind: StaticListVariable
+            spec:
+              values:
+                - label: 5m
+                  value: 5m
+                - label: 10min
+                  value: 10m
+                - label: 1h
+                  value: 1h
+                - label: 12h
+                  value: 12h
+                - label: 24h
+                  value: 24h
+                - label: 3d
+                  value: 3d
+          sort: none
