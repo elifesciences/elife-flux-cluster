@@ -24,7 +24,7 @@ spec:
     - name: ghcr.io/elifesciences/enhanced-preprints-biorxiv-xslt-api
       newTag: master-792416c7-20260604.1141-approved # {"$imagepolicy": "epp--prod:epp-biorxiv-xslt-api-approved:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-encoda
-      newTag: master-910052a7-20261126.1654-approved # {"$imagepolicy": "epp--prod:epp-encoda-api-approved:tag"}
+      newTag: master-c7451f64-20261127.0314-approved # {"$imagepolicy": "epp--prod:epp-encoda-api-approved:tag"}
     - name: ghcr.io/elifesciences/enhanced-preprints-import-controller
       newTag: master-5062a37f-20261002.1008-approved # {"$imagepolicy": "epp--prod:epp-import-controller-approved:tag"}
   postBuild:
